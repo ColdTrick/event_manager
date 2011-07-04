@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin_manifest>
+	<field key="author" value="ColdTrick IT Solutions" />
+	<field key="version" value="0.3" />
+	<field key="description" value="Manage events" />
+	<field key="website" value="http://www.coldtrick.com/" />
+	<field key="copyright" value="(C) ColdTrick IT Solutions 2011" />
+	<field key="licence" value="GNU Public License version 2" />
+	<field key="elgg_version" value="2010071002" />
+</plugin_manifest>
+<!--
+=====================
+Features
+=====================
+
+- Managing sidewide/group events
+- Google maps integration
+- Event (advanced/simple) search (list or google maps)
+- Custom event registration form
+- Specifying daily eventprogram
+- RSVP to an event
+	- Notification option (to organizer and attendee)
+- After RSVP, specify your personal daily program participation
+- Waiting list per event
+- Registration for non-loggedin users
+- Adding files to an event
+- Exporting attendees to csv
+- Import events from "Event calender"
+- Enable/disable group events
+
+	
+======================
+Version history
+======================
+
+0.3 (2011-07-01):
+	- added:
+		- Waiting list per event. When an event is full, and the waiting list is enabled, people get the option to register to get on the waiting list. 
+			Waiting list is automatically updated if an attendee leaves the event.
+		- Logged out people can now register for an event (if enabled).
+		
+	- fixed:
+		- When searching for events on the "On the map" page, and no results are found. The left sidebar now returns the proper message
+
+	
+0.2 (2011-06-23):
+	- added:
+		- customizable registration form per event
+		- registration to event (using the custom event registration form)
+		- during registration you can now 'participate' on each activity slot (if daily program specified)
+		- registration-notification mail now contains a link to the registration data of the attending person
+	
+	- changed:
+		- activity slot, start/end-time data type
+		
+	- fixed:
+		- if ip-geolocation fails to get an exact lat/long location, the map centers on your country
+		- IE z-index on dropdown menu's
+		- IE Fancybox popup width
+
+
+0.1.3 (2011-06-20):
+	- fixed:
+		- event search in groups
+		- google maps key check (google maps functions disabled when no key is specified in the plugin settings)
+	
+
+0.1.2 (2011-06-20):
+	- fixed:
+		- event calender migration
+		- RSVP -> attending, error in notification function
+		- some minor things
+	
+	
+0.1.1 (2011-06-17):
+	- fixed: 
+		- fancybox include
+	
+	
+0.1 (2011-06-17):
+	- initial version
+
+
+=====================
+On hold
+=====================
+- Registration:
+	- Waiting list
+	
+=====================
+To do
+=====================
+- Registration:
+	- registratie voor niet ingelogde gebruikers
+	- site takeover
+
+-->
