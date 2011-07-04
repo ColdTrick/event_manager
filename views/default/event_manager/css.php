@@ -19,7 +19,7 @@
 	font-size: 100%;
 }
 
-#event_manager_event_edit >table {
+#event_manager_event_edit > table {
 	width: 100%;
 }
 
