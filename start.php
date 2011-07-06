@@ -1,4 +1,5 @@
 <?php
+
 	global $CONFIG;
 	
 	define("EVENT_MANAGER_BASEURL", 		$CONFIG->wwwroot."pg/events");
@@ -74,10 +75,11 @@
 		add_group_tool_option('event_manager',elgg_echo('groups:enableevents'),true);
 		elgg_extend_view('groups/right_column', 'event_manager/groupprofile_events');
 		
-		if(!isloggedin())
+		if(!isloggedin() && is_plugin_enabled('captcha'))
 		{
 			$actions = array('event_manager/event/register');
 			
+			register_plugin_hook("action", 'event_manager/event/register', "event_manager_register_postdata_hook", 300);
 			register_plugin_hook("action", 'event_manager/event/register', "captcha_verify_action_hook");
 		}
 	}

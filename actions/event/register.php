@@ -7,7 +7,6 @@
 	
 	$program_guids = get_input('program_guids');
 	
-	
 	$answers = array();
 	foreach($_POST as $key => $value)
 	{		
@@ -40,9 +39,12 @@
 						$required_error = true;
 					}
 					
-					if(empty($answers['name']) || empty($answers['email']))
+					if(!isloggedin())
 					{
-						$required_error = true;
+						if(empty($answers['name']) || empty($answers['email']))
+						{
+							$required_error = true;
+						}
 					}
 					
 					$_SESSION['registerevent_values']['question_'.$question->getGUID()]	= $answers[$question->getGUID()];
@@ -80,7 +82,6 @@
 				{
 					$_SESSION['registerevent_values'] = null;
 				}
-				
 				
 				if(isloggedin())
 				{

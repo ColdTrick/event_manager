@@ -444,62 +444,55 @@
 			$EOL = PHP_EOL;
 		}
 		
-		$headerString = '"'.elgg_echo('username').'","'.elgg_echo('name').'","'.elgg_echo('email').'"';
+		$headerString .= '"'.elgg_echo('name').'","'.elgg_echo('email').'","'.elgg_echo('username').'"';
 		
 		if($event->registration_needed)
 		{
-			/*$questionsObject = $event->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_REGISTRATION_QUESTION);
-			if($questionsObject)
-			{
-				foreach($questionsObject[0]->getAnnotations('question', 100, 0, 'a.id ASC') as $question)
-				{
-					$headerString .= ',"Custom form question: '.$question->value.'"';
-				}
-			}*/
-			$registration_form = $event->getRegistrationFormQuestions();
-			if($registration_form)
+			if($registration_form = $event->getRegistrationFormQuestions())
 			{
 				foreach($registration_form as $question)
 				{
-					$headerString .= ',"Custom form question: '.$question->title.'"';
+					$headerString .= ',"'.$question->title.'"';
 				}
 			}
 		}
 		
 		if($event->with_program)
 		{
-			$eventDays = $event->getEventDays();
-			foreach($eventDays as $eventDay)
+			if($eventDays = $event->getEventDays())
 			{
-				$date = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $eventDay->date);
-				foreach($eventDay->getEventSlots() as $eventSlot)
+				foreach($eventDays as $eventDay)
 				{
-					$start_time = $eventSlot->start_time;
-					$end_time = $eventSlot->end_time;
-					
-					$start_time_hour = date('H', $start_time);
-					$start_time_minutes = date('i', $start_time);
-					
-					$end_time_hour = date('H', $end_time);
-					$end_time_minutes = date('i', $end_time);
-					
-					$headerString .= ',"Event activity: \''.$eventSlot->title.'\' '.$date. ' ('.$start_time_hour.':'.$start_time_minutes.' - '.$end_time_hour.':'.$end_time_minutes.')"';
+					$date = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $eventDay->date);
+					if($eventSlots = $eventDay->getEventSlots())
+					{
+						foreach($eventSlots as $eventSlot)
+						{
+							$start_time = $eventSlot->start_time;
+							$end_time = $eventSlot->end_time;
+							
+							$start_time_hour = date('H', $start_time);
+							$start_time_minutes = date('i', $start_time);
+							
+							$end_time_hour = date('H', $end_time);
+							$end_time_minutes = date('i', $end_time);
+							
+							$headerString .= ',"Event activity: \''.$eventSlot->title.'\' '.$date. ' ('.$start_time_hour.':'.$start_time_minutes.' - '.$end_time_hour.':'.$end_time_minutes.')"';
+						}
+					}
 				}
 			}
 		}
 		
-		$headerString .= $EOL;
-		
-		$attendees = $event->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING);
-		
-		foreach($attendees as $attendee)
+		if($attendees = $event->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING))
 		{
-			$dataString .= '"'.$attendee->username.'","'.$attendee->name.'","'.$attendee->email.'"';
-			$registration = $event->isUserRegistered($attendee->getGUID(), false);
-			
-			if($event->registration_needed)
+			foreach($attendees as $attendee)
 			{
-				if($registration)
+				$answerString = '';
+				
+				$dataString .= '"'.$attendee->name.'","'.$attendee->email.'","'.$attendee->username.'"';
+			
+				if($event->registration_needed)
 				{
 					if($registration_form = $event->getRegistrationFormQuestions())
 					{
@@ -509,45 +502,39 @@
 							
 							$answerString .= '"'.addslashes($answer->value).'",';
 						}
-					}
+					}	
 					$dataString .= ','.substr($answerString, 0, (strlen($answerString) -1));
 				}
-				else
+				
+				if($event->with_program)
 				{
-					if($registration_form)
+					if($eventDays = $event->getEventDays())
 					{
-						foreach($registration_form as $question)
+						foreach($eventDays as $eventDay)
 						{
-							$dataString .= ',""';
-						}
-					}
-				}
-			}
-		
-			if($event->with_program)
-			{
-				$eventDays = $event->getEventDays();
-				if($eventDays)
-				{
-					foreach($eventDays as $eventDay)
-					{
-						foreach($eventDay->getEventSlots() as $eventSlot)
-						{
-							if(check_entity_relationship($attendee->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $eventSlot->getGUID()))
+							if($eventSlots = $eventDay->getEventSlots())
 							{
-								$dataString .= ',"V"';
-							}
-							else
-							{
-								$dataString .= ',""';
+								foreach($eventSlots as $eventSlot)
+								{
+									if(check_entity_relationship($attendee->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $eventSlot->getGUID()))
+									{
+										$dataString .= ',"V"';
+									}
+									else
+									{
+										$dataString .= ',""';
+									}
+								}
 							}
 						}
 					}
 				}
+				
+				$dataString .= $EOL;
 			}
-			
-			$dataString .= $EOL;
 		}
+		
+		$headerString .= $EOL;
 		
 		return $headerString.$dataString;
 	}

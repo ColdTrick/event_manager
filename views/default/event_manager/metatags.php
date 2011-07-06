@@ -22,7 +22,7 @@ END;
 if(event_manager_has_maps_key())
 {
 ?>
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<?php echo get_plugin_setting('google_maps_key','event_manager');?>" type="text/javascript"></script>
+<script src="https://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<?php echo get_plugin_setting('google_maps_key','event_manager');?>" type="text/javascript"></script>
 <?php 
 }?>
 <?php 

@@ -12,7 +12,7 @@
 		'item:object:eventregistrationquestion' => 'Event Manager - Event Registration Question',
 		'item:object:eventquestions' => 'Event Manager - Event Questions',
 	
-		'event_manager:title:backtoevent' => '&laquo; back to event',
+		'event_manager:title:backtoevent' => '&laquo; back to event',	
 	
 		'event_manager:menu:title' => 'Events',
 		'event_manager:menu:events' => 'All events',
@@ -109,28 +109,50 @@
 		'event_manager:event:registration:notification:owner:subject' => 'Event registration',	
 		'event_manager:event:registration:notification:user:subject' => 'Event registration',
 	
-		'event_manager:event:registration:notification:owner:text:event_attending' => '<p>Hello %s, </p><p>%s signed up as \'attending\' to your <a href="%s">\'%s\'</a> event.</p>',	
-		'event_manager:event:registration:notification:user:text:event_attending' => '<p>Hello %s, </p><p>You succesfully signed up as \'attending\' to the <a href="%s">\'%s\'</a> event.</p>',
+		'event_manager:event:registration:notification:owner:text:html:event_attending' => '<p>Hello %s, </p><p>%s signed up as \'attending\' to your <a href="%s">\'%s\'</a> event.</p>',	
+		'event_manager:event:registration:notification:owner:text:event_attending' => 'Hello %s, '.PHP_EOL.PHP_EOL.'%s signed up as \'attending\' to your \'%s\' event.'.PHP_EOL.PHP_EOL.'',
+		
+		'event_manager:event:registration:notification:user:text:html:event_attending' => '<p>Hello %s, </p><p>You succesfully signed up as \'attending\' to the <a href="%s">\'%s\'</a> event.</p>',
+		'event_manager:event:registration:notification:user:text:event_attending' => 'Hello %s, '.PHP_EOL.PHP_EOL.'You succesfully signed up as \'attending\' to the \'%s\' event.'.PHP_EOL.PHP_EOL.'',
 	
-		'event_manager:event:registration:notification:owner:text:event_waitinglist' => '<p>Hello %s, </p><p>%s is on the waiting list for your <a href="%s">\'%s\'</a> event.</p>',	
-		'event_manager:event:registration:notification:user:text:event_waitinglist' => '<p>Hello %s, </p><p>You are now on the waiting list for the <a href="%s">\'%s\'</a> event.</p>',	
+		'event_manager:event:registration:notification:owner:text:html:event_waitinglist' => '<p>Hello %s, </p><p>%s is on the waiting list for your <a href="%s">\'%s\'</a> event.</p>',	
+		'event_manager:event:registration:notification:owner:text:event_waitinglist' => 'Hello %s, '.PHP_EOL.PHP_EOL.'%s is on the waiting list for your \'%s\' event.'.PHP_EOL.PHP_EOL.'',
+		
+		'event_manager:event:registration:notification:user:text:html:event_waitinglist' => '<p>Hello %s, </p><p>You are now on the waiting list for the <a href="%s">\'%s\'</a> event.</p>',	
+		'event_manager:event:registration:notification:user:text:event_waitinglist' => 'Hello %s, '.PHP_EOL.PHP_EOL.'You are now on the waiting list for the \'%s\' event.'.PHP_EOL.PHP_EOL.'',	
 	
-		'event_manager:event:registration:notification:owner:text:event_exhibiting' => '<p>Hello %s, </p><p>%s has signed up as \'exhibiting\' to your <a href="%s">\'%s\'</a> event.</p>',	
-		'event_manager:event:registration:notification:user:text:event_exhibiting' => '<p>Hello %s, </p><p>You succesfully signed up as \'exhibiting\' to the <a href="%s">\'%s\'</a> event.</p>',	
+		'event_manager:event:registration:notification:owner:text:html:event_exhibiting' => '<p>Hello %s, </p><p>%s has signed up as \'exhibiting\' to your <a href="%s">\'%s\'</a> event.</p>',
+		'event_manager:event:registration:notification:owner:text:event_exhibiting' => 'Hello %s, '.PHP_EOL.PHP_EOL.'%s has signed up as \'exhibiting\' to your \'%s\' event.'.PHP_EOL.PHP_EOL.'',
+		
+		'event_manager:event:registration:notification:user:text:html:event_exhibiting' => '<p>Hello %s, </p><p>You succesfully signed up as \'exhibiting\' to the <a href="%s">\'%s\'</a> event.</p>',	
+		'event_manager:event:registration:notification:user:text:event_exhibiting' => 'Hello %s, '.PHP_EOL.PHP_EOL.'You succesfully signed up as \'exhibiting\' to the \'%s\' event.'.PHP_EOL.PHP_EOL.'',	
 	
-		'event_manager:event:registration:notification:owner:text:event_organizing' => '<p>Hello %s, </p><p>%s has signed up as \'organizing\' to your <a href="%s">\'%s\'</a> event.</p>',	
-		'event_manager:event:registration:notification:user:text:event_organizing' => '<p>Hello %s, </p><p>You succesfully signed up as \'organizing\' to the <a href="%s">\'%s\'</a> event.</p>',	
+		'event_manager:event:registration:notification:owner:text:html:event_organizing' => '<p>Hello %s, </p><p>%s has signed up as \'organizing\' to your <a href="%s">\'%s\'</a> event.</p>',
+		'event_manager:event:registration:notification:owner:text:event_organizing' => 'Hello %s, '.PHP_EOL.PHP_EOL.'%s has signed up as \'organizing\' to your \'%s\' event.'.PHP_EOL.PHP_EOL.'',
+		
+		'event_manager:event:registration:notification:user:text:html:event_organizing' => '<p>Hello %s, </p><p>You succesfully signed up as \'organizing\' to the <a href="%s">\'%s\'</a> event.</p>',	
+		'event_manager:event:registration:notification:user:text:event_organizing' => 'Hello %s, '.PHP_EOL.PHP_EOL.'You succesfully signed up as \'organizing\' to the \'%s\' event.'.PHP_EOL.PHP_EOL.'',	
 	
-		'event_manager:event:registration:notification:owner:text:event_presenting' => '<p>Hello %s, </p><p>%s has signed up as \'presenter\' to your <a href="%s">\'%s\'</a> event.</p>',	
-		'event_manager:event:registration:notification:user:text:event_presenting' => '<p>Hello %s, </p><p>You succesfully signed up as \'presenter\' to the <a href="%s">\'%s\'</a> event.</p>',	
+		'event_manager:event:registration:notification:owner:text:html:event_presenting' => '<p>Hello %s, </p><p>%s has signed up as \'presenter\' to your <a href="%s">\'%s\'</a> event.</p>',
+		'event_manager:event:registration:notification:owner:text:event_presenting' => 'Hello %s, '.PHP_EOL.PHP_EOL.'%s has signed up as \'presenter\' to your \'%s\' event.'.PHP_EOL.PHP_EOL.'',
+		
+		'event_manager:event:registration:notification:user:text:html:event_presenting' => '<p>Hello %s, </p><p>You succesfully signed up as \'presenter\' to the <a href="%s">\'%s\'</a> event.</p>',	
+		'event_manager:event:registration:notification:user:text:event_presenting' => 'Hello %s, '.PHP_EOL.PHP_EOL.'You succesfully signed up as \'presenter\' to the \'%s\' event.'.PHP_EOL.PHP_EOL.'',	
 	
-		'event_manager:event:registration:notification:owner:text:event_interested' => '<p>Hello %s, </p><p>%s has signed up as \'interested\' to your <a href="%s">\'%s\'</a> event.</p>',	
-		'event_manager:event:registration:notification:user:text:event_interested' => '<p>Hello %s, </p><p>You succesfully signed up as \'interested\' to the <a href="%s">\'%s\'</a> event.</p>',	
+		'event_manager:event:registration:notification:owner:text:html:event_interested' => '<p>Hello %s, </p><p>%s has signed up as \'interested\' to your <a href="%s">\'%s\'</a> event.</p>',
+		'event_manager:event:registration:notification:owner:text:event_interested' => 'Hello %s, '.PHP_EOL.PHP_EOL.'%s has signed up as \'interested\' to your \'%s\' event.'.PHP_EOL.PHP_EOL.'',
+		
+		'event_manager:event:registration:notification:user:text:html:event_interested' => '<p>Hello %s, </p><p>You succesfully signed up as \'interested\' to the <a href="%s">\'%s\'</a> event.</p>',	
+		'event_manager:event:registration:notification:user:text:event_interested' => 'Hello %s, '.PHP_EOL.PHP_EOL.'You succesfully signed up as \'interested\' to the \'%s\' event.'.PHP_EOL.PHP_EOL.'',	
 	
-		'event_manager:event:registration:notification:owner:text:event_undo' => '<p>Hello %s,</p><p>%s has signed off from your <a href="%s">\'%s\'</a> event.</p>',	
-		'event_manager:event:registration:notification:user:text:event_undo' => '<p>Hello %s,</p><p>You signed off succesfully from the <a href="%s">\'%s\'</a> event.</p>',		
+		'event_manager:event:registration:notification:owner:text:html:event_undo' => '<p>Hello %s,</p><p>%s has signed off from your <a href="%s">\'%s\'</a> event.</p>',
+		'event_manager:event:registration:notification:owner:text:event_undo' => 'Hello %s,'.PHP_EOL.PHP_EOL.'%s has signed off from your \'%s\' event.'.PHP_EOL.PHP_EOL.'',
+		
+		'event_manager:event:registration:notification:user:text:html:event_undo' => '<p>Hello %s,</p><p>You signed off succesfully from the <a href="%s">\'%s\'</a> event.</p>',		
+		'event_manager:event:registration:notification:user:text:event_undo' => 'Hello %s, '.PHP_EOL.PHP_EOL.'You signed off succesfully from the \'%s\' event.'.PHP_EOL.PHP_EOL.'',		
 	
-		'event_manager:event:registration:notification:user:text:event_spotfree' => '<p>Hello %s, </p><p>Someone signed off from the <a href="%s">\'%s\'</a> event. You are moved from the waiting list to attending.</p>',	
+		'event_manager:event:registration:notification:user:text:html:event_spotfree' => '<p>Hello %s, </p><p>Someone signed off from the <a href="%s">\'%s\'</a> event. You are moved from the waiting list to attending.</p>',	
+		'event_manager:event:registration:notification:user:text:event_spotfree' => 'Hello %s, '.PHP_EOL.PHP_EOL.'Someone signed off from the \'%s\' event. You are moved from the waiting list to attending.'.PHP_EOL.PHP_EOL.'',	
 	
 		'event_manager:event:registration:notification:program:linktext' => 'To view the program click on this link',
 	

@@ -352,8 +352,8 @@
 				
 					if(!isloggedin())
 					{
-						$form_body .= '<li><label>'.elgg_echo('user:name:label').' *</label><br /><input type="text" name="question_name" value="" class="input-text"></li>';
-						$form_body .= '<li><label>'.elgg_echo('email').' *</label><br /><input type="text" name="question_email" value="" class="input-text"></li>';
+						$form_body .= '<li><label>'.elgg_echo('user:name:label').' *</label><br /><input type="text" name="question_name" value="'.$_SESSION['registerevent_values']['question_name'].'" class="input-text"></li>';
+						$form_body .= '<li><label>'.elgg_echo('email').' *</label><br /><input type="text" name="question_email" value="'.$_SESSION['registerevent_values']['question_email'].'" class="input-text"></li>';
 					}
 	
 					foreach($registration_form as $question)
@@ -444,35 +444,59 @@
 			{
 				$to = get_loggedin_userid();
 			}
+			
 			if($type == EVENT_MANAGER_RELATION_ATTENDING)
 			{
 				if($this->registration_needed)
 				{
-					$registrationLink 	= '<br />'.elgg_echo('event_manager:event:registration:notification:program:linktext').'<br /><a href="'.EVENT_MANAGER_BASEURL.'/registration/view/?guid='.$this->getGUID().'&u_g='.$to.'&k='.md5($this->time_created.get_site_secret().$to).'">'.EVENT_MANAGER_BASEURL.'/registration/view/?guid='.$this->getGUID().'&u_g='.$to.'&k='.md5($this->time_created.get_site_secret().$to).'</a>';
+					$registrationLink 	= PHP_EOL . PHP_EOL. elgg_echo('event_manager:event:registration:notification:program:linktext').PHP_EOL . PHP_EOL.'<br /><a href="'.EVENT_MANAGER_BASEURL.'/registration/view/?guid='.$this->getGUID().'&u_g='.$to.'&k='.md5($this->time_created.get_site_secret().$to).'">'.EVENT_MANAGER_BASEURL.'/registration/view/?guid='.$this->getGUID().'&u_g='.$to.'&k='.md5($this->time_created.get_site_secret().$to).'</a>';
 				}
 			}
 			
-			notify_user($this->owner_guid,
-						$this->getGUID(), 
-						elgg_echo('event_manager:event:registration:notification:owner:subject'), 
-						sprintf(elgg_echo('event_manager:event:registration:notification:owner:text:'.$type), 
+			if(is_plugin_enabled('html_email_handler'))
+			{
+				$owner_message = sprintf(elgg_echo('event_manager:event:registration:notification:owner:text:html:'.$type), 
 								get_entity($this->owner_guid)->name, 
 								get_entity($to)->name, 
 								$this->getURL(), 
 								$this->title).
-								$registrationLink
+								$registrationLink;
+			}
+			else
+			{
+				$owner_message = sprintf(elgg_echo('event_manager:event:registration:notification:owner:text:'.$type), 
+								get_entity($this->owner_guid)->name, 
+								get_entity($to)->name, 
+								$this->title).
+								$registrationLink;
+			}
+			notify_user($this->owner_guid,
+						$this->getGUID(), 
+						elgg_echo('event_manager:event:registration:notification:owner:subject'), 
+						$owner_message
 						);
 						
 			if(($user = get_entity($to)) instanceof ElggUser)
 			{
-				notify_user($to, 
-							$this->getGUID(), 
-							elgg_echo('event_manager:event:registration:notification:user:subject'),
-							sprintf(elgg_echo('event_manager:event:registration:notification:user:text:'.$type), 
+				if(is_plugin_enabled('html_email_handler'))
+				{
+					$message = sprintf(elgg_echo('event_manager:event:registration:notification:user:text:html:'.$type), 
 									get_entity($to)->name,  
 									$this->getURL(), 
 									$this->title).
-									$registrationLink
+									$registrationLink; 
+				}
+				else
+				{
+					$message = sprintf(elgg_echo('event_manager:event:registration:notification:user:text:'.$type), 
+									get_entity($to)->name,  
+									$this->title).
+									$registrationLink; 
+				}
+				notify_user($to, 
+							$this->getGUID(), 
+							elgg_echo('event_manager:event:registration:notification:user:subject'),
+							$message
 							);
 			}
 			else

@@ -32,3 +32,8 @@
 			}
 		}
 	}
+	
+	function event_manager_register_postdata_hook($hook, $entity_type, $returnvalue, $params)
+	{
+		$_SESSION['registerevent_values'] = $_POST;
+	}
