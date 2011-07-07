@@ -29,11 +29,17 @@
 	
 	$waiting_list_enabled	= get_input("waiting_list_enabled");
 	
-	/*$event_attending		= get_input("event_attending");
-	$event_interested		= get_input("event_interested");
-	$event_presenting		= get_input("event_presenting");
-	$event_exhibiting		= get_input("event_exhibiting");
-	$event_organizing		= get_input("event_organizing");*/
+	
+			
+	$start_time_hours = get_input("start_time_hours");
+	$start_time_minutes = get_input("start_time_minutes");
+	$start_time = mktime($start_time_hours, $start_time_minutes, 1, 0, 0, 0);
+	
+	$end_time_hours = get_input("end_time_hours");
+	$end_time_minutes = get_input("end_time_minutes");
+	$end_time = mktime($end_time_hours, $end_time_minutes, 1, 0, 0, 0);
+	
+	
 
 	if(!empty($start_day))
 	{
@@ -112,18 +118,14 @@
 		$event->event_type 			= $event_type;
 		$event->organizer 			= $organizer;
 		$event->start_day 			= $start_day;
+		$event->start_time 			= $start_time;
+		$event->end_time 			= $end_time;
 		$event->with_program 		= $with_program;
 		$event->endregistration_day = $endregistration_day;
 		$event->register_nologin 	= $register_nologin;
 		
 		$event->waiting_list_enabled = $waiting_list_enabled;
-		
-		/*$event->event_attending 	= $event_attending;
-		$event->event_interested 	= $event_interested;
-		$event->event_presenting 	= $event_preseinting;
-		$event->event_exhibiting 	= $event_exhibiting;
-		$event->event_organizing 	= $event_organizing;*/
-		
+				
 		$eventDays = $event->getEventDays();
 		if($with_program && !$eventDays)
 		{
@@ -232,6 +234,8 @@
 		$_SESSION['createevent_values']['latitude'] 			= $latitude;
 		$_SESSION['createevent_values']['longitude'] 			= $longitude;
 		$_SESSION['createevent_values']['start_day'] 			= $start_day;
+		$_SESSION['createevent_values']['start_time'] 			= $start_time;
+		$_SESSION['createevent_values']['end_time'] 			= $end_time;
 		$_SESSION['createevent_values']['endregistration_day'] 	= $endregistration_day;
 		$_SESSION['createevent_values']['with_program']			= $with_program;
 		$_SESSION['createevent_values']['registration_ended']	= $registration_ended;

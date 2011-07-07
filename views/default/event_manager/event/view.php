@@ -21,6 +21,27 @@
 	}
 	
 	$event_details .= '<tr><td><b>'.elgg_echo('event_manager:edit:form:start_day').'</b>:</td><td>'.date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day).'</td></tr>';
+	
+	if(!$event->with_program)
+	{
+		if(!empty($event->start_time))
+		{
+			$start_time_hours = date('H', $event->start_time);
+			$start_time_minutes = date('i', $event->start_time);
+			
+			$event_details .= '<tr><td><b>'.elgg_echo('event_manager:edit:form:start_time').'</b>:</td>
+			<td>'.$start_time_hours.':'.$start_time_minutes.'</td></tr>';	
+		} 
+		
+		if(!empty($event->end_time))
+		{
+			$end_time_hours = date('H', $event->end_time);
+			$end_time_minutes = date('i', $event->end_time);
+			
+			$event_details .= '<tr><td><b>'.elgg_echo('event_manager:edit:form:end_time').'</b>:</td>
+			<td>'.$end_time_hours.':'.$end_time_minutes.'</td></tr>';	
+		}
+	}
 	// optional end day
 	
 	if($organizer = $event->organizer){

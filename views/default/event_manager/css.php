@@ -406,3 +406,8 @@
 	background-color: #DEDEDE;
 	height: 51px;
 }
+
+.hidden
+{
+	display: none;
+}

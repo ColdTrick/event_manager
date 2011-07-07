@@ -2,7 +2,7 @@
 
 	$dutch = array(
 		'event_manager' => 'Event Manager',
-		'groups:enableevents' => 'Enable group events',
+		'groups:enableevents' => 'Groeps evenementen aanzetten',
 		'event_manager:group' => 'Groeps evenementen',
 		'event_manager:group:more' => 'Meer evenementen',
 		'item:object:event' => 'Evenement',
@@ -74,6 +74,7 @@
 		'event_manager:edit:form:access' => 'Toegang',
 		'event_manager:edit:form:max_attendees' => 'Maximum aantal deelnemers',
 		'event_manager:edit:form:waiting_list' => 'Wachtlijst gebruiken?',
+		'event_manager:edit:form:register_nologin' => 'Niet ingelogde gebruikers laten registreren?',
 		'event_manager:edit:form:spots_left' => 'Plekken vrij',
 		'event_manager:edit:form:spots_left:full' => 'Activiteit is vol',
 		'event_manager:edit:form:spots_left:waiting_list' => ' deelnemer(s) op de wachtlijst',
@@ -108,23 +109,41 @@
 		'event_manager:event:registration:notification:owner:subject' => 'Evenement registratie',	
 		'event_manager:event:registration:notification:user:subject' => 'Evenement registratie',	
 	
-		'event_manager:event:registration:notification:owner:text:event_attending' => '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'attending\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',	
-		'event_manager:event:registration:notification:user:text:event_attending' => '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'attending\' voor het <a href="%s">\'%s\'</a> evenement.</p>',	
+		'event_manager:event:registration:notification:owner:text:html:event_attending' 	=> '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'attending\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',
+		'event_manager:event:registration:notification:owner:text:event_attending' 			=> "Hallo %s,\n\r\n\r%s heeft zicht ingeschreven als 'attending' voor jouw '%s' evenement.\n\r\n\r",
+		
+		'event_manager:event:registration:notification:user:text:html:event_attending' 		=> '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'attending\' voor het <a href="%s">\'%s\'</a> evenement.</p>',	
+		'event_manager:event:registration:notification:user:text:event_attending' 			=> "Hallo %s,\n\r\n\rJe hebt je ingeschreven als 'attending' voor het '%s' evenement.\n\r\n\r",	
 	
-		'event_manager:event:registration:notification:owner:text:event_exhibiting' => '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'exposant\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',	
-		'event_manager:event:registration:notification:user:text:event_exhibiting' => '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'exposant\' voor het <a href="%s">\'%s\'</a> evenement.</p>',	
+		'event_manager:event:registration:notification:owner:text:html:event_exhibiting' 	=> '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'exposant\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',
+		'event_manager:event:registration:notification:owner:text:event_exhibiting' 		=> "Hallo %s,\n\r\n\r%s heeft zicht ingeschreven als 'exposant' voor jouw '%s' evenement.\n\r\n\r",
+		
+		'event_manager:event:registration:notification:user:text:html:event_exhibiting' 	=> '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'exposant\' voor het <a href="%s">\'%s\'</a> evenement.</p>',	
+		'event_manager:event:registration:notification:user:text:event_exhibiting' 			=> "Hallo %s,\n\r\n\rJe hebt je ingeschreven als 'exposant' voor het '%s' evenement.\n\r\n\r",	
 	
-		'event_manager:event:registration:notification:owner:text:event_organizing' => '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'organizing\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',	
-		'event_manager:event:registration:notification:user:text:event_organizing' => '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'organizing\' voor het <a href="%s">\'%s\'</a> evenement.</p>',	
+		'event_manager:event:registration:notification:owner:text:html:event_organizing' 	=> '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'organizing\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',
+		'event_manager:event:registration:notification:owner:text:event_organizing' 		=> "Hallo %s,\n\r\n\r%s heeft zicht ingeschreven als 'organizing' voor jouw '%s' evenement.\n\r\n\r",
+		
+		'event_manager:event:registration:notification:user:text:html:event_organizing' 	=> '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'organizing\' voor het <a href="%s">\'%s\'</a> evenement.</p>',	
+		'event_manager:event:registration:notification:user:text:event_organizing' 			=> "Hallo %s,\n\r\n\rJe hebt je ingeschreven als 'organizing' voor het '%s' evenement.\n\r\n\r",	
 	
-		'event_manager:event:registration:notification:owner:text:event_presenting' => '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'presenter\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',	
-		'event_manager:event:registration:notification:user:text:event_presenting' => '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'presenter\' voor het <a href="%s">\'%s\'</a> evenement.</p>',	
+		'event_manager:event:registration:notification:owner:text:html:event_presenting' 	=> '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'presenter\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',
+		'event_manager:event:registration:notification:owner:text:event_presenting' 		=> "Hallo %s,\n\r\n\r%s heeft zicht ingeschreven als 'presenter' voor jouw '%s' evenement.\n\r\n\r",
+		
+		'event_manager:event:registration:notification:user:text:html:event_presenting' 	=> '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'presenter\' voor het <a href="%s">\'%s\'</a> evenement.</p>',	
+		'event_manager:event:registration:notification:user:text:event_presenting' 			=> "Hallo %s,\n\r\n\rJe hebt je ingeschreven als 'presenter' voor het '%s' evenement.\n\r\n\r",	
 	
-		'event_manager:event:registration:notification:owner:text:event_interested' => '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'interested\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',	
-		'event_manager:event:registration:notification:user:text:event_interested' => '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'interested\' voor het <a href="%s">\'%s\'</a> evenement.</p>',	
+		'event_manager:event:registration:notification:owner:text:html:event_interested' 	=> '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'interested\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',
+		'event_manager:event:registration:notification:owner:text:event_interested' 		=> "Hallo %s,\n\r\n\r%s heeft zicht ingeschreven als 'interested' voor jouw '%s' evenement.\n\r\n\r",
+		
+		'event_manager:event:registration:notification:user:text:html:event_interested' 	=> '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'interested\' voor het <a href="%s">\'%s\'</a> evenement.</p>',	
+		'event_manager:event:registration:notification:user:text:event_interested' 			=> "Hallo %s,\n\r\n\rJe hebt je ingeschreven als 'interested' voor het '%s' evenement.\n\r\n\r",	
 	
-		'event_manager:event:registration:notification:owner:text:event_undo' => '<p>Hallo %s,</p><p>%s heeft zich uitgeschreven van jouw <a href="%s">\'%s\'</a> evenement.</p>',	
-		'event_manager:event:registration:notification:user:text:event_undo' => '<p>Hallo %s,</p><p>Je hebt je uit het <a href="%s">\'%s\'</a> evenement uitgeschreven.</p>',	
+		'event_manager:event:registration:notification:owner:text:html:event_undo' 			=> '<p>Hallo %s,</p><p>%s heeft zich uitgeschreven van jouw <a href="%s">\'%s\'</a> evenement.</p>',
+		'event_manager:event:registration:notification:owner:text:event_undo' 				=> "Hallo %s,\n\r\n\r%s heeft zich uitgeschreven van jouw '%s' evenement.\n\r\n\r",
+		
+		'event_manager:event:registration:notification:user:text:html:event_undo' 			=> '<p>Hallo %s,</p><p>Je hebt je uit het <a href="%s">\'%s\'</a> evenement uitgeschreven.</p>',	
+		'event_manager:event:registration:notification:user:text:event_undo' 				=> "Hallo %s,\n\r\n\rJe hebt je uit het '%s' evenement uitgeschreven.\n\r\n\r",	
 	
 		'event_manager:event:registration:notification:program:linktext' => 'Klik op deze link om het programma te zien',
 	

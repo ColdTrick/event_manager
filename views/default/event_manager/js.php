@@ -724,5 +724,11 @@ $(function()
 
 		$('#event_manager_event_register').submit();
 	});
+	
+	$('#with_program').change(function()
+	{
+		$('#hide_start_time').toggle();
+		$('#hide_end_time').toggle();
+	});
 });
 <!-- End Event manager -->
