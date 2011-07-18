@@ -25,7 +25,7 @@
 	{
 		if($event->register_nologin)
 		{
-			echo '<a href="' . EVENT_MANAGER_BASEURL . '/event/register/'.$event->getGUID().'">'.elgg_echo('event_manager:event:register:register_link').'</a> | ';
+			echo '<a href="' . EVENT_MANAGER_BASEURL . '/event/register/'.$event->getGUID().'">'.elgg_echo('event_manager:event:register:register_link').'</a>';
 		}
 	}
 

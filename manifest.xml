@@ -38,9 +38,10 @@ Version history
 		- Waiting list per event. When an event is full, and the waiting list is enabled, people get the option to register to get on the waiting list. 
 			Waiting list is automatically updated if an attendee leaves the event.
 		- Logged out people can now register for an event (if enabled).
+		- Default RSS View
 		
 	- fixed:
-		- When searching for events on the "On the map" page, and no results are found. The left sidebar now returns the proper message
+		- Some minor bugs/updates
 
 	
 0.2 (2011-06-23):
@@ -79,19 +80,10 @@ Version history
 	
 0.1 (2011-06-17):
 	- initial version
-
-
-=====================
-On hold
-=====================
-- Registration:
-	- Waiting list
 	
 =====================
 To do
 =====================
-- Registration:
-	- registratie voor niet ingelogde gebruikers
-	- site takeover
+- site takeover
 
 -->

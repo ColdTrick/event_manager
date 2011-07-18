@@ -43,6 +43,8 @@
 	
 		'event_manager:registration:list:navigation:waiting' => 'Waiting list',
 		'event_manager:registration:list:navigation:attending' => 'Attending',
+	
+		'event_manager:registration:view:savetopdf' => 'Save as pdf',
 		
 		'event_manager:edit:title' => 'Create / Edit Event',
 		'event_manager:edit:upload:title' => 'Add files to your event',
@@ -94,6 +96,7 @@
 		'event_manager:editregistration:commasepetared' => 'comma seperated',
 		'event_manager:editregistration:question' => 'Question',
 	
+		'event_manager:registration:message:registrationnotneeded' => 'Registration to this event is not needed.',	
 		'event_manager:registration:register:title' => 'Register to event',	
 		'event_manager:registration:registrationto' => 'Registration to ',	
 		'event_manager:registration:edit:title' => 'Edit your registration',	

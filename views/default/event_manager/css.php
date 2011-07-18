@@ -19,7 +19,7 @@
 	font-size: 100%;
 }
 
-#event_manager_event_edit > table {
+#event_manager_event_edit >table {
 	width: 100%;
 }
 
@@ -244,11 +244,18 @@
 	width: 20px;
 }
 
-.event_manager_program_slot_attending_user { 
+.event_manager_program_slot_attending_user, .event_manager_program_slot_attending_user_pdf { 
 	width: 16px;
 	height: 16px ;  
 	background: url(<?php echo $graphics_folder; ?>vink.png) right top no-repeat;
 } 
+
+.event_manager_program_slot_attending_user_pdf
+{
+	width: 16px;
+	height: 16px ;  
+	background: url(<?php echo $graphics_folder; ?>icons/check.jpg) right top no-repeat;
+}
 
 .event_manager_program_slot_time,
 .event_manager_program_slot_title {
@@ -405,9 +412,4 @@
 { 
 	background-color: #DEDEDE;
 	height: 51px;
-}
-
-.hidden
-{
-	display: none;
 }

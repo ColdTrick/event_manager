@@ -208,13 +208,13 @@
 			{
 				$result = false;
 			}
-			elseif($registration = $this->generateRegistrationForm())
+			elseif(!($registration = $this->generateRegistrationForm()))
 			{
-				$result = true;
+				$result = false;
 			}
-			elseif($this->with_program && ($questions = $this->getRegistrationFormQuestions()))
+			elseif(!$this->with_program || !($questions = $this->getRegistrationFormQuestions()))
 			{
-				$result = true;
+				$result = false;
 			}
 			return $result;
 		}
@@ -304,7 +304,7 @@
 			return $entities[0];
 		}
 		
-		public function getRegistrationData($user_guid = null)
+		public function getRegistrationData($user_guid = null, $view = false)
 		{
 			$result = false;
 			
@@ -312,8 +312,13 @@
 			{
 				$user_guid = get_loggedin_userid();
 			}
+			
+			if($view)
+			{
+				$registration_table .= '<h3 class="settings">Information</h3>';
+			}
 
-			$registration_table = '<table>';
+			$registration_table .= '<table>';
 
 			if(($user_guid != get_loggedin_userid()) && !(($user = get_entity($user_guid)) instanceof ElggUser))
 			{
@@ -429,6 +434,30 @@
 				{
 					$result .= elgg_view('event_manager/program/edit', array('entity' => $this, 'register_type' => $register_type));			
 				}
+				
+				$result = elgg_view('page_elements/contentwrapper', array('body' => $result));
+			}
+			
+			return $result;
+		}
+
+		public function getProgramDataForPdf($user_guid = null, $register_type = 'register')
+		{
+			$result = false;
+			
+			if($user_guid == null)
+			{
+				$user_guid = get_loggedin_userid();
+			}
+			
+			if($eventDays = $this->getEventDays())
+			{
+				$currentContext = get_context();
+				set_context('programmailview');
+				
+				$result .= elgg_view('event_manager/program/pdf', array('entity' => $this));
+									
+				set_context($currentContext);
 				
 				$result = elgg_view('page_elements/contentwrapper', array('body' => $result));
 			}

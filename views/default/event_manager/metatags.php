@@ -21,23 +21,22 @@ END;
 
 if(event_manager_has_maps_key())
 {
-?>
-<script src="https://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<?php echo get_plugin_setting('google_maps_key','event_manager');?>" type="text/javascript"></script>
-<?php 
-}?>
-<?php 
+	?>
+	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<?php echo get_plugin_setting('google_maps_key','event_manager');?>" type="text/javascript"></script>
+	<?php 
+}
+
 global $fancybox_js_loaded;
 
 if(empty($fancybox_js_loaded))
 {
 	$fancybox_js_loaded = true;
-?>
-<script type="text/javascript" src="<?php echo $vars["url"];?>mod/event_manager/vendors/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	?>
+	<script type="text/javascript" src="<?php echo $vars["url"];?>mod/event_manager/vendors/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	
+	<?php 
+}
 
-<?php 
-}?>
-
-<?php 
 $latlng = IPtoLatLng(getRealIpAddr());
 
 ?>
@@ -68,8 +67,6 @@ function initEditeventmaps()
 {
 	centerMapsFromIP();
 }
-
-
 
 $(function ()
 {		

@@ -9,6 +9,11 @@
 			$event = $entity;
 			if($event)
 			{
+				if(!$event->registration_needed || $event->openForRegistration() || !$event->waiting_list_enabled)
+				{
+					system_message(elgg_echo('event_manager:registration:message:registrationnotneeded'));
+					forward($event->getURL());
+				}
 				$title_text = elgg_echo('event_manager:event:rsvp:waiting_list');
 				
 				$back_text = '<div class="event_manager_back"><a href="'.$event->getURL().'">'.elgg_echo('event_manager:title:backtoevent').'</a></div>';

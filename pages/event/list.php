@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	$title_text = elgg_echo("event_manager:list:title");
 	$title = elgg_view_title($title_text);

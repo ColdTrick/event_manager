@@ -1,5 +1,4 @@
 <?php 
-
 	if($vars["full"])
 	{
 		echo elgg_view("event_manager/event/view", $vars);

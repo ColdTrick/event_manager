@@ -13,6 +13,12 @@
 		{
 			$event = $entity;
 		
+			if(!$event->registration_needed)
+			{
+				system_message(elgg_echo('event_manager:registration:message:registrationnotneeded'));
+				forward($event->getURL());
+			}
+			
 			if(!isloggedin())
 			{
 				if(!$event->hasEventSpotsLeft() || !$event->hasSlotSpotsLeft())
@@ -28,6 +34,7 @@
 					}
 				}
 			}
+			
 				
 			$form = $event->generateRegistrationForm();
 			

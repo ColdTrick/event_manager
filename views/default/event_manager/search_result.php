@@ -3,10 +3,11 @@
 	if(event_manager_has_maps_key())
 	{
 		$result = elgg_view('event_manager/event_sort_menu');
-	}	
+	}
+	
 	
 	$list = elgg_view("event_manager/list", $vars);
-	if($vars['count']>0)
+	if(!empty($list))
 	{
 		$result .= $list;
 	}

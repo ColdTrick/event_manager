@@ -774,3 +774,28 @@
 	{ 
 	    $value = str_pad($value, 2, "0", STR_PAD_LEFT);; 
 	}
+	
+	function get_curl_content($link)
+	{
+		$result = false;
+		
+		$ch = curl_init();
+		$timeout = 5;
+		
+		curl_setopt ($ch, CURLOPT_URL, $link);
+		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+		
+		curl_setopt($ch, CURLOPT_COOKIE, 'Elgg='.$_COOKIE['Elgg']); 
+		
+		$content = curl_exec($ch);
+		
+		curl_close($ch);
+		
+		if($content)
+		{
+			$result = $content;
+		}
+		
+		return $result;
+	}

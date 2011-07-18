@@ -10,7 +10,9 @@
 			$event = $entity;
 		}
 	}
-
+	
+	$save_to_pdf_link = elgg_view('page_elements/contentwrapper', array('body' => '<a href="'.$vars['url'].elgg_add_action_tokens_to_url('/action/event_manager/registration/pdf?k='.md5($event->time_created . get_site_secret() . $user_guid).'&guid='.$guid.'&u_g='.$user_guid).'">'.elgg_echo('event_manager:registration:view:savetopdf').' <img border="0" src="'.$vars['url'].'/mod/event_manager/_graphics/icons/pdf_icon.gif" /></a>'));
+	
 	if(!empty($key))
 	{
 		$tempKey = md5($event->time_created . get_site_secret() . $user_guid);
@@ -18,9 +20,13 @@
 		if($event && ($tempKey == $key) && get_entity($user_guid))
 		{
 			echo elgg_view('page_elements/header');
-
+			
 			echo '<div style="width: 1000px; margin: 0 auto;">'.elgg_view_title(elgg_echo('event_manager:registration:yourregistration'));
+			
+			echo $save_to_pdf_link;
 
+			echo elgg_view('event_manager/event/pdf', array('entity' => $event));
+			
 			elgg_set_ignore_access(true);
 
 			echo $event->getRegistrationData($user_guid);
@@ -51,7 +57,11 @@
 
 				$back_text = '<div class="event_manager_back"><a href="'.$event->getURL().'">'.elgg_echo('event_manager:title:backtoevent').'</a></div>';
 
-				$title = elgg_view_title($title_text . $back_text);				
+				$title = elgg_view_title($title_text . $back_text);
+				
+				$output .=  $save_to_pdf_link;
+				
+				$output .= elgg_view('event_manager/event/pdf', array('entity' => $event));
 
 				$output .= $event->getRegistrationData($user_guid);
 

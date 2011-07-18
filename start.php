@@ -30,7 +30,7 @@
 	define("EVENT_MANAGER_RELATION_USER_REGISTERED", 				"event_user_registered");
 	define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION", 				"event_slot_registration");
 	define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST", 	"event_slot_registration_waitinglist");
-
+		
 	include_once(dirname(__FILE__)."/lib/functions.php");
 	include_once(dirname(__FILE__)."/lib/events.php");
 	include_once(dirname(__FILE__)."/lib/hooks.php");
@@ -70,8 +70,6 @@
 		
 		register_plugin_hook('entity:icon:url', 'object', 'event_manager_eventicon_hook');
 		
-		//register_plugin_hook('actionlist', 'captcha', 'captcha_actionlist_hook');
-		
 		add_group_tool_option('event_manager',elgg_echo('groups:enableevents'),true);
 		elgg_extend_view('groups/right_column', 'event_manager/groupprofile_events');
 		
@@ -82,33 +80,51 @@
 			register_plugin_hook("action", 'event_manager/event/register', "event_manager_register_postdata_hook", 300);
 			register_plugin_hook("action", 'event_manager/event/register', "captcha_verify_action_hook");
 		}
+		if(!function_exists('DOMPDF_autoload'))
+		{
+			require_once(dirname(__FILE__)."/vendors/dompdf/dompdf_config.inc.php");
+		}
 	}
 
 	function event_manager_page_handler($page)
 	{
+		if(in_array($page[1], array('list', 'view', 'new', 'edit', '')))
+		{
+			if(event_manager_has_maps_key())
+			{
+				elgg_extend_view("metatags", "event_manager/googlemapsjs_packed");
+			}
+		}
 		
 		$include = "/pages/event/list.php";
-		if(!empty($page)){
-			switch($page[0]){
+		if(!empty($page))
+		{
+			switch($page[0])
+			{
 				case "proc":
 					if(file_exists(dirname(__FILE__)."/procedures/".$page[1]."/".$page[2].".php"))
 					{
 						$include = "/procedures/".$page[1]."/".$page[2].".php";
 						
-					} else {
+					} 
+					else 
+					{
 						echo json_encode(array('valid' => 0));
 						exit;
 					}
 					break;
 				case "event":
-					switch($page[1]){
+					switch($page[1])
+					{
 						case 'register':
-							if(!empty($page[3])){
+							if(!empty($page[3]))
+							{
 								set_input("relation", $page[3]);	
 							}
 							break;
 						case 'file':
-							if(!empty($page[3])){
+							if(!empty($page[3]))
+							{
 								set_input("file", $page[3]);	
 							}
 							break;
@@ -150,24 +166,30 @@
 			$page_owner = page_owner_entity();
 			$user = get_loggedin_user();
 			
-			if($page_owner instanceof ElggGroup){
+			if($page_owner instanceof ElggGroup)
+			{
 				// group				
 				if($context == 'events')
 				{
 					add_submenu_item(elgg_echo("event_manager:menu:events"), EVENT_MANAGER_BASEURL.'/event/list');
 				}
+				
 				if($page_owner->event_manager_enable != "no")
 				{
 					$who_create_group_events = get_plugin_setting('who_create_group_events', 'event_manager'); // group_admin, members
-					if(!empty($who_create_group_events)){
+					if(!empty($who_create_group_events))
+					{
 						add_submenu_item(elgg_echo("event_manager:menu:group_events"), EVENT_MANAGER_BASEURL.'/event/list/'. $page_owner->username);
 	
-						if($context == "events" && ((($who_create_group_events == "group_admin") && $page_owner->canEdit()) || (($who_create_group_events == "members") && $page_owner->isMember($user)))){
+						if($context == "events" && ((($who_create_group_events == "group_admin") && $page_owner->canEdit()) || (($who_create_group_events == "members") && $page_owner->isMember($user))))
+						{
 							add_submenu_item(elgg_echo("event_manager:menu:new_event"), EVENT_MANAGER_BASEURL.'/event/new/' . $page_owner->username);  	
 						} 
 					}
 				}
-			} elseif($context == 'events') {
+			} 
+			elseif($context == 'events') 
+			{
 				// site
 				add_submenu_item(elgg_echo("event_manager:menu:events"), EVENT_MANAGER_BASEURL.'/event/list');
 				
@@ -199,4 +221,5 @@
 	register_action("event_manager/questions/edit",			false,dirname(__FILE__)."/actions/registrationform/edit.php");
 	register_action("event_manager/registration/edit",		false,dirname(__FILE__)."/actions/registration/edit.php");
 	register_action("event_manager/registration/approve",	false,dirname(__FILE__)."/actions/registration/approve.php");
+	register_action("event_manager/registration/pdf",		false,dirname(__FILE__)."/actions/registration/pdf.php");
 	register_action("event_manager/migrate/calender",		false,dirname(__FILE__)."/actions/migrate/calender.php", true);
