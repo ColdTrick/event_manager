@@ -64,7 +64,28 @@
 		
 		add_widget_type("events", elgg_echo("event_manager:widgets:events:title"), elgg_echo("event_manager:widgets:events:description"), "index,dashboard,profile,groups");
 		
-		register_page_handler("events", "event_manager_page_handler");
+		$sitetakeover = event_manager_check_sitetakeover_event();
+		if($sitetakeover['count']>0)
+		{
+			define('EVENT_MANAGER_SITETAKEOVER', true);
+						
+			register_page_handler("event", "event_manager_event_page_handler");
+			if($sitetakeover['entities'][0]->canEdit())
+			{
+				register_page_handler("events", "event_manager_page_handler");
+			}
+			
+			if(in_array(get_context(), array('main', 'event')))
+			{
+				set_page_owner($sitetakeover['entities'][0]->getGUID());
+			}
+			
+			register_plugin_hook('index', 'system', 'event_manager_sitetakeover_hook', 10);
+		}
+		else
+		{
+			register_page_handler("events", "event_manager_page_handler");
+		}
 		
 		add_menu(elgg_echo("event_manager:menu:title"), EVENT_MANAGER_BASEURL);
 		
@@ -80,9 +101,37 @@
 			register_plugin_hook("action", 'event_manager/event/register', "event_manager_register_postdata_hook", 300);
 			register_plugin_hook("action", 'event_manager/event/register', "captcha_verify_action_hook");
 		}
+		
 		if(!function_exists('DOMPDF_autoload'))
 		{
 			require_once(dirname(__FILE__)."/vendors/dompdf/dompdf_config.inc.php");
+		}
+	}
+	
+	function event_manager_event_page_handler($page)
+	{
+		$sitetakeover = event_manager_check_sitetakeover_event();
+		
+		$include = "/pages/sitetakeover/view.php";
+				
+		if(!empty($page))
+		{
+			$include = "/pages/sitetakeover/".$page[0].".php";
+		}
+		
+		set_input('guid', $sitetakeover['entities'][0]->getGUID());
+		
+		if(file_exists(dirname(__FILE__).$include))
+		{
+			if($page[0] == 'googlemaps')
+			{
+				elgg_extend_view("metatags", "event_manager/googlemapsjs");
+			}
+			include(dirname(__FILE__).$include);
+		}
+		else
+		{
+			include(dirname(__FILE__)."/pages/sitetakeover/view.php");
 		}
 	}
 
@@ -95,7 +144,7 @@
 				elgg_extend_view("metatags", "event_manager/googlemapsjs_packed");
 			}
 		}
-		
+	
 		$include = "/pages/event/list.php";
 		if(!empty($page))
 		{
@@ -160,6 +209,15 @@
 	{
 		global $CONFIG;
 		
+		$sitetakeover = event_manager_check_sitetakeover_event();
+		if($sitetakeover['count']>0)
+		{
+			if(!isadminloggedin() && !in_array(get_context(), array('main', 'event')))
+			{
+				forward();
+			}
+		}
+		
 		$context = get_context();
 		if(in_array($context, array("events", "groups")))
 		{
@@ -223,3 +281,4 @@
 	register_action("event_manager/registration/approve",	false,dirname(__FILE__)."/actions/registration/approve.php");
 	register_action("event_manager/registration/pdf",		false,dirname(__FILE__)."/actions/registration/pdf.php");
 	register_action("event_manager/migrate/calender",		false,dirname(__FILE__)."/actions/migrate/calender.php", true);
+	register_action("event_manager/event/sitetakeover",		false,dirname(__FILE__)."/actions/event/sitetakeover.php", true);

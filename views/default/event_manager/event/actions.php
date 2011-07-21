@@ -25,7 +25,15 @@
 	{
 		if($event->register_nologin)
 		{
-			echo '<a href="' . EVENT_MANAGER_BASEURL . '/event/register/'.$event->getGUID().'">'.elgg_echo('event_manager:event:register:register_link').'</a>';
+			if(event_manager_check_sitetakeover_event())
+			{
+				$register_link = '/pg/event/register';
+			}
+			else 
+			{
+				$register_link = EVENT_MANAGER_BASEURL . '/event/register/'.$event->getGUID();
+			}
+			$options[] = '<a href="' . $register_link .'">'.elgg_echo('event_manager:event:register:register_link').'</a>';
 		}
 	}
 
@@ -38,10 +46,14 @@
 			} 
 		}
 		
-		$options[] = "<a href='" . $event->getURL() . "'>" . $attending_count . " ". strtolower(elgg_echo("event_manager:event:relationship:event_attending")) . "</a>";
-	}
-	
+		if(!EVENT_MANAGER_SITETAKEOVER)
+		{
+			$options[] = "<a href='" . $event->getURL() . "'>" . $attending_count . " ". strtolower(elgg_echo("event_manager:event:relationship:event_attending")) . "</a>";
+		}
+		else
+		{
+			$options[] = "<a href='/pg/event/attendees'>" . $attending_count . " ". strtolower(elgg_echo("event_manager:event:relationship:event_attending")) . "</a>";
+		}
+	}	
 	
 	echo implode(" | ", $options);
-	
-?>

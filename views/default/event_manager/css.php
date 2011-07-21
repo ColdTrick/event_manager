@@ -19,7 +19,7 @@
 	font-size: 100%;
 }
 
-#event_manager_event_edit >table {
+#event_manager_event_edit > table {
 	width: 100%;
 }
 
@@ -412,4 +412,46 @@
 { 
 	background-color: #DEDEDE;
 	height: 51px;
+}
+
+#layout_header
+{
+	position: relative;
+}
+
+#event_manager_sitetakeover_menu
+{
+	float: left;
+	clear: both;
+	margin-left: 10px;
+    margin-top: 15px;
+}
+
+#event_manager_sitetakeover_menu ul
+{
+	display: inline;
+	list-style: none;
+}
+
+#event_manager_sitetakeover_menu ul li
+{
+	float: left;
+	margin-right: 5px;
+}
+
+#event_manager_sitetakeover_menu ul li a
+{
+	display: block;
+	height: 25px;
+	line-height: 25px;
+	background-color: #ffffff;
+	border-radius: 8px 8px 0 0;
+	-moz-border-radius: 8px 8px 0 0;
+	webkit-border-radius: 8px 8px 0 0;
+	padding: 0px 8px 0 8px;
+}
+
+.messages
+{
+	width: 750px;
 }

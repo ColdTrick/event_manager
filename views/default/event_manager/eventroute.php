@@ -1,11 +1,25 @@
+<?php 
+$event = $vars['entity'];
+?>
+
 <script type="text/javascript">
 
 $(function()
 {
+	initMaps('map_canvas');
+	event_manager_geocoder.getLatLng('<?php echo $event->location;?>', function(gpoint)
+	{
+		if(gpoint)
+		{
+			event_manager_gmap.setCenter(gpoint, 15);
+			addMarker(gpoint, true);
+		}
+	});
+	
 	$('#event_manager_address_route_search').submit(function(e)
 	{
 		frmAddress = $('#address_from').val();
-		dstAddress = '<?php echo get_input('from');?>';
+		dstAddress = '<?php echo $event->location;?>';
 		
 		if(frmAddress == '')
 		{
@@ -27,7 +41,7 @@ $(function()
 	<?php 
 	
 	$form_body .= 	'<label>'.elgg_echo('from').': *</label>'.elgg_view('input/text', array('internalname' => 'address_from', 'internalid'=> 'address_from')).'<br />';
-	$form_body .= 	'<label>'.elgg_echo('to').': </label><br />'.get_input('from').'<br />';
+	$form_body .= 	'<label>'.elgg_echo('to').': </label><br />'.$event->location.'<br />';
 	
 	$form_body .= 	'<a style="display: none;" target="_blank" href="" id="openRouteLink">google maps</a>';
 	

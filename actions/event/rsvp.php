@@ -19,7 +19,14 @@
 						{
 							if($event->openForRegistration())
 							{
-								forward(EVENT_MANAGER_BASEURL.'/event/register/'.$guid.'/'.$rel);
+								if(EVENT_MANAGER_SITETAKEOVER)
+								{
+									forward('/pg/event/register');
+								}
+								else
+								{
+									forward(EVENT_MANAGER_BASEURL.'/event/register/'.$guid.'/'.$rel);
+								}
 							}
 							else
 							{
@@ -36,7 +43,14 @@
 					{
 						if($event->waiting_list_enabled && $event->registration_needed && $event->openForRegistration())
 						{
-							forward(EVENT_MANAGER_BASEURL.'/event/waitinglist/'.$guid);
+								if(EVENT_MANAGER_SITETAKEOVER)
+								{
+									forward('/pg/event/waitinglist');
+								}
+								else
+								{
+									forward(EVENT_MANAGER_BASEURL.'/event/waitinglist/'.$guid);
+								}
 						}
 						else
 						{

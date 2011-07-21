@@ -37,3 +37,14 @@
 	{
 		$_SESSION['registerevent_values'] = $_POST;
 	}
+	
+	function event_manager_sitetakeover_hook($hook, $entity_type, $returnvalue, $params)
+	{
+		$event = page_owner_entity();
+		
+		set_input('guid', $event->getGUID());
+		
+		include(dirname(dirname(__FILE__))."/pages/sitetakeover/view.php");
+		
+		return true;
+	}

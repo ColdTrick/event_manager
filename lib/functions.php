@@ -799,3 +799,33 @@
 		
 		return $result;
 	}
+	
+	function event_manager_check_sitetakeover_event()
+	{
+		global $CONFIG;
+		
+		$result = false;
+		
+		$entities_options = array(
+			'type' 			=> 'object',
+			'subtype' 		=> 'event',
+			'joins' 		=> array(
+								"JOIN {$CONFIG->dbprefix}objects_entity oe ON e.guid = oe.guid",
+		
+								"JOIN {$CONFIG->dbprefix}metadata n_table ON e.guid = n_table.entity_guid",
+		
+								"JOIN {$CONFIG->dbprefix}metastrings msn ON n_table.name_id = msn.id",
+								"JOIN {$CONFIG->dbprefix}metastrings msv ON n_table.value_id = msv.id"),
+			'wheres' 		=>  '(msn.string LIKE "site_takeover") AND (msv.string LIKE "1")'
+		);
+		
+		if($entities = elgg_get_entities($entities_options))
+		{
+			$result['entities'] = $entities;
+			
+			$entities_options['count'] = true;
+			$result['count'] = elgg_get_entities($entities_options);
+		}
+		
+		return $result;
+	}

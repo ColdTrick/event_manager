@@ -7,6 +7,13 @@
 	{
 		if($event->isAttending())
 		{
-			echo '<a href="' . EVENT_MANAGER_BASEURL . '/registration/view/' . $event->getGUID() . '">' . elgg_echo("event_manager:registration:viewyourregistration") . '</a>';
+			if(event_manager_check_sitetakeover_event())
+			{
+				echo '<a href="/pg/event/registration">' . elgg_echo("event_manager:registration:viewyourregistration") . '</a>';
+			}
+			else
+			{
+				echo '<a href="' . EVENT_MANAGER_BASEURL . '/registration/view/' . $event->getGUID() . '">' . elgg_echo("event_manager:registration:viewyourregistration") . '</a>';
+			}
 		}	
 	}

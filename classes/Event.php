@@ -16,7 +16,14 @@
 		{
 			global $CONFIG;
 			
-			return EVENT_MANAGER_BASEURL."/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
+			if(!EVENT_MANAGER_SITETAKEOVER)
+			{
+				return EVENT_MANAGER_BASEURL."/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
+			}
+			else
+			{
+				return "/pg/event/view";
+			}
 		}
 		
 		public function setAccessToOwningObjects($access_id = null)

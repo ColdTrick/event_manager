@@ -163,6 +163,8 @@
 		'event_manager:event:editevent' => 'Edit event',
 		'event_manager:event:deleteevent' => 'Delete event',
 		'event_manager:event:uploadfiles' => 'Upload files',
+		'event_manager:event:setsitetakeover' => 'Take over site',
+		'event_manager:event:disablesitetakeover' => 'Turn off site take over',
 		'event_manager:event:attendees' => 'Attendees',
 		'event_manager:event:progam' => 'Program',
 		'event_manager:event:editprogram' => 'Edit program',
@@ -270,6 +272,8 @@
 		'event_manager:river:event_relationship:create:event_presenting' => '%s is presenting at %s',
 		'event_manager:river:event_relationship:create:event_exhibiting' => '%s is exhibiting at %s',
 		'event_manager:river:event_relationship:create:event_organizing' => '%s is organizing %s',
+	
+		'event_manager:confirm:sitetakeover:access' => 'This event will set it\'s access to \'public\' for the site takeover.',
 	
 		'calculate_route' => 'Calculate route',
 	
