@@ -74,7 +74,7 @@
 		}
 	}
 	
-	$form_body .= 	'<a style="display: none;" href="'.EVENT_MANAGER_BASEURL.'/event/googlemaps" id="openGoogleMaps">google maps</a>';
+	$form_body .= 	'<a style="display: none;" href="'.EVENT_MANAGER_BASEURL.'/event/googlemaps/'.$fields["guid"].'" id="openGoogleMaps">google maps</a>';
 	$form_body .= 	elgg_view('input/hidden', array('internalname' => 'latitude', 'internalid' => 'event_latitude', 'value' => $fields["latitude"]));
 	$form_body .= 	elgg_view('input/hidden', array('internalname' => 'longitude', 'internalid' => 'event_longitude', 'value' => $fields["longitude"]));
 	$form_body .= 	elgg_view('input/hidden', array('internalname' => 'guid', 'value' => $fields["guid"]));

@@ -141,7 +141,7 @@
 		{
 			if(event_manager_has_maps_key())
 			{
-				elgg_extend_view("metatags", "event_manager/googlemapsjs_packed");
+				elgg_extend_view("metatags", "event_manager/googlemapsjs");
 			}
 		}
 	

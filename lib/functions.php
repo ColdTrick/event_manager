@@ -763,7 +763,7 @@
 	
 	function event_manager_get_form_pulldown_minutes($internalname = '', $value = '')
 	{
-		$time_minutes_options = range(0, 59);
+		$time_minutes_options = range(0, 59, 5);
 		
 		array_walk($time_minutes_options, 'event_manager_time_pad');
 		

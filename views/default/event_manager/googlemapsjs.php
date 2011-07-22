@@ -16,18 +16,12 @@ $(function()
 			{
 				var location = $('#event_manager_event_edit input[name="location"]').val();
 				initMaps('map_canvas');
-				initEditeventmaps();
-
-				latlng = getLatLngFromFields();
 				
 				if(location != '')
 				{
-					coords = getCoordsFromAddress(location);
-				}
-				else if(latlng != null)
-				{
-					addMarker(latlng, true);
-					getAdressFromCoords();
+					$('#address_search').val(location);
+					event_manager_gmap.setCenter(new GLatLng($("#event_latitude").val(), $("#event_longitude").val()), 12);
+					addMarker(new GLatLng($("#event_latitude").val(), $("#event_longitude").val()), true);
 				}
 			}
 		};
@@ -240,13 +234,36 @@ function getCoordsFromAddress(address)
 	return coords;
 }
 
+function searchAddress(address)
+{
+	if (event_manager_geocoder == null)
+	{
+		event_manager_geocoder = new GClientGeocoder();
+	}
+	event_manager_geocoder.getLatLng(address, function(gpoint)
+	{
+		if(gpoint)
+		{
+			event_manager_geocoder.getLocations(gpoint, function(response)
+			{
+				if(response)
+				{
+					result = response.Placemark[0].address;
+					$('#address_search').val(result);
+					addMarker(gpoint, true);
+				}
+			});	
+		}
+	});
+}
+
 function setLatLngFields(point)
 {
    $('#event_latitude').val(point.lat());
    $('#event_longitude').val(point.lng());
 }
 
-function getAdressFromCoords(coords)
+function getAdressFromCoords(coords, fields)
 {
 	var address = null;
 	if(coords == null)
