@@ -332,7 +332,17 @@ function moveMapToCountry(country)
 	}
 	event_manager_geocoder.getLatLng(country, function(gpoint)
 	{
-		event_manager_gmap.setCenter(gpoint, 7);
+		if(gpoint)
+		{
+			event_manager_gmap.setCenter(gpoint, 7);
+		}
+		else
+		{
+			event_manager_geocoder.getLatLng('atlantic ocean', function(gpoint)
+			{
+				event_manager_gmap.setCenter(gpoint, 2);
+			});
+		}
 	});
 }
 </script>

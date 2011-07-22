@@ -16,13 +16,14 @@
 		{
 			global $CONFIG;
 			
-			if(!EVENT_MANAGER_SITETAKEOVER)
+			$sitetakeover = event_manager_check_sitetakeover_event();
+			if($sitetakeover['count']>0)
 			{
-				return EVENT_MANAGER_BASEURL."/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
+				return EVENT_MANAGER_BASEURL."/pg/event/view";
 			}
 			else
 			{
-				return "/pg/event/view";
+				return EVENT_MANAGER_BASEURL."/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
 			}
 		}
 		
