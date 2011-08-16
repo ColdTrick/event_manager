@@ -1,6 +1,9 @@
 <?php 
 
 	$event = $vars["entity"];
+	$tabtitles = '';
+	$tabcontent = '';
+	
 	if(!empty($event) && ($event instanceof Event)){
 		if($event->with_program){
 			if($eventDays = $event->getEventDays()){

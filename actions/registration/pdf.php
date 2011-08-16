@@ -1,4 +1,10 @@
 <?php 
+		
+	if(!function_exists('DOMPDF_autoload'))
+	{
+		require_once(dirname(dirname(dirname(__FILE__)))."/vendors/dompdf/dompdf_config.inc.php");
+	}
+	
 	$key = get_input('k');		
 	$guid = get_input("guid");
 	$user_guid = get_input('u_g', get_loggedin_userid());

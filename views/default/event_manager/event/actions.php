@@ -4,7 +4,9 @@
 
 	$options = array();
 	
-	if($event->canEdit() && get_context() !== "widget") {
+	$context = get_context();
+	
+	if($event->canEdit() && $context !== "widget") {
 		if($tools = elgg_view("event_manager/event/tools", $vars)){
 			$options[] = $tools;
 		}	
@@ -15,7 +17,7 @@
 			$options[] = $rsvp;
 		}
 
-		if(!in_array(get_context(), array("widget", "maps"))){
+		if(!in_array($context, array("widget", "maps"))){
 			if($registration = elgg_view("event_manager/event/registration", $vars)){
 				$options[] = $registration;
 			}
@@ -46,14 +48,7 @@
 			} 
 		}
 		
-		if(!EVENT_MANAGER_SITETAKEOVER)
-		{
-			$options[] = "<a href='" . $event->getURL() . "'>" . $attending_count . " ". strtolower(elgg_echo("event_manager:event:relationship:event_attending")) . "</a>";
-		}
-		else
-		{
-			$options[] = "<a href='/pg/event/attendees'>" . $attending_count . " ". strtolower(elgg_echo("event_manager:event:relationship:event_attending")) . "</a>";
-		}
+		$options[] = $attending_count . " ". strtolower(elgg_echo("event_manager:event:relationship:event_attending"));
 	}	
 	
 	echo implode(" | ", $options);

@@ -41,7 +41,7 @@
 			forward(EVENT_MANAGER_BASEURL);
 		}
 	}
-
+	
 	$form = elgg_view("event_manager/forms/event/edit", array("entity" => $event));
 
 	$title = elgg_view_title($title_text . $back_text);

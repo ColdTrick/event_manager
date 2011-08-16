@@ -21,9 +21,11 @@
 		$result .= elgg_view("event_manager/onthemap", $vars);
 	}
 	
-	if($count > EVENT_MANAGER_SEARCH_LIST_LIMIT)
+	if($vars["count"] > EVENT_MANAGER_SEARCH_LIST_LIMIT)
 	{
-		$result .= '<div id="event_manager_event_list_search_more" rel="'.(($offset)?$offset:EVENT_MANAGER_SEARCH_LIST_LIMIT).'">'.elgg_echo('event_manager:list:showmorevents').' ('.($count-($offset+EVENT_MANAGER_SEARCH_LIST_LIMIT)).')</div>';
+		$result .= '<div id="event_manager_event_list_search_more" rel="'.((isset($vars["offset"]))?$vars["offset"]:EVENT_MANAGER_SEARCH_LIST_LIMIT).'">'.
+			elgg_echo('event_manager:list:showmorevents').
+				' ('.($vars["count"]-($offset+EVENT_MANAGER_SEARCH_LIST_LIMIT)).')</div>';
 	}
 	
 	echo elgg_view('page_elements/contentwrapper', array('body' => $result));

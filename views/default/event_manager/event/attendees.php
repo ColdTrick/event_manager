@@ -2,11 +2,16 @@
 
 	$event = $vars["entity"];
 	
+	$can_edit = $event->canEdit();
+	
+	$tab_titles = '';
+	$tab_content = '';
+	
 	if($relationships = $event->getRelationships())
 	{
 		$i = 0;
 		
-		if($event->canEdit())
+		if($can_edit)
 		{
 			elgg_extend_view('profile/menu/actions', 'event_manager/profile/menu/actions');
 		}
@@ -45,7 +50,7 @@
 						
 						$tab_content .= '<div class="usericon">';
 						
-						if($event->canEdit())
+						if($can_edit)
 						{
 							//http://dev174.coldtrick.com/pg/events/registration/view/?guid=7845&u_g=3194&k=b97d6f294bf074bfe6611d73273ecc5e
 							$tab_content .= '<div class="avatar_menu_button" style="display: none;">

@@ -4,6 +4,77 @@
 	{
 		const SUBTYPE = "event";
 		
+		protected $meta_cache;
+		
+ 		protected $meta_defaults = array(
+ 			"organizer" 			=> NULL,
+ 			"comments_on" 			=> NULL,
+ 			"venue" 				=> NULL,
+ 			"location" 				=> NULL,
+ 			"region" 				=> NULL,
+ 			"event_type" 			=> NULL,
+ 			"latitude" 				=> NULL,
+ 			"longitude" 			=> NULL,
+ 			"start_time" 			=> NULL,
+ 			"end_time" 				=> NULL,
+ 			"endregistration_day" 	=> NULL,
+ 			"with_program" 			=> NULL,
+ 			"registration_ended" 	=> NULL,
+ 			"registration_needed" 	=> NULL,
+ 			"register_nologin" 		=> NULL,
+ 			"show_attendees" 		=> NULL,
+ 			"notify_onsignup" 		=> NULL,
+ 			"max_attendees" 		=> NULL,
+ 			"waiting_list" 			=> NULL
+ 		);
+		
+		
+		protected function load($guid) {
+			if (!parent::load($guid)) {
+				return false;
+			}
+			
+			if($metadata = get_metadata_for_entity($guid)){
+				if (!is_array($this->meta_cache)) {
+					$this->meta_cache = array();
+				}
+				foreach($metadata as $md){
+					$this->meta_cache[$md->name] = $md->value;
+				}
+			}
+			return true;
+		}
+		
+		public function get($name) {
+			
+			if(is_array($this->meta_cache) && array_key_exists($name, $this->meta_cache)){
+				return $this->meta_cache[$name];
+			} elseif (array_key_exists($name, $this->meta_defaults)){
+				return $this->meta_defaults[$name];
+			} 
+			
+			return parent::get($name);				
+		}		
+		
+		public function setMetaData($name, $value){
+			if(parent::setMetaData($name, $value)){
+				if(is_array($this->meta_cache) && array_key_exists($name, $this->meta_cache)){
+					$this->meta_cache[$name] = $value;
+				}
+				return true;
+			}
+		}
+		
+		public function clearMetaData($name){
+			if(parent::clearMetaData($name)){
+				if(is_array($this->meta_cache) && array_key_exists($name, $this->meta_cache)){
+					unset($this->meta_cache[$name]);
+				}
+				return true;
+			}
+			return false;
+		}
+		
 		protected function initialise_attributes() 
 		{
 			global $CONFIG;
@@ -23,7 +94,7 @@
 			}
 			else
 			{
-				return EVENT_MANAGER_BASEURL."/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
+				return EVENT_MANAGER_BASEURL."/pg/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
 			}
 		}
 		

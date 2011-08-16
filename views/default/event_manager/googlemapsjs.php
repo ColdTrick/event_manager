@@ -1,6 +1,5 @@
 <?php
 ?>
-
 <script type="text/javascript">
 
 var event_manager_gmap;
@@ -23,11 +22,19 @@ $(function()
 					event_manager_gmap.setCenter(new GLatLng($("#event_latitude").val(), $("#event_longitude").val()), 12);
 					addMarker(new GLatLng($("#event_latitude").val(), $("#event_longitude").val()), true);
 				}
+				else
+				{
+					<?php
+					$location = get_plugin_setting('google_maps_default_location', 'event_manager');
+					$zoom_level = get_plugin_setting('google_maps_default_zoom', 'event_manager');
+					?>
+					moveMapToLocation('<?php echo $location;?>', <?php echo $zoom_level;?>); 
+				}
 			}
 		};
 	
 
-	$('.openRouteToEvent').click(function(e)
+	$('.openRouteToEvent').live('click', function(e)
 	{
 		clckElmnt = $(this); 
 
@@ -89,7 +96,11 @@ function initRoutemaps(location)
 
 function initOnthemaps()
 {
-	centerMapsFromIP();
+	<?php
+	$location = get_plugin_setting('google_maps_default_location', 'event_manager');
+	$zoom_level = get_plugin_setting('google_maps_default_zoom', 'event_manager');
+	?>
+	moveMapToLocation('<?php echo $location;?>', <?php echo $zoom_level;?>);
 	
 	GEvent.addListener(event_manager_gmap, "dragend", function() 
 	{
@@ -324,25 +335,26 @@ function openInfowindow(i)
 	GEvent.trigger(event_manager_gmarkers[i],"click");
 }
 
-function moveMapToCountry(country)
+function moveMapToLocation(location, zoomlevel)
 {
 	if (event_manager_geocoder == null)
 	{
 		event_manager_geocoder = new GClientGeocoder();
 	}
-	event_manager_geocoder.getLatLng(country, function(gpoint)
+	
+	event_manager_geocoder.getLatLng(location, function(gpoint)
 	{
 		if(gpoint)
 		{
-			event_manager_gmap.setCenter(gpoint, 7);
+			event_manager_gmap.setCenter(gpoint, zoomlevel);
 		}
-		else
+		/*else
 		{
 			event_manager_geocoder.getLatLng('atlantic ocean', function(gpoint)
 			{
 				event_manager_gmap.setCenter(gpoint, 2);
 			});
-		}
+		}*/
 	});
 }
 </script>

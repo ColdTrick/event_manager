@@ -1,28 +1,31 @@
 <!-- Event Manager --><?php 
 
-	global $datepicker;
-	
-    if (empty($datepicker)) 
-    {
-        echo <<< END
+global $datepicker;
+
+if (empty($datepicker)) 
+{
+	echo <<< END
 <script type="text/javascript" src="{$vars['url']}mod/event_manager/vendors/jquery.datepick.package-4.0.5/jquery.datepick.pack.js"></script>
 <link rel="stylesheet" type="text/css" href="{$vars['url']}mod/event_manager/vendors/jquery.datepick.package-4.0.5/redmond.datepick.css">        
 END;
-		if(!empty($locale_js))
-		{
-			echo "<script type='text/javascript' src='" . $vars['url'] . "mod/event_manager/vendors/jquery.datepick.package-4.0.5/" . $locale_js . "'></script>";
-		}
-        $datepicker = 1;
-    } 
-    else 
-    {
-    	$datepicker++;
-    }
+	if(!empty($locale_js))
+	{
+		echo "<script type='text/javascript' src='" . $vars['url'] . "mod/event_manager/vendors/jquery.datepick.package-4.0.5/" . $locale_js . "'></script>";
+	}
+	
+	$datepicker = 1;
+} 
+else 
+{
+	$datepicker++;
+}
 
 if(event_manager_has_maps_key())
 {
+	$protocol = (!empty($_SERVER['https'])?'https':'http');
+	
 	?>
-	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<?php echo get_plugin_setting('google_maps_key','event_manager');?>" type="text/javascript"></script>
+	<script src="<?php echo $protocol;?>://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<?php echo get_plugin_setting('google_maps_key','event_manager');?>" type="text/javascript"></script>
 	<?php 
 }
 
@@ -33,11 +36,8 @@ if(empty($fancybox_js_loaded))
 	$fancybox_js_loaded = true;
 	?>
 	<script type="text/javascript" src="<?php echo $vars["url"];?>mod/event_manager/vendors/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-	
 	<?php 
 }
-
-$latlng = IPtoLatLng(getRealIpAddr());
 
 ?>
 <script type="text/javascript">
@@ -45,29 +45,6 @@ $latlng = IPtoLatLng(getRealIpAddr());
 /*
  * Adding location to event
  */
-
- function centerMapsFromIP()
- {
- 	<?php
- 	if(!empty($latlng['LAT']) && !empty($latlng['LNG']))
- 	{?>
- 		latlng = new GLatLng(parseFloat('<?php echo $latlng['LAT'];?>'), parseFloat('<?php echo $latlng['LNG'];?>'));
- 		event_manager_gmap.setCenter(latlng, 12);
- 	<?php
- 	}
- 	else
- 	{
- 	?>
- 		moveMapToCountry('<?php echo $latlng['COUNTRY'];?>');
- 	<?php
- 	}?>
- }
- 
-function initEditeventmaps()
-{
-	centerMapsFromIP();
-}
-
 $(function ()
 {		
 	$('.event_manager_program_slot_delete').live('click', function()

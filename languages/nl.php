@@ -232,6 +232,9 @@
 	
 		// settings
 		'event_manager:settings:enter_google_maps_key' => 'Voer hier je "Google Maps API Key" in',
+		'event_manager:settings:google_maps:enterdefaultlocation' => 'Voer een standaard locatie in waar google maps op moet centreren',
+		'event_manager:settings:google_maps:enterdefaultzoom' => 'Kies een standaard google maps zoom level (0 = volledig uitgezoomd, 19 = volledig ingezoomd)',
+		'event_manager:settings:enter_google_maps_key:clickhere' => 'Ga naar <a target="_blank" href="http://code.google.com/apis/maps/signup.html">http://code.google.com/apis/maps/signup.html</a> om een "Google Maps API key" aan te vragen',
 		'event_manager:settings:region_list' => 'Voer (komma gescheiden) evenement regio\'s in',
 		'event_manager:settings:type_list' => 'Voer (komma gescheiden) evenementtypes in',
 		'event_manager:settings:migration' => 'Importeer %d evenementen vanuit "Event calender"',	

@@ -44,8 +44,19 @@
 	{
 		global $CONFIG;
 		
-		$defaults = array(	'past_events' 	=> false,
-							'count' 		=> false);
+		$defaults = array(	'past_events' 		=> false,
+							'count' 			=> false,
+							'offset' 			=> 0,
+							'limit'				=> EVENT_MANAGER_SEARCH_LIST_LIMIT,
+							'container_guid'	=> null,
+							'query'				=> false,
+							'meattending'		=> false,
+							'owning'			=> false,
+							'friendsattending' 	=> false,
+							'region'			=> null,
+							'event_type'		=> false,
+							'past_events'		=> false,
+		);
 		
 		$options = array_merge($defaults, $options);
 		
@@ -742,12 +753,20 @@
 	
 	function event_manager_has_maps_key()
 	{
+		static $has_maps_key;
+		if(isset($has_maps_key))
+		{
+			return $has_maps_key;
+		}
+		
 		$return = false;
 		
 		if(get_plugin_setting('google_maps_key','event_manager') != '')
 		{
 			$return = true;
 		}
+		
+		$has_maps_key = $return;
 		
 		return $return;
 	}
@@ -804,18 +823,23 @@
 	{
 		global $CONFIG;
 		
+		static $site_take_over;
+		if(isset($site_take_over)){
+			return $site_take_over;
+		}
+		
 		$result = false;
 		
 		$entities_options = array(
 			'type' 			=> 'object',
 			'subtype' 		=> 'event',
 			'joins' 		=> array(
-								"JOIN {$CONFIG->dbprefix}objects_entity oe ON e.guid = oe.guid",
+								"JOIN {$CONFIG->dbprefix}objects_entity oe ON e.guid 			= oe.guid",
 		
-								"JOIN {$CONFIG->dbprefix}metadata n_table ON e.guid = n_table.entity_guid",
+								"JOIN {$CONFIG->dbprefix}metadata n_table ON e.guid 			= n_table.entity_guid",
 		
-								"JOIN {$CONFIG->dbprefix}metastrings msn ON n_table.name_id = msn.id",
-								"JOIN {$CONFIG->dbprefix}metastrings msv ON n_table.value_id = msv.id"),
+								"JOIN {$CONFIG->dbprefix}metastrings msn ON n_table.name_id 	= msn.id",
+								"JOIN {$CONFIG->dbprefix}metastrings msv ON n_table.value_id 	= msv.id"),
 			'wheres' 		=>  '(msn.string LIKE "site_takeover") AND (msv.string LIKE "1")'
 		);
 		
@@ -826,6 +850,8 @@
 			$entities_options['count'] = true;
 			$result['count'] = elgg_get_entities($entities_options);
 		}
+		
+		$site_take_over = $result;
 		
 		return $result;
 	}

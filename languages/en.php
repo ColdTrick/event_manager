@@ -249,6 +249,8 @@
 	
 		// settings
 		'event_manager:settings:enter_google_maps_key' => 'Enter your google maps key',
+		'event_manager:settings:google_maps:enterdefaultlocation' => 'Enter a default location google maps needs to center on',
+		'event_manager:settings:google_maps:enterdefaultzoom' => 'Enter a default google maps zoom level (0 = zoomed in, 19 = zoomed out)',
 		'event_manager:settings:enter_google_maps_key:clickhere' => 'Go to <a target="_blank" href="http://code.google.com/apis/maps/signup.html">http://code.google.com/apis/maps/signup.html</a> to get your "Google Maps API key"',
 		'event_manager:settings:region_list' => 'Enter (comma seperated) event regions',
 		'event_manager:settings:type_list' => 'Enter (comma seperated) event types',

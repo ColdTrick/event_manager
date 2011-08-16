@@ -32,6 +32,7 @@
 	define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST", 	"event_slot_registration_waitinglist");
 		
 	include_once(dirname(__FILE__)."/lib/functions.php");
+	include_once(dirname(__FILE__)."/lib/run_once.php"); 
 	include_once(dirname(__FILE__)."/lib/events.php");
 	include_once(dirname(__FILE__)."/lib/hooks.php");
 	
@@ -47,12 +48,7 @@
 		global $CONFIG;
 		
 		// Register subtype
-		add_subtype('object', Event::SUBTYPE, EVENT_MANAGER_EVENT_CLASSNAME);
-		add_subtype('object', EventDay::SUBTYPE, EVENT_MANAGER_EVENTDAY_CLASSNAME);
-		add_subtype('object', EventSlot::SUBTYPE, EVENT_MANAGER_EVENTSLOT_CLASSNAME);
-		add_subtype('object', EventRegistrationForm::SUBTYPE, EVENT_MANAGER_EVENTQUESTIONS_CLASSNAME);
-		add_subtype('object', EventRegistrationQuestion::SUBTYPE, EVENT_MANAGER_EVENTREGISTRATIONQUESTION_CLASSNAME);
-		add_subtype('object', EventRegistration::SUBTYPE, EVENT_MANAGER_REGISTRATION_CLASSNAME);
+		run_function_once('event_manager_run_once_subtypes');
 		
 		// Register entity_type for search
 		register_entity_type('object', Event::SUBTYPE);
@@ -101,11 +97,6 @@
 			register_plugin_hook("action", 'event_manager/event/register', "event_manager_register_postdata_hook", 300);
 			register_plugin_hook("action", 'event_manager/event/register', "captcha_verify_action_hook");
 		}
-		
-		if(!function_exists('DOMPDF_autoload'))
-		{
-			require_once(dirname(__FILE__)."/vendors/dompdf/dompdf_config.inc.php");
-		}
 	}
 	
 	function event_manager_event_page_handler($page)
@@ -113,7 +104,7 @@
 		$sitetakeover = event_manager_check_sitetakeover_event();
 		
 		$include = "/pages/sitetakeover/view.php";
-				
+		
 		if(!empty($page))
 		{
 			$include = "/pages/sitetakeover/".$page[0].".php";

@@ -3,6 +3,7 @@
 	
 	$event = $vars["entity"];
 	$owner = $event->getOwnerEntity();
+	$output = '';
 	
 	$actions = elgg_view("event_manager/event/actions", $vars);	
 	
