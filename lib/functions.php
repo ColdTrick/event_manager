@@ -32,7 +32,7 @@
 	{
 		$result = array(
 				'Textfield' => 'text',
-				'Textarea' => 'longtext',
+				'Textarea' => 'plaintext',
 				'Dropdown' => 'pulldown',
 				'Radiobutton' => 'radio'
 			);

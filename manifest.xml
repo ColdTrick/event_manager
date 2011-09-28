@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin_manifest>
 	<field key="author" value="ColdTrick IT Solutions" />
-	<field key="version" value="0.3.2" />
+	<field key="version" value="0.3.3" />
 	<field key="description" value="Manage events" />
 	<field key="website" value="http://www.coldtrick.com/" />
 	<field key="copyright" value="(C) ColdTrick IT Solutions 2011" />
@@ -32,6 +32,9 @@ Features
 ======================
 Version history
 ======================
+
+0.3.3 (2011-09-27)
+	fixed lijst aanvullen
 
 0.3.2 (2011-08-16):
 	- fixed/changed

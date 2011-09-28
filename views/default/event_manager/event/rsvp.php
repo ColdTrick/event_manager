@@ -20,6 +20,14 @@
 		echo "<ul>";
 		foreach($event_relationship_options as $rel)
 		{
+			if($rel == EVENT_MANAGER_RELATION_ATTENDING)
+			{
+				if(!$event->hasEventSpotsLeft() && !$event->waiting_list_enabled)
+				{
+					continue;
+				}
+			}
+			
 			if($rel == $user_relation)
 			{
 				echo "<li class='selected'>" . elgg_echo('event_manager:event:relationship:' . $rel) . "</li>";

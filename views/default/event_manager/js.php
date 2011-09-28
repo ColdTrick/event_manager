@@ -1,5 +1,7 @@
 <?php
 ?>
+
+
 <!-- Event manager -->
 (function(){
 
@@ -392,3 +394,5 @@ $(function()
 	});
 });
 <!-- End Event manager -->
+
+

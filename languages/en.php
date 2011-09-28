@@ -5,6 +5,7 @@
 		'groups:enableevents' => 'Enable group events',
 		'event_manager:group' => 'Group events',
 		'event_manager:group:more' => 'More events',
+	
 		'item:object:event' => 'Event Manager - Event',
 		'item:object:eventslot' => 'Event Manager - Eventslot',
 		'item:object:eventday' => 'Event Manager - Eventday',
@@ -40,6 +41,9 @@
 		'event_manager:list:navigation:onthemap' => 'On the map',
 		'event_manager:list:navigation:refreshing' => 'refreshing events',
 		'event_manager:list:count' => ' events found',
+		'event_manager:full' => 'full',
+		'event_manager:personwaitinglist' => 'person on the waiting list',
+		'event_manager:peoplewaitinglist' => 'people on the waiting list',
 	
 		'event_manager:registration:list:navigation:waiting' => 'Waiting list',
 		'event_manager:registration:list:navigation:attending' => 'Attending',
@@ -257,6 +261,7 @@
 		'event_manager:settings:migration' => 'Migrate %d events from "Event calender"',	
 		'event_manager:settings:migration:success' => 'Succesfully migrated %d events',	
 		'event_manager:settings:migration:noeventstomigrate' => 'No events found to migrate',
+		'event_manager:settings:notification_sender' => 'RSVP notification sender (email)',
 	
 		'event_manager:settings:migration:site:whocancreate' => 'Who can create site events',
 		'event_manager:settings:migration:site:whocancreate:admin_only' => 'admin only',

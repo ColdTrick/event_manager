@@ -34,3 +34,7 @@
 		
 		echo elgg_view('output/confirmlink', array('href' => $migrate_url, 'text' => sprintf(elgg_echo('event_manager:settings:migration'), $migratable_events['count'])));
 	}
+	
+	
+	echo elgg_echo('event_manager:settings:notification_sender').'</label><br />';
+	echo elgg_view('input/text', array('internalname' => 'params[notification_sender]', 'value' => $notification_sender)).'<br />';

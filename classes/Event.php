@@ -29,23 +29,30 @@
  		);
 		
 		
-		protected function load($guid) {
-			if (!parent::load($guid)) {
+		protected function load($guid) 
+		{
+			if (!parent::load($guid)) 
+			{
 				return false;
 			}
 			
-			if($metadata = get_metadata_for_entity($guid)){
-				if (!is_array($this->meta_cache)) {
+			if($metadata = get_metadata_for_entity($guid))
+			{
+				if (!is_array($this->meta_cache)) 
+				{
 					$this->meta_cache = array();
 				}
-				foreach($metadata as $md){
+				
+				foreach($metadata as $md)
+				{
 					$this->meta_cache[$md->name] = $md->value;
 				}
 			}
 			return true;
 		}
 		
-		public function get($name) {
+		public function get($name) 
+		{
 			
 			if(is_array($this->meta_cache) && array_key_exists($name, $this->meta_cache)){
 				return $this->meta_cache[$name];
@@ -56,18 +63,24 @@
 			return parent::get($name);				
 		}		
 		
-		public function setMetaData($name, $value){
-			if(parent::setMetaData($name, $value)){
-				if(is_array($this->meta_cache) && array_key_exists($name, $this->meta_cache)){
+		public function setMetaData($name, $value)
+		{
+			if(parent::setMetaData($name, $value))
+			{
+				if(is_array($this->meta_cache) && array_key_exists($name, $this->meta_cache))
+				{
 					$this->meta_cache[$name] = $value;
 				}
 				return true;
 			}
 		}
 		
-		public function clearMetaData($name){
-			if(parent::clearMetaData($name)){
-				if(is_array($this->meta_cache) && array_key_exists($name, $this->meta_cache)){
+		public function clearMetaData($name)
+		{
+			if(parent::clearMetaData($name))
+			{
+				if(is_array($this->meta_cache) && array_key_exists($name, $this->meta_cache))
+				{
 					unset($this->meta_cache[$name]);
 				}
 				return true;
@@ -94,7 +107,7 @@
 			}
 			else
 			{
-				return EVENT_MANAGER_BASEURL."/pg/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
+				return EVENT_MANAGER_BASEURL."/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
 			}
 		}
 		
@@ -250,7 +263,7 @@
 			
 			if($this->max_attendees != '')
 			{
-				$attendees = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING);
+				$attendees = $this->countAttendees();
 				
 				if(($this->max_attendees > $attendees))
 				{
@@ -284,14 +297,6 @@
 			$result = true;
 			
 			if($this->registration_ended || ($this->endregistration_day != 0 && $this->endregistration_day < time()))
-			{
-				$result = false;
-			}
-			elseif(!($registration = $this->generateRegistrationForm()))
-			{
-				$result = false;
-			}
-			elseif(!$this->with_program || !($questions = $this->getRegistrationFormQuestions()))
 			{
 				$result = false;
 			}
@@ -425,43 +430,50 @@
 		{
 			$form = false;
 			
+			$form_body = '<ul>';
+			
+			if(!isloggedin())
+			{
+				$form_body .= '<li><label>'.elgg_echo('user:name:label').' *</label><br />
+					<input type="text" name="question_name" value="'.$_SESSION['registerevent_values']['question_name'].'" class="input-text"></li>';
+				
+				$form_body .= '<li><label>'.elgg_echo('email').' *</label><br />
+					<input type="text" name="question_email" value="'.$_SESSION['registerevent_values']['question_email'].'" class="input-text"></li>';
+			}
+	
 			if($registration_form = $this->getRegistrationFormQuestions())
 			{				
 				if($register_type == 'waitinglist')
 				{
 					$form_body .= '<p>'. elgg_echo('event_manager:event:rsvp:waiting_list:message') .'</p><br />';
 				}
-				
-				$form_body .= '<ul>';
-				
-					if(!isloggedin())
+					
+				foreach($registration_form as $question)
+				{
+					$sessionValue = $_SESSION['registerevent_values']['question_'.$question->getGUID()];					
+
+					if(isloggedin())
 					{
-						$form_body .= '<li><label>'.elgg_echo('user:name:label').' *</label><br /><input type="text" name="question_name" value="'.$_SESSION['registerevent_values']['question_name'].'" class="input-text"></li>';
-						$form_body .= '<li><label>'.elgg_echo('email').' *</label><br /><input type="text" name="question_email" value="'.$_SESSION['registerevent_values']['question_email'].'" class="input-text"></li>';
+						$answer = $question->getAnswerFromUser();
 					}
-	
-					foreach($registration_form as $question)
-					{
-						$sessionValue = $_SESSION['registerevent_values']['question_'.$question->getGUID()];					
-	
-						if(isloggedin())
-						{
-							$answer = $question->getAnswerFromUser();
-						}
-	
-						$value = (($sessionValue != '')?$sessionValue:$answer->value);
-	
-						$form_body .= elgg_view('event_manager/registration/question', array('entity' => $question, 'register' => true, 'value' => $value));
-					}
-	
-					if(!isloggedin())
-					{
-						$form_body .= elgg_view('input/captcha');
-					}
+
+					$value = (($sessionValue != '')?$sessionValue:$answer->value);
+
+					$form_body .= elgg_view('event_manager/registration/question', array('entity' => $question, 'register' => true, 'value' => $value));
+				}
+
+				if(!isloggedin())
+				{
+					$form_body .= elgg_view('input/captcha');
+				}
 				
 				$form_body .= '</ul>';
 
 				$form_body = elgg_view('page_elements/contentwrapper', array('body' => $form_body));
+			}
+			elseif(isloggedin())
+			{
+				return $form;
 			}
 
 			if($this->with_program)
@@ -472,7 +484,14 @@
 			if($form_body)
 			{
 				$form_body .= elgg_view('input/hidden', array('internalname' => 'event_guid', 'value' => $this->getGUID()));
-				$form_body .= elgg_view('input/hidden', array('internalname' => 'relation', 'value' => 'event_attending'));
+				if($register_type == 'register')
+				{
+					$form_body .= elgg_view('input/hidden', array('internalname' => 'relation', 'value' => EVENT_MANAGER_RELATION_ATTENDING));
+				}
+				elseif($register_type == 'waitinglist')
+				{
+					$form_body .= elgg_view('input/hidden', array('internalname' => 'relation', 'value' => EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST));
+				}
 				
 				$form_body .= elgg_view('input/hidden', array('internalname' => 'register_type', 'value' => $register_type));
 				
@@ -609,6 +628,7 @@
 			}
 			else
 			{				
+				$headers .= "From: ". $CONFIG->site->email . "\r\n";
 				$headers .= "Reply-To: ". get_entity($to)->email . "\r\n";
 				$headers .= "MIME-Version: 1.0\r\n";
 				$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
@@ -974,7 +994,34 @@
 		{
 			elgg_set_ignore_access(true);
 			
-			$entities = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING);			
+			//$entities = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING);			
+			
+			$entities = elgg_get_entities_from_relationship(array(
+				'relationship' => EVENT_MANAGER_RELATION_ATTENDING,
+				'relationship_guid' => $this->getGUID(),
+				'inverse_relationship' => FALSE,
+				'count' => TRUE,
+				'site_guid' => false
+			));
+			
+			elgg_set_ignore_access(false);
+			
+			return $entities;
+		}
+		
+		public function countWaiters()
+		{
+			elgg_set_ignore_access(true);
+			
+			//$entities = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING);			
+			
+			$entities = elgg_get_entities_from_relationship(array(
+				'relationship' => EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
+				'relationship_guid' => $this->getGUID(),
+				'inverse_relationship' => FALSE,
+				'count' => TRUE,
+				'site_guid' => false
+			));
 			
 			elgg_set_ignore_access(false);
 			

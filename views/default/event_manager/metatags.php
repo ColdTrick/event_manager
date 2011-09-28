@@ -22,9 +22,17 @@ else
 
 if(event_manager_has_maps_key())
 {
-	$protocol = (!empty($_SERVER['https'])?'https':'http');
+	if(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on')
+	{
+		$protocol = 'https';
+	}
+	else
+	{
+		$protocol = 'http';
+	}
 	
 	?>
+	
 	<script src="<?php echo $protocol;?>://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<?php echo get_plugin_setting('google_maps_key','event_manager');?>" type="text/javascript"></script>
 	<?php 
 }

@@ -9,9 +9,15 @@
 			$event = $entity;
 			if($event)
 			{
-				if(!$event->registration_needed || $event->openForRegistration() || !$event->waiting_list_enabled)
+				if(!$event->waiting_list_enabled)
 				{
-					system_message(elgg_echo('event_manager:registration:message:registrationnotneeded'));
+					//system_message(elgg_echo('event_manager:registration:message:registrationnotneeded'));
+					forward($event->getURL());
+				}
+				
+				if(!$event->openForRegistration())
+				{
+					register_error(elgg_echo('event_manager:event:rsvp:registration_ended'));
 					forward($event->getURL());
 				}
 				$title_text = elgg_echo('event_manager:event:rsvp:waiting_list');

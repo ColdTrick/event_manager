@@ -67,7 +67,7 @@
 						}
 						$tab_content .= '
 										<a class="icon" href="#">
-											<img border="0" title="Jeroen Dalsem" alt="Jeroen Dalsem" src="http://dev174.coldtrick.com/mod/profile/graphics/defaultsmall.gif">
+											<img border="0" src="/mod/profile/graphics/defaultsmall.gif">
 										</a>
 									</div>';
 					}

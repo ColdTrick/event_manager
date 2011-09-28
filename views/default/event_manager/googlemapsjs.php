@@ -99,6 +99,16 @@ function initOnthemaps()
 	<?php
 	$location = get_plugin_setting('google_maps_default_location', 'event_manager');
 	$zoom_level = get_plugin_setting('google_maps_default_zoom', 'event_manager');
+	
+	if($location == '')
+	{
+		$location = 'Netherlands';
+	}
+	
+	if(!$zoom_level)
+	{
+		$zoom_level = 7;
+	}
 	?>
 	moveMapToLocation('<?php echo $location;?>', <?php echo $zoom_level;?>);
 	

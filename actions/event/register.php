@@ -10,6 +10,7 @@
 	$answers = array();
 	foreach($_POST as $key => $value)
 	{		
+		$value = get_input($key);
 		if(substr($key, 0, 9) == 'question_')
 		{
 			if(is_array($value))

@@ -40,6 +40,9 @@
 		'event_manager:list:navigation:onthemap' => 'Op de kaart',
 		'event_manager:list:navigation:refreshing' => 'evenementen verversen',
 		'event_manager:list:count' => ' evenementen gevonden',
+		'event_manager:full' => 'vol',
+		'event_manager:personwaitinglist' => 'persoon op de wachtlijst',
+		'event_manager:peoplewaitinglist' => 'mensen op de wachtlijst',
 	
 		'event_manager:registration:list:navigation:waiting' => 'Wacht lijst',
 		'event_manager:registration:list:navigation:attending' => 'Aanwezig',
@@ -240,6 +243,7 @@
 		'event_manager:settings:migration' => 'Importeer %d evenementen vanuit "Event calender"',	
 		'event_manager:settings:migration:success' => '%d evenementen geimporteerd',	
 		'event_manager:settings:migration:noeventstomigrate' => 'Er zijn geen evenementen te importeren',
+		'event_manager:settings:notification_sender' => 'RSVP notificatie afzender (email)',
 	
 		'event_manager:settings:migration:site:whocancreate' => 'Wie kan site evenementen aanmaken',
 		'event_manager:settings:migration:site:whocancreate:admin_only' => 'alleen beheerders',

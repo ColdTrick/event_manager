@@ -28,9 +28,37 @@
 		$event_details .= '<tr><td><b>'.elgg_echo('event_manager:edit:form:organizer').'</b>:</td><td>'.$organizer.'</td></tr>';
 	}
 	
-	if(!empty($event->max_attendees)){
-		$spots_left = ($event->max_attendees - $event->countAttendees());
-		$event_details .= '<tr><td><b>'.elgg_echo('event_manager:edit:form:spots_left').'</b>:</td><td>'.(($spots_left<1)?0:$spots_left) . '</td></tr>';
+	if($max_attendees = $event->max_attendees)
+	{
+		$event_details .= '<tr><td><b>'.elgg_echo('event_manager:edit:form:spots_left').'</b>:</td><td>';
+		
+		$spots_left = ($max_attendees - $event->countAttendees());
+		if($spots_left<1)
+		{
+			$count_waitinglist = $event->countWaiters();
+			if($count_waitinglist > 0)
+			{
+				$event_details .= elgg_echo('event_manager:full').', '.$count_waitinglist.' ';
+				if($count_waitinglist == 1)
+				{
+					$event_details .= elgg_echo('event_manager:personwaitinglist');
+				}
+				else
+				{
+					$event_details .= elgg_echo('event_manager:peoplewaitinglist');
+				}
+			}
+			else
+			{
+				$event_details .= elgg_echo('event_manager:full');
+			}
+		}
+		else
+		{
+			$event_details .= $spots_left;
+		}
+		
+		$event_details .= '</td></tr>';
 	}
 	
 	if($description = $event->description){
