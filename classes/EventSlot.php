@@ -16,7 +16,15 @@
 		{
 			elgg_set_ignore_access(true);
 			
-			$result = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_SLOT_REGISTRATION, true);
+			//$result = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_SLOT_REGISTRATION, true);
+			
+			$result = elgg_get_entities_from_relationship(array(
+				'relationship' => EVENT_MANAGER_RELATION_SLOT_REGISTRATION,
+				'relationship_guid' => $this->getGUID(),
+				'inverse_relationship' => true,
+				'count' => true,
+				'site_guid' => false
+			));
 			
 			elgg_set_ignore_access(false);
 			

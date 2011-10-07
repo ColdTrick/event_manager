@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	class Event extends ElggObject 
 	{
@@ -461,7 +461,7 @@
 
 					$form_body .= elgg_view('event_manager/registration/question', array('entity' => $question, 'register' => true, 'value' => $value));
 				}
-
+				
 				if(!isloggedin())
 				{
 					$form_body .= elgg_view('input/captcha');
@@ -471,9 +471,9 @@
 
 				$form_body = elgg_view('page_elements/contentwrapper', array('body' => $form_body));
 			}
-			elseif(isloggedin())
+			elseif(!isloggedin())
 			{
-				return $form;
+				$form_body .= elgg_view('input/captcha');
 			}
 
 			if($this->with_program)
@@ -627,20 +627,41 @@
 							);
 			}
 			else
-			{				
-				$headers .= "From: ". $CONFIG->site->email . "\r\n";
-				$headers .= "Reply-To: ". get_entity($to)->email . "\r\n";
-				$headers .= "MIME-Version: 1.0\r\n";
-				$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-				
-				mail(	get_entity($to)->email, 
-						elgg_echo('event_manager:event:registration:notification:user:subject'), 
-						sprintf(elgg_echo('event_manager:event:registration:notification:user:text:'.$type), 
-							get_entity($to)->name,  
-							$this->getURL(), 
-							$this->title).
-							$registrationLink,
-						$headers);
+			{	
+				$message_text = sprintf(elgg_echo('event_manager:event:registration:notification:user:text:'.$type), 
+								get_entity($to)->name,  
+								$this->getURL(), 
+								$this->title).
+								$registrationLink;
+								
+				$message_html = sprintf(elgg_echo('event_manager:event:registration:notification:user:text:html:'.$type), 
+								get_entity($to)->name,  
+								$this->getURL(), 
+								$this->title).
+								$registrationLink;
+
+				if(is_plugin_enabled('html_email_handler'))
+				{						
+					$options = array(
+						'to' => get_entity($to)->email,
+						'subject' => elgg_echo('event_manager:event:registration:notification:user:subject'),
+						'html_message' => $message_html,
+						'plaintext_message' => $message_text
+					);
+					html_email_handler_send_email($options);
+				}
+				else
+				{
+					$headers .= "From: ". $CONFIG->site->email . "\r\n";
+					$headers .= "Reply-To: ". get_entity($to)->email . "\r\n";
+					$headers .= "MIME-Version: 1.0\r\n";
+					$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+					
+					mail(	get_entity($to)->email, 
+							elgg_echo('event_manager:event:registration:notification:user:subject'), 
+							$message_html,
+							$headers);
+				}
 			}
 			
 			elgg_set_ignore_access(false);			

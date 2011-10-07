@@ -10,7 +10,7 @@
 		$toolLinks .= '<li><a href="'.EVENT_MANAGER_BASEURL.'/registrationform/edit/'.$event->getGUID().'">'.elgg_echo("event_manager:event:editquestions").'</a></li>';
 		//$toolLinks .= '<li><a href="'.EVENT_MANAGER_BASEURL.'/registration/list/'.$event->getGUID().'">'.elgg_echo("event_manager:event:viewregistrations").'</a></li>';
 	}
-	if(isadminloggedin())
+	/*if(isadminloggedin())
 	{
 		$sitetakeover = event_manager_check_sitetakeover_event();
 		if($sitetakeover['count'] > 0)
@@ -25,15 +25,15 @@
 		{
 			$t = 1;
 			$link_text = elgg_echo("event_manager:event:setsitetakeover");
-		}
-		
-		if($event->access_id != 2)
-		{
-			$confirm = ' onclick="Javascript:if(!confirm(\''.addslashes(elgg_echo('event_manager:confirm:sitetakeover:access')).'\')){ return false; }" ';
+					
+			if($event->access_id != 2)
+			{
+				$confirm = ' onclick="Javascript:if(!confirm(\''.addslashes(elgg_echo('event_manager:confirm:sitetakeover:access')).'\')){ return false; }" ';
+			}
 		}
 		
 		$toolLinks .= '<li><a '.$confirm.' href="'.elgg_add_action_tokens_to_url($vars["url"] . 'action/event_manager/event/sitetakeover?guid='.$event->getGUID()).'&t='.$t.'">'. $link_text . '</a></li>';
-	}
+	}*/
 	$toolLinks .= '<li><a href="'.elgg_add_action_tokens_to_url($vars["url"] . 'action/event_manager/attendees/export?guid='.$event->getGUID()).'">'.elgg_echo("event_manager:event:exportattendees").'</a></li>';
 	$toolLinks .= '</ul></span>';
 	

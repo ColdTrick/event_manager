@@ -83,6 +83,11 @@
 			register_page_handler("events", "event_manager_page_handler");
 		}
 		
+		if(!is_plugin_enabled('event_calendar'))
+		{
+			register_page_handler('event_calendar', 'event_calendar_page_handler');
+		}
+		
 		add_menu(elgg_echo("event_manager:menu:title"), EVENT_MANAGER_BASEURL);
 		
 		register_plugin_hook('entity:icon:url', 'object', 'event_manager_eventicon_hook');
@@ -91,9 +96,7 @@
 		elgg_extend_view('groups/right_column', 'event_manager/groupprofile_events');
 		
 		if(!isloggedin() && is_plugin_enabled('captcha'))
-		{
-			$actions = array('event_manager/event/register');
-			
+		{			
 			register_plugin_hook("action", 'event_manager/event/register', "event_manager_register_postdata_hook", 300);
 			register_plugin_hook("action", 'event_manager/event/register', "captcha_verify_action_hook");
 		}
@@ -124,6 +127,12 @@
 		{
 			include(dirname(__FILE__)."/pages/sitetakeover/view.php");
 		}
+	}
+	
+	function event_calendar_page_handler($page)
+	{
+		register_error(elgg_echo('changebookmark'));
+		forward('pg/events');
 	}
 
 	function event_manager_page_handler($page)
