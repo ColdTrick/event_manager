@@ -33,13 +33,8 @@ Features
 Version history
 ======================
 
-0.3.3 (2011-09-28)
-	- fixed
-		- Registration for non-loggedin users
-		- Registration CSV export
-		- RSVP now works properly
-		- Waitinglist
-		- Attendees count
+0.3.3 (2011-09-27)
+	fixed lijst aanvullen
 
 0.3.2 (2011-08-16):
 	- fixed/changed

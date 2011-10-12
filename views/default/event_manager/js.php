@@ -392,6 +392,18 @@ $(function()
 
 		$('#event_manager_event_register').submit();
 	});
+	
+	$('#with_program').change(function()
+	{
+		if($(this).is(':checked'))
+		{
+			$('#event_manager_start_time_pulldown').css('display', 'none');
+		}
+		else
+		{
+			$('#event_manager_start_time_pulldown').css('display', 'table-row');
+		}
+	});
 });
 <!-- End Event manager -->
 

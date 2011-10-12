@@ -175,6 +175,7 @@
 	padding-right: 15px;
 	cursor: pointer;
 	z-index: 1;
+	font-weight: bold;
 }
 
 .event_manager_event_actions_drop_down ul {	
@@ -454,4 +455,9 @@
 .messages
 {
 	width: 750px;
+}
+
+.event_manager_register_link
+{
+	font-weight: bold;
 }

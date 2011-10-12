@@ -35,10 +35,6 @@
 	$start_time_minutes = get_input("start_time_minutes");
 	$start_time = mktime($start_time_hours, $start_time_minutes, 1, 0, 0, 0);
 	
-	$end_time_hours = get_input("end_time_hours");
-	$end_time_minutes = get_input("end_time_minutes");
-	$end_time = mktime($end_time_hours, $end_time_minutes, 1, 0, 0, 0);
-	
 	
 
 	if(!empty($start_day))

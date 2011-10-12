@@ -22,6 +22,12 @@
 	}
 	
 	$event_details .= '<tr><td><b>'.elgg_echo('event_manager:edit:form:start_day').'</b>:</td><td>'.date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day).'</td></tr>';
+	
+	if(!$event->with_program)
+	{
+		$event_details .= '<tr><td><b>'.elgg_echo('event_manager:edit:form:start_time').'</b>:</td><td>'.date('H', $event->start_time).':'.date('i', $event->start_time).'</td></tr>';
+	}
+	
 	// optional end day
 	
 	if($organizer = $event->organizer){

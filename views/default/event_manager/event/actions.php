@@ -35,7 +35,7 @@
 			{
 				$register_link = EVENT_MANAGER_BASEURL . '/event/register/'.$event->getGUID();
 			}
-			$options[] = '<a href="' . $register_link .'">'.elgg_echo('event_manager:event:register:register_link').'</a>';
+			$options[] = '<a class="event_manager_register_link" href="' . $register_link .'">'.elgg_echo('event_manager:event:register:register_link').'</a>';
 		}
 	}
 

@@ -557,6 +557,7 @@
 		$entities_options = array(
 							'type' 			=> 'object',
 							'subtype' 		=> 'event_calendar',
+							'limit'			=> false,
 							'joins' 		=> array(
 													"JOIN {$CONFIG->dbprefix}metadata n_table ON e.guid = n_table.entity_guid",
 													"JOIN {$CONFIG->dbprefix}metadata d_table ON e.guid = d_table.entity_guid",
