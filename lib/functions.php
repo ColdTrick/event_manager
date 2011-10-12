@@ -558,24 +558,23 @@
 							'type' 			=> 'object',
 							'subtype' 		=> 'event_calendar',
 							'limit'			=> false,
-							'joins' 		=> array(
-													"JOIN {$CONFIG->dbprefix}metadata n_table ON e.guid = n_table.entity_guid",
-													"JOIN {$CONFIG->dbprefix}metadata d_table ON e.guid = d_table.entity_guid",
-	
-													"JOIN {$CONFIG->dbprefix}metastrings msn ON n_table.name_id = msn.id",
-													"JOIN {$CONFIG->dbprefix}metastrings msv ON n_table.value_id = msv.id",
-												),
-							'wheres' 		=> array(
-													"(msn.string NOT LIKE 'migrated')",
-												)
 						);		
 							
-		$entities = elgg_get_entities($entities_options);
+						
+						
+		$migratable_events = array();
+		if($entities = elgg_get_entities($entities_options))
+		{
+			foreach($entities as $event)
+			{
+				if(!$event->migrated)
+				{
+					$migratable_events[] = $event;
+				}
+			}
+		}
 		
-		$entities_options['count'] = true;
-		$entities_count = elgg_get_entities($entities_options);
-		
-		return $result = array('entities' => $entities, 'count' => $entities_count);
+		return $result = array('entities' => $migratable_events, 'count' => count($migratable_events));
 	}
 	
 	function sanitize_filename($string, $force_lowercase = true, $anal = false) 

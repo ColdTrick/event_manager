@@ -32,7 +32,7 @@
 	{
 		$migrate_url = elgg_add_action_tokens_to_url("/action/event_manager/migrate/calender");
 		
-		echo elgg_view('output/confirmlink', array('href' => $migrate_url, 'text' => sprintf(elgg_echo('event_manager:settings:migration'), $migratable_events['count'])));
+		echo elgg_view('output/confirmlink', array('href' => $migrate_url, 'text' => sprintf(elgg_echo('event_manager:settings:migration'), $migratable_events['count']))).'<br />';
 	}
 	
 	
