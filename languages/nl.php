@@ -214,6 +214,7 @@
 		'event_manager:event:relationship:message:event_organizing' => 'Je bent nu organisator van dit evenement',
 		'event_manager:event:relationship:message:event_undo' => 'Je hebt het evenement verlaten',
 		'event_manager:event:relationship:message:error' => 'Fout: evenement deelname',
+		'event_manager:event:relationship:message:unavailable_relation' => 'De door jou geselecteerde RSVP type is niet beschikbaar voor dit evenement',
 	
 		// widgets
 		'event_manager:widgets:events:title' => 'Event manager',

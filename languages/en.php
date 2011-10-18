@@ -232,6 +232,7 @@
 		'event_manager:event:relationship:message:event_organizing' => 'You are now organizing this event',
 		'event_manager:event:relationship:message:event_undo' => 'You left this event',
 		'event_manager:event:relationship:message:error' => 'Error joining/leaving event',
+		'event_manager:event:relationship:message:unavailable_relation' => 'The RSVP type you selected is not available',
 	
 		// widgets
 		'event_manager:widgets:events:title' => 'Event manager',

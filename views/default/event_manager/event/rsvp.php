@@ -20,24 +20,27 @@
 		echo "<ul>";
 		foreach($event_relationship_options as $rel)
 		{
-			if($rel == EVENT_MANAGER_RELATION_ATTENDING)
+			if(($rel == EVENT_MANAGER_RELATION_ATTENDING) || $event->$rel)
 			{
-				if(!$event->hasEventSpotsLeft() && !$event->waiting_list_enabled)
+				if($rel == EVENT_MANAGER_RELATION_ATTENDING)
 				{
-					continue;
+					if(!$event->hasEventSpotsLeft() && !$event->waiting_list_enabled)
+					{
+						continue;
+					}
 				}
-			}
-			
-			if($rel == $user_relation)
-			{
-				echo "<li class='selected'>" . elgg_echo('event_manager:event:relationship:' . $rel) . "</li>";
-			} 
-			else 
-			{
-				if($rel != EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST)
+				
+				if($rel == $user_relation)
 				{
-					$action_url = elgg_add_action_tokens_to_url($vars["url"] . "action/event_manager/event/rsvp?guid=" . $event->getGUID() . "&type=" . $rel);
-					echo "<li><a href='" . $action_url . "'>" . elgg_echo('event_manager:event:relationship:' . $rel) . "</a></li>";
+					echo "<li class='selected'>" . elgg_echo('event_manager:event:relationship:' . $rel) . "</li>";
+				} 
+				else 
+				{
+					if($rel != EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST)
+					{
+						$action_url = elgg_add_action_tokens_to_url($vars["url"] . "action/event_manager/event/rsvp?guid=" . $event->getGUID() . "&type=" . $rel);
+						echo "<li><a href='" . $action_url . "'>" . elgg_echo('event_manager:event:relationship:' . $rel) . "</a></li>";
+					}
 				}
 			}
 		}

@@ -28,11 +28,10 @@
 			"waiting_list_enabled"	=> ELGG_ENTITIES_ANY_VALUE,
 			"access_id"				=> get_default_access(),
 			"container_guid"		=> page_owner_entity()->getGUID(),
-			/*"event_attending"		=> 1,
 			"event_interested"		=> 1,
 			"event_presenting"		=> 1,
 			"event_exhibiting"		=> 1,
-			"event_organizing"		=> 1,*/
+			"event_organizing"		=> 1,
 		);
 		
 	$region_options = event_manager_event_region_options();
@@ -160,15 +159,14 @@
 	
 	$form_body .= "</td></tr><tr><td>&nbsp</td></tr>";
 	
-	/*$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:rsvp_options') . "</td><td>";
+	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:rsvp_options') . "</td><td>";
 	
-		$form_body .= elgg_view('input/checkboxes', array('internalname' => 'event_attending', 'internalid' => 'event_attending', 'value' => $fields["rsvp_attending"], 'options' => array(elgg_echo('event_manager:event:relationship:event_attending')=>'1')));
-		$form_body .= elgg_view('input/checkboxes', array('internalname' => 'event_interested', 'internalid' => 'event_interested', 'value' => $fields["rsvp_interested"], 'options' => array(elgg_echo('event_manager:event:relationship:event_interested')=>'1')));
-		$form_body .= elgg_view('input/checkboxes', array('internalname' => 'event_presenting', 'internalid' => 'event_presenting', 'value' => $fields["rsvp_presenting"], 'options' => array(elgg_echo('event_manager:event:relationship:event_presenting')=>'1')));
-		$form_body .= elgg_view('input/checkboxes', array('internalname' => 'event_exhibiting', 'internalid' => 'event_exhibiting', 'value' => $fields["rsvp_exhibiting"], 'options' => array(elgg_echo('event_manager:event:relationship:event_exhibiting')=>'1')));
-		$form_body .= elgg_view('input/checkboxes', array('internalname' => 'event_organizing', 'internalid' => 'event_organizing', 'value' => $fields["rsvp_organizing"], 'options' => array(elgg_echo('event_manager:event:relationship:event_organizing')=>'1')));
+		$form_body .= elgg_view('input/checkboxes', array('internalname' => 'event_interested', 'internalid' => 'event_interested', 'value' => $fields["event_interested"], 'options' => array(elgg_echo('event_manager:event:relationship:event_interested')=>'1')));
+		$form_body .= elgg_view('input/checkboxes', array('internalname' => 'event_presenting', 'internalid' => 'event_presenting', 'value' => $fields["event_presenting"], 'options' => array(elgg_echo('event_manager:event:relationship:event_presenting')=>'1')));
+		$form_body .= elgg_view('input/checkboxes', array('internalname' => 'event_exhibiting', 'internalid' => 'event_exhibiting', 'value' => $fields["event_exhibiting"], 'options' => array(elgg_echo('event_manager:event:relationship:event_exhibiting')=>'1')));
+		$form_body .= elgg_view('input/checkboxes', array('internalname' => 'event_organizing', 'internalid' => 'event_organizing', 'value' => $fields["event_organizing"], 'options' => array(elgg_echo('event_manager:event:relationship:event_organizing')=>'1')));
 	
-	$form_body .= "</td></tr>";*/
+	$form_body .= "</td></tr>";
 	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('access') . "</td><td>" . elgg_view('input/access', array('internalname' => 'access_id', 'value' => $fields["access_id"])) . "</td></tr>";
 	

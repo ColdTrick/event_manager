@@ -27,16 +27,17 @@
 	$registration_needed	= get_input("registration_needed");
 	$register_nologin		= get_input("register_nologin");
 	
+	$event_interested		= get_input("event_interested");
+	$event_presenting		= get_input("event_presenting");
+	$event_exhibiting		= get_input("event_exhibiting");
+	$event_organizing		= get_input("event_organizing");
+	
 	$waiting_list_enabled	= get_input("waiting_list_enabled");
 	
-	
-			
 	$start_time_hours = get_input("start_time_hours");
 	$start_time_minutes = get_input("start_time_minutes");
 	$start_time = mktime($start_time_hours, $start_time_minutes, 1, 0, 0, 0);
 	
-	
-
 	if(!empty($start_day))
 	{
 		$date = explode('-',$start_day);
@@ -119,6 +120,11 @@
 		$event->with_program 		= $with_program;
 		$event->endregistration_day = $endregistration_day;
 		$event->register_nologin 	= $register_nologin;
+		
+		$event->event_interested 	= $event_interested;
+		$event->event_presenting 	= $event_presenting;
+		$event->event_exhibiting 	= $event_exhibiting;
+		$event->event_organizing 	= $event_organizing;
 		
 		$event->waiting_list_enabled = $waiting_list_enabled;
 				
@@ -242,6 +248,11 @@
 		$_SESSION['createevent_values']['max_attendees']		= $max_attendees;
 		$_SESSION['createevent_values']['waiting_list']			= $waiting_list;
 		$_SESSION['createevent_values']['access_id'] 			= $access_id;
+		
+		$_SESSION['createevent_values']['event_interested'] 	= $event_interested;
+		$_SESSION['createevent_values']['event_presenting'] 	= $event_presenting;
+		$_SESSION['createevent_values']['event_exhibiting'] 	= $event_exhibiting;
+		$_SESSION['createevent_values']['event_organizing'] 	= $event_organizing;
 		
 		register_error(elgg_echo("event_manager:action:event:edit:error_fields"));
 		forward(REFERER);	
