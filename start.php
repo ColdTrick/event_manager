@@ -1,5 +1,8 @@
 <?php
 
+ini_set('display_errors', 'on');
+error_reporting(E_ALL);
+
 	global $CONFIG;
 	
 	define("EVENT_MANAGER_BASEURL", 		$CONFIG->wwwroot."pg/events");
@@ -85,7 +88,7 @@
 		
 		if(!is_plugin_enabled('event_calendar'))
 		{
-			register_page_handler('event_calendar', 'event_calendar_page_handler');
+			register_page_handler('event_calendar', 'event_manager_event_calendar_page_handler');
 		}
 		
 		add_menu(elgg_echo("event_manager:menu:title"), EVENT_MANAGER_BASEURL);
@@ -129,7 +132,7 @@
 		}
 	}
 	
-	function event_calendar_page_handler($page)
+	function event_manager_event_calendar_page_handler($page)
 	{
 		register_error(elgg_echo('changebookmark'));
 		forward('pg/events');
