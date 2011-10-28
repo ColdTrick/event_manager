@@ -1,4 +1,7 @@
 <?php
+
+set_time_limit(0);
+
 $migratable_events = event_manager_get_migratable_events();
 
 if($migratable_events['count'] > 0)

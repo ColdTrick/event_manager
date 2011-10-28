@@ -177,7 +177,8 @@ error_reporting(E_ALL);
 						case 'file':
 							if(!empty($page[3]))
 							{
-								set_input("file", $page[3]);	
+								set_input("time", $page[3]);
+								set_input("file", $page[4]);
 							}
 							break;
 						case 'list':

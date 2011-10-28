@@ -27,7 +27,7 @@
 				}
 				else
 				{
-					$filesArray = json_decode($event->files);
+					$filesArray = json_decode($event->files, true);
 				}
 				
 				$prefix = "events/".$event->getGUID()."/files/";
