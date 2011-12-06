@@ -12,39 +12,30 @@
 	
 	$result['valid'] = 0;
 	
-	if($event_guid && ($event = get_entity($event_guid)))
-	{
-		if(($event->getSubtype() == Event::SUBTYPE) && ($event->canEdit()))
-		{
-			if($question_guid && ($question = get_entity($question_guid)))
-			{
-				if(!($question instanceof EventRegistrationQuestion))
-				{
+	if($event_guid && ($event = get_entity($event_guid))) {
+		if(($event->getSubtype() == Event::SUBTYPE) && ($event->canEdit())) {
+			if($question_guid && ($question = get_entity($question_guid))) {
+				if(!($question instanceof EventRegistrationQuestion)) {
 					unset($question);
 				}
 				$result['edit'] = 1;
-			} 
-			else 
-			{
+			} else {
 				$result['edit'] = 0;
 				$question = new EventRegistrationQuestion();
 			}
 			
-			if($question && !empty($question))
-			{
+			if($question && !empty($question)) {
 				$question->title			= $questiontext;
 				$question->container_guid	= $event->getGUID();
 				$question->owner_guid		= $event->getGUID();
 				$question->access_id		= $event->access_id;
 				
-				if($question->save())
-				{
+				if($question->save()) {
 					$question->fieldtype = $fieldtype;
 					$question->required = $required;
 					$question->fieldoptions = $fieldoptions;
 					
-					if($result['edit'] == 0)
-					{
+					if($result['edit'] == 0) {
 						$question->order = $event->getRegistrationFormQuestions(true);
 					}
 					

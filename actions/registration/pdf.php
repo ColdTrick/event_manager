@@ -7,7 +7,7 @@
 	
 	$key = get_input('k');		
 	$guid = get_input("guid");
-	$user_guid = get_input('u_g', get_loggedin_userid());
+	$user_guid = get_input('u_g', elgg_get_logged_in_user_guid());
 
 	if($guid && ($entity = get_entity($guid)))
 	{	

@@ -45,7 +45,7 @@
 										'file' => $newFilename, 
 										'mime' => $_FILES['file']['type'], 
 										'time_uploaded' => time(), 
-										'uploader' => get_loggedin_userid());
+										'uploader' => elgg_get_logged_in_user_guid());
 				
 				$event->files = json_encode($filesArray);
 				
@@ -55,5 +55,5 @@
 		}
 	}
 	
-	system_message(elgg_echo("noguid"));
+	register_error(elgg_echo("InvalidParameterException:GUIDNotFound", array($guid)));
 	forward(REFERER);

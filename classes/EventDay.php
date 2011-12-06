@@ -4,10 +4,9 @@
 	{
 		const SUBTYPE = "eventday";
 		
-		protected function initialise_attributes() 
+		protected function initializeAttributes() 
 		{
-			global $CONFIG;
-			parent::initialise_attributes();
+			parent::initializeAttributes();
 			
 			$this->attributes["subtype"] = self::SUBTYPE;
 		}
@@ -18,19 +17,12 @@
 			
 			$entities_options = array(
 				'type' => 'object',
-				'subtype' => 'eventslot',
+				'subtype' => EventSlot::SUBTYPE,
 				'relationship_guid' => $this->getGUID(),
 				'relationship' => 'event_day_slot_relation',
 				'inverse_relationship' => true,
-				'full_view' => false,
-				'joins' => array(
-					"JOIN {$CONFIG->dbprefix}metadata n_table on e.guid = n_table.entity_guid",
-					"JOIN {$CONFIG->dbprefix}metastrings msn on n_table.name_id = msn.id",
-					"JOIN {$CONFIG->dbprefix}metastrings msv on n_table.value_id = msv.id"),
-				'wheres' => array("(msn.string IN ('start_time'))"),
-				'order_by' => "msv.string {$order}",
-				'limit' => false,
-					
+				'order_by_metadata' => array("name" => "start_time", "as" => "interger"),
+				'limit' => false
 			);
 		 
 			return elgg_get_entities_from_relationship($entities_options);

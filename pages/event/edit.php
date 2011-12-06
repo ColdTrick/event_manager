@@ -6,23 +6,20 @@
 	
 	$guid = get_input("guid");
 	
-	if(!empty($guid) && ($entity = get_entity($guid)))
-	{	
-		if($entity->getSubtype() == Event::SUBTYPE)
-		{
+	if(!empty($guid) && ($entity = get_entity($guid))){	
+		if($entity->getSubtype() == Event::SUBTYPE)	{
 			$event = $entity;
-			$back_text = '<div class="event_manager_back"><a href="'.$event->getURL().'">'.elgg_echo('event_manager:title:backtoevent').'</a></div>';
 			
-			set_page_owner($event->container_guid);
+			elgg_push_breadcrumb($entity->title, $event->getURL());
+			
+			elgg_set_page_owner_guid($event->container_guid);
 		}
-	}
-	else 
-	{
+	} else {
 		$forward = true;
-		$page_owner = page_owner_entity();
+		$page_owner = elgg_get_page_owner_entity();
 		
 		if($page_owner && ($page_owner instanceof ElggGroup)){
-			$who_create_group_events = get_plugin_setting('who_create_group_events', 'event_manager'); // group_admin, members
+			$who_create_group_events = elgg_get_plugin_setting('who_create_group_events', 'event_manager'); // group_admin, members
 			
 			if(!empty($who_create_group_events)){
 				if((($who_create_group_events == "group_admin") && $page_owner->canEdit()) || (($who_create_group_events == "members") && $page_owner->isMember($user))){
@@ -31,24 +28,26 @@
 			} 
 			
 		} else {
-			$who_create_site_events = get_plugin_setting('who_create_site_events', 'event_manager');
-			if(($who_create_site_events != 'admin_only') || isadminloggedin()){
+			$who_create_site_events = elgg_get_plugin_setting('who_create_site_events', 'event_manager');
+			if(($who_create_site_events != 'admin_only') || elgg_is_admin_logged_in()){
 				$forward = false;
 			}
-			set_page_owner(get_loggedin_userid());
+			elgg_set_page_owner_guid(elgg_get_logged_in_user_guid());
 		}
 		if($forward){
 			forward(EVENT_MANAGER_BASEURL);
 		}
 	}
 	
+	elgg_push_breadcrumb($title_text);
+	
 	$form = elgg_view("event_manager/forms/event/edit", array("entity" => $event));
 
-	$title = elgg_view_title($title_text . $back_text);
+	$body = elgg_view_layout('content', array(
+		'filter' => '',
+		'content' => $form,
+		'title' => $title_text,
+	));
 	
-	$page_data = $title . $form;
-	
-	$body = elgg_view_layout("two_column_left_sidebar", "", $page_data);
-	
-	page_draw($title_text, $body);
+	echo elgg_view_page($title_text, $body);
 	

@@ -30,7 +30,7 @@
 			
 			if($event)
 			{	
-				$user = get_loggedin_user();
+				$user = elgg_get_logged_in_user_entity();
 				
 				$questions = $event->getRegistrationFormQuestions();
 				foreach($questions as $question)
@@ -40,7 +40,7 @@
 						$required_error = true;
 					}
 					
-					if(!isloggedin())
+					if(!elgg_is_logged_in())
 					{
 						if(empty($answers['name']) || empty($answers['email']))
 						{
@@ -49,6 +49,11 @@
 					}
 					
 					$_SESSION['registerevent_values']['question_'.$question->getGUID()]	= $answers[$question->getGUID()];
+				}
+				
+				if(empty($user)){
+					$_SESSION['registerevent_values']['question_name']	= $answers["name"];
+					$_SESSION['registerevent_values']['question_email']	= $answers["email"];
 				}
 				
 				if($event->with_program && !$required_error)
@@ -84,20 +89,21 @@
 					$_SESSION['registerevent_values'] = null;
 				}
 				
-				if(isloggedin())
+				if(elgg_is_logged_in())
 				{
-					$object = get_loggedin_user();
+					$object = elgg_get_logged_in_user_entity();
 				}
 				else
 				{
 					elgg_set_ignore_access(true);
 					
 					$object = new EventRegistration();
-						$object->title = 'EventRegistrationNotLoggedinUser';
-						$object->description = 'EventRegistrationNotLoggedinUser';
-						$object->owner_guid = $event->getGUID();
-						$object->container_guid = $event->getGUID();
-						$object->save();
+					$object->title = 'EventRegistrationNotLoggedinUser';
+					$object->description = 'EventRegistrationNotLoggedinUser';
+					$object->owner_guid = $event->getGUID();
+					$object->container_guid = $event->getGUID();
+					$object->access_id = ACCESS_PUBLIC;
+					$object->save();
 					
 					elgg_set_ignore_access(false);
 				}				
@@ -118,8 +124,8 @@
 				}
 
 				$guid_explode = explode(',', $program_guids);
-				
-				if(isloggedin())
+				register_Error(var_export($guid_explode, true));
+				if(elgg_is_logged_in())
 				{
 					$event->relateToAllSlots(false);
 				}

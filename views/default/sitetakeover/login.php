@@ -7,10 +7,10 @@
 	
 	$form_body = "<p class='loginbox'>";
 	$form_body .= "<label>" . elgg_echo('username') . "</label><br />";
-	$form_body .= elgg_view('input/text', array('internalname' => 'username'));
+	$form_body .= elgg_view('input/text', array('name' => 'username'));
 	$form_body .= "<br />";
 	$form_body .= "<label>" . elgg_echo('password') . "</label><br />";
-	$form_body .= elgg_view('input/password', array('internalname' => 'password'));
+	$form_body .= elgg_view('input/password', array('name' => 'password'));
 	$form_body .= "<br />";
 	
 	$form_body .= elgg_view('login/extend');
@@ -23,9 +23,9 @@
 	
 	$form_body .= "<p class='loginbox'>";
 	if(!isset($vars["config"]->disable_registration) || !($vars["config"]->disable_registration)){
-		$form_body .= "<a href='" . $vars['url'] . "pg/register/'>" . elgg_echo('register') . "</a> | ";
+		$form_body .= "<a href='" . $vars['url'] . "register/'>" . elgg_echo('register') . "</a> | ";
 	}
 	$form_body .= "<a href='" . $vars['url'] . "account/forgotten_password.php'>" . elgg_echo('user:password:lost') . "</a></p>";
-	$form_body .= elgg_view('input/hidden', array('internalname' => 'returntoreferer', "value" => "true"));
+	$form_body .= elgg_view('input/hidden', array('name' => 'returntoreferer', "value" => "true"));
 	
 	echo elgg_view('input/form', array('body' => $form_body, 'action' => $login_url . "action/login"));

@@ -4,19 +4,17 @@
 	{
 		const SUBTYPE = "eventslot";
 		
-		protected function initialise_attributes() 
+		protected function initializeAttributes() 
 		{
-			global $CONFIG;
-			parent::initialise_attributes();
+			parent::initializeAttributes();
 			
 			$this->attributes["subtype"] = self::SUBTYPE;
 		}
 		
 		public function countRegistrations()
 		{
+			$ia = elgg_get_ignore_access();
 			elgg_set_ignore_access(true);
-			
-			//$result = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_SLOT_REGISTRATION, true);
 			
 			$result = elgg_get_entities_from_relationship(array(
 				'relationship' => EVENT_MANAGER_RELATION_SLOT_REGISTRATION,
@@ -26,7 +24,7 @@
 				'site_guid' => false
 			));
 			
-			elgg_set_ignore_access(false);
+			elgg_set_ignore_access($ia);
 			
 			return $result;
 		}
@@ -44,7 +42,9 @@
 		
 		public function getWaitingUsers($count = false)
 		{
+			$ia = elgg_get_ignore_access();
 			elgg_set_ignore_access(true);
+			
 			if($count)
 			{
 				$result = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST, true);
@@ -54,39 +54,23 @@
 				$result = $this->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST, true);
 			}
 			
-			elgg_set_ignore_access(false);
+			elgg_set_ignore_access($ia);
 			
 			return $result;
 		}
 		
 		public function getEvent()
 		{
-			global $CONFIG;
-			
-			$data = get_data_row("	SELECT event.guid FROM {$CONFIG->dbprefix}entities AS event
-									INNER JOIN {$CONFIG->dbprefix}entities AS slot ON slot.owner_guid = event.guid
-									INNER JOIN {$CONFIG->dbprefix}entity_subtypes AS sub ON event.subtype = sub.id
-									WHERE slot.guid = '".$this->getGUID()."' AND sub.subtype = 'event'
-									LIMIT 1");
-			
-			$event = get_entity($data->guid);
-			
-			return $event;
+			return $this->getOwnerEntity();
 		}
 		
 		public function isUserWaiting($user_guid = null)
 		{
-			$result = false;
-			if($user_guid == null)
+			if(empty($user_guid))
 			{
-				$user_guid = get_loggedin_userid();
+				$user_guid = elgg_get_logged_in_user_guid();
 			}
 			
-			if(check_entity_relationship($user_guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST, $this->getGUID()))
-			{
-				$result = true;
-			}
-			
-			return $result;
+			return check_entity_relationship($user_guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST, $this->getGUID());
 		}
 	}

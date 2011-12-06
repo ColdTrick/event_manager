@@ -11,7 +11,7 @@
 		$result .= "<tr><td rowspan='2' class='event_manager_program_slot_attending'>";
 		
 		
-		if(isloggedin() && ($user_guid = get_loggedin_userid()))
+		if(elgg_is_logged_in() && ($user_guid = elgg_get_logged_in_user_guid()))
 		{
 			if(check_entity_relationship($user_guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $slot->getGUID()))
 			{

@@ -6,20 +6,22 @@
 		'event_manager:group' => 'Group events',
 		'event_manager:group:more' => 'More events',
 	
-		'item:object:event' => 'Event Manager - Event',
-		'item:object:eventslot' => 'Event Manager - Eventslot',
-		'item:object:eventday' => 'Event Manager - Eventday',
-		'item:object:eventregistration' => 'Event Manager - Eventregistration',
-		'item:object:eventregistrationquestion' => 'Event Manager - Event Registration Question',
-		'item:object:eventquestions' => 'Event Manager - Event Questions',
-	
-		'event_manager:title:backtoevent' => '&laquo; back to event',	
+		'item:object:event' => 'Events',
+		'item:object:eventslot' => 'Eventslots',
+		'item:object:eventday' => 'Eventdays',
+		'item:object:eventregistration' => 'Eventregistrations',
+		'item:object:eventregistrationquestion' => 'Event Registration Questions',
+		'item:object:eventquestions' => 'Event Questions',
 	
 		'event_manager:menu:title' => 'Events',
 		'event_manager:menu:events' => 'All events',
 		'event_manager:menu:group_events' => 'Group events',
 		'event_manager:menu:new_event' => 'New Event',
 	
+		'event_manager:sidebar:title' => 'Now showing',
+		
+		'river:comment:object:event' => '%s commented on %s',
+		
 		'event_manager:list:title' => 'Events',
 		'event_manager:list:searchevents' => 'Search events',
 		'event_manager:list:advancedsearch' => 'Advanced search',
@@ -73,6 +75,8 @@
 		'event_manager:edit:form:show_attendees' => 'Display attendees?',
 		'event_manager:edit:form:notify_onsignup' => 'Notify me when someone signs up',
 		'event_manager:edit:form:start_day' => 'Date',
+		'event_manager:edit:form:start_day:from' => 'Date from',
+		'event_manager:edit:form:start_day:to' => 'Date to',
 		'event_manager:edit:form:endregistration_day' => 'End date of registration',
 		'event_manager:edit:form:multiple_days' => 'Multiple days?',
 		'event_manager:edit:form:start_time' => 'Start time',
@@ -176,6 +180,7 @@
 		'event_manager:event:viewwaitinglist' => 'View waiting list',
 		'event_manager:event:waitinglist:empty' => 'Waiting list is empty',
 		'event_manager:event:viewregistrations' => 'View registrations',
+		'event_manager:event:viewregistration' => 'View registration',
 		'event_manager:event:noregistrations' => 'No registrations yet',
 		'event_manager:event:exportattendees' => 'Export attendees',
 		'event_manager:event:currentavatar' => 'Current event icon',
@@ -247,12 +252,13 @@
 		'event_manager:action:event:edit:ok' => 'Save succesfull',
 		'event_manager:action:event:edit:error' => 'Error saving the event',
 		'event_manager:action:event:edit:error_fields' => 'Fill in the required fields',
-		'event_manager:action:registration:edit:error_fields_with_program' => 'Fill in the required fields and select atleast 1 activity slot to attend to',
-		'event_manager:action:registration:edit:error_fields_program_only' => 'Select atleast 1 activity slot to attend to',
+		'event_manager:action:registration:edit:error_fields_with_program' => 'Fill in the required fields and select at least 1 activity slot to attend to',
+		'event_manager:action:registration:edit:error_fields_program_only' => 'Select at least 1 activity slot to attend to',
 		'event_manager:action:event:delete:ok' => 'Delete succesfull',
 		'event_manager:action:event:delete:error' => 'Error deleting the event',
 	
 		// settings
+		'event_manager:settings:google_maps' => 'Google Maps settings',
 		'event_manager:settings:enter_google_maps_key' => 'Enter your google maps key',
 		'event_manager:settings:google_maps:enterdefaultlocation' => 'Enter a default location google maps needs to center on',
 		'event_manager:settings:google_maps:enterdefaultzoom' => 'Enter a default google maps zoom level (0 = zoomed in, 19 = zoomed out)',

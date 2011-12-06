@@ -2,31 +2,29 @@
 	
 	$guid = get_input("guid");
 	
-	if(!empty($guid) && ($entity = get_entity($guid)))
-	{	
-		if($entity->getSubtype() == Event::SUBTYPE)
-		{
+	if(!empty($guid) && ($entity = get_entity($guid))){	
+		if($entity->getSubtype() == Event::SUBTYPE) {
 			$event = $entity;
 		}
 	}
 	
-	if($event)
-	{		
-		set_page_owner($event->getContainer());
+	if($event){		
+		elgg_set_page_owner_guid($event->getContainerGUID());
 		 
 		$title_text = $event->title;
+		elgg_push_breadcrumb($title_text);
 		
-		$title = elgg_view_title($title_text);
+		$output = elgg_view_entity($event, array("full_view" => true));
 		
-		$output = elgg_view_entity($event, true);
-		$page_data = $title . $output;
+		$body = elgg_view_layout('one_sidebar', array(
+			'filter' => '',
+			'content' => $output,
+			'title' => $title_text,
+		));
 		
-		$body = elgg_view_layout("two_column_left_sidebar", "", $page_data);
+		echo elgg_view_page($title_text, $body);
 		
-		page_draw($title_text, $body);		
-	} 
-	else 
-	{
-		register_error("geen guid");
+	} else {
+		register_error(elgg_echo("InvalidParameterException:GUIDNotFound", array($guid)));
 		forward(REFERER);
 	}

@@ -14,7 +14,7 @@
 		
 			if(!empty($date)){
 				$date_parts = explode('-',$date);
-				$date = mktime(0,0,1,$date_parts[1],$date_parts[0],$date_parts[2]);
+				$date = mktime(0,0,1,$date_parts[1],$date_parts[2],$date_parts[0]);
 			}
 			
 			if($guid && $day = get_entity($guid)){

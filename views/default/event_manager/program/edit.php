@@ -15,32 +15,34 @@
 					{
 						// select the first
 						$selected = true;
-						$tabtitles .= "<li class='selected'>";
+						$tabtitles .= "<li class='elgg-state-selected'>";
 					} 
 					else 
 					{
 						$selected = false;
 						$tabtitles .= "<li>";
 					}
-					$tabtitles .= "<a href='javascript:void(0);' rel='day_" . $day->getGUID() . "'>" . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date) . "</a></li>";
+					
+					$tabtitles .= "<a href='javascript:void(0);' rel='day_" . $day->getGUID() . "'>" . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date) . "</a>";
+					$tabtitles .= "</li>";
 					
 					$tabcontent .= elgg_view("event_manager/program/elements/day", array("entity" => $day, "selected" => $selected, 'participate' => true, 'register_type' => $register_type));
 				}
 			}
 			
-			echo "<h3 class='settings'>" . elgg_echo('event_manager:event:progam') . "</h3>";
+			$program = '<div id="event_manager_event_view_program">';
+			$program .= '<ul class="elgg-tabs elgg-htabs">';
 			
-			echo '<div id="event_manager_event_view_program">';
-			echo '<div id="elgg_horizontal_tabbed_nav"><ul>';
+			$program .= $tabtitles;
 			
-			echo $tabtitles;
+			$program .= '</ul>';
 			
-			echo '</ul></div>';
+			$program .= '</div>';
+			$program .= elgg_view('input/hidden', array('id' => 'event_manager_program_guids', 'name' => 'program_guids'));
 			
-			echo '</div>';
-			echo elgg_view('input/hidden', array('internalid' => 'event_manager_program_guids', 'internalname' => 'program_guids'));
+			$program .= $tabcontent;
 			
-			echo $tabcontent;
+			echo elgg_view_module("info", elgg_echo('event_manager:event:progam'), $program);
 			
 			?>
 				<script type='text/javascript'>
@@ -49,9 +51,9 @@
 						$("#event_manager_event_view_program a").live("click", function()
 						{
 							$(".event_manager_program_day").hide();
-							$("#event_manager_event_view_program li").removeClass("selected");
+							$("#event_manager_event_view_program li").removeClass("elgg-state-selected");
 							var selected = $(this).attr("rel");
-							$(this).parent().addClass("selected");
+							$(this).parent().addClass("elgg-state-selected");
 							$("#" + selected).show();
 						});
 					});

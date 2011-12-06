@@ -4,10 +4,9 @@
 	{
 		const SUBTYPE = "eventregistrationquestion";
 		
-		protected function initialise_attributes() 
+		protected function initializeAttributes() 
 		{
-			global $CONFIG;
-			parent::initialise_attributes();
+			parent::initializeAttributes();
 			
 			$this->attributes["subtype"] = self::SUBTYPE;
 		}
@@ -16,7 +15,13 @@
 		{
 			$result = false;
 			
-			if($annotations = get_annotations($this->getGUID(), '', '', 'answer_to_event_registration'))
+			$params = array(
+				"guid" => $this->getGUID(),
+				"annotation_name" => "answer_to_event_registration",
+				"limit" => false
+			);
+			
+			if($annotations = elgg_get_annotations($params))
 			{
 				$result = $annotations;
 			}
@@ -28,12 +33,19 @@
 		{
 			$result = false;
 			
-			if($user_guid == null)
+			if(empty($user_guid))
 			{
-				$user_guid = get_loggedin_userid();
+				$user_guid = elgg_get_logged_in_user_guid();
 			}
 			
-			if($annotations = get_annotations($this->getGUID(), '', '', 'answer_to_event_registration', '', $user_guid))
+			$params = array(
+				"guid" => $this->getGUID(),
+				"annotation_name" => "answer_to_event_registration",
+				"annotation_owner_guid" => $user_guid,
+				"limit" => 1
+			);
+			
+			if($annotations = elgg_get_annotations($params))
 			{
 				$result = $annotations[0];
 			}
@@ -43,25 +55,25 @@
 		
 		public function deleteAnswerFromUser($user_guid = null)
 		{			
-			if($user_guid == null)
+			if(empty($user_guid))
 			{
-				$user_guid = get_loggedin_userid();
+				$user_guid = elgg_get_logged_in_user_guid();
 			}
 			
-			if($annotations = get_annotations($this->getGUID(), '', '', 'answer_to_event_registration', '', $user_guid))
+			if($annotation = $this->getAnswerFromUser($user_guid))
 			{
-				$annotations[0]->delete();
+				$annotation->delete();
 			}
 		}
 		
 		public function updateAnswerFromUser($event, $new_answer, $user_guid = null)
 		{	
-			if($user_guid == null)
+			if(empty($user_guid))
 			{
-				$user_guid = get_loggedin_userid();
+				$user_guid = elgg_get_logged_in_user_guid();
 			}
 			
-			if(($old_answer = $this->getAnswerFromUser()) && (($user = get_entity($user_guid)) instanceof ElggUser))
+			if(($old_answer = $this->getAnswerFromUser($user_guid)) && ($user = get_user($user_guid)))
 			{
 				if(!empty($new_answer))
 				{
@@ -85,14 +97,11 @@
 			
 			if(!empty($this->fieldoptions))
 			{
-				$options_explode = explode(',', $this->fieldoptions);
-				array_walk($options_explode, 'trim_array_values');
-				
-				$field_options = $options_explode;
+				$field_options = string_to_tag_array($this->fieldoptions);
 			}
 			
 			return $field_options;
 		}
 	}
 
-?>
+	

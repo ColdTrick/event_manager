@@ -38,50 +38,40 @@
 	$start_time_minutes = get_input("start_time_minutes");
 	$start_time = mktime($start_time_hours, $start_time_minutes, 1, 0, 0, 0);
 	
-	if(!empty($start_day))
-	{
+	if(!empty($start_day)) {
 		$date = explode('-',$start_day);
-		$start_day = mktime(0,0,1,$date[1],$date[0],$date[2]);
+		$start_day = mktime(0,0,1,$date[1],$date[2],$date[0]);
 	}
 
-	if(!empty($endregistration_day))
-	{
+	if(!empty($endregistration_day)) {
 		$date_endregistration_day = explode('-',$endregistration_day);
-		$endregistration_day = mktime(0,0,1,$date_endregistration_day[1],$date_endregistration_day[0],$date_endregistration_day[2]);
+		$endregistration_day = mktime(0,0,1,$date_endregistration_day[1],$date_endregistration_day[2],$date_endregistration_day[0]);
 	}		
 	
-	if(!empty($guid) && $entity = get_entity($guid))
-	{
-		if($entity->getSubtype() == Event::SUBTYPE)
-		{
+	if(!empty($guid) && $entity = get_entity($guid)) {
+		if($entity->getSubtype() == Event::SUBTYPE) {
 			$event = $entity;
 		}
 	}
 	
-	if($event_type == '-')
-	{
+	if($event_type == '-') {
 		$event_type = '';
 	}
 	
-	if($region == '-')
-	{
+	if($region == '-') {
 		$region = '';
 	}
 	
-	if(!empty($tags))
-	{
+	if(!empty($tags)) {
 		$tags = string_to_tag_array($tags);
 	}
 	
-	if(!empty($max_attendees) && !is_numeric($max_attendees))
-	{
+	if(!empty($max_attendees) && !is_numeric($max_attendees)) {
 		$max_attendees = "";
 	}
 	
-	if(!empty($title) && !empty($shortdescription) && !empty($start_day))
-	{
-		if(!$event)
-		{
+	if(!empty($title) && !empty($shortdescription) && !empty($start_day)) {
+		if(!$event)	{
 			$newEvent = true;
 			$event = new Event();
 		}
@@ -97,8 +87,7 @@
 		$event->tags 				= $tags;
 		
 		
-		if($newEvent)
-		{
+		if($newEvent) {
 			$rsvp = $event->rsvp(EVENT_MANAGER_RELATION_ORGANIZING);
 		}
 		
@@ -129,8 +118,7 @@
 		$event->waiting_list_enabled = $waiting_list_enabled;
 				
 		$eventDays = $event->getEventDays();
-		if($with_program && !$eventDays)
-		{
+		if($with_program && !$eventDays) {
 			$eventDay = new EventDay();
 			$eventDay->title			= 'Event day 1';
 			$eventDay->description		= 'Description';
@@ -152,15 +140,13 @@
 			$eventSlot->start_time		= '08:00';
 			$eventSlot->end_time		= '09:00';
 			$eventSlot->addRelationship($eventDay->getGUID(), 'event_day_slot_relation');
-			
 		}
 
 		$event->setAccessToOwningObjects($access_id);
 		
 		$prefix = "events/".$event->guid."/";
 		
-		if ((isset($_FILES['icon'])) && (substr_count($_FILES['icon']['type'],'image/'))) 
-		{			
+		if ((isset($_FILES['icon'])) && (substr_count($_FILES['icon']['type'],'image/'))) {			
 			$filehandler = new ElggFile();
 			$filehandler->owner_guid = $event->owner_guid;
 			$filehandler->setFilename($prefix . "master.jpg");
@@ -173,8 +159,7 @@
 			$thumbmedium 	= get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),100,100, true);
 			$thumblarge 	= get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),200,200, true);
 			
-			if ($thumbtiny) 
-			{
+			if ($thumbtiny) {
 				$thumb = new ElggFile();
 				$thumb->owner_guid = $event->owner_guid;
 				$thumb->setMimeType('image/jpeg');
@@ -201,17 +186,13 @@
 
 				$event->icontime = time();
 			}
-		}
-		elseif($delete_current_icon)
-		{
-			foreach(event_manager_icon_sizes() as $iconSize)
-			{
+		} elseif($delete_current_icon) {
+			foreach(event_manager_icon_sizes() as $iconSize) {
 				$filehandler = new ElggFile();
 				$filehandler->owner_guid = $event->owner_guid;
 				$filehandler->setFilename($prefix . $iconSize . ".jpg");
 				
-				if($filehandler->exists())
-				{
+				if($filehandler->exists()) {
 					$filehandler->delete();
 				}
 			}
@@ -220,9 +201,10 @@
 		
 		system_message(elgg_echo("event_manager:action:event:edit:ok"));
 		forward($event->getURL());
-	}
-	else
-	{
+	} else {
+		
+		// TODO: replace with sticky forms functionality
+		
 		$_SESSION['createevent_values']['title'] 				= $title;
 		$_SESSION['createevent_values']['shortdescription'] 	= $shortdescription;
 		$_SESSION['createevent_values']['tags'] 				= $tags;
@@ -257,5 +239,4 @@
 		register_error(elgg_echo("event_manager:action:event:edit:error_fields"));
 		forward(REFERER);	
 	}
-	
 	

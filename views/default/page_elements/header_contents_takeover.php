@@ -34,7 +34,7 @@
 <div id="layout_header">
 	<a href="<?php echo $vars['url']; ?>"></a>
 	<?php 
-	$event = page_owner_entity();
+	$event = elgg_get_page_owner_entity();
 	?>
 	
 	<div id="event_manager_layout_header_title"><h1><a href="<?php echo $event->getURL();?>"><?php echo $event->title;?></a></h1></div>
@@ -67,7 +67,7 @@
 				<?php 
 			}
 			
-			if(!isloggedin())
+			if(!elgg_is_logged_in())
 			{
 				?>
 				<li><a href="<?php echo $vars['url']; ?>pg/event/login">Login</a></li>

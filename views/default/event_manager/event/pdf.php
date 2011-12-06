@@ -1,5 +1,4 @@
 <?php 
-	global $CONFIG;
 	
 	$event = $vars["entity"];
 	$owner = $event->getOwnerEntity();
@@ -39,7 +38,5 @@
 	$event_details .= "</table>";
 	
 	$output .= $event_details;
-	
-	$output .= '<div class="clearfloat"></div>';
-	
-	echo elgg_view("page_elements/contentwrapper", array("body" => $output));
+		
+	echo $output;

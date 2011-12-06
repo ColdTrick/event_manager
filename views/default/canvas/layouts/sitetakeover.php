@@ -16,7 +16,7 @@ if (count($sysmessages["errors"]) == 0) {
 ?>
 <?php echo elgg_view('page_elements/header', $vars); ?>
 <?php
-if(isadminloggedin())
+if(elgg_is_admin_logged_in())
 {
 	echo elgg_view('page_elements/elgg_topbar', $vars);
 }

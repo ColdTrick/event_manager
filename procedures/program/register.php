@@ -5,7 +5,7 @@ $returnData['valid'] = 0;
 $eventGuid = get_input('event');
 $guids = get_input('guids');
 
-$user = get_loggedin_user();
+$user = elgg_get_logged_in_user_entity();
 
 if(!empty($guids) && !empty($eventGuid) && ($event = get_entity($eventGuid)))
 {

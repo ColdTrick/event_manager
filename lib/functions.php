@@ -33,7 +33,7 @@
 		$result = array(
 				'Textfield' => 'text',
 				'Textarea' => 'plaintext',
-				'Dropdown' => 'pulldown',
+				'Dropdown' => 'dropdown',
 				'Radiobutton' => 'radio'
 			);
 			
@@ -114,18 +114,18 @@
 		{
 			$entities_options['joins'][] = "JOIN {$CONFIG->dbprefix}entity_relationships e_r ON e.guid = e_r.guid_one";
 			
-			$entities_options['wheres'][] = "e_r.guid_two = " . get_loggedin_userid();
+			$entities_options['wheres'][] = "e_r.guid_two = " . elgg_get_logged_in_user_guid();
 			$entities_options['wheres'][] = "e_r.relationship = '" . EVENT_MANAGER_RELATION_ATTENDING . "'";
 		}
 		
 		if($options['owning'])
 		{
-			$entities_options['owner_guids'] = array(get_loggedin_userid()); 			
+			$entities_options['owner_guids'] = array(elgg_get_logged_in_user_guid()); 			
 		}
 		
 		if($options['friendsattending'])
 		{
-			$friends = get_loggedin_user()->getFriends();
+			$friends = elgg_get_logged_in_user_entity()->getFriends();
 				
 			$friends_guids = array();
 			foreach($friends as $user)
@@ -231,14 +231,14 @@
 		
 		switch($filter){
 			case "owned":
-				$entities_options['owner_guids'] = array(get_loggedin_userid()); 
+				$entities_options['owner_guids'] = array(elgg_get_logged_in_user_guid()); 
 				$entities = elgg_get_entities($entities_options);
 				
 				$entities_options['count'] = true;
 				$count_entities = elgg_get_entities($entities_options);
 			break;
 			case "friends":
-				$friends = get_loggedin_user()->getFriends();
+				$friends = elgg_get_logged_in_user_entity()->getFriends();
 				
 				$friends_guids = array();
 				foreach($friends as $user)
@@ -256,7 +256,7 @@
 			case "attending":
 				
 				$entities_options['joins'][] = "JOIN {$CONFIG->dbprefix}entity_relationships e_r ON e.guid = e_r.guid_one"; 
-				$entities_options['wheres'][] = "e_r.guid_two = " . get_loggedin_userid();
+				$entities_options['wheres'][] = "e_r.guid_two = " . elgg_get_logged_in_user_guid();
 				$entities_options['wheres'][] = "e_r.relationship = '" . EVENT_MANAGER_RELATION_ATTENDING . "'";
 				 
 				$entities = elgg_get_entities($entities_options);
@@ -286,7 +286,7 @@
 	{
 		global $CONFIG;
 		
-		if ($subtype === false || $subtype === null || $subtype === 0)
+		if (empty($subtype))
 		{
 			return false;
 		}
@@ -299,29 +299,21 @@
 		$limit = (int)$limit;
 		$offset = (int)$offset;
 		$site_guid = (int) $site_guid;
-		if ($site_guid == 0) 
-		{
-			$site_guid = $CONFIG->site_guid;
+		if ($site_guid == 0) {
+			$site_guid = elgg_get_site_entity()->getGUID();
 		}
 		
 		$where = array();
 		 
-		if (is_array($type)) 
-		{
+		if (is_array($type)) {
 			$tempwhere = "";
-			if (sizeof($type)) 
-			{
-				foreach($type as $typekey => $subtypearray) 
-				{
-					foreach($subtypearray as $subtypeval) 
-					{
+			if (sizeof($type)) {
+				foreach($type as $typekey => $subtypearray) {
+					foreach($subtypearray as $subtypeval) {
 						$typekey = sanitise_string($typekey);
-						if (!empty($subtypeval)) 
-						{
+						if (!empty($subtypeval)) {
 							$subtypeval = (int) get_subtype_id($typekey, $subtypeval);
-						} 
-						else 
-						{
+						} else {
 							$subtypeval = 0;
 						}
 						if (!empty($tempwhere)) $tempwhere .= " or ";
@@ -329,62 +321,50 @@
 					}
 				}
 			}
-			if (!empty($tempwhere)) 
-			{
+			if (!empty($tempwhere)) {
 				$where[] = "({$tempwhere})";
 			}
-		} 
-		else 
-		{
+		} else {
 			$type = sanitise_string($type);
 			$subtype = get_subtype_id($type, $subtype);
 			
-			if ($type != "") 
-			{
+			if ($type != "") {
 				$where[] = "e.type='$type'";
 			}
 			
-			if ($subtype!=="") 
-			{
+			if ($subtype!=="") {
 				$where[] = "e.subtype=$subtype";
 			}
 		}
 		
-		if ($owner_guid != "")
-		{
-			if (!is_array($owner_guid)) 
-			{
+		if ($owner_guid != "") {
+			if (!is_array($owner_guid)) {
 				$owner_array = array($owner_guid);
 				$owner_guid = (int) $owner_guid;
 				$where[] = "e.owner_guid = '$owner_guid'";
-			} 
-			else if (sizeof($owner_guid) > 0) 
-			{
+			} else if (sizeof($owner_guid) > 0) {
 				$owner_array = array_map('sanitise_int', $owner_guid);
+				
 				// Cast every element to the owner_guid array to int
 				$owner_guid = implode(",",$owner_guid); //
 				$where[] = "e.owner_guid in ({$owner_guid})" ; //
 			}
-			if (is_null($container_guid)) 
-			{
+			if (is_null($container_guid)) {
 				$container_guid = $owner_array;
 			}
 		}
 		
-		if ($site_guid > 0) 
-		{
+		if ($site_guid > 0) {
 			$where[] = "e.site_guid = {$site_guid}";
 		}
 		
-		if (!is_null($container_guid)) 
-		{
-			if (is_array($container_guid)) 
-			{
-				foreach($container_guid as $key => $val) $container_guid[$key] = (int) $val;
+		if (!is_null($container_guid)) {
+			if (is_array($container_guid)) {
+				foreach($container_guid as $key => $val){
+					$container_guid[$key] = (int) $val;	
+				} 
 				$where[] = "e.container_guid in (" . implode(",",$container_guid) . ")";
-			} 
-			else 
-			{
+			} else {
 				$container_guid = (int) $container_guid;
 				$where[] = "e.container_guid = {$container_guid}";
 			}
@@ -411,74 +391,55 @@
 		$where[] = "loc_end_value.string >= $long_min";
 		$where[] = "loc_end_value.string <= $long_max";
 		
-		if (!$count) 
-		{
+		if (!$count) {
 			$query = "SELECT e.* from {$CONFIG->dbprefix}entities e $loc_join where ";
-		} 
-		else 
-		{
+		} else {
 			$query = "SELECT count(e.guid) as total from {$CONFIG->dbprefix}entities e $loc_join where ";
 		}
-		foreach ($where as $w) 
-		{
+		
+		foreach ($where as $w) {
 			$query .= " $w and ";
 		}
 		
 		$query .= get_access_sql_suffix('e'); // Add access controls
 		
-		if (!$count) 
-		{
-			//$query .= " order by n.calendar_start $order_by";
+		if (!$count) {
+
 			// Add order and limit
-			if ($limit) 
-			{
+			if ($limit) {
 				$query .= " limit $offset, $limit";
 			}
 			$dt = get_data($query, "entity_row_to_elggstar");
 			return $dt;
-		} 
-		else 
-		{
+		} else {
 			$total = get_data_row($query);
 			return $total->total;
 		}
 	}
 	
-	function event_manager_export_attendees($event, $file = false)
-	{
-		if($file)
-		{
+	function event_manager_export_attendees($event, $file = false) {
+		if($file) {
 			$EOL = "\r\n";
-		}
-		else
-		{
+		} else {
 			$EOL = PHP_EOL;
 		}
 		
 		$headerString .= '"'.elgg_echo('name').'","'.elgg_echo('email').'","'.elgg_echo('username').'"';
 		
-		if($event->registration_needed)
-		{
-			if($registration_form = $event->getRegistrationFormQuestions())
-			{
-				foreach($registration_form as $question)
-				{
+		if($event->registration_needed) {
+			if($registration_form = $event->getRegistrationFormQuestions()) {
+				foreach($registration_form as $question) {
 					$headerString .= ',"'.$question->title.'"';
 				}
 			}
 		}
 		
-		if($event->with_program)
-		{
-			if($eventDays = $event->getEventDays())
-			{
-				foreach($eventDays as $eventDay)
-				{
+		if($event->with_program) {
+			if($eventDays = $event->getEventDays()) {
+				foreach($eventDays as $eventDay) {
 					$date = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $eventDay->date);
-					if($eventSlots = $eventDay->getEventSlots())
-					{
-						foreach($eventSlots as $eventSlot)
-						{
+					if($eventSlots = $eventDay->getEventSlots()) {
+						foreach($eventSlots as $eventSlot) {
 							$start_time = $eventSlot->start_time;
 							$end_time = $eventSlot->end_time;
 							
@@ -495,20 +456,15 @@
 			}
 		}
 		
-		if($attendees = $event->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING))
-		{
-			foreach($attendees as $attendee)
-			{
+		if($attendees = $event->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING)) {
+			foreach($attendees as $attendee) {
 				$answerString = '';
 				
 				$dataString .= '"'.$attendee->name.'","'.$attendee->email.'","'.$attendee->username.'"';
 			
-				if($event->registration_needed)
-				{
-					if($registration_form = $event->getRegistrationFormQuestions())
-					{
-						foreach($registration_form as $question)
-						{
+				if($event->registration_needed) {
+					if($registration_form = $event->getRegistrationFormQuestions()) {
+						foreach($registration_form as $question) {
 							$answer = $question->getAnswerFromUser($attendee->getGUID());
 							
 							$answerString .= '"'.addslashes($answer->value).'",';
@@ -517,22 +473,14 @@
 					$dataString .= ','.substr($answerString, 0, (strlen($answerString) -1));
 				}
 				
-				if($event->with_program)
-				{
-					if($eventDays = $event->getEventDays())
-					{
-						foreach($eventDays as $eventDay)
-						{
-							if($eventSlots = $eventDay->getEventSlots())
-							{
-								foreach($eventSlots as $eventSlot)
-								{
-									if(check_entity_relationship($attendee->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $eventSlot->getGUID()))
-									{
+				if($event->with_program) {
+					if($eventDays = $event->getEventDays()) {
+						foreach($eventDays as $eventDay) {
+							if($eventSlots = $eventDay->getEventSlots()) {
+								foreach($eventSlots as $eventSlot) {
+									if(check_entity_relationship($attendee->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $eventSlot->getGUID())) {
 										$dataString .= ',"V"';
-									}
-									else
-									{
+									} else {
 										$dataString .= ',""';
 									}
 								}
@@ -550,25 +498,25 @@
 		return $headerString.$dataString;
 	}
 	
-	function event_manager_get_migratable_events()
-	{
+	/**
+	 * @todo this has to be better, check where it is called
+	 * => plugins/event_manager/settings.php
+	 * 
+	 * @return multitype:NULL multitype:unknown
+	 */
+	function event_manager_get_migratable_events()	{
 		global $CONFIG;
 		
 		$entities_options = array(
-							'type' 			=> 'object',
-							'subtype' 		=> 'event_calendar',
-							'limit'			=> false,
-						);		
-							
-						
-						
+			'type' 			=> 'object',
+			'subtype' 		=> 'event_calendar',
+			'limit'			=> false,
+		);
+
 		$migratable_events = array();
-		if($entities = elgg_get_entities($entities_options))
-		{
-			foreach($entities as $event)
-			{
-				if(!$event->migrated)
-				{
+		if($entities = elgg_get_entities($entities_options)) {
+			foreach($entities as $event) {
+				if(!$event->migrated) {
 					$migratable_events[] = $event;
 				}
 			}
@@ -577,8 +525,7 @@
 		return $result = array('entities' => $migratable_events, 'count' => count($migratable_events));
 	}
 	
-	function sanitize_filename($string, $force_lowercase = true, $anal = false) 
-	{
+	function sanitize_filename($string, $force_lowercase = true, $anal = false)	{
 	    $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
 	                   "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
 	                   "—", "–", ",", "<", ">", "/", "?");
@@ -592,14 +539,15 @@
 	        $clean;
 	}
 	
-	function event_manager_search_get_where_sql($table, $fields, $params, $use_fulltext = true) 
-	{
+	function event_manager_search_get_where_sql($table, $fields, $params, $use_fulltext = true)	{
+		
+		// TODO: why not use a search hook?
+		
 		global $CONFIG;
 		$query = $params['query'];
 		
 		// add the table prefix to the fields
-		foreach ($fields as $i => $field) 
-		{
+		foreach ($fields as $i => $field) {
 			if ($table) 
 			{
 				$fields[$i] = "$table.$field";
@@ -611,23 +559,18 @@
 		// if query is shorter than the min for fts words
 		// it's likely a single acronym or similar
 		// switch to literal mode
-		if (elgg_strlen($query) < $CONFIG->search_info['min_chars']) 
-		{
+		if (elgg_strlen($query) < $CONFIG->search_info['min_chars']) {
 			$likes = array();
 			$query = sanitise_string($query);
-			foreach ($fields as $field) 
-			{
+			foreach ($fields as $field) {
 				$likes[] = "$field LIKE '%$query%'";
 			}
 			$likes_str = implode(' OR ', $likes);
 			$where = "($likes_str)";
-		} 
-		else 
-		{
+		} else {
 			// if we're not using full text, rewrite the query for bool mode.
 			// exploiting a feature(ish) of bool mode where +-word is the same as -word
-			if (!$use_fulltext) 
-			{
+			if (!$use_fulltext) {
 				$query = '+' . str_replace(' ', ' +', $query);
 			}
 			
@@ -635,12 +578,9 @@
 			$booleans_used = preg_match("/([\-\+~])([\w]+)/i", $query);
 			$quotes_used = (elgg_substr_count($query, '"') >= 2); 
 			
-			if (!$use_fulltext || $booleans_used || $quotes_used) 
-			{
+			if (!$use_fulltext || $booleans_used || $quotes_used) {
 				$options = 'IN BOOLEAN MODE';
-			} 
-			else 
-			{
+			} else {
 				// natural language mode is default and this keyword isn't supported in < 5.1
 				//$options = 'IN NATURAL LANGUAGE MODE';
 				$options = '';
@@ -656,38 +596,29 @@
 	}
 	
 	/* Used for maps */
-	function getRealIpAddr()
-	{
-		if (!empty($_SERVER['HTTP_CLIENT_IP']))
-		{
+	function getRealIpAddr() {
+		if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 			$ip = $_SERVER['HTTP_CLIENT_IP'];
-		}
-		elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-		{
+		} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		}
-		else
-		{
+		} else {
 			$ip = $_SERVER['REMOTE_ADDR'];
 		}
 		return $ip;
 	}
 	
-	function IPtoLatLng($ip)
-	{
+	function IPtoLatLng($ip) {
 	    $latlngValue=array();
 	    $dom = new DOMDocument();
 	    $ipcheck = ip2long($ip);
 	 
 	 
-	    if($ipcheck == -1 || $ipcheck === false)
-	    {
+	    if($ipcheck == -1 || $ipcheck === false) {
 	        return false;
-	    }
-	    else
-	    {
+	    } else {
 	        $uri = "http://api.hostip.info/?ip=$ip&position=true";
 	    }
+	    
 	    $dom->load($uri);
 	    
 	    $name = $dom->getElementsByTagNameNS('http://www.opengis.net/gml','name')->item(1)->nodeValue;
@@ -707,19 +638,16 @@
 	 
 	}
 	
-	function trim_array_values(&$value) 
-	{ 
+	function trim_array_values(&$value)	{ 
 	    $value = trim($value); 
 	}
 	
-	function event_manager_event_region_options()
-	{
+	function event_manager_event_region_options() {
 		$result = false;
 		
-		$region_settings = trim(get_plugin_setting('region_list', 'event_manager'));
+		$region_settings = trim(elgg_get_plugin_setting('region_list', 'event_manager'));
 		
-		if(!empty($region_settings))
-		{
+		if(!empty($region_settings)) {
 			$region_options = array('-');
 			$region_list = explode(',', $region_settings);
 			$region_options = array_merge($region_options, $region_list);
@@ -731,14 +659,12 @@
 		return $result;
 	}
 	
-	function event_manager_event_type_options()
-	{
+	function event_manager_event_type_options()	{
 		$result = false;
 		
-		$type_settings = trim(get_plugin_setting('type_list', 'event_manager'));
+		$type_settings = trim(elgg_get_plugin_setting('type_list', 'event_manager'));
 		
-		if(!empty($type_settings))
-		{
+		if(!empty($type_settings)) {
 			$type_options = array('-');
 			$type_list = explode(',', $type_settings);
 			$type_options = array_merge($type_options, $type_list);
@@ -751,19 +677,22 @@
 		return $result;
 	}
 	
-	function event_manager_has_maps_key()
-	{
+	function event_manager_has_maps_key() {
 		static $has_maps_key;
-		if(isset($has_maps_key))
-		{
+		
+		if(isset($has_maps_key)) {
 			return $has_maps_key;
 		}
 		
 		$return = false;
 		
-		if(get_plugin_setting('google_maps_key','event_manager') != '')
-		{
+		if(($maps_key = elgg_get_plugin_setting('google_maps_key', 'event_manager')) && !empty($maps_key)) {
 			$return = true;
+			
+			// ragister GMaps JS
+			$em_maps_js = elgg_get_simplecache_url("js", "event_manager/googlemaps");
+			elgg_register_js("event_manager.maps.helper", $em_maps_js);
+			elgg_register_js("event_manager.maps.base", "//maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=" . $maps_key);
 		}
 		
 		$has_maps_key = $return;
@@ -771,31 +700,27 @@
 		return $return;
 	}
 	
-	function event_manager_get_form_pulldown_hours($internalname = '', $value = '', $h = 24)
-	{
+	function event_manager_get_form_pulldown_hours($name = '', $value = '', $h = 24) {
 		$time_hours_options = range(0, $h);
 		
 		array_walk($time_hours_options, 'event_manager_time_pad');
 		
-		return elgg_view('input/pulldown', array('internalname' => $internalname, 'value' => $value, 'options' => $time_hours_options));
+		return elgg_view('input/dropdown', array('name' => $name, 'value' => $value, 'options' => $time_hours_options));
 	}
 	
-	function event_manager_get_form_pulldown_minutes($internalname = '', $value = '')
-	{
+	function event_manager_get_form_pulldown_minutes($name = '', $value = '') {
 		$time_minutes_options = range(0, 59, 5);
 		
 		array_walk($time_minutes_options, 'event_manager_time_pad');
 		
-		return elgg_view('input/pulldown', array('internalname' => $internalname, 'value' => $value, 'options' => $time_minutes_options));
+		return elgg_view('input/dropdown', array('name' => $name, 'value' => $value, 'options' => $time_minutes_options));
 	}
 	
-	function event_manager_time_pad(&$value) 
-	{ 
+	function event_manager_time_pad(&$value) { 
 	    $value = str_pad($value, 2, "0", STR_PAD_LEFT);; 
 	}
 	
-	function get_curl_content($link)
-	{
+	function get_curl_content($link) {
 		$result = false;
 		
 		$ch = curl_init();
@@ -811,16 +736,14 @@
 		
 		curl_close($ch);
 		
-		if($content)
-		{
+		if($content) {
 			$result = $content;
 		}
 		
 		return $result;
 	}
 	
-	function event_manager_check_sitetakeover_event()
-	{
+	function event_manager_check_sitetakeover_event() {
 		global $CONFIG;
 		
 		static $site_take_over;
@@ -833,22 +756,13 @@
 		$entities_options = array(
 			'type' 			=> 'object',
 			'subtype' 		=> 'event',
-			'joins' 		=> array(
-								"JOIN {$CONFIG->dbprefix}objects_entity oe ON e.guid 			= oe.guid",
-		
-								"JOIN {$CONFIG->dbprefix}metadata n_table ON e.guid 			= n_table.entity_guid",
-		
-								"JOIN {$CONFIG->dbprefix}metastrings msn ON n_table.name_id 	= msn.id",
-								"JOIN {$CONFIG->dbprefix}metastrings msv ON n_table.value_id 	= msv.id"),
-			'wheres' 		=>  '(msn.string LIKE "site_takeover") AND (msv.string LIKE "1")'
+			'limit'			=> false,
+			'metadata_name_value_pair' => array("site_takeover" => "1")
 		);
 		
-		if($entities = elgg_get_entities($entities_options))
-		{
+		if($entities = elgg_get_entities_from_metadata($entities_options)) {
 			$result['entities'] = $entities;
-			
-			$entities_options['count'] = true;
-			$result['count'] = elgg_get_entities($entities_options);
+			$result['count'] = count($entities);
 		}
 		
 		$site_take_over = $result;

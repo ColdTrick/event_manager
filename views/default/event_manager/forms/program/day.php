@@ -29,7 +29,6 @@
 			}		
 		} else {
 			// entity is a event
-			
 			$parent_guid	= $entity->getGUID();
 			
 			// make nice default date
@@ -42,32 +41,29 @@
 			}
 			
 			$date = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $date);
-			
 		}
 		
+		$form_body .= '<div">';
 		
-		$form_body .= '<div style="width: 300px; height: 200px; overflow:hidden;">';
-		$form_body .= "<h3 class='settings'>" . elgg_echo("event_manager:form:program:day") . "</h3>";
-		
-		$form_body .= elgg_view('input/hidden', array('internalname' => 'guid', 'value' => $guid));
-		$form_body .= elgg_view('input/hidden', array('internalname' => 'parent_guid', 'value' => $parent_guid));
+		$form_body .= elgg_view('input/hidden', array('name' => 'guid', 'value' => $guid));
+		$form_body .= elgg_view('input/hidden', array('name' => 'parent_guid', 'value' => $parent_guid));
 		
 		$form_body .= "<label>" . elgg_echo("title") . "</label><br />";
-		$form_body .= elgg_view('input/text', array('internalname' => 'title', 'value' => $title));
+		$form_body .= elgg_view('input/text', array('name' => 'title', 'value' => $title));
 		$form_body .= "<label>" . elgg_echo("event_manager:edit:form:start_day") . " *</label><br />";
-		$form_body .= elgg_view('input/event_manager_datepicker', array('internalname' => 'date',  'internalid' => 'date',  'value' => $date)).'<br />';
+		$form_body .= elgg_view('input/date', array('name' => 'date',  'id' => 'date',  'value' => $date)).'<br />';
 		
 		$form_body .= elgg_view('input/submit', array('value' => elgg_echo('submit')));
 		$form_body .= '</div>';
 		
-		$body = elgg_view('input/form', array(	'internalid' 	=> 'event_manager_form_program_day', 
-											'internalname' 	=> 'event_manager_form_program_day', 
+		$body = elgg_view('input/form', array(	'id' 	=> 'event_manager_form_program_day', 
+											'name' 	=> 'event_manager_form_program_day', 
 											'action' 		=> 'javascript:event_manager_program_add_day($(\'#event_manager_form_program_day\'))',
 											'body' 			=> $form_body));
 		
-		echo elgg_view('page_elements/contentwrapper', array('body' => $body));
+		echo elgg_view_module('main', elgg_echo("event_manager:form:program:day"), $body, array("id" => "event-manager-program-day-lightbox"));
 		
-		echo "<style type='text/css'>.datepick-popup{ z-index: 9999; } </style>";
 	} else {
+		// TODO: nice error message
 		echo elgg_echo("error");
 	}

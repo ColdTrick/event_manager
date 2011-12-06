@@ -1,5 +1,14 @@
 <?php 
     
-    echo "<div id='event_manager_event_listing'>";
-        echo elgg_view_entity_list($vars["entities"], $vars["count"], $vars["offset"], 10, false, true, false);
-    echo "</div>";
+	echo "<div id='event_manager_event_listing'>";
+	
+	$options = array(
+		"count" => $vars["count"],
+		"offset" => $vars["offset"],
+		"full_view" => false,
+		"pagination" => false
+		);
+	
+	echo elgg_view_entity_list($vars["entities"], $options);
+	
+	echo "</div>";

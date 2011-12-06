@@ -36,16 +36,16 @@ $(function()
 	<?php
 	
 	$location = $event->location;
-	$form_body .= '<label>'.elgg_echo('event_manager:event:edit:maps_address').'</label>'.elgg_view('input/text', array('internalname' => 'address_search', 
-																														'internalid'=> 'address_search',
+	$form_body .= '<label>'.elgg_echo('event_manager:event:edit:maps_address').'</label>'.elgg_view('input/text', array('name' => 'address_search', 
+																														'id'=> 'address_search',
 																														'value' => $location));
 	
-	$form_body .= elgg_view('input/submit', array('internalname' => 'address_search_submit', 'value' => elgg_echo('search'))).'&nbsp';
-	$form_body .= elgg_view('input/button', array('internalname' => 'address_search_save', 'internalid'=> 'address_search_save', 'value' => elgg_echo('save')));
+	$form_body .= elgg_view('input/submit', array('class' => "elgg-button-action", 'name' => 'address_search_submit', 'value' => elgg_echo('search'))).'&nbsp';
+	$form_body .= elgg_view('input/button', array('class' => "elgg-button-submit", 'name' => 'address_search_save', 'id'=> 'address_search_save', 'value' => elgg_echo('save')));
 	
 	
-	echo elgg_view('input/form', array(	'internalid' 	=> 'event_manager_address_search', 
-										'internalname' 	=> 'event_manager_address_search',
+	echo elgg_view('input/form', array(	'id' 	=> 'event_manager_address_search', 
+										'name' 	=> 'event_manager_address_search',
 										'body' 			=> $form_body));
 	
 	?>

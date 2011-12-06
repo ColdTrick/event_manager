@@ -1,7 +1,7 @@
 <?php 
 	$key = get_input('k');		
 	$guid = get_input("guid");
-	$user_guid = get_input('u_g', get_loggedin_userid());
+	$user_guid = get_input('u_g', elgg_get_logged_in_user_guid());
 
 	if($guid && ($entity = get_entity($guid)))
 	{	
@@ -51,7 +51,7 @@
 
 		if($event)
 		{
-			if($event->canEdit() || ($user_guid == get_loggedin_userid()))
+			if($event->canEdit() || ($user_guid == elgg_get_logged_in_user_guid()))
 			{
 				$title_text = elgg_echo('event_manager:registration:registrationto')."'".$event->title."'";
 
@@ -68,7 +68,7 @@
 					$output .= $event->getProgramData($user_guid);
 				}			
 
-				if($user_guid == get_loggedin_userid())
+				if($user_guid == elgg_get_logged_in_user_guid())
 				{
 					if(EVENT_MANAGER_SITETAKEOVER)
 					{

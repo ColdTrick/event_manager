@@ -1,50 +1,64 @@
 <?php 
 	
-	function event_manager_eventicon_hook($hook, $entity_type, $returnvalue, $params)
-	{
-		global $CONFIG;
-
-		if ((!$returnvalue) && ($hook == 'entity:icon:url') && ($params['entity'] instanceof Event))
-		{
-			$entity 	= $params['entity'];
-			$type 		= $entity->type;
-			$subtype 	= get_subtype_from_id($entity->subtype);
-			$viewtype 	= $params['viewtype'];
-			$size 		= $params['size'];
-			$title 		= $entity->title;
-
-			if ($icontime = $entity->icontime) 
-			{
-				$icontime = "{$icontime}";
-			} 
-			else 
-			{
-				$icontime = "default";
-			}
-
-			$filehandler = new ElggFile();
-			$filehandler->owner_guid = $entity->getOwner();
-			$filehandler->setFilename("events/".$entity->guid."/".$size.".jpg");
-
-			if ($filehandler->exists())
-			{
-				return $CONFIG->wwwroot.'mod/event_manager/icondirect.php?lastcache='.$icontime.'&joindate='.$entity->time_created.'&guid='.$entity->guid.'&size='.$size;
-			}
-		}
-	}
-	
-	function event_manager_register_postdata_hook($hook, $entity_type, $returnvalue, $params)
-	{
-		$_SESSION['registerevent_values'] = $_POST;
-	}
-	
 	function event_manager_sitetakeover_hook($hook, $entity_type, $returnvalue, $params)
 	{
-		$event = page_owner_entity();
+		$event = elgg_get_page_owner_entity();
 		
 		set_input('guid', $event->getGUID());
 		
-		include(dirname(dirname(__FILE__))."/pages/sitetakeover/view.php");
+		include(dirname(dirname(__FILE__)) . "/pages/sitetakeover/view.php");
 		
 		return true;
+	}
+	
+	function event_manager_user_hover_menu($hook, $entity_type, $returnvalue, $params){
+		global $EVENT_MANAGER_ATTENDING_EVENT;
+		
+		$result = $returnvalue;
+		
+		if(!empty($EVENT_MANAGER_ATTENDING_EVENT)){
+			$event = get_entity($EVENT_MANAGER_ATTENDING_EVENT);
+			$user = elgg_extract("entity", $params);
+			
+			if($event->getOwnerGUID() != $user->getGUID()){
+				$href = elgg_get_site_url() . 'action/event_manager/event/rsvp?guid=' . $EVENT_MANAGER_ATTENDING_EVENT . '&user=' . $user->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO;
+				$href = elgg_add_action_tokens_to_url($href);
+				
+				$item = new ElggMenuItem("event_manager", elgg_echo("event_manager:event:relationship:kick"), $href);
+				$item->setSection("action");
+				
+				$result[] = $item;
+			}
+		}
+		
+		return $result;
+	}
+	
+	function event_manager_entity_menu($hook, $entity_type, $returnvalue, $params){
+		$result = $returnvalue;
+		
+		if (elgg_in_context('widgets')) {
+			return $result;
+		}
+		
+		if(($handler = elgg_extract("handler", $params)) && ($handler == "event") && ($entity = elgg_extract("entity", $params))){
+			
+			if(!empty($result) && is_array($result)){
+				foreach($result as &$item){
+					switch($item->getName()){
+						case "edit":
+							$item->setHref(EVENT_MANAGER_BASEURL . "/event/edit/" . $entity->getGUID());
+							break;
+						case "delete":
+							$href = elgg_get_site_url() . "action/event_manager/event/delete?guid=" . $entity->getGUID();
+							$href = elgg_add_action_tokens_to_url($href);
+							
+							$item->setHref($href);
+							break;
+					}
+				}
+			}
+		}
+		
+		return $result;
 	}

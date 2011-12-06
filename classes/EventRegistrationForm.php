@@ -4,18 +4,15 @@
 	{
 		const SUBTYPE = "eventregistrationform";
 		
-		protected function initialise_attributes() 
+		protected function initializeAttributes() 
 		{
-			global $CONFIG;
-			parent::initialise_attributes();
+			parent::initializeAttributes();
 			
 			$this->attributes["subtype"] = self::SUBTYPE;
 		}
 		
 		public function getQuestions()
 		{
-			$entities = $this->getEntitiesFromRelationship('event_registration_questions');
-			
-			return $entities;
+			return $this->getEntitiesFromRelationship('event_registration_questions');
 		}
 	}

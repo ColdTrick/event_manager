@@ -1,6 +1,6 @@
 <?php 
 
-if(!isloggedin())
+if(!elgg_is_logged_in())
 {
 	$guid = get_input("guid");
 	

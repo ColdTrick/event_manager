@@ -8,7 +8,9 @@
 	
 	$relationtype = $event->getRelationshipByUser($user->getGUID()); 
 	
-	$string = sprintf(elgg_echo("event_manager:river:event_relationship:create:" . $relationtype),$subject_url, $event_url);
+	$string = elgg_echo("event_manager:river:event_relationship:create:" . $relationtype, array($subject_url, $event_url));
 	
-	echo $string;
-?>
+	echo elgg_view('river/item', array(
+		'item' => $vars['item'],
+		"summary" => $string
+	));

@@ -6,7 +6,7 @@
 	{
 		$checked = 'checked';
 	}
-	elseif(check_entity_relationship(get_loggedin_userid(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $vars['slot']->getGUID()))
+	elseif(check_entity_relationship(elgg_get_logged_in_user_guid(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $vars['slot']->getGUID()))
 	{
 		$checked = 'checked';
 		?>

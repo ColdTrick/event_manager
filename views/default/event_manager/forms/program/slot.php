@@ -55,18 +55,15 @@
 		else 
 		{
 			// entity is a day
-			
 			$parent_guid	= $entity->getGUID();
 			
 		}
 		
-		$form_body .= "<h3 class='settings'>" . elgg_echo("event_manager:form:program:slot") . "</h3>";
-		
-		$form_body .= elgg_view('input/hidden', array('internalname' => 'guid', 'value' => $guid));
-		$form_body .= elgg_view('input/hidden', array('internalname' => 'parent_guid', 'value' => $parent_guid));
+		$form_body .= elgg_view('input/hidden', array('name' => 'guid', 'value' => $guid));
+		$form_body .= elgg_view('input/hidden', array('name' => 'parent_guid', 'value' => $parent_guid));
 		
 		$form_body .= "<label>" . elgg_echo("title") . " *</label><br />";
-		$form_body .= elgg_view('input/text', array('internalname' => 'title', 'value' => $title));
+		$form_body .= elgg_view('input/text', array('name' => 'title', 'value' => $title));
 		
 		$form_body .= "<label>" . elgg_echo("event_manager:edit:form:start_time") . " *</label><br />";
 		
@@ -79,22 +76,22 @@
 		$form_body .= event_manager_get_form_pulldown_minutes('end_time_minutes', $end_time_minutes).'<br />';
 
 		$form_body .= "<label>" . elgg_echo("event_manager:edit:form:location") . "</label><br />";
-		$form_body .= elgg_view('input/text', array('internalname' => 'location', 'value' => $location));
+		$form_body .= elgg_view('input/text', array('name' => 'location', 'value' => $location));
 
 		$form_body .= "<label>" . elgg_echo("event_manager:edit:form:max_attendees") . "</label><br />";
-		$form_body .= elgg_view('input/text', array('internalname' => 'max_attendees', 'value' => $max_attendees));
+		$form_body .= elgg_view('input/text', array('name' => 'max_attendees', 'value' => $max_attendees));
 
 		$form_body .= "<label>" . elgg_echo("event_manager:edit:form:description") . "</label><br />";
-		$form_body .= elgg_view('input/plaintext', array('internalname' => 'description', 'value' => $description));
+		$form_body .= elgg_view('input/plaintext', array('name' => 'description', 'value' => $description));
 					
 		$form_body .= elgg_view('input/submit', array('value' => elgg_echo('submit')));
 		
-		$body .= elgg_view('page_elements/contentwrapper', array('body' => $form_body));
-		
-		echo elgg_view('input/form', array(	'internalid' 	=> 'event_manager_form_program_slot', 
-											'internalname' 	=> 'event_manager_form_program_slot', 
+		$form = elgg_view('input/form', array(	'id' 	=> 'event_manager_form_program_slot', 
+											'name' 	=> 'event_manager_form_program_slot', 
 											'action' 		=> 'javascript:event_manager_program_add_slot($(\'#event_manager_form_program_slot\'))',
-											'body' 			=> $body));
+											'body' 			=> $form_body));
+		
+		echo elgg_view_module("main", elgg_echo("event_manager:form:program:slot"), $form, array("id" => "event-manager-program-slot-lightbox"));
 	} else {
 		echo elgg_echo("error");
 	}

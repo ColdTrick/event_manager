@@ -24,4 +24,4 @@
 		}
 	}
 	
-	echo elgg_view("page_elements/contentwrapper", array("body" => $output));
+	echo elgg_view_module("main", "", $output);

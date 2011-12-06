@@ -28,7 +28,7 @@ foreach($entities as $event)
 										'title' => $event->title, 
 										'html' => $eventBox,
 										'hasrelation' => $event->getRelationshipByUser(),
-										'iscreator' => (($event->getOwner() == get_loggedin_userid())?'owner':null)
+										'iscreator' => (($event->getOwner() == elgg_get_logged_in_user_guid())?'owner':null)
 										);
 }
 
