@@ -14,7 +14,7 @@
 	$form_body .= "</span>";
 	
 	$form_body .= '<div id="event_manager_event_search_advanced_container">';
-	$form_body .= elgg_view('input/hidden', array('name' => 'advanced_search', 'id' => 'advanced_search', 'value' => 1));
+	$form_body .= elgg_view('input/hidden', array('name' => 'advanced_search', 'id' => 'advanced_search', 'value' => 0));
 	
 	$form_body .= elgg_echo('event_manager:edit:form:start_day:from').': '.elgg_view('input/date', array('name' => 'start_day', 'id' => 'start_day', 'value' => date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY,''))).'&nbsp;';
 	$form_body .= elgg_echo('event_manager:edit:form:start_day:to').': '.elgg_view('input/date', array('name' => 'end_day', 'id' => 'end_day', 'value' => date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY,''))).'<br /><br />';

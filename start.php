@@ -90,6 +90,8 @@
 		} else {
 			include(dirname(__FILE__)."/pages/sitetakeover/view.php");
 		}
+		
+		return true;
 	}
 	
 	function event_manager_page_handler($page) {
@@ -146,6 +148,8 @@
 		}
 		
 		include(dirname(__FILE__).$include);
+		
+		return true;
 	}
 
 	function event_manager_pagesetup() {

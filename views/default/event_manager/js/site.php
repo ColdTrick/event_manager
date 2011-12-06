@@ -159,7 +159,7 @@ function event_manager_registrationform_add_field(form) {
 			guid = response.guid;
 
 			if(response.edit) {
-				$('#question_' + guid).html(response.content);
+				$('#question_' + guid).replaceWith(response.content);
 			} else {
 				$("#event_manager_registrationform_fields").append(response.content);
 				
@@ -173,11 +173,18 @@ function event_manager_registrationform_add_field(form) {
 
 function event_manager_execute_search(){
 	$("#event_manager_result_refreshing").show();
+
+	form = $("#event_manager_search_form");
+	form_elements = form[0].elements;
+	advanced = $("#event_manager_event_search_advanced_container");
+	advanced_elements = $("#event_manager_event_search_advanced_container")[0].children;
+	
+	elements = $(form_elements).not(advanced_elements);
 	
 	if($('#past_events').is(":hidden") == true)	{
-		var formData = $("#event_manager_search_form").serialize();
+		var formData = form.serialize();
 	} else {
-		var formData = $($("#event_manager_search_form")[0].elements).not($("#event_manager_event_search_advanced_container")[0].children).serialize();
+		var formData = elements.serialize();
 	}
 
 	map_data_only = false;
@@ -242,8 +249,20 @@ $(function() {
 		}
 	});
 	
-	$('#event_manager_event_search_advanced_enable').click(function(){
-		$('#event_manager_event_search_advanced_container, #past_events, #event_manager_event_search_advanced_enable span').toggle();		
+	$('#event_manager_event_search_advanced_enable').click(function()
+	{
+		$('#event_manager_event_search_advanced_container, #past_events, #event_manager_event_search_advanced_enable span').toggle();
+
+		if($('#past_events').is(":hidden"))
+		{
+			console.log('advanced');
+			$('#advanced_search').val('1');
+		}
+		else
+		{
+			console.log('simple');
+			$('#advanced_search').val('0');
+		}
 	});
 	
 	$('#event_manager_event_list_search_more').live('click', function()	{

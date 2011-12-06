@@ -67,29 +67,27 @@
 			'subtype' 		=> 'event',
 			'offset' 		=> $options['offset'],
 			'limit' 		=> $options['limit'],
-			'container_guid'=> $options['container_guid'],
+			//'container_guid'=> $options['container_guid'],
 			'joins' 		=> array(
 								"JOIN {$CONFIG->dbprefix}objects_entity oe ON e.guid = oe.guid",
 		
-								"JOIN {$CONFIG->dbprefix}metadata n_table ON e.guid = n_table.entity_guid",
-								"JOIN {$CONFIG->dbprefix}metadata d_table ON e.guid = d_table.entity_guid",
+								"JOIN {$CONFIG->dbprefix}metadata meda_table_n ON e.guid = meda_table_n.entity_guid",
+								"JOIN {$CONFIG->dbprefix}metadata meda_table_d ON e.guid = meda_table_d.entity_guid",
 		
-								"JOIN {$CONFIG->dbprefix}metastrings msn ON n_table.name_id = msn.id",
-								"JOIN {$CONFIG->dbprefix}metastrings msv ON n_table.value_id = msv.id",
-		
-								"JOIN {$CONFIG->dbprefix}metastrings msnd ON d_table.name_id = msnd.id",
-								"JOIN {$CONFIG->dbprefix}metastrings msvd ON d_table.value_id = msvd.id"),
-			'order_by' 		=> 'msvd.string ASC'
+								"JOIN {$CONFIG->dbprefix}metastrings msn ON meda_table_n.name_id = msn.id",
+								"JOIN {$CONFIG->dbprefix}metastrings msv ON meda_table_n.value_id = msv.id",
+								),
+			'order_by_metadata' => 'start_day ASC'
 		);
 		
 		if($options['query'])
 		{		
 			$fields_object 	= array('title', 'description');	
 			$fields 		= array('string');
-			
+
 			$meta_fields 	= array("'shortdescription'", "'organizer'", "'venue'", "'location'");
 			$meta_fields_in = implode(',', $meta_fields);
-		
+
 			$where			= event_manager_search_get_where_sql('oe', $fields_object, $options, false);
 			$search_where 	= event_manager_search_get_where_sql('msv', $fields, $options, false);
 			
@@ -97,18 +95,16 @@
 			
 			$entities_options['wheres'][] = '('.$where.' OR '.$meta_where.')';
 		}
-				
-		$entities_options['wheres'][] = "(msnd.string LIKE 'start_day')";
 					
 		if(!empty($options['start_day']))
 		{
-			$entities_options['wheres'][] = "(".$options['start_day']." <= msvd.string)";
+			$entities_options['metadata_name_value_pairs'][] = array('name' => 'start_day', 'value' => $options['start_day'], 'operand' => '>=');
 		}
 		
 		if(!empty($options['end_day']))
 		{
-			$entities_options['wheres'][] = "(msvd.string <= ".$options['end_day'].")";
-		}			
+			$entities_options['metadata_name_value_pairs'][] = array('name' => 'start_day', 'value' => $options['end_day'], 'operand' => '<=');
+		}
 		
 		if($options['meattending'])
 		{
@@ -125,49 +121,38 @@
 		
 		if($options['friendsattending'])
 		{
-			$friends = elgg_get_logged_in_user_entity()->getFriends();
-				
 			$friends_guids = array();
-			foreach($friends as $user)
+			
+			$entities_options['joins'][] = "JOIN {$CONFIG->dbprefix}entity_relationships e_ra ON e.guid = e_ra.guid_one";
+			
+			if($friends = elgg_get_logged_in_user_entity()->getFriends())
 			{
-				$friends_guids[] = $user->getGUID();
+				foreach($friends as $user)
+				{
+					$friends_guids[] = $user->getGUID();
+				}
+				 
+				$entities_options['wheres'][] = "(e_ra.guid_two IN (" . implode(", ", $friends_guids) . "))";
 			}
-			$entities_options['joins'][] = "JOIN {$CONFIG->dbprefix}entity_relationships e_ra ON e.guid = e_ra.guid_one"; 
-			$entities_options['wheres'][] = "(e_ra.guid_two IN (" . implode(", ", $friends_guids) . "))";
-		}
-		
-		if($options['region'])
-		{
-			$entities_options['joins'][] = "JOIN {$CONFIG->dbprefix}metastrings msnr ON n_table.name_id = msnr.id";
-			$entities_options['joins'][] = "JOIN {$CONFIG->dbprefix}metastrings msvr ON n_table.value_id = msvr.id";
-			
-			$entities_options['wheres'][] = "((msnr.string LIKE 'region') AND (msvr.string LIKE '".$options['region']."'))";
-		}
-		
-		if($options['event_type'])
-		{
-			$entities_options['joins'][] = "JOIN {$CONFIG->dbprefix}metastrings msnt ON n_table.name_id = msnr.id";
-			$entities_options['joins'][] = "JOIN {$CONFIG->dbprefix}metastrings msvt ON n_table.value_id = msvr.id";
-			
-			$entities_options['wheres'][] = "((msnt.string LIKE 'event_type') AND (msvt.string LIKE '".$options['event_type']."'))";
+			else
+			{
+				$entities_options['wheres'][] = "(e_ra.guid_two IN (''))";
+			}
 		}
 	
 		if(!$options['past_events'])
 		{
-			$time = time();
-			$ts = mktime(0, 0, 1, date('m', $time), date('d', $time), date('y', $time));
-			
-			$entities_options['wheres'][] = "(msvd.string >= ".$ts.")";
+			$entities_options['metadata_name_value_pairs'][] = array('name' => 'start_day', 'value' => mktime(0, 0, 1), 'operand' => '>=');
 		}
 		
-		$entities = elgg_get_entities($entities_options);
+		$entities = elgg_get_entities_from_metadata($entities_options);
 		
 		$entities_options['count'] = true;
-		$count_entities = elgg_get_entities($entities_options);
+		$count_entities = elgg_get_entities_from_metadata($entities_options);
 		
 		$result = array(
-			"entities" => $entities,
-			"count" => $count_entities
+			"entities" 	=> $entities,
+			"count" 	=> $count_entities
 			);
 			
 		return $result;
@@ -176,26 +161,21 @@
 	function event_manager_get_eventregistrationform_fields($event_guid, $count = false)
 	{
 		global $CONFIG;
-
+		
 		$entities_options = array(
 			'type' => 'object',
 			'subtype' => 'eventregistrationquestion',
 			'joins' => array(
-							"JOIN {$CONFIG->dbprefix}metadata n_table on e.guid = n_table.entity_guid",
-							"JOIN {$CONFIG->dbprefix}metastrings msn on n_table.name_id = msn.id",
-							"JOIN {$CONFIG->dbprefix}metastrings msv on n_table.value_id = msv.id",
+							"JOIN {$CONFIG->dbprefix}metadata n_table_r on e.guid = n_table_r.entity_guid",
 							
 							"JOIN {$CONFIG->dbprefix}entity_relationships r on r.guid_one = e.guid"),
-			'wheres' => array(
-							"r.guid_two = " . $event_guid,
-							"r.relationship = 'event_registrationquestion_relation'",
-							"(msn.string IN ('order'))"),
-			'order_by' => 'msv.string ASC',
+			'wheres' => array("r.guid_two = " . $event_guid, "r.relationship = 'event_registrationquestion_relation'"),
+			'order_by_metadata' => 'order ASC',
 			'count' => $count
 		);
 		
 		
-		if($entities = elgg_get_entities($entities_options))
+		if($entities = elgg_get_entities_from_metadata($entities_options))
 		{
 			return $entities;
 		}
