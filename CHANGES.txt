@@ -1,5 +1,9 @@
 = Version history =
 
+2.0.2 (2011-12-6):
+- fixed event search
+- fixed js bugs
+
 2.0.1 (2011-11-01):
 
 - fixed: layout of event details table in Opera 
