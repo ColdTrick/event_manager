@@ -68,7 +68,7 @@
 					}
 				} else {
 					//echo '- relation ship type is not EVENT_MANAGER_RELATION_ATTENDING, rsvp otherwise<br />';
-					if($event->$rel) {
+					if($event->$rel || ($rel == EVENT_MANAGER_RELATION_UNDO) || ($rel == EVENT_MANAGER_RELATION_ATTENDING)) {
 						$rsvp = $event->rsvp($rel, $user_guid);
 					} else {
 						register_error(elgg_echo('event_manager:event:relationship:message:unavailable_relation'));
