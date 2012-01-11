@@ -1,4 +1,7 @@
 = Version history =
+x.x:
+
+- fixed: export of attendees
 
 2.0.2 (2011-12-6):
 - fixed event search

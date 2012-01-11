@@ -1027,7 +1027,21 @@
 		
 		public function exportAttendees()
 		{
-			$entities = $this->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING);
+			elgg_set_ignore_access(true);
+			
+// 			$entities = $this->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING);
+			
+			$entities = elgg_get_entities_from_relationship(array(
+				'relationship' => EVENT_MANAGER_RELATION_ATTENDING,
+				'relationship_guid' => $this->getGUID(),
+				'inverse_relationship' => FALSE,
+				'count' => FALSE,
+				'site_guid' => false,
+				'limit' => false
+			));
+			
+			elgg_set_ignore_access(false);
+			
 			return $entities;
 		}
 	}
