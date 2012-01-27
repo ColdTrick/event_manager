@@ -33,6 +33,7 @@ Features
 Version history
 ======================
 x.x:
+- fixed: unable to export all attendees
 - fixed: unable to leave/kick user from event
 - changed: short description no longer required
 
