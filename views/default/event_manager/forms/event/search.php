@@ -18,7 +18,7 @@
 	
 	$form_body .= elgg_echo('event_manager:edit:form:start_day').' from: '.elgg_view('input/event_manager_datepicker', array('internalname' => 'start_day', 'internalid' => 'start_day', 'value' => date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY,''))).'&nbsp;';
 	$form_body .= elgg_echo('event_manager:edit:form:start_day').' to: '.elgg_view('input/event_manager_datepicker', array('internalname' => 'end_day', 'internalid' => 'end_day', 'value' => date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY,''))).'<br /><br />';
-
+	
 	$form_body .= "<div>";
 	if($region_options = event_manager_event_region_options())
 	{
