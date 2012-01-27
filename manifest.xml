@@ -32,6 +32,8 @@ Features
 ======================
 Version history
 ======================
+x.x:
+- changed: short description no longer required
 
 0.3.3 (2011-09-27)
 	fixed lijst aanvullen

@@ -78,7 +78,7 @@
 		$max_attendees = "";
 	}
 	
-	if(!empty($title) && !empty($shortdescription) && !empty($start_day))
+	if(!empty($title) && !empty($start_day))
 	{
 		if(!$event)
 		{
