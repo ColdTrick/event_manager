@@ -35,6 +35,7 @@ Version history
 x.x:
 - fixed: unable to export all attendees
 - fixed: unable to leave/kick user from event
+- fixed: wrong check of event rsvp options in attendees list
 - changed: short description no longer required
 
 0.3.3 (2011-09-27)

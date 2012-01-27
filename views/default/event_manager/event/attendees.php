@@ -9,6 +9,7 @@
 	
 	if($relationships = $event->getRelationships())
 	{
+	
 		$i = 0;
 		
 		if($can_edit)
@@ -18,7 +19,7 @@
 		// force correct order
 		foreach(event_manager_event_get_relationship_options() as $rel)
 		{
-			if(($event->$rel == EVENT_MANAGER_RELATION_ATTENDING) || $event->$rel)
+			if(($rel == EVENT_MANAGER_RELATION_ATTENDING) || $event->$rel)
 			{
 				if(array_key_exists($rel, $relationships))
 				{
