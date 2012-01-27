@@ -98,7 +98,7 @@
 	
 	$output .= '<div class="clearfloat"></div>';
 	$output .= $actions;
-		
+	
 	if($event->show_attendees)
 	{
 		$output .= elgg_view("event_manager/event/attendees", $vars);
