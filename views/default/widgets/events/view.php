@@ -1,9 +1,4 @@
 <?php
- 
-	if(event_manager_has_maps_key())
-	{
-		elgg_extend_view("metatags", "event_manager/googlemapsjs");
-	}
 
 	$widget = $vars["entity"];
 	
@@ -38,4 +33,3 @@
 	set_context($current_context);
 
 	echo $content;
-?>

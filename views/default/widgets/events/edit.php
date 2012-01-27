@@ -1,12 +1,21 @@
 <?php
-// set default value
-if (!isset($vars['entity']->num_display)) {
-	$vars['entity']->num_display = 5;
-}
 
-if (!isset($vars['entity']->type_to_show)) {
-	$vars['entity']->type_to_show = 5;
-}
+	// load google maps js
+	global $EVENT_MANAGER_WIDGET_GOOGLE_JS_LOADED;
+	if(empty($EVENT_MANAGER_WIDGET_GOOGLE_JS_LOADED) && event_manager_has_maps_key())
+	{
+		$EVENT_MANAGER_WIDGET_GOOGLE_JS_LOADED = true;
+		elgg_extend_view("metatags", "event_manager/googlemapsjs");
+	}
+	
+	// set default value
+	if (!isset($vars['entity']->num_display)) {
+		$vars['entity']->num_display = 5;
+	}
+	
+	if (!isset($vars['entity']->type_to_show)) {
+		$vars['entity']->type_to_show = 5;
+	}
 ?>
 <p>
 <?php 
