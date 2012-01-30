@@ -23,3 +23,4 @@ Create events with lot of options
 
 == 2. ToDo ==
 - site takeover
+- export waitinglist
