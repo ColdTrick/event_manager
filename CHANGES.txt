@@ -1,5 +1,5 @@
 = Version history =
-x.x:
+0.4 (2012-01-30):
 
 - fixed: unable to export all attendees
 - fixed: unable to leave/kick user from event
