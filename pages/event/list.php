@@ -7,6 +7,7 @@
 	
 	if(($page_owner = page_owner_entity()) && ($page_owner instanceof ElggGroup))
 	{
+		group_gatekeeper();
 		$event_options["container_guid"] = $page_owner->getGUID();
 	}
 	
