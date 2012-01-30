@@ -1,8 +1,5 @@
 <?php
 
-ini_set('display_errors', 'on');
-error_reporting(E_ALL);
-
 	global $CONFIG;
 	
 	define("EVENT_MANAGER_BASEURL", 		$CONFIG->wwwroot."pg/events");
