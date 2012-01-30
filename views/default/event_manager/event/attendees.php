@@ -19,7 +19,7 @@
 		// force correct order
 		foreach(event_manager_event_get_relationship_options() as $rel)
 		{
-			if(($rel == EVENT_MANAGER_RELATION_ATTENDING) || $event->$rel)
+			if(($rel == EVENT_MANAGER_RELATION_ATTENDING) || $event->$rel || ($rel == EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST && $can_edit))
 			{
 				if(array_key_exists($rel, $relationships))
 				{

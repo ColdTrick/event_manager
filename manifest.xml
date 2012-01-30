@@ -38,6 +38,7 @@ x.x:
 - fixed: wrong check of event rsvp options in attendees list
 - fixed: google js on widgets
 - changed: short description no longer required
+- changed: showing waitinglist in event full view to event owners
 
 0.3.3 (2011-09-27)
 	fixed lijst aanvullen
