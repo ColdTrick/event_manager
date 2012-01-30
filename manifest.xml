@@ -37,6 +37,7 @@ x.x:
 - fixed: unable to leave/kick user from event
 - fixed: wrong check of event rsvp options in attendees list
 - fixed: google js on widgets
+- fixed: list not handling no events correctly
 - changed: short description no longer required
 - changed: showing waitinglist in event full view to event owners
 
