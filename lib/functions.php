@@ -553,29 +553,29 @@
 	
 	function event_manager_get_migratable_events()
 	{
-		global $CONFIG;
+		$result = array(
+			'entities' => false,
+			'count' => 0
+		);
 		
 		$entities_options = array(
-							'type' 			=> 'object',
-							'subtype' 		=> 'event_calendar',
-							'limit'			=> false,
-						);		
-							
-						
-						
-		$migratable_events = array();
+			'type' 			=> 'object',
+			'subtype' 		=> 'event_calendar',
+			'limit'			=> false,
+			'metadata_name_value_pairs' => array(
+				'name' => 'migrated',
+				'value' => 1,
+				'operand' => '<>'
+			)
+		);		
+		
 		if($entities = elgg_get_entities($entities_options))
 		{
-			foreach($entities as $event)
-			{
-				if(!$event->migrated)
-				{
-					$migratable_events[] = $event;
-				}
-			}
+			$result['entities'] = $entities;
+			$result['count'] = count($entities);
 		}
 		
-		return $result = array('entities' => $migratable_events, 'count' => count($migratable_events));
+		return $result;
 	}
 	
 	function sanitize_filename($string, $force_lowercase = true, $anal = false) 

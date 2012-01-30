@@ -42,6 +42,7 @@ if($migratable_events['count'] > 0)
 		}
 		
 		$old_event->migrated = 1;
+		$old_event->save();
 		
 		$i++;
 	}

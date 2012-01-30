@@ -7,6 +7,7 @@ x.x:
 - fixed: google js on widgets
 - fixed: list not handling no events correctly
 - fixed: several widget bugs
+- fixed: possible event_calendar migration error
 - changed: short description no longer required
 - changed: showing waitinglist in event full view to event owners
 - changed: group listing now has group gatekeeper
