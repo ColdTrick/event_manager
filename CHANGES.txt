@@ -1,6 +1,7 @@
 = Version history =
 x.x:
 
+- added: when increasing the available slots, user on the waiting list will auto join
 - fixed: potential error in Event->generateAttendee()
 - fixed: error in listing which disabled searching
 - fixed: error in search procedure

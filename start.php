@@ -268,6 +268,9 @@
 	register_elgg_event_handler("init", "system", "event_manager_init");
 	register_elgg_event_handler("pagesetup", "system", "event_manager_pagesetup");
 	
+	// events
+	register_elgg_event_handler("update", "object", "event_manager_update_object_handler");
+	
 	register_action("event_manager/event/edit",				false,dirname(__FILE__)."/actions/event/edit.php");
 	register_action("event_manager/event/delete",			false,dirname(__FILE__)."/actions/event/delete.php");
 	register_action("event_manager/event/rsvp",				false,dirname(__FILE__)."/actions/event/rsvp.php");
