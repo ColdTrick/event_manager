@@ -3,6 +3,7 @@ x.x:
 
 - fixed: potential error in Event->generateAttendee()
 - fixed: error in listing which disabled searching
+- fixed: error in search procedure
 
 0.4 (2012-01-30):
 

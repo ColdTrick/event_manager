@@ -86,7 +86,6 @@
 	$options['query'] = $search;
 	$options['offset'] = $offset;
 	
-	$returnData['count'] = $entities['count'];
 	if($search_type == 'list')
 	{
 		$options['limit'] = EVENT_MANAGER_SEARCH_LIST_LIMIT;
@@ -130,8 +129,8 @@
 		}
 	}
 	
+	$returnData['count'] = $entities['count'];
 	$returnData['valid'] = 1;
-	
 	$returnData['offset'] = $offset;
 	
 	echo json_encode($returnData);
