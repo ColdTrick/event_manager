@@ -1,4 +1,8 @@
 = Version history =
+x.x:
+
+- fixed: potential error in Event->generateAttendee()
+
 0.4 (2012-01-30):
 
 - fixed: unable to export all attendees

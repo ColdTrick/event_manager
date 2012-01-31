@@ -882,15 +882,21 @@
 			
 			if($waiting_user = $this->getFirstWaitingUser())
 			{
-				foreach($this->getRegisteredSlotsByUser($waiting_user->getGUID()) as $slot)
-				{
-					if($slot->hasSpotsLeft())
+				$rsvp = false;
+				
+				if($this->with_program){
+					foreach($this->getRegisteredSlotsByUser($waiting_user->getGUID()) as $slot)
 					{
-						$rsvp = true;
-						$waiting_user->removeRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
-						
-						$waiting_user->addRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION);
+						if($slot->hasSpotsLeft())
+						{
+							$rsvp = true;
+							$waiting_user->removeRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
+							
+							$waiting_user->addRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION);
+						}
 					}
+				} elseif($this->hasEventSpotsLeft()) {
+					$rsvp = true;
 				}
 				
 				if($rsvp)
@@ -905,8 +911,9 @@
 									$this->getURL(), 
 									$this->title)
 								);
+					
+					$result = true;
 				}
-				$result = true;
 			}
 			
 			return $result;
