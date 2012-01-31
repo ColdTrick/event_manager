@@ -5,16 +5,8 @@
 		$result = elgg_view('event_manager/event_sort_menu');
 	}
 	
-	
-	$list = elgg_view("event_manager/list", $vars);
-	if(!empty($list))
-	{
-		$result .= $list;
-	}
-	else
-	{
-		$result .= elgg_echo('event_manager:list:noresults');
-	}
+	// show listing
+	$result .= elgg_view("event_manager/list", $vars);
 	
 	if(event_manager_has_maps_key())
 	{

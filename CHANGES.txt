@@ -2,6 +2,7 @@
 x.x:
 
 - fixed: potential error in Event->generateAttendee()
+- fixed: error in listing which disabled searching
 
 0.4 (2012-01-30):
 
