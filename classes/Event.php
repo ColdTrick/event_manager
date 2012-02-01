@@ -885,15 +885,21 @@
 				$rsvp = false;
 				
 				if($this->with_program){
-					foreach($this->getRegisteredSlotsByUser($waiting_user->getGUID()) as $slot)
+					if(($waiting_for_slots = $this->getRegisteredSlotsByUser($waiting_user->getGUID())))
 					{
-						if($slot->hasSpotsLeft())
+						foreach($waiting_for_slots as $slot)
 						{
-							$rsvp = true;
-							$waiting_user->removeRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
-							
-							$waiting_user->addRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION);
+							if($slot->hasSpotsLeft())
+							{
+								$rsvp = true;
+								$waiting_user->removeRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
+								
+								$waiting_user->addRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION);
+							}
 						}
+					} elseif($this->hasEventSpotsLeft()) {
+						// not waiting for slots and event has room 
+						$rsvp = true;
 					}
 				} elseif($this->hasEventSpotsLeft()) {
 					$rsvp = true;

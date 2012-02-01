@@ -1,4 +1,8 @@
 = Version history =
+x.x:
+
+- fixed: event fill from waiting list not correctly handling unlimited slots
+
 0.5 (2012-01-31):
 
 - added: when increasing the available slots, user on the waiting list will auto join
