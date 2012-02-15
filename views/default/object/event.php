@@ -47,7 +47,8 @@
         $output .= '<div><a href="'.$event->getURL().'">'.$event->title;
         if($context == 'widget')
         {
-        	if(($event->max_attendees - $event->countAttendees())<1)
+        	$max_attendees = $event->max_attendees;
+        	if(!empty($max_attendees) && (($max_attendees - $event->countAttendees()) < 1))
         	{
         		$output .= ' ('.elgg_echo('event_manager:full').')';
         	}
