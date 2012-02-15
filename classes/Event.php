@@ -296,7 +296,7 @@
 		{
 			$result = true;
 			
-			if($this->registration_ended || ($this->endregistration_day != 0 && $this->endregistration_day < time()))
+			if($this->registration_ended || (!empty($this->endregistration_day) && $this->endregistration_day < time()))
 			{
 				$result = false;
 			}
