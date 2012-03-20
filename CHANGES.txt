@@ -2,6 +2,7 @@
 x.x:
 
 - fixed: event fill from waiting list not correctly handling unlimited slots
+- fixed: event calandar migration
 
 0.5 (2012-01-31):
 

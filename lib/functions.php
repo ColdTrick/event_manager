@@ -553,20 +553,30 @@
 	
 	function event_manager_get_migratable_events()
 	{
+		global $CONFIG;
+		
 		$result = array(
 			'entities' => false,
 			'count' => 0
 		);
 		
+		$migrated_id = add_metastring('migrated');
+		$one_id = add_metastring(1);
+		
 		$entities_options = array(
 			'type' 			=> 'object',
 			'subtype' 		=> 'event_calendar',
 			'limit'			=> false,
-			'metadata_name_value_pairs' => array(
-				'name' => 'migrated',
-				'value' => 1,
-				'operand' => '<>'
-			)
+// 			'metadata_name_value_pairs' => array(
+// 				'name' => 'migrated',
+// 				'value' => 1,
+// 				'operand' => '<>'
+// 			),
+			'wheres' => array("NOT EXISTS (
+						SELECT 1 FROM {$CONFIG->dbprefix}metadata md
+						WHERE md.entity_guid = e.guid
+							AND md.name_id = $migrated_id
+							AND md.value_id = $one_id)")
 		);		
 		
 		if($entities = elgg_get_entities($entities_options))
