@@ -392,22 +392,32 @@
 	 * @return multitype:NULL multitype:unknown
 	 */
 	function event_manager_get_migratable_events()	{
+
+		$result = array(
+			'entities' => false,
+			'count' => 0
+		);
+		
+		$migrated_id = get_metastring_id('migrated');
+		$one_id = get_metastring_id(1);
+		
 		$entities_options = array(
 			'type' 			=> 'object',
 			'subtype' 		=> 'event_calendar',
 			'limit'			=> false,
-		);
-
-		$migratable_events = array();
-		if($entities = elgg_get_entities($entities_options)) {
-			foreach($entities as $event) {
-				if(!$event->migrated) {
-					$migratable_events[] = $event;
-				}
-			}
+			'wheres' => array("NOT EXISTS (
+					SELECT 1 FROM " . elgg_get_config("dbprefix") . "metadata md
+					WHERE md.entity_guid = e.guid
+						AND md.name_id = $migrated_id
+						AND md.value_id = $one_id)")
+		);		
+		
+		if($entities = elgg_get_entities_from_metadata($entities_options)){
+			$result['entities'] = $entities;
+			$result['count'] = count($entities);
 		}
 		
-		return $result = array('entities' => $migratable_events, 'count' => count($migratable_events));
+		return $result;
 	}
 	
 	function sanitize_filename($string, $force_lowercase = true, $anal = false)	{

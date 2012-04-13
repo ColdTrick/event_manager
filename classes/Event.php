@@ -287,7 +287,7 @@
 		{
 			$result = true;
 			
-			if($this->registration_ended || ($this->endregistration_day != 0 && $this->endregistration_day < time()))
+			if($this->registration_ended || (!empty($this->endregistration_day) && $this->endregistration_day < time()))
 			{
 				$result = false;
 			}
@@ -769,13 +769,24 @@
 			$result = false;
 			
 			if($waiting_user = $this->getFirstWaitingUser()) {
-				foreach($this->getRegisteredSlotsByUser($waiting_user->getGUID()) as $slot) {
-					if($slot->hasSpotsLeft()) {
+				$rsvp = false;
+				
+				if($this->with_program){
+					if(($waiting_for_slots = $this->getRegisteredSlotsByUser($waiting_user->getGUID()))) {
+						foreach($waiting_for_slots as $slot) {
+							if($slot->hasSpotsLeft()) {
+								$rsvp = true;
+								$waiting_user->removeRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
+								
+								$waiting_user->addRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION);
+							}
+						}
+					} elseif($this->hasEventSpotsLeft()) {
+						// not waiting for slots and event has room 
 						$rsvp = true;
-						$waiting_user->removeRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
-						
-						$waiting_user->addRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION);
 					}
+				} elseif($this->hasEventSpotsLeft()) {
+					$rsvp = true;
 				}
 				
 				if($rsvp) {
@@ -789,8 +800,9 @@
 									$this->getURL(), 
 									$this->title)
 								);
+					
+					$result = true;
 				}
-				$result = true;
 			}
 			
 			return $result;

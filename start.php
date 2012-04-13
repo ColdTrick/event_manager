@@ -23,6 +23,7 @@
 	require_once(dirname(__FILE__) . "/lib/functions.php");
 	require_once(dirname(__FILE__) . "/lib/run_once.php"); 
 	require_once(dirname(__FILE__) . "/lib/hooks.php");
+	require_once(dirname(__FILE__) . "/lib/events.php");
 
 	function event_manager_init() {
 		// Register subtype
@@ -124,6 +125,8 @@
 	// register default elgg events
 	elgg_register_event_handler("init", "system", "event_manager_init");
 	elgg_register_event_handler("pagesetup", "system", "event_manager_pagesetup");
+	
+	elgg_register_event_handler("update", "object", "event_manager_update_object_handler");
 	
 	// hooks
 	elgg_register_plugin_hook_handler("register", "menu:user_hover", "event_manager_user_hover_menu");

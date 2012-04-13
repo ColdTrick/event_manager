@@ -1,26 +1,33 @@
 <?php
-// set default value
-if (!isset($vars['entity']->num_display)) {
-	$vars['entity']->num_display = 5;
-}
 
-if (!isset($vars['entity']->type_to_show)) {
-	$vars['entity']->type_to_show = 5;
-}
+	$widget = $vars["entity"];
+	
+	$num_display = (int) $widget->num_display;
+	$type_to_show = $widget->type_to_show;
+	
+	// set default value
+	if ($num_display < 1) {
+		$num_display = 5;
+	}
+	
+?>
+<p>
+<?php 
+	echo elgg_echo('event_manager:widgets:events:numbertodisplay').':';
+	echo elgg_view('input/text', array('internalname' => 'params[num_display]', 'value' => $num_display));
+?>
+</p>
+<p>
+ <?php
 
-echo "<div>"; 
-echo elgg_echo('event_manager:widgets:events:numbertodisplay').':';
-echo elgg_view('input/text', array('name' => 'params[num_display]', 'value' => $vars['entity']->num_display));
-echo "</div>";
-
-if(elgg_in_context('dashboard') || elgg_in_context('profile')){
-	echo "<div>";
-	echo elgg_echo('event_manager:widgets:events:showevents').':';
-	echo elgg_view('input/dropdown', array('name' => 'params[type_to_show]', 
-										   'options' => array('all' => elgg_echo('all'),
-	 														  'owning' => elgg_echo('event_manager:widgets:events:showevents:icreated'), 
-	 														  'attending' => elgg_echo('event_manager:widgets:events:showevents:attendingto'))
-														)
-											);
-	echo "</div>";
+if(in_array($widget->context, array('dashboard', 'profile')))
+{
+	echo elgg_echo('event_manager:widgets:events:showevents') . ': ';
+	echo elgg_view('input/pulldown', array(	'internalname' => 'params[type_to_show]', 
+											'value' => $type_to_show, 
+											'options_values' => array(	'all' => elgg_echo('all'),
+			 															'owning' => elgg_echo('event_manager:widgets:events:showevents:icreated'), 
+			 															'attending' => elgg_echo('event_manager:widgets:events:showevents:attendingto'))));
 }
+?>
+</p>

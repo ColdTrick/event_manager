@@ -23,7 +23,7 @@ Manage events, from a simple appointment to a multi day event with day programs 
 - Enable/disable group events
 
 == 2. ToDo ==
-- site takeover
+
 - notifications to the users
 	- when kicked from event (both member and non loggedin)
 - review custom queries
@@ -34,3 +34,4 @@ Manage events, from a simple appointment to a multi day event with day programs 
 - replace widget context with widgets
 - add group to breadcrumb for group events
 - group menu (no all and add to correct content menu)
+- export waiting list

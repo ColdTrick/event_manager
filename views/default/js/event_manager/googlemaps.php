@@ -7,11 +7,14 @@ var markerTimeout;
 
 $(function() {
 	$('.openRouteToEvent').live('click', function(e) {
+		var $elem = $(this);
+		
 		$.fancybox({
-			'href':$(this).attr('href'),
+			
+			'href': $elem.attr('href'),
 			'onComplete': function() {
 				initMaps('map_canvas');
-				event_manager_geocoder.geocode( { 'address': $(this).html()}, function(results, status) {
+				event_manager_geocoder.geocode( { 'address': $elem.html() }, function(results, status) {
 			      	if (status == google.maps.GeocoderStatus.OK) {
 			        	event_manager_gmap.setCenter(results[0].geometry.location);
 			        	new google.maps.Marker({ map: event_manager_gmap, position: results[0].geometry.location });

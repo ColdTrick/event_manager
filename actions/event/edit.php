@@ -38,6 +38,8 @@
 	$start_time_minutes = get_input("start_time_minutes");
 	$start_time = mktime($start_time_hours, $start_time_minutes, 1, 0, 0, 0);
 	
+	$forward_url = REFERER;
+	
 	if(!empty($start_day)) {
 		$date = explode('-',$start_day);
 		$start_day = mktime(0,0,1,$date[1],$date[2],$date[0]);
@@ -199,8 +201,11 @@
 			unset($event->icontime);
 		}
 		
-		system_message(elgg_echo("event_manager:action:event:edit:ok"));
-		forward($event->getURL());
+		// added because we need an update event
+		if($event->save()){
+			system_message(elgg_echo("event_manager:action:event:edit:ok"));
+			$forward_url = $event->getURL();
+		} 
 	} else {
 		
 		// TODO: replace with sticky forms functionality
@@ -237,6 +242,7 @@
 		$_SESSION['createevent_values']['event_organizing'] 	= $event_organizing;
 		
 		register_error(elgg_echo("event_manager:action:event:edit:error_fields"));
-		forward(REFERER);	
 	}
+	
+	forward($forward_url);
 	

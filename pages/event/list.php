@@ -5,6 +5,8 @@
 	$event_options = array();
 	
 	if(($page_owner = elgg_get_page_owner_entity()) && ($page_owner instanceof ElggGroup)){
+		group_gatekeeper();
+		
 		$event_options["container_guid"] = $page_owner->getGUID();
 		
 		$who_create_group_events = elgg_get_plugin_setting('who_create_group_events', 'event_manager'); // group_admin, members

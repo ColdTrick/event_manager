@@ -1,4 +1,7 @@
 <?php
+
+set_time_limit(0);
+
 $migratable_events = event_manager_get_migratable_events();
 
 if($migratable_events['count'] > 0)
@@ -7,20 +10,21 @@ if($migratable_events['count'] > 0)
 	foreach($migratable_events['entities'] as $old_event)
 	{
 		$new_event = new Event();
-
 		$new_event->title 				= $old_event->title;
-			$new_event->description 		= $old_event->long_description.
-												(($old_event->fees)?'<p>Fees: '.$old_event->fees.'</p>':'').
-												(($old_event->contact)?'<p>Contact: '.$old_event->contact.'</p>':'').
-												(($old_event->start_time)?'<p>Start time: '.	str_pad((int)($old_event->start_time / 60), 2, "0", STR_PAD_LEFT).' : '.str_pad((int)($old_event->start_time % 60), 2, "0", STR_PAD_LEFT).'</p>':'').
-												(($old_event->end_time)?'<p>End time: '.	str_pad((int)($old_event->end_time / 60), 2, "0", STR_PAD_LEFT).' : '.str_pad((int)($old_event->end_time % 60), 2, "0", STR_PAD_LEFT).'</p>':'');
-			
-			$new_event->tags 				= $old_event->event_tags;
-			$new_event->owner_guid 			= $old_event->owner_guid;
-			$new_event->container_guid 		= $old_event->container_guid;
-			$new_event->site_guid 			= $old_event->site_guid;
-			$new_event->access_id 			= $old_event->access_id;
+		$new_event->description 		= $old_event->long_description.
+											(($old_event->fees)?'<p>Fees: '.$old_event->fees.'</p>':'').
+											(($old_event->contact)?'<p>Contact: '.$old_event->contact.'</p>':'').
+											(($old_event->start_time)?'<p>Start time: '.	str_pad((int)($old_event->start_time / 60), 2, "0", STR_PAD_LEFT).' : '.str_pad((int)($old_event->start_time % 60), 2, "0", STR_PAD_LEFT).'</p>':'').
+											(($old_event->end_time)?'<p>End time: '.	str_pad((int)($old_event->end_time / 60), 2, "0", STR_PAD_LEFT).' : '.str_pad((int)($old_event->end_time % 60), 2, "0", STR_PAD_LEFT).'</p>':'');
+		
+		
+		$new_event->owner_guid 			= $old_event->owner_guid;
+		$new_event->container_guid 		= $old_event->container_guid;
+		$new_event->site_guid 			= $old_event->site_guid;
+		$new_event->access_id 			= $old_event->access_id;
 		$new_event->save();
+		
+		$new_event->tags 				= $old_event->event_tags;
 		
 		$new_event->venue 				= $old_event->venue;
 		$new_event->start_day 			= $old_event->start_date;
@@ -39,6 +43,7 @@ if($migratable_events['count'] > 0)
 		}
 		
 		$old_event->migrated = 1;
+		$old_event->save();
 		
 		$i++;
 	}

@@ -2,10 +2,21 @@
 
 x.x:
 
+- added: when increasing the available slots, user on the waiting list will auto join
+- changed: showing waitinglist in event full view to event owners
 - changed: short description no longer required
 - changed: now using Google Maps API v3
+- changed: group listing now has group gatekeeper
+- fixed: several widget bugs
 - fixed: export of attendees
 - fixed: unable to kick a user, leave an event
+- fixed: list not handling no events correctly
+- fixed: correct listing of migratable event calendar events
+- fixed: potential error in Event->generateAttendee()
+- fixed: error in listing which disabled searching 
+- fixed: error in search procedure
+- fixed: event fill from waiting list not correctly handling unlimited slots
+- fixed: better check for Open Registration 
 
 2.0.2 (2011-12-6):
 - fixed: event search
