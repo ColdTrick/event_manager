@@ -1,8 +1,7 @@
 <?php 
 
 
-	function event_manager_event_get_relationship_options()
-	{
+	function event_manager_event_get_relationship_options()	{
 		$result = array(
 				EVENT_MANAGER_RELATION_ATTENDING,
 				EVENT_MANAGER_RELATION_INTERESTED,
@@ -15,8 +14,7 @@
 		return $result;
 	}
 
-	function event_manager_icon_sizes()
-	{
+	function event_manager_icon_sizes()	{
 		$result = array(
 				'tiny',
 				'small',
@@ -28,8 +26,7 @@
 		return $result;
 	}
 	
-	function event_manager_get_registration_fiedtypes()
-	{
+	function event_manager_get_registration_fiedtypes()	{
 		$result = array(
 				'Textfield' => 'text',
 				'Textarea' => 'plaintext',
@@ -40,10 +37,7 @@
 		return $result;
 	}
 	
-	function event_manager_search_events($options = array())
-	{
-		global $CONFIG;
-		
+	function event_manager_search_events($options = array()){
 		$defaults = array(	'past_events' 		=> false,
 							'count' 			=> false,
 							'offset' 			=> 0,
@@ -69,13 +63,13 @@
 			'limit' 		=> $options['limit'],
 			//'container_guid'=> $options['container_guid'],
 			'joins' 		=> array(
-								"JOIN {$CONFIG->dbprefix}objects_entity oe ON e.guid = oe.guid",
+								"JOIN " . elgg_get_config("dbprefix") . "objects_entity oe ON e.guid = oe.guid",
 		
-								"JOIN {$CONFIG->dbprefix}metadata meda_table_n ON e.guid = meda_table_n.entity_guid",
-								"JOIN {$CONFIG->dbprefix}metadata meda_table_d ON e.guid = meda_table_d.entity_guid",
+								"JOIN " . elgg_get_config("dbprefix") . "metadata meda_table_n ON e.guid = meda_table_n.entity_guid",
+								"JOIN " . elgg_get_config("dbprefix") . "metadata meda_table_d ON e.guid = meda_table_d.entity_guid",
 		
-								"JOIN {$CONFIG->dbprefix}metastrings msn ON meda_table_n.name_id = msn.id",
-								"JOIN {$CONFIG->dbprefix}metastrings msv ON meda_table_n.value_id = msv.id",
+								"JOIN " . elgg_get_config("dbprefix") . "metastrings msn ON meda_table_n.name_id = msn.id",
+								"JOIN " . elgg_get_config("dbprefix") . "metastrings msv ON meda_table_n.value_id = msv.id",
 								),
 			'order_by_metadata' => 'start_day ASC'
 		);
@@ -108,7 +102,7 @@
 		
 		if($options['meattending'])
 		{
-			$entities_options['joins'][] = "JOIN {$CONFIG->dbprefix}entity_relationships e_r ON e.guid = e_r.guid_one";
+			$entities_options['joins'][] = "JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_r ON e.guid = e_r.guid_one";
 			
 			$entities_options['wheres'][] = "e_r.guid_two = " . elgg_get_logged_in_user_guid();
 			$entities_options['wheres'][] = "e_r.relationship = '" . EVENT_MANAGER_RELATION_ATTENDING . "'";
@@ -123,7 +117,7 @@
 		{
 			$friends_guids = array();
 			
-			$entities_options['joins'][] = "JOIN {$CONFIG->dbprefix}entity_relationships e_ra ON e.guid = e_ra.guid_one";
+			$entities_options['joins'][] = "JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_ra ON e.guid = e_ra.guid_one";
 			
 			if($friends = elgg_get_logged_in_user_entity()->getFriends())
 			{
@@ -158,116 +152,29 @@
 		return $result;
 	}
 	
-	function event_manager_get_eventregistrationform_fields($event_guid, $count = false)
-	{
-		global $CONFIG;
-		
+	function event_manager_get_eventregistrationform_fields($event_guid, $count = false) {
 		$entities_options = array(
 			'type' => 'object',
 			'subtype' => 'eventregistrationquestion',
 			'joins' => array(
-							"JOIN {$CONFIG->dbprefix}metadata n_table_r on e.guid = n_table_r.entity_guid",
+							"JOIN " . elgg_get_config("dbprefix") . "metadata n_table_r on e.guid = n_table_r.entity_guid",
 							
-							"JOIN {$CONFIG->dbprefix}entity_relationships r on r.guid_one = e.guid"),
+							"JOIN " . elgg_get_config("dbprefix") . "entity_relationships r on r.guid_one = e.guid"),
 			'wheres' => array("r.guid_two = " . $event_guid, "r.relationship = 'event_registrationquestion_relation'"),
 			'order_by_metadata' => 'order ASC',
 			'count' => $count
 		);
 		
 		
-		if($entities = elgg_get_entities_from_metadata($entities_options))
-		{
+		if($entities = elgg_get_entities_from_metadata($entities_options)) {
 			return $entities;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}
 
-	/*
-	 * 
-	 function event_manager_get_events($filter = "all", $offset = 0, $past_events = false)
-	{
-		global $CONFIG;
-		
-		$time = time();
-		$ts = mktime(0, 0, 1, date('m', $time), date('d', $time), date('y', $time));
-				
-		$entities_options = array(
-			'type' 		=> 'object',
-			'subtype' 	=> 'event',
-			'full_view' => false,
-			'offset' 	=> $offset,
-			'limit' 	=> EVENT_MANAGER_SEARCH_LIST_LIMIT,
-			'joins' 	=> array(
-							"JOIN {$CONFIG->dbprefix}metadata n_table ON e.guid = n_table.entity_guid",
-							"JOIN {$CONFIG->dbprefix}metastrings msn ON n_table.name_id = msn.id",
-							"JOIN {$CONFIG->dbprefix}metastrings msv ON n_table.value_id = msv.id"),
-			'wheres' 	=> array(
-							"(msn.string IN ('start_day')) AND (msv.string >= '".$ts."')"),
-			'order_by' 	=> "msv.string ASC"
-		);
-		
-		switch($filter){
-			case "owned":
-				$entities_options['owner_guids'] = array(elgg_get_logged_in_user_guid()); 
-				$entities = elgg_get_entities($entities_options);
-				
-				$entities_options['count'] = true;
-				$count_entities = elgg_get_entities($entities_options);
-			break;
-			case "friends":
-				$friends = elgg_get_logged_in_user_entity()->getFriends();
-				
-				$friends_guids = array();
-				foreach($friends as $user)
-				{
-					$friends_guids[] = $user->getGUID();
-				}
-				$entities_options['joins'][] = "JOIN {$CONFIG->dbprefix}entity_relationships e_r ON e.guid = e_r.guid_one"; 
-				$entities_options['wheres'][] = "e_r.guid_two IN (" . implode(", ", $friends_guids) . ")";
-				
-				$entities = elgg_get_entities($entities_options);
-				
-				$entities_options['count'] = true;
-				$count_entities = elgg_get_entities($entities_options);
-			break;
-			case "attending":
-				
-				$entities_options['joins'][] = "JOIN {$CONFIG->dbprefix}entity_relationships e_r ON e.guid = e_r.guid_one"; 
-				$entities_options['wheres'][] = "e_r.guid_two = " . elgg_get_logged_in_user_guid();
-				$entities_options['wheres'][] = "e_r.relationship = '" . EVENT_MANAGER_RELATION_ATTENDING . "'";
-				 
-				$entities = elgg_get_entities($entities_options);
-				
-				$entities_options['count'] = true;
-				$count_entities = elgg_get_entities($entities_options);
-			break;
-			case "all":
-			case "onthemap":
-			case "default":
-				$entities = elgg_get_entities($entities_options);
-				
-				$entities_options['count'] = true;
-				$count_entities = elgg_get_entities($entities_options);
-			break;
-		}
-		
-		$result = array(
-			"entities" => $entities,
-			"count" => $count_entities
-			);
-			
-		return $result;
-	}*/
-	
-	function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype = "", $limit = 20)
-	{
-		global $CONFIG;
-		
-		if (empty($subtype))
-		{
+	function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype = "", $limit = 20) {
+		if (empty($subtype)) {
 			return false;
 		}
 		
@@ -351,13 +258,13 @@
 		}
 		
 		// Add the calendar stuff
-		$loc_join = "	JOIN {$CONFIG->dbprefix}metadata loc_start on e.guid=loc_start.entity_guid
-						JOIN {$CONFIG->dbprefix}metastrings loc_start_name on loc_start.name_id=loc_start_name.id
-						JOIN {$CONFIG->dbprefix}metastrings loc_start_value on loc_start.value_id=loc_start_value.id
+		$loc_join = "	JOIN " . elgg_get_config("dbprefix") . "metadata loc_start on e.guid=loc_start.entity_guid
+						JOIN " . elgg_get_config("dbprefix") . "metastrings loc_start_name on loc_start.name_id=loc_start_name.id
+						JOIN " . elgg_get_config("dbprefix") . "metastrings loc_start_value on loc_start.value_id=loc_start_value.id
 						
-						JOIN {$CONFIG->dbprefix}metadata loc_end on e.guid=loc_end.entity_guid
-						JOIN {$CONFIG->dbprefix}metastrings loc_end_name on loc_end.name_id=loc_end_name.id
-						JOIN {$CONFIG->dbprefix}metastrings loc_end_value on loc_end.value_id=loc_end_value.id";
+						JOIN " . elgg_get_config("dbprefix") . "metadata loc_end on e.guid=loc_end.entity_guid
+						JOIN " . elgg_get_config("dbprefix") . "metastrings loc_end_name on loc_end.name_id=loc_end_name.id
+						JOIN " . elgg_get_config("dbprefix") . "metastrings loc_end_value on loc_end.value_id=loc_end_value.id";
 		
 		$lat_min = $lat - $radius;
 		$lat_max = $lat + $radius;
@@ -372,9 +279,9 @@
 		$where[] = "loc_end_value.string <= $long_max";
 		
 		if (!$count) {
-			$query = "SELECT e.* from {$CONFIG->dbprefix}entities e $loc_join where ";
+			$query = "SELECT e.* from " . elgg_get_config("dbprefix") . "entities e $loc_join where ";
 		} else {
-			$query = "SELECT count(e.guid) as total from {$CONFIG->dbprefix}entities e $loc_join where ";
+			$query = "SELECT count(e.guid) as total from " . elgg_get_config("dbprefix") . "entities e $loc_join where ";
 		}
 		
 		foreach ($where as $w) {
@@ -485,8 +392,6 @@
 	 * @return multitype:NULL multitype:unknown
 	 */
 	function event_manager_get_migratable_events()	{
-		global $CONFIG;
-		
 		$entities_options = array(
 			'type' 			=> 'object',
 			'subtype' 		=> 'event_calendar',
@@ -657,29 +562,6 @@
 		return $result;
 	}
 	
-	function event_manager_has_maps_key() {
-		static $has_maps_key;
-		
-		if(isset($has_maps_key)) {
-			return $has_maps_key;
-		}
-		
-		$return = false;
-		
-		if(($maps_key = elgg_get_plugin_setting('google_maps_key', 'event_manager')) && !empty($maps_key)) {
-			$return = true;
-			
-			// ragister GMaps JS
-			$em_maps_js = elgg_get_simplecache_url("js", "event_manager/googlemaps");
-			elgg_register_js("event_manager.maps.helper", $em_maps_js);
-			elgg_register_js("event_manager.maps.base", "//maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=" . $maps_key);
-		}
-		
-		$has_maps_key = $return;
-		
-		return $return;
-	}
-	
 	function event_manager_get_form_pulldown_hours($name = '', $value = '', $h = 24) {
 		$time_hours_options = range(0, $h);
 		
@@ -719,33 +601,6 @@
 		if($content) {
 			$result = $content;
 		}
-		
-		return $result;
-	}
-	
-	function event_manager_check_sitetakeover_event() {
-		global $CONFIG;
-		
-		static $site_take_over;
-		if(isset($site_take_over)){
-			return $site_take_over;
-		}
-		
-		$result = false;
-		
-		$entities_options = array(
-			'type' 			=> 'object',
-			'subtype' 		=> 'event',
-			'limit'			=> false,
-			'metadata_name_value_pair' => array("site_takeover" => "1")
-		);
-		
-		if($entities = elgg_get_entities_from_metadata($entities_options)) {
-			$result['entities'] = $entities;
-			$result['count'] = count($entities);
-		}
-		
-		$site_take_over = $result;
 		
 		return $result;
 	}

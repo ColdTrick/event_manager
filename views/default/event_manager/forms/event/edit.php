@@ -72,11 +72,11 @@
 		}
 	}
 	
-	$form_body .= 	'<a style="display: none;" href="'.EVENT_MANAGER_BASEURL.'/event/googlemaps/'.$fields["guid"].'" id="openGoogleMaps">google maps</a>';
-	$form_body .= 	elgg_view('input/hidden', array('name' => 'latitude', 'id' => 'event_latitude', 'value' => $fields["latitude"]));
-	$form_body .= 	elgg_view('input/hidden', array('name' => 'longitude', 'id' => 'event_longitude', 'value' => $fields["longitude"]));
-	$form_body .= 	elgg_view('input/hidden', array('name' => 'guid', 'value' => $fields["guid"]));
-	$form_body .= 	elgg_view('input/hidden', array('name' => 'container_guid', 'value' => $fields["container_guid"]));
+	$form_body .= '<a style="display: none;" href="'.EVENT_MANAGER_BASEURL.'/event/googlemaps/'.$fields["guid"].'" id="openGoogleMaps">google maps</a>';
+	$form_body .= elgg_view('input/hidden', array('name' => 'latitude', 'id' => 'event_latitude', 'value' => $fields["latitude"]));
+	$form_body .= elgg_view('input/hidden', array('name' => 'longitude', 'id' => 'event_longitude', 'value' => $fields["longitude"]));
+	$form_body .= elgg_view('input/hidden', array('name' => 'guid', 'value' => $fields["guid"]));
+	$form_body .= elgg_view('input/hidden', array('name' => 'container_guid', 'value' => $fields["container_guid"]));
 	
 	$form_body .= "<table>";
 	
@@ -111,11 +111,7 @@
 
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:venue') . "</td><td>" . elgg_view('input/text', array('name' => 'venue', 'value' => $fields["venue"])) . "</td></tr>";
 	
-	if(event_manager_has_maps_key()) {
-		$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:location') . "</td><td>" . elgg_view('input/text', array('name' => 'location', 'id' => 'openmaps', 'value' => $fields["location"], 'readonly' => true)) . "</td></tr>";
-	} else {
-		$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:location') . "</td><td>" . elgg_view('input/text', array('name' => 'location', 'id' => 'location', 'value' => $fields["location"])) . "</td></tr>";
-	}
+	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:location') . "</td><td>" . elgg_view('input/text', array('name' => 'location', 'id' => 'openmaps', 'value' => $fields["location"], 'readonly' => true)) . "</td></tr>";
 	
 	if($region_options)	{
 		$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:region') . "</td><td>" . elgg_view('input/dropdown', array('name' => 'region', 'value' => $fields["region"], 'options' => $region_options)) . "</td></tr>";
@@ -159,14 +155,16 @@
 	
 	$form_body .= "</table>";
 					
-	$form_body .= 	elgg_view('input/submit', array('value' => elgg_echo('save')));
-	$form_body .= 	'<div class="event_manager_required">(* = '.elgg_echo('requiredfields').')</div>';
+	$form_body .= elgg_view('input/submit', array('value' => elgg_echo('save')));
+	$form_body .= '<div class="event_manager_required">(* = '.elgg_echo('requiredfields').')</div>';
 	
-	$form = 		elgg_view('input/form', array(	'id' 	=> 'event_manager_event_edit', 
-													'name' 	=> 'event_manager_event_edit', 
-													'action' 		=> $vars['url'].'action/event_manager/event/edit', 
-													'enctype' 		=> 'multipart/form-data', 
-													'body' 			=> $form_body));
+	$form = elgg_view('input/form', array(
+									'id' => 'event_manager_event_edit', 
+									'name' 	=> 'event_manager_event_edit', 
+									'action' => '/action/event_manager/event/edit', 
+									'enctype' => 'multipart/form-data', 
+									'body' => $form_body
+									));
 	
 	echo elgg_view_module("main", "", $form);
 	

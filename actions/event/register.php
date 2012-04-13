@@ -124,7 +124,7 @@
 				}
 
 				$guid_explode = explode(',', $program_guids);
-				//register_Error(var_export($guid_explode, true));
+				
 				if(elgg_is_logged_in())
 				{
 					$event->relateToAllSlots(false);

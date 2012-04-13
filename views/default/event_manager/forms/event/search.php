@@ -43,4 +43,4 @@
 											'action' 		=> $vars['url'].'action/event_manager/event/search',
 											'body' 			=> $form_body));
 	
-	echo elgg_view_module("main", elgg_echo('event_manager:list:searchevents'), $form);
+	echo elgg_view_module("main", "" , $form);

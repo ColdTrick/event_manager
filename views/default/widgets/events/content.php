@@ -1,10 +1,8 @@
 <?php
  
-	if(event_manager_has_maps_key()){
-		// TODO: is this needed here?
-		elgg_load_js("event_manager.maps.base");
-		elgg_load_js("event_manager.maps.helper");
-	}
+	// TODO: is this needed here?
+	elgg_load_js("event_manager.maps.base");
+	elgg_load_js("event_manager.maps.helper");
 
 	$widget = $vars["entity"];
 	

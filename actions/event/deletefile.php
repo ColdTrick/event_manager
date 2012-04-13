@@ -1,6 +1,6 @@
 <?php 
 
-$guid = get_input('guid');
+$guid = (int) get_input('guid');
 $filename = get_input('file');
 
 if(!empty($guid) && !empty($filename))

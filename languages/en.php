@@ -101,7 +101,7 @@
 		'event_manager:editregistration:addfield:title' => 'Add registrationform field',
 		'event_manager:editregistration:fieldtype' => 'Field type',
 		'event_manager:editregistration:fieldoptions' => 'Field options',
-		'event_manager:editregistration:commasepetared' => 'comma seperated',
+		'event_manager:editregistration:commasepetared' => 'comma separated',
 		'event_manager:editregistration:question' => 'Question',
 	
 		'event_manager:registration:message:registrationnotneeded' => 'Registration to this event is not needed.',	
@@ -171,8 +171,6 @@
 		'event_manager:event:editevent' => 'Edit event',
 		'event_manager:event:deleteevent' => 'Delete event',
 		'event_manager:event:uploadfiles' => 'Upload files',
-		'event_manager:event:setsitetakeover' => 'Take over site',
-		'event_manager:event:disablesitetakeover' => 'Turn off site take over',
 		'event_manager:event:attendees' => 'Attendees',
 		'event_manager:event:progam' => 'Program',
 		'event_manager:event:editprogram' => 'Edit program',
@@ -259,13 +257,14 @@
 	
 		// settings
 		'event_manager:settings:google_maps' => 'Google Maps settings',
-		'event_manager:settings:enter_google_maps_key' => 'Enter your google maps key',
+		'event_manager:settings:google_api_key' => 'Enter your Google API key',
 		'event_manager:settings:google_maps:enterdefaultlocation' => 'Enter a default location google maps needs to center on',
 		'event_manager:settings:google_maps:enterdefaultzoom' => 'Enter a default google maps zoom level (0 = zoomed in, 19 = zoomed out)',
-		'event_manager:settings:enter_google_maps_key:clickhere' => 'Go to <a target="_blank" href="http://code.google.com/apis/maps/signup.html">http://code.google.com/apis/maps/signup.html</a> to get your "Google Maps API key"',
-		'event_manager:settings:region_list' => 'Enter (comma seperated) event regions',
-		'event_manager:settings:type_list' => 'Enter (comma seperated) event types',
-		'event_manager:settings:migration' => 'Migrate %d events from "Event calender"',	
+		'event_manager:settings:google_api_key:clickhere' => 'Go to <a target="_blank" href="https://developers.google.com/maps/documentation/javascript/tutorial#api_key">https://developers.google.com/maps/documentation/javascript/tutorial#api_key</a> to get your "Google API key"',
+		'event_manager:settings:other' => 'Other',
+		'event_manager:settings:region_list' => 'Enter (comma separated) event regions',
+		'event_manager:settings:type_list' => 'Enter (comma separated) event types',
+		'event_manager:settings:migration' => 'Migrate %d events from "Event calender" plugin',	
 		'event_manager:settings:migration:success' => 'Succesfully migrated %d events',	
 		'event_manager:settings:migration:noeventstomigrate' => 'No events found to migrate',
 		'event_manager:settings:notification_sender' => 'RSVP notification sender (email)',
@@ -286,8 +285,6 @@
 		'event_manager:river:event_relationship:create:event_presenting' => '%s is presenting at %s',
 		'event_manager:river:event_relationship:create:event_exhibiting' => '%s is exhibiting at %s',
 		'event_manager:river:event_relationship:create:event_organizing' => '%s is organizing %s',
-	
-		'event_manager:confirm:sitetakeover:access' => 'This event will set it\'s access to \'public\' for the site takeover.',
 	
 		'calculate_route' => 'Calculate route',
 	

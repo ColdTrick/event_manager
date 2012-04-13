@@ -1,8 +1,6 @@
 <?php 
 
-	global $CONFIG;
-	
-	$guid = get_input("guid");
+	$guid = (int) get_input("guid");
 	$title = get_input("title");
 	
 	if(!empty($guid) && ($event = get_entity($guid)))

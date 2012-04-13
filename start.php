@@ -31,76 +31,39 @@
 		// Register entity_type for search
 		elgg_register_entity_type('object', Event::SUBTYPE);
 		
-		elgg_extend_view("css", "event_manager/css/site");
+		elgg_extend_view("css/elgg", "event_manager/css/site");
 		
 		elgg_extend_view("js/elgg", "event_manager/js/site");
 		elgg_extend_view("page/elements/head", "event_manager/metatags");
 		
-		// @todo check if this can be better
-		elgg_load_js("lightbox");
-		elgg_load_css("lightbox");
+		elgg_register_page_handler("events", "event_manager_page_handler");
 		
-		elgg_register_widget_type("events", elgg_echo("event_manager:widgets:events:title"), elgg_echo("event_manager:widgets:events:description"), "index,dashboard,profile,groups");
-		
-		$sitetakeover = event_manager_check_sitetakeover_event();
-		if($sitetakeover['count'] > 0) {
-			define('EVENT_MANAGER_SITETAKEOVER', true);
-						
-			elgg_register_page_handler("event", "event_manager_event_page_handler");
-			if($sitetakeover['entities'][0]->canEdit()) {
-				elgg_register_page_handler("events", "event_manager_page_handler");
-			}
-			
-			if(in_array(get_context(), array('main', 'event'))) {
-				set_page_owner($sitetakeover['entities'][0]->getGUID());
-			}
-			
-			elgg_register_plugin_hook_handler('index', 'system', 'event_manager_sitetakeover_hook', 10);
-		} else {
-			elgg_register_page_handler("events", "event_manager_page_handler");
-		}
-		
+		// add site menu item
 		elgg_register_menu_item("site", array(
 			"name" => "event_manager",
 			"text" => elgg_echo("event_manager:menu:title"), 
 			"href" => EVENT_MANAGER_BASEURL
 		));
 		
+		// add group tool option
 		add_group_tool_option('event_manager', elgg_echo('groups:enableevents'), true);
+
+		// add to group profile
 		elgg_extend_view('groups/tool_latest', 'event_manager/group_module');
-	}
-	
-	function event_manager_event_page_handler($page) {
-		$sitetakeover = event_manager_check_sitetakeover_event();
 		
-		$include = "/pages/sitetakeover/view.php";
+		// add widgets
+		elgg_register_widget_type("events", elgg_echo("event_manager:widgets:events:title"), elgg_echo("event_manager:widgets:events:description"), "index,dashboard,profile,groups");
 		
-		if(!empty($page)) {
-			$include = "/pages/sitetakeover/" . $page[0] . ".php";
-		}
-		
-		set_input('guid', $sitetakeover['entities'][0]->getGUID());
-		
-		if(file_exists(dirname(__FILE__) . $include)) {
-			if($page[0] == 'googlemaps') {
-				elgg_load_js("event_manager.maps.base");
-				elgg_load_js("event_manager.maps.helper");
-			}
-			include(dirname(__FILE__).$include);
-		} else {
-			include(dirname(__FILE__)."/pages/sitetakeover/view.php");
-		}
-		
-		return true;
+		// register js libraries
+		$em_maps_js = elgg_get_simplecache_url("js", "event_manager/googlemaps");
+		elgg_register_js("event_manager.maps.helper", $em_maps_js);
+		elgg_register_js("event_manager.maps.base", "//maps.googleapis.com/maps/api/js?key=" . $maps_key . "&sensor=true");
 	}
 	
 	function event_manager_page_handler($page) {
-		if(in_array($page[1], array('list', 'view', 'new', 'edit', ''))) {
-			if(event_manager_has_maps_key()) {
-				elgg_load_js("event_manager.maps.base");
-				elgg_load_js("event_manager.maps.helper");
-			}
-		}
+		elgg_load_js("event_manager.maps.base");
+		elgg_load_js("event_manager.maps.helper");
+
 		elgg_push_breadcrumb(elgg_echo("event_manager:menu:events"), EVENT_MANAGER_BASEURL);
 		
 		$include = "/pages/event/list.php";
@@ -147,42 +110,15 @@
 			}			
 		}
 		
-		include(dirname(__FILE__).$include);
+		include(dirname(__FILE__) . $include);
 		
 		return true;
 	}
 
 	function event_manager_pagesetup() {
-		$context = elgg_get_context();
-		
-		$sitetakeover = event_manager_check_sitetakeover_event();
-		if($sitetakeover['count'] > 0) {
-			if(!elgg_is_admin_logged_in() && !in_array($context, array('main', 'event'))) {
-				forward();
-			}
-		}
-		
-		$options = array(
-				'name' => 'all',
-				'text' => elgg_echo('event_manager:menu:events'),
-				'href' => EVENT_MANAGER_BASEURL,
-				'context' => "events",
-			);
-			
-		elgg_register_menu_item('page', $options);
-		
-		$page_owner = elgg_get_page_owner_entity();
-		if($page_owner instanceof ElggGroup) {
-			if($page_owner->event_manager_enable != "no") {
-				$options = array(
-					'name' => 'group',
-					'text' => elgg_echo('event_manager:menu:group_events'),
-					'href' => EVENT_MANAGER_BASEURL . '/event/list/' . $page_owner->username
-				);
-				
-				elgg_register_menu_item('page', $options);
-			}
-		} 
+		// @todo check if this can be better
+		elgg_load_js("lightbox");
+		elgg_load_css("lightbox");
 	}
 
 	// register default elgg events
@@ -192,6 +128,7 @@
 	// hooks
 	elgg_register_plugin_hook_handler("register", "menu:user_hover", "event_manager_user_hover_menu");
 	elgg_register_plugin_hook_handler("register", "menu:entity", "event_manager_entity_menu", 600);
+	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'event_manager_owner_block_menu');
 	
 	// actions
 	elgg_register_action("event_manager/event/edit",			dirname(__FILE__) . "/actions/event/edit.php");
@@ -210,5 +147,4 @@
 	elgg_register_action("event_manager/event/register",		dirname(__FILE__) . "/actions/event/register.php", "public");
 	
 	elgg_register_action("event_manager/migrate/calender",		dirname(__FILE__) . "/actions/migrate/calender.php", "admin");
-	elgg_register_action("event_manager/event/sitetakeover",	dirname(__FILE__) . "/actions/event/sitetakeover.php", "admin");
 	

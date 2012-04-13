@@ -1,6 +1,6 @@
 <?php 
 
-	$guid = get_input("guid");
+	$guid = (int) get_input("guid");
 	$user_guid = get_input("user", elgg_get_logged_in_user_guid());
 	
 	$forward_url = REFERER;
@@ -16,16 +16,9 @@
 					if($event->hasEventSpotsLeft() && $event->hasSlotSpotsLeft()) {
 						//echo '- event and it\'s slots has spots left<br />';
 						if($event->registration_needed) {
-							$sitetakeover = event_manager_check_sitetakeover_event();
-							if($sitetakeover['count'] > 0) {
-								//echo '- forward to sitetakeover registration<br />';
-								$forward_url = 'event/register';
-								$notice = false;
-							} else {
-								//echo '- forward to event registration<br />';
-								$forward_url = EVENT_MANAGER_BASEURL . '/event/register/' . $guid . '/' . $rel;
-								$notice = false;
-							}
+							//echo '- forward to event registration<br />';
+							$forward_url = EVENT_MANAGER_BASEURL . '/event/register/' . $guid . '/' . $rel;
+							$notice = false;
 						} else {
 							//echo '- no registration needed, rsvp immediately<br />';
 							$rsvp = $event->rsvp($rel, $user_guid);
@@ -40,16 +33,9 @@
 								if($event->registration_needed) {							
 									if($registration = $event->generateRegistrationForm()) {
 										//echo '- event CAN generate a registration form<br />';
-										$sitetakeover = event_manager_check_sitetakeover_event();
-										if($sitetakeover['count'] > 0) {
-											//echo '- show site takeover waiting list<br />';
-											$forward_url = 'event/waitinglist';
-											$notice = false;
-										} else {
-											//echo '- show normal event waiting list<br />';
-											$forward_url = EVENT_MANAGER_BASEURL . '/event/waitinglist/' . $guid;
-											$notice = false;
-										}
+										//echo '- show normal event waiting list<br />';
+										$forward_url = EVENT_MANAGER_BASEURL . '/event/waitinglist/' . $guid;
+										$notice = false;
 									} else {
 										//echo '- cant generate registration form<br />';
 										register_error(elgg_echo('event_manager:event:register:no_registrationform'));

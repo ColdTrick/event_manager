@@ -1,5 +1,5 @@
 <?php 
-$guid = get_input("guid");
+$guid = (int) get_input("guid");
 
 if(!empty($guid) && $entity = get_entity($guid))
 {
@@ -14,5 +14,5 @@ if(!empty($guid) && $entity = get_entity($guid))
 	}
 }
 
-system_message(elgg_echo("noguid"));
+system_message(elgg_echo("InvalidParameterException:GUIDNotFound", array($guid)));
 forward(REFERER);

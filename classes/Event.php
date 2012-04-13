@@ -99,15 +99,7 @@
 		
 		public function getURL()
 		{
-			$sitetakeover = event_manager_check_sitetakeover_event();
-			if($sitetakeover['count']>0)
-			{
-				return EVENT_MANAGER_BASEURL . "/event/view";
-			}
-			else
-			{
-				return EVENT_MANAGER_BASEURL . "/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
-			}
+			return EVENT_MANAGER_BASEURL . "/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
 		}
 		
 		public function setAccessToOwningObjects($access_id = null)
@@ -171,7 +163,6 @@
 		
 		public function rsvp($type = EVENT_MANAGER_RELATION_UNDO, $user_guid = null, $reset_program = true)
 		{
-			global $CONFIG;
 			$result = false;
 			
 			if($user_guid == null)
@@ -216,7 +207,7 @@
 				}
 				
 				// remove current relationships
-				delete_data("DELETE FROM {$CONFIG->dbprefix}entity_relationships WHERE guid_one=$event_guid AND guid_two=$user_guid");
+				delete_data("DELETE FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid AND guid_two=$user_guid");
 				
 				// remove river events
 				if(get_entity($user_guid) instanceof ElggUser)
@@ -321,16 +312,14 @@
 		
 		public function getRegistrationsByUser($count = false, $user_guid = null)
 		{
-			global $CONFIG;
-			if($user_guid == null)
-			{
+			if($user_guid == null){
 				$user_guid = elgg_get_logged_in_user_guid();
 			}
 			
 			$entities_options = array(
 				'type' => 'object',
 				'subtype' => EventRegistration::SUBTYPE,
-				'joins' => array("JOIN {$CONFIG->dbprefix}entity_relationships e_r ON e.guid = e_r.guid_two"),
+				'joins' => array("JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_r ON e.guid = e_r.guid_two"),
 				'wheres' => array("e_r.guid_one = " . $this->getGUID()),
 				'owner_guids' => array($user_guid),
 				'count' => $count
@@ -339,16 +328,10 @@
 			return elgg_get_entities($entities_options);
 		}
 		
-		public function _getAllRegistrations($filter)
-		{
-			global $CONFIG;
-			
-			if($filter == 'waiting')
-			{
+		public function _getAllRegistrations($filter) {
+			if($filter == 'waiting') {
 				$approved = 0;
-			}
-			else
-			{
+			} else {
 				$approved = 1;
 			}
 			
@@ -357,12 +340,13 @@
 				'subtype' => EventRegistration::SUBTYPE,
 				'full_view' => false,
 				'offset' => $offset,
-				'joins' => array(	"JOIN {$CONFIG->dbprefix}entity_relationships e_r ON e.guid = e_r.guid_two",
+				'limit' => false,
+				'joins' => array(	"JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_r ON e.guid = e_r.guid_two",
 
 									//Wachtrij check dingetje
-									//"JOIN {$CONFIG->dbprefix}metadata n_table on e.guid = n_table.entity_guid",
-									//"JOIN {$CONFIG->dbprefix}metastrings msn on n_table.name_id = msn.id",
-									//"JOIN {$CONFIG->dbprefix}metastrings msv on n_table.value_id = msv.id"
+									//"JOIN " . elgg_get_config("dbprefix") . "metadata n_table on e.guid = n_table.entity_guid",
+									//"JOIN " . elgg_get_config("dbprefix") . "metastrings msn on n_table.name_id = msn.id",
+									//"JOIN " . elgg_get_config("dbprefix") . "metastrings msv on n_table.value_id = msv.id"
 									),
 				'wheres' => array(	"e_r.guid_one = " . $this->getGUID(),
 									"e_r.relationship = '" . EVENT_MANAGER_RELATION_USER_REGISTERED . "'",
@@ -373,51 +357,44 @@
 								)								
 			);
 			
-			$return['entities'] = elgg_get_entities($entities_options);
-			
-			$entities_options['count'] = true;
-			$return['count'] = elgg_get_entities($entities_options);
+			$entities = elgg_get_entities($entities_options);
+			$return['entities'] = $entities;
+			$return['count'] = count($entities);
 			
 			return $return;
 		}
 
-		public function _getRegistrationQuestions()
-		{
+		public function _getRegistrationQuestions()	{
 			$entities = $this->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_REGISTRATION_QUESTION);
 			
 			return $entities[0];
 		}
 		
-		public function getRegistrationData($user_guid = null, $view = false)
-		{
+		public function getRegistrationData($user_guid = null, $view = false) {
 			$result = false;
 			
-			if($user_guid == null)
-			{
+			if($user_guid == null) {
 				$user_guid = elgg_get_logged_in_user_guid();
 			}
 			
-			if($view)
-			{
+			if($view) {
 				$registration_table .= '<h3>Information</h3>';
 			}
 
 			$registration_table .= '<table>';
 
-			if(($user_guid != elgg_get_logged_in_user_guid()) && !(($user = get_entity($user_guid)) instanceof ElggUser))
-			{
+			if(($user_guid != elgg_get_logged_in_user_guid()) && !(($user = get_entity($user_guid)) instanceof ElggUser)) {
 				$registration_table .= '<tr><td><label>'.elgg_echo('user:name:label').'</label></td><td>: '.$user->name.'</td></tr>';
 				$registration_table .= '<tr><td><label>'.elgg_echo('email').'</label></td><td>: '.$user->email.'</td></tr>';
 			}
 			
-			if($registration_form = $this->getRegistrationFormQuestions())
-			{
-				foreach($registration_form as $question)
-				{				
+			if($registration_form = $this->getRegistrationFormQuestions()) {
+				foreach($registration_form as $question) {				
 					$answer = $question->getAnswerFromUser($user_guid);
 					
 					$registration_table .= '<tr><td><label>'.$question->title.'</label></td><td>: '.$answer->value.'</td></tr>';
 				}
+				
 				$registration_table .= '</table>';
 			
 				$result = elgg_view_module('main', "", $registration_table);
@@ -426,8 +403,7 @@
 			return $result;
 		}
 		
-		public function generateRegistrationForm($register_type = 'register')
-		{
+		public function generateRegistrationForm($register_type = 'register') {
 			$form = false;
 			
 			$form_body = '<ul>';
@@ -489,8 +465,7 @@
 			return $form;
 		}
 
-		public function getProgramData($user_guid = null, $participate = false, $register_type = 'register')
-		{
+		public function getProgramData($user_guid = null, $participate = false, $register_type = 'register') {
 			$result = false;
 			
 			if($user_guid == null) {
@@ -514,17 +489,14 @@
 			return $result;
 		}
 
-		public function getProgramDataForPdf($user_guid = null, $register_type = 'register')
-		{
+		public function getProgramDataForPdf($user_guid = null, $register_type = 'register') {
 			$result = false;
 			
-			if($user_guid == null)
-			{
+			if($user_guid == null) {
 				$user_guid = elgg_get_logged_in_user_guid();
 			}
 			
-			if($eventDays = $this->getEventDays())
-			{
+			if($eventDays = $this->getEventDays()) {
 				elgg_push_context('programmailview');
 				
 				$result .= elgg_view('event_manager/program/pdf', array('entity' => $this));
@@ -537,71 +509,60 @@
 			return $result;
 		}
 		
-		public function notifyOnRsvp($type, $to = null)
-		{
+		public function notifyOnRsvp($type, $to = null) {
 			elgg_set_ignore_access(true);
 			
-			if($to == null)
-			{
+			if($to == null) {
 				$to = elgg_get_logged_in_user_guid();
 			}
 			
-			if($type == EVENT_MANAGER_RELATION_ATTENDING)
-			{
-				if($this->registration_needed)
-				{
+			if($type == EVENT_MANAGER_RELATION_ATTENDING) {
+				if($this->registration_needed) {
 					$registrationLink 	= PHP_EOL . PHP_EOL. elgg_echo('event_manager:event:registration:notification:program:linktext').PHP_EOL . PHP_EOL.'<br /><a href="'.EVENT_MANAGER_BASEURL.'/registration/view/?guid='.$this->getGUID().'&u_g='.$to.'&k='.md5($this->time_created.get_site_secret().$to).'">'.EVENT_MANAGER_BASEURL.'/registration/view/?guid='.$this->getGUID().'&u_g='.$to.'&k='.md5($this->time_created.get_site_secret().$to).'</a>';
 				}
 			}
 			
-			if(is_plugin_enabled('html_email_handler'))
-			{
+			if(elgg_is_active_plugin('html_email_handler')) {
 				$owner_message = sprintf(elgg_echo('event_manager:event:registration:notification:owner:text:html:'.$type), 
 								get_entity($this->owner_guid)->name, 
 								get_entity($to)->name, 
 								$this->getURL(), 
 								$this->title).
 								$registrationLink;
-			}
-			else
-			{
+			} else {
 				$owner_message = sprintf(elgg_echo('event_manager:event:registration:notification:owner:text:'.$type), 
 								get_entity($this->owner_guid)->name, 
 								get_entity($to)->name, 
 								$this->title).
 								$registrationLink;
 			}
+			
 			notify_user($this->owner_guid,
 						$this->getGUID(), 
 						elgg_echo('event_manager:event:registration:notification:owner:subject'), 
 						$owner_message
 						);
 						
-			if(($user = get_entity($to)) instanceof ElggUser)
-			{
-				if(is_plugin_enabled('html_email_handler'))
-				{
+			if(($user = get_entity($to)) instanceof ElggUser) {
+				if(elgg_is_active_plugin('html_email_handler')) {
 					$message = sprintf(elgg_echo('event_manager:event:registration:notification:user:text:html:'.$type), 
 									get_entity($to)->name,  
 									$this->getURL(), 
 									$this->title).
 									$registrationLink; 
-				}
-				else
-				{
+				} else {
 					$message = sprintf(elgg_echo('event_manager:event:registration:notification:user:text:'.$type), 
 									get_entity($to)->name,  
 									$this->title).
 									$registrationLink; 
 				}
+				
 				notify_user($to, 
 							$this->getGUID(), 
 							elgg_echo('event_manager:event:registration:notification:user:subject'),
 							$message
 							);
-			}
-			else
-			{	
+			} else {	
 				$message_text = sprintf(elgg_echo('event_manager:event:registration:notification:user:text:'.$type), 
 								get_entity($to)->name,  
 								$this->getURL(), 
@@ -614,8 +575,7 @@
 								$this->title).
 								$registrationLink;
 
-				if(is_plugin_enabled('html_email_handler'))
-				{						
+				if(elgg_is_active_plugin('html_email_handler')) {						
 					$options = array(
 						'to' => get_entity($to)->email,
 						'subject' => elgg_echo('event_manager:event:registration:notification:user:subject'),
@@ -623,10 +583,8 @@
 						'plaintext_message' => $message_text
 					);
 					html_email_handler_send_email($options);
-				}
-				else
-				{
-					$headers .= "From: ". $CONFIG->site->email . "\r\n";
+				} else {
+					$headers .= "From: ". elgg_get_site_entity()->email . "\r\n";
 					$headers .= "Reply-To: ". get_entity($to)->email . "\r\n";
 					$headers .= "MIME-Version: 1.0\r\n";
 					$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
@@ -641,45 +599,31 @@
 			elgg_set_ignore_access(false);			
 		}
 		
-		public function relateToAllSlots($relate = true, $user = null)
-		{
-			global $CONFIG;
-			if($user == null)
-			{
+		public function relateToAllSlots($relate = true, $user = null) {
+			if($user == null) {
 				$user = elgg_get_logged_in_user_guid();
 			}
 			
-			if($this->getEventDays())
-			{
-				foreach($this->getEventDays() as $eventDay)
-				{
-					foreach($eventDay->getEventSlots() as $eventSlot)
-					{
-						if($relate)
-						{
+			if($this->getEventDays()) {
+				foreach($this->getEventDays() as $eventDay) {
+					foreach($eventDay->getEventSlots() as $eventSlot) {
+						if($relate) {
 							$user->addRelationship($eventSlot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION);
-						}
-						else
-						{
-							delete_data("DELETE FROM {$CONFIG->dbprefix}entity_relationships WHERE guid_one='".$user."' AND guid_two='".$eventSlot->getGUID()."'");
+						} else {
+							delete_data("DELETE FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one='".$user."' AND guid_two='".$eventSlot->getGUID()."'");
 						}
 					}
 				}
 			}
 		}
 		
-		public function countEventSlotSpots()
-		{
+		public function countEventSlotSpots() {
 			$spots = array();
 			
-			if($eventDays = $this->getEventDays())
-			{
-				foreach($eventDays as $eventDay)
-				{
-					if($eventSlots = $eventDay->getEventSlots())
-					{
-						foreach($eventSlots as $eventSlot)
-						{
+			if($eventDays = $this->getEventDays()) {
+				foreach($eventDays as $eventDay) {
+					if($eventSlots = $eventDay->getEventSlots()) {
+						foreach($eventSlots as $eventSlot) {
 							$spots['total'] = ($spots['total'] + $eventSlot->max_attendees);
 							$spots['left'] = ($spots['left'] + ($eventSlot->max_attendees - $eventSlot->countRegistrations()));
 						}
@@ -689,18 +633,12 @@
 			return $spots;
 		}
 
-		public function hasUnlimitedSpotSlots()
-		{
-			if($eventDays = $this->getEventDays())
-			{
-				foreach($eventDays as $eventDay)
-				{
-					if($eventSlots = $eventDay->getEventSlots())
-					{
-						foreach($eventSlots as $eventSlot)
-						{
-							if($eventSlot->max_attendees == '' || $eventSlot->max_attendees == 0)
-							{
+		public function hasUnlimitedSpotSlots() {
+			if($eventDays = $this->getEventDays()) {
+				foreach($eventDays as $eventDay) {
+					if($eventSlots = $eventDay->getEventSlots()) {
+						foreach($eventSlots as $eventSlot) {
+							if($eventSlot->max_attendees == '' || $eventSlot->max_attendees == 0) {
 								return true;
 							}
 						}
@@ -709,45 +647,36 @@
 			}
 		}
 		
-		public function getLocation($type = false)
-		{
+		public function getLocation($type = false) {
 			$location = $this->location;
-			if($type)
-			{
+			if($type) {
 				$location = str_replace(',', '<br />',$this->location);
 			}
 			
 			return $location;
 		}
 		
-		public function getRelationshipByUser($user_guid = null)
-		{
-			global $CONFIG;
-			
+		public function getRelationshipByUser($user_guid = null) {
 			$user_guid = (int)$user_guid;
-			if(empty($user_guid))
-			{
+			if(empty($user_guid)) {
 				$user_guid = elgg_get_logged_in_user_guid();
 			}
 			
 			$event_guid = $this->getGUID();
 			
-			$row = get_data_row("SELECT * FROM {$CONFIG->dbprefix}entity_relationships WHERE guid_one=$event_guid AND guid_two=$user_guid");
+			$row = get_data_row("SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid AND guid_two=$user_guid");
 			return $row->relationship;
 		}
 
-		public function getRelationships($count = false)
-		{
-			global $CONFIG;
-			
+		public function getRelationships($count = false) {
 			$result = false;
 			
 			$event_guid = $this->getGUID();
 			
 			if($count){
-				$query = "SELECT relationship, count(*) as count FROM {$CONFIG->dbprefix}entity_relationships WHERE guid_one=$event_guid GROUP BY relationship ORDER BY relationship ASC";
+				$query = "SELECT relationship, count(*) as count FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid GROUP BY relationship ORDER BY relationship ASC";
 			} else {
-				$query = "SELECT * FROM {$CONFIG->dbprefix}entity_relationships WHERE guid_one=$event_guid ORDER BY relationship ASC";	
+				$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid ORDER BY relationship ASC";	
 			}
 			
 			$all_relations = get_data($query);
@@ -772,24 +701,20 @@
 			return $result;
 		}
 		
-		public function getRegistrationFormQuestions($count = false)
-		{
+		public function getRegistrationFormQuestions($count = false) {
 			$result = false;
 			
-			if($entities = event_manager_get_eventregistrationform_fields($this->getGUID(), $count))
-			{
+			if($entities = event_manager_get_eventregistrationform_fields($this->getGUID(), $count)) {
 				$result = $entities;
 			}
 			
 			return $result;
 		}
 		
-		public function isAttending($user_guid = null)
-		{
+		public function isAttending($user_guid = null) {
 			$result = false;
 			
-			if(empty($user_guid))
-			{
+			if(empty($user_guid)) {
 				$user_guid = elgg_get_logged_in_user_guid();
 			} 
 			
@@ -798,12 +723,10 @@
 			return $result;			
 		}
 		
-		public function isWaiting($user_guid = null)
-		{
+		public function isWaiting($user_guid = null) {
 			$result = false;
 			
-			if(empty($user_guid))
-			{
+			if(empty($user_guid)) {
 				$user_guid = elgg_get_logged_in_user_guid();
 			} 
 			
@@ -812,13 +735,10 @@
 			return $result;			
 		}
 		
-		public function getWaitingUsers()
-		{		
-			global $CONFIG;
-			
+		public function getWaitingUsers() {		
 			$result = false;
 				
-			$query = "SELECT * FROM {$CONFIG->dbprefix}entity_relationships WHERE guid_one= '".$this->getGUID(). "' AND relationship = '".EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST."' ORDER BY time_created ASC";
+			$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one= '".$this->getGUID(). "' AND relationship = '".EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST."' ORDER BY time_created ASC";
 				
 			if($waiting_users = get_data($query))
 			{
@@ -832,17 +752,12 @@
 			return $result;
 		}
 		
-		public function getFirstWaitingUser()
-		{		
-			global $CONFIG;
-			
+		public function getFirstWaitingUser() {		
 			$result = false;
 				
-			$query = "SELECT * FROM {$CONFIG->dbprefix}entity_relationships WHERE guid_one= '".$this->getGUID(). "' AND relationship = '".EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST."' ORDER BY time_created ASC LIMIT 1";	
-			if($waiting_users = get_data($query))
-			{
-				foreach($waiting_users as $user)
-				{
+			$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one= '".$this->getGUID(). "' AND relationship = '".EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST."' ORDER BY time_created ASC LIMIT 1";	
+			if($waiting_users = get_data($query)) {
+				foreach($waiting_users as $user) {
 					$result = get_entity($user->guid_two);
 				}
 			}
@@ -850,16 +765,12 @@
 			return $result;
 		}
 		
-		public function generateNewAttendee()
-		{
+		public function generateNewAttendee() {
 			$result = false;
 			
-			if($waiting_user = $this->getFirstWaitingUser())
-			{
-				foreach($this->getRegisteredSlotsByUser($waiting_user->getGUID()) as $slot)
-				{
-					if($slot->hasSpotsLeft())
-					{
+			if($waiting_user = $this->getFirstWaitingUser()) {
+				foreach($this->getRegisteredSlotsByUser($waiting_user->getGUID()) as $slot) {
+					if($slot->hasSpotsLeft()) {
 						$rsvp = true;
 						$waiting_user->removeRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
 						
@@ -867,8 +778,7 @@
 					}
 				}
 				
-				if($rsvp)
-				{
+				if($rsvp) {
 					$this->rsvp(EVENT_MANAGER_RELATION_ATTENDING, $waiting_user->getGUID(), false);
 					
 					notify_user(elgg_get_logged_in_user_guid(), 
@@ -886,41 +796,32 @@
 			return $result;
 		}
 		
-		public function getRegisteredSlotsByUser($user_guid)
-		{
-			global $CONFIG;
-			
+		public function getRegisteredSlotsByUser($user_guid) {
 			$slots = array();
 			
-			$data = get_data("	SELECT slot.guid FROM {$CONFIG->dbprefix}entities AS slot
-								INNER JOIN {$CONFIG->dbprefix}entities AS event ON event.guid = slot.owner_guid
-								INNER JOIN {$CONFIG->dbprefix}entity_relationships AS slot_user_relation ON slot.guid = slot_user_relation.guid_two
-								INNER JOIN {$CONFIG->dbprefix}users_entity AS user ON user.guid = slot_user_relation.guid_one
+			$data = get_data("	SELECT slot.guid FROM " . elgg_get_config("dbprefix") . "entities AS slot
+								INNER JOIN " . elgg_get_config("dbprefix") . "entities AS event ON event.guid = slot.owner_guid
+								INNER JOIN " . elgg_get_config("dbprefix") . "entity_relationships AS slot_user_relation ON slot.guid = slot_user_relation.guid_two
+								INNER JOIN " . elgg_get_config("dbprefix") . "users_entity AS user ON user.guid = slot_user_relation.guid_one
 								WHERE 	user.guid=$user_guid AND 
 										slot_user_relation.relationship='".EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST."'
 							");
 			
-			foreach($data as $slot)
-			{
+			foreach($data as $slot) {
 				$slots[] = get_entity($slot->guid);
 			}
 			
 			return $slots;
 		}
 		
-		public function getIcon($size = "medium", $icontime = 0)
-		{
-			if (!in_array($size, array('small','medium','large','tiny','master','topbar')))
-			{
+		public function getIcon($size = "medium", $icontime = 0) {
+			if (!in_array($size, array('small','medium','large','tiny','master','topbar'))) {
 				$size = 'medium';
 			}
 			
-			if ($icontime = $this->icontime)
-			{
+			if ($icontime = $this->icontime) {
 				$icontime = $icontime;
-			}
-			else
-			{
+			} else {
 				$icontime = "default";
 			}
 			
@@ -933,10 +834,7 @@
 			}
 		}
 		
-		public function getEventDays($order = 'ASC')
-		{
-			global $CONFIG;
-			
+		public function getEventDays($order = 'ASC') {
 			$entities_options = array(
 				'type' => 'object',
 				'subtype' => EventDay::SUBTYPE,
@@ -954,18 +852,15 @@
 		}
 	
 		
-		public function isUserRegistered($userid = null, $count = true)
-		{
-			global $CONFIG;
-			if($userid == null)
-			{
+		public function isUserRegistered($userid = null, $count = true) {
+			if($userid == null) {
 				$userid = elgg_get_logged_in_user_guid();
 			}
 			
 			$entities_options = array(
 				'type' => 'object',
 				'subtype' => EventRegistration::SUBTYPE,
-				'joins' => array("JOIN {$CONFIG->dbprefix}entity_relationships e_r ON e.guid = e_r.guid_two"),
+				'joins' => array("JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_r ON e.guid = e_r.guid_two"),
 				'wheres' => array("e_r.guid_one = " . $this->getGUID()),
 				'count' => $count,
 				'owner_guids' => array($userid)
@@ -973,22 +868,17 @@
 			
 			$entityCount = elgg_get_entities_from_relationship($entities_options);
 			
-			if($count)
-			{
-				if($entityCount > 0)
-				{
+			if($count) {
+				if($entityCount > 0) {
 					return true;
 				}
 				return false;
-			}
-			else
-			{
+			} else {
 				return $entityCount[0];
 			}
 		}
 		
-		public function countAttendees()
-		{
+		public function countAttendees() {
 			elgg_set_ignore_access(true);
 			
 			//$entities = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING);			
@@ -1006,8 +896,7 @@
 			return $entities;
 		}
 		
-		public function countWaiters()
-		{
+		public function countWaiters() {
 			elgg_set_ignore_access(true);
 			
 			//$entities = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING);			
@@ -1025,8 +914,7 @@
 			return $entities;
 		}
 		
-		public function exportAttendees()
-		{
+		public function exportAttendees() {
 			elgg_set_ignore_access(true);
 			
 // 			$entities = $this->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING);

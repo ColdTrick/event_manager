@@ -1,12 +1,12 @@
 = Version history =
 x.x:
-
+- changed: now using Google Maps API v3
 - fixed: export of attendees
 - fixed: unable to kick a user, leave an event
 
 2.0.2 (2011-12-6):
-- fixed event search
-- fixed js bugs
+- fixed: event search
+- fixed: js bugs
 
 2.0.1 (2011-11-01):
 

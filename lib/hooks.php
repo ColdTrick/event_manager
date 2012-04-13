@@ -1,16 +1,5 @@
 <?php 
 	
-	function event_manager_sitetakeover_hook($hook, $entity_type, $returnvalue, $params)
-	{
-		$event = elgg_get_page_owner_entity();
-		
-		set_input('guid', $event->getGUID());
-		
-		include(dirname(dirname(__FILE__)) . "/pages/sitetakeover/view.php");
-		
-		return true;
-	}
-	
 	function event_manager_user_hover_menu($hook, $entity_type, $returnvalue, $params){
 		global $EVENT_MANAGER_ATTENDING_EVENT;
 		
@@ -61,4 +50,23 @@
 		}
 		
 		return $result;
+	}
+	
+	/**
+	 * add menu item to owner block
+	 * 
+	 * @param unknown_type $hook
+	 * @param unknown_type $entity_type
+	 * @param unknown_type $returnvalue
+	 * @param unknown_type $params
+	 */
+	function event_manager_owner_block_menu($hook, $entity_type, $returnvalue, $params){
+		$group = elgg_extract("entity", $params);
+		if (elgg_instanceof($group, 'group') && $group->event_manager_enable != "no") {
+			$url = EVENT_MANAGER_BASEURL . '/event/list/' . $group->getGUID();
+			$item = new ElggMenuItem('events', elgg_echo('event_manager:menu:group_events'), $url);
+			$return[] = $item;
+		}
+		
+		return $return;
 	}

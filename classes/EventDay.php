@@ -1,20 +1,15 @@
 <?php 
 
-	class EventDay extends ElggObject 
-	{
+	class EventDay extends ElggObject {
 		const SUBTYPE = "eventday";
 		
-		protected function initializeAttributes() 
-		{
+		protected function initializeAttributes() {
 			parent::initializeAttributes();
 			
 			$this->attributes["subtype"] = self::SUBTYPE;
 		}
 		
-		public function getEventSlots()
-		{
-			global $CONFIG;
-			
+		public function getEventSlots() {
 			$entities_options = array(
 				'type' => 'object',
 				'subtype' => EventSlot::SUBTYPE,

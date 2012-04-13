@@ -24,11 +24,8 @@
 		}		
 	} else {
 		if($event->register_nologin) {
-			if(event_manager_check_sitetakeover_event()) {
-				$register_link = '/event/register';
-			} else {
-				$register_link = EVENT_MANAGER_BASEURL . '/event/register/'.$event->getGUID();
-			}
+			$register_link = EVENT_MANAGER_BASEURL . '/event/register/'.$event->getGUID();
+			
 			$options[] = elgg_view('output/url', array("class" => "elgg-button elgg-button-submit", "href" => $register_link, "text" => elgg_echo('event_manager:event:register:register_link')));
 		}
 	}

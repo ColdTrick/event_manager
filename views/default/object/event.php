@@ -39,7 +39,7 @@
 
         if($location = $event->getLocation()){
             $content .= '<div>' . elgg_echo('event_manager:edit:form:location') . ': ';
-            $content .= ((event_manager_has_maps_key()) ? '<a href="' . EVENT_MANAGER_BASEURL . '/event/route?from=' . $location . '" class="openRouteToEvent">' . $location . '</a>' : $location);
+            $content .= '<a href="' . EVENT_MANAGER_BASEURL . '/event/route?from=' . $location . '" class="openRouteToEvent">' . $location . '</a>';
             $content .= '</div>'; 
         }
 

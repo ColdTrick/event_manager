@@ -1,163 +1,131 @@
-<?php
-
-?>
-
+<?php ?>
+//<script>
 var event_manager_gmap;
 var event_manager_geocoder;
 var event_manager_gmarkers = [];
 var markerTimeout;
 
-$(function()
-{
-	var fancyboxOptions = {
-			'onComplete': function()
-			{
-				var location = $('#event_manager_event_edit input[name="location"]').val();
-				initMaps('map_canvas');
-				
-				if(location != '')
-				{
-					$('#address_search').val(location);
-					event_manager_gmap.setCenter(new GLatLng($("#event_latitude").val(), $("#event_longitude").val()), 12);
-					addMarker(new GLatLng($("#event_latitude").val(), $("#event_longitude").val()), true);
-				}
-				else
-				{
-					moveMapToLocation(EVENT_MANAGER_BASE_LOCATION, EVENT_MANAGER_BASE_ZOOM); 
-				}
-			}
-		};
-	
-
-	$('.openRouteToEvent').live('click', function(e)
-	{
-		clckElmnt = $(this); 
-
+$(function() {
+	$('.openRouteToEvent').live('click', function(e) {
 		$.fancybox({
-			'href':clckElmnt.attr('href'),
-			'onComplete': function()
-			{
+			'href':$(this).attr('href'),
+			'onComplete': function() {
 				initMaps('map_canvas');
-				initRoutemaps(clckElmnt.html());
-				
+				event_manager_geocoder.geocode( { 'address': $(this).html()}, function(results, status) {
+			      	if (status == google.maps.GeocoderStatus.OK) {
+			        	event_manager_gmap.setCenter(results[0].geometry.location);
+			        	new google.maps.Marker({ map: event_manager_gmap, position: results[0].geometry.location });
+			      	}
+			    });
 			}});
 		e.preventDefault();
 	});
-
 	
-	$('#openmaps').click(function()
-	{
+	// used for edit event form //@todo improve
+	$('#openmaps').click(function()	{
 		$("#openGoogleMaps").click();
 	});
 	
-	$("#openGoogleMaps").fancybox(fancyboxOptions);
+	// used for edit event form
+	$("#openGoogleMaps").fancybox({
+			'onComplete': function() {
+				var location = $('#event_manager_event_edit input[name="location"]').val();
+				initMaps('map_canvas');
+				
+				if(location) {
+					$("#address_search").val(location);
+					event_manager_geocoder.geocode( { 'address': location}, function(results, status) {
+						if (status == google.maps.GeocoderStatus.OK) {
+							event_manager_gmap.setCenter(results[0].geometry.location);
+							new google.maps.Marker({ map: event_manager_gmap, position: results[0].geometry.location });
+						}
+				    });
+				}
+			}
+	});
+			
+	$('#event_manager_address_search').live("submit", function(e) {
+		searchAddress($('#address_search').val());
+		e.preventDefault();
+	});
+
+	$('#address_search_save').live("click", function() {
+		var address = $('#address_search').val();
+	
+		$('#event_manager_event_edit input[name="location"]').val(address);
+		if(address){
+			event_manager_geocoder.geocode( { 'address': address}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					$('#event_latitude').val(results[0].geometry.location.lat());
+					$('#event_longitude').val(results[0].geometry.location.lng());
+				}
+		    });
+		} else {
+			$('#event_latitude').val("");
+	   		$('#event_longitude').val("");
+	   	}
+		
+		$.fancybox.close();
+	});
+	
+	$('#event_manager_address_route_search').live("submit", function(e)	{
+		frmAddress = $('#address_from').val();
+		dstAddress = $('#address_to').html();
+		
+		if(frmAddress == '') {
+			alert(elgg.echo('event_manager:action:event:edit:error_fields'));
+		} else {
+			window.open( '//maps.google.com/maps?f=d&source=s_d&saddr=' + frmAddress + '&daddr=' + dstAddress );
+		}
+		
+		e.preventDefault();
+	});
 });
 
 
 /*
  * Global GoogleMaps init
  */
-function initMaps(element)
-{
+function initMaps(element){
+	event_manager_geocoder = new google.maps.Geocoder();
 	
-	if(GBrowserIsCompatible())
-	{
-		event_manager_gmap = new GMap2(document.getElementById(element));
-		event_manager_geocoder = new GClientGeocoder();
-		
-		event_manager_gmap.setMapType(G_NORMAL_MAP);
-		event_manager_gmap.enableScrollWheelZoom();
-		event_manager_gmap.setUIToDefault();
-	}
+	var myOptions = {
+    	zoom: EVENT_MANAGER_BASE_ZOOM,
+    	mapTypeId: google.maps.MapTypeId.ROADMAP
+  	}
+	event_manager_gmap = new google.maps.Map(document.getElementById(element), myOptions);
+	
+	event_manager_geocoder.geocode( { 'address': EVENT_MANAGER_BASE_LOCATION}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        event_manager_gmap.setCenter(results[0].geometry.location);
+      }
+    });
 }
 
-function initRoutemaps(location)
-{
-	event_manager_geocoder.getLatLng(location, function(gpoint)
-	{
-		if(gpoint)
-		{
-			event_manager_gmap.setCenter(gpoint, 15);
-			var gicon = new GIcon(G_DEFAULT_ICON);
-				gicon.iconSize = new GSize(32,32);
-				gicon.shadow = '//www.google.com/intl/en_us/mapfiles/ms/micons/pushpin_shadow.png';
-				gicon.image = '//www.google.com/intl/en_us/mapfiles/ms/micons/red-pushpin.png';
-				gicon.shadowSize = new GSize(59, 32);
-			
-			gmarker = new GMarker(gpoint, {icon: gicon});
-			event_manager_gmap.addOverlay(gmarker);
-		}
-	});
+function initOnthemaps() {
+	
+<!-- 	GEvent.addListener(event_manager_gmap, "dragend", function() { -->
+<!-- 		getMarkersJson(); -->
+<!-- 	}); -->
+	
+<!-- 	GEvent.addListener(event_manager_gmap, "movestart", function() { -->
+<!-- 		getMarkersJson();		 -->
+<!-- 	}); -->
+	
+<!-- 	GEvent.addListener(event_manager_gmap, "moveend", function() { -->
+<!-- 		getMarkersJson();		 -->
+<!-- 	}); -->
+	
+<!-- 	GEvent.addListener(event_manager_gmap, "dblclick", function() { -->
+<!-- 		getMarkersJson();	 -->
+<!-- 	}); -->
+	
+<!-- 	GEvent.addListener(event_manager_gmap, "zoomend", function() { -->
+<!-- 		getMarkersJson();	 -->
+<!-- 	}); -->
 }
 
-function initOnthemaps()
-{
-	moveMapToLocation(EVENT_MANAGER_BASE_LOCATION, EVENT_MANAGER_BASE_ZOOM);
-	
-	GEvent.addListener(event_manager_gmap, "dragend", function() 
-	{
-		getMarkersJson();
-	});
-	GEvent.addListener(event_manager_gmap, "movestart", function() 
-	{
-		getMarkersJson();		
-	});
-	GEvent.addListener(event_manager_gmap, "moveend", function() 
-	{
-		getMarkersJson();		
-	});
-	GEvent.addListener(event_manager_gmap, "dblclick", function() 
-	{
-		getMarkersJson();	
-	});
-	GEvent.addListener(event_manager_gmap, "zoomend", function() 
-	{
-		getMarkersJson();	
-	});
-}
-
-function addMarkers(lat, lng, title, text, hasrelation, iscreator)
-{
-	var gpoint = new GLatLng(lat, lng), gicon = new GIcon(G_DEFAULT_ICON), gimage = '';
-
-	gicon.iconSize = new GSize(32,32);
-	gicon.shadow = '//www.google.com/intl/en_us/mapfiles/ms/micons/pushpin_shadow.png';
-	gicon.shadowSize = new GSize(59, 32);
-
-	gimage = '//www.google.com/intl/en_us/mapfiles/ms/micons/red-pushpin.png';	
-	cat = 'normal';
-	
-	if(iscreator != null)
-	{
-		gimage = '//www.google.com/intl/en_us/mapfiles/ms/micons/ylw-pushpin.png';
-		cat = 'creator';
-	}
-	else
-	{
-		if(hasrelation != null)
-		{
-			gimage = '//www.google.com/intl/en_us/mapfiles/ms/micons/blue-pushpin.png';
-			cat = 'attending';
-					
-		}
-	}
-
-	gicon.image = gimage;
-	
-	gmarker = new GMarker(gpoint, {icon: gicon});
-	gmarker.myname = title;
-	gmarker.mycategory = cat;
-
-	GEvent.addListener(gmarker, "click", function() 
-	{
-		event_manager_gmap.openInfoWindowHtml(gpoint, text);
-	});
-	
-	return gmarker;
-}
-
-function makeSidebar() 
-{
+function makeSidebar() {
 	$('#event_manager_onthemap_sidebar').remove();
 
 	var foundMarkers = 0;
@@ -165,40 +133,32 @@ function makeSidebar()
 	html += '<div class="elgg-head"><h3>' + elgg.echo('event_manager:sidebar:title') + '</h3></div>';
 	html += '<ul class="elgg-menu elgg-menu-extras">'; 
 	
-	$.each(event_manager_gmarkers, function(i, event)
-	{
-		if (!event.isHidden())
-		{
+	$.each(event_manager_gmarkers, function(i, event) {
+		if (!event.isHidden()) {
 			foundMarkers = (parseInt(foundMarkers, 10)+1);
 			html += '<li class="elgg-menu-item"><a href="javascript:openInfowindow(' + i + ');">' + event.myname + '<\/a><\/li>';
 		}
 	});
+	
 	html += '</ul></div>';
 
-	if(foundMarkers > 0)
-	{
+	if(foundMarkers > 0) {
 		$('div.elgg-sidebar').append(html);
 	}
 }
 
-function getMarkersJson()
-{ 
+function getMarkersJson() { 
 	var bounds = event_manager_gmap.getBounds(), southWest = bounds.getSouthWest(), northEast = bounds.getNorthEast();
 
-	$.each(event_manager_gmarkers, function(i, event)
-	{
+	$.each(event_manager_gmarkers, function(i, event) {
 		var lat = event.getLatLng().lat();
 		var lng = event.getLatLng().lng();
 		
-		if(lat <= northEast.lat() && lng >= southWest.lng() && lat >= southWest.lat() && lng <= northEast.lng())
-		{
-			if(event.isHidden())
-			{
+		if(lat <= northEast.lat() && lng >= southWest.lng() && lat >= southWest.lat() && lng <= northEast.lng()) {
+			if(event.isHidden()) {
 				event.show();
 			}
-		}
-		else
-		{
+		} else {
 			event.closeInfoWindow(); 
 			event.hide();
 		}
@@ -207,70 +167,26 @@ function getMarkersJson()
 	makeSidebar();
 }
 
-function getLatLngFromFields()
-{
-	var latField = $("#event_latitude").val(), lngField = $("#event_longitude").val();
-	if(latField != '' && lngField != '')
-	{
-		return new GLatLng($("#event_latitude").val(), $("#event_longitude").val());
+function searchAddress(address) {
+	if (event_manager_geocoder == null)	{
+		event_manager_geocoder = new google.maps.Geocoder();
 	}
-	else
-	{
-		return null;
-	}
-}
-
-function getCoordsFromAddress(address)
-{
-	var coords = false;
-	if (event_manager_geocoder == null)
-	{
-		event_manager_geocoder = new GClientGeocoder();
-	}
-	event_manager_geocoder.getLatLng(address, function(gpoint)
-	{
-		if(gpoint)
-		{
-			setLatLngFields(gpoint);
-			getAdressFromCoords(gpoint);
-			addMarker(gpoint, true);
-		}
-	});
 	
-	return coords;
+	event_manager_geocoder.geocode( { 'address': address }, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+        	event_manager_gmap.setCenter(results[0].geometry.location);
+        	new google.maps.Marker({ map: event_manager_gmap, position: results[0].geometry.location });
+        	$('#address_search').val(results[0].formatted_address);
+      	}
+    });
 }
 
-function searchAddress(address)
-{
-	if (event_manager_geocoder == null)
-	{
-		event_manager_geocoder = new GClientGeocoder();
-	}
-	event_manager_geocoder.getLatLng(address, function(gpoint)
-	{
-		if(gpoint)
-		{
-			event_manager_geocoder.getLocations(gpoint, function(response)
-			{
-				if(response)
-				{
-					result = response.Placemark[0].address;
-					$('#address_search').val(result);
-					addMarker(gpoint, true);
-				}
-			});	
-		}
-	});
-}
-
-function setLatLngFields(point)
-{
+function setLatLngFields(point) {
    $('#event_latitude').val(point.lat());
    $('#event_longitude').val(point.lng());
 }
 
-function getAdressFromCoords(coords, fields)
-{
+function getAdressFromCoords(coords, fields) {
 	var address = null;
 	if(coords == null)
 	{
@@ -290,65 +206,7 @@ function getAdressFromCoords(coords, fields)
 	});	
 }
 
-function addMarker(gpoint, draggable)
-{
-	event_manager_gmap.clearOverlays();
-	
-	var gicon = new GIcon(G_DEFAULT_ICON);
-		gicon.iconSize = new GSize(32,32);
-		gicon.shadow = '//www.google.com/intl/en_us/mapfiles/ms/micons/pushpin_shadow.png';
-		gicon.image = '//www.google.com/intl/en_us/mapfiles/ms/micons/red-pushpin.png';
-		gicon.shadowSize = new GSize(59, 32);
-	
-	gmarker = new GMarker(gpoint, {icon: gicon, draggable: draggable});
-	event_manager_gmap.addOverlay(gmarker);
-	
-	GEvent.addListener(gmarker, "dragend", function() 
-	{
-		setLatLngFields(gmarker.getPoint());
-		moveMapToCoords(gmarker.getPoint());
-		getAdressFromCoords(gmarker.getPoint());
-	});
-	moveMapToCoords(gpoint);
-	return gmarker;
-}
-
-
-function moveMapToCoords(point)
-{
-	event_manager_gmap.panTo(point);
-}
-
-function setAddressFields(address)
-{
+function setAddressFields(address) {
    $('#address_search').val(address);
    $('#event_manager_event_edit input[name="location"]').val(address);
-}
-
-function openInfowindow(i)
-{
-	GEvent.trigger(event_manager_gmarkers[i],"click");
-}
-
-function moveMapToLocation(location, zoomlevel)
-{
-	if (event_manager_geocoder == null)
-	{
-		event_manager_geocoder = new GClientGeocoder();
-	}
-	
-	event_manager_geocoder.getLatLng(location, function(gpoint)
-	{
-		if(gpoint)
-		{
-			event_manager_gmap.setCenter(gpoint, zoomlevel);
-		}
-		/*else
-		{
-			event_manager_geocoder.getLatLng('atlantic ocean', function(gpoint)
-			{
-				event_manager_gmap.setCenter(gpoint, 2);
-			});
-		}*/
-	});
 }

@@ -2,35 +2,7 @@
 
 $guid = get_input('guid');
 
-/*if($event = get_entity($guid))
-{*/
-
 ?>
-<script type="text/javascript">
-
-$(function()
-{
-
-	initMaps('map_canvas');
-	
-	$('#event_manager_address_search').submit(function(e)
-	{
-		searchAddress($('#address_search').val());
-		
-		e.preventDefault();
-	});
-
-	$('#address_search_save').click(function()
-	{
-		setAddressFields($('#address_search').val());
-		setLatLngFields(event_manager_gmap.getCenter());
-		
-		$.fancybox.close();
-	});
-});
-
-</script>
-
 <div id="google_maps" style="width: 800px; height: 700px;">
 	<div id="map_canvas" style="width: 800px; height: 600px;"></div>
 	<?php
@@ -51,5 +23,3 @@ $(function()
 	?>
 </div>
 <?php 
-//}
-?>

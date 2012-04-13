@@ -16,7 +16,7 @@
 	$event_details = "<table>";
 	if($location = $event->getLocation()){
 		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:location') . '</b>:</td><td>';
-		$event_details .= ((event_manager_has_maps_key()) ? '<a href="' . EVENT_MANAGER_BASEURL . '/event/route?from=' . $event->getLocation() . '" class="openRouteToEvent">' . $event->getLocation() . '</a>' : $event->getLocation());
+		$event_details .= '<a href="' . EVENT_MANAGER_BASEURL . '/event/route?from=' . $event->getLocation() . '" class="openRouteToEvent">' . $event->getLocation() . '</a>';
 		$event_details .= '</td></tr>';
 	}
 	

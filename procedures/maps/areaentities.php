@@ -14,8 +14,7 @@ $returnData['valid'] = 0;
 
 $entities = get_entities_from_viewport($lat, $lng, ($radius*KILOMETER), 'object', 'event', 20);
 
-foreach($entities as $event)
-{
+foreach($entities as $event) {
 	$eventBox = '<div class="gmaps_infowindow">'.PHP_EOL.
 					'<div class="gmaps_infowindow_text">'.PHP_EOL.
 						'<div class="event_manager_event_view_owner"><a href="'.$event->getURL().'">'.$event->title.'</a> ('.date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day).')</div>'.PHP_EOL.
@@ -35,7 +34,4 @@ foreach($entities as $event)
 $returnData['valid'] = 1;
 
 echo json_encode($returnData);
-/*echo '<pre>';
-echo var_dump($returnData['content']);
-echo '</pre>';*/
 exit;

@@ -1,5 +1,5 @@
 <?php 
-	$guid = get_input("guid");
+	$guid = (int) get_input("guid");
 	$type = get_input("type");
 	
 	if($entity = get_entity($guid))	{	

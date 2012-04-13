@@ -13,12 +13,8 @@
 	font-size: 100%;
 }
 
-#event_manager_event_edit > table {
+#event_manager_event_edit > fieldset > table {
 	width: 100%;
-}
-
-#event_manager_event_edit > table td {
-	padding: 0 0 1px 0;
 }
 
 #event_manager_event_edit .event_manager_event_edit_label {
@@ -122,11 +118,17 @@
 	font-size: 100%;
 }
 
-#event_manager_event_search_advanced_container
-{
+#past_events {
+	display: inline-block;
+}
+
+#event_manager_event_search_advanced_container {
 	display: none;
 }
 
+#event_manager_event_search_advanced_container .elgg-input-date {
+	width: 100px;
+}
 /* Event view */
 
 .event_manager_event_view_image {
@@ -363,32 +365,4 @@
 
 #event_manager_registrationform_fields li {
 	background: #FFFFFF;
-}
-
-#event_manager_sitetakeover_menu {
-	float: left;
-	clear: both;
-	margin-left: 10px;
-    margin-top: 15px;
-}
-
-#event_manager_sitetakeover_menu ul {
-	display: inline;
-	list-style: none;
-}
-
-#event_manager_sitetakeover_menu ul li {
-	float: left;
-	margin-right: 5px;
-}
-
-#event_manager_sitetakeover_menu ul li a {
-	display: block;
-	height: 25px;
-	line-height: 25px;
-	background-color: #ffffff;
-	border-radius: 8px 8px 0 0;
-	-moz-border-radius: 8px 8px 0 0;
-	webkit-border-radius: 8px 8px 0 0;
-	padding: 0px 8px 0 8px;
 }

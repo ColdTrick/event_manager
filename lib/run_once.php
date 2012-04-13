@@ -1,7 +1,6 @@
 <?php 
 
-	function event_manager_run_once_subtypes()
-	{
+	function event_manager_run_once_subtypes()	{
 		add_subtype('object', Event::SUBTYPE, "Event");
 		add_subtype('object', EventDay::SUBTYPE, "EventDay");
 		add_subtype('object', EventSlot::SUBTYPE, "EventSlot");
