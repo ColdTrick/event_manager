@@ -1,6 +1,6 @@
 = Version history =
 
-x.x:
+2.1 (2012-04-13):
 
 - added: when increasing the available slots, user on the waiting list will auto join
 - changed: showing waitinglist in event full view to event owners
