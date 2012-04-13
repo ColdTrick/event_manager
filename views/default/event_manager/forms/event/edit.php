@@ -82,7 +82,7 @@
 	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:title') . " *</td><td>" . elgg_view('input/text', array('name' => 'title', 'value' => $fields["title"])) . "</td></tr>";
 
-	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:shortdescription') . " *</td><td>" . elgg_view('input/text', array('name' => 'shortdescription', 'value' => $fields["shortdescription"])) . "</td></tr>";
+	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:shortdescription') . "</td><td>" . elgg_view('input/text', array('name' => 'shortdescription', 'value' => $fields["shortdescription"])) . "</td></tr>";
 	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('tags') . " *</td><td>" . elgg_view('input/tags', array('name' => 'tags', 'value' => $fields["tags"])) . "</td></tr>";
 

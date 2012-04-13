@@ -1,5 +1,8 @@
 = Version history =
+
 x.x:
+
+- changed: short description no longer required
 - changed: now using Google Maps API v3
 - fixed: export of attendees
 - fixed: unable to kick a user, leave an event
