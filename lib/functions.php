@@ -50,6 +50,7 @@
 							'region'			=> null,
 							'event_type'		=> false,
 							'past_events'		=> false,
+							
 		);
 		
 		$options = array_merge($defaults, $options);
@@ -61,82 +62,55 @@
 			'subtype' 		=> 'event',
 			'offset' 		=> $options['offset'],
 			'limit' 		=> $options['limit'],
-			//'container_guid'=> $options['container_guid'],
-			'joins' 		=> array(
-								"JOIN " . elgg_get_config("dbprefix") . "objects_entity oe ON e.guid = oe.guid",
-		
-								"JOIN " . elgg_get_config("dbprefix") . "metadata meda_table_n ON e.guid = meda_table_n.entity_guid",
-								"JOIN " . elgg_get_config("dbprefix") . "metadata meda_table_d ON e.guid = meda_table_d.entity_guid",
-		
-								"JOIN " . elgg_get_config("dbprefix") . "metastrings msn ON meda_table_n.name_id = msn.id",
-								"JOIN " . elgg_get_config("dbprefix") . "metastrings msv ON meda_table_n.value_id = msv.id",
-								),
-			'order_by_metadata' => 'start_day ASC'
+			//'container_guid'=> $options['container_guid'], @todo JD: why is this commented out?
+			'joins' => array(),
+			'wheres' => array(),
+			'order_by_metadata' => array("name" => 'start_day', "direction" => 'ASC', "as" => "integer")
 		);
 		
-		if($options['query'])
-		{		
-			$fields_object 	= array('title', 'description');	
-			$fields 		= array('string');
-
-			$meta_fields 	= array("'shortdescription'", "'organizer'", "'venue'", "'location'");
-			$meta_fields_in = implode(',', $meta_fields);
-
-			$where			= event_manager_search_get_where_sql('oe', $fields_object, $options, false);
-			$search_where 	= event_manager_search_get_where_sql('msv', $fields, $options, false);
-			
-			$meta_where = "((msn.string IN ($meta_fields_in)) AND $search_where)";
-			
-			$entities_options['wheres'][] = '('.$where.' OR '.$meta_where.')';
+		if($options['query']) {		
+			$entities_options["joins"][] = "JOIN " . elgg_get_config("dbprefix") . "objects_entity oe ON e.guid = oe.guid";
+			$entities_options['wheres'][] = event_manager_search_get_where_sql('oe', array('title', 'description'), $options, false);
 		}
 					
-		if(!empty($options['start_day']))
-		{
+		if(!empty($options['start_day'])) {
 			$entities_options['metadata_name_value_pairs'][] = array('name' => 'start_day', 'value' => $options['start_day'], 'operand' => '>=');
 		}
 		
-		if(!empty($options['end_day']))
-		{
+		if(!empty($options['end_day'])) {
 			$entities_options['metadata_name_value_pairs'][] = array('name' => 'start_day', 'value' => $options['end_day'], 'operand' => '<=');
 		}
 		
-		if($options['meattending'])
-		{
+		if(!$options['past_events']) {
+			// only show from current day or newer
+			$entities_options['metadata_name_value_pairs'][] = array('name' => 'start_day', 'value' => mktime(0, 0, 1), 'operand' => '>=');
+		}
+		
+		if($options['meattending']) {
 			$entities_options['joins'][] = "JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_r ON e.guid = e_r.guid_one";
 			
 			$entities_options['wheres'][] = "e_r.guid_two = " . elgg_get_logged_in_user_guid();
 			$entities_options['wheres'][] = "e_r.relationship = '" . EVENT_MANAGER_RELATION_ATTENDING . "'";
 		}
 		
-		if($options['owning'])
-		{
+		if($options['owning']) {
 			$entities_options['owner_guids'] = array(elgg_get_logged_in_user_guid()); 			
 		}
 		
-		if($options['friendsattending'])
-		{
+		if($options['friendsattending']){
 			$friends_guids = array();
 			
-			$entities_options['joins'][] = "JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_ra ON e.guid = e_ra.guid_one";
-			
-			if($friends = elgg_get_logged_in_user_entity()->getFriends())
-			{
-				foreach($friends as $user)
-				{
+			if($friends = elgg_get_logged_in_user_entity()->getFriends()) {
+				foreach($friends as $user) {
 					$friends_guids[] = $user->getGUID();
 				}
-				 
+				$entities_options['joins'][] = "JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_ra ON e.guid = e_ra.guid_one";
 				$entities_options['wheres'][] = "(e_ra.guid_two IN (" . implode(", ", $friends_guids) . "))";
+			} else	{
+				// return no result
+				$entities_options['joins'] = array();
+				$entities_options['wheres'] = array("(1=0)");
 			}
-			else
-			{
-				$entities_options['wheres'][] = "(e_ra.guid_two IN (''))";
-			}
-		}
-	
-		if(!$options['past_events'])
-		{
-			$entities_options['metadata_name_value_pairs'][] = array('name' => 'start_day', 'value' => mktime(0, 0, 1), 'operand' => '>=');
 		}
 		
 		$entities = elgg_get_entities_from_metadata($entities_options);
