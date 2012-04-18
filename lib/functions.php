@@ -305,6 +305,8 @@
 	}
 	
 	function event_manager_export_attendees($event, $file = false) {
+		$old_ia = elgg_get_ignore_access();
+		elgg_set_ignore_access(true);
 		if($file) {
 			$EOL = "\r\n";
 		} else {
@@ -381,7 +383,7 @@
 		}
 		
 		$headerString .= $EOL;
-		
+		elgg_set_ignore_access($old_ia);
 		return $headerString.$dataString;
 	}
 	
