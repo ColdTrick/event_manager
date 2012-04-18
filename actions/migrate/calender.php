@@ -24,6 +24,9 @@ if($migratable_events['count'] > 0)
 		$new_event->access_id 			= $old_event->access_id;
 		$new_event->save();
 		
+		// anti date (need to be after first save)
+		$new_event->time_created 		= $old_event->time_created;
+		
 		$new_event->tags 				= $old_event->event_tags;
 		
 		$new_event->venue 				= $old_event->venue;
