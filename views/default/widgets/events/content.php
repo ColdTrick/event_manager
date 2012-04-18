@@ -4,9 +4,6 @@
 	
 	$owner = $widget->getOwnerEntity();
 	
-	$current_context = get_context();
-	set_context('widget');
-
 	$event_options = array();
 	
 	switch($owner->getType()){
@@ -34,6 +31,4 @@
 	$events = event_manager_search_events($event_options);
 	$content = elgg_view_entity_list($events['entities'], $events["count"], 0, $num_display, false, false, false);	
 	
-	set_context($current_context);
-
 	echo $content;

@@ -59,7 +59,7 @@
 			'class' => 'elgg-menu-hz',
 		));
 		
-		if(elgg_in_context("widget")){
+		if(elgg_in_context("widgets")){
 			$subtitle = "";
 		}
 		

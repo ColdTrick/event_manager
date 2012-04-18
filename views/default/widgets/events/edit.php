@@ -23,7 +23,7 @@
 if(in_array($widget->context, array('dashboard', 'profile')))
 {
 	echo elgg_echo('event_manager:widgets:events:showevents') . ': ';
-	echo elgg_view('input/pulldown', array(	'internalname' => 'params[type_to_show]', 
+	echo elgg_view('input/dropdown', array(	'name' => 'params[type_to_show]', 
 											'value' => $type_to_show, 
 											'options_values' => array(	'all' => elgg_echo('all'),
 			 															'owning' => elgg_echo('event_manager:widgets:events:showevents:icreated'), 
