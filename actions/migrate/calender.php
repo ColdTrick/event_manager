@@ -33,6 +33,10 @@ if($migratable_events['count'] > 0)
 		$new_event->event_type 			= (($old_event->event_type != '-')?$old_event->event_type:'');
 		$new_event->shortdescription 	= $old_event->description;
 		$new_event->organizer 			= $old_event->organiser;
+		
+		// set correct default behaviour
+		$new_event->show_attendees		= true;
+		$new_event->comments_on			= true;
 				
 		if($annotations = $old_event->getAnnotations('personal_event'))
 		{
