@@ -14,7 +14,7 @@
 <p>
 <?php 
 	echo elgg_echo('event_manager:widgets:events:numbertodisplay').':';
-	echo elgg_view('input/text', array('internalname' => 'params[num_display]', 'value' => $num_display));
+	echo elgg_view('input/text', array('name' => 'params[num_display]', 'value' => $num_display));
 ?>
 </p>
 <p>

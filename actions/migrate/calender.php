@@ -1,6 +1,6 @@
 <?php
 
-set_time_limit(0);
+set_time_limit(0); // make sure we do not run out of time
 
 $migratable_events = event_manager_get_migratable_events();
 

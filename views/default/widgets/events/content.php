@@ -29,6 +29,6 @@
 	$event_options["limit"] = $num_display;
 	
 	$events = event_manager_search_events($event_options);
-	$content = elgg_view_entity_list($events['entities'], $events["count"], 0, $num_display, false, false, false);	
+	$content = elgg_view_entity_list($events['entities'], array("count" => $events["count"], "offset" => 0, "limit" => $num_display, "pagination" => false, "full_view" => false));	
 	
 	echo $content;
