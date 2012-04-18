@@ -62,11 +62,15 @@
 			'subtype' 		=> 'event',
 			'offset' 		=> $options['offset'],
 			'limit' 		=> $options['limit'],
-			//'container_guid'=> $options['container_guid'], @todo JD: why is this commented out?
 			'joins' => array(),
 			'wheres' => array(),
 			'order_by_metadata' => array("name" => 'start_day', "direction" => 'ASC', "as" => "integer")
 		);
+		
+		if($options[container_guid]){
+			// limit for a group
+			$entities_options['container_guid'] = $options['container_guid'];
+		}
 		
 		if($options['query']) {		
 			$entities_options["joins"][] = "JOIN " . elgg_get_config("dbprefix") . "objects_entity oe ON e.guid = oe.guid";
