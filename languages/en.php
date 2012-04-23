@@ -120,50 +120,65 @@
 		'event_manager:event:registration:notification:owner:subject' => 'Event registration',	
 		'event_manager:event:registration:notification:user:subject' => 'Event registration',
 	
-		'event_manager:event:registration:notification:owner:text:html:event_attending' => '<p>Hello %s, </p><p>%s signed up as \'attending\' to your <a href="%s">\'%s\'</a> event.</p>',	
-		'event_manager:event:registration:notification:owner:text:event_attending' => "Hello %s, \n\r\n\r%s signed up as 'attending' to your '%s' event.\n\r\n\r",
+		'event_manager:event:registration:notification:owner:text:event_attending' => "Hello %s,
+
+%s signed up as 'attending' to your '%s' event.",
 		
-		'event_manager:event:registration:notification:user:text:html:event_attending' => '<p>Hello %s, </p><p>You succesfully signed up as \'attending\' to the <a href="%s">\'%s\'</a> event.</p>',
-		'event_manager:event:registration:notification:user:text:event_attending' => "Hello %s, \n\r\n\rYou succesfully signed up as 'attending' to the '%s' event.\n\r\n\r",
+		'event_manager:event:registration:notification:user:text:event_attending' => "Hello %s,
+
+You succesfully signed up as 'attending' to the '%s' event.",
 	
-		'event_manager:event:registration:notification:owner:text:html:event_waitinglist' => '<p>Hello %s, </p><p>%s is on the waiting list for your <a href="%s">\'%s\'</a> event.</p>',	
-		'event_manager:event:registration:notification:owner:text:event_waitinglist' => "Hello %s, \n\r\n\r%s is on the waiting list for your '%s' event.\n\r\n\r",
+		'event_manager:event:registration:notification:owner:text:event_waitinglist' => "Hello %s,
+
+%s is on the waiting list for your '%s' event.",
 		
-		'event_manager:event:registration:notification:user:text:html:event_waitinglist' => '<p>Hello %s, </p><p>You are now on the waiting list for the <a href="%s">\'%s\'</a> event.</p>',	
-		'event_manager:event:registration:notification:user:text:event_waitinglist' => "Hello %s, \n\r\n\rYou are now on the waiting list for the '%s' event.\n\r\n\r",	
+		'event_manager:event:registration:notification:user:text:event_waitinglist' => "Hello %s,
+
+You are now on the waiting list for the '%s' event.",	
 	
-		'event_manager:event:registration:notification:owner:text:html:event_exhibiting' => '<p>Hello %s, </p><p>%s has signed up as \'exhibiting\' to your <a href="%s">\'%s\'</a> event.</p>',
-		'event_manager:event:registration:notification:owner:text:event_exhibiting' => "Hello %s, \n\r\n\r%s has signed up as 'exhibiting' to your '%s' event.\n\r\n\r",
+		'event_manager:event:registration:notification:owner:text:event_exhibiting' => "Hello %s,
+
+%s has signed up as 'exhibiting' to your '%s' event.",
 		
-		'event_manager:event:registration:notification:user:text:html:event_exhibiting' => '<p>Hello %s, </p><p>You succesfully signed up as \'exhibiting\' to the <a href="%s">\'%s\'</a> event.</p>',	
-		'event_manager:event:registration:notification:user:text:event_exhibiting' => "Hello %s, \n\r\n\rYou succesfully signed up as 'exhibiting' to the '%s' event.\n\r\n\r",	
+		'event_manager:event:registration:notification:user:text:event_exhibiting' => "Hello %s,
+
+You succesfully signed up as 'exhibiting' to the '%s' event.",	
 	
-		'event_manager:event:registration:notification:owner:text:html:event_organizing' => '<p>Hello %s, </p><p>%s has signed up as \'organizing\' to your <a href="%s">\'%s\'</a> event.</p>',
-		'event_manager:event:registration:notification:owner:text:event_organizing' => "Hello %s, \n\r\n\r%s has signed up as 'organizing' to your '%s' event.\n\r\n\r",
+		'event_manager:event:registration:notification:owner:text:event_organizing' => "Hello %s,
+
+%s has signed up as 'organizing' to your '%s' event.",
 		
-		'event_manager:event:registration:notification:user:text:html:event_organizing' => '<p>Hello %s, </p><p>You succesfully signed up as \'organizing\' to the <a href="%s">\'%s\'</a> event.</p>',	
-		'event_manager:event:registration:notification:user:text:event_organizing' => "Hello %s, \n\r\n\rYou succesfully signed up as 'organizing' to the '%s' event.\n\r\n\r",	
+		'event_manager:event:registration:notification:user:text:event_organizing' => "Hello %s,
+
+You succesfully signed up as 'organizing' to the '%s' event.",	
 	
-		'event_manager:event:registration:notification:owner:text:html:event_presenting' => '<p>Hello %s, </p><p>%s has signed up as \'presenter\' to your <a href="%s">\'%s\'</a> event.</p>',
-		'event_manager:event:registration:notification:owner:text:event_presenting' => "Hello %s, \n\r\n\r%s has signed up as 'presenter' to your '%s' event.\n\r\n\r",
+		'event_manager:event:registration:notification:owner:text:event_presenting' => "Hello %s,
+
+%s has signed up as 'presenter' to your '%s' event.",
 		
-		'event_manager:event:registration:notification:user:text:html:event_presenting' => '<p>Hello %s, </p><p>You succesfully signed up as \'presenter\' to the <a href="%s">\'%s\'</a> event.</p>',	
-		'event_manager:event:registration:notification:user:text:event_presenting' => "Hello %s, \n\r\n\rYou succesfully signed up as 'presenter' to the '%s' event.\n\r\n\r",	
+		'event_manager:event:registration:notification:user:text:event_presenting' => "Hello %s,
+
+You succesfully signed up as 'presenter' to the '%s' event.",	
 	
-		'event_manager:event:registration:notification:owner:text:html:event_interested' => '<p>Hello %s, </p><p>%s has signed up as \'interested\' to your <a href="%s">\'%s\'</a> event.</p>',
-		'event_manager:event:registration:notification:owner:text:event_interested' => "Hello %s, \n\r\n\r%s has signed up as 'interested' to your '%s' event.\n\r\n\r",
+		'event_manager:event:registration:notification:owner:text:event_interested' => "Hello %s,
+
+%s has signed up as 'interested' to your '%s' event.",
 		
-		'event_manager:event:registration:notification:user:text:html:event_interested' => '<p>Hello %s, </p><p>You succesfully signed up as \'interested\' to the <a href="%s">\'%s\'</a> event.</p>',	
-		'event_manager:event:registration:notification:user:text:event_interested' => "Hello %s, \n\r\n\rYou succesfully signed up as 'interested' to the '%s' event.\n\r\n\r",	
+		'event_manager:event:registration:notification:user:text:event_interested' => "Hello %s,
+
+You succesfully signed up as 'interested' to the '%s' event.",	
 	
-		'event_manager:event:registration:notification:owner:text:html:event_undo' => '<p>Hello %s,</p><p>%s has signed off from your <a href="%s">\'%s\'</a> event.</p>',
-		'event_manager:event:registration:notification:owner:text:event_undo' => "Hello %s, \n\r\n\r%s has signed off from your '%s' event.\n\r\n\r",
+		'event_manager:event:registration:notification:owner:text:event_undo' => "Hello %s,
+
+%s has signed off from your '%s' event.",
 		
-		'event_manager:event:registration:notification:user:text:html:event_undo' => '<p>Hello %s,</p><p>You signed off succesfully from the <a href="%s">\'%s\'</a> event.</p>',		
-		'event_manager:event:registration:notification:user:text:event_undo' => "Hello %s, \n\r\n\rYou signed off succesfully from the '%s' event.\n\r\n\r",		
+		'event_manager:event:registration:notification:user:text:event_undo' => "Hello %s,
+
+You signed off succesfully from the '%s' event.",		
 	
-		'event_manager:event:registration:notification:user:text:html:event_spotfree' => '<p>Hello %s, </p><p>Someone signed off from the <a href="%s">\'%s\'</a> event. You are moved from the waiting list to attending.</p>',	
-		'event_manager:event:registration:notification:user:text:event_spotfree' => "Hello %s, \n\r\n\rSomeone signed off from the '%s' event. You are moved from the waiting list to attending.\n\r\n\r",	
+		'event_manager:event:registration:notification:user:text:event_spotfree' => "Hello %s,
+
+Someone signed off from the '%s' event. You are moved from the waiting list to attending.",	
 	
 		'event_manager:event:registration:notification:program:linktext' => 'To view the program click on this link',
 	
