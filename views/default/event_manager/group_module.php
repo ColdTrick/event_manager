@@ -15,7 +15,10 @@ $event_options["container_guid"] = elgg_get_page_owner_guid();
 
 elgg_push_context('widget');
 $events = event_manager_search_events($event_options);
-$content = elgg_view_entity_list($events['entities'], 0, 0, 5, false);	
+$content = elgg_view_entity_list($events['entities'], array('count' => 0, 
+                                                            'offset' => 0, 
+                                                            'limit' => 5, 
+                                                            'full_view' => false));
 elgg_pop_context();
 
 if (!$content) {
