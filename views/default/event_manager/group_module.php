@@ -13,10 +13,8 @@ if ($group->event_manager_enable == "no") {
 $event_options = array();
 $event_options["container_guid"] = elgg_get_page_owner_guid();
 
-elgg_push_context('widget');
 $events = event_manager_search_events($event_options);
 $content = elgg_view_entity_list($events['entities'], 0, 0, 5, false);	
-elgg_pop_context();
 
 if (!$content) {
 	$content = '<p>' . elgg_echo('event_manager:list:noresults') . '</p>';

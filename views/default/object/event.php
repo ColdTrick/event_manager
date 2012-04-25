@@ -32,24 +32,28 @@
 		}
 		
 		$date = elgg_view_friendly_time($event->time_created);
-		$subtitle = "<p>$author_text $date</p>";
 		
-        $content = '<div>';        
-        $content .= '<div>' . elgg_echo('event_manager:event:view:date') . ': ' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY,$event->start_day) . '</div>';
-
-        if($location = $event->getLocation()){
-            $content .= '<div>' . elgg_echo('event_manager:edit:form:location') . ': ';
-            $content .= '<a href="' . EVENT_MANAGER_BASEURL . '/event/route?from=' . $location . '" class="openRouteToEvent">' . $location . '</a>';
-            $content .= '</div>'; 
+        if(!elgg_in_context("widgets")){
+        	$subtitle = "<p>$author_text $date</p>";
+        	
+	        if($location = $event->getLocation()){
+	            $content .= '<div>' . elgg_echo('event_manager:edit:form:location') . ': ';
+	            $content .= '<a href="' . EVENT_MANAGER_BASEURL . '/event/route?from=' . $location . '" class="openRouteToEvent">' . $location . '</a>';
+	            $content .= '</div>'; 
+	        }
         }
-
-        $content .= '</div>';
+        
+        if($shortdescription = $event->shortdescription){
+        	$content .= "<div>" . $shortdescription . "</div>";
+        }
         
         $content .= elgg_view("event_manager/event/actions", $vars);
         
-        $icon = "<div class='event_manager_event_list_icon'>";
-        $icon .= "<div class='event_manager_event_list_icon_month'>" . strtoupper(date("M",$event->start_day)) . "</div>";
-		$icon .= "<div class='event_manager_event_list_icon_day'>" . date("d",$event->start_day) . "</div>";
+        $start_day = $event->start_day;
+        
+        $icon = "<div class='event_manager_event_list_icon' title='" . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $start_day) . "'>";
+        $icon .= "<div class='event_manager_event_list_icon_month'>" . strtoupper(date("M", $start_day)) . "</div>";
+		$icon .= "<div class='event_manager_event_list_icon_day'>" . date("d", $start_day) . "</div>";
         $icon .= "</div>";
         
         $menu = elgg_view_menu('entity', array(
@@ -59,11 +63,7 @@
 			'class' => 'elgg-menu-hz',
 		));
 		
-		if(elgg_in_context("widgets")){
-			$subtitle = "";
-		}
-		
-        $params = array(
+		$params = array(
 			'entity' => $event,
 			'metadata' => $menu,
 			'subtitle' => $subtitle,

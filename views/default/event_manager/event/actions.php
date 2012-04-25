@@ -6,7 +6,7 @@
 	
 	$context = elgg_get_context();
 	
-	if($event->canEdit() && $context !== "widget") {
+	if($event->canEdit() && $context !== "widgets") {
 		if($tools = elgg_view("event_manager/event/tools", $vars)){
 			$options[] = $tools;
 		}	
@@ -17,7 +17,7 @@
 			$options[] = $rsvp;
 		}
 
-		if(!in_array($context, array("widget", "maps"))){
+		if(!in_array($context, array("widgets", "maps"))){
 			if($registration = elgg_view("event_manager/event/registration", $vars)){
 				$options[] = $registration;
 			}
@@ -30,7 +30,7 @@
 		}
 	}
 
-	if(empty($vars["full"]) && $event->show_attendees){
+	if(!elgg_in_context("widgets") && $event->show_attendees){
 		$attending_count = 0;
 		if($count = $event->getRelationships(true)){
 			if(array_key_exists(EVENT_MANAGER_RELATION_ATTENDING, $count)) {
