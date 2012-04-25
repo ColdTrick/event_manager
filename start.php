@@ -93,14 +93,14 @@
 							}
 							break;
 						case 'list':
-							set_input("username", $page[2]);
+							set_input("owner_guid", $page[2]);
 							break;
 						case 'new':
 							$page[1] = "edit";
-							set_input("username", $page[2]);
+							set_input("owner_guid", $page[2]);
 					}
 				default:
-					if(!empty($page[2])) {
+					if(!empty($page[2]) && ($page[1] !== "new")) {
 						set_input("guid", $page[2]);
 					}
 					

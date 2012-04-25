@@ -10,7 +10,11 @@
 	
 	if($event){		
 		elgg_set_page_owner_guid($event->getContainerGUID());
-		 
+		$page_owner = elgg_get_page_owner_entity();
+		if($page_owner instanceof ElggGroup){
+			elgg_push_breadcrumb($page_owner->name, "/events/event/list/" . $page_owner->getGUID());
+		}
+		
 		$title_text = $event->title;
 		elgg_push_breadcrumb($title_text);
 		
