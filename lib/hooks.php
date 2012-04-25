@@ -70,3 +70,32 @@
 		
 		return $return;
 	}
+	
+	/**
+	 * Generates correct title link for widgets depending on the context
+	 * 
+	 * @param unknown_type $hook
+	 * @param unknown_type $entity_type
+	 * @param unknown_type $returnvalue
+	 * @param unknown_type $params
+	 * @return optional new link
+	 */
+	function event_manager_widget_events_url($hook, $entity_type, $returnvalue, $params){
+		$result = $returnvalue;
+		$widget = $params["entity"];
+		
+		if(empty($result) && ($widget instanceof ElggWidget) && $widget->handler == "events"){
+			switch($widget->context){
+				case "index":
+					$result = "/events";
+					break;
+				case "groups":
+					$result = "/events/event/list/" . $widget->getOwnerGUID();
+					break;
+				case "profile":
+				case "dashboard":
+					break;
+			}				
+		}
+		return $result;
+	}

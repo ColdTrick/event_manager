@@ -55,6 +55,8 @@
 		// add widgets
 		elgg_register_widget_type("events", elgg_echo("event_manager:widgets:events:title"), elgg_echo("event_manager:widgets:events:description"), "index,dashboard,profile,groups");
 		
+		elgg_register_plugin_hook_handler('widget_url', 'widget_manager', "event_manager_widget_events_url");
+		
 		// register js libraries
 		$em_maps_js = elgg_get_simplecache_url("js", "event_manager/googlemaps");
 		elgg_register_js("event_manager.maps.helper", $em_maps_js);
