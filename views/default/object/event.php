@@ -28,7 +28,7 @@
 		
 		$author_text = elgg_echo('byline', array($owner_link));
     	if(($container instanceof ElggGroup) && (elgg_get_page_owner_guid() !== $container->getGUID())){
-        	$author_text .= ' ' . elgg_echo('in') . ' <a href="' . EVENT_MANAGER_BASEURL . '/event/list/' . $container->username . '">' . $container->name . '</a>';
+        	$author_text .= ' ' . elgg_echo('in') . ' <a href="' . EVENT_MANAGER_BASEURL . '/event/list/' . $container->getGUID() . '">' . $container->name . '</a>';
 		}
 		
 		$date = elgg_view_friendly_time($event->time_created);
