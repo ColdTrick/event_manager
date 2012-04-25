@@ -247,12 +247,12 @@
 		'event_manager:widgets:events:showevents:attendingto' => 'i\'m attending to',
 	
 		// actions
-		'event_manager:action:event:edit:ok' => 'Save succesfull',
+		'event_manager:action:event:edit:ok' => 'Event saved',
 		'event_manager:action:event:edit:error' => 'Error saving the event',
 		'event_manager:action:event:edit:error_fields' => 'Fill in the required fields',
 		'event_manager:action:registration:edit:error_fields_with_program' => 'Fill in the required fields and select at least 1 activity slot to attend to',
 		'event_manager:action:registration:edit:error_fields_program_only' => 'Select at least 1 activity slot to attend to',
-		'event_manager:action:event:delete:ok' => 'Delete succesfull',
+		'event_manager:action:event:delete:ok' => 'Event deleted',
 		'event_manager:action:event:delete:error' => 'Error deleting the event',
 	
 		// settings
