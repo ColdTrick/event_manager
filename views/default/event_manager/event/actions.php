@@ -6,7 +6,7 @@
 	
 	$context = elgg_get_context();
 	
-	if($event->canEdit() && $context !== "widgets") {
+	if($event->canEdit()) {
 		if($tools = elgg_view("event_manager/event/tools", $vars)){
 			$options[] = $tools;
 		}	
@@ -30,7 +30,7 @@
 		}
 	}
 
-	if(!elgg_in_context("widgets") && $event->show_attendees){
+	if($event->show_attendees){
 		$attending_count = 0;
 		if($count = $event->getRelationships(true)){
 			if(array_key_exists(EVENT_MANAGER_RELATION_ATTENDING, $count)) {

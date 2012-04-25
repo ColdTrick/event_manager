@@ -32,3 +32,4 @@ Manage events, from a simple appointment to a multi day event with day programs 
 - review class functions
 - tools registration list
 - export waiting list
+- have a "events created by user" page ?? 

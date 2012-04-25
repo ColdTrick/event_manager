@@ -41,10 +41,10 @@
 	            $content .= '<a href="' . EVENT_MANAGER_BASEURL . '/event/route?from=' . $location . '" class="openRouteToEvent">' . $location . '</a>';
 	            $content .= '</div>'; 
 	        }
-        }
-        
-        if($shortdescription = $event->shortdescription){
-        	$content .= "<div>" . $shortdescription . "</div>";
+	        
+	        if($shortdescription = $event->shortdescription){
+	        	$content .= "<div>" . $shortdescription . "</div>";
+	        }
         }
         
         $content .= elgg_view("event_manager/event/actions", $vars);
