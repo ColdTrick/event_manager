@@ -28,10 +28,6 @@ $all_link = elgg_view('output/url', array(
 	'text' => elgg_echo('link:view:all'),
 ));
 
-if (!$content) {
-	$content = '<p>' . elgg_echo('event_manager:list:noresults') . '</p>';
-}
-
 $new_link = elgg_view('output/url', array(
 	'href' => "events/event/new/$group->username",
 	'text' => elgg_echo('event_manager:menu:new_event'),
