@@ -16,7 +16,7 @@
 		'event_manager:menu:title' => 'Events',
 		'event_manager:menu:events' => 'All events',
 		'event_manager:menu:group_events' => 'Group events',
-		'event_manager:menu:new_event' => 'New Event',
+		'event_manager:menu:new_event' => 'New event',
 	
 		'event_manager:sidebar:title' => 'Now showing',
 		

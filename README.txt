@@ -31,7 +31,6 @@ Manage events, from a simple appointment to a multi day event with day programs 
 	- classes
 - review class functions
 - tools registration list
-- replace widget context with widgets
 - add group to breadcrumb for group events
 - group menu (no all and add to correct content menu)
 - export waiting list
