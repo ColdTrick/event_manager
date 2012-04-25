@@ -214,10 +214,6 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:view:date' => 'Date',
 		'event_manager:event:view:createdby' => 'Created by',
 	
-		'event_manager:datepicker:input:localisation' => '',  
-		'event_manager:datepicker:input:dateformat' => '%m/%d/%Y',
-		'event_manager:datepicker:input:dateformat_js' => 'mm/dd/yyyy',
-	
 		//Error
 		'event_manager:login_needed' => 'You need to be logged in.',
 		'event_manager:event_not_found' => 'Event not found.',
@@ -263,12 +259,10 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 	
 		// actions
 		'event_manager:action:event:edit:ok' => 'Event saved',
-		'event_manager:action:event:edit:error' => 'Error saving the event',
 		'event_manager:action:event:edit:error_fields' => 'Fill in the required fields',
 		'event_manager:action:registration:edit:error_fields_with_program' => 'Fill in the required fields and select at least 1 activity slot to attend to',
 		'event_manager:action:registration:edit:error_fields_program_only' => 'Select at least 1 activity slot to attend to',
 		'event_manager:action:event:delete:ok' => 'Event deleted',
-		'event_manager:action:event:delete:error' => 'Error deleting the event',
 	
 		// settings
 		'event_manager:settings:google_maps' => 'Google Maps settings',
@@ -305,7 +299,6 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 	
 		'from' => 'From',
 		'to' => 'To',
-		'less' => 'Less',	
 		'approve' => 'Approve',	
 		'disapprove' => 'Disapprove',	
 		'requiredfields' => 'Required fields',
