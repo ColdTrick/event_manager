@@ -14,7 +14,10 @@ $event_options = array();
 $event_options["container_guid"] = elgg_get_page_owner_guid();
 
 $events = event_manager_search_events($event_options);
-$content = elgg_view_entity_list($events['entities'], 0, 0, 5, false);	
+$content = elgg_view_entity_list($events['entities'], array('count' => 0,
+                                                            'offset' => 0,
+                                                            'limit' => 5,
+                                                            'full_view' => false));
 
 if (!$content) {
 	$content = '<p>' . elgg_echo('event_manager:list:noresults') . '</p>';
