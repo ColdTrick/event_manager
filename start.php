@@ -122,6 +122,13 @@
 		// @todo check if this can be better
 		elgg_load_js("lightbox");
 		elgg_load_css("lightbox");
+		
+		$page_owner = elgg_get_page_owner_entity();
+		if($page_owner instanceof ElggGroup){
+			if($page_owner->event_manager_enable == "no"){
+				elgg_unregister_widget_type("events");
+			}
+		}
 	}
 
 	// register default elgg events
