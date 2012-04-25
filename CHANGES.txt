@@ -1,4 +1,7 @@
 = Version history =
+x.x:
+
+- changed: handling of RSVP notifications
 
 2.1 (2012-04-13):
 

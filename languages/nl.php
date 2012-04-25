@@ -3,27 +3,24 @@ $language = array (
   'event_manager:sidebar:title' => 'Nu weergegeven',
   'river:comment:object:event' => '%s reageerde op %s',
   'event_manager:registration:view:savetopdf' => 'Opslaan als PDF',
-  'event_manager:edit:form:start_day:from' => 'Datum vanaf',
-  'event_manager:edit:form:start_day:to' => 'Datum tot',
-  'event_manager:registration:message:registrationnotneeded' => 'Registratie voor dit evenement is niet nodig.',
-  'event_manager:event:registration:notification:owner:text:html:event_waitinglist' => '<p>Hallo %s, </p><p>%s staat op de wachtlijst voor je <a href="%s">\'%s\'</a> evenement.</p>',
-  'event_manager:event:registration:notification:owner:text:event_waitinglist' => 'Hallo %s, 
+  'event_manager:edit:form:start_day:from' => 'Startdatum',
+  'event_manager:edit:form:start_day:to' => 'Einddatum',
+  'event_manager:registration:message:registrationnotneeded' => 'Registratie is niet nodig voor dit evenement.',
+  'event_manager:event:registration:notification:owner:text:event_waitinglist' => 'Beste %s,
 
-%s staat op de wachtlijst voor het \'%s\' evenement.',
-  'event_manager:event:registration:notification:user:text:html:event_waitinglist' => '<p>Hallo %s, </p><p>Je staat nu op de wachtlijst voor het <a href="%s">\'%s\'</a> evenement.</p>',
-  'event_manager:event:registration:notification:user:text:event_waitinglist' => 'Hallo %s,
+%s is op de wachtlijst gezet van je \'%s\' evenement.',
+  'event_manager:event:registration:notification:user:text:event_waitinglist' => 'Beste %s,
 
-Je staat nu op de wachtlijst voor het \'%s\' evenement.',
-  'event_manager:event:registration:notification:user:text:html:event_spotfree' => '<p>Hallo %s, </p><p>Iemand heeft zich afgemeld voor het <a href="%s">\'%s\'</a> evenement. Je bent van de wachtlijst verplaatst naar de deelnemers lijst.</p>',
-  'event_manager:event:registration:notification:user:text:event_spotfree' => 'Hallo %s, 
+je staat op de wachtlijst van het \'%s\' evenement.',
+  'event_manager:event:registration:notification:user:text:event_spotfree' => 'Beste %s,
 
-Iemand heeft zich afgemeld voor het  \'%s\' evenement. Je bent van de wachtlijst verplaatst naar de deelnemers lijst.',
+Iemand heeft zich afgemeld van het \'%s\' evenement. Je bent van de wachtlijst naar de deelnemers verplaatst.',
   'event_manager:event:viewregistration' => 'Bekijk registratie',
   'event_manager:event:preview' => 'Voorbeeld icoon',
   'event_manager:event:createicon' => 'Maak icoon',
-  'event_manager:registrationform:fieldorder:error' => 'Fout tijdens het wijzigen van de volgorde van de velden',
+  'event_manager:registrationform:fieldorder:error' => 'Fout tijdens het herordenen van de velden',
   'event_manager:event:register:no_registrationform' => 'De organisator heeft nog geen registratie formulier aangemaakt<br>Probeer het later nog eens.',
-  'event_manager:action:registration:edit:error_fields_with_program' => 'Vul de verplichte velden in en selecteer tenminste 1 activiteit waar je aan wilt deelnemen',
+  'event_manager:action:registration:edit:error_fields_with_program' => 'Vul de verplichte velden in en selecteer ten minste 1 activiteiten slot om aan deel te nemen',
   'event_manager:settings:google_maps' => 'Google Maps instellingen',
   'event_manager:settings:other' => 'Overige',
   'event_manager' => 'Event Manager',
@@ -124,7 +121,6 @@ Iemand heeft zich afgemeld voor het  \'%s\' evenement. Je bent van de wachtlijst
   'event_manager:registration:program:fail' => 'Failed to (un)register to the selected slots',
   'event_manager:event:registration:notification:owner:subject' => 'Evenement registratie',
   'event_manager:event:registration:notification:user:subject' => 'Evenement registratie',
-  'event_manager:event:registration:notification:owner:text:html:event_attending' => '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'attending\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',
   'event_manager:event:registration:notification:owner:text:event_attending' => 'Hallo %s,
 
 
@@ -132,7 +128,6 @@ Iemand heeft zich afgemeld voor het  \'%s\' evenement. Je bent van de wachtlijst
 
 
 ',
-  'event_manager:event:registration:notification:user:text:html:event_attending' => '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'attending\' voor het <a href="%s">\'%s\'</a> evenement.</p>',
   'event_manager:event:registration:notification:user:text:event_attending' => 'Hallo %s,
 
 
@@ -140,7 +135,6 @@ Je hebt je ingeschreven als \'attending\' voor het \'%s\' evenement.
 
 
 ',
-  'event_manager:event:registration:notification:owner:text:html:event_exhibiting' => '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'exposant\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',
   'event_manager:event:registration:notification:owner:text:event_exhibiting' => 'Hallo %s,
 
 
@@ -148,7 +142,6 @@ Je hebt je ingeschreven als \'attending\' voor het \'%s\' evenement.
 
 
 ',
-  'event_manager:event:registration:notification:user:text:html:event_exhibiting' => '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'exposant\' voor het <a href="%s">\'%s\'</a> evenement.</p>',
   'event_manager:event:registration:notification:user:text:event_exhibiting' => 'Hallo %s,
 
 
@@ -156,7 +149,6 @@ Je hebt je ingeschreven als \'exposant\' voor het \'%s\' evenement.
 
 
 ',
-  'event_manager:event:registration:notification:owner:text:html:event_organizing' => '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'organizing\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',
   'event_manager:event:registration:notification:owner:text:event_organizing' => 'Hallo %s,
 
 
@@ -164,7 +156,6 @@ Je hebt je ingeschreven als \'exposant\' voor het \'%s\' evenement.
 
 
 ',
-  'event_manager:event:registration:notification:user:text:html:event_organizing' => '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'organizing\' voor het <a href="%s">\'%s\'</a> evenement.</p>',
   'event_manager:event:registration:notification:user:text:event_organizing' => 'Hallo %s,
 
 
@@ -172,7 +163,6 @@ Je hebt je ingeschreven als \'organizing\' voor het \'%s\' evenement.
 
 
 ',
-  'event_manager:event:registration:notification:owner:text:html:event_presenting' => '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'presenter\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',
   'event_manager:event:registration:notification:owner:text:event_presenting' => 'Hallo %s,
 
 
@@ -180,7 +170,6 @@ Je hebt je ingeschreven als \'organizing\' voor het \'%s\' evenement.
 
 
 ',
-  'event_manager:event:registration:notification:user:text:html:event_presenting' => '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'presenter\' voor het <a href="%s">\'%s\'</a> evenement.</p>',
   'event_manager:event:registration:notification:user:text:event_presenting' => 'Hallo %s,
 
 
@@ -188,7 +177,6 @@ Je hebt je ingeschreven als \'presenter\' voor het \'%s\' evenement.
 
 
 ',
-  'event_manager:event:registration:notification:owner:text:html:event_interested' => '<p>Hallo %s,</p><p>%s heeft zicht ingeschreven als \'interested\' voor jouw <a href="%s">\'%s\'</a> evenement.</p>',
   'event_manager:event:registration:notification:owner:text:event_interested' => 'Hallo %s,
 
 
@@ -196,7 +184,6 @@ Je hebt je ingeschreven als \'presenter\' voor het \'%s\' evenement.
 
 
 ',
-  'event_manager:event:registration:notification:user:text:html:event_interested' => '<p>Hallo %s,</p><p>Je hebt je ingeschreven als \'interested\' voor het <a href="%s">\'%s\'</a> evenement.</p>',
   'event_manager:event:registration:notification:user:text:event_interested' => 'Hallo %s,
 
 
@@ -204,7 +191,6 @@ Je hebt je ingeschreven als \'interested\' voor het \'%s\' evenement.
 
 
 ',
-  'event_manager:event:registration:notification:owner:text:html:event_undo' => '<p>Hallo %s,</p><p>%s heeft zich uitgeschreven van jouw <a href="%s">\'%s\'</a> evenement.</p>',
   'event_manager:event:registration:notification:owner:text:event_undo' => 'Hallo %s,
 
 
@@ -212,7 +198,6 @@ Je hebt je ingeschreven als \'interested\' voor het \'%s\' evenement.
 
 
 ',
-  'event_manager:event:registration:notification:user:text:html:event_undo' => '<p>Hallo %s,</p><p>Je hebt je uit het <a href="%s">\'%s\'</a> evenement uitgeschreven.</p>',
   'event_manager:event:registration:notification:user:text:event_undo' => 'Hallo %s,
 
 
@@ -284,7 +269,7 @@ Je hebt je uit het \'%s\' evenement uitgeschreven.
   'event_manager:action:event:edit:error' => 'Fout tijdens het opslaan van het evenement',
   'event_manager:action:event:edit:error_fields' => 'Vul de verplichte velden in',
   'event_manager:action:registration:edit:error_fields_program_only' => 'Selecteer tenminste 1 activiteit',
-  'event_manager:action:event:delete:ok' => 'Evenement verwijderd',
+  'event_manager:action:event:delete:ok' => 'Evenement verwijdert',
   'event_manager:action:event:delete:error' => 'Fout tijdens het verwijderen van het evenement',
   'event_manager:settings:google_api_key' => 'Voer hier je "Google API Key" in',
   'event_manager:settings:google_maps:enterdefaultlocation' => 'Voer een standaard locatie in waar google maps op moet centreren',
