@@ -1,6 +1,7 @@
 = Version history =
 x.x:
 
+- fixed: export of attendees not exporting non-logged in registrations
 - changed: handling of RSVP notifications
 
 2.1 (2012-04-13):

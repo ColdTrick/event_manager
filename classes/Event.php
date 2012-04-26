@@ -921,6 +921,7 @@
 		}
 		
 		public function exportAttendees() {
+			$old_ia = elgg_get_ignore_access();
 			elgg_set_ignore_access(true);
 			
 // 			$entities = $this->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING);
@@ -934,7 +935,7 @@
 				'limit' => false
 			));
 			
-			elgg_set_ignore_access(false);
+			elgg_set_ignore_access($old_ia);
 			
 			return $entities;
 		}
