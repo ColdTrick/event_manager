@@ -1,6 +1,7 @@
 = Version history =
 x.x:
 
+- fixed: event type and region search
 - fixed: export of attendees not exporting non-logged in registrations
 - changed: handling of RSVP notifications
 
