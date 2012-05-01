@@ -101,6 +101,14 @@
 			$entities_options['owner_guids'] = array(elgg_get_logged_in_user_guid()); 			
 		}
 		
+		if($options["region"]){
+			$entities_options['metadata_name_value_pairs'][] = array('name' => 'region', 'value' => $options["region"]);
+		}
+		
+		if($options["event_type"]){
+			$entities_options['metadata_name_value_pairs'][] = array('name' => 'event_type', 'value' => $options["event_type"]);
+		}
+		
 		if($options['friendsattending']){
 			$friends_guids = array();
 			
