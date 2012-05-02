@@ -1,9 +1,20 @@
 = Version history =
-x.x:
 
+2.2 (2012-05-02):
+
+- added: a direct add link to events widget
+- added: widget title link (requires widget manager)
+- changed: handling of RSVP notifications
+- changed: reduced the event info in the widgets
+- changed: updated translations
+- fixed: event_type and region search now working
+- fixed: widget showing for groups that have events disabled
+- fixed: correct group link in widget listing
+- fixed: imported event_calendar events are now anti dated
+- fixed: limiting events by container guid, so group events work again
+- fixed: list order of events and some search logic improvements
 - fixed: event type and region search
 - fixed: export of attendees not exporting non-logged in registrations
-- changed: handling of RSVP notifications
 
 2.1 (2012-04-13):
 
