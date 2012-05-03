@@ -72,7 +72,7 @@
 		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:files') . '</b>:</td><td>';
 		$event_details .= "<div class='event-manager-event-files'>";
 		foreach($files as $file){
-			$event_details .= '<a href="' . EVENT_MANAGER_BASEURL . '/event/file/' . $event->getGUID() . '/' . $file->file . '">' . elgg_view_icon("download") . " " . $file->title . '</a><br />';
+			$event_details .= '<a href="' . EVENT_MANAGER_BASEURL . '/event/file/' . $event->getGUID() . '/' . $file->time_uploaded . '/'. $file->file . '">' . elgg_view_icon("download") . " " . $file->title . '</a><br />';
 		}
 		
 		$event_details .= '</div>';
