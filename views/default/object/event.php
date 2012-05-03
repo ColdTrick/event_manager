@@ -32,7 +32,7 @@
 		}
 		
 		$date = elgg_view_friendly_time($event->time_created);
-		
+		$content = "";
         if(!elgg_in_context("widgets")){
         	$subtitle = "<p>$author_text $date</p>";
         	

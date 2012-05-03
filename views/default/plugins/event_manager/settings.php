@@ -31,7 +31,7 @@
 	echo elgg_view_module("inline", elgg_echo('event_manager:settings:google_api_key'), $google);
 	
 	// Google MAPS
-	$maps .= "<div>";
+	$maps = "<div>";
 	$maps .= elgg_echo('event_manager:settings:google_maps:enterdefaultlocation');
 	$maps .= "<br />";
 	$maps .= elgg_view('input/text', array('name' => 'params[google_maps_default_location]', 'value' => $google_maps_default_location));
@@ -77,7 +77,7 @@
 	$other .= "<div>";
 	$other .= elgg_echo('event_manager:settings:notification_sender');
 	$other .= "<br />";
-	$other .= elgg_view('input/text', array('name' => 'params[notification_sender]', 'value' => $notification_sender));
+	$other .= elgg_view('input/text', array('name' => 'params[notification_sender]', 'value' => $plugin->notification_sender));
 	$other .= "</div>";
 	
 	echo elgg_view_module("inline", elgg_echo("event_manager:settings:other"), $other);

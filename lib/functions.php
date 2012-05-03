@@ -67,7 +67,7 @@
 			'order_by_metadata' => array("name" => 'start_day', "direction" => 'ASC', "as" => "integer")
 		);
 		
-		if($options[container_guid]){
+		if($options["container_guid"]){
 			// limit for a group
 			$entities_options['container_guid'] = $options['container_guid'];
 		}
@@ -393,11 +393,7 @@
 			'type' 			=> 'object',
 			'subtype' 		=> 'event_calendar',
 			'limit'			=> false,
-			'wheres' => array("NOT EXISTS (
-					SELECT 1 FROM " . elgg_get_config("dbprefix") . "metadata md
-					WHERE md.entity_guid = e.guid
-						AND md.name_id = $migrated_id
-						AND md.value_id = $one_id)")
+			'wheres' => array("NOT EXISTS (SELECT 1 FROM " . elgg_get_config("dbprefix") . "metadata md WHERE md.entity_guid = e.guid AND md.name_id = $migrated_id AND md.value_id = $one_id)")
 		);		
 		
 		if($entities = elgg_get_entities_from_metadata($entities_options)){

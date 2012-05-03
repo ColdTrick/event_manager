@@ -72,7 +72,7 @@
 		}
 	}
 	
-	$form_body .= '<a style="display: none;" href="'.EVENT_MANAGER_BASEURL.'/event/googlemaps/'.$fields["guid"].'" id="openGoogleMaps">google maps</a>';
+	$form_body = '<a style="display: none;" href="'.EVENT_MANAGER_BASEURL.'/event/googlemaps/'.$fields["guid"].'" id="openGoogleMaps">google maps</a>';
 	$form_body .= elgg_view('input/hidden', array('name' => 'latitude', 'id' => 'event_latitude', 'value' => $fields["latitude"]));
 	$form_body .= elgg_view('input/hidden', array('name' => 'longitude', 'id' => 'event_longitude', 'value' => $fields["longitude"]));
 	$form_body .= elgg_view('input/hidden', array('name' => 'guid', 'value' => $fields["guid"]));
@@ -90,7 +90,7 @@
 
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:icon') . "</td><td>" . elgg_view('input/file', array('name' => 'icon')) . "</td></tr>";
 	
-	if($currentIcon) {
+	if(!empty($currentIcon)) {
 		$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:currenticon') . "</td><td>".$currentIcon."<br />".
 		elgg_view('input/checkboxes', array('name' => 'delete_current_icon', 'id' => 'delete_current_icon', 'value' => 0, 'options' => 
 		array(elgg_echo('event_manager:edit:form:delete_current_icon')=>'1')))."</td></tr>";
@@ -99,6 +99,7 @@
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:start_day') . " *</td>
 	<td>" . elgg_view('input/date', array('name' => 'start_day', 'id' => 'start_day', 'value' => date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $fields["start_day"]))) . "</td></tr>";
 	
+	$start_time_hidden = "";
 	if($fields['with_program'])	{
 		$start_time_hidden = ' style="display: none; "';
 	}

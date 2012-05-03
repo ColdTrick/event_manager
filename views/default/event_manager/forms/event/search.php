@@ -2,7 +2,7 @@
 
 	$form_toggle = '<a href="javascript: void(0);" id="event_manager_event_search_advanced_enable"><span>'.elgg_echo('event_manager:list:advancedsearch').'</span><span style="display:none;">'.elgg_echo('event_manager:list:simplesearch').'</span></a>';
 	
-	$form_body .= $form_toggle;
+	$form_body = $form_toggle;
 	$form_body .= elgg_view('input/hidden', array('name' => 'search_type', 'id' => 'search_type', 'value' => 'list'));
 	$form_body .= elgg_view('input/hidden', array('name' => 'container_guid', 'value' => elgg_get_page_owner_guid()));
 	$form_body .= elgg_view('input/text', array('value' => '', 'name' => 'search', 'id' => 'search', 'class' => 'event_manager_event_list_search_input')).'&nbsp;';
@@ -16,16 +16,16 @@
 	$form_body .= '<div id="event_manager_event_search_advanced_container">';
 	$form_body .= elgg_view('input/hidden', array('name' => 'advanced_search', 'id' => 'advanced_search', 'value' => 0));
 	
-	$form_body .= elgg_echo('event_manager:edit:form:start_day:from').': '.elgg_view('input/date', array('name' => 'start_day', 'id' => 'start_day', 'value' => date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY,''))).'&nbsp;';
-	$form_body .= elgg_echo('event_manager:edit:form:start_day:to').': '.elgg_view('input/date', array('name' => 'end_day', 'id' => 'end_day', 'value' => date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY,''))).'<br /><br />';
+	$form_body .= elgg_echo('event_manager:edit:form:start_day:from').': '.elgg_view('input/date', array('name' => 'start_day', 'id' => 'start_day')).'&nbsp;';
+	$form_body .= elgg_echo('event_manager:edit:form:start_day:to').': '.elgg_view('input/date', array('name' => 'end_day', 'id' => 'end_day')).'<br /><br />';
 
 	$form_body .= "<div>";
 	if($region_options = event_manager_event_region_options()){
-		$form_body .= elgg_echo('event_manager:edit:form:region') . ': ' . elgg_view('input/dropdown', array('name' => 'region', 'value' => $fields["region"], 'options' => $region_options)).' ';
+		$form_body .= elgg_echo('event_manager:edit:form:region') . ': ' . elgg_view('input/dropdown', array('name' => 'region', 'options' => $region_options)).' ';
 	}
 	
 	if($type_options = event_manager_event_type_options())	{
-		$form_body .= elgg_echo('event_manager:edit:form:type') . ': ' . elgg_view('input/dropdown', array('name' => 'event_type', 'value' => $fields["event_type"], 'options' => $type_options));
+		$form_body .= elgg_echo('event_manager:edit:form:type') . ': ' . elgg_view('input/dropdown', array('name' => 'event_type', 'options' => $type_options));
 	}
 	
 	$form_body .= "</div>";

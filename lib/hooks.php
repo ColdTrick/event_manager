@@ -65,10 +65,10 @@
 		if (elgg_instanceof($group, 'group') && $group->event_manager_enable != "no") {
 			$url = EVENT_MANAGER_BASEURL . '/event/list/' . $group->getGUID();
 			$item = new ElggMenuItem('events', elgg_echo('event_manager:menu:group_events'), $url);
-			$return[] = $item;
+			$returnvalue[] = $item;
 		}
 		
-		return $return;
+		return $returnvalue;
 	}
 	
 	/**

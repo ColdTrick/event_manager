@@ -676,7 +676,7 @@
 			$all_relations = get_data($query);
 			
 			if(!empty($all_relations)){
-				$result = array();
+				$result = array("total" => 0);
 				foreach($all_relations as $row){
 					$relationship = $row->relationship;
 					

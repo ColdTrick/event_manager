@@ -3,8 +3,8 @@
 	$result = elgg_view('event_manager/event_sort_menu');
 	
 	$options = array(
-		"count" => $vars["count"],
-		"offset" => $vars["offset"],
+		"count" => elgg_extract("count", $vars),
+		"offset" => elgg_extract("offset", $vars),
 		"full_view" => false,
 		"pagination" => false
 	);
