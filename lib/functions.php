@@ -386,7 +386,7 @@
 			'count' => 0
 		);
 		
-		$migrated_id = get_metastring_id('migrated');
+		$migrated_id = add_metastring('migrated');
 		$one_id = get_metastring_id(1);
 		
 		$entities_options = array(
