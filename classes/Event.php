@@ -31,31 +31,28 @@
  		);
 		
 		
-		protected function load($guid) 
-		{
-			if (!parent::load($guid)) 
-			{
+		protected function load($guid){
+			if (!parent::load($guid)){
 				return false;
 			}
 			
-			if($metadata = elgg_get_metadata(array("guid" => $guid, "limit" => false)))
-			{
-				if (!is_array($this->meta_cache)) 
-				{
+			if($guid instanceof stdClass){
+				$guid = $guid->guid;
+			}
+			
+			if($metadata = elgg_get_metadata(array("guid" => $guid, "limit" => false))){
+				if (!is_array($this->meta_cache)){
 					$this->meta_cache = array();
 				}
 				
-				foreach($metadata as $md)
-				{
+				foreach($metadata as $md){
 					$this->meta_cache[$md->name] = $md->value;
 				}
 			}
 			return true;
 		}
 		
-		public function get($name) 
-		{
-			
+		public function get($name){
 			if(is_array($this->meta_cache) && array_key_exists($name, $this->meta_cache)){
 				return $this->meta_cache[$name];
 			} elseif (array_key_exists($name, $this->meta_defaults)){
@@ -65,12 +62,9 @@
 			return parent::get($name);				
 		}		
 		
-		public function setMetaData($name, $value)
-		{
-			if(parent::setMetaData($name, $value))
-			{
-				if(is_array($this->meta_cache) && array_key_exists($name, $this->meta_cache))
-				{
+		public function setMetaData($name, $value){
+			if(parent::setMetaData($name, $value)){
+				if(is_array($this->meta_cache) && array_key_exists($name, $this->meta_cache)){
 					$this->meta_cache[$name] = $value;
 				}
 				return true;
