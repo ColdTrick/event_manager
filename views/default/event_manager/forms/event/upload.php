@@ -1,7 +1,7 @@
 <?php 
 	
 	if($vars['entity'])	{		
-		$form_body .= elgg_view('input/hidden', array('name' => 'guid', 'value' => $vars['entity']->getGUID()));
+		$form_body = elgg_view('input/hidden', array('name' => 'guid', 'value' => $vars['entity']->getGUID()));
 		$form_body .= '<label>' . elgg_echo('event_manager:edit:form:title') . ' *</label><br />' . elgg_view('input/text', array('name' => 'title', 'value' => '')) . '<br />';
 		$form_body .= '<label>' . elgg_echo('event_manager:edit:form:file') . ' *</label><br />' . elgg_view('input/file', array('name' => 'file')) . '<br />';
 		$form_body .= elgg_view('input/submit', array('value' => elgg_echo('upload')));

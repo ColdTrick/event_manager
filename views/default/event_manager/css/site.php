@@ -104,14 +104,8 @@
 	cursor: pointer;
 }
 
-#event_manager_event_map {
-	display: none;
-}
-
 /* Event Search */
-#event_manager_search_form h3{
-	margin: 0;
-}
+
 
 #event_manager_search_form label {
 	font-weight: normal;
@@ -120,10 +114,6 @@
 
 #past_events {
 	display: inline-block;
-}
-
-#event_manager_event_search_advanced_container {
-	display: none;
 }
 
 #event_manager_event_search_advanced_container .elgg-input-date {
@@ -138,19 +128,11 @@
 	border: 1px solid #CCCCCC;
 }
 
-.event_manager_event_view_attendees {
-	display: none;
-}
-
 .event_manager_event_view_attendees .elgg-avatar {
 	width: 40px;
 	float: left;
 	margin: 0 5px 5px 0;
 } 
-
-.event-manager-event-files a{
-	text-decoration: none;
-}
 
 .event_manager_event_view_attendees .usericon, .event_manager_event_view_waitinglist .usericon {
 	width: 40px;

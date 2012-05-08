@@ -50,10 +50,10 @@
 		}
 		else
 		{
-			forward(EVENT_MANAGER_BASEURL);
+			forward("/events");
 		}
 	}
 	else
 	{
-		forward(EVENT_MANAGER_BASEURL);
+		forward("/events");
 	}

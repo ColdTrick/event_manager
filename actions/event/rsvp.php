@@ -17,7 +17,7 @@
 						//echo '- event and it\'s slots has spots left<br />';
 						if($event->registration_needed) {
 							//echo '- forward to event registration<br />';
-							$forward_url = EVENT_MANAGER_BASEURL . '/event/register/' . $guid . '/' . $rel;
+							$forward_url = '/events/event/register/' . $guid . '/' . $rel;
 							$notice = false;
 						} else {
 							//echo '- no registration needed, rsvp immediately<br />';
@@ -34,7 +34,7 @@
 									if($registration = $event->generateRegistrationForm()) {
 										//echo '- event CAN generate a registration form<br />';
 										//echo '- show normal event waiting list<br />';
-										$forward_url = EVENT_MANAGER_BASEURL . '/event/waitinglist/' . $guid;
+										$forward_url = '/events/event/waitinglist/' . $guid;
 										$notice = false;
 									} else {
 										//echo '- cant generate registration form<br />';

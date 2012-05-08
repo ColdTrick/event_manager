@@ -385,7 +385,6 @@ elgg.event_manager.init = function() {
 			
 			if(selected == "onthemap"){
 				initMaps('event_manager_onthemap_canvas');
-				initOnthemaps();
 			} else {
 				$("#event_manager_onthemap_sidebar").remove();
 			}

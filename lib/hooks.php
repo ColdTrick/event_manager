@@ -36,7 +36,7 @@
 				foreach($result as &$item){
 					switch($item->getName()){
 						case "edit":
-							$item->setHref(EVENT_MANAGER_BASEURL . "/event/edit/" . $entity->getGUID());
+							$item->setHref("/events/event/edit/" . $entity->getGUID());
 							break;
 						case "delete":
 							$href = elgg_get_site_url() . "action/event_manager/event/delete?guid=" . $entity->getGUID();
@@ -63,7 +63,7 @@
 	function event_manager_owner_block_menu($hook, $entity_type, $returnvalue, $params){
 		$group = elgg_extract("entity", $params);
 		if (elgg_instanceof($group, 'group') && $group->event_manager_enable != "no") {
-			$url = EVENT_MANAGER_BASEURL . '/event/list/' . $group->getGUID();
+			$url = '/events/event/list/' . $group->getGUID();
 			$item = new ElggMenuItem('events', elgg_echo('event_manager:menu:group_events'), $url);
 			$returnvalue[] = $item;
 		}

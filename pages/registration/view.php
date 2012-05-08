@@ -43,7 +43,7 @@
 			echo elgg_view_page($title_text, $body);
 		
 		} else {
-			forward(EVENT_MANAGER_BASEURL);
+			forward("/events");
 		}
 	} else {
 		gatekeeper();
@@ -63,7 +63,7 @@
 				}			
 
 				if($user_guid == elgg_get_logged_in_user_guid()) {
-					$output .= '<br /><a style="margin-left: 10px;" href="'.EVENT_MANAGER_BASEURL.'/event/register/'.$event->getGUID().'/event_attending">'.elgg_echo('event_manager:registration:edityourregistration').'</a>';
+					$output .= '<br /><a class="mlm" href="/events/event/register/' . $event->getGUID() . '/event_attending">'.elgg_echo('event_manager:registration:edityourregistration').'</a>';
 				}	
 				
 				elgg_push_breadcrumb($event->title, $event->getURL());

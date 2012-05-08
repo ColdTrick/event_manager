@@ -3,7 +3,6 @@
 var event_manager_gmap;
 var event_manager_geocoder;
 var event_manager_gmarkers = [];
-var markerTimeout;
 
 $(function() {
 	$('.openRouteToEvent').live('click', function(e) {
@@ -103,29 +102,6 @@ function initMaps(element){
         event_manager_gmap.setCenter(results[0].geometry.location);
       }
     });
-}
-
-function initOnthemaps() {
-	
-<!-- 	GEvent.addListener(event_manager_gmap, "dragend", function() { -->
-<!-- 		getMarkersJson(); -->
-<!-- 	}); -->
-	
-<!-- 	GEvent.addListener(event_manager_gmap, "movestart", function() { -->
-<!-- 		getMarkersJson();		 -->
-<!-- 	}); -->
-	
-<!-- 	GEvent.addListener(event_manager_gmap, "moveend", function() { -->
-<!-- 		getMarkersJson();		 -->
-<!-- 	}); -->
-	
-<!-- 	GEvent.addListener(event_manager_gmap, "dblclick", function() { -->
-<!-- 		getMarkersJson();	 -->
-<!-- 	}); -->
-	
-<!-- 	GEvent.addListener(event_manager_gmap, "zoomend", function() { -->
-<!-- 		getMarkersJson();	 -->
-<!-- 	}); -->
 }
 
 function makeSidebar() {

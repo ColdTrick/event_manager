@@ -268,7 +268,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:settings:google_maps' => 'Google Maps settings',
 		'event_manager:settings:google_api_key' => 'Enter your Google API key',
 		'event_manager:settings:google_maps:enterdefaultlocation' => 'Enter a default location google maps needs to center on',
-		'event_manager:settings:google_maps:enterdefaultzoom' => 'Enter a default google maps zoom level (0 = zoomed in, 19 = zoomed out)',
+		'event_manager:settings:google_maps:enterdefaultzoom' => 'Enter a default google maps zoom level (0 = zoomed out, 19 = zoomed in)',
 		'event_manager:settings:google_api_key:clickhere' => 'Go to <a target="_blank" href="https://developers.google.com/maps/documentation/javascript/tutorial#api_key">https://developers.google.com/maps/documentation/javascript/tutorial#api_key</a> to get your "Google API key"',
 		'event_manager:settings:other' => 'Other',
 		'event_manager:settings:region_list' => 'Enter (comma separated) event regions',

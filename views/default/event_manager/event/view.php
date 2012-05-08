@@ -16,7 +16,7 @@
 	$event_details = "<table>";
 	if($location = $event->getLocation()){
 		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:location') . '</b>:</td><td>';
-		$event_details .= '<a href="' . EVENT_MANAGER_BASEURL . '/event/route?from=' . $event->getLocation() . '" class="openRouteToEvent">' . $event->getLocation() . '</a>';
+		$event_details .= '<a href="/events/event/route?from=' . $event->getLocation() . '" class="openRouteToEvent">' . $event->getLocation() . '</a>';
 		$event_details .= '</td></tr>';
 	}
 	
@@ -72,11 +72,11 @@
 		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:files') . '</b>:</td><td>';
 		$event_details .= "<div class='event-manager-event-files'>";
 		foreach($files as $file){
-			$event_details .= '<a href="' . EVENT_MANAGER_BASEURL . '/event/file/' . $event->getGUID() . '/' . $file->time_uploaded . '/'. $file->file . '">' . elgg_view_icon("download") . " " . $file->title . '</a><br />';
+			$event_details .= '<a href="/events/event/file/' . $event->getGUID() . '/'. $file->file . '">' . elgg_view_icon("download", "mrs") . $file->title . '</a><br />';
 		}
 		
 		$event_details .= '</div>';
-		$event_details .= '</ul></td></tr>';
+		$event_details .= '</td></tr>';
 	}
 	
 	$event_details .= "</table>";

@@ -36,7 +36,7 @@
 					if($i == 0){
 						$tab_content .= " style='display:block;'";	
 					}
-					$tab_content .= " class='event_manager_event_view_attendees' id='" . $event->getGUID() . "_relation_". $rel . "'>"; 
+					$tab_content .= " class='event_manager_event_view_attendees hidden' id='" . $event->getGUID() . "_relation_". $rel . "'>"; 
 					
 					foreach($members as $member){
 						if($user = get_user($member)){
@@ -52,7 +52,6 @@
 												
 													<li>
 														<ul class="elgg-menu elgg-menu-hover-actions">
-															<!-- <li><a href="' . EVENT_MANAGER_BASEURL . '/registration/view/?guid=' . $event->getGUID() . '&u_g=' . $member . '">' . elgg_echo("event_manager:event:viewregistration") . '</a></li> -->
 															<li><a href="' . elgg_add_action_tokens_to_url($vars['url'] . 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&user=' . $member . '&type=' . EVENT_MANAGER_RELATION_UNDO) . '">' . elgg_echo("event_manager:event:relationship:kick") . '</a></li>
 														</ul>
 													</li>	

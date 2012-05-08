@@ -14,7 +14,7 @@
 			if(!elgg_is_logged_in()) {
 				if(!$event->hasEventSpotsLeft() || !$event->hasSlotSpotsLeft()) {
 					if($event->waiting_list_enabled && $event->registration_needed && $event->openForRegistration()) {
-						forward(EVENT_MANAGER_BASEURL.'/event/waitinglist/'.$guid);
+						forward('/events/event/waitinglist/'.$guid);
 					} else {
 						register_error(elgg_echo('event_manager:event:rsvp:nospotsleft'));
 						forward(REFERER);

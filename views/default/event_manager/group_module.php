@@ -24,12 +24,12 @@ if (!$content) {
 }
 
 $all_link = elgg_view('output/url', array(
-	'href' => EVENT_MANAGER_BASEURL."/event/list/{$group->username}",
+	'href' => "/events/event/list/" . $group->getGUID(),
 	'text' => elgg_echo('link:view:all'),
 ));
 
 $new_link = elgg_view('output/url', array(
-	'href' => "events/event/new/$group->username",
+	'href' => "/events/event/new/" . $group->getGUID(),
 	'text' => elgg_echo('event_manager:menu:new_event'),
 ));
 

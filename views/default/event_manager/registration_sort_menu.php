@@ -1,6 +1,6 @@
 <?php
 
-	 $url = $vars['url'] . EVENT_MANAGER_BASEURL."/registration/list/".$vars["eventguid"];
+	 $url = "/events/registration/list/".$vars["eventguid"];
 
 ?>
 <div id="elgg_horizontal_tabbed_nav">

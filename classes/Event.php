@@ -84,20 +84,17 @@
 			return false;
 		}
 		
-		protected function initializeAttributes() 
-		{
+		protected function initializeAttributes() {
 			parent::initializeAttributes();
 			
 			$this->attributes["subtype"] = self::SUBTYPE;
 		}
 		
-		public function getURL()
-		{
-			return EVENT_MANAGER_BASEURL . "/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
+		public function getURL(){
+			return "/events/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
 		}
 		
-		public function setAccessToOwningObjects($access_id = null)
-		{
+		public function setAccessToOwningObjects($access_id = null)	{
 			$this->setAccessToProgramEntities($access_id);
 			$this->setAccessToRegistrationForm($access_id);
 		}
@@ -518,7 +515,7 @@
 				// do we have a registration link
 				if($type == EVENT_MANAGER_RELATION_ATTENDING) {
 					if($this->registration_needed) {
-						$link = EVENT_MANAGER_BASEURL . '/registration/view/?guid=' . $this->getGUID() . '&u_g=' . $to . '&k=' . md5($this->time_created . get_site_secret() . $to);
+						$link = '/events/registration/view/?guid=' . $this->getGUID() . '&u_g=' . $to . '&k=' . md5($this->time_created . get_site_secret() . $to);
 						
 						$registrationLink = PHP_EOL . PHP_EOL;
 						$registrationLink .= elgg_echo('event_manager:event:registration:notification:program:linktext');

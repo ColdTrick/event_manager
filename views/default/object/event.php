@@ -28,7 +28,7 @@
 		
 		$author_text = elgg_echo('byline', array($owner_link));
     	if(($container instanceof ElggGroup) && (elgg_get_page_owner_guid() !== $container->getGUID())){
-        	$author_text .= ' ' . elgg_echo('in') . ' <a href="' . EVENT_MANAGER_BASEURL . '/event/list/' . $container->getGUID() . '">' . $container->name . '</a>';
+        	$author_text .= ' ' . elgg_echo('in') . ' <a href="/events/event/list/' . $container->getGUID() . '">' . $container->name . '</a>';
 		}
 		
 		$date = elgg_view_friendly_time($event->time_created);
@@ -38,7 +38,7 @@
         	
 	        if($location = $event->getLocation()){
 	            $content .= '<div>' . elgg_echo('event_manager:edit:form:location') . ': ';
-	            $content .= '<a href="' . EVENT_MANAGER_BASEURL . '/event/route?from=' . $location . '" class="openRouteToEvent">' . $location . '</a>';
+	            $content .= '<a href="/events/event/route?from=' . $location . '" class="openRouteToEvent">' . $location . '</a>';
 	            $content .= '</div>'; 
 	        }
 	        

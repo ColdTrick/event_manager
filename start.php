@@ -1,7 +1,5 @@
 <?php
 	
-	define("EVENT_MANAGER_BASEURL", elgg_get_site_url() . "events");
-	
 	define("EVENT_MANAGER_FORMAT_DATE_EVENTDAY", 	"Y-m-d");
 	
 	define("EVENT_MANAGER_SEARCH_LIST_LIMIT", 		10);
@@ -43,7 +41,7 @@
 		elgg_register_menu_item("site", array(
 			"name" => "event_manager",
 			"text" => elgg_echo("event_manager:menu:title"), 
-			"href" => EVENT_MANAGER_BASEURL
+			"href" => "/events"
 		));
 		
 		// add group tool option
@@ -68,7 +66,7 @@
 		elgg_load_js("event_manager.maps.base");
 		elgg_load_js("event_manager.maps.helper");
 
-		elgg_push_breadcrumb(elgg_echo("event_manager:menu:events"), EVENT_MANAGER_BASEURL);
+		elgg_push_breadcrumb(elgg_echo("event_manager:menu:events"), "/events");
 		
 		$include = "/pages/event/list.php";
 		if(!empty($page)) {
@@ -108,7 +106,7 @@
 					if(file_exists(dirname(__FILE__)."/pages/".$page[0]."/".$page[1].".php")) {
 						$include = "/pages/".$page[0]."/".$page[1].".php";
 					} else {
-						forward(EVENT_MANAGER_BASEURL);
+						forward("/events");
 					}			
 					break;
 			}			

@@ -1,4 +1,4 @@
-<div id="event_manager_event_map">
+<div id="event_manager_event_map" class="hidden">
 	<div id="event_manager_onthemap_canvas"></div>
 	<div id="event_manager_onthemap_legend">
 		<img src="//www.google.com/intl/en_us/mapfiles/ms/micons/ylw-pushpin.png" /><?php echo elgg_echo("event_manager:list:navigation:your"); ?>
