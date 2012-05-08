@@ -198,15 +198,31 @@ function event_manager_execute_search(){
 					
 				event_manager_gmarkers = [];
 				if(response.markers) {
+					var shadowIcon = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+					        new google.maps.Size(40, 37),
+					        new google.maps.Point(0, 0),
+					        new google.maps.Point(12, 35));
+			        var ownIcon = "//maps.google.com/mapfiles/ms/icons/yellow-dot.png";
+			        var attendingIcon = "//maps.google.com/mapfiles/ms/icons/blue-dot.png";
+										
 					$.each(response.markers, function(i, event) {
 						var myLatlng = new google.maps.LatLng(event.lat, event.lng);
-						
-						marker = new google.maps.Marker({ 
-							map: event_manager_gmap, 
-							position: myLatlng,
-							animation: google.maps.Animation.DROP,
-							title: event.title
-						});
+
+						markerOptions = {
+								map: event_manager_gmap, 
+								position: myLatlng,
+								animation: google.maps.Animation.DROP,
+								title: event.title,
+								shadow: shadowIcon
+							};
+						if(event.iscreator){
+							markerOptions.icon = ownIcon; 
+						} else {
+							if(event.has_relation){
+								markerOptions.icon = attendingIcon;
+							}
+						}
+						marker = new google.maps.Marker(markerOptions);
 						
 						var infowindow = new google.maps.InfoWindow({
 						    content: event.html

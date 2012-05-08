@@ -53,7 +53,7 @@ Iemand heeft zich afgemeld van het \'%s\' evenement. Je bent van de wachtlijst n
   'event_manager:list:navigation:owned' => 'Mijn evenementen',
   'event_manager:list:navigation:your' => 'Jouw evenementen',
   'event_manager:list:navigation:friends' => 'Evenementen van vrienden',
-  'event_manager:list:navigation:attending' => 'Attending events',
+  'event_manager:list:navigation:attending' => 'Evenementen waar je aan deelneemt',
   'event_manager:list:navigation:onthemap' => 'Op de kaart',
   'event_manager:list:navigation:refreshing' => 'evenementen verversen',
   'event_manager:list:count' => ' evenementen gevonden',
