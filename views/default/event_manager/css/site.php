@@ -116,6 +116,10 @@
 	display: inline-block;
 }
 
+#event_manager_event_search_advanced_container .elgg-input-dropdown {
+	width: 100px;
+}
+
 #event_manager_event_search_advanced_container .elgg-input-date {
 	width: 100px;
 }
