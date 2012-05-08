@@ -105,7 +105,7 @@
 													'title' => $event->title, 
 													'html' => $eventBox,
 													'hasrelation' => $event->getRelationshipByUser(),
-													'iscreator' => (($event->getOwner() == elgg_get_logged_in_user_guid())?'owner':null)
+													'iscreator' => (($event->getOwnerGUID() == elgg_get_logged_in_user_guid())?'owner':null)
 													);
 			}
 		}
