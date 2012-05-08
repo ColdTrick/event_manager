@@ -1,6 +1,7 @@
 <?php ?>
 //<script>
 elgg.provide("elgg.event_manager");
+var infowindow = null;
 
 (function(){
 
@@ -198,6 +199,8 @@ function event_manager_execute_search(){
 					
 				event_manager_gmarkers = [];
 				if(response.markers) {
+					infowindow = new google.maps.InfoWindow();
+					
 					var shadowIcon = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
 					        new google.maps.Size(40, 37),
 					        new google.maps.Point(0, 0),
@@ -222,14 +225,13 @@ function event_manager_execute_search(){
 								markerOptions.icon = attendingIcon;
 							}
 						}
-						marker = new google.maps.Marker(markerOptions);
+						var marker = new google.maps.Marker(markerOptions);
 						
-						var infowindow = new google.maps.InfoWindow({
-						    content: event.html
-						});
+						
 						
 						google.maps.event.addListener(marker, 'click', function() {
-						  infowindow.open(event_manager_gmap,marker);
+							infowindow.setContent(event.html);				
+						  	infowindow.open(event_manager_gmap,marker);
 						});
 											
 						event_manager_gmarkers.push(marker);
