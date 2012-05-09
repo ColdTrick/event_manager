@@ -7,6 +7,10 @@
 	
 	$form_body = $form_toggle;
 	$form_body .= elgg_view('input/hidden', array('name' => 'search_type', 'id' => 'search_type', 'value' => 'list'));
+	$form_body .= elgg_view('input/hidden', array('name' => 'latitude', 'id' => 'latitude'));
+	$form_body .= elgg_view('input/hidden', array('name' => 'longitude', 'id' => 'longitude'));
+	$form_body .= elgg_view('input/hidden', array('name' => 'distance_longitude', 'id' => 'distance_longitude'));
+	$form_body .= elgg_view('input/hidden', array('name' => 'distance_latitude', 'id' => 'distance_latitude'));
 	$form_body .= elgg_view('input/hidden', array('name' => 'container_guid', 'value' => elgg_get_page_owner_guid()));
 	$form_body .= elgg_view('input/text', array('name' => 'search', 'id' => 'search', 'class' => 'event_manager_event_list_search_input mrs'));
 	

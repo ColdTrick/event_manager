@@ -21,6 +21,10 @@
 	$start_day = get_input('start_day');
 	$end_day = get_input('end_day');
 	
+	$latitude = get_input("latitude");
+	$longitude = get_input("longitude");
+	$distance = array("latitude" => get_input("distance_latitude"),"longitude" => get_input("distance_longitude"));
+	
 	$returnData['valid'] = 0;
 	
 	if($advanced_search) {
@@ -73,6 +77,7 @@
 		$options["container_guid"] = $container_guid;
 	}
 	
+	$options['search_type'] = $search_type;
 	$options['query'] = $search;
 	$options['offset'] = $offset;
 	
@@ -90,23 +95,25 @@
 			$returnData['content'] .= elgg_echo('event_manager:list:noresults');
 		}
 	} else {
+		$options['latitude'] = $latitude;
+		$options['longitude'] = $longitude;
+		$options['distance'] = $distance;
 		$options['limit'] = EVENT_MANAGER_SEARCH_LIST_MAPS_LIMIT;
+		
 		$entities = event_manager_search_events($options);
 		foreach($entities['entities'] as $event) {
-			elgg_push_context("maps");
-			
-			$eventBox = elgg_view_entity($event);
-			
-			elgg_pop_context();
-			
 			if($event->location) {
-				$returnData['markers'][] = array(	'lat' => $event->getLatitude(), 
+				elgg_push_context("maps");
+								
+				$returnData['markers'][] = array(	'guid' => $event->getGUID(), 
+													'lat' => $event->getLatitude(), 
 													'lng' => $event->getLongitude(), 
 													'title' => $event->title, 
-													'html' => $eventBox,
+													'html' => elgg_view_entity($event),
 													'hasrelation' => $event->getRelationshipByUser(),
 													'iscreator' => (($event->getOwnerGUID() == elgg_get_logged_in_user_guid())?'owner':null)
 													);
+				elgg_pop_context();
 			}
 		}
 	}

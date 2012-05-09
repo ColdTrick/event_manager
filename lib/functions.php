@@ -48,8 +48,12 @@
 							'owning'			=> false,
 							'friendsattending' 	=> false,
 							'region'			=> null,
+							'latitude'			=> null,
+							'longitude'			=> null,
+							'distance'			=> null,
 							'event_type'		=> false,
 							'past_events'		=> false,
+							'search_type'		=> "list"
 							
 		);
 		
@@ -125,10 +129,22 @@
 			}
 		}
 		
-		$entities = elgg_get_entities_from_metadata($entities_options);
-		
-		$entities_options['count'] = true;
-		$count_entities = elgg_get_entities_from_metadata($entities_options);
+		if(($options["search_type"] == "onthemap") && !empty($options['latitude']) && !empty($options['longitude']) && !empty($options['distance'])){
+			$entities_options["latitude"] = $options['latitude'];
+			$entities_options["longitude"] = $options['longitude'];
+			$entities_options["distance"] = $options['distance'];
+			$entities = elgg_get_entities_from_location($entities_options);
+				
+			$entities_options['count'] = true;
+			$count_entities = elgg_get_entities_from_location($entities_options);
+			
+		} else {
+			
+			$entities = elgg_get_entities_from_metadata($entities_options);
+			
+			$entities_options['count'] = true;
+			$count_entities = elgg_get_entities_from_metadata($entities_options);
+		}
 		
 		$result = array(
 			"entities" 	=> $entities,

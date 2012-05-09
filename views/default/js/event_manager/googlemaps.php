@@ -88,7 +88,7 @@ $(function() {
 /*
  * Global GoogleMaps init
  */
-function initMaps(element){
+function initMaps(element, bindSearchEvents){
 	event_manager_geocoder = new google.maps.Geocoder();
 	
 	var myOptions = {
@@ -96,6 +96,15 @@ function initMaps(element){
     	mapTypeId: google.maps.MapTypeId.ROADMAP
   	}
 	event_manager_gmap = new google.maps.Map(document.getElementById(element), myOptions);
+
+	if(bindSearchEvents){
+		google.maps.event.addListener(event_manager_gmap, 'idle', function() {
+		    // execute search
+		    event_manager_execute_search();
+		  });
+				
+		
+	}
 	
 	event_manager_geocoder.geocode( { 'address': EVENT_MANAGER_BASE_LOCATION}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
