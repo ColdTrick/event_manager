@@ -20,9 +20,10 @@ if(!empty($guid) && !empty($filename)) {
 			
 			$fileHandler->owner_guid = $event->owner_guid;
 			
+			//fix for IE https issue
+			header('Pragma: public');
 			header('Content-Type: '.$file->mime);
-			header('Content-Disposition: Attachment; filename=' . $file->file);
-			header('Pragma: no-cache');				
+			header('Content-Disposition: Attachment; filename=' . $file->file);				
 			
 			echo $fileHandler->grabFile();
 			exit;
