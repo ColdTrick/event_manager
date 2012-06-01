@@ -33,3 +33,4 @@ Manage events, from a simple appointment to a multi day event with day programs 
 - tools registration list
 - export waiting list
 - have a "events created by user" page ?? 
+- split translationkey between rsvp actions and user participants tabtitles
