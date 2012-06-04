@@ -48,7 +48,7 @@
 				$event_details .= elgg_echo('event_manager:full');
 			}
 		} else {
-			$event_details .= $spots_left;
+			$event_details .= $spots_left . " / " . $max_attendees;
 		}
 		
 		$event_details .= '</td></tr>';
