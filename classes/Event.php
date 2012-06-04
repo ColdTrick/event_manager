@@ -91,7 +91,7 @@
 		}
 		
 		public function getURL(){
-			return "/events/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
+			return elgg_get_site_url() . "events/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
 		}
 		
 		public function setAccessToOwningObjects($access_id = null)	{
