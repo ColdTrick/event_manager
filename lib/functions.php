@@ -347,7 +347,7 @@
 			}
 		}
 		
-		if($attendees = $event->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING)) {
+		if($attendees = $event->exportAttendees()) {
 			foreach($attendees as $attendee) {
 				$answerString = '';
 				
