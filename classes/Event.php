@@ -876,53 +876,46 @@
 		}
 		
 		public function countAttendees() {
-			elgg_set_ignore_access(true);
-			
-			//$entities = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING);			
+			$old_ia = elgg_set_ignore_access(true);				
 			
 			$entities = elgg_get_entities_from_relationship(array(
 				'relationship' => EVENT_MANAGER_RELATION_ATTENDING,
 				'relationship_guid' => $this->getGUID(),
 				'inverse_relationship' => FALSE,
 				'count' => TRUE,
-				'site_guid' => false
+				'site_guids' => false
 			));
 			
-			elgg_set_ignore_access(false);
+			elgg_set_ignore_access($old_ia);
 			
 			return $entities;
 		}
 		
 		public function countWaiters() {
-			elgg_set_ignore_access(true);
-			
-			//$entities = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING);			
+			$old_ia = elgg_set_ignore_access(true);			
 			
 			$entities = elgg_get_entities_from_relationship(array(
 				'relationship' => EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
 				'relationship_guid' => $this->getGUID(),
 				'inverse_relationship' => FALSE,
 				'count' => TRUE,
-				'site_guid' => false
+				'site_guids' => false
 			));
 			
-			elgg_set_ignore_access(false);
+			elgg_set_ignore_access($old_ia);
 			
 			return $entities;
 		}
 		
 		public function exportAttendees() {
-			$old_ia = elgg_get_ignore_access();
-			elgg_set_ignore_access(true);
 			
-// 			$entities = $this->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_ATTENDING);
+			$old_ia = elgg_set_ignore_access(true);
 			
 			$entities = elgg_get_entities_from_relationship(array(
 				'relationship' => EVENT_MANAGER_RELATION_ATTENDING,
 				'relationship_guid' => $this->getGUID(),
 				'inverse_relationship' => FALSE,
-				'count' => FALSE,
-				'site_guid' => false,
+				'site_guids' => false,
 				'limit' => false
 			));
 			
