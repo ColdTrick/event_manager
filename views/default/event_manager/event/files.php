@@ -9,7 +9,7 @@
 			$content = "<table class='elgg-table'>";
 			foreach($files as $file) {
 				$content .= "<tr>";
-				$content .= "<td><a href='/events/event/file/" . $event->getGUID() . "/" . $file->file . "'>" . $file->title . "</a></td>";
+				$content .= "<td><a href='" . elgg_get_site_url() . "/events/event/file/" . $event->getGUID() . "/" . $file->file . "'>" . $file->title . "</a></td>";
 				$content .= "<td>" . elgg_view("output/confirmlink", array("href" => "action/event_manager/event/deletefile?guid=" . $event->getGUID() . "&file=" . $file->file, "text" => elgg_view_icon("delete"))) . "</td>";
 				$content .= "</tr>";
 			}

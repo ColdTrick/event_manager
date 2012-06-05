@@ -1,6 +1,6 @@
 <?php
 
-	 $url = "/events/registration/list/".$vars["eventguid"];
+	 $url = elgg_get_site_url() . "events/registration/list/".$vars["eventguid"];
 
 ?>
 <div id="elgg_horizontal_tabbed_nav">

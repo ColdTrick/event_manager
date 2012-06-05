@@ -63,7 +63,7 @@
 				}			
 
 				if($user_guid == elgg_get_logged_in_user_guid()) {
-					$output .= '<br /><a class="mlm" href="/events/event/register/' . $event->getGUID() . '/event_attending">'.elgg_echo('event_manager:registration:edityourregistration').'</a>';
+					$output .= '<br /><a class="mlm" href="' . elgg_get_site_url() . 'events/event/register/' . $event->getGUID() . '/event_attending">'.elgg_echo('event_manager:registration:edityourregistration').'</a>';
 				}	
 				
 				elgg_push_breadcrumb($event->title, $event->getURL());

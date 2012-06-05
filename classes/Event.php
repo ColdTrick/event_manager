@@ -515,7 +515,7 @@
 				// do we have a registration link
 				if($type == EVENT_MANAGER_RELATION_ATTENDING) {
 					if($this->registration_needed) {
-						$link = '/events/registration/view/?guid=' . $this->getGUID() . '&u_g=' . $to . '&k=' . md5($this->time_created . get_site_secret() . $to);
+						$link = elgg_get_site_url() . 'events/registration/view/?guid=' . $this->getGUID() . '&u_g=' . $to . '&k=' . md5($this->time_created . get_site_secret() . $to);
 						
 						$registrationLink = PHP_EOL . PHP_EOL;
 						$registrationLink .= elgg_echo('event_manager:event:registration:notification:program:linktext');
