@@ -500,7 +500,7 @@
 				
 				// make the event title for in the e-mail
 				if($html_email_handler_enabled) {
-					$event_title_link = elgg_view("ouput/url", array("tex" => $this->title, "href" => $this->getURL()));
+					$event_title_link = elgg_view("output/url", array("text" => $this->title, "href" => $this->getURL()));
 				} else {
 					$event_title_link = $this->title;
 				}
