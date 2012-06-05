@@ -152,44 +152,32 @@
 			return false;
 		}
 		
-		public function rsvp($type = EVENT_MANAGER_RELATION_UNDO, $user_guid = null, $reset_program = true)
-		{
+		public function rsvp($type = EVENT_MANAGER_RELATION_UNDO, $user_guid = null, $reset_program = true) {
 			$result = false;
 			
-			if($user_guid == null)
-			{
+			if($user_guid == null) {
 				$user_guid = elgg_get_logged_in_user_guid();
 			}
 			
-			if(!empty($user_guid))
-			{
+			if(!empty($user_guid)) {
 				$event_guid = $this->getGUID();
 				
 				// remove registrations
-				if($type == EVENT_MANAGER_RELATION_UNDO)
-				{
-					if(!(($user = get_entity($user_guid)) instanceof ElggUser))
-					{
+				if($type == EVENT_MANAGER_RELATION_UNDO){
+					if(!(($user = get_entity($user_guid)) instanceof ElggUser))	{
 						$user->delete();
-					}
-					else
-					{
-						if($reset_program)
-						{
-							if($this->with_program)
-							{
+					} else {
+						if($reset_program) {
+							if($this->with_program) {
 								$this->relateToAllSlots(false, $user_guid);
 							}
 							$this->clearRegistrations($user_guid);
 						}
 						
 						// check if currently attending
-						if(check_entity_relationship($this->getGUID(), EVENT_MANAGER_RELATION_ATTENDING, $user_guid))
-						{
-							if(!$this->hasEventSpotsLeft() || !$this->hasSlotSpotsLeft())
-							{
-								if($this->getWaitingUsers())
-								{
+						if(check_entity_relationship($this->getGUID(), EVENT_MANAGER_RELATION_ATTENDING, $user_guid)) {
+							if(!$this->hasEventSpotsLeft() || !$this->hasSlotSpotsLeft()) {
+								if($this->getWaitingUsers()) {
 									$this->generateNewAttendee();
 								}
 							}
@@ -201,8 +189,7 @@
 				delete_data("DELETE FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid AND guid_two=$user_guid");
 				
 				// remove river events
-				if(get_entity($user_guid) instanceof ElggUser)
-				{
+				if(get_entity($user_guid) instanceof ElggUser) {
 					$params = array(
 						"subject_guid" => $user_guid,
 						"object_guid" => $event_guid,
@@ -212,26 +199,20 @@
 				}
 				
 				// add the new relationship
-				if($type && ($type != EVENT_MANAGER_RELATION_UNDO) && (in_array($type, event_manager_event_get_relationship_options())))
-				{
-					if($result = $this->addRelationship($user_guid, $type))
-					{
-						if(get_entity($user_guid) instanceof ElggUser)
-						{
+				if($type && ($type != EVENT_MANAGER_RELATION_UNDO) && (in_array($type, event_manager_event_get_relationship_options()))) {
+					if($result = $this->addRelationship($user_guid, $type)) {
+						if(get_entity($user_guid) instanceof ElggUser) {
 							// add river events
 							if($type != "event_waitinglist"){
 								add_to_river('river/event_relationship/create', 'event_relationship', $user_guid, $event_guid);
 							}
 						}
 					}
-				}
-				else
-				{
+				} else {
 					$result = true;
 				}
 				
-				if($this->notify_onsignup)
-				{
+				if($this->notify_onsignup) {
 					$this->notifyOnRsvp($type, $user_guid);
 				}
 			}
@@ -239,63 +220,52 @@
 			return $result;
 		}
 		
-		public function hasEventSpotsLeft()
-		{
+		public function hasEventSpotsLeft()	{
 			$result = false;
 			
-			if($this->max_attendees != '')
-			{
+			if($this->max_attendees != '') {
 				$attendees = $this->countAttendees();
 				
-				if(($this->max_attendees > $attendees))
-				{
+				if(($this->max_attendees > $attendees)) {
 					$result = true;
 				}
-			}
-			else
-			{
+			} else {
 				$result = true;
 			}
 			
 			return $result;
 		}
 		
-		public function hasSlotSpotsLeft()
-		{
+		public function hasSlotSpotsLeft() {
 			$result = true;
 			
 			$slotsSpots = $this->countEventSlotSpots();
 
-			if(($slotsSpots['total'] > 0) && ($slotsSpots['left'] < 1) && !$this->hasUnlimitedSpotSlots())
-			{
+			if(($slotsSpots['total'] > 0) && ($slotsSpots['left'] < 1) && !$this->hasUnlimitedSpotSlots()) {
 				$result = false;
 			}
 			
 			return $result;
 		}
 		
-		public function openForRegistration()
-		{
+		public function openForRegistration() {
 			$result = true;
 			
-			if($this->registration_ended || (!empty($this->endregistration_day) && $this->endregistration_day < time()))
-			{
+			if($this->registration_ended || (!empty($this->endregistration_day) && $this->endregistration_day < time())) {
 				$result = false;
 			}
+			
 			return $result;
 		}
 		
-		public function clearRegistrations($user_guid = null)
-		{
-			if($user_guid == null)
-			{
+		public function clearRegistrations($user_guid = null) {
+			if($user_guid == null) {
 				$user_guid = elgg_get_logged_in_user_guid();
 			}			
 			
-			if($questions = $this->getRegistrationFormQuestions())
-			{
-				foreach($questions as $question)
-				{
+			if($questions = $this->getRegistrationFormQuestions()) {
+				
+				foreach($questions as $question) {
 					$question->deleteAnswerFromUser($user_guid);
 				}
 			}
@@ -501,8 +471,8 @@
 		}
 		
 		public function notifyOnRsvp($type, $to = null) {
-			$ia = elgg_get_ignore_access();
-			elgg_set_ignore_access(true);
+
+			$ia = elgg_set_ignore_access(true);
 			
 			if($to == null) {
 				$to = elgg_get_logged_in_user_guid();
