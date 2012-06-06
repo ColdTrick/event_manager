@@ -85,7 +85,7 @@
 		$options['limit'] = EVENT_MANAGER_SEARCH_LIST_LIMIT;
 		$entities = event_manager_search_events($options);
 		
-		$returnData['content'] = elgg_view_entity_list($entities['entities'], $entities['count'], $offset, EVENT_MANAGER_SEARCH_LIST_LIMIT, false, false, false);
+		$returnData['content'] = elgg_view_entity_list($entities['entities'], array("count" => $entities['count'], "offset" => $offset, "limit" => EVENT_MANAGER_SEARCH_LIST_LIMIT, 'full_view' => false, 'pagination' => false));
 		
 		if(($entities['count'] - ($offset + EVENT_MANAGER_SEARCH_LIST_LIMIT)) > 0) {
 			$returnData['content'] .= '<div id="event_manager_event_list_search_more" rel="'.($offset+EVENT_MANAGER_SEARCH_LIST_LIMIT).'">'.elgg_echo('event_manager:list:showmorevents').' ('.($entities['count']-($offset+EVENT_MANAGER_SEARCH_LIST_LIMIT)).')</div>';
