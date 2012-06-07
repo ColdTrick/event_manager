@@ -34,3 +34,5 @@ Manage events, from a simple appointment to a multi day event with day programs 
 - export waiting list
 - have a "events created by user" page ?? 
 - split translationkey between rsvp actions and user participants tabtitles
+
+- no questionair required for registration by non logged in users
