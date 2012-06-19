@@ -113,6 +113,7 @@
 		'event_manager:registration:yourregistration' => 'Your registration',	
 		'event_manager:registration:programparticipation' => 'Program participation',
 		'event_manager:registration:editprogramparticipation' => 'Edit your program participation',
+		'event_manager:registration:required_fields' => 'Please fill in the required fields',
 	
 		'event_manager:registration:program:success' => 'Succesfully (un)registered to the selected slots',
 		'event_manager:registration:program:fail' => 'Failed to (un)register to the selected slots',

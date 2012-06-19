@@ -117,6 +117,7 @@ Iemand heeft zich afgemeld van het \'%s\' evenement. Je bent van de wachtlijst n
   'event_manager:registration:yourregistration' => 'Jouw registratie',
   'event_manager:registration:programparticipation' => 'Programma deelname',
   'event_manager:registration:editprogramparticipation' => 'Wijzig je programma deelname',
+  'event_manager:registration:required_fields' => 'Vul eerst de verplichte velden in',
   'event_manager:registration:program:success' => 'Succesfully (un)registered to the selected slots',
   'event_manager:registration:program:fail' => 'Failed to (un)register to the selected slots',
   'event_manager:event:registration:notification:owner:subject' => 'Evenement registratie',

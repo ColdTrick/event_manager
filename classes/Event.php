@@ -370,11 +370,7 @@
 			$form_body = '<ul>';
 			
 			if(!elgg_is_logged_in()) {
-				$form_body .= '<li><label>'.elgg_echo('user:name:label').' *</label><br />
-					<input type="text" name="question_name" value="'.$_SESSION['registerevent_values']['question_name'].'" class="input-text"></li>';
-				
-				$form_body .= '<li><label>'.elgg_echo('email').' *</label><br />
-					<input type="text" name="question_email" value="'.$_SESSION['registerevent_values']['question_email'].'" class="input-text"></li>';
+				$form_body .= elgg_view("event_manager/registration/non_loggedin");
 			}
 	
 			if($registration_form = $this->getRegistrationFormQuestions()) {				
@@ -419,7 +415,7 @@
 								
 				$form = elgg_view('input/form', array(	'id' 		=> 'event_manager_event_register', 
 														'name' 		=> 'event_manager_event_register', 
-														'action' 	=> elgg_get_site_url() . '/action/event_manager/event/register', 
+														'action' 	=> elgg_get_site_url() . 'action/event_manager/event/register', 
 														'body' 		=> $form_body));
 			}
 			

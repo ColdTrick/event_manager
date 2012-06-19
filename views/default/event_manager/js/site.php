@@ -488,6 +488,31 @@ elgg.event_manager.init = function() {
 	});
 
 	$('#event_manager_event_register').submit(function() {
+		if(($("input[name='question_name']").val() == "") || ($("input[name='question_email']").val() == "")){
+			elgg.register_error(elgg.echo("event_manager:registration:required_fields"));
+			return false;
+		}
+
+		error_found = false;
+		
+		$("#event_manager_registration_form_fields .required").each(function(index, elem){
+			if($(this).hasClass("elgg-input-radios")){
+				if($(this).find("input[type='radio']:checked").length == 0){
+					error_found = true;
+					return false;
+				}
+			} else if($(this).val() == ""){
+				error_found = true;
+				return false;
+				
+			}
+		});
+		if(error_found){
+			elgg.register_error(elgg.echo("event_manager:registration:required_fields"));
+			
+			return false;
+		}
+		
 		guids = [];
 		$.each($('.event_manager_program_participatetoslot'), function(i, value) {
 			elementId = $(value).attr('id');

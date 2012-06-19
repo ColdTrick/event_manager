@@ -16,20 +16,24 @@
 		if(array_key_exists($question->fieldtype, $fieldtypes)) {			
 			$field_options = $question->getOptions();
 			
+			$required = "";
+			$required_class = "";
+			
 			if($question->required) {
 				$required = ' *';
+				$required_class = "required";
 			}
 			
 			if($question->fieldtype == 'Checkbox') {
-				$field_options = array($question->title.$required => '1');
+				$field_options = array($question->title . $required => '1');
 				
-				$result = $tools.elgg_view('input/'.$fieldtypes[$question->fieldtype], array('name' => 'question_'.$question->getGUID(), 'value' => $value, 'options' => $field_options));
+				$result = $tools.elgg_view('input/' . $fieldtypes[$question->fieldtype], array('name' => 'question_'.$question->getGUID(), 'value' => $value, 'options' => $field_options, "class" => $required_class));
 			} else {
 				
 				if(!$register){
 					$result = elgg_view_icon("cursor-drag-arrow") . " ";
 				}
-				$result .= '<label>'.$question->title.$required.'</label>'.$tools.'<br />'.elgg_view('input/'.$fieldtypes[$question->fieldtype], array('name' => 'question_'.$question->getGUID(), 'value' => $value, 'options' => $field_options));
+				$result .= '<label>'.$question->title.$required.'</label>'.$tools.'<br />'.elgg_view('input/'.$fieldtypes[$question->fieldtype], array('name' => 'question_'.$question->getGUID(), 'value' => $value, 'options' => $field_options, "class" => $required_class));
 			}
 		}
 		if(!$register){
