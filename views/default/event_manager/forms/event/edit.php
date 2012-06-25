@@ -14,6 +14,10 @@
 			"longitude"				=> ELGG_ENTITIES_ANY_VALUE,
 			"region"				=> ELGG_ENTITIES_ANY_VALUE,
 			"event_type"			=> ELGG_ENTITIES_ANY_VALUE,
+			"website"				=> ELGG_ENTITIES_ANY_VALUE,
+			"contact_details"		=> ELGG_ENTITIES_ANY_VALUE,
+			"fee"					=> ELGG_ENTITIES_ANY_VALUE,
+			"twitter_hash"			=> ELGG_ENTITIES_ANY_VALUE,
 			"organizer"				=> ELGG_ENTITIES_ANY_VALUE,
 			"start_day" 			=> time(),
 			"start_time"			=> time(),
@@ -81,14 +85,26 @@
 	$form_body .= "<table>";
 	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:title') . " *</td><td>" . elgg_view('input/text', array('name' => 'title', 'value' => $fields["title"])) . "</td></tr>";
-
+	
+	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:start_day') . " *</td>
+		<td>" . elgg_view('input/date', array('name' => 'start_day', 'id' => 'start_day', 'value' => date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $fields["start_day"]))) . "</td></tr>";
+	
+	$start_time_hidden = "";
+	if($fields['with_program'])	{
+		$start_time_hidden = ' style="display: none; "';
+	}
+	
+	$form_body .= "<tr id='event_manager_start_time_pulldown' ".$start_time_hidden." ><td class='event_manager_event_edit_label'>" . elgg_echo("event_manager:edit:form:start_time") . "</td><td>".
+		event_manager_get_form_pulldown_hours('start_time_hours', $start_time_hours).
+		event_manager_get_form_pulldown_minutes('start_time_minutes', $start_time_minutes)."</td>";
+	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:shortdescription') . "</td><td>" . elgg_view('input/text', array('name' => 'shortdescription', 'value' => $fields["shortdescription"])) . "</td></tr>";
 	
-	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('tags') . " *</td><td>" . elgg_view('input/tags', array('name' => 'tags', 'value' => $fields["tags"])) . "</td></tr>";
-
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:description') . "</td><td>" . elgg_view('input/longtext', array('name' => 'description', 'value' => $fields["description"])) . "</td></tr>";
 
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:icon') . "</td><td>" . elgg_view('input/file', array('name' => 'icon')) . "</td></tr>";
+	
+	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('tags') . "</td><td>" . elgg_view('input/tags', array('name' => 'tags', 'value' => $fields["tags"])) . "</td></tr>";
 	
 	if(!empty($currentIcon)) {
 		$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:currenticon') . "</td><td>".$currentIcon."<br />".
@@ -96,17 +112,6 @@
 		array(elgg_echo('event_manager:edit:form:delete_current_icon')=>'1')))."</td></tr>";
 	}
 	
-	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:start_day') . " *</td>
-	<td>" . elgg_view('input/date', array('name' => 'start_day', 'id' => 'start_day', 'value' => date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $fields["start_day"]))) . "</td></tr>";
-	
-	$start_time_hidden = "";
-	if($fields['with_program'])	{
-		$start_time_hidden = ' style="display: none; "';
-	}
-
-	$form_body .= "<tr id='event_manager_start_time_pulldown' ".$start_time_hidden." ><td class='event_manager_event_edit_label'>" . elgg_echo("event_manager:edit:form:start_time") . "</td><td>". 
-		event_manager_get_form_pulldown_hours('start_time_hours', $start_time_hours).
-		event_manager_get_form_pulldown_minutes('start_time_minutes', $start_time_minutes)."</td>";
 
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:organizer') . "</td><td>" . elgg_view('input/text', array('name' => 'organizer', 'value' => $fields["organizer"])) . "</td></tr>";
 
@@ -121,6 +126,14 @@
 	if($type_options) { 
 		$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:type') . "</td><td>" . elgg_view('input/dropdown', array('name' => 'event_type', 'value' => $fields["event_type"], 'options' => $type_options)) . "</td></tr>";
 	} 
+
+	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:contact_details') . "</td><td>" . elgg_view('input/text', array('name' => 'contact_details', 'value' => $fields["contact_details"])) . "</td></tr>";
+	
+	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:website') . "</td><td>" . elgg_view('input/url', array('name' => 'website', 'value' => $fields["website"])) . "</td></tr>";
+
+	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:twitter_hash') . "</td><td>" . elgg_view('input/text', array('name' => 'twitter_hash', 'value' => $fields["twitter_hash"])) . "</td></tr>";
+	
+	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:fee') . "</td><td>" . elgg_view('input/text', array('name' => 'fee', 'value' => $fields["fee"])) . "</td></tr>";
 
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:max_attendees') . "</td><td>" . elgg_view('input/text', array('name' => 'max_attendees', 'value' => $fields["max_attendees"])) . "</td></tr>";
 

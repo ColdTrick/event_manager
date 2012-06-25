@@ -55,8 +55,26 @@
 	}
 	
 	if($description = $event->description){
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:description') . '</b>:</td><td>' . $description . '</td></tr>';
+		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:description') . '</b>:</td><td>' . elgg_view("output/longtext", array("value" => $description)) . '</td></tr>';
 	}
+	
+	if($website = $event->website){
+		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:website') . '</b>:</td><td>' . elgg_view("output/url", array("value" => $website)) . '</td></tr>';
+	}
+	
+	if($contact_details = $event->contact_details){
+		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:contact_details') . '</b>:</td><td>' . elgg_view("output/text", array("value" => $contact_details)) . '</td></tr>';
+	}
+	
+	if($twitter_hash = $event->twitter_hash){
+		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:twitter_hash') . '</b>:</td><td>' . elgg_view("output/text", array("value" => $twitter_hash)) . '</td></tr>';
+	}
+	
+	if($fee = $event->fee){
+		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:fee') . '</b>:</td><td>' . elgg_view("output/text", array("value" => $fee)) . '</td></tr>';
+	}
+	
+	
 	
 	if($region = $event->region){
 		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:region') . '</b>:</td><td>' . $region . '</td></tr>';
