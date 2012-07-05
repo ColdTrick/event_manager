@@ -36,3 +36,4 @@ Manage events, from a simple appointment to a multi day event with day programs 
 - split translationkey between rsvp actions and user participants tabtitles
 
 - no questionair required for registration by non logged in users
+- external registration should be limited by email address
