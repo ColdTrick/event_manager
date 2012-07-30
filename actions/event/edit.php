@@ -7,6 +7,7 @@
 	$tags			 		= get_input("tags");
 	$twitter_hash	 		= get_input("twitter_hash");
 	$organizer	 			= get_input("organizer");
+	$organizer_rsvp			= get_input("organizer_rsvp");
 	$description 			= get_input("description");
 	$comments_on 			= get_input("comments_on");
 	$location 				= get_input("location");
@@ -94,7 +95,13 @@
 		
 		
 		if($newEvent) {
-			$rsvp = $event->rsvp(EVENT_MANAGER_RELATION_ORGANIZING);
+			// add event create river event
+			add_to_river('river/object/event/create', 'create', elgg_get_logged_in_user_guid(), $event->getGUID());
+			
+			// add optional organizer relationship
+			if($organizer_rsvp){
+				$event->rsvp(EVENT_MANAGER_RELATION_ORGANIZING, null, true, false);
+			} 
 		}
 		
 		$event->shortdescription 	= $shortdescription;
@@ -223,6 +230,7 @@
 		$_SESSION['createevent_values']['tags'] 				= $tags;
 		$_SESSION['createevent_values']['description'] 			= $description;
 		$_SESSION['createevent_values']['organizer'] 			= $organizer;
+		$_SESSION['createevent_values']['organizer_rsvp'] 			= $organizer_rsvp;
 		$_SESSION['createevent_values']['comments_on'] 			= $comments_on;
 		$_SESSION['createevent_values']['venue'] 				= $venue;
 		$_SESSION['createevent_values']['location'] 			= $location;

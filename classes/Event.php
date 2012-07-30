@@ -152,7 +152,7 @@
 			return false;
 		}
 		
-		public function rsvp($type = EVENT_MANAGER_RELATION_UNDO, $user_guid = null, $reset_program = true) {
+		public function rsvp($type = EVENT_MANAGER_RELATION_UNDO, $user_guid = null, $reset_program = true, $add_to_river = true) {
 			$result = false;
 			
 			if($user_guid == null) {
@@ -201,10 +201,12 @@
 				// add the new relationship
 				if($type && ($type != EVENT_MANAGER_RELATION_UNDO) && (in_array($type, event_manager_event_get_relationship_options()))) {
 					if($result = $this->addRelationship($user_guid, $type)) {
-						if(get_entity($user_guid) instanceof ElggUser) {
-							// add river events
-							if($type != "event_waitinglist"){
-								add_to_river('river/event_relationship/create', 'event_relationship', $user_guid, $event_guid);
+						if($add_to_river){
+							if(get_entity($user_guid) instanceof ElggUser) {
+								// add river events
+								if($type != "event_waitinglist"){
+									add_to_river('river/event_relationship/create', 'event_relationship', $user_guid, $event_guid);
+								}
 							}
 						}
 					}

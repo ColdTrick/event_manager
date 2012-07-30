@@ -3,7 +3,7 @@
 	$event = $vars["entity"];
 	$event_relationship_options = event_manager_event_get_relationship_options();
 	
-	if(elgg_is_logged_in() && (elgg_get_logged_in_user_guid() != $event->owner_guid)) {
+	if(elgg_is_logged_in()) {
 		if($event->openForRegistration()){
 			$user_relation = $event->getRelationshipByUser();
 				

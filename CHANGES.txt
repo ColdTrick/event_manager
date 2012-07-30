@@ -1,5 +1,10 @@
 = Version history =
 
+x.x:
+
+- changed: new events create a "created" river event and creaters have the option to be directly added as organisator
+- changed: owners now can change rsvp
+
 2.2 (2012-05-02):
 
 - added: a direct add link to events widget

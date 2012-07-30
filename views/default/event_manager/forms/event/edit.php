@@ -19,6 +19,7 @@
 			"fee"					=> ELGG_ENTITIES_ANY_VALUE,
 			"twitter_hash"			=> ELGG_ENTITIES_ANY_VALUE,
 			"organizer"				=> ELGG_ENTITIES_ANY_VALUE,
+			"organizer_rsvp"		=> 1,
 			"start_day" 			=> time(),
 			"start_time"			=> time(),
 			"registration_ended" 	=> ELGG_ENTITIES_ANY_VALUE,
@@ -113,7 +114,11 @@
 	}
 	
 
-	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:organizer') . "</td><td>" . elgg_view('input/text', array('name' => 'organizer', 'value' => $fields["organizer"])) . "</td></tr>";
+	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:organizer') . "</td><td>" . elgg_view('input/text', array('name' => 'organizer', 'value' => $fields["organizer"]));
+	if(!$event){
+		$form_body .= "<br/>" . elgg_view('input/checkboxes', array('name' => 'organizer_rsvp', 'id' => 'organizer_rsvp', 'value' => $fields["organizer_rsvp"], 'options' => array(elgg_echo('event_manager:edit:form:organizer_rsvp')=>'1')));
+	} 
+	$form_body .= "</td></tr>";
 
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:venue') . "</td><td>" . elgg_view('input/text', array('name' => 'venue', 'value' => $fields["venue"])) . "</td></tr>";
 	
