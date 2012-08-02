@@ -164,7 +164,8 @@
 							"JOIN " . elgg_get_config("dbprefix") . "entity_relationships r on r.guid_one = e.guid"),
 			'wheres' => array("r.guid_two = " . $event_guid, "r.relationship = 'event_registrationquestion_relation'"),
 			'order_by_metadata' => array("name" => 'order', 'direction' => 'ASC'),
-			'count' => $count
+			'count' => $count,
+			'limit' => false
 		);
 		
 		
