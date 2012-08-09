@@ -421,7 +421,7 @@
 		return $result;
 	}
 	
-	function sanitize_filename($string, $force_lowercase = true, $anal = false)	{
+	function event_manager_sanitize_filename($string, $force_lowercase = true, $anal = false)	{
 	    $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
 	                   "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
 	                   "—", "–", ",", "<", ">", "/", "?");

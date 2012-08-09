@@ -30,7 +30,7 @@
 				
 				$prefix = "events/".$event->getGUID()."/files/";
 				
-				$newFilename = sanitize_filename($_FILES['file']['name']);
+				$newFilename = event_manager_sanitize_filename($_FILES['file']['name']);
 								
 				$fileHandler = new ElggFile();
 				$fileHandler->setFilename($prefix . $newFilename);
