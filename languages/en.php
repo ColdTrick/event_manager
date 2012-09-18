@@ -260,8 +260,8 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 	
 		'event_manager:widgets:events:numbertodisplay' => 'Number of events to display',
 		'event_manager:widgets:events:showevents' => 'Show events',
-		'event_manager:widgets:events:showevents:icreated' => 'i created',
-		'event_manager:widgets:events:showevents:attendingto' => 'i\'m attending to',
+		'event_manager:widgets:events:showevents:icreated' => 'I created',
+		'event_manager:widgets:events:showevents:attendingto' => 'I\'m attending to',
 	
 		// actions
 		'event_manager:action:event:edit:ok' => 'Event saved',
