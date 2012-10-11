@@ -37,3 +37,5 @@ Manage events, from a simple appointment to a multi day event with day programs 
 
 - no questionair required for registration by non logged in users
 - external registration should be limited by email address
+
+- add support for site categories plugin
