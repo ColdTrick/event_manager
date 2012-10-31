@@ -452,41 +452,13 @@
 		
 		$where = '';
 		
-		// if query is shorter than the min for fts words
-		// it's likely a single acronym or similar
-		// switch to literal mode
-		if (elgg_strlen($query) < $CONFIG->search_info['min_chars']) {
-			$likes = array();
-			$query = sanitise_string($query);
-			foreach ($fields as $field) {
-				$likes[] = "$field LIKE '%$query%'";
-			}
-			$likes_str = implode(' OR ', $likes);
-			$where = "($likes_str)";
-		} else {
-			// if we're not using full text, rewrite the query for bool mode.
-			// exploiting a feature(ish) of bool mode where +-word is the same as -word
-			if (!$use_fulltext) {
-				$query = '+' . str_replace(' ', ' +', $query);
-			}
-			
-			// if using advanced, boolean operators, or paired "s, switch into boolean mode
-			$booleans_used = preg_match("/([\-\+~])([\w]+)/i", $query);
-			$quotes_used = (elgg_substr_count($query, '"') >= 2); 
-			
-			if (!$use_fulltext || $booleans_used || $quotes_used) {
-				$options = 'IN BOOLEAN MODE';
-			} else {
-				// natural language mode is default and this keyword isn't supported in < 5.1
-				//$options = 'IN NATURAL LANGUAGE MODE';
-				$options = '';
-			}
-			
-			$query = sanitise_string($query);
-			
-			$fields_str = implode(',', $fields);
-			$where = "(MATCH ($fields_str) AGAINST ('$query*' $options))";
+		$likes = array();
+		$query = sanitise_string($query);
+		foreach ($fields as $field) {
+			$likes[] = "$field LIKE '%$query%'";
 		}
+		$likes_str = implode(' OR ', $likes);
+		$where = "($likes_str)";
 		
 		return $where;
 	}
