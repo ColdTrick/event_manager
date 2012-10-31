@@ -1,10 +1,33 @@
 = Version history =
 
-x.x:
+2.3 (2012-10-31):
 
+- added: 4 new event fields (website, contact details, fee and twitter hash)
+- added: javascript validation of required fields on event registration form
+- added: french translation
 - changed: new events create a "created" river event and creaters have the option to be directly added as organisator
 - changed: owners now can change rsvp
+- changed: new events create a "created" river event and creaters have the option to be directly added as organisator
+- changed: owners now can change rsvp
+- changed: moved search button to bottom of search events form
+- changed: layout of group events module now looks like widget contents
+- changed: now showing max attendees on full view
+- fixed: venue not shown on full view
+- fixed: title not represented correctly when editing an exisiting registration question
+- fixed: invalid event url in html emails
+- fixed: some invalid urls with subfolder elgg installations
+- fixed: count and export functions not giving correct results
+- fixed: event class now returns correct event url
+- fixed: file download issue on IE7 with https
+- fixed: correct order of registration form fields
+- fixed: input radio and checkbox require non-numeric keys
+- fixed: region and type dropdown now have a max width
 - fixed: translation errors
+- fixed: invalid download link for event files
+- fixed: invalid query for migrating events when migrated metastring does not exists
+- fixed: map markers now have different colors
+- fixed: map info window not showing on correct marker
+- fixed: class loader issues since Elgg 1.8.4
 
 2.2 (2012-05-02):
 
