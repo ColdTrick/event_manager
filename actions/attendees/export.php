@@ -11,8 +11,7 @@
 	if($event && $event->canEdit())	{
 		header("Content-Type: text/csv");
 		header("Content-Disposition: Attachment; filename=export.csv");
-		header("Cache-Control: no-cache");
-		header("Pragma: no-cache");
+		header('Pragma: public');
 		
 		echo event_manager_export_attendees($event, true);
 		exit;
