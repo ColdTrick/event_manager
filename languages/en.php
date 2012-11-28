@@ -202,6 +202,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:viewregistration' => 'View registration',
 		'event_manager:event:noregistrations' => 'No registrations yet',
 		'event_manager:event:exportattendees' => 'Export attendees',
+		'event_manager:event:exportwaitinglist' => 'Export waitinglist',
 		'event_manager:event:currentavatar' => 'Current event icon',
 		'event_manager:event:editicon' => 'Edit icon',
 		'event_manager:event:preview' => 'Preview icon',

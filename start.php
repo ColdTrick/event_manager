@@ -142,20 +142,21 @@
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'event_manager_owner_block_menu');
 	
 	// actions
-	elgg_register_action("event_manager/event/edit",			dirname(__FILE__) . "/actions/event/edit.php");
-	elgg_register_action("event_manager/event/delete",			dirname(__FILE__) . "/actions/event/delete.php");
-	elgg_register_action("event_manager/event/rsvp",			dirname(__FILE__) . "/actions/event/rsvp.php");
-	elgg_register_action("event_manager/event/upload",			dirname(__FILE__) . "/actions/event/upload.php");
-	elgg_register_action("event_manager/event/deletefile",		dirname(__FILE__) . "/actions/event/deletefile.php");
-	elgg_register_action("event_manager/event/search",			dirname(__FILE__) . "/actions/event/search.php");
-	elgg_register_action("event_manager/attendees/export",		dirname(__FILE__) . "/actions/attendees/export.php");
-	elgg_register_action("event_manager/slot/edit",				dirname(__FILE__) . "/actions/slot/edit.php");
-	elgg_register_action("event_manager/questions/edit",		dirname(__FILE__) . "/actions/registrationform/edit.php");
-	elgg_register_action("event_manager/registration/edit",		dirname(__FILE__) . "/actions/registration/edit.php");
-	elgg_register_action("event_manager/registration/approve",	dirname(__FILE__) . "/actions/registration/approve.php");
+	elgg_register_action("event_manager/event/edit",					dirname(__FILE__) . "/actions/event/edit.php");
+	elgg_register_action("event_manager/event/delete",					dirname(__FILE__) . "/actions/event/delete.php");
+	elgg_register_action("event_manager/event/rsvp",					dirname(__FILE__) . "/actions/event/rsvp.php");
+	elgg_register_action("event_manager/event/upload",					dirname(__FILE__) . "/actions/event/upload.php");
+	elgg_register_action("event_manager/event/deletefile",				dirname(__FILE__) . "/actions/event/deletefile.php");
+	elgg_register_action("event_manager/event/search",					dirname(__FILE__) . "/actions/event/search.php");
+	elgg_register_action("event_manager/attendees/export",				dirname(__FILE__) . "/actions/attendees/export.php");
+	elgg_register_action("event_manager/attendees/export_waitinglist",	dirname(__FILE__) . "/actions/attendees/exportwaitinglist.php");
+	elgg_register_action("event_manager/slot/edit",						dirname(__FILE__) . "/actions/slot/edit.php");
+	elgg_register_action("event_manager/questions/edit",				dirname(__FILE__) . "/actions/registrationform/edit.php");
+	elgg_register_action("event_manager/registration/edit",				dirname(__FILE__) . "/actions/registration/edit.php");
+	elgg_register_action("event_manager/registration/approve",			dirname(__FILE__) . "/actions/registration/approve.php");
 	
-	elgg_register_action("event_manager/registration/pdf",		dirname(__FILE__) . "/actions/registration/pdf.php", "public");
-	elgg_register_action("event_manager/event/register",		dirname(__FILE__) . "/actions/event/register.php", "public");
+	elgg_register_action("event_manager/registration/pdf",				dirname(__FILE__) . "/actions/registration/pdf.php", "public");
+	elgg_register_action("event_manager/event/register",				dirname(__FILE__) . "/actions/event/register.php", "public");
 	
-	elgg_register_action("event_manager/migrate/calender",		dirname(__FILE__) . "/actions/migrate/calender.php", "admin");
+	elgg_register_action("event_manager/migrate/calender",				dirname(__FILE__) . "/actions/migrate/calender.php", "admin");
 	

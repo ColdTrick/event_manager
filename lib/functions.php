@@ -390,6 +390,90 @@
 		return $headerString.$dataString;
 	}
 	
+	function event_manager_export_waitinglist($event, $file = false) {
+		$old_ia = elgg_get_ignore_access();
+		elgg_set_ignore_access(true);
+		if($file) {
+			$EOL = "\r\n";
+		} else {
+			$EOL = PHP_EOL;
+		}
+		
+		$headerString .= '"'.elgg_echo('name').'","'.elgg_echo('email').'","'.elgg_echo('username').'"';
+		
+		if($event->registration_needed) {
+			if($registration_form = $event->getRegistrationFormQuestions()) {
+				foreach($registration_form as $question) {
+					$headerString .= ',"'.$question->title.'"';
+				}
+			}
+		}
+		
+		if($event->with_program) {
+			if($eventDays = $event->getEventDays()) {
+				foreach($eventDays as $eventDay) {
+					$date = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $eventDay->date);
+					if($eventSlots = $eventDay->getEventSlots()) {
+						foreach($eventSlots as $eventSlot) {
+							$start_time = $eventSlot->start_time;
+							$end_time = $eventSlot->end_time;
+							
+							$start_time_hour = date('H', $start_time);
+							$start_time_minutes = date('i', $start_time);
+							
+							$end_time_hour = date('H', $end_time);
+							$end_time_minutes = date('i', $end_time);
+							
+							$headerString .= ',"Event activity: \''.$eventSlot->title.'\' '.$date. ' ('.$start_time_hour.':'.$start_time_minutes.' - '.$end_time_hour.':'.$end_time_minutes.')"';
+						}
+					}
+				}
+			}
+		}
+		
+		if($waiters = $event->exportWaiters()) {
+			foreach($waiters as $waiter) {
+				$answerString = '';
+				
+				$dataString .= '"'.$waiter->name.'","'.$waiter->email.'","'.$waiter->username.'"';
+			
+				if($event->registration_needed) {
+					if($registration_form = $event->getRegistrationFormQuestions()) {
+						foreach($registration_form as $question) {
+							$answer = $question->getAnswerFromUser($waiter->getGUID());
+							
+							$answerString .= '"'.addslashes($answer->value).'",';
+						}
+					}	
+					$dataString .= ','.substr($answerString, 0, (strlen($answerString) -1));
+				}
+				
+				if($event->with_program) {
+					if($eventDays = $event->getEventDays()) {
+						foreach($eventDays as $eventDay) {
+							if($eventSlots = $eventDay->getEventSlots()) {
+								foreach($eventSlots as $eventSlot) {
+									if(check_entity_relationship($waiter->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $eventSlot->getGUID())) {
+										$dataString .= ',"V"';
+									} else {
+										$dataString .= ',""';
+									}
+								}
+							}
+						}
+					}
+				}
+				
+				$dataString .= $EOL;
+			}
+		}
+		
+		$headerString .= $EOL;
+		elgg_set_ignore_access($old_ia);
+		
+		return $headerString.$dataString;
+	}
+	
 	/**
 	 * @todo this has to be better, check where it is called
 	 * => plugins/event_manager/settings.php
