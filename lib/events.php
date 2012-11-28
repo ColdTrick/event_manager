@@ -7,7 +7,7 @@
 			
 			if($object->with_program && $object->hasSlotSpotsLeft()){
 				$fillup = true;
-			} elseif (!$oject->with_program && $object->hasEventSpotsLeft()){
+			} elseif (!$object->with_program && $object->hasEventSpotsLeft()){
 				$fillup = true;
 			}
 			

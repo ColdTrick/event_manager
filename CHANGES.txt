@@ -3,6 +3,7 @@
 x.x:
 
 - added: export waitinglist
+- fixed: bug in expanding max attendees
 
 2.3 (2012-10-31):
 
