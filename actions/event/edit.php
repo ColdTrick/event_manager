@@ -46,13 +46,13 @@
 	$forward_url = REFERER;
 	
 	if(!empty($start_day)) {
-		$date = explode('-',$start_day);
-		$start_day = mktime(0,0,1,$date[1],$date[2],$date[0]);
+		$date = $start_day;
+		$start_day = mktime(0,0,1,$date[month],$date[day],$date[year]);
 	}
 
 	if(!empty($endregistration_day)) {
-		$date_endregistration_day = explode('-',$endregistration_day);
-		$endregistration_day = mktime(0,0,1,$date_endregistration_day[1],$date_endregistration_day[2],$date_endregistration_day[0]);
+		$date_endregistration_day = $endregistration_day;
+		$endregistration_day = mktime(0,0,1,$date_endregistration_day[month],$date_endregistration_day[day],$date_endregistration_day[year]);
 	}		
 	
 	if(!empty($guid) && $entity = get_entity($guid)) {
