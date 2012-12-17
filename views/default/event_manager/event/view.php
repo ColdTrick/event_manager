@@ -10,94 +10,93 @@
 		$output .= '<div class="event_manager_event_view_image"><a href="' . $event->getIcon('master') . '" target="_blank"><img src="' . $event->getIcon('medium') . '" border="0" /></a></div>';
 	}
 	
-	$output .= '<div class="event_manager_event_view_owner">'.elgg_echo('event_manager:event:view:createdby') . '</span> <a class="user" href="' . $owner->getURL().'">' . $owner->name . '</a> ' . elgg_view_friendly_time($event->time_created) . '</div>';
+	$output .= '<div class="event_manager_event_view_owner">'.elgg_echo('event_manager:event:view:createdby') . '</span> <a class="user" href="' . $owner->getURL().'">' . $owner->name . '</a> ' . elgg_view_friendly_time($event->time_created > 0 ? $event->time_created : $event->time_updated) . '</div>';
 	
+	$row_pattern = '<tr><td class="event-manager-event-details-labels"><b>%s</b>:</td><td>%s</td></tr>';
 	// event details
 	$event_details = "<table>";
 	if($venue = $event->venue){
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:venue') . '</b>:</td><td>' . $venue . '</td></tr>';
+		$event_details .= sprintf($row_pattern, elgg_echo('event_manager:edit:form:venue'), $venue);
 	}
 	if($location = $event->getLocation()){
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:location') . '</b>:</td><td>';
-		$event_details .= '<a href="' . elgg_get_site_url() . 'events/event/route?from=' . $event->getLocation() . '" class="openRouteToEvent">' . $event->getLocation() . '</a>';
-		$event_details .= '</td></tr>';
+		$event_details .=  sprintf($row_pattern, elgg_echo('event_manager:edit:form:location'),
+				'<a href="' . elgg_get_site_url() . 'events/event/route?from=' . $event->getLocation() . '" class="openRouteToEvent">' . $event->getLocation() . '</a>');
 	}
 	
-	$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:start_day') . '</b>:</td><td>' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . '</td></tr>';
+	$event_details .= sprintf($row_pattern, elgg_echo('event_manager:edit:form:start_day') ,date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day));
 	
 	if(!$event->with_program){
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:start_time') . '</b>:</td><td>' . date('H', $event->start_time) . ':' . date('i', $event->start_time) . '</td></tr>';
+		$event_details .= sprintf($row_pattern, elgg_echo('event_manager:edit:form:start_time'), date('H', $event->start_time) . ':' . date('i', $event->start_time));
 	}
 	
 	// optional end day
 	if($organizer = $event->organizer){
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:organizer') . '</b>:</td><td>' . $organizer . '</td></tr>';
+		$event_details .= sprintf($row_pattern, elgg_echo('event_manager:edit:form:organizer'), $organizer);
 	}
 	
 	if($max_attendees = $event->max_attendees){
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:spots_left') . '</b>:</td><td>';
 		
+		$value='';
 		$spots_left = ($max_attendees - $event->countAttendees());
 		if($spots_left < 1) {
 			$count_waitinglist = $event->countWaiters();
 			if($count_waitinglist > 0){
-				$event_details .= elgg_echo('event_manager:full') . ', ' . $count_waitinglist . ' ';
+				$value .= elgg_echo('event_manager:full') . ', ' . $count_waitinglist . ' ';
 				if($count_waitinglist == 1) {
-					$event_details .= elgg_echo('event_manager:personwaitinglist');
+					$value .= elgg_echo('event_manager:personwaitinglist');
 				} else {
-					$event_details .= elgg_echo('event_manager:peoplewaitinglist');
+					$value .= elgg_echo('event_manager:peoplewaitinglist');
 				}
 			} else {
-				$event_details .= elgg_echo('event_manager:full');
+				$value .= elgg_echo('event_manager:full');
 			}
 		} else {
-			$event_details .= $spots_left . " / " . $max_attendees;
+			$value .= $spots_left . " / " . $max_attendees;
 		}
 		
-		$event_details .= '</td></tr>';
+		$event_details .= sprintf($row_pattern, elgg_echo('event_manager:edit:form:spots_left'),$value);
 	}
 	
 	if($description = $event->description){
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:description') . '</b>:</td><td>' . elgg_view("output/longtext", array("value" => $description)) . '</td></tr>';
+		$event_details .= sprintf($row_pattern, elgg_echo('event_manager:edit:form:description'), elgg_view("output/longtext", array("value" => $description)));
 	}
 	
 	if($website = $event->website){
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:website') . '</b>:</td><td>' . elgg_view("output/url", array("value" => $website)) . '</td></tr>';
+		$event_details .= sprintf($row_pattern, elgg_echo('event_manager:edit:form:website'), elgg_view("output/url", array("value" => $website)));
 	}
 	
 	if($contact_details = $event->contact_details){
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:contact_details') . '</b>:</td><td>' . elgg_view("output/text", array("value" => $contact_details)) . '</td></tr>';
+		$event_details .= sprintf($row_pattern, elgg_echo('event_manager:edit:form:contact_details'), elgg_view("output/text", array("value" => $contact_details)));
 	}
 	
 	if($twitter_hash = $event->twitter_hash){
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:twitter_hash') . '</b>:</td><td>' . elgg_view("output/text", array("value" => $twitter_hash)) . '</td></tr>';
+		$event_details .= sprintf($row_pattern, elgg_echo('event_manager:edit:form:twitter_hash'), elgg_view("output/text", array("value" => $twitter_hash)));
 	}
 	
 	if($fee = $event->fee){
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:fee') . '</b>:</td><td>' . elgg_view("output/text", array("value" => $fee)) . '</td></tr>';
+		$event_details .= sprintf($row_pattern, elgg_echo('event_manager:edit:form:fee'), elgg_view("output/text", array("value" => $fee)));
 	}
 	
 	
 	
 	if($region = $event->region){
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:region') . '</b>:</td><td>' . $region . '</td></tr>';
+		$event_details .= sprintf($row_pattern, elgg_echo('event_manager:edit:form:region'), $region);
 	}
 	
 	if($type = $event->event_type){
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:type') . '</b>:</td><td>' . $type . '</td></tr>';
+		$event_details .= sprintf($row_pattern, elgg_echo('event_manager:edit:form:type'), $type);
 	}
 	
 	if($files = $event->hasFiles()){
 		$user_path = 'events/' . $event->getGUID() . '/files/';
-		
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:files') . '</b>:</td><td>';
-		$event_details .= "<div class='event-manager-event-files'>";
+		$files = "<div class='event-manager-event-files'>";
 		foreach($files as $file){
-			$event_details .= '<a href="' . elgg_get_site_url() . 'events/event/file/' . $event->getGUID() . '/'. $file->file . '">' . elgg_view_icon("download", "mrs") . $file->title . '</a><br />';
+			$files .= '<a href="' . elgg_get_site_url() . 'events/event/file/' . $event->getGUID() . '/'. $file->file . '">' . elgg_view_icon("download", "mrs") . $file->title . '</a><br />';
 		}
 		
-		$event_details .= '</div>';
-		$event_details .= '</td></tr>';
+		$files .= '</div>';
+		$event_details .= sprintf($row_pattern, elgg_echo('event_manager:edit:form:files'),$files);
+		
 	}
 	
 	$event_details .= "</table>";
