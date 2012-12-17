@@ -29,9 +29,9 @@
 		'event_manager:list:noresults' => 'No events found',
 		'event_manager:list:showmorevents' => 'Show more events',
 		'event_manager:list:includepastevents' => 'Include past events',
-		'event_manager:list:meattending' => 'Show events i\'m  attending to',
-		'event_manager:list:owning' => 'Show events i created',
-		'event_manager:list:friendsattending' => 'Show events my friends are attending to',
+		'event_manager:list:meattending' => 'Show events I\'m  attending',
+		'event_manager:list:owning' => 'Show events I created',
+		'event_manager:list:friendsattending' => 'Show events my friends are attending',
 	
 		'event_manager:list:navigation:list' => 'List',
 		'event_manager:list:navigation:all' => 'All events',
@@ -128,11 +128,11 @@
 	
 		'event_manager:event:registration:notification:owner:text:event_attending' => "Hello %s,
 
-%s signed up as 'attending' to your '%s' event.",
+%s signed up as 'attending' your '%s' event.",
 		
 		'event_manager:event:registration:notification:user:text:event_attending' => "Hello %s,
 
-You succesfully signed up as 'attending' to the '%s' event.",
+You succesfully signed up as 'attending' the '%s' event.",
 	
 		'event_manager:event:registration:notification:owner:text:event_waitinglist' => "Hello %s,
 
@@ -144,35 +144,35 @@ You are now on the waiting list for the '%s' event.",
 	
 		'event_manager:event:registration:notification:owner:text:event_exhibiting' => "Hello %s,
 
-%s has signed up as 'exhibiting' to your '%s' event.",
+%s has signed up as 'exhibiting' at your '%s' event.",
 		
 		'event_manager:event:registration:notification:user:text:event_exhibiting' => "Hello %s,
 
-You succesfully signed up as 'exhibiting' to the '%s' event.",	
+You succesfully signed up as 'exhibiting' at the '%s' event.",	
 	
 		'event_manager:event:registration:notification:owner:text:event_organizing' => "Hello %s,
 
-%s has signed up as 'organizing' to your '%s' event.",
+%s has signed up as 'organizing' of your '%s' event.",
 		
 		'event_manager:event:registration:notification:user:text:event_organizing' => "Hello %s,
 
-You succesfully signed up as 'organizing' to the '%s' event.",	
+You succesfully signed up as 'organizing' of the '%s' event.",	
 	
 		'event_manager:event:registration:notification:owner:text:event_presenting' => "Hello %s,
 
-%s has signed up as 'presenter' to your '%s' event.",
+%s has signed up as 'presenter' at your '%s' event.",
 		
 		'event_manager:event:registration:notification:user:text:event_presenting' => "Hello %s,
 
-You succesfully signed up as 'presenter' to the '%s' event.",	
+You succesfully signed up as 'presenter' at the '%s' event.",	
 	
 		'event_manager:event:registration:notification:owner:text:event_interested' => "Hello %s,
 
-%s has signed up as 'interested' to your '%s' event.",
+%s has signed up as 'interested' in your '%s' event.",
 		
 		'event_manager:event:registration:notification:user:text:event_interested' => "Hello %s,
 
-You succesfully signed up as 'interested' to the '%s' event.",	
+You succesfully signed up as 'interested' in the '%s' event.",	
 	
 		'event_manager:event:registration:notification:owner:text:event_undo' => "Hello %s,
 
@@ -245,7 +245,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:rsvp:nospotsleft' => 'This event has no spots left for it\'s activities.',
 		'event_manager:event:rsvp:waiting_list:message' => 'The event you want to attend to is full. Fill in the form below to get on the waiting list.',
 	
-		'event_manager:event:relationship:message:event_attending' => 'You are now attending to this event',
+		'event_manager:event:relationship:message:event_attending' => 'You are now attending this event',
 		'event_manager:event:relationship:message:event_waitinglist' => 'You are now on the waiting list for this event',
 		'event_manager:event:relationship:message:event_interested' => 'You are now interested in this event',
 		'event_manager:event:relationship:message:event_presenting' => 'You are now presenting at this event',
@@ -262,7 +262,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:widgets:events:numbertodisplay' => 'Number of events to display',
 		'event_manager:widgets:events:showevents' => 'Show events',
 		'event_manager:widgets:events:showevents:icreated' => 'I created',
-		'event_manager:widgets:events:showevents:attendingto' => 'I\'m attending to',
+		'event_manager:widgets:events:showevents:attendingto' => 'I\'m attending',
 	
 		// actions
 		'event_manager:action:event:edit:ok' => 'Event saved',
