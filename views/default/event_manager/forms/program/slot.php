@@ -81,7 +81,7 @@
 		$form_body .= "<label>" . elgg_echo("event_manager:edit:form:max_attendees") . "</label><br />";
 		$form_body .= elgg_view('input/text', array('name' => 'max_attendees', 'value' => $max_attendees));
 
-		$form_body .= "<label>" . elgg_echo("event_manager:edit:form:description") . "</label><br />";
+		$form_body .= "<label>" . elgg_echo("description") . "</label><br />";
 		$form_body .= elgg_view('input/plaintext', array('name' => 'description', 'value' => $description));
 					
 		$form_body .= elgg_view('input/submit', array('value' => elgg_echo('submit')));

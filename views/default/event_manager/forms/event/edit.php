@@ -85,7 +85,7 @@
 	
 	$form_body .= "<table>";
 	
-	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:title') . " *</td><td>" . elgg_view('input/text', array('name' => 'title', 'value' => $fields["title"])) . "</td></tr>";
+	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('title') . " *</td><td>" . elgg_view('input/text', array('name' => 'title', 'value' => $fields["title"])) . "</td></tr>";
 	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:start_day') . " *</td>
 		<td>" . elgg_view('input/date', array('name' => 'start_day', 'id' => 'start_day', 'value' => date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $fields["start_day"]))) . "</td></tr>";
@@ -101,7 +101,7 @@
 	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:shortdescription') . "</td><td>" . elgg_view('input/text', array('name' => 'shortdescription', 'value' => $fields["shortdescription"])) . "</td></tr>";
 	
-	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:description') . "</td><td>" . elgg_view('input/longtext', array('name' => 'description', 'value' => $fields["description"])) . "</td></tr>";
+	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('description') . "</td><td>" . elgg_view('input/longtext', array('name' => 'description', 'value' => $fields["description"])) . "</td></tr>";
 
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:icon') . "</td><td>" . elgg_view('input/file', array('name' => 'icon')) . "</td></tr>";
 	

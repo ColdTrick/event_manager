@@ -24,7 +24,7 @@
 	}
 	
 	if($description = $event->description){
-		$event_details .= '<tr><td><b>'.elgg_echo('event_manager:edit:form:description').'</b></td><td>: '. $description .'</td></tr>';
+		$event_details .= '<tr><td><b>'.elgg_echo('description').'</b></td><td>: '. $description .'</td></tr>';
 	}
 	
 	if($region = $event->region){

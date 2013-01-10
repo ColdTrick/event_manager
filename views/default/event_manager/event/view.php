@@ -58,7 +58,7 @@
 	}
 	
 	if($description = $event->description){
-		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:description') . '</b>:</td><td>' . elgg_view("output/longtext", array("value" => $description)) . '</td></tr>';
+		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('description') . '</b>:</td><td>' . elgg_view("output/longtext", array("value" => $description)) . '</td></tr>';
 	}
 	
 	if($website = $event->website){
