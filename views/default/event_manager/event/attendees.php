@@ -60,7 +60,7 @@
 							$tab_content .= '
 											<a href="#">
 												<img style="background: url(' . $vars["url"] . '_graphics/icons/user/defaultsmall.gif) no-repeat scroll 0% 0% transparent;"
-													 src="http://dev18.coldtrick.com/_graphics/spacer.gif"
+													 src="' . $vars["url"] . '_graphics/spacer.gif"
 													 alt="' . $unregistered_member->name . '" 
 													 title="' . $unregistered_member->name . '" />
 											</a>

@@ -4,6 +4,7 @@ x.x:
 
 - added: export waitinglist
 - fixed: bug in expanding max attendees
+- fixed: wrong image url in attendee listing
 
 2.3 (2012-10-31):
 
