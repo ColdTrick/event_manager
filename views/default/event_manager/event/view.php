@@ -60,6 +60,9 @@
 	if($description = $event->description){
 		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('description') . '</b>:</td><td>' . elgg_view("output/longtext", array("value" => $description)) . '</td></tr>';
 	}
+	if($tags = $event->tags){
+		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('tags') . '</b>:</td><td>' . elgg_view("output/tags", array("value" => $tags)) . '</td></tr>';
+	}
 	
 	if($website = $event->website){
 		$event_details .= '<tr><td class="event-manager-event-details-labels"><b>' . elgg_echo('event_manager:edit:form:website') . '</b>:</td><td>' . elgg_view("output/url", array("value" => $website)) . '</td></tr>';
