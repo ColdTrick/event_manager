@@ -3,6 +3,8 @@
 x.x:
 
 - added: export waitinglist
+- changed: make use of elgg metadatacaching instead of own mechanisme
+- removed: some deprecated code
 - fixed: bug in expanding max attendees
 - fixed: wrong image url in attendee listing
 

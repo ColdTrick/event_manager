@@ -151,7 +151,6 @@
 	elgg_register_action("event_manager/attendees/export",				dirname(__FILE__) . "/actions/attendees/export.php");
 	elgg_register_action("event_manager/attendees/export_waitinglist",	dirname(__FILE__) . "/actions/attendees/exportwaitinglist.php");
 	elgg_register_action("event_manager/slot/edit",						dirname(__FILE__) . "/actions/slot/edit.php");
-	elgg_register_action("event_manager/questions/edit",				dirname(__FILE__) . "/actions/registrationform/edit.php");
 	elgg_register_action("event_manager/registration/edit",				dirname(__FILE__) . "/actions/registration/edit.php");
 	elgg_register_action("event_manager/registration/approve",			dirname(__FILE__) . "/actions/registration/approve.php");
 	
