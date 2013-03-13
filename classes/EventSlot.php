@@ -21,7 +21,7 @@
 				'relationship_guid' => $this->getGUID(),
 				'inverse_relationship' => true,
 				'count' => true,
-				'site_guid' => false
+				'site_guids' => false
 			));
 			
 			elgg_set_ignore_access($ia);
