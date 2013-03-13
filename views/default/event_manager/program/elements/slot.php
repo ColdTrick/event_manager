@@ -22,7 +22,7 @@
 				}
 			}
 		} else {
-			if($participate) {
+			if($participate && ($slot->hasSpotsLeft() || $register_type == 'waitinglist')) {
 				$registered_for_slot = elgg_view('input/checkbox', array('name' => 'slotguid_'.$slot->getGUID(), 'id' => 'slotguid_'.$slot->getGUID(), 'class' => 'event_manager_program_participatetoslot', 'value' => '1'));
 			} elseif(!empty($vars["member"]) && check_entity_relationship($vars["member"], EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $slot->getGUID())){
 				$registered_for_slot = '<div title="' . elgg_echo("event_manager:event:relationship:event_attending") . '" class="event_manager_program_slot_attending_user"></div>';
