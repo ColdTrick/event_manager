@@ -144,9 +144,10 @@
 	margin: 0 5px 0 0;
 }
 
-.event-manager-event-details-labels {
+.event-manager-event-details label {
 	white-space: nowrap;
-	padding-right: 5px;
+	padding-right: 20px;
+	font-size: 100%;
 }
 
 /* Event tool links */
