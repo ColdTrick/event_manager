@@ -3,6 +3,7 @@ $language = array (
   'event_manager:edit:form:contact_details' => 'Contact gegevens',
   'event_manager:edit:form:website' => 'Website',
   'event_manager:edit:form:twitter_hash' => 'Twitter Hash',
+  'event_manager:edit:form:twitter_hash:description' => 'Dit toont ook een Twitter feed in de zijbalk van de event pagina',		
   'event_manager:edit:form:fee' => 'Kosten',
   'event_manager:edit:form:organizer_rsvp' => 'Voeg me toe als organisator van dit evenement',
   'river:create:object:event' => '%s heeft %s aangemaakt',

@@ -64,6 +64,7 @@
 		'event_manager:edit:form:contact_details' => 'Contact Details',
 		'event_manager:edit:form:website' => 'Website',
 		'event_manager:edit:form:twitter_hash' => 'Twitter Hash',
+		'event_manager:edit:form:twitter_hash:description' => 'This will also show a Twitter feed in the sidebar of the event page',
 		'event_manager:edit:form:fee' => 'Fee',
 		'event_manager:edit:form:options' => 'Options',
 		'event_manager:edit:form:rsvp_options' => 'RSVP options',

@@ -20,10 +20,13 @@
 		
 		$output = elgg_view_entity($event, array("full_view" => true));
 		
+		$sidebar = elgg_view("event_manager/event/sidebar", array("entity" => $event));
+		
 		$body = elgg_view_layout('one_sidebar', array(
 			'filter' => '',
 			'content' => $output,
 			'title' => $title_text,
+			'sidebar' => $sidebar
 		));
 		
 		echo elgg_view_page($title_text, $body);

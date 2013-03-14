@@ -136,7 +136,7 @@
 	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:website') . "</td><td>" . elgg_view('input/url', array('name' => 'website', 'value' => $fields["website"])) . "</td></tr>";
 
-	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:twitter_hash') . "</td><td>" . elgg_view('input/text', array('name' => 'twitter_hash', 'value' => $fields["twitter_hash"])) . "</td></tr>";
+	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:twitter_hash') . "</td><td>" . elgg_view('input/text', array('name' => 'twitter_hash', 'value' => $fields["twitter_hash"])) . "<div class='elgg-subtext'>" . elgg_echo("event_manager:edit:form:twitter_hash:description") . "</div></td></tr>";
 	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:fee') . "</td><td>" . elgg_view('input/text', array('name' => 'fee', 'value' => $fields["fee"])) . "</td></tr>";
 
