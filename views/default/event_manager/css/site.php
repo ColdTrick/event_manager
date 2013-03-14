@@ -150,6 +150,10 @@
 	font-size: 100%;
 }
 
+.event-manager-event-details .elgg-output {
+	margin: 0px;
+}
+
 /* Event tool links */
 
 .event_manager_event_actions {

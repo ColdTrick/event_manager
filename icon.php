@@ -34,10 +34,10 @@
 	$filehandler->setFilename("events/" . $event->getGUID() . '/' . $size . ".jpg");
 	
 	$success = false;
-	if ($filehandler->open("read")) {
-		if ($contents = $filehandler->read($filehandler->size())) {
+	if ($filehandler->exists()) {
+		if ($contents = $filehandler->grabFile()) {
 			$success = true;
-		} 
+		}
 	}
 	
 	if (!$success) {
@@ -45,14 +45,14 @@
 		header("Location: {$path}");
 		exit;			
 	}
-
+	
 	header("Content-type: image/jpeg");
-	header('Expires: ' . date('r',time() + 864000));
+	header("Expires: " . date("r", time() + 864000));
 	header("Pragma: public");
 	header("Cache-Control: public");
 	header("Content-Length: " . strlen($contents));
-	$splitString = str_split($contents, 1024);
-	foreach($splitString as $chunk) {
-		echo $chunk;
-	}
+	
+	echo $contents;
+	exit();
+
 			

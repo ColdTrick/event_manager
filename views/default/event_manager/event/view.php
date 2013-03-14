@@ -2,18 +2,26 @@
 	
 	$event = $vars["entity"];
 	$owner = $event->getOwnerEntity();
-	$output = '';
+	$event_details = "";
 	
-	$actions = elgg_view("event_manager/event/actions", $vars);	
+		
 	
-	if($event->icontime){
-		$output .= '<div class="event_manager_event_view_image"><a href="' . $event->getIcon('master') . '" target="_blank"><img src="' . $event->getIcon('medium') . '" border="0" /></a></div>';
-	}
+	$owner_link = elgg_view('output/url', array(
+			'href' => $owner->getURL(),
+			'text' => $owner->name,
+			'is_trusted' => true
+	));
 	
-	$output .= '<div class="event_manager_event_view_owner">'.elgg_echo('event_manager:event:view:createdby') . '</span> <a class="user" href="' . $owner->getURL().'">' . $owner->name . '</a> ' . elgg_view_friendly_time($event->time_created) . '</div>';
+	$author_text = elgg_echo('byline', array($owner_link));
+	$date = elgg_view_friendly_time($event->time_created);
+	
+	$subtitle = "$author_text $date $comments_link";
 	
 	// event details
-	$event_details = "<table class='event-manager-event-details'>";
+	if($event->icontime){
+		$event_details .= '<div class="event_manager_event_view_image"><a href="' . $event->getIcon('master') . '" target="_blank"><img src="' . $event->getIcon('medium') . '" border="0" /></a></div>';
+	}
+	$event_details .= "<table class='event-manager-event-details'>";
 	if($venue = $event->venue){
 		$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:venue') . ':</label></td><td>' . $venue . '</td></tr>';
 	}
@@ -60,9 +68,6 @@
 	if($description = $event->description){
 		$event_details .= '<tr><td><label>' . elgg_echo('description') . ':</label></td><td>' . elgg_view("output/longtext", array("value" => $description)) . '</td></tr>';
 	}
-	if($tags = $event->tags){
-		$event_details .= '<tr><td><label>' . elgg_echo('tags') . ':</label></td><td>' . elgg_view("output/tags", array("value" => $tags)) . '</td></tr>';
-	}
 	
 	if($website = $event->website){
 		if (!preg_match('~^https?\://~i', $website)) {
@@ -106,21 +111,36 @@
 	
 	$event_details .= "</table>";
 	
-	$output .= $event_details;
+	$body = elgg_view_module("main", "", $event_details);
 	
-	$output .= '<div class="clearfloat"></div>';
-	$output .= $actions;
+	$body .= elgg_view_module("main", "", elgg_view("event_manager/event/actions", $vars));
 		
 	if($event->show_attendees){
-		$output .= elgg_view("event_manager/event/attendees", $vars);
+		$body .= elgg_view("event_manager/event/attendees", $vars);
 	}
 	
 	if($event->with_program){
-		$output .= elgg_view("event_manager/program/view", $vars);
+		$body .= elgg_view("event_manager/program/view", $vars);
 	}
 	
-	echo elgg_view_module("main", "", $output);
-	
-	if($event->comments_on){	
-		echo elgg_view_comments($event);
+	if($event->comments_on){
+		$body .= elgg_view_comments($event);
 	}
+	
+	$params = array(
+			'entity' => $event,
+			'title' => false,
+			'metadata' => "",
+			'subtitle' => $subtitle,
+	);
+	$params = $params + $vars;
+	$summary = elgg_view('object/elements/summary', $params);
+	
+	echo elgg_view('object/elements/full', array(
+			'summary' => $summary,
+			'icon' => $owner_icon,
+			'body' => $body,
+	));
+	
+	
+	

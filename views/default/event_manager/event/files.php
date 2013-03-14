@@ -15,6 +15,6 @@
 			}
 			$content .= '</table>';
 				
-			echo elgg_view_module("main", elgg_echo("event_manager:edit:form:files"), $content);
+			echo elgg_view_module("info", elgg_echo("event_manager:edit:form:files"), $content);
 		}
 	}

@@ -22,7 +22,7 @@
 		
 		$sidebar = elgg_view("event_manager/event/sidebar", array("entity" => $event));
 		
-		$body = elgg_view_layout('one_sidebar', array(
+		$body = elgg_view_layout('content', array(
 			'filter' => '',
 			'content' => $output,
 			'title' => $title_text,
