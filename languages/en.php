@@ -268,7 +268,9 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:action:registration:edit:error_fields_with_program' => 'Fill in the required fields and select at least 1 activity slot to attend to',
 		'event_manager:action:registration:edit:error_fields_program_only' => 'Select at least 1 activity slot to attend to',
 		'event_manager:action:event:delete:ok' => 'Event deleted',
-	
+		'event_manager:action:register:email:account_exists' => 'An account with the provided emailaddress already exists. Please log in to register for this event.',
+		'event_manager:action:register:email:registration_exists' => 'A registration for this event with the provided emailaddress already exists. You can only register once per emailaddress.',
+			
 		// settings
 		'event_manager:settings:google_maps' => 'Google Maps settings',
 		'event_manager:settings:google_api_key' => 'Enter your Google API key',
