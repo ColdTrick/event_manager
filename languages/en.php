@@ -229,6 +229,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:relationship:join' => 'Join event',
 		'event_manager:event:relationship:leave' => 'Leave event',
 		'event_manager:event:relationship:event_attending' => 'Attending',
+		'event_manager:event:relationship:event_attending:entity_menu' => '%s attendees',
 		'event_manager:event:relationship:event_waitinglist' => 'Waiting list',
 		'event_manager:event:relationship:event_interested' => 'Interested',
 		'event_manager:event:relationship:event_presenting' => 'Presenting',		
@@ -236,7 +237,8 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:relationship:event_organizing' => 'Organizing',
 		'event_manager:event:relationship:undo' => 'Undo',
 		'event_manager:event:relationship:kick' => 'Kick from event',
-	
+			
+			
 		'event_manager:event:rsvp:registration_ended' => 'Registration to this event has been ended.',
 		'event_manager:event:rsvp:event_full' => 'This event reached maximum attendees.',
 		'event_manager:event:rsvp:waiting_list' => 'Waiting list',

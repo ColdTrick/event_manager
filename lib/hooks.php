@@ -1,16 +1,22 @@
 <?php 
 	
 	function event_manager_user_hover_menu($hook, $entity_type, $returnvalue, $params){
-		global $EVENT_MANAGER_ATTENDING_EVENT;
-		
 		$result = $returnvalue;
+		$event = false;
 		
-		if(!empty($EVENT_MANAGER_ATTENDING_EVENT)){
-			$event = get_entity($EVENT_MANAGER_ATTENDING_EVENT);
+		$guid = get_input("guid");
+		
+		if(!empty($guid) && ($entity = get_entity($guid))){	
+			if($entity->getSubtype() == Event::SUBTYPE) {
+				$event = $entity;
+			}
+		}
+		
+		if($event){
 			$user = elgg_extract("entity", $params);
 			
 			if($event->getOwnerGUID() != $user->getGUID()){
-				$href = elgg_get_site_url() . 'action/event_manager/event/rsvp?guid=' . $EVENT_MANAGER_ATTENDING_EVENT . '&user=' . $user->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO;
+				$href = elgg_get_site_url() . 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&user=' . $user->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO;
 				$href = elgg_add_action_tokens_to_url($href);
 				
 				$item = new ElggMenuItem("event_manager", elgg_echo("event_manager:event:relationship:kick"), $href);
@@ -31,7 +37,15 @@
 		}
 		
 		if(($handler = elgg_extract("handler", $params)) && ($handler == "event") && ($entity = elgg_extract("entity", $params))){
+			$attendee_menu_options = array(
+					"name" => "attendee_count", 
+					"priority" => 50, 
+					"text" => elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($entity->countAttendees())), 
+					"href" => false
+				);
 			
+			$result[] = ElggMenuItem::factory($attendee_menu_options);
+
 			if(!empty($result) && is_array($result)){
 				foreach($result as &$item){
 					switch($item->getName()){
