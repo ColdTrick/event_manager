@@ -127,10 +127,12 @@
 		$body .= elgg_view_comments($event);
 	}
 	
+	$entity_menu = elgg_view_menu("entity", array("entity" => $event, "sort_by" => "priority", "class" => "elgg-menu-hz", "handler" => "event"));
+	
 	$params = array(
 			'entity' => $event,
 			'title' => false,
-			'metadata' => "",
+			'metadata' => $entity_menu,
 			'subtitle' => $subtitle,
 	);
 	$params = $params + $vars;
