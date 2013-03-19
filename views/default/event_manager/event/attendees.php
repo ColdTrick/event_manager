@@ -46,7 +46,7 @@
 							
 							if($can_edit) {
 								// TODO: translate
-								$tab_content .= '<span class="elgg-icon elgg-icon-hover-menu " style="display: none;"></span>
+								$tab_content .= '<span class="elgg-icon elgg-icon-hover-menu hidden"></span>
 												<ul class="elgg-menu elgg-menu-hover">
 													<h3>' . $unregistered_member->name . '</h3>
 												
@@ -58,7 +58,7 @@
 												</ul>';
 							}
 							$tab_content .= '
-											<a href="#">
+											<a>
 												<img style="background: url(' . $vars["url"] . '_graphics/icons/user/defaultsmall.gif) no-repeat scroll 0% 0% transparent;"
 													 src="' . $vars["url"] . '_graphics/spacer.gif"
 													 alt="' . $unregistered_member->name . '" 
