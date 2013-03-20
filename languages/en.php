@@ -197,7 +197,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:deleteevent' => 'Delete event',
 		'event_manager:event:uploadfiles' => 'Upload files',
 		'event_manager:event:attendees' => 'Attendees',
-		'event_manager:event:progam' => 'Program',
+		'event_manager:event:program' => 'Program',
 		'event_manager:event:editprogram' => 'Edit program',
 		'event_manager:event:editquestions' => 'Edit registration questions',
 		'event_manager:event:viewwaitinglist' => 'View waiting list',

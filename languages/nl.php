@@ -217,7 +217,7 @@ Je hebt je uit het \'%s\' evenement uitgeschreven.
   'event_manager:event:deleteevent' => 'Verwijder evenement',
   'event_manager:event:uploadfiles' => 'Bestanden uploaden',
   'event_manager:event:attendees' => 'Deelnemers',
-  'event_manager:event:progam' => 'Programma',
+  'event_manager:event:program' => 'Programma',
   'event_manager:event:editprogram' => 'Wijzig programma',
   'event_manager:event:editquestions' => 'Wijzig registratieformulier vragen',
   'event_manager:event:viewregistrations' => 'Registraties weergeven',

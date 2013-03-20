@@ -264,6 +264,33 @@ function save_registrationform_question_order() {
 	});
 }
 
+elgg.event_manager.slot_set_init = function() {
+	$form = $("#event_manager_event_register");
+	if ($form.length > 0) {
+		set_names = []; // store processed set names
+		
+		$form.find(".event_manager_program_participatetoslot[rel]:checked").each(function(){
+			rel = $(this).attr("rel"); 
+			if ($.inArray(rel, set_names) < 0) { 
+				set_names.push[rel];
+				$form.find(".event_manager_program_participatetoslot[rel='" + rel + "'][id!='" + $(this).attr("id") + "']").removeAttr("checked").attr("disabled", "disabled");
+			}
+		});
+
+		$form.find(".event_manager_program_participatetoslot[rel]").live("change", function(){
+			rel = $(this).attr("rel"); 
+			selected_id = $form.find(".event_manager_program_participatetoslot[rel='" + rel + "']:checked:first").attr("id"); 
+			if(selected_id){
+				// disabled others	
+				$form.find(".event_manager_program_participatetoslot[rel='" + rel + "'][id!='" + selected_id + "']").removeAttr("checked").attr("disabled", "disabled");
+			} else {
+				// enable others
+				$form.find(".event_manager_program_participatetoslot[rel='" + rel + "']").removeAttr("checked").removeAttr("disabled");
+			}				
+		});
+	}
+}
+
 elgg.event_manager.search_attendees = function(q) {
 	if(q === ""){
 		$(".event-manager-event-view-attendee-info").show();
@@ -286,6 +313,8 @@ elgg.event_manager.add_new_slot_set_name = function(set_name) {
 }
 
 elgg.event_manager.init = function() {
+
+	elgg.event_manager.slot_set_init();
 	
 	$('.event_manager_program_slot_delete').live('click', function() {
 		if(confirm(elgg.echo('deleteconfirm'))) {
