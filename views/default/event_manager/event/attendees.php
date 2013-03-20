@@ -22,7 +22,22 @@
 					
 					$rel_content = "";
 					foreach($members as $member){
-						$rel_content .= elgg_view_entity_icon(get_entity($member), "small", array("event" => $event));
+						$member_entity = get_entity($member);
+						$member_info = elgg_view_entity_icon($member_entity, "small", array("event" => $event));
+						
+						if($event->canEdit()){
+							$rel = $member_entity->name;
+							
+							if($member_entity instanceof ElggUser){
+								$rel .= " " . $member_entity->username;
+							} else {
+								$rel .= " " . $member_entity->email;
+							}
+							
+							$member_info = "<span class='event-manager-event-view-attendee-info' rel='" . $rel . "'>" . $member_info . "</span>";
+						}
+						$rel_content .= $member_info;
+						
 					}
 					
 					$result .= elgg_view_module("info", $rel_title, $rel_content);

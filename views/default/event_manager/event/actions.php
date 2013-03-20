@@ -6,29 +6,29 @@
 	
 	$context = elgg_get_context();
 	
-	if($event->canEdit()) {
-		if($tools = elgg_view("event_manager/event/tools", $vars)){
+	if ($event->canEdit()) {
+		if ($tools = elgg_view("event_manager/event/tools", $vars)) {
 			$options[] = $tools;
 		}	
 	}
 	
-	if(elgg_is_logged_in()){
-		if($rsvp = elgg_view("event_manager/event/rsvp", $vars)){
+	if (elgg_is_logged_in()) {
+		if ($rsvp = elgg_view("event_manager/event/rsvp", $vars)) {
 			$options[] = $rsvp;
 		}
 
-		if(!in_array($context, array("widgets", "maps"))){
-			if($registration = elgg_view("event_manager/event/registration", $vars)){
+		if (!in_array($context, array("widgets", "maps"))) {
+			if ($registration = elgg_view("event_manager/event/registration", $vars)) {
 				$options[] = $registration;
 			}
 		}		
 	} else {
-		if($event->register_nologin) {
+		if ($event->register_nologin) {
 			$register_link = '/events/event/register/'.$event->getGUID();
 			
 			$register_button = elgg_view('output/url', array("class" => "elgg-button elgg-button-submit", "href" => $register_link, "text" => elgg_echo('event_manager:event:register:register_link')));
 
-			if($vars["full_view"]){
+			if ($vars["full_view"]) {
 				$register_button = "<div class='center'>" . $register_button . "</div>";
 			}
 			
@@ -36,15 +36,22 @@
 		}
 	}
 
-	if($event->show_attendees && (elgg_in_context("widgets") || elgg_in_context("maps"))){
+	if ($event->show_attendees && (elgg_in_context("widgets") || elgg_in_context("maps"))) {
 		$attending_count = 0;
-		if($count = $event->getRelationships(true)){
-			if(array_key_exists(EVENT_MANAGER_RELATION_ATTENDING, $count)) {
+		if ($count = $event->getRelationships(true)) {
+			if (array_key_exists(EVENT_MANAGER_RELATION_ATTENDING, $count)) {
 				$attending_count = $count[EVENT_MANAGER_RELATION_ATTENDING];
 			} 
 		}
 		
 		$options[] = elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($attending_count));
 	}	
+	
+	if ($event->canEdit() && $vars["full_view"]) {
+		// add attendee search
+		$search_box = "<span class='event-manager-event-view-search-attendees' title='" . elgg_echo("event_manager:event:search_attendees") . "'>" . elgg_view("input/text", array("id" => "event-manager-event-view-search-attendees","name" => "q","class" => "mrs", "autocomplete" => "off")) . elgg_view_icon("search") . "</span>";
+		
+		$options[] = $search_box;
+	}
 	
 	echo implode(" | ", $options);

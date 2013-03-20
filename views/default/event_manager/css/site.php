@@ -132,16 +132,14 @@
 	border: 1px solid #CCCCCC;
 }
 
-.event_manager_event_view_attendees .elgg-avatar {
-	width: 40px;
-	float: left;
-	margin: 0 5px 5px 0;
-} 
+.event-manager-event-view-search-attendees .elgg-icon {
+	vertical-align: top;
+}
 
-.event_manager_event_view_attendees .usericon, .event_manager_event_view_waitinglist .usericon {
-	width: 40px;
-	float: left;
-	margin: 0 5px 0 0;
+.event-manager-event-view-search-attendees .elgg-input-text {
+	height: 16px;
+	padding: 0 5px;
+	width: 150px;
 }
 
 .event-manager-event-details label {
