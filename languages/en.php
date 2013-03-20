@@ -207,6 +207,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:editicon' => 'Edit icon',
 		'event_manager:event:preview' => 'Preview icon',
 		'event_manager:event:createicon' => 'Create icon',
+		'event_manager:event:search_attendees' => 'Search attendees',
 	
 		'event_manager:registrationform:editquestion:required' => 'Required?',
 		'event_manager:registrationform:fieldorder:error' => 'Error changing field order',

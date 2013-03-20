@@ -264,6 +264,18 @@ function save_registrationform_question_order() {
 	});
 }
 
+elgg.event_manager.search_attendees = function(q) {
+	if(q === ""){
+		$(".event-manager-event-view-attendee-info").show();
+	} else {
+		$(".event-manager-event-view-attendee-info").hide();
+		$(".event-manager-event-view-attendee-info").each(function(){
+			if ($(this).attr("rel").toUpperCase().indexOf(q.toUpperCase()) >= 0) {
+				$(this).show();
+			}
+		});
+	}
+}
 
 elgg.event_manager.init = function() {
 	
@@ -530,6 +542,10 @@ elgg.event_manager.init = function() {
 		} else {
 			$('#event_manager_start_time_pulldown').css('display', 'table-row');
 		}
+	});
+
+	$("#event-manager-event-view-search-attendees").live("keyup", function(){
+		elgg.event_manager.search_attendees($(this).val());
 	});
 };
 

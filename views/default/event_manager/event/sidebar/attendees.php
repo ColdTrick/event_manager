@@ -23,7 +23,7 @@
 						$rel_content .= elgg_view_entity_icon(get_entity($member), "small", array("event" => $event));
 					}
 
-					$result .= elgg_view_module("aside", $rel_title, $rel_content);
+					$result .= elgg_view_module("aside", $rel_title, $rel_content, array("class" => "event-manager-event-view-attendees"));
 				}
 			}
 	

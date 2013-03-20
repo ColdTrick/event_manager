@@ -32,7 +32,7 @@
 		
 		elgg_extend_view("css/elgg", "event_manager/css/site");
 		
-		elgg_extend_view("js/elgg", "event_manager/js/site");
+		elgg_extend_view("js/elgg", "js/event_manager/site");
 		elgg_extend_view("page/elements/head", "event_manager/metatags");
 		
 		elgg_register_page_handler("events", "event_manager_page_handler");
