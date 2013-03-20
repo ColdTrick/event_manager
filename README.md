@@ -1,11 +1,14 @@
-= Event Manager =
+Event Manager
+=============
 Manage events, from a simple appointment to a multi day event with day programs and subscriptions
 
-== Contents ==
+Contents
+--------
 1. Features
 2. ToDo
 
-== 1. Features ==
+1. Features
+-----------
 
 - Managing sidewide/group events
 - Google maps integration
@@ -22,7 +25,8 @@ Manage events, from a simple appointment to a multi day event with day programs 
 - Import events from "Event calender"
 - Enable/disable group events
 
-== 2. ToDo ==
+2. ToDo
+-------
 
 - notifications to the users
 	- when kicked from event (both member and non loggedin)
@@ -34,8 +38,6 @@ Manage events, from a simple appointment to a multi day event with day programs 
 - export waiting list
 - have a "events created by user" page ?? 
 - split translationkey between rsvp actions and user participants tabtitles
-
 - no questionair required for registration by non logged in users
 - external registration should be limited by email address
-
 - add support for site categories plugin
