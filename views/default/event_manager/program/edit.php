@@ -42,7 +42,18 @@
 			
 			$program .= $tabcontent;
 			
-			echo elgg_view_module("info", elgg_echo('event_manager:event:progam'), $program);
+			$slot_sets = elgg_get_metadata(array(
+					"type" => "object",
+					"subtype" => EventSlot::SUBTYPE,
+					"container_guids" => array($event->getGUID()),
+					"metadata_names" => array("slot_set"),
+					"count" => true
+			));
+			if($slot_sets > 0){
+				$program .= "<span class='elgg-subtext'>" . elgg_echo("This program contains slot sets. You can only select one slot for each set.") .  "</span>";
+			}
+			
+			echo elgg_view_module("info", elgg_echo('event_manager:event:program'), $program);
 			
 			?>
 				<script type='text/javascript'>

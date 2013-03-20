@@ -40,7 +40,7 @@
 			
 			$program .= $tabcontent;
 			
-			echo elgg_view_module("info", elgg_echo('event_manager:event:progam'), $program);
+			echo elgg_view_module("info", elgg_echo('event_manager:event:program'), $program);
 			
 			?>
 				<script type='text/javascript'>

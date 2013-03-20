@@ -190,7 +190,7 @@ une personne s'est désinscrite de l'évènement '%s' . Vous n'êtes plus sur la
 		'event_manager:event:deleteevent' => "Supprimer l'évènement",
 		'event_manager:event:uploadfiles' => 'Upload des fichiers',
 		'event_manager:event:attendees' => 'Participant(e)s',
-		'event_manager:event:progam' => 'Programme',
+		'event_manager:event:program' => 'Programme',
 		'event_manager:event:editprogram' => 'Modifier le programme',
 		'event_manager:event:editquestions' => "Modifier les questions pour s'inscrire",
 		'event_manager:event:viewwaitinglist' => "Afficher la liste d'attente",

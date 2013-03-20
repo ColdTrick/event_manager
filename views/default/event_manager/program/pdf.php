@@ -13,7 +13,7 @@
 				}
 			}
 			
-			echo "<h3>" . elgg_echo('event_manager:event:progam') . "</h3>";
+			echo "<h3>" . elgg_echo('event_manager:event:program') . "</h3>";
 			
 			echo $content;
 		}

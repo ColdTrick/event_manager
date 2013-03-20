@@ -98,7 +98,12 @@
 		'event_manager:edit:form:icon' => 'Event icon (leave blank to leave unchanged)',
 		'event_manager:edit:form:registration_completed' => 'Text when the event registration is completed',
 		'event_manager:edit:form:registration_completed:description' => 'If you add [NAME] the name of the registered user is displayed. If you add [EVENT] the name of the event is displayed.',
-	
+
+		'event_manager:edit:form:slot_set' => 'Set',
+		'event_manager:edit:form:slot_set:add' => 'Add set',
+		'event_manager:edit:form:slot_set:empty' => 'No set specified',
+		'event_manager:edit:form:slot_set:description' => 'Adding slots to sets will limit the user to only register for 1 slot per set',
+
 		'event_manager:form:program:day' => 'Add event day',
 		'event_manager:program:day:add' => 'Add day',
 		'event_manager:form:program:slot' => 'Add activity slot',
@@ -196,7 +201,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:deleteevent' => 'Delete event',
 		'event_manager:event:uploadfiles' => 'Upload files',
 		'event_manager:event:attendees' => 'Attendees',
-		'event_manager:event:progam' => 'Program',
+		'event_manager:event:program' => 'Program',
 		'event_manager:event:editprogram' => 'Edit program',
 		'event_manager:event:editquestions' => 'Edit registration questions',
 		'event_manager:event:viewwaitinglist' => 'View waiting list',
