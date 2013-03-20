@@ -37,6 +37,8 @@
 	$event_exhibiting		= get_input("event_exhibiting");
 	$event_organizing		= get_input("event_organizing");
 	
+	$registration_completed = get_input("registration_completed");
+	
 	$waiting_list_enabled	= get_input("waiting_list_enabled");
 	
 	$start_time_hours = get_input("start_time_hours");
@@ -133,6 +135,7 @@
 		$event->event_organizing 	= $event_organizing;
 		
 		$event->waiting_list_enabled = $waiting_list_enabled;
+		$event->registration_completed = $registration_completed;
 				
 		$eventDays = $event->getEventDays();
 		if($with_program && !$eventDays) {
@@ -260,6 +263,7 @@
 		$_SESSION['createevent_values']['event_presenting'] 	= $event_presenting;
 		$_SESSION['createevent_values']['event_exhibiting'] 	= $event_exhibiting;
 		$_SESSION['createevent_values']['event_organizing'] 	= $event_organizing;
+		$_SESSION['createevent_values']['registration_completed'] 	= $registration_completed;
 		
 		register_error(elgg_echo("event_manager:action:event:edit:error_fields"));
 	}

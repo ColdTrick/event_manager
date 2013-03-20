@@ -37,6 +37,7 @@
 			"event_presenting"		=> 1,
 			"event_exhibiting"		=> 1,
 			"event_organizing"		=> 1,
+			"registration_completed"=> ELGG_ENTITIES_ANY_VALUE,
 		);
 		
 	$region_options = event_manager_event_region_options();
@@ -169,6 +170,14 @@
 	$form_body .= elgg_view('input/checkboxes', array('name' => 'event_organizing', 'id' => 'event_organizing', 'value' => $fields["event_organizing"], 'options' => array(elgg_echo('event_manager:event:relationship:event_organizing')=>'1')));
 	
 	$form_body .= "</td></tr>";
+	
+	$form_body .= "<tr>";
+	$form_body .= "<td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:registration_completed') . "</td>";
+	$form_body .= "<td>";
+	$form_body .= elgg_view('input/longtext', array('name' => 'registration_completed', 'value' => $fields["registration_completed"]));
+	$form_body .= "<div class='elgg-subtext'>" . elgg_echo("event_manager:edit:form:registration_completed:description") . "</div>";
+	$form_body .= "</td>";
+	$form_body .= "</tr>";
 	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('access') . "</td><td>" . elgg_view('input/access', array('name' => 'access_id', 'value' => $fields["access_id"])) . "</td></tr>";
 	

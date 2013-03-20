@@ -100,6 +100,21 @@
 						}
 					}
 					break;
+				case "registration":
+					if (isset($page[1])) {
+						if ($page[1] == "completed") {
+							if (isset($page[2])) {
+								set_input("event_guid", $page[2]);
+							}
+							
+							if (isset($page[3])) {
+								set_input("object_guid", $page[3]);
+							}
+							
+							$include = "/pages/registration/completed.php";
+						}
+					}
+					break;
 				case "event":
 					switch($page[1]) {
 						case 'register':

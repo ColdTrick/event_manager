@@ -19,6 +19,7 @@
 		'event_manager:menu:new_event' => 'New event',
 		'event_manager:menu:unsubscribe' => "Unsubscribe",
 		'event_manager:menu:unsubscribe_confirm' => "Comfirm unsubscription",
+		'event_manager:menu:registration:completed' => "Event registration completed",
 		
 		'event_manager:sidebar:title' => 'Now showing',
 		
@@ -95,6 +96,8 @@
 		'event_manager:edit:form:spots_left:waiting_list' => ' attendee(s) on the waiting list',
 		'event_manager:edit:form:currenticon' => 'Current icon',
 		'event_manager:edit:form:icon' => 'Event icon (leave blank to leave unchanged)',
+		'event_manager:edit:form:registration_completed' => 'Text when the event registration is completed',
+		'event_manager:edit:form:registration_completed:description' => 'If you add [NAME] the name of the registered user is displayed. If you add [EVENT] the name of the event is displayed.',
 	
 		'event_manager:form:program:day' => 'Add event day',
 		'event_manager:program:day:add' => 'Add day',
@@ -329,6 +332,11 @@ If you didn't request to unsubscribe from the event, please disregard this e-mai
 		'event_manager:action:unsubscribe_confirm:error' => "An unknown error occured while unsubscribing you from the event, please try again",
 		'event_manager:action:unsubscribe_confirm:success' => "You have successfully been unsubscribed from the event",
 
+		// registration completed
+		'event_manager:registration:completed:title' => "Thank you for registring for %s",
+		'event_manager:registration:completed' => "%s your have successfully completed the registration for %s. We hope you enjoy the event.",
+		'event_manager:registration:continue' => "Continue to the event",
+	
 		// river
 		'event_manager:river:event_relationship:create:event_attending' => '%s is attending %s',
 		'event_manager:river:event_relationship:create:event_interested' => '%s is interested in %s',

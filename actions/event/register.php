@@ -19,6 +19,8 @@
 		}
 	}
 	
+	$forward_url = REFERER;
+	
 	if(!empty($guid) && !empty($relation) && ($entity = get_entity($guid)))	{
 		if($entity instanceof Event) {
 			$event = $entity;
@@ -65,7 +67,7 @@
 						register_error(elgg_echo("event_manager:action:event:edit:error_fields"));
 					}
 					
-					forward(REFERER);
+					forward($forward_url);
 				} else {
 					$_SESSION['registerevent_values'] = null;
 				}
@@ -78,14 +80,14 @@
 					
 					if(!is_email_address($answers["email"])){
 						register_error(elgg_echo("registration:notemail"));
-						forward(REFERER);
+						forward($forward_url);
 					} else {
 						
 						if(get_user_by_email($answers["email"])){
 							// check for user with this emailaddress
 							
 							register_error(elgg_echo("event_manager:action:register:email:account_exists"));
-							forward(REFERER);
+							forward($forward_url);
 						} else {
 							// check for existing registration based on this email	
 							$options = array(
@@ -99,7 +101,7 @@
 							
 							if(elgg_get_entities_from_metadata($options)){
 								register_error(elgg_echo("event_manager:action:register:email:registration_exists"));
-								forward(REFERER);
+								forward($forward_url);
 							}						
 						}
 					}
@@ -145,19 +147,22 @@
 					}
 				}
 			
-				if($rsvp = $event->rsvp($relation, $object->getGUID())) {
-					system_message(elgg_echo('event_manager:event:relationship:message:'.$relation));
+				if($event->rsvp($relation, $object->getGUID())) {
+					$forward_url = "events/registration/completed/" . $event->getGUID() . "/" . $object->getGUID() . "/" . elgg_get_friendly_title($event->title);
+					
+// 					system_message(elgg_echo('event_manager:event:relationship:message:' . $relation));
 				} else {
+					$forward_url = $event->getURL();
+					
 					register_error(elgg_echo('event_manager:event:relationship:message:error'));
 				}
-				
-				forward($event->getURL());
 			} else {	
 				register_error(elgg_echo("event_manager:event_not_found"));
-				forward(REFERER);
 			}
 		}
 	} else {
 		system_message(elgg_echo("InvalidParameterException:MissingParameter"));
-		forward(REFERER);
 	}
+	
+	forward($forward_url);
+	
