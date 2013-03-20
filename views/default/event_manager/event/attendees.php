@@ -18,7 +18,7 @@
 
 					$members = $relationships[$rel];
 					
-					$rel_title = elgg_echo("event_manager:event:relationship:" . $rel) . " (" . count($members) . ")";
+					$rel_title = elgg_echo("event_manager:event:relationship:" . $rel . ":label") . " (" . count($members) . ")";
 					
 					$rel_content = "";
 					foreach($members as $member){
