@@ -105,8 +105,6 @@
 }
 
 /* Event Search */
-
-
 #event_manager_search_form label {
 	font-weight: normal;
 	font-size: 100%;
@@ -123,6 +121,7 @@
 #event_manager_event_search_advanced_container .elgg-input-date {
 	width: 100px;
 }
+
 /* Event view */
 
 .event_manager_event_view_image {
@@ -130,6 +129,11 @@
 	padding: 10px;
 	background: #FFFFFF;
 	border: 1px solid #CCCCCC;
+}
+
+.event-manager-event-view-attendees .elgg-avatar {
+	float: left;
+	margin-right: 5px;
 }
 
 .event-manager-event-view-search-attendees .elgg-icon {

@@ -40,7 +40,7 @@
 						
 					}
 					
-					$result .= elgg_view_module("info", $rel_title, $rel_content);
+					$result .= elgg_view_module("info", $rel_title, $rel_content, array("class" => "event-manager-event-view-attendees"));
 				}
 			}
 		}
