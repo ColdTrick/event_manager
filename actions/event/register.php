@@ -76,7 +76,7 @@
 					// validate email
 					$old_ia = elgg_set_ignore_access(true);
 					
-					if(!validate_email_address($answers["email"])){
+					if(!is_email_address($answers["email"])){
 						register_error(elgg_echo("registration:notemail"));
 						forward(REFERER);
 					} else {

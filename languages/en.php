@@ -17,7 +17,9 @@
 		'event_manager:menu:events' => 'All events',
 		'event_manager:menu:group_events' => 'Group events',
 		'event_manager:menu:new_event' => 'New event',
-	
+		'event_manager:menu:unsubscribe' => "Unsubscribe",
+		'event_manager:menu:unsubscribe_confirm' => "Comfirm unsubscription",
+		
 		'event_manager:sidebar:title' => 'Now showing',
 		
 		'river:comment:object:event' => '%s commented on %s',
@@ -307,7 +309,30 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:settings:migration:group:whocancreate:members' => 'any group member',	
 		'event_manager:settings:migration:group:whocancreate:no_one' => 'no one',	
 	
-	
+		// unsubscribe from event
+		'event_manager:unsubscribe:title' => "Unsubscribe from: %s",
+		'event_manager:unsubscribe:description' => "If you wish to unsubscribe from the event %s you can enter your e-mail address below. If a registration is found for the provided e-mail address you will receive a verification e-mail with further instructions.",
+		
+		'event_manager:action:unsubscribe:error:no_registration' => "No registration could be found for the supplied e-mail address",
+		'event_manager:action:unsubscribe:error:mail' => "An error occured while sending the confirmation e-mail, please try again",
+		'event_manager:action:unsubscribe:success' => "An e-mail hase been sent to confirm you wish to unsubscribe from this event. Please check your inbox and follow the instructions in the e-mail",
+		
+		'event_manager:unsubscribe:confirm:subject' => "Confirm you wish to unsubscribe from %s",
+		'event_manager:unsubscribe:confirm:message' => "Hi %s,
+		
+You requested to be unsubscribed from the event %s (%s). If this is correct please click on the link below to finish the process.
+
+%s
+
+If you didn't request to unsubscribe from the event, please disregard this e-mail.",
+		
+		'event_manager:unsubscribe_confirm:error:code' => "The supplied code is incorrect, please check your e-mail",
+		'event_manager:unsubscribe_confirm:title' => "Confirm unsubscription from: %s",
+		'event_manager:unsubscribe_confirm:description' => "%s you requested to be unsubscribed from %s. To complete the unsubscription please click the confirm button below.",
+		
+		'event_manager:action:unsubscribe_confirm:error' => "An unknown error occured while unsubscribing you from the event, please try again",
+		'event_manager:action:unsubscribe_confirm:success' => "You have successfully been unsubscribed from the event",
+
 		// river
 		'event_manager:river:event_relationship:create:event_attending' => '%s is attending %s',
 		'event_manager:river:event_relationship:create:event_interested' => '%s is interested in %s',
@@ -324,6 +349,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'approve' => 'Approve',	
 		'disapprove' => 'Disapprove',	
 		'requiredfields' => 'Required fields',
+		'confirm' => 'Confirm',
 	);
 	
 	add_translation('en', $english);

@@ -52,12 +52,7 @@
         
         $content .= elgg_view("event_manager/event/actions", $vars);
         
-        $start_day = $event->start_day;
-        
-        $icon = "<div class='event_manager_event_list_icon' title='" . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $start_day) . "'>";
-        $icon .= "<div class='event_manager_event_list_icon_month'>" . strtoupper(date("M", $start_day)) . "</div>";
-		$icon .= "<div class='event_manager_event_list_icon_day'>" . date("d", $start_day) . "</div>";
-        $icon .= "</div>";
+        $icon = elgg_view_entity_icon($event, "date");
         
         $menu = elgg_view_menu('entity', array(
 			'entity' => $vars['entity'],

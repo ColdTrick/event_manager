@@ -13,7 +13,7 @@
 	$author_text = elgg_echo('byline', array($owner_link));
 	$date = elgg_view_friendly_time($event->time_created);
 	
-	$subtitle = "$author_text $date $comments_link";
+	$subtitle = "$author_text $date";
 	
 	// event details
 	if($event->icontime){
@@ -138,7 +138,6 @@
 	
 	echo elgg_view('object/elements/full', array(
 			'summary' => $summary,
-			'icon' => $owner_icon,
 			'body' => $body,
 	));
 	

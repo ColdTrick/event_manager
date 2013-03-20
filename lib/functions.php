@@ -646,7 +646,7 @@
 	}
 	
 	function event_manager_time_pad(&$value) { 
-	    $value = str_pad($value, 2, "0", STR_PAD_LEFT);; 
+	    $value = str_pad($value, 2, "0", STR_PAD_LEFT);
 	}
 	
 	function get_curl_content($link) {
@@ -671,3 +671,20 @@
 		
 		return $result;
 	}
+	
+	function event_manager_create_unsubscribe_code(EventRegistration $registration, Event $event = null) {
+		$result = false;
+		
+		if (!empty($registration) && elgg_instanceof($registration, "object", EventRegistration::SUBTYPE)) {
+			if(empty($event) || !elgg_instanceof($event, "object", Event::SUBTYPE)) {
+				$event = $registration->getOwnerEntity();
+			}
+			
+			$site_secret = get_site_secret();
+			
+			$result = md5($registration->getGUID() . $site_secret . $event->time_created);
+		}
+		
+		return $result;
+	}
+	
