@@ -30,7 +30,7 @@
 		}
 	}
 
-	if($event->show_attendees){
+	if($event->show_attendees && (elgg_in_context("widgets") || elgg_in_context("maps"))){
 		$attending_count = 0;
 		if($count = $event->getRelationships(true)){
 			if(array_key_exists(EVENT_MANAGER_RELATION_ATTENDING, $count)) {
@@ -38,7 +38,7 @@
 			} 
 		}
 		
-		$options[] = $attending_count . " ". strtolower(elgg_echo("event_manager:event:relationship:event_attending"));
+		$options[] = elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($attending_count));
 	}	
 	
 	echo implode(" | ", $options);
