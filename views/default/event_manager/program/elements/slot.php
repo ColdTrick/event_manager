@@ -43,6 +43,11 @@
 		$result .= "</td><td class='event_manager_program_slot_details' rel='" . $slot->getGUID() . "'>";
 		$result .= "<span><b>" . $slot->title . "</b></span>";
 		
+		if(!empty($slot->slot_set)){
+			$color = substr(sha1($slot->slot_set, false), 0, 6);
+			$result .= " <span class='event-manager-program-slot-set' style='background: #" . $color . "'>" . $slot->slot_set . "</span>";
+		}
+		
 		if($slot->canEdit() && !elgg_in_context('programmailview') && ($participate == false)) {
 			$edit_slot = "<a href='#' class='event_manager_program_slot_edit' rel='" . $slot->getGUID() . "'>" . elgg_echo("edit") . "</a>";
 			$delete_slot = "<a href='#' class='event_manager_program_slot_delete'>" . elgg_echo("delete") . "</a>";

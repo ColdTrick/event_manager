@@ -25,6 +25,8 @@
 			
 			$location = get_input("location");
 			$max_attendees = get_input("max_attendees");
+
+			$slot_set = get_input("slot_set");
 			
 			if(!empty($title) && !empty($start_time) && !empty($end_time)){
 				if($guid && $slot = get_entity($guid)){
@@ -53,6 +55,12 @@
 						$slot->end_time = $end_time;
 						$slot->location = $location;
 						$slot->max_attendees = $max_attendees;
+						
+						if(!empty($slot_set)){
+							$slot->slot_set = $slot_set;
+						} else {
+							unset($slot->slot_set);
+						}
 						
 						$slot->addRelationship($day->getGUID(), 'event_day_slot_relation');
 						

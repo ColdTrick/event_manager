@@ -93,6 +93,10 @@
 		'event_manager:edit:form:spots_left:waiting_list' => ' attendee(s) on the waiting list',
 		'event_manager:edit:form:currenticon' => 'Current icon',
 		'event_manager:edit:form:icon' => 'Event icon (leave blank to leave unchanged)',
+		'event_manager:edit:form:slot_set' => 'Set',
+		'event_manager:edit:form:slot_set:add' => 'Add set',
+		'event_manager:edit:form:slot_set:empty' => 'No set specified',
+		'event_manager:edit:form:slot_set:description' => 'Adding slots to sets will limit the user to only register for 1 slot per set',
 	
 		'event_manager:form:program:day' => 'Add event day',
 		'event_manager:program:day:add' => 'Add day',

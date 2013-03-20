@@ -219,6 +219,26 @@
 #event-manager-program-slot-lightbox {
 	width: 600px;
 	height: 500px;
+	overflow: auto;
+}
+
+#event_manager_form_program_slot label {
+	white-space: nowrap;
+	padding-right: 10px;
+}
+
+#event-manager-new-slot-set-name {
+	width: 150px;
+	margin-right: 10px;
+}
+
+.event-manager-program-slot-set {
+	padding: 2px 4px;
+	color: white;
+	
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
 }
 
 .event_manager_program_slot_time {

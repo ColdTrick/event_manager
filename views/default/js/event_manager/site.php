@@ -277,6 +277,14 @@ elgg.event_manager.search_attendees = function(q) {
 	}
 }
 
+elgg.event_manager.add_new_slot_set_name = function(set_name) {
+	if(set_name !== ""){
+		$("#event_manager_form_program_slot input[name='slot_set']").removeAttr("checked");
+		$options = $("#event_manager_form_program_slot input[name='slot_set']:first").parent().parent().parent();
+		$options.append("<li><label><input type='radio' checked='checked' value='" + set_name + "' name='slot_set'/>" + set_name + "</label></li>");		
+	}
+}
+
 elgg.event_manager.init = function() {
 	
 	$('.event_manager_program_slot_delete').live('click', function() {
@@ -546,6 +554,10 @@ elgg.event_manager.init = function() {
 
 	$("#event-manager-event-view-search-attendees").live("keyup", function(){
 		elgg.event_manager.search_attendees($(this).val());
+	});
+
+	$("#event-manager-new-slot-set-name-button").live("click", function(){
+		elgg.event_manager.add_new_slot_set_name($("#event-manager-new-slot-set-name").val());
 	});
 };
 
