@@ -32,25 +32,26 @@
 	function event_manager_entity_menu($hook, $entity_type, $returnvalue, $params){
 		$result = $returnvalue;
 		
-		if (elgg_in_context('widgets')) {
+		if (elgg_in_context("widgets")) {
 			return $result;
 		}
 		
-		if(($handler = elgg_extract("handler", $params)) && ($handler == "event") && ($entity = elgg_extract("entity", $params))){
+		if (($entity = elgg_extract("entity", $params)) && elgg_instanceof($entity, "object", Event::SUBTYPE)) {
 			$attendee_menu_options = array(
-					"name" => "attendee_count", 
-					"priority" => 50, 
-					"text" => elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($entity->countAttendees())), 
-					"href" => false
-				);
+				"name" => "attendee_count", 
+				"priority" => 50, 
+				"text" => elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($entity->countAttendees())), 
+				"href" => false
+			);
 			
 			$result[] = ElggMenuItem::factory($attendee_menu_options);
 
-			if(!empty($result) && is_array($result)){
-				foreach($result as &$item){
-					switch($item->getName()){
+			// change some of the basic menus
+			if (!empty($result) && is_array($result)) {
+				foreach ($result as &$item) {
+					switch ($item->getName()) {
 						case "edit":
-							$item->setHref("/events/event/edit/" . $entity->getGUID());
+							$item->setHref("events/event/edit/" . $entity->getGUID());
 							break;
 						case "delete":
 							$href = elgg_get_site_url() . "action/event_manager/event/delete?guid=" . $entity->getGUID();
@@ -60,6 +61,16 @@
 							break;
 					}
 				}
+			}
+			
+			// show an unregister link for non logged in users
+			if (!elgg_is_logged_in() && $entity->register_nologin) {
+				$result[] = ElggMenuItem::factory(array(
+					"name" => "unsubscribe",
+					"text" => elgg_echo("event_manager:menu:unsubscribe"),
+					"href" => "events/unsubscribe/" . $entity->getGUID() . "/" . elgg_get_friendly_title($entity->title),
+					"priority" => 300
+				));
 			}
 		}
 		

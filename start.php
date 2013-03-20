@@ -81,6 +81,25 @@
 						exit;
 					}
 					break;
+				case "unsubscribe":
+					if (isset($page[1])) {
+						if($page[1] == "confirm") {
+							if(isset($page[2])) {
+								set_input("guid", $page[2]);
+							}
+							
+							if(isset($page[3])) {
+								set_input("code", $page[3]);
+							}
+							
+							$include = "/pages/event/unsubscribe_confirm.php";
+						} else {
+							set_input("guid", $page[1]);
+							
+							$include = "/pages/event/unsubscribe.php";
+						}
+					}
+					break;
 				case "event":
 					switch($page[1]) {
 						case 'register':
@@ -150,6 +169,8 @@
 	elgg_register_action("event_manager/event/upload",					dirname(__FILE__) . "/actions/event/upload.php");
 	elgg_register_action("event_manager/event/deletefile",				dirname(__FILE__) . "/actions/event/deletefile.php");
 	elgg_register_action("event_manager/event/search",					dirname(__FILE__) . "/actions/event/search.php");
+	elgg_register_action("event_manager/event/unsubscribe",				dirname(__FILE__) . "/actions/event/unsubscribe.php", "public");
+	elgg_register_action("event_manager/event/unsubscribe_confirm",		dirname(__FILE__) . "/actions/event/unsubscribe_confirm.php", "public");
 	elgg_register_action("event_manager/attendees/export",				dirname(__FILE__) . "/actions/attendees/export.php");
 	elgg_register_action("event_manager/attendees/export_waitinglist",	dirname(__FILE__) . "/actions/attendees/exportwaitinglist.php");
 	elgg_register_action("event_manager/slot/edit",						dirname(__FILE__) . "/actions/slot/edit.php");
