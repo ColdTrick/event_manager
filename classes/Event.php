@@ -530,6 +530,8 @@
 		}
 		
 		public function getRelationshipByUser($user_guid = null) {
+			$result = false;
+			
 			$user_guid = (int)$user_guid;
 			if(empty($user_guid)) {
 				$user_guid = elgg_get_logged_in_user_guid();
@@ -538,7 +540,10 @@
 			$event_guid = $this->getGUID();
 			
 			$row = get_data_row("SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid AND guid_two=$user_guid");
-			return $row->relationship;
+			if($row){
+				$result = $row->relationship;
+			}
+			return $result;
 		}
 
 		public function getRelationships($count = false) {
