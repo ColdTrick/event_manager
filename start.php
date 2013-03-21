@@ -112,9 +112,9 @@
 							}
 							
 							$include = "/pages/registration/completed.php";
+							break;
 						}
 					}
-					break;
 				case "event":
 					switch($page[1]) {
 						case 'register':
