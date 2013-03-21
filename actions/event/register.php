@@ -44,6 +44,7 @@
 				}
 				
 				// @todo: replace with sticky form functions
+				// @todo: make program also sticky
 				
 				if(empty($user)) {
 					$_SESSION['registerevent_values']['question_name']	= $answers["name"];
@@ -53,6 +54,29 @@
 				if($event->with_program && !$required_error) {
 					if(empty($program_guids)) {
 						$required_error = true;
+					} else {
+						// validate slot sets
+						$slot_options = array(
+								"type" => "object",
+								"subtype" => EventSlot::SUBTYPE,
+								"limit" => false,
+								"metadata_names" => "slot_set",
+								"guids" => explode(',', $program_guids)
+						);
+						
+						if($set_metadata = elgg_get_metadata($slot_options)){
+							$sets_found = array();
+							foreach($set_metadata as $md){
+								$set_name = $md->value;
+								if(in_array($set_name, $sets_found)){
+									// only one programguid per slot is allowed
+									register_error(elgg_echo("event_manager:action:registration:edit:error_slots", array($set_name)));
+									forward($forward_url);
+								}
+								$sets_found[] = $set_name;
+							}
+							
+						}
 					}
 				}
 				
@@ -149,8 +173,6 @@
 			
 				if($event->rsvp($relation, $object->getGUID())) {
 					$forward_url = "events/registration/completed/" . $event->getGUID() . "/" . $object->getGUID() . "/" . elgg_get_friendly_title($event->title);
-					
-// 					system_message(elgg_echo('event_manager:event:relationship:message:' . $relation));
 				} else {
 					$forward_url = $event->getURL();
 					
