@@ -18,7 +18,7 @@
 		'event_manager:menu:group_events' => 'Group events',
 		'event_manager:menu:new_event' => 'New event',
 		'event_manager:menu:unsubscribe' => "Unsubscribe",
-		'event_manager:menu:unsubscribe_confirm' => "Comfirm unsubscription",
+		'event_manager:menu:unsubscribe_confirm' => "Confirm unsubscription",
 		'event_manager:menu:registration:completed' => "Event registration completed",
 		
 		'event_manager:sidebar:title' => 'Now showing',
@@ -234,8 +234,6 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:error:max_attendees:not_numeric' => 'Value for \'Max Attendees\' must be a numeric value.',
 	
 		// relationships
-		'event_manager:event:relationship:join' => 'Join event',
-		'event_manager:event:relationship:leave' => 'Leave event',
 		'event_manager:event:relationship:event_attending' => 'Attending',
 		'event_manager:event:relationship:event_attending:entity_menu' => '%s attendees',
 		'event_manager:event:relationship:event_attending:label' => 'Attendees',
@@ -251,7 +249,6 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:relationship:event_organizing:label' => 'Organizers',
 		'event_manager:event:relationship:undo' => 'Undo',
 		'event_manager:event:relationship:kick' => 'Kick from event',
-			
 			
 		'event_manager:event:rsvp:registration_ended' => 'Registration to this event has been ended.',
 		'event_manager:event:rsvp:event_full' => 'This event reached maximum attendees.',
@@ -270,7 +267,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:relationship:message:unavailable_relation' => 'The RSVP type you selected is not available',
 	
 		// widgets
-		'event_manager:widgets:events:title' => 'Event manager',
+		'event_manager:widgets:events:title' => 'Events',
 		'event_manager:widgets:events:description' => 'Show upcoming events',
 	
 		'event_manager:widgets:events:numbertodisplay' => 'Number of events to display',
@@ -317,7 +314,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		
 		'event_manager:action:unsubscribe:error:no_registration' => "No registration could be found for the supplied e-mail address",
 		'event_manager:action:unsubscribe:error:mail' => "An error occured while sending the confirmation e-mail, please try again",
-		'event_manager:action:unsubscribe:success' => "An e-mail hase been sent to confirm you wish to unsubscribe from this event. Please check your inbox and follow the instructions in the e-mail",
+		'event_manager:action:unsubscribe:success' => "An e-mail has been sent to confirm you wish to unsubscribe from this event. Please check your inbox and follow the instructions in the e-mail",
 		
 		'event_manager:unsubscribe:confirm:subject' => "Confirm you wish to unsubscribe from %s",
 		'event_manager:unsubscribe:confirm:message' => "Hi %s,
@@ -336,8 +333,8 @@ If you didn't request to unsubscribe from the event, please disregard this e-mai
 		'event_manager:action:unsubscribe_confirm:success' => "You have successfully been unsubscribed from the event",
 
 		// registration completed
-		'event_manager:registration:completed:title' => "Thank you for registring for %s",
-		'event_manager:registration:completed' => "%s your have successfully completed the registration for %s. We hope you enjoy the event.",
+		'event_manager:registration:completed:title' => "Thank you for registering for %s",
+		'event_manager:registration:completed' => "%s you have successfully completed the registration for %s. We hope you enjoy the event.",
 		'event_manager:registration:continue' => "Continue to the event",
 	
 		// river
