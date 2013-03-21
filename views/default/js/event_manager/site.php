@@ -358,16 +358,6 @@ elgg.event_manager.init = function() {
 		
 		return false;
 	});
-	
-	$('#event_manager_program_register').click(function() {
-		$.getJSON(elgg.get_site_url() + 'events/proc/program/register', {event: $('#eventguid').val(), guids: guids.toSource()}, function(response) {
-			if(response.valid) {
-				$('#register_status').html(elgg.echo('event_manager:registration:program:success'));
-			} else {
-				$('#register_status').html(elgg.echo('event_manager:registration:program:fail'));
-			}
-		});
-	});
 
 	$('.event_manager_questions_delete').live('click', function(e) {
 		if(confirm(elgg.echo('deleteconfirm'))) {
