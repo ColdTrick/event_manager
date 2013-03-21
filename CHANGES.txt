@@ -1,5 +1,24 @@
 = Version history =
 
+2.5 (2013-03-21):
+
+- added: event tags in full view strapline
+- added: twitter search feed in sidebar based on twitter hash
+- added: use of elgg entity menu
+- added: attendee count to entity menu
+- added: attendee search/filter for event owners
+- added: unsubscribe option for logged out users (without an account)
+- added: elgg_view_entity_icon("date") shows calendar representation of event date
+- added: event slot sets (user can only attend 1 slot per set)
+- added: 'thanks for registering' page with optional thank you text
+- changed: twitter hash is clickable
+- changed: event full view now uses content layout
+- changed: attendees + interested + waitinglist shown as list on event page, organizers, presenters and exhibitors moved to sidebar
+- changed: position of register for event button for logged out users
+- removed: herobrine
+- fixed: logged out users can register full slot with no available seats
+- fixed: duplicate registration for same emailaddress
+
 2.4 (2013-03-11):
 
 - added: export waitinglist
