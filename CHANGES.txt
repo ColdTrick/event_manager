@@ -1,5 +1,9 @@
 = Version history =
 
+2.5.1 (2013-03-25):
+
+- fixed: issue with simplecache googlemaps js
+
 2.5 (2013-03-21):
 
 - added: event tags in full view strapline
