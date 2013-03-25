@@ -57,7 +57,10 @@
 		
 		// register js libraries
 		$maps_key = elgg_get_plugin_setting("google_api_key", "event_manager");
+		
+		elgg_register_simplecache_view('js/event_manager/googlemaps');
 		$em_maps_js = elgg_get_simplecache_url("js", "event_manager/googlemaps");
+		
 		elgg_register_js("event_manager.maps.helper", $em_maps_js);
 		elgg_register_js("event_manager.maps.base", "//maps.googleapis.com/maps/api/js?key=" . $maps_key . "&sensor=true");
 		
