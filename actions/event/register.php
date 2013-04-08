@@ -28,19 +28,20 @@
 			if($event) {	
 				$user = elgg_get_logged_in_user_entity();
 				
-				$questions = $event->getRegistrationFormQuestions();
-				foreach($questions as $question) {
-					if($question->required && empty($answers[$question->getGUID()])) {
-						$required_error = true;
-					}
-					
-					if(!elgg_is_logged_in()) {
-						if(empty($answers['name']) || empty($answers['email'])) {
+				if ($questions = $event->getRegistrationFormQuestions()) {
+					foreach($questions as $question) {
+						if($question->required && empty($answers[$question->getGUID()])) {
 							$required_error = true;
 						}
+						
+						if(!elgg_is_logged_in()) {
+							if(empty($answers['name']) || empty($answers['email'])) {
+								$required_error = true;
+							}
+						}
+						
+						$_SESSION['registerevent_values']['question_'.$question->getGUID()]	= $answers[$question->getGUID()];
 					}
-					
-					$_SESSION['registerevent_values']['question_'.$question->getGUID()]	= $answers[$question->getGUID()];
 				}
 				
 				// @todo: replace with sticky form functions
