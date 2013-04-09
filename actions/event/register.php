@@ -28,21 +28,21 @@
 			if($event) {	
 				$user = elgg_get_logged_in_user_entity();
 				
-				$questions = $event->getRegistrationFormQuestions();
-				foreach($questions as $question) {
-					if($question->required && empty($answers[$question->getGUID()])) {
-						$required_error = true;
-					}
-					
-					if(!elgg_is_logged_in()) {
-						if(empty($answers['name']) || empty($answers['email'])) {
+				if ($questions = $event->getRegistrationFormQuestions()) {
+					foreach($questions as $question) {
+						if($question->required && empty($answers[$question->getGUID()])) {
 							$required_error = true;
 						}
+						
+						if(!elgg_is_logged_in()) {
+							if(empty($answers['name']) || empty($answers['email'])) {
+								$required_error = true;
+							}
+						}
+						
+						$_SESSION['registerevent_values']['question_'.$question->getGUID()]	= $answers[$question->getGUID()];
 					}
-					
-					$_SESSION['registerevent_values']['question_'.$question->getGUID()]	= $answers[$question->getGUID()];
 				}
-				
 				// @todo: replace with sticky form functions
 				// @todo: make program also sticky
 				
@@ -106,28 +106,29 @@
 						register_error(elgg_echo("registration:notemail"));
 						forward($forward_url);
 					} else {
-						
-						if(get_user_by_email($answers["email"])){
-							// check for user with this emailaddress
-							
-							register_error(elgg_echo("event_manager:action:register:email:account_exists"));
-							forward($forward_url);
-						} else {
-							// check for existing registration based on this email	
-							$options = array(
-									"type" => "object",
-									"subtype" => EventRegistration::SUBTYPE,
-									"owner_guid" => $event->getGUID(),
-									"metadata_name_value_pairs" => array("email" => $answers["email"]),
-									"metadata_case_sensitive" => false,
-									"count" => TRUE
-								);
-							
-							if(elgg_get_entities_from_metadata($options)){
-								register_error(elgg_echo("event_manager:action:register:email:registration_exists"));
+						// check for user with this emailaddress
+						if($existing_user = get_user_by_email($answers["email"])){
+							$existing_user = $existing_user[0];
+							if(check_entity_relationship($existing_user->getGUID(), "member_of_site", elgg_get_site_entity()->getGUID())){
+								register_error(elgg_echo("event_manager:action:register:email:account_exists"));
 								forward($forward_url);
-							}						
-						}
+							}
+						} 
+						
+						// check for existing registration based on this email	
+						$options = array(
+								"type" => "object",
+								"subtype" => EventRegistration::SUBTYPE,
+								"owner_guid" => $event->getGUID(),
+								"metadata_name_value_pairs" => array("email" => $answers["email"]),
+								"metadata_case_sensitive" => false,
+								"count" => TRUE
+							);
+						
+						if(elgg_get_entities_from_metadata($options)){
+							register_error(elgg_echo("event_manager:action:register:email:registration_exists"));
+							forward($forward_url);
+						}						
 					}
 					
 					// create new registration
