@@ -29,7 +29,7 @@
 			register_error(elgg_echo("ClassException:ClassnameNotClass", array($registration_guid, elgg_echo("item:object:" . EventRegistration::SUBTYPE))));
 		}
 	} else {
-		register_error(elgg_echo(""));
+		register_error(elgg_echo("InvalidParameterException:MissingParameter"));
 	}
 	
 	forward($forward_url);
