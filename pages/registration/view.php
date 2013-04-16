@@ -9,7 +9,7 @@
 		}
 	}
 	
-	$save_to_pdf_link = '<a href="'.elgg_get_site_url().elgg_add_action_tokens_to_url('/action/event_manager/registration/pdf?k='.md5($event->time_created . get_site_secret() . $user_guid).'&guid='.$guid.'&u_g='.$user_guid).'">'.elgg_echo('event_manager:registration:view:savetopdf').' <img border="0" src="'.$vars['url'].'/mod/event_manager/_graphics/icons/pdf_icon.gif" /></a>';
+	$save_to_pdf_link = '<a href="'. elgg_add_action_tokens_to_url('/action/event_manager/registration/pdf?k='.md5($event->time_created . get_site_secret() . $user_guid).'&guid='.$guid.'&u_g='.$user_guid).'">'.elgg_echo('event_manager:registration:view:savetopdf').' <img border="0" src="'.$vars['url'].'/mod/event_manager/_graphics/icons/pdf_icon.gif" /></a>';
 	
 	if(!empty($key)) {
 		$tempKey = md5($event->time_created . get_site_secret() . $user_guid);
