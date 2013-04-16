@@ -73,6 +73,8 @@
 		}
 		
 		public function rsvp($type = EVENT_MANAGER_RELATION_UNDO, $user_guid = 0, $reset_program = true, $add_to_river = true) {
+			global $EVENT_MANAGER_UNDO_REGISTRATION;
+			
 			$result = false;
 			
 			$user_guid = sanitise_int($user_guid, false);
@@ -87,7 +89,13 @@
 				// remove registrations
 				if($type == EVENT_MANAGER_RELATION_UNDO){
 					if(!(($user = get_entity($user_guid)) instanceof ElggUser))	{
+						// make sure we can remove the registration object
+						$EVENT_MANAGER_UNDO_REGISTRATION = true;
+						
 						$user->delete();
+						
+						// undo overrides
+						$EVENT_MANAGER_UNDO_REGISTRATION = false;
 					} else {
 						if($reset_program) {
 							if($this->with_program) {

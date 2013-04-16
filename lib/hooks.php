@@ -1,4 +1,4 @@
-<?php 
+<?php
 	
 	function event_manager_user_hover_menu($hook, $entity_type, $returnvalue, $params){
 		$result = $returnvalue;
@@ -6,7 +6,7 @@
 		
 		$guid = get_input("guid");
 		
-		if(!empty($guid) && ($entity = get_entity($guid))){	
+		if(!empty($guid) && ($entity = get_entity($guid))){
 			if($entity->getSubtype() == Event::SUBTYPE) {
 				$event = $entity;
 			}
@@ -38,9 +38,9 @@
 		
 		if (($entity = elgg_extract("entity", $params)) && elgg_instanceof($entity, "object", Event::SUBTYPE)) {
 			$attendee_menu_options = array(
-				"name" => "attendee_count", 
-				"priority" => 50, 
-				"text" => elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($entity->countAttendees())), 
+				"name" => "attendee_count",
+				"priority" => 50,
+				"text" => elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($entity->countAttendees())),
 				"href" => false
 			);
 			
@@ -79,7 +79,7 @@
 	
 	/**
 	 * add menu item to owner block
-	 * 
+	 *
 	 * @param unknown_type $hook
 	 * @param unknown_type $entity_type
 	 * @param unknown_type $returnvalue
@@ -98,7 +98,7 @@
 	
 	/**
 	 * Generates correct title link for widgets depending on the context
-	 * 
+	 *
 	 * @param unknown_type $hook
 	 * @param unknown_type $entity_type
 	 * @param unknown_type $returnvalue
@@ -120,7 +120,35 @@
 				case "profile":
 				case "dashboard":
 					break;
-			}				
+			}
 		}
 		return $result;
 	}
+	
+	/**
+	 * Allow non user to remove their registration correctly
+	 *
+	 * @param string $hook
+	 * @param string $entity_type
+	 * @param bool $returnvalue
+	 * @param array $params
+	 * @return bool
+	 */
+	function event_manager_permissions_check_handler($hook, $entity_type, $returnvalue, $params) {
+		global $EVENT_MANAGER_UNDO_REGISTRATION;
+		$result = $returnvalue;
+		
+		// only override the hook if not already allowed
+		if (!$result && !empty($params) && is_array($params)) {
+			$entity = elgg_extract("entity", $params);
+			
+			if (elgg_instanceof($entity, "object", EventRegistration::SUBTYPE)) {
+				if (!empty($EVENT_MANAGER_UNDO_REGISTRATION)) {
+					$result = true;
+				}
+			}
+		}
+		
+		return $result;
+	}
+	
