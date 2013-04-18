@@ -143,7 +143,6 @@
 		if($with_program && !$eventDays) {
 			$eventDay = new EventDay();
 			$eventDay->title			= 'Event day 1';
-			$eventDay->description		= 'Description';
 			$eventDay->container_guid	= $event->getGUID();
 			$eventDay->owner_guid		= $event->getGUID();
 			$eventDay->access_id 		= $event->access_id;
