@@ -261,8 +261,11 @@
 					if (elgg_is_logged_in()) {
 						$answer = $question->getAnswerFromUser();
 					}
-
-					$value = elgg_extract('question_' . $question->getGUID(), $_SESSION['registerevent_values'], $answer->value);
+					if(array_key_exists("registerevent_values", $_SESSION) && is_array($_SESSION["registerevent_values"])){
+						$value = elgg_extract('question_' . $question->getGUID(), $_SESSION['registerevent_values'], $answer->value);
+					} else {
+						$value = $answer->value;
+					}
 
 					$form_body .= elgg_view('event_manager/registration/question', array('entity' => $question, 'register' => true, 'value' => $value));
 				}
