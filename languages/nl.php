@@ -167,6 +167,7 @@ Iemand heeft zich afgemeld van het \'%s\' evenement. Je bent van de wachtlijst n
   'event_manager:registration:programparticipation' => 'Programma deelname',
   'event_manager:registration:editprogramparticipation' => 'Wijzig je programma deelname',
   'event_manager:registration:required_fields' => 'Vul eerst de verplichte velden in',
+  'event_manager:registration:required_fields:info' => 'Velden met een * zijn verplicht',
   'event_manager:event:registration:notification:owner:subject' => 'Evenement registratie',
   'event_manager:event:registration:notification:user:subject' => 'Evenement registratie',
   'event_manager:event:registration:notification:owner:text:event_attending' => 'Hallo %s,

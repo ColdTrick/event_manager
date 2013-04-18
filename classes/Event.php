@@ -244,11 +244,13 @@
 		
 		public function generateRegistrationForm($register_type = 'register') {
 			$form = false;
+			$show_required = false;
 			
-			$form_body = '<ul>';
+			$form_body = "";
 			
 			if (!elgg_is_logged_in()) {
 				$form_body .= elgg_view("event_manager/registration/non_loggedin");
+				$show_required = true;
 			}
 	
 			if ($registration_form = $this->getRegistrationFormQuestions()) {
@@ -256,23 +258,38 @@
 					$form_body .= '<p>'. elgg_echo('event_manager:event:rsvp:waiting_list:message') .'</p><br />';
 				}
 					
+				$form_body .= '<ul>';
+				
 				foreach ($registration_form as $question) {
-					
-					if (elgg_is_logged_in()) {
-						$answer = $question->getAnswerFromUser();
-					}
+					$value = null;
 					if(array_key_exists("registerevent_values", $_SESSION) && is_array($_SESSION["registerevent_values"])){
-						$value = elgg_extract('question_' . $question->getGUID(), $_SESSION['registerevent_values'], $answer->value);
-					} else {
-						$value = $answer->value;
+						$value = elgg_extract('question_' . $question->getGUID(), $_SESSION['registerevent_values']);
 					}
-
+					
+					if($value == null){
+						if (elgg_is_logged_in()) {
+							if($answer = $question->getAnswerFromUser()){
+								$value = $answer->value;
+							}
+						}
+					}
+					
 					$form_body .= elgg_view('event_manager/registration/question', array('entity' => $question, 'register' => true, 'value' => $value));
+					
+					if($question->required){
+						$show_required = true;
+					}
 				}
 				
 				$form_body .= '</ul>';
-
-				$form_body = elgg_view_module('main', "", $form_body, array("id" => "event_manager_registration_form_fields"));
+			}
+			
+			if($show_required){
+				$form_body .= "<div class='elgg-subtext'>" . elgg_echo("event_manager:registration:required_fields:info") . "</div>";
+			}
+			
+			if(!empty($form_body)) {
+				$form_body = elgg_view_module('info', "", $form_body, array("id" => "event_manager_registration_form_fields"));
 			}
 
 			if ($this->with_program) {
