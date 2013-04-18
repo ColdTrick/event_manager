@@ -18,9 +18,7 @@
 		$tempKey = md5($event->time_created . get_site_secret() . $user_guid);
 		
 		if ($event && ($tempKey == $key) && get_entity($user_guid)) {
-			$html = elgg_view('page_elements/header');
-
-			$html .= elgg_view_title(elgg_echo('event_manager:registration:yourregistration'));
+			$html = elgg_view_title(elgg_echo('event_manager:registration:yourregistration'));
 			
 			$html .= elgg_view('event_manager/event/pdf', array('entity' => $event));
 

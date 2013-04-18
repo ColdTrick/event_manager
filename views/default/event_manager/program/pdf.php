@@ -4,14 +4,19 @@
 	
 	if (!empty($event) && ($event instanceof Event)) {
 		if ($event->with_program) {
-			$content = "<h3>" . elgg_echo('event_manager:event:program') . "</h3>";
+			$days = "";
 			
 			if($eventDays = $event->getEventDays()) {
 				foreach ($eventDays as $key => $day) {					
-					$content .= elgg_view("event_manager/program/pdf/day", array("entity" => $day, "selected" => $selected));					
+					$days .= elgg_view("event_manager/program/pdf/day", array("entity" => $day, "selected" => $selected));					
 				}
 			}
 			
-			echo $content;
+			if(!empty($days)){
+				$content = "<h3>" . elgg_echo('event_manager:event:program') . "</h3>";
+				$content .= $days;
+				
+				echo $content;
+			}
 		}
 	}	
