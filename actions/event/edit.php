@@ -22,6 +22,7 @@
 	$start_day 				= get_input("start_day");
 	$registration_ended		= get_input("registration_ended");
 	$show_attendees			= get_input("show_attendees");
+	$hide_owner_block		= get_input("hide_owner_block");
 	$notify_onsignup		= get_input("notify_onsignup");
 	$endregistration_day	= get_input("endregistration_day");
 	$max_attendees			= get_input("max_attendees");
@@ -111,6 +112,7 @@
 		$event->registration_ended	= $registration_ended;
 		$event->registration_needed	= $registration_needed;
 		$event->show_attendees		= $show_attendees;
+		$event->hide_owner_block	= $hide_owner_block;
 		$event->notify_onsignup		= $notify_onsignup;
 		$event->max_attendees		= $max_attendees;
 		$event->waiting_list		= $waiting_list;
@@ -254,6 +256,7 @@
 		$_SESSION['createevent_values']['registration_needed']	= $registration_needed;
 		$_SESSION['createevent_values']['register_nologin']		= $register_nologin;
 		$_SESSION['createevent_values']['show_attendees']		= $show_attendees;
+		$_SESSION['createevent_values']['hide_owner_block']		= $hide_owner_block;
 		$_SESSION['createevent_values']['notify_onsignup']		= $notify_onsignup;
 		$_SESSION['createevent_values']['max_attendees']		= $max_attendees;
 		$_SESSION['createevent_values']['waiting_list']			= $waiting_list;

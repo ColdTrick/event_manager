@@ -141,5 +141,13 @@
 			'body' => $body,
 	));
 	
-	
+	if ($event->hide_owner_block) {
+		?>
+			<style type='text/css'>
+				.elgg-sidebar .elgg-owner-block {
+					display: none;
+				}
+			</style>
+		<?php 
+	}
 	

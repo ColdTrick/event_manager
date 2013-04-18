@@ -134,6 +134,7 @@ Iemand heeft zich afgemeld van het \'%s\' evenement. Je bent van de wachtlijst n
   'event_manager:edit:form:registration_ended' => 'Registratie uitzetten',
   'event_manager:edit:form:registration_needed' => 'Registratie nodig om deel te nemen?',
   'event_manager:edit:form:show_attendees' => 'Deelnemers weergeven?',
+  'event_manager:edit:form:hide_owner_block' => 'Verberg eigenaarsinformatie in zijbalk',
   'event_manager:edit:form:notify_onsignup' => 'Na deelname notificatie versturen?',
   'event_manager:edit:form:start_day' => 'Datum',
   'event_manager:edit:form:endregistration_day' => 'Datum einde registratie',

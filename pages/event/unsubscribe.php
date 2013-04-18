@@ -23,6 +23,16 @@
 		 // build page elements
 		 $title_text = elgg_echo("event_manager:unsubscribe:title", array($entity->title));
 		 
+		 if ($entity->hide_owner_block) {
+		 	?>
+ 				<style type='text/css'>
+ 					.elgg-sidebar .elgg-owner-block {
+ 						display: none;
+ 					}
+ 				</style>
+ 			<?php 
+ 		 }
+		 			
 		 $body = elgg_view_form("event_manager/event/unsubscribe", array(), array("entity" => $entity));
 		 
 		 $page_data = elgg_view_layout("content", array(

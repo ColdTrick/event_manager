@@ -24,6 +24,15 @@
 				// make page elements
 				$title_text = elgg_echo("event_manager:unsubscribe_confirm:title", array($event->title));
 				
+				if ($event->hide_owner_block) {
+					?>
+						<style type='text/css'>
+							.elgg-sidebar .elgg-owner-block {
+								display: none;
+							}
+						</style>
+					<?php 
+				}
 				$body_vars = array(
 					"entity" => $event, 
 					"registration" => $registration,

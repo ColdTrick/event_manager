@@ -28,6 +28,7 @@
 			"registration_needed" 	=> ELGG_ENTITIES_ANY_VALUE,
 			"register_nologin" 		=> ELGG_ENTITIES_ANY_VALUE,
 			"show_attendees"		=> 1,
+			"hide_owner_block"		=> ELGG_ENTITIES_ANY_VALUE,
 			"notify_onsignup"		=> ELGG_ENTITIES_ANY_VALUE,
 			"max_attendees"		 	=> ELGG_ENTITIES_ANY_VALUE,
 			"waiting_list_enabled"	=> ELGG_ENTITIES_ANY_VALUE,
@@ -49,7 +50,7 @@
 		$fields["location"]		= $event->getLocation();
 		$fields["latitude"]		= $event->getLatitude();
 		$fields["longitude"]	= $event->getLongitude();
-		$fields["tags"]			= array_reverse(string_to_tag_array($event->tags));
+		$fields["tags"]			= string_to_tag_array($event->tags);
 		
 		$start_time_hours = date('H', $event->start_time);
 		$start_time_minutes = date('i', $event->start_time);	
@@ -150,6 +151,7 @@
 	$form_body .= 	elgg_view('input/checkboxes', array('name' => 'notify_onsignup', 'value' => $fields["notify_onsignup"], 'options' => array(elgg_echo('event_manager:edit:form:notify_onsignup')=>'1')));
 	$form_body .= 	elgg_view('input/checkboxes', array('name' => 'registration_needed', 'value' => $fields["registration_needed"], 'options' => array(elgg_echo('event_manager:edit:form:registration_needed')=>'1')));
 	$form_body .= 	elgg_view('input/checkboxes', array('name' => 'show_attendees', 'value' => $fields["show_attendees"], 'options' => array(elgg_echo('event_manager:edit:form:show_attendees')=>'1')));
+	$form_body .= 	elgg_view('input/checkboxes', array('name' => 'hide_owner_block', 'value' => $fields["hide_owner_block"], 'options' => array(elgg_echo('event_manager:edit:form:hide_owner_block')=>'1')));
 	$form_body .= 	elgg_view('input/checkboxes', array('name' => 'waiting_list_enabled', 'value' => $fields["waiting_list_enabled"], 'options' => array(elgg_echo('event_manager:edit:form:waiting_list')=>'1')));
 	$form_body .= 	elgg_view('input/checkboxes', array('name' => 'register_nologin', 'value' => $fields["register_nologin"], 'options' => array(elgg_echo('event_manager:edit:form:register_nologin')=>'1')));
 	

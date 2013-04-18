@@ -33,14 +33,24 @@
 			
 			$title = $title_text . " '" . $event->title . "'";
 			
+			if ($event->hide_owner_block) {
+				?>
+					<style type='text/css'>
+						.elgg-sidebar .elgg-owner-block {
+							display: none;
+						}
+					</style>
+				<?php 
+			}
+						
 			$body = elgg_view_layout('content', array(
 				'filter' => '',
 				'content' => $form,
 				'title' => $title,
 			));
-			
+						
 			echo elgg_view_page($title, $body);
-			
+				
 			// TODO: replace with sticky form functionality
 			$_SESSION['registerevent_values'] = null;
 		}
