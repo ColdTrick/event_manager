@@ -9,7 +9,17 @@
 		}
 	}
 	
-	$save_to_pdf_link = '<a href="'. elgg_add_action_tokens_to_url('/action/event_manager/registration/pdf?k='.md5($event->time_created . get_site_secret() . $user_guid).'&guid='.$guid.'&u_g='.$user_guid).'">'.elgg_echo('event_manager:registration:view:savetopdf').' <img border="0" src="'.$vars['url'].'/mod/event_manager/_graphics/icons/pdf_icon.gif" /></a>';
+	$output = "";
+	
+	$save_to_pdf_options = array(
+			"name" => "save_to_pdf",
+			"text" => elgg_echo('event_manager:registration:view:savetopdf'),
+			"class" => "elgg-button elgg-button-action",
+			"href" => "action/event_manager/registration/pdf?k=" . md5($event->time_created . get_site_secret() . $user_guid) . "&guid=" . $guid . "&u_g=" .$user_guid,
+			"is_action" => true
+		);
+	
+	elgg_register_menu_item("title", ElggMenuItem::factory($save_to_pdf_options));
 	
 	if(!empty($key)) {
 		$tempKey = md5($event->time_created . get_site_secret() . $user_guid);
@@ -18,8 +28,6 @@
 			
 			$title_text = elgg_echo('event_manager:registration:registrationto')."'".$event->title."'";
 			
-			$output .= $save_to_pdf_link;
-
 			elgg_set_ignore_access(true);
 			
 			$output .= elgg_view('event_manager/event/pdf', array('entity' => $event));
@@ -51,8 +59,6 @@
 		if($event) {
 			if($event->canEdit() || ($user_guid == elgg_get_logged_in_user_guid())) {
 				$title_text = elgg_echo('event_manager:registration:registrationto')."'".$event->title."'";
-
-				$output .=  $save_to_pdf_link;
 				
 				$output .= elgg_view('event_manager/event/pdf', array('entity' => $event));
 
