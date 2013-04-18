@@ -26,7 +26,7 @@
 		
 		if($event && ($tempKey == $key) && get_entity($user_guid)) {
 			
-			$title_text = elgg_echo('event_manager:registration:registrationto')."'".$event->title."'";
+			$title_text = elgg_echo('event_manager:registration:registrationto') . " '" . $event->title . "'";
 			
 			elgg_set_ignore_access(true);
 			
@@ -58,7 +58,7 @@
 
 		if($event) {
 			if($event->canEdit() || ($user_guid == elgg_get_logged_in_user_guid())) {
-				$title_text = elgg_echo('event_manager:registration:registrationto')."'".$event->title."'";
+				$title_text = elgg_echo('event_manager:registration:registrationto') . " '" . $event->title . "'";
 				
 				$output .= elgg_view('event_manager/event/pdf', array('entity' => $event));
 
