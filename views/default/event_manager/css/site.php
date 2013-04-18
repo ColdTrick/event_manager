@@ -194,7 +194,8 @@
 
 #event-manager-program-day-lightbox {
 	width: 300px;
-	height: 200px;
+	height: 230px;
+	margin-bottom: 0px;
 }
 
 #event-manager-program-day-lightbox .datepick-popup {

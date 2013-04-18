@@ -16,9 +16,20 @@
 		
 		if (!empty($slots)){
 			
-			$result = '<div>' . $day->title .' ('.date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date).')</div><br /><br />';
+			$date = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date);
 			
-			$result .= $slots;
+			if($description = $day->description){
+				$title = $description . " (" . $date . ")";
+			} else {
+				$title = $date;
+			}
+			
+			$result = "<div>" . $title ."</div>";
+			if($day->title){
+				$result .= "<div>" . $day->title ."</div>";
+			}
+			
+			$result .= "<br /><br />" . $slots . "<br /><br />";
 			
 			echo $result;
 		}

@@ -16,8 +16,12 @@
 						$selected = false;
 						$tabtitles .= "<li>";
 					}
+					$day_title = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date);
+					if($description = $day->description){
+						$day_title = $description;
+					}
 					
-					$tabtitles .= "<a href='javascript:void(0);' rel='day_" . $day->getGUID() . "'>" . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date) . "</a>";
+					$tabtitles .= "<a href='javascript:void(0);' rel='day_" . $day->getGUID() . "'>" . $day_title . "</a>";
 					$tabtitles .= "</li>";
 					
 					$tabcontent .= elgg_view("event_manager/program/elements/day", array("entity" => $day, "selected" => $selected, "member" => $vars["member"]));

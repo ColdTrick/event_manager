@@ -5,21 +5,22 @@
 	
 	$result['valid'] = 0;
 	
-	if(!empty($parent_guid) && $event = get_entity($parent_guid)){
+	if (!empty($parent_guid) && $event = get_entity($parent_guid)) {
 		
-		if(($event->getSubtype() == Event::SUBTYPE) && ($event->canEdit()))	{
+		if (($event->getSubtype() == Event::SUBTYPE) && ($event->canEdit())) {
 			$guid = get_input("guid");
 			$title = get_input("title");
+			$description = get_input("description");
 			$date = get_input("date");
 		
-			if(!empty($date)){
+			if (!empty($date)) {
 				$date_parts = explode('-',$date);
 				$date = mktime(0,0,1,$date_parts[1],$date_parts[2],$date_parts[0]);
 			}
 			
-			if($guid && $day = get_entity($guid)){
+			if($guid && $day = get_entity($guid)) {
 				// edit existing
-				if(!($day instanceof EventDay)){
+				if (!($day instanceof EventDay)) {
 					unset($day);
 				}
 				$edit = true;
@@ -28,11 +29,14 @@
 				$day = new EventDay();
 			}
 			if($day && !empty($date)){
-				$day->title				= $title;
-				$day->container_guid	= $event->getGUID();
-				$day->owner_guid		= $event->getGUID();
-				$day->access_id			= $event->access_id;
-				if($day->save()){
+				
+				$day->title = $title;
+				$day->description = $description;
+				$day->container_guid = $event->getGUID();
+				$day->owner_guid = $event->getGUID();
+				$day->access_id = $event->access_id;
+				
+				if ($day->save()) {
 					
 					$day->date = $date;
 					
@@ -41,15 +45,18 @@
 					$result['valid'] = 1;
 					$result['guid'] = $day->getGUID();
 
-					if($edit){
+					if ($description = $day->description) {
+						$content_title = $description;
+					} else {
 						$content_title = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date);
-						
+					}
+					
+					if ($edit) {
 						$content_body = elgg_view("event_manager/program/elements/day", array("entity" => $day, "details_only" => true));
 						
 						$result['edit'] = 1;
 					} else {
-						
-						$content_title = '<li><a rel="day_' . $day->getGUID() . '" href="javascript:void(0);">' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date) .'</a></li>';
+						$content_title = '<li><a rel="day_' . $day->getGUID() . '" href="javascript:void(0);">' . $content_title .'</a></li>';
 						
 						$content_body = elgg_view("event_manager/program/elements/day", array("entity" => $day));
 						$result['edit'] = 0;

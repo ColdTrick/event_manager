@@ -7,7 +7,13 @@
 	if(!empty($day) && ($day instanceof EventDay)){
 		$can_edit = $day->canEdit();
 		
-		$details = $day->title;
+		$details = "";
+		if ($description = $day->description) {
+			$details .= "<div><b>" . elgg_echo("event_manager:edit:form:start_day") . ":</b> " . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date) . "</div>";
+		} 
+		
+		$details .= $day->title;
+		
 		if($can_edit && !elgg_in_context('programmailview') && ($participate == false)) {
 			$edit_day = "<a href='#' class='event_manager_program_day_edit' rel='" . $day->getGUID() . "'>" . elgg_echo("edit") . "</a>";
 			$delete_day = "<a href='#' class='event_manager_program_day_delete'>" . elgg_echo("delete") . "</a>";
