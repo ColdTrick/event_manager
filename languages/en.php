@@ -346,7 +346,7 @@ If you didn't request to unsubscribe from the event, please disregard this e-mai
 		'event_manager:river:event_relationship:create:event_exhibiting' => '%s is exhibiting at %s',
 		'event_manager:river:event_relationship:create:event_organizing' => '%s is organizing %s',
 
-		'river:create:object:event' => '%s created %s',
+		'river:create:object:event' => '%s created event %s',
 	
 		'calculate_route' => 'Calculate route',
 	
