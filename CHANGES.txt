@@ -1,5 +1,18 @@
 = Version history =
 
+2.6 (2013-04-19):
+
+- added: required field information added to registration form
+- added: event days now can have a custom title
+- added: option to hide owner block for an event
+- changed: registration pdf download moved to title button
+- changed: a lot of code cleanup
+- fixed: check if user is member of site when registering as a non logged in user
+- fixed: invalid unsubscribe link in email message
+- fixed: incorrect pdf downloaf link for registration
+- fixed: show only registration specific content in pdf download
+- fixed: registration object was not deleted correctly on unsubscribe
+
 2.5.1 (2013-03-25):
 
 - fixed: issue with simplecache googlemaps js
