@@ -316,12 +316,12 @@
 			$EOL = PHP_EOL;
 		}
 		
-		$headerString .= '"'.elgg_echo('name').'","'.elgg_echo('email').'","'.elgg_echo('username').'"';
+		$headerString .= '"'.elgg_echo('name').'";"'.elgg_echo('email').'";"'.elgg_echo('username').'"';
 		
 		if($event->registration_needed) {
 			if($registration_form = $event->getRegistrationFormQuestions()) {
 				foreach($registration_form as $question) {
-					$headerString .= ',"'.$question->title.'"';
+					$headerString .= ';"'.$question->title.'"';
 				}
 			}
 		}
@@ -341,7 +341,7 @@
 							$end_time_hour = date('H', $end_time);
 							$end_time_minutes = date('i', $end_time);
 							
-							$headerString .= ',"Event activity: \''.$eventSlot->title.'\' '.$date. ' ('.$start_time_hour.':'.$start_time_minutes.' - '.$end_time_hour.':'.$end_time_minutes.')"';
+							$headerString .= ';"Event activity: \''.$eventSlot->title.'\' '.$date. ' ('.$start_time_hour.':'.$start_time_minutes.' - '.$end_time_hour.':'.$end_time_minutes.')"';
 						}
 					}
 				}
@@ -352,17 +352,17 @@
 			foreach($attendees as $attendee) {
 				$answerString = '';
 				
-				$dataString .= '"'.$attendee->name.'","'.$attendee->email.'","'.$attendee->username.'"';
+				$dataString .= '"'.$attendee->name.'";"'.$attendee->email.'";"'.$attendee->username.'"';
 			
 				if($event->registration_needed) {
 					if($registration_form = $event->getRegistrationFormQuestions()) {
 						foreach($registration_form as $question) {
 							$answer = $question->getAnswerFromUser($attendee->getGUID());
 							
-							$answerString .= '"'.addslashes($answer->value).'",';
+							$answerString .= '"'.addslashes($answer->value).'";';
 						}
 					}	
-					$dataString .= ','.substr($answerString, 0, (strlen($answerString) -1));
+					$dataString .= ';'.substr($answerString, 0, (strlen($answerString) -1));
 				}
 				
 				if($event->with_program) {
@@ -371,9 +371,9 @@
 							if($eventSlots = $eventDay->getEventSlots()) {
 								foreach($eventSlots as $eventSlot) {
 									if(check_entity_relationship($attendee->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $eventSlot->getGUID())) {
-										$dataString .= ',"V"';
+										$dataString .= ';"V"';
 									} else {
-										$dataString .= ',""';
+										$dataString .= ';""';
 									}
 								}
 							}
@@ -399,12 +399,12 @@
 			$EOL = PHP_EOL;
 		}
 		
-		$headerString .= '"'.elgg_echo('name').'","'.elgg_echo('email').'","'.elgg_echo('username').'"';
+		$headerString .= '"'.elgg_echo('name').'";"'.elgg_echo('email').'";"'.elgg_echo('username').'"';
 		
 		if($event->registration_needed) {
 			if($registration_form = $event->getRegistrationFormQuestions()) {
 				foreach($registration_form as $question) {
-					$headerString .= ',"'.$question->title.'"';
+					$headerString .= ';"'.$question->title.'"';
 				}
 			}
 		}
@@ -424,7 +424,7 @@
 							$end_time_hour = date('H', $end_time);
 							$end_time_minutes = date('i', $end_time);
 							
-							$headerString .= ',"Event activity: \''.$eventSlot->title.'\' '.$date. ' ('.$start_time_hour.':'.$start_time_minutes.' - '.$end_time_hour.':'.$end_time_minutes.')"';
+							$headerString .= ';"Event activity: \''.$eventSlot->title.'\' '.$date. ' ('.$start_time_hour.':'.$start_time_minutes.' - '.$end_time_hour.':'.$end_time_minutes.')"';
 						}
 					}
 				}
@@ -435,17 +435,17 @@
 			foreach($waiters as $waiter) {
 				$answerString = '';
 				
-				$dataString .= '"'.$waiter->name.'","'.$waiter->email.'","'.$waiter->username.'"';
+				$dataString .= '"'.$waiter->name.'";"'.$waiter->email.'";"'.$waiter->username.'"';
 			
 				if($event->registration_needed) {
 					if($registration_form = $event->getRegistrationFormQuestions()) {
 						foreach($registration_form as $question) {
 							$answer = $question->getAnswerFromUser($waiter->getGUID());
 							
-							$answerString .= '"'.addslashes($answer->value).'",';
+							$answerString .= '"'.addslashes($answer->value).'";';
 						}
 					}	
-					$dataString .= ','.substr($answerString, 0, (strlen($answerString) -1));
+					$dataString .= ';'.substr($answerString, 0, (strlen($answerString) -1));
 				}
 				
 				if($event->with_program) {
@@ -454,9 +454,9 @@
 							if($eventSlots = $eventDay->getEventSlots()) {
 								foreach($eventSlots as $eventSlot) {
 									if(check_entity_relationship($waiter->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $eventSlot->getGUID())) {
-										$dataString .= ',"V"';
+										$dataString .= ';"V"';
 									} else {
-										$dataString .= ',""';
+										$dataString .= ';""';
 									}
 								}
 							}
