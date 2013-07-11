@@ -1,18 +1,18 @@
-<?php 
+<?php
 
 	$english = array(
 		'event_manager' => 'Event Manager',
 		'groups:enableevents' => 'Enable group events',
 		'event_manager:group' => 'Group events',
 		'event_manager:group:more' => 'More events',
-	
+
 		'item:object:event' => 'Events',
 		'item:object:eventslot' => 'Eventslots',
 		'item:object:eventday' => 'Eventdays',
 		'item:object:eventregistration' => 'Eventregistrations',
 		'item:object:eventregistrationquestion' => 'Event Registration Questions',
 		'item:object:eventquestions' => 'Event Questions',
-	
+
 		'event_manager:menu:title' => 'Events',
 		'event_manager:menu:events' => 'All events',
 		'event_manager:menu:group_events' => 'Group events',
@@ -20,11 +20,14 @@
 		'event_manager:menu:unsubscribe' => "Unsubscribe",
 		'event_manager:menu:unsubscribe_confirm' => "Confirm unsubscription",
 		'event_manager:menu:registration:completed' => "Event registration completed",
-		
+
+		'event_manager:notification:subject' => "An event has been created",
+		'event_manager:notification:body' => "%s created a new event %s [%s]",
+
 		'event_manager:sidebar:title' => 'Now showing',
-		
+
 		'river:comment:object:event' => '%s commented on %s',
-		
+
 		'event_manager:list:title' => 'Events',
 		'event_manager:list:searchevents' => 'Search events',
 		'event_manager:list:advancedsearch' => 'Advanced search',
@@ -35,7 +38,7 @@
 		'event_manager:list:meattending' => 'Show events I\'m  attending',
 		'event_manager:list:owning' => 'Show events I created',
 		'event_manager:list:friendsattending' => 'Show events my friends are attending',
-	
+
 		'event_manager:list:navigation:list' => 'List',
 		'event_manager:list:navigation:all' => 'All events',
 		'event_manager:list:navigation:other' => 'Other events',
@@ -49,12 +52,12 @@
 		'event_manager:full' => 'full',
 		'event_manager:personwaitinglist' => 'person on the waiting list',
 		'event_manager:peoplewaitinglist' => 'people on the waiting list',
-	
+
 		'event_manager:registration:list:navigation:waiting' => 'Waiting list',
 		'event_manager:registration:list:navigation:attending' => 'Attending',
-	
+
 		'event_manager:registration:view:savetopdf' => 'Save as pdf',
-		
+
 		'event_manager:edit:title' => 'Create / Edit Event',
 		'event_manager:edit:upload:title' => 'Add files to your event',
 		'event_manager:edit:form:file' => 'Choose file',
@@ -109,7 +112,7 @@
 		'event_manager:program:day:add' => 'Add day',
 		'event_manager:form:program:slot' => 'Add activity slot',
 		'event_manager:program:slot:add' => 'Add slot',
-		
+
 		'event_manager:editregistration:title' => 'Edit event registration form',
 		'event_manager:editregistration:addfield' => 'Add field',
 		'event_manager:editregistration:addfield:title' => 'Add registrationform field',
@@ -117,84 +120,84 @@
 		'event_manager:editregistration:fieldoptions' => 'Field options',
 		'event_manager:editregistration:commasepetared' => 'comma separated',
 		'event_manager:editregistration:question' => 'Question',
-	
-		'event_manager:registration:message:registrationnotneeded' => 'Registration to this event is not needed.',	
-		'event_manager:registration:register:title' => 'Register to event',	
-		'event_manager:registration:registrationto' => 'Registration to ',	
-		'event_manager:registration:edit:title' => 'Edit your registration',	
-		'event_manager:registration:edityourregistration' => 'Edit your registration',	
-		'event_manager:registration:viewyourregistration' => 'View your registration',	
-		'event_manager:registration:yourregistration' => 'Your registration',	
+
+		'event_manager:registration:message:registrationnotneeded' => 'Registration to this event is not needed.',
+		'event_manager:registration:register:title' => 'Register to event',
+		'event_manager:registration:registrationto' => 'Registration to ',
+		'event_manager:registration:edit:title' => 'Edit your registration',
+		'event_manager:registration:edityourregistration' => 'Edit your registration',
+		'event_manager:registration:viewyourregistration' => 'View your registration',
+		'event_manager:registration:yourregistration' => 'Your registration',
 		'event_manager:registration:programparticipation' => 'Program participation',
 		'event_manager:registration:editprogramparticipation' => 'Edit your program participation',
 		'event_manager:registration:required_fields' => 'Please fill in the required fields',
 		'event_manager:registration:required_fields:info' => 'Fields marked with a * are mandatory',
-			
-		'event_manager:event:registration:notification:owner:subject' => 'Event registration',	
+
+		'event_manager:event:registration:notification:owner:subject' => 'Event registration',
 		'event_manager:event:registration:notification:user:subject' => 'Event registration',
-	
+
 		'event_manager:event:registration:notification:owner:text:event_attending' => "Hello %s,
 
 %s signed up as 'attending' your '%s' event.",
-		
+
 		'event_manager:event:registration:notification:user:text:event_attending' => "Hello %s,
 
 You succesfully signed up as 'attending' the '%s' event.",
-	
+
 		'event_manager:event:registration:notification:owner:text:event_waitinglist' => "Hello %s,
 
 %s is on the waiting list for your '%s' event.",
-		
+
 		'event_manager:event:registration:notification:user:text:event_waitinglist' => "Hello %s,
 
-You are now on the waiting list for the '%s' event.",	
-	
+You are now on the waiting list for the '%s' event.",
+
 		'event_manager:event:registration:notification:owner:text:event_exhibiting' => "Hello %s,
 
 %s has signed up as 'exhibiting' at your '%s' event.",
-		
+
 		'event_manager:event:registration:notification:user:text:event_exhibiting' => "Hello %s,
 
-You succesfully signed up as 'exhibiting' at the '%s' event.",	
-	
+You succesfully signed up as 'exhibiting' at the '%s' event.",
+
 		'event_manager:event:registration:notification:owner:text:event_organizing' => "Hello %s,
 
 %s has signed up as 'organizing' of your '%s' event.",
-		
+
 		'event_manager:event:registration:notification:user:text:event_organizing' => "Hello %s,
 
-You succesfully signed up as 'organizing' of the '%s' event.",	
-	
+You succesfully signed up as 'organizing' of the '%s' event.",
+
 		'event_manager:event:registration:notification:owner:text:event_presenting' => "Hello %s,
 
 %s has signed up as 'presenter' at your '%s' event.",
-		
+
 		'event_manager:event:registration:notification:user:text:event_presenting' => "Hello %s,
 
-You succesfully signed up as 'presenter' at the '%s' event.",	
-	
+You succesfully signed up as 'presenter' at the '%s' event.",
+
 		'event_manager:event:registration:notification:owner:text:event_interested' => "Hello %s,
 
 %s has signed up as 'interested' in your '%s' event.",
-		
+
 		'event_manager:event:registration:notification:user:text:event_interested' => "Hello %s,
 
-You succesfully signed up as 'interested' in the '%s' event.",	
-	
+You succesfully signed up as 'interested' in the '%s' event.",
+
 		'event_manager:event:registration:notification:owner:text:event_undo' => "Hello %s,
 
 %s has signed off from your '%s' event.",
-		
+
 		'event_manager:event:registration:notification:user:text:event_undo' => "Hello %s,
 
-You signed off succesfully from the '%s' event.",		
-	
+You signed off succesfully from the '%s' event.",
+
 		'event_manager:event:registration:notification:user:text:event_spotfree' => "Hello %s,
 
-Someone signed off from the '%s' event. You are moved from the waiting list to attending.",	
-	
+Someone signed off from the '%s' event. You are moved from the waiting list to attending.",
+
 		'event_manager:event:registration:notification:program:linktext' => 'To view the program click on this link',
-	
+
 		'event_manager:event:rsvp' => 'RSVP',
 		'event_manager:event:editevent' => 'Edit event',
 		'event_manager:event:deleteevent' => 'Delete event',
@@ -215,26 +218,26 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:preview' => 'Preview icon',
 		'event_manager:event:createicon' => 'Create icon',
 		'event_manager:event:search_attendees' => 'Search attendees',
-	
+
 		'event_manager:registrationform:editquestion:required' => 'Required?',
 		'event_manager:registrationform:fieldorder:error' => 'Error changing field order',
-	
+
 		'event_manager:event:file:notfound:title' => 'File not found',
 		'event_manager:event:file:notfound:text' => 'The file you are looking for couldn\'t be found',
-	
+
 		'event_manager:event:register:register_link' => 'Register to this event',
 		'event_manager:event:register:no_registrationform' => 'The organizer of this event hasn\'t created a registration form yet.<br />Please try again later.',
-	
+
 		'event_manager:event:view:event' => 'Event',
 		'event_manager:event:view:date' => 'Date',
 		'event_manager:event:view:createdby' => 'Created by',
-	
+
 		//Error
 		'event_manager:login_needed' => 'You need to be logged in.',
 		'event_manager:event_not_found' => 'Event not found.',
 		'event_manager:relationship_type_not_found' => 'Relationship type not found.',
 		'event_manager:error:max_attendees:not_numeric' => 'Value for \'Max Attendees\' must be a numeric value.',
-	
+
 		// relationships
 		'event_manager:event:relationship:event_attending' => 'Attending',
 		'event_manager:event:relationship:event_attending:entity_menu' => '%s attendees',
@@ -243,21 +246,21 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:relationship:event_waitinglist:label' => 'On the waitinglist',
 		'event_manager:event:relationship:event_interested' => 'Interested',
 		'event_manager:event:relationship:event_interested:label' => 'Interested',
-		'event_manager:event:relationship:event_presenting' => 'Presenting',		
-		'event_manager:event:relationship:event_presenting:label' => 'Presenters',		
+		'event_manager:event:relationship:event_presenting' => 'Presenting',
+		'event_manager:event:relationship:event_presenting:label' => 'Presenters',
 		'event_manager:event:relationship:event_exhibiting' => 'Exhibiting',
 		'event_manager:event:relationship:event_exhibiting:label' => 'Exhibitors',
 		'event_manager:event:relationship:event_organizing' => 'Organizing',
 		'event_manager:event:relationship:event_organizing:label' => 'Organizers',
 		'event_manager:event:relationship:undo' => 'Undo',
 		'event_manager:event:relationship:kick' => 'Kick from event',
-			
+
 		'event_manager:event:rsvp:registration_ended' => 'Registration to this event has been ended.',
 		'event_manager:event:rsvp:event_full' => 'This event reached maximum attendees.',
 		'event_manager:event:rsvp:waiting_list' => 'Waiting list',
 		'event_manager:event:rsvp:nospotsleft' => 'This event has no spots left for it\'s activities.',
 		'event_manager:event:rsvp:waiting_list:message' => 'The event you want to attend to is full. Fill in the form below to get on the waiting list.',
-	
+
 		'event_manager:event:relationship:message:event_attending' => 'You are now attending this event',
 		'event_manager:event:relationship:message:event_waitinglist' => 'You are now on the waiting list for this event',
 		'event_manager:event:relationship:message:event_interested' => 'You are now interested in this event',
@@ -267,16 +270,16 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:relationship:message:event_undo' => 'You left this event',
 		'event_manager:event:relationship:message:error' => 'Error joining/leaving event',
 		'event_manager:event:relationship:message:unavailable_relation' => 'The RSVP type you selected is not available',
-	
+
 		// widgets
 		'event_manager:widgets:events:title' => 'Events',
 		'event_manager:widgets:events:description' => 'Show upcoming events',
-	
+
 		'event_manager:widgets:events:numbertodisplay' => 'Number of events to display',
 		'event_manager:widgets:events:showevents' => 'Show events',
 		'event_manager:widgets:events:showevents:icreated' => 'I created',
 		'event_manager:widgets:events:showevents:attendingto' => 'I\'m attending',
-	
+
 		// actions
 		'event_manager:action:event:edit:ok' => 'Event saved',
 		'event_manager:action:event:edit:error_fields' => 'Fill in the required fields',
@@ -286,7 +289,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:action:event:delete:ok' => 'Event deleted',
 		'event_manager:action:register:email:account_exists' => 'An account with the provided emailaddress already exists. Please log in to register for this event.',
 		'event_manager:action:register:email:registration_exists' => 'A registration for this event with the provided emailaddress already exists. You can only register once per emailaddress.',
-			
+
 		// settings
 		'event_manager:settings:google_maps' => 'Google Maps settings',
 		'event_manager:settings:google_api_key' => 'Enter your Google API key',
@@ -296,41 +299,41 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:settings:other' => 'Other',
 		'event_manager:settings:region_list' => 'Enter (comma separated) event regions',
 		'event_manager:settings:type_list' => 'Enter (comma separated) event types',
-		'event_manager:settings:migration' => 'Migrate %d events from "Event calender" plugin',	
-		'event_manager:settings:migration:success' => 'Succesfully migrated %d events',	
+		'event_manager:settings:migration' => 'Migrate %d events from "Event calender" plugin',
+		'event_manager:settings:migration:success' => 'Succesfully migrated %d events',
 		'event_manager:settings:migration:noeventstomigrate' => 'No events found to migrate',
 		'event_manager:settings:notification_sender' => 'RSVP notification sender (email)',
-	
+
 		'event_manager:settings:migration:site:whocancreate' => 'Who can create site events',
 		'event_manager:settings:migration:site:whocancreate:admin_only' => 'admin only',
 		'event_manager:settings:migration:site:whocancreate:everyone' => 'everyone',
-		
-		'event_manager:settings:migration:group:whocancreate' => 'Who can create group events',	
-		'event_manager:settings:migration:group:whocancreate:group_admin' => 'group owners and admins only',	
-		'event_manager:settings:migration:group:whocancreate:members' => 'any group member',	
-		'event_manager:settings:migration:group:whocancreate:no_one' => 'no one',	
-	
+
+		'event_manager:settings:migration:group:whocancreate' => 'Who can create group events',
+		'event_manager:settings:migration:group:whocancreate:group_admin' => 'group owners and admins only',
+		'event_manager:settings:migration:group:whocancreate:members' => 'any group member',
+		'event_manager:settings:migration:group:whocancreate:no_one' => 'no one',
+
 		// unsubscribe from event
 		'event_manager:unsubscribe:title' => "Unsubscribe from: %s",
 		'event_manager:unsubscribe:description' => "If you wish to unsubscribe from the event %s you can enter your e-mail address below. If a registration is found for the provided e-mail address you will receive a verification e-mail with further instructions.",
-		
+
 		'event_manager:action:unsubscribe:error:no_registration' => "No registration could be found for the supplied e-mail address",
 		'event_manager:action:unsubscribe:error:mail' => "An error occured while sending the confirmation e-mail, please try again",
 		'event_manager:action:unsubscribe:success' => "An e-mail has been sent to confirm you wish to unsubscribe from this event. Please check your inbox and follow the instructions in the e-mail",
-		
+
 		'event_manager:unsubscribe:confirm:subject' => "Confirm you wish to unsubscribe from %s",
 		'event_manager:unsubscribe:confirm:message' => "Hi %s,
-		
+
 You requested to be unsubscribed from the event %s (%s). If this is correct please click on the link below to finish the process.
 
 %s
 
 If you didn't request to unsubscribe from the event, please disregard this e-mail.",
-		
+
 		'event_manager:unsubscribe_confirm:error:code' => "The supplied code is incorrect, please check your e-mail",
 		'event_manager:unsubscribe_confirm:title' => "Confirm unsubscription from: %s",
 		'event_manager:unsubscribe_confirm:description' => "%s you requested to be unsubscribed from %s. To complete the unsubscription please click the confirm button below.",
-		
+
 		'event_manager:action:unsubscribe_confirm:error' => "An unknown error occured while unsubscribing you from the event, please try again",
 		'event_manager:action:unsubscribe_confirm:success' => "You have successfully been unsubscribed from the event",
 
@@ -338,7 +341,7 @@ If you didn't request to unsubscribe from the event, please disregard this e-mai
 		'event_manager:registration:completed:title' => "Thank you for registering for %s",
 		'event_manager:registration:completed' => "%s you have successfully completed the registration for %s. We hope you enjoy the event.",
 		'event_manager:registration:continue' => "Continue to the event",
-	
+
 		// river
 		'event_manager:river:event_relationship:create:event_attending' => '%s is attending %s',
 		'event_manager:river:event_relationship:create:event_interested' => '%s is interested in %s',
@@ -347,15 +350,15 @@ If you didn't request to unsubscribe from the event, please disregard this e-mai
 		'event_manager:river:event_relationship:create:event_organizing' => '%s is organizing %s',
 
 		'river:create:object:event' => '%s created event %s',
-	
+
 		'calculate_route' => 'Calculate route',
-	
+
 		'from' => 'From',
 		'to' => 'To',
-		'approve' => 'Approve',	
-		'disapprove' => 'Disapprove',	
+		'approve' => 'Approve',
+		'disapprove' => 'Disapprove',
 		'requiredfields' => 'Required fields',
 		'confirm' => 'Confirm',
 	);
-	
+
 	add_translation('en', $english);

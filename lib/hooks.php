@@ -1,41 +1,41 @@
 <?php
-	
+
 	function event_manager_user_hover_menu($hook, $entity_type, $returnvalue, $params){
 		$result = $returnvalue;
 		$event = false;
-		
+
 		$guid = get_input("guid");
-		
+
 		if(!empty($guid) && ($entity = get_entity($guid))){
 			if($entity->getSubtype() == Event::SUBTYPE) {
 				$event = $entity;
 			}
 		}
-		
+
 		if($event){
 			$user = elgg_extract("entity", $params);
-			
+
 			if($event->getOwnerGUID() != $user->getGUID()){
 				$href = elgg_get_site_url() . 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&user=' . $user->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO;
 				$href = elgg_add_action_tokens_to_url($href);
-				
+
 				$item = new ElggMenuItem("event_manager", elgg_echo("event_manager:event:relationship:kick"), $href);
 				$item->setSection("action");
-				
+
 				$result[] = $item;
 			}
 		}
-		
+
 		return $result;
 	}
-	
+
 	function event_manager_entity_menu($hook, $entity_type, $returnvalue, $params){
 		$result = $returnvalue;
-		
+
 		if (elgg_in_context("widgets")) {
 			return $result;
 		}
-		
+
 		if (($entity = elgg_extract("entity", $params)) && elgg_instanceof($entity, "object", Event::SUBTYPE)) {
 			$attendee_menu_options = array(
 				"name" => "attendee_count",
@@ -43,7 +43,7 @@
 				"text" => elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($entity->countAttendees())),
 				"href" => false
 			);
-			
+
 			$result[] = ElggMenuItem::factory($attendee_menu_options);
 
 			// change some of the basic menus
@@ -56,13 +56,13 @@
 						case "delete":
 							$href = elgg_get_site_url() . "action/event_manager/event/delete?guid=" . $entity->getGUID();
 							$href = elgg_add_action_tokens_to_url($href);
-							
+
 							$item->setHref($href);
 							break;
 					}
 				}
 			}
-			
+
 			// show an unregister link for non logged in users
 			if (!elgg_is_logged_in() && $entity->register_nologin) {
 				$result[] = ElggMenuItem::factory(array(
@@ -73,10 +73,10 @@
 				));
 			}
 		}
-		
+
 		return $result;
 	}
-	
+
 	/**
 	 * add menu item to owner block
 	 *
@@ -92,10 +92,10 @@
 			$item = new ElggMenuItem('events', elgg_echo('event_manager:menu:group_events'), $url);
 			$returnvalue[] = $item;
 		}
-		
+
 		return $returnvalue;
 	}
-	
+
 	/**
 	 * Generates correct title link for widgets depending on the context
 	 *
@@ -108,7 +108,7 @@
 	function event_manager_widget_events_url($hook, $entity_type, $returnvalue, $params){
 		$result = $returnvalue;
 		$widget = $params["entity"];
-		
+
 		if(empty($result) && ($widget instanceof ElggWidget) && $widget->handler == "events"){
 			switch($widget->context){
 				case "index":
@@ -124,7 +124,7 @@
 		}
 		return $result;
 	}
-	
+
 	/**
 	 * Allow non user to remove their registration correctly
 	 *
@@ -137,18 +137,55 @@
 	function event_manager_permissions_check_handler($hook, $entity_type, $returnvalue, $params) {
 		global $EVENT_MANAGER_UNDO_REGISTRATION;
 		$result = $returnvalue;
-		
+
 		// only override the hook if not already allowed
 		if (!$result && !empty($params) && is_array($params)) {
 			$entity = elgg_extract("entity", $params);
-			
+
 			if (elgg_instanceof($entity, "object", EventRegistration::SUBTYPE)) {
 				if (!empty($EVENT_MANAGER_UNDO_REGISTRATION)) {
 					$result = true;
 				}
 			}
 		}
-		
+
 		return $result;
 	}
-	
+
+	/**
+	 * Notification body for events
+	 *
+	 * @param string $hook
+	 * @param string $entity_type
+	 * @param string $returnvalue
+	 * @param array $params
+	 * @return string
+	 */
+	function event_manager_notify_message($hook, $entity_type, $returnvalue, $params) {
+		$result = $returnvalue;
+
+		if (!empty($params) && is_array($params)) {
+			$entity = elgg_extract("entity", $params);
+			$method = elgg_extract("method", $params);
+
+			if (!empty($entity) && elgg_instanceof($entity, "object", Event::SUBTYPE)) {
+				$user = elgg_get_logged_in_user_entity();
+				if (!$user) {
+					$user = $entity->getOwnerEntity();
+				}
+
+				$title = $entity->title;
+				$start_day = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $entity->start_day);
+
+				$result = elgg_echo("event_manager:notification:body", array($user->name, $title, $start_day));
+
+				if ($description = $entity->description) {
+					$result .= PHP_EOL . PHP_EOL . elgg_get_excerpt($description);
+				}
+
+				$result .= PHP_EOL . PHP_EOL . $entity->getURL();
+			}
+		}
+
+		return $result;
+	}
