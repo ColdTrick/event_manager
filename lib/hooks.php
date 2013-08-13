@@ -174,10 +174,7 @@
 					$user = $entity->getOwnerEntity();
 				}
 
-				$title = $entity->title;
-				$start_day = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $entity->start_day);
-
-				$result = elgg_echo("event_manager:notification:body", array($user->name, $title, $start_day));
+				$result = elgg_echo("event_manager:notification:body", array($user->name, $entity->title));
 
 				if ($description = $entity->description) {
 					$result .= PHP_EOL . PHP_EOL . elgg_get_excerpt($description);

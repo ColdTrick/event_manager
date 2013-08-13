@@ -22,7 +22,7 @@
 		'event_manager:menu:registration:completed' => "Event registration completed",
 
 		'event_manager:notification:subject' => "An event has been created",
-		'event_manager:notification:body' => "%s created a new event %s [%s]",
+		'event_manager:notification:body' => "%s created a new event %s",
 
 		'event_manager:sidebar:title' => 'Now showing',
 
