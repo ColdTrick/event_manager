@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	// defaults
 	$fields = array(
@@ -19,7 +19,7 @@
 			"fee"					=> ELGG_ENTITIES_ANY_VALUE,
 			"twitter_hash"			=> ELGG_ENTITIES_ANY_VALUE,
 			"organizer"				=> ELGG_ENTITIES_ANY_VALUE,
-			"organizer_rsvp"		=> 1,
+			"organizer_rsvp"		=> 0,
 			"start_day" 			=> time(),
 			"start_time"			=> time(),
 			"registration_ended" 	=> ELGG_ENTITIES_ANY_VALUE,
@@ -34,10 +34,10 @@
 			"waiting_list_enabled"	=> ELGG_ENTITIES_ANY_VALUE,
 			"access_id"				=> get_default_access(),
 			"container_guid"		=> elgg_get_page_owner_entity()->getGUID(),
-			"event_interested"		=> 1,
-			"event_presenting"		=> 1,
-			"event_exhibiting"		=> 1,
-			"event_organizing"		=> 1,
+			"event_interested"		=> 0,
+			"event_presenting"		=> 0,
+			"event_exhibiting"		=> 0,
+			"event_organizing"		=> 0,
 			"registration_completed"=> ELGG_ENTITIES_ANY_VALUE,
 		);
 		
@@ -53,7 +53,7 @@
 		$fields["tags"]			= string_to_tag_array($event->tags);
 		
 		$start_time_hours = date('H', $event->start_time);
-		$start_time_minutes = date('i', $event->start_time);	
+		$start_time_minutes = date('i', $event->start_time);
 		
 		if($event->icontime) {
 			$currentIcon = '<img src="'.$event->getIcon().'" />';
@@ -111,7 +111,7 @@
 	
 	if(!empty($currentIcon)) {
 		$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:currenticon') . "</td><td>".$currentIcon."<br />".
-		elgg_view('input/checkboxes', array('name' => 'delete_current_icon', 'id' => 'delete_current_icon', 'value' => 0, 'options' => 
+		elgg_view('input/checkboxes', array('name' => 'delete_current_icon', 'id' => 'delete_current_icon', 'value' => 0, 'options' =>
 		array(elgg_echo('event_manager:edit:form:delete_current_icon')=>'1')))."</td></tr>";
 	}
 	
@@ -119,7 +119,7 @@
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:organizer') . "</td><td>" . elgg_view('input/text', array('name' => 'organizer', 'value' => $fields["organizer"]));
 	if(!$event){
 		$form_body .= "<br/>" . elgg_view('input/checkboxes', array('name' => 'organizer_rsvp', 'id' => 'organizer_rsvp', 'value' => $fields["organizer_rsvp"], 'options' => array(elgg_echo('event_manager:edit:form:organizer_rsvp')=>'1')));
-	} 
+	}
 	$form_body .= "</td></tr>";
 
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:venue') . "</td><td>" . elgg_view('input/text', array('name' => 'venue', 'value' => $fields["venue"])) . "</td></tr>";
@@ -130,9 +130,9 @@
 		$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:region') . "</td><td>" . elgg_view('input/dropdown', array('name' => 'region', 'value' => $fields["region"], 'options' => $region_options)) . "</td></tr>";
 	}
 	
-	if($type_options) { 
+	if($type_options) {
 		$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:type') . "</td><td>" . elgg_view('input/dropdown', array('name' => 'event_type', 'value' => $fields["event_type"], 'options' => $type_options)) . "</td></tr>";
-	} 
+	}
 
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:contact_details') . "</td><td>" . elgg_view('input/text', array('name' => 'contact_details', 'value' => $fields["contact_details"])) . "</td></tr>";
 	
@@ -189,10 +189,10 @@
 	$form_body .= '<div class="event_manager_required">(* = '.elgg_echo('requiredfields').')</div>';
 	
 	$form = elgg_view('input/form', array(
-									'id' => 'event_manager_event_edit', 
-									'name' 	=> 'event_manager_event_edit', 
-									'action' => '/action/event_manager/event/edit', 
-									'enctype' => 'multipart/form-data', 
+									'id' => 'event_manager_event_edit',
+									'name' 	=> 'event_manager_event_edit',
+									'action' => '/action/event_manager/event/edit',
+									'enctype' => 'multipart/form-data',
 									'body' => $form_body
 									));
 	
