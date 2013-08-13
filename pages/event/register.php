@@ -6,7 +6,7 @@
 		if($entity->getSubtype() == Event::SUBTYPE) {
 			$event = $entity;
 		
-			if(!$event->registration_needed) {
+			if((!$event->registration_needed && elgg_is_logged_in()) || (!elgg_is_logged_in() && !$event->register_nologin))  {
 				system_message(elgg_echo('event_manager:registration:message:registrationnotneeded'));
 				forward($event->getURL());
 			}
@@ -40,7 +40,7 @@
 							display: none;
 						}
 					</style>
-				<?php 
+				<?php
 			}
 						
 			$body = elgg_view_layout('content', array(
