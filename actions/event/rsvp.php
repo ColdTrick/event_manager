@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	$guid = (int) get_input("guid");
 	$user_guid = get_input("user", elgg_get_logged_in_user_guid());
@@ -15,22 +15,22 @@
 					//echo '- relation type is \'attending\'<br />';
 					if($event->hasEventSpotsLeft() && $event->hasSlotSpotsLeft()) {
 						//echo '- event and it\'s slots has spots left<br />';
-						if($event->registration_needed) {
+						if($event->registration_needed && $event->generateRegistrationForm()) {
 							//echo '- forward to event registration<br />';
 							$forward_url = '/events/event/register/' . $guid . '/' . $rel;
 							$notice = false;
 						} else {
 							//echo '- no registration needed, rsvp immediately<br />';
 							$rsvp = $event->rsvp($rel, $user_guid);
-						}						
+						}
 					} else {
 						//echo '- no spots left for this event, nor it\'s slots<br />';
 						if($event->waiting_list_enabled) {
 							$rel = EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST;
-							//echo '- waiting list is enabled<br />';							
+							//echo '- waiting list is enabled<br />';
 							if($event->openForRegistration()) {
-								//echo '- event is open for registration (datewise)<br />';	
-								if($event->registration_needed) {							
+								//echo '- event is open for registration (datewise)<br />';
+								if($event->registration_needed && $event->generateRegistrationForm()) {
 									if($registration = $event->generateRegistrationForm()) {
 										//echo '- event CAN generate a registration form<br />';
 										//echo '- show normal event waiting list<br />';
