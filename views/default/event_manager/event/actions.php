@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	$event = $vars["entity"];
 
@@ -9,7 +9,7 @@
 	if ($event->canEdit()) {
 		if ($tools = elgg_view("event_manager/event/tools", $vars)) {
 			$options[] = $tools;
-		}	
+		}
 	}
 	
 	if (elgg_is_logged_in()) {
@@ -21,9 +21,9 @@
 			if ($registration = elgg_view("event_manager/event/registration", $vars)) {
 				$options[] = $registration;
 			}
-		}		
+		}
 	} else {
-		if ($event->register_nologin) {
+		if ($event->register_nologin && $event->openForRegistration()) {
 			$register_link = '/events/event/register/'.$event->getGUID();
 			
 			$register_button = elgg_view('output/url', array("class" => "elgg-button elgg-button-submit", "href" => $register_link, "text" => elgg_echo('event_manager:event:register:register_link')));
@@ -41,11 +41,11 @@
 		if ($count = $event->getRelationships(true)) {
 			if (array_key_exists(EVENT_MANAGER_RELATION_ATTENDING, $count)) {
 				$attending_count = $count[EVENT_MANAGER_RELATION_ATTENDING];
-			} 
+			}
 		}
 		
 		$options[] = elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($attending_count));
-	}	
+	}
 	
 	if ($event->canEdit() && $vars["full_view"]) {
 		// add attendee search

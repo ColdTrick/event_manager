@@ -21,6 +21,11 @@
 					}
 				}
 			}
+			
+			if (!$event->openForRegistration()) {
+				register_error(elgg_echo("event_manager:event:rsvp:registration_ended"));
+				forward($event->getURL());
+			}
 				
 			$form = $event->generateRegistrationForm();
 
