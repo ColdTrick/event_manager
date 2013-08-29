@@ -47,11 +47,28 @@
 		$options[] = elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($attending_count));
 	}
 	
-	if ($event->canEdit() && $vars["full_view"]) {
-		// add attendee search
-		$search_box = "<span class='event-manager-event-view-search-attendees' title='" . elgg_echo("event_manager:event:search_attendees") . "'>" . elgg_view("input/text", array("id" => "event-manager-event-view-search-attendees","name" => "q","class" => "mrs", "autocomplete" => "off")) . elgg_view_icon("search") . "</span>";
+	if ($event->canEdit() && $vars["full_view"] && $event->show_attendees) {
+		$attending_count = 0;
+		$waiting_count = 0;
 		
-		$options[] = $search_box;
+		if ($count = $event->getRelationships(true)) {
+			if (array_key_exists(EVENT_MANAGER_RELATION_ATTENDING, $count)) {
+				$attending_count = $count[EVENT_MANAGER_RELATION_ATTENDING];
+			}
+			if (array_key_exists(EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST, $count)) {
+				$waiting_count = $count[EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST];
+			}
+		}
+		
+		if ($attending_count || $waiting_count) {
+			// add attendee search
+			$search_box = "<span class='event-manager-event-view-search-attendees' title='" . elgg_echo("event_manager:event:search_attendees") . "'>";
+			$search_box .= elgg_view("input/text", array("id" => "event-manager-event-view-search-attendees","name" => "q","class" => "mrs", "autocomplete" => "off"));
+			$search_box .= elgg_view_icon("search");
+			$search_box .= "</span>";
+			
+			$options[] = $search_box;
+		}
 	}
 	
 	echo implode(" | ", $options);
