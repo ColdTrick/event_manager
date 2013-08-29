@@ -31,6 +31,5 @@ ToDo
 - review class functions
 - tools registration list
 - have a "events created by user" page ?? 
-- no questionair required for registration by non logged in users
 - add support for site categories plugin
 - location search (from text input)
