@@ -1,5 +1,9 @@
 = Version history =
 
+x.x ():
+
+- removed: twitter sidebar widget because twitter doesn't support this anymore
+
 2.6 (2013-04-19):
 
 - added: required field information added to registration form

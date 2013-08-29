@@ -68,8 +68,6 @@
 
 		elgg_register_js("event_manager.maps.helper", $em_maps_js);
 		elgg_register_js("event_manager.maps.base", "//maps.googleapis.com/maps/api/js?key=" . $maps_key . "&sensor=true");
-
-		elgg_register_js("jquery.tweet", elgg_get_site_url() . "mod/event_manager/vendors/tweet/jquery.tweet.js");
 	}
 
 	function event_manager_page_handler($page) {
