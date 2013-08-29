@@ -2,12 +2,7 @@ Event Manager
 =============
 Manage events, from a simple appointment to a multi day event with day programs and subscriptions
 
-Contents
---------
-1. Features
-2. ToDo
-
-1. Features
+Features
 -----------
 
 - Managing sidewide/group events
@@ -25,7 +20,7 @@ Contents
 - Import events from "Event calender"
 - Enable/disable group events
 
-2. ToDo
+ToDo
 -------
 
 - notifications to the users
