@@ -15,10 +15,12 @@
 		
 	// Get the size
 	$size = strtolower(get_input('size'));
-	if (!in_array($size, elgg_get_config("icon_sizes"))) {
+	$icon_sizes = elgg_get_config("icon_sizes");
+	
+	if (empty($size) || empty($icon_sizes) || !array_key_exists($size, $icon_sizes)) {
 		$size = "medium";
 	}
-
+	
 	// If event doesn't exist, return default icon
 	if (!$event) {
 		$path = elgg_view("icon/events/default/$size");
