@@ -204,4 +204,3 @@
 	elgg_register_action("event_manager/event/register",				dirname(__FILE__) . "/actions/event/register.php", "public");
 
 	elgg_register_action("event_manager/migrate/calender",				dirname(__FILE__) . "/actions/migrate/calender.php", "admin");
-

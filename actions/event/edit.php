@@ -56,7 +56,7 @@
 	if(!empty($endregistration_day)) {
 		$date_endregistration_day = explode('-',$endregistration_day);
 		$endregistration_day = mktime(0,0,1,$date_endregistration_day[1],$date_endregistration_day[2],$date_endregistration_day[0]);
-	}		
+	}
 	
 	if(!empty($guid) && $entity = get_entity($guid)) {
 		if($entity->getSubtype() == Event::SUBTYPE) {
@@ -96,15 +96,14 @@
 		$event->setLatLong($latitude, $longitude);
 		$event->tags 				= $tags;
 		
-		
-		if($newEvent) {
+		if ($newEvent) {
 			// add event create river event
 			add_to_river('river/object/event/create', 'create', elgg_get_logged_in_user_guid(), $event->getGUID());
 			
 			// add optional organizer relationship
-			if($organizer_rsvp){
+			if ($organizer_rsvp) {
 				$event->rsvp(EVENT_MANAGER_RELATION_ORGANIZING, null, true, false);
-			} 
+			}
 		}
 		
 		$event->shortdescription 	= $shortdescription;
@@ -140,7 +139,7 @@
 		$event->registration_completed = $registration_completed;
 				
 		$eventDays = $event->getEventDays();
-		if($with_program && !$eventDays) {
+		if ($with_program && !$eventDays) {
 			$eventDay = new EventDay();
 			$eventDay->title			= 'Event day 1';
 			$eventDay->container_guid	= $event->getGUID();
@@ -167,64 +166,46 @@
 		
 		$prefix = "events/".$event->guid."/";
 		
-		if ((isset($_FILES['icon'])) && (substr_count($_FILES['icon']['type'],'image/'))) {			
-			$filehandler = new ElggFile();
-			$filehandler->owner_guid = $event->owner_guid;
-			$filehandler->setFilename($prefix . "master.jpg");
-			$filehandler->open("write");
-			$filehandler->write(get_uploaded_file('icon'));
-			$filehandler->close();
-		
-			$thumbtiny 		= get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),25,25, true);
-			$thumbsmall 	= get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),40,40, true);
-			$thumbmedium 	= get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),100,100, true);
-			$thumblarge 	= get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),200,200, true);
-			
-			if ($thumbtiny) {
-				$thumb = new ElggFile();
-				$thumb->owner_guid = $event->owner_guid;
-				$thumb->setMimeType('image/jpeg');
-		
-				$thumb->setFilename($prefix."tiny.jpg");
-				$thumb->open("write");
-				$thumb->write($thumbtiny);
-				$thumb->close();
-		
-				$thumb->setFilename($prefix."small.jpg");
-				$thumb->open("write");
-				$thumb->write($thumbsmall);
-				$thumb->close();
-		
-				$thumb->setFilename($prefix."medium.jpg");
-				$thumb->open("write");
-				$thumb->write($thumbmedium);
-				$thumb->close();
-		
-				$thumb->setFilename($prefix."large.jpg");
-				$thumb->open("write");
-				$thumb->write($thumblarge);
-				$thumb->close();
-
-				$event->icontime = time();
-			}
-		} elseif($delete_current_icon) {
-			foreach(event_manager_icon_sizes() as $iconSize) {
-				$filehandler = new ElggFile();
-				$filehandler->owner_guid = $event->owner_guid;
-				$filehandler->setFilename($prefix . $iconSize . ".jpg");
+		if (($icon_file = get_resized_image_from_uploaded_file("icon", 100, 100)) && ($icon_sizes = elgg_get_config("icon_sizes"))) {
+			// create icon
 				
-				if($filehandler->exists()) {
-					$filehandler->delete();
+			$fh = new ElggFile();
+			$fh->owner_guid = $event->getOwnerGUID();
+				
+			foreach ($icon_sizes as $icon_name => $icon_info) {
+				if ($icon_file = get_resized_image_from_uploaded_file("icon", $icon_info["w"], $icon_info["h"], $icon_info["square"], $icon_info["upscale"])) {
+					$fh->setFilename($prefix . $icon_name . ".jpg");
+						
+					if($fh->open("write")){
+						$fh->write($icon_file);
+						$fh->close();
+					}
 				}
 			}
+				
+			$event->icontime = time();
+		} elseif ($delete_current_icon) {
+			if ($icon_sizes = elgg_get_config("icon_sizes")) {
+				$fh = new ElggFile();
+				$fh->owner_guid = $event->getOwnerGUID();
+					
+				foreach ($icon_sizes as $name => $info) {
+					$fh->setFilename($prefix . $name . ".jpg");
+			
+					if($fh->exists()){
+						$fh->delete();
+					}
+				}
+			}
+			
 			unset($event->icontime);
 		}
 		
 		// added because we need an update event
-		if($event->save()){
+		if ($event->save()) {
 			system_message(elgg_echo("event_manager:action:event:edit:ok"));
 			$forward_url = $event->getURL();
-		} 
+		}
 	} else {
 		
 		// TODO: replace with sticky forms functionality

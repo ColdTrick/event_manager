@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 	function event_manager_event_get_relationship_options()	{
@@ -8,24 +8,12 @@
 				EVENT_MANAGER_RELATION_PRESENTING,
 				EVENT_MANAGER_RELATION_EXHIBITING,
 				EVENT_MANAGER_RELATION_ORGANIZING,
-				EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,			
+				EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
 			);
 			
 		return $result;
 	}
 
-	function event_manager_icon_sizes()	{
-		$result = array(
-				'tiny',
-				'small',
-				'medium',
-				'large',
-				'master'				
-			);
-			
-		return $result;
-	}
-	
 	function event_manager_get_registration_fiedtypes()	{
 		$result = array(
 				'Textfield' => 'text',
@@ -59,7 +47,7 @@
 		
 		$options = array_merge($defaults, $options);
 		
-		$fields = array('title', 'description');	
+		$fields = array('title', 'description');
 		
 		$entities_options = array(
 			'type' 			=> 'object',
@@ -76,7 +64,7 @@
 			$entities_options['container_guid'] = $options['container_guid'];
 		}
 		
-		if($options['query']) {		
+		if($options['query']) {
 			$entities_options["joins"][] = "JOIN " . elgg_get_config("dbprefix") . "objects_entity oe ON e.guid = oe.guid";
 			$entities_options['wheres'][] = event_manager_search_get_where_sql('oe', array('title', 'description'), $options, false);
 		}
@@ -102,7 +90,7 @@
 		}
 		
 		if($options['owning']) {
-			$entities_options['owner_guids'] = array(elgg_get_logged_in_user_guid()); 			
+			$entities_options['owner_guids'] = array(elgg_get_logged_in_user_guid());
 		}
 		
 		if($options["region"]){
@@ -251,8 +239,8 @@
 		if (!is_null($container_guid)) {
 			if (is_array($container_guid)) {
 				foreach($container_guid as $key => $val){
-					$container_guid[$key] = (int) $val;	
-				} 
+					$container_guid[$key] = (int) $val;
+				}
 				$where[] = "e.container_guid in (" . implode(",",$container_guid) . ")";
 			} else {
 				$container_guid = (int) $container_guid;
@@ -361,7 +349,7 @@
 							
 							$answerString .= '"'.addslashes($answer->value).'";';
 						}
-					}	
+					}
 					$dataString .= ';'.substr($answerString, 0, (strlen($answerString) -1));
 				}
 				
@@ -444,7 +432,7 @@
 							
 							$answerString .= '"'.addslashes($answer->value).'";';
 						}
-					}	
+					}
 					$dataString .= ';'.substr($answerString, 0, (strlen($answerString) -1));
 				}
 				
@@ -477,7 +465,7 @@
 	/**
 	 * @todo this has to be better, check where it is called
 	 * => plugins/event_manager/settings.php
-	 * 
+	 *
 	 * @return multitype:NULL multitype:unknown
 	 */
 	function event_manager_get_migratable_events()	{
@@ -495,7 +483,7 @@
 			'subtype' 		=> 'event_calendar',
 			'limit'			=> false,
 			'wheres' => array("NOT EXISTS (SELECT 1 FROM " . elgg_get_config("dbprefix") . "metadata md WHERE md.entity_guid = e.guid AND md.name_id = $migrated_id AND md.value_id = $one_id)")
-		);		
+		);
 		
 		if($entities = elgg_get_entities_from_metadata($entities_options)){
 			$result['entities'] = $entities;
@@ -528,7 +516,7 @@
 		
 		// add the table prefix to the fields
 		foreach ($fields as $i => $field) {
-			if ($table) 
+			if ($table)
 			{
 				$fields[$i] = "$table.$field";
 			}
@@ -590,8 +578,8 @@
 	 
 	}
 	
-	function trim_array_values(&$value)	{ 
-	    $value = trim($value); 
+	function trim_array_values(&$value)	{
+	    $value = trim($value);
 	}
 	
 	function event_manager_event_region_options() {
@@ -645,7 +633,7 @@
 		return elgg_view('input/dropdown', array('name' => $name, 'value' => $value, 'options' => $time_minutes_options));
 	}
 	
-	function event_manager_time_pad(&$value) { 
+	function event_manager_time_pad(&$value) {
 	    $value = str_pad($value, 2, "0", STR_PAD_LEFT);
 	}
 	
@@ -659,7 +647,7 @@
 		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
 		
-		curl_setopt($ch, CURLOPT_COOKIE, 'Elgg='.$_COOKIE['Elgg']); 
+		curl_setopt($ch, CURLOPT_COOKIE, 'Elgg='.$_COOKIE['Elgg']);
 		
 		$content = curl_exec($ch);
 		
