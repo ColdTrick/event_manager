@@ -81,7 +81,7 @@
 	}
 	
 	if(!empty($title) && !empty($start_day)) {
-		if(!$event)	{
+		if (!isset($event)) {
 			$newEvent = true;
 			$event = new Event();
 		}
@@ -125,7 +125,6 @@
 		$event->fee 				= $fee;
 		$event->start_day 			= $start_day;
 		$event->start_time 			= $start_time;
-		$event->end_time 			= $end_time;
 		$event->with_program 		= $with_program;
 		$event->endregistration_day = $endregistration_day;
 		$event->register_nologin 	= $register_nologin;
@@ -229,7 +228,6 @@
 		$_SESSION['createevent_values']['longitude'] 			= $longitude;
 		$_SESSION['createevent_values']['start_day'] 			= $start_day;
 		$_SESSION['createevent_values']['start_time'] 			= $start_time;
-		$_SESSION['createevent_values']['end_time'] 			= $end_time;
 		$_SESSION['createevent_values']['endregistration_day'] 	= $endregistration_day;
 		$_SESSION['createevent_values']['with_program']			= $with_program;
 		$_SESSION['createevent_values']['registration_ended']	= $registration_ended;
