@@ -1,22 +1,22 @@
 <?php
 
-	define("EVENT_MANAGER_FORMAT_DATE_EVENTDAY", 	"Y-m-d");
+	define("EVENT_MANAGER_FORMAT_DATE_EVENTDAY", "Y-m-d");
 
-	define("EVENT_MANAGER_SEARCH_LIST_LIMIT", 		10);
-	define("EVENT_MANAGER_SEARCH_LIST_MAPS_LIMIT", 	50);
+	define("EVENT_MANAGER_SEARCH_LIST_LIMIT", 10);
+	define("EVENT_MANAGER_SEARCH_LIST_MAPS_LIMIT", 50);
 
-	define("EVENT_MANAGER_RELATION_ATTENDING", 				"event_attending");
-	define("EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST", 	"event_waitinglist");
-	define("EVENT_MANAGER_RELATION_EXHIBITING",				"event_exhibiting");
-	define("EVENT_MANAGER_RELATION_ORGANIZING",				"event_organizing");
-	define("EVENT_MANAGER_RELATION_PRESENTING", 			"event_presenting");
-	define("EVENT_MANAGER_RELATION_INTERESTED", 			"event_interested");
-	define("EVENT_MANAGER_RELATION_UNDO", 					"event_undo");
+	define("EVENT_MANAGER_RELATION_ATTENDING", "event_attending");
+	define("EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST", "event_waitinglist");
+	define("EVENT_MANAGER_RELATION_EXHIBITING", "event_exhibiting");
+	define("EVENT_MANAGER_RELATION_ORGANIZING", "event_organizing");
+	define("EVENT_MANAGER_RELATION_PRESENTING", "event_presenting");
+	define("EVENT_MANAGER_RELATION_INTERESTED", "event_interested");
+	define("EVENT_MANAGER_RELATION_UNDO", "event_undo");
 
-	define("EVENT_MANAGER_RELATION_REGISTRATION_QUESTION", 			"event_registration_questions");
-	define("EVENT_MANAGER_RELATION_USER_REGISTERED", 				"event_user_registered");
-	define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION", 				"event_slot_registration");
-	define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST", 	"event_slot_registration_waitinglist");
+	define("EVENT_MANAGER_RELATION_REGISTRATION_QUESTION", "event_registration_questions");
+	define("EVENT_MANAGER_RELATION_USER_REGISTERED", "event_user_registered");
+	define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION", "event_slot_registration");
+	define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST", "event_slot_registration_waitinglist");
 
 	require_once(dirname(__FILE__) . "/lib/functions.php");
 	require_once(dirname(__FILE__) . "/lib/run_once.php");

@@ -2,7 +2,7 @@
 
 	/**
 	 * Elgg profile icon
-	 * 
+	 *
 	 * @package ElggProfile
 	 */
 
@@ -10,13 +10,12 @@
 	require_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 
 	// Get the owning event
-
 	$eventGuid = get_input('eventGuid');
 	$event = get_entity($eventGuid);
 		
 	// Get the size
 	$size = strtolower(get_input('size'));
-	if (!in_array($size,array('large','medium','small','tiny','master','topbar'))) {
+	if (!in_array($size, elgg_get_config("icon_sizes"))) {
 		$size = "medium";
 	}
 
@@ -28,9 +27,8 @@
 	}
 		
 	// Try and get the icon
-	
 	$filehandler = new ElggFile();
-	$filehandler->owner_guid = $event->owner_guid;
+	$filehandler->owner_guid = $event->getOwnerGUID();
 	$filehandler->setFilename("events/" . $event->getGUID() . '/' . $size . ".jpg");
 	
 	$success = false;
@@ -43,7 +41,7 @@
 	if (!$success) {
 		$path = elgg_view('icon/events/default/'.$size);
 		header("Location: {$path}");
-		exit;			
+		exit;
 	}
 	
 	header("Content-type: image/jpeg");
@@ -54,5 +52,3 @@
 	
 	echo $contents;
 	exit();
-
-			
