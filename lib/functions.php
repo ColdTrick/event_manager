@@ -8,7 +8,7 @@
 				EVENT_MANAGER_RELATION_PRESENTING,
 				EVENT_MANAGER_RELATION_EXHIBITING,
 				EVENT_MANAGER_RELATION_ORGANIZING,
-				EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
+				EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST
 			);
 			
 		return $result;
@@ -282,7 +282,6 @@
 		$query .= get_access_sql_suffix('e'); // Add access controls
 		
 		if (!$count) {
-
 			// Add order and limit
 			if ($limit) {
 				$query .= " limit $offset, $limit";
@@ -298,6 +297,7 @@
 	function event_manager_export_attendees($event, $file = false) {
 		$old_ia = elgg_get_ignore_access();
 		elgg_set_ignore_access(true);
+		
 		if($file) {
 			$EOL = "\r\n";
 		} else {
@@ -375,7 +375,8 @@
 		
 		$headerString .= $EOL;
 		elgg_set_ignore_access($old_ia);
-		return $headerString.$dataString;
+		
+		return $headerString . $dataString;
 	}
 	
 	function event_manager_export_waitinglist($event, $file = false) {
@@ -459,7 +460,7 @@
 		$headerString .= $EOL;
 		elgg_set_ignore_access($old_ia);
 		
-		return $headerString.$dataString;
+		return $headerString . $dataString;
 	}
 	
 	/**
@@ -469,7 +470,6 @@
 	 * @return multitype:NULL multitype:unknown
 	 */
 	function event_manager_get_migratable_events()	{
-
 		$result = array(
 			'entities' => false,
 			'count' => 0
@@ -479,9 +479,9 @@
 		$one_id = add_metastring(1);
 		
 		$entities_options = array(
-			'type' 			=> 'object',
-			'subtype' 		=> 'event_calendar',
-			'limit'			=> false,
+			'type' => 'object',
+			'subtype' => 'event_calendar',
+			'limit' => false,
 			'wheres' => array("NOT EXISTS (SELECT 1 FROM " . elgg_get_config("dbprefix") . "metadata md WHERE md.entity_guid = e.guid AND md.name_id = $migrated_id AND md.value_id = $one_id)")
 		);
 		
@@ -510,8 +510,6 @@
 	function event_manager_search_get_where_sql($table, $fields, $params, $use_fulltext = true)	{
 		
 		// TODO: why not use a search hook?
-		
-		global $CONFIG;
 		$query = $params['query'];
 		
 		// add the table prefix to the fields
@@ -535,67 +533,21 @@
 		return $where;
 	}
 	
-	/* Used for maps */
-	function getRealIpAddr() {
-		if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-			$ip = $_SERVER['HTTP_CLIENT_IP'];
-		} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		} else {
-			$ip = $_SERVER['REMOTE_ADDR'];
-		}
-		return $ip;
-	}
-	
-	function IPtoLatLng($ip) {
-	    $latlngValue=array();
-	    $dom = new DOMDocument();
-	    $ipcheck = ip2long($ip);
-	 
-	 
-	    if($ipcheck == -1 || $ipcheck === false) {
-	        return false;
-	    } else {
-	        $uri = "http://api.hostip.info/?ip=$ip&position=true";
-	    }
-	    
-	    $dom->load($uri);
-	    
-	    $name = $dom->getElementsByTagNameNS('http://www.opengis.net/gml','name')->item(1)->nodeValue;
-	    
-	    $coordinates = $dom->getElementsByTagNameNS('http://www.opengis.net/gml','coordinates')->item(0)->nodeValue;
-	    
-	    $countryName = $dom->getElementsByTagName('countryName')->item(0)->nodeValue;
-	    
-	    $temp = explode(",",$coordinates);
-	    
-	    $latlngValue['LNG'] = $temp[0];
-	    $latlngValue['LAT'] = $temp[1];
-	    $latlngValue['NAME'] = $name;
-	    $latlngValue['COUNTRY'] = $countryName;
-	    
-	    return $latlngValue;
-	 
-	}
-	
-	function trim_array_values(&$value)	{
-	    $value = trim($value);
-	}
-	
 	function event_manager_event_region_options() {
 		$result = false;
 		
 		$region_settings = trim(elgg_get_plugin_setting('region_list', 'event_manager'));
 		
-		if(!empty($region_settings)) {
+		if (!empty($region_settings)) {
 			$region_options = array('-');
 			$region_list = explode(',', $region_settings);
 			$region_options = array_merge($region_options, $region_list);
-			array_walk($region_options, 'trim_array_values');
+
+			array_walk($region_options, create_function('&$val', '$val = trim($val);'));
 			
 			$result = $region_options;
-			
 		}
+		
 		return $result;
 	}
 	
@@ -604,16 +556,16 @@
 		
 		$type_settings = trim(elgg_get_plugin_setting('type_list', 'event_manager'));
 		
-		if(!empty($type_settings)) {
+		if (!empty($type_settings)) {
 			$type_options = array('-');
 			$type_list = explode(',', $type_settings);
 			$type_options = array_merge($type_options, $type_list);
-			array_walk($type_options, 'trim_array_values');
 			
+			array_walk($type_options, create_function('&$val', '$val = trim($val);'));
+				
 			$result = $type_options;
-			
-			
 		}
+		
 		return $result;
 	}
 	
@@ -635,29 +587,6 @@
 	
 	function event_manager_time_pad(&$value) {
 	    $value = str_pad($value, 2, "0", STR_PAD_LEFT);
-	}
-	
-	function get_curl_content($link) {
-		$result = false;
-		
-		$ch = curl_init();
-		$timeout = 5;
-		
-		curl_setopt ($ch, CURLOPT_URL, $link);
-		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-		
-		curl_setopt($ch, CURLOPT_COOKIE, 'Elgg='.$_COOKIE['Elgg']);
-		
-		$content = curl_exec($ch);
-		
-		curl_close($ch);
-		
-		if($content) {
-			$result = $content;
-		}
-		
-		return $result;
 	}
 	
 	function event_manager_create_unsubscribe_code(EventRegistration $registration, Event $event = null) {
