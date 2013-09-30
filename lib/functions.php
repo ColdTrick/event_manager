@@ -653,3 +653,33 @@
 		return $result;
 	}
 	
+	function event_manager_send_registration_validation_email($event, $object) {
+		$subject = elgg_echo("event_manager:registration:confirm:subject", array($event->title));
+		$message = elgg_echo("event_manager:registration:confirm:message", array($object->name, $event->title, event_manager_get_registration_validation_url($event->getGUID(), $object->getGUID())));
+		
+		$site = elgg_get_site_entity();
+		
+		// send confirmation mail
+		if (elgg_instanceof($object, "user")) {
+			notify_user($object->getGUID(), $site->getGUID(), $subject, $message);
+		} else {
+				
+			$from = $site->email;
+			if (empty($from)) {
+				$from = "noreply@" . get_site_domain($site->getGUID());
+			}
+				
+			if (!empty($site->name)) {
+				$site_name = $site->name;
+				if (strstr($site_name, ',')) {
+					$site_name = '"' . $site_name . '"'; // Protect the name with quotations if it contains a comma
+				}
+		
+				$site_name = '=?UTF-8?B?' . base64_encode($site_name) . '?='; // Encode the name. If may content nos ASCII chars.
+				$from = $site_name . " <" . $from . ">";
+			}
+				
+			elgg_send_email($from, $object->email, $subject, $body);
+		}
+	}
+	

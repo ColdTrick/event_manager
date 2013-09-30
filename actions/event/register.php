@@ -105,10 +105,26 @@
 				} else {
 					// check for user with this emailaddress
 					if ($existing_user = get_user_by_email($answers["email"])) {
-						$existing_user = $existing_user[0];
-						if (check_entity_relationship($existing_user->getGUID(), "member_of_site", elgg_get_site_entity()->getGUID())) {
-							register_error(elgg_echo("event_manager:action:register:email:account_exists"));
-							forward($forward_url);
+						$object = $existing_user[0];
+						// todo check if there already is a relationship with the event.
+						$current_relationship = $event->getRelationshipByUser($object->getGUID());
+						if ($current_relationship) {
+							switch ($current_relationship) {
+								case EVENT_MANAGER_RELATION_ATTENDING:
+									// already attendee
+									register_error(elgg_echo("event_manager:action:register:email:account_exists:attending"));
+									forward($forward_url);
+								case EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST:
+									// on the waitinglist
+									register_error(elgg_echo("event_manager:action:register:email:account_exists:waiting"));
+									forward($forward_url);
+								case EVENT_MANAGER_RELATION_ATTENDING_PENDING:
+									// pending confirmation resend mail
+									event_manager_send_registration_validation_email($event, $object);
+									
+									register_error(elgg_echo("event_manager:action:register:email:account_exists:pending"));
+									forward($forward_url);
+							}
 						}
 					}
 					
@@ -118,23 +134,44 @@
 							"subtype" => EventRegistration::SUBTYPE,
 							"owner_guid" => $event->getGUID(),
 							"metadata_name_value_pairs" => array("email" => $answers["email"]),
-							"metadata_case_sensitive" => false,
-							"count" => TRUE
+							"metadata_case_sensitive" => false
 						);
 					
-					if (elgg_get_entities_from_metadata($options)) {
-						register_error(elgg_echo("event_manager:action:register:email:registration_exists"));
-						forward($forward_url);
+					if ($existing_entities = elgg_get_entities_from_metadata($options)) {
+						$object = $existing_entities[0];
+						
+						$current_relationship = $event->getRelationshipByUser($object->getGUID());
+						if ($current_relationship) {
+							switch ($current_relationship) {
+								case EVENT_MANAGER_RELATION_ATTENDING:
+									// already attendee
+									register_error(elgg_echo("event_manager:action:register:email:account_exists:attending"));
+									forward($forward_url);
+								case EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST:
+									// on the waitinglist
+									register_error(elgg_echo("event_manager:action:register:email:account_exists:waiting"));
+									forward($forward_url);
+								case EVENT_MANAGER_RELATION_ATTENDING_PENDING:
+								default:
+									// pending confirmation resend mail
+									event_manager_send_registration_validation_email($event, $object);
+										
+									register_error(elgg_echo("event_manager:action:register:email:account_exists:pending"));
+									forward($forward_url);
+							}
+						}
 					}
 				}
 				
-				// create new registration
-				$object = new EventRegistration();
-				$object->title = 'EventRegistrationNotLoggedinUser';
-				$object->description = 'EventRegistrationNotLoggedinUser';
-				$object->owner_guid = $event->getGUID();
-				$object->container_guid = $event->getGUID();
-				$object->save();
+				if (!$object) {
+					// create new registration
+					$object = new EventRegistration();
+					$object->title = 'EventRegistrationNotLoggedinUser';
+					$object->description = 'EventRegistrationNotLoggedinUser';
+					$object->owner_guid = $event->getGUID();
+					$object->container_guid = $event->getGUID();
+					$object->save();
+				}
 				
 				elgg_set_ignore_access($old_ia);
 			}
@@ -170,13 +207,23 @@
 					$object->addRelationship($slot_guid, $slot_relation);
 				}
 			}
-		
+			
+			if (!elgg_is_logged_in()) {
+				// change relationship to pending
+				$relation = EVENT_MANAGER_RELATION_ATTENDING_PENDING;
+				
+				event_manager_send_registration_validation_email($event, $object);
+				
+				system_message("event_manager:action:register:pending");
+			}
+			
+			$forward_url = $event->getURL();
 			if ($event->rsvp($relation, $object->getGUID())) {
 				// relate to the event
-				$forward_url = "events/registration/completed/" . $event->getGUID() . "/" . $object->getGUID() . "/" . elgg_get_friendly_title($event->title);
+				if (elgg_is_logged_in()) {
+					$forward_url = "events/registration/completed/" . $event->getGUID() . "/" . $object->getGUID() . "/" . elgg_get_friendly_title($event->title);
+				}
 			} else {
-				$forward_url = $event->getURL();
-				
 				register_error(elgg_echo('event_manager:event:relationship:message:error'));
 			}
 		} else {

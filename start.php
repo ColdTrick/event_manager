@@ -7,6 +7,7 @@
 
 	define("EVENT_MANAGER_RELATION_ATTENDING", "event_attending");
 	define("EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST", "event_waitinglist");
+	define("EVENT_MANAGER_RELATION_ATTENDING_PENDING", "event_pending");
 	define("EVENT_MANAGER_RELATION_EXHIBITING", "event_exhibiting");
 	define("EVENT_MANAGER_RELATION_ORGANIZING", "event_organizing");
 	define("EVENT_MANAGER_RELATION_PRESENTING", "event_presenting");
