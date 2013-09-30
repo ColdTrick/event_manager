@@ -613,6 +613,7 @@
 			
 			if (!empty($code)) {
 				$result = "events/registration/confirm/" . $event_guid . "?user_guid=" . $user_guid . "&code=" . $code;
+				$result = elgg_normalize_url($result);
 			}
 		}
 		
