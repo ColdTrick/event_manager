@@ -192,28 +192,31 @@
 				$event->relateToAllSlots(false);
 			}
 			
+			if (!elgg_is_logged_in()) {
+				// change relationship to pending
+				$relation = EVENT_MANAGER_RELATION_ATTENDING_PENDING;
+				$slot_relation = EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING;
+			} else {
+				if ($register_type == 'waitinglist') {
+					$relation = EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST;
+					$slot_relation = EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST;
+				} else {
+					$slot_relation = EVENT_MANAGER_RELATION_SLOT_REGISTRATION;
+				}
+			}
+			
 			$guid_explode = explode(',', $program_guids);
 			
 			foreach ($guid_explode as $slot_guid) {
 				// add relationships with slots
 				if (!empty($slot_guid)) {
-					if ($register_type == 'waitinglist') {
-						$relation = EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST;
-						$slot_relation = EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST;
-					} else {
-						$slot_relation = EVENT_MANAGER_RELATION_SLOT_REGISTRATION;
-					}
-					
 					$object->addRelationship($slot_guid, $slot_relation);
 				}
 			}
 			
 			if (!elgg_is_logged_in()) {
-				// change relationship to pending
-				$relation = EVENT_MANAGER_RELATION_ATTENDING_PENDING;
 				
 				event_manager_send_registration_validation_email($event, $object);
-				
 				system_message("event_manager:action:register:pending");
 			}
 			
