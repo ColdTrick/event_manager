@@ -21,7 +21,6 @@
 	
 	// do we have a pending registration
 	if ($event->getRelationshipByUser($user_guid) != EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
-		register_error(elgg_echo("event_manager:registration:confirm:error:relationship"));
 		forward($event->getURL());
 	}
 	
