@@ -108,17 +108,26 @@
 					break;
 				case "registration":
 					if (isset($page[1])) {
-						if ($page[1] == "completed") {
-							if (isset($page[2])) {
-								set_input("event_guid", $page[2]);
-							}
-
-							if (isset($page[3])) {
-								set_input("object_guid", $page[3]);
-							}
-
-							$include = "/pages/registration/completed.php";
-							break;
+						
+						switch ($page[1]) {
+							case "confirm":
+								if (isset($page[2])) {
+									set_input("event_guid", $page[2]);
+								}
+								
+								$include = "/pages/registration/confirm.php";
+								break(2);
+							case "completed":
+								if (isset($page[2])) {
+									set_input("event_guid", $page[2]);
+								}
+	
+								if (isset($page[3])) {
+									set_input("object_guid", $page[3]);
+								}
+	
+								$include = "/pages/registration/completed.php";
+								break(2);
 						}
 					}
 				case "event":
@@ -201,6 +210,7 @@
 	elgg_register_action("event_manager/registration/approve",			dirname(__FILE__) . "/actions/registration/approve.php");
 
 	elgg_register_action("event_manager/registration/pdf",				dirname(__FILE__) . "/actions/registration/pdf.php", "public");
+	elgg_register_action("event_manager/registration/confirm",			dirname(__FILE__) . "/actions/registration/confirm.php", "public");
 	elgg_register_action("event_manager/event/register",				dirname(__FILE__) . "/actions/event/register.php", "public");
 
 	elgg_register_action("event_manager/migrate/calender",				dirname(__FILE__) . "/actions/migrate/calender.php", "admin");
