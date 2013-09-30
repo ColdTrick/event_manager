@@ -11,4 +11,10 @@
 	echo elgg_view("input/hidden", array("name" => "user_guid", "value" => $user->getGUID()));
 	echo elgg_view("input/hidden", array("name" => "code", "value" => $code));
 	echo elgg_view("input/submit", array("value" => elgg_echo("confirm")));
+	echo elgg_view("output/confirmlink", array(
+			"text" => elgg_echo("delete"),
+			"confirm" => elgg_echo("event_manager:registration:confirm:delete"),
+			"href" => "action/event_manager/event/rsvp?guid=" . $event->getGUID() . "&user=" . $user->getGUID() . "&type=" . EVENT_MANAGER_RELATION_UNDO,
+			"class" => "float-alt elgg-button elgg-button-delete"
+	));
 	echo "</div>";
