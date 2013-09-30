@@ -7,13 +7,13 @@
 	// do we have all the correct inputs
 	if (empty($event_guid) || empty($user_guid) || empty($code)) {
 		register_error(elgg_echo("InvalidParameterException:MissingParameter"));
-		forward(REFERER);
+		forward();
 	}
 	
 	// is the code valid
 	if (!event_manager_validate_registration_validation_code($event_guid, $user_guid, $code)) {
 		register_error(elgg_echo("event_manager:registration:confirm:error:code"));
-		forward(REFERER);
+		forward();
 	}
 	
 	$event = get_entity($event_guid);
