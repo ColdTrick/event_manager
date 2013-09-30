@@ -217,7 +217,7 @@
 			if (!elgg_is_logged_in()) {
 				
 				event_manager_send_registration_validation_email($event, $object);
-				system_message("event_manager:action:register:pending");
+				system_message(elgg_echo("event_manager:action:register:pending"));
 			}
 			
 			$forward_url = $event->getURL();
