@@ -625,7 +625,7 @@
 				$rsvp = false;
 				
 				if ($this->with_program) {
-					if (($waiting_for_slots = $this->getRegisteredSlotsByUser($waiting_user->getGUID()))) {
+					if (($waiting_for_slots = $this->getRegisteredSlotsForEntity($waiting_user->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST))) {
 						foreach ($waiting_for_slots as $slot) {
 							if ($slot->hasSpotsLeft()) {
 								$rsvp = true;
@@ -662,15 +662,14 @@
 			return $result;
 		}
 		
-		public function getRegisteredSlotsByUser($user_guid) {
+		public function getRegisteredSlotsForEntity($guid, $slot_relationship) {
 			$slots = array();
 			
 			$data = get_data("	SELECT slot.guid FROM " . elgg_get_config("dbprefix") . "entities AS slot
 								INNER JOIN " . elgg_get_config("dbprefix") . "entities AS event ON event.guid = slot.owner_guid
 								INNER JOIN " . elgg_get_config("dbprefix") . "entity_relationships AS slot_user_relation ON slot.guid = slot_user_relation.guid_two
-								INNER JOIN " . elgg_get_config("dbprefix") . "users_entity AS user ON user.guid = slot_user_relation.guid_one
-								WHERE 	user.guid=$user_guid AND
-										slot_user_relation.relationship='".EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST."'
+								INNER JOIN " . elgg_get_config("dbprefix") . "entities AS entity ON entity.guid = slot_user_relation.guid_one
+								WHERE 	entity.guid = $guid AND	slot_user_relation.relationship='" . $slot_relationship . "'
 							");
 			
 			foreach ($data as $slot) {
