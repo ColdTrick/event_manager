@@ -18,6 +18,7 @@
 	define("EVENT_MANAGER_RELATION_USER_REGISTERED", "event_user_registered");
 	define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION", "event_slot_registration");
 	define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST", "event_slot_registration_waitinglist");
+	define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING", "event_slot_registration_pending");
 
 	require_once(dirname(__FILE__) . "/lib/functions.php");
 	require_once(dirname(__FILE__) . "/lib/run_once.php");
