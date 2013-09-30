@@ -288,7 +288,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:action:event:delete:ok' => 'Event deleted',
 		'event_manager:action:register:email:account_exists:attending' => 'There is already an account with the provided emailaddress that is already registered as an attendee for this event.',
 		'event_manager:action:register:email:account_exists:waiting' => 'There is already an account with the provided emailaddress on the waitinglist for this event.',
-		'event_manager:action:register:email:account_exists:pending' => 'There is already an registration with the provided emailaddress that is waiting for you to confirm it. We have send you the confirmation mail again.',
+		'event_manager:action:register:email:account_exists:pending' => 'There is already a registration with the provided emailaddress that is waiting for you to confirm it. We have send you the confirmation mail again.',
 		'event_manager:action:register:email:registration_exists' => 'A registration for this event with the provided emailaddress already exists. You can only register once per emailaddress.',
 		'event_manager:action:register:pending' => "Your registration is almost completed. To confirm your registration please follow the instructions the email we just sent you.",
 			
