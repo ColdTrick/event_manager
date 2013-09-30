@@ -343,6 +343,7 @@ If you didn't request to unsubscribe from the event, please disregard this e-mai
 
 		// registration confirm
 		'event_manager:registration:confirm:error:code' => "Invalid validation code, please check your e-mail for the correct code",
+		'event_manager:registration:confirm:error:relationship' => "You don't have a pending registration with this event",
 		'event_manager:registration:confirm:breadbrumb' => "Confirm your registration",
 		'event_manager:registration:confirm:title' => "Confirm registration for %s",
 		'event_manager:registration:confirm:description' => "Hi %s,
