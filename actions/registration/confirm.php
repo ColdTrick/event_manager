@@ -51,3 +51,5 @@
 	$event->rsvp($relation, $user->getGUID());
 	system_message(elgg_echo("event_manager:event:relationship:message:" . $relation));
 	
+	forward($event->getURL());
+	
