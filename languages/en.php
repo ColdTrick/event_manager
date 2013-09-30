@@ -348,6 +348,7 @@ If you didn't request to unsubscribe from the event, please disregard this e-mai
 		'event_manager:registration:confirm:description' => "Hi %s,
 
 To confirm your registration for the event \"%s\", please click the button below.",
+		'event_manager:registration:confirm:delete' => "Are you sure you wish to remove this registration?",
 		
 		// river
 		'event_manager:river:event_relationship:create:event_attending' => '%s is attending %s',
