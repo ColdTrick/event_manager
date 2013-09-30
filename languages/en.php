@@ -341,6 +341,14 @@ If you didn't request to unsubscribe from the event, please disregard this e-mai
 		'event_manager:registration:completed' => "%s you have successfully completed the registration for %s. We hope you enjoy the event.",
 		'event_manager:registration:continue' => "Continue to the event",
 
+		// registration confirm
+		'event_manager:registration:confirm:error:code' => "Invalid validation code, please check your e-mail for the correct code",
+		'event_manager:registration:confirm:breadbrumb' => "Confirm your registration",
+		'event_manager:registration:confirm:title' => "Confirm registration for %s",
+		'event_manager:registration:confirm:description' => "Hi %s,
+
+To confirm your registration for the event \"%s\", please click the button below.",
+		
 		// river
 		'event_manager:river:event_relationship:create:event_attending' => '%s is attending %s',
 		'event_manager:river:event_relationship:create:event_interested' => '%s is interested in %s',

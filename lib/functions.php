@@ -605,3 +605,51 @@
 		return $result;
 	}
 	
+	function event_manager_get_registration_validation_url($event_guid, $user_guid) {
+		$result = false;
+		
+		if (!empty($event_guid) && !empty($user_guid)) {
+			$code = event_manager_generate_registration_validation_code($event_guid, $user_guid);
+			
+			if (!empty($code)) {
+				$result = "events/registration/confirm/" . $event_guid . "?user_guid=" . $user_guid . "&code=" . $code;
+			}
+		}
+		
+		return $result;
+	}
+	
+	function event_manager_generate_registration_validation_code($event_guid, $user_guid) {
+		$result = false;
+		
+		if (!empty($event_guid) && !empty($user_guid)) {
+			$event = get_entity($event_guid);
+			$user = get_entity($user_guid);
+			
+			if (!empty($event) && elgg_instanceof($event, "object", Event::SUBTYPE) && !empty($user) && (elgg_instanceof($user, "user") || elgg_instanceof($user, "object", EventRegistration::SUBTYPE))) {
+				$site_secret = elgg_get_config("site_secret");
+				$time_created = $event->time_created;
+				
+				$result = md5($event_guid . $site_secret . $user_guid . $time_created);
+			}
+		}
+		
+		return $result;
+	}
+	
+	function event_manager_validate_registration_validation_code($event_guid, $user_guid, $code) {
+		$result = false;
+		
+		if (!empty($event_guid) && !empty($user_guid) && !empty($code)) {
+			$valid_code = event_manager_generate_registration_validation_code($event_guid, $user_guid);
+			
+			if (!empty($valid_code)) {
+				if ($code == $valid_code) {
+					$result = true;
+				}
+			}
+		}
+		
+		return $result;
+	}
+	
