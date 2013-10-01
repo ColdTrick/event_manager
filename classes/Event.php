@@ -132,7 +132,7 @@
 					$result = true;
 				}
 				
-				if ($this->notify_onsignup) {
+				if ($this->notify_onsignup && ($type !== EVENT_MANAGER_RELATION_ATTENDING_PENDING)) {
 					$this->notifyOnRsvp($type, $user_guid);
 				}
 			}
