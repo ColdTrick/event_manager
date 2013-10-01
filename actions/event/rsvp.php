@@ -3,7 +3,7 @@
 	$guid = (int) get_input("guid");
 	$user_guid = get_input("user", elgg_get_logged_in_user_guid());
 	
-	$forward_url = REFERER;
+	$forward_url = get_input("forward_url", REFERER);
 	$notice = true;
 	
 	if(!empty($guid) && ($event = get_entity($guid))) {
