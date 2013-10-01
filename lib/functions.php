@@ -681,7 +681,7 @@
 				$from = $site_name . " <" . $from . ">";
 			}
 				
-			elgg_send_email($from, $object->email, $subject, $body);
+			elgg_send_email($from, $object->email, $subject, $message);
 		}
 	}
 	
