@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	$event = $vars["entity"];
 	
@@ -9,11 +9,12 @@
 		$ordered_relationships = array(
 				EVENT_MANAGER_RELATION_ATTENDING,
 				EVENT_MANAGER_RELATION_INTERESTED,
-				EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST
+				EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
+				EVENT_MANAGER_RELATION_ATTENDING_PENDING
 			);
 		
 		foreach($ordered_relationships as $rel)	{
-			if(($rel == EVENT_MANAGER_RELATION_ATTENDING) || $event->$rel || ($rel == EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST &&  $event->canEdit() && $event->waiting_list_enabled)){
+			if(($rel == EVENT_MANAGER_RELATION_ATTENDING) || ($rel == EVENT_MANAGER_RELATION_ATTENDING_PENDING) || $event->$rel || ($rel == EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST &&  $event->canEdit() && $event->waiting_list_enabled)){
 				if(array_key_exists($rel, $relationships)){
 
 					$members = $relationships[$rel];
@@ -45,6 +46,6 @@
 			}
 		}
 		
-		echo $result; 
+		echo $result;
 	}
 	

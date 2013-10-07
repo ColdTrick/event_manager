@@ -243,6 +243,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:relationship:event_attending:label' => 'Attendees',
 		'event_manager:event:relationship:event_waitinglist' => 'Waiting list',
 		'event_manager:event:relationship:event_waitinglist:label' => 'On the waitinglist',
+		'event_manager:event:relationship:event_pending:label' => 'Pending email validation',
 		'event_manager:event:relationship:event_interested' => 'Interested',
 		'event_manager:event:relationship:event_interested:label' => 'Interested',
 		'event_manager:event:relationship:event_presenting' => 'Presenting',
