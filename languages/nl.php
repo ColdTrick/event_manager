@@ -1,10 +1,36 @@
 <?php
 $language = array (
+  'event_manager:event:menu:user_hover:resend_confirmation' => 'Herzend bevestigings email',
+  'event_manager:event:menu:user_hover:move_to_attendees' => 'Verplaats naar deelnemers',
+  'event_manager:event:relationship:event_pending:label' => 'In afwachting van email validatie',
+  'event_manager:action:register:email:account_exists:attending' => 'Er is al een account met het opgegeven email adres die al is geregistreerd voor dit evenement.',
+  'event_manager:action:register:email:account_exists:waiting' => 'Er is al een account met het opgegeven email adres op de wachtlijst voor dit evenement.',
+  'event_manager:action:register:email:account_exists:pending' => 'Er is al een registratie met het opgegeven email adres die nog wacht op goedkeuring. We hebben opnieuw de goedkeuringsmail verzonden.',
+  'event_manager:action:register:pending' => 'Uw registratie is bijna afgerond. Volgt u de instructies in de bevestigingsmail om de registratie af te ronden.',
+  'event_manager:action:resend_confirmation:success' => 'Bevestigingsmail is opnieuw verstuurt',
+  'event_manager:action:move_to_attendees:success' => 'Gebruiker is verplaatst naar de deelnemers',
+  'event_manager:registration:confirm:error:code' => 'Ongeldige validatie code, controleer uw email voor de juiste code',
+  'event_manager:registration:confirm:breadbrumb' => 'Bevestig uw registratie',
+  'event_manager:registration:confirm:title' => 'Bevestig registratie voor %s',
+  'event_manager:registration:confirm:description' => 'Beste %s,
+
+Om uw registratie te bevestigen voor het evenement "%s", klik op de "Bevestig" knop hieronder.
+
+Indien u de registratie wilt verwijderen, klik de "Verwijder" knop.',
+  'event_manager:registration:confirm:delete' => 'Weet u het zeker dat u deze registratie wilt verwijderen?',
+  'event_manager:registration:confirm:subject' => 'Bevestig de registratie voor %s',
+  'event_manager:registration:confirm:message' => 'Beste %s,
+
+Om uw registratie af te ronden voor het evenement "%s", klik op deze link
+%s
+
+Indien u zich niet heeft geregistreerd kunt u deze email negeren of de link volgen, waar u de mogelijkheid heeft om de registratie te verwijderen.',
+  'to' => 'Tonga',
   'event_manager:menu:unsubscribe' => 'Uitschrijven',
   'event_manager:menu:unsubscribe_confirm' => 'Bevestig uitschrijving',
   'event_manager:menu:registration:completed' => 'Evenement registratie afgerond',
-  'event_manager:notification:subject' => "Er is een nieuw evenement aangemaakt",
-  'event_manager:notification:body' => "%s heeft het volgende evenement aangemaakt %s",
+  'event_manager:notification:subject' => 'Er is een nieuw evenement aangemaakt',
+  'event_manager:notification:body' => '%s heeft het volgende evenement aangemaakt %s',
   'event_manager:edit:form:registration_completed' => 'Tekst die getoond wordt als een registratie is afgerond',
   'event_manager:edit:form:registration_completed:description' => '[NAME] wordt vervangen in de tekst door de naam van de registrerende gebruiker. [EVENT] wordt vervangen door de naam van het evenement.',
   'event_manager:edit:form:slot_set' => 'Set',
@@ -23,7 +49,6 @@ $language = array (
   'event_manager:event:relationship:event_organizing:label' => 'Organisatoren',
   'event_manager:widgets:events:title' => 'Evenementen',
   'event_manager:action:registration:edit:error_slots' => 'Er kan slechts één slot per set worden geselecteerd. Er zijn er meerdere gedetecteerd voor %s.',
-  'event_manager:action:register:email:account_exists' => 'Een account met dit emailadres bestaat al. Meldt u aan om zich voor de evenement te registreren.',
   'event_manager:action:register:email:registration_exists' => 'Er bestaat al een registratie voor dit evenement met opgegeven emailadres. Slechts één registratie per emailadres is toegestaan.',
   'event_manager:unsubscribe:title' => 'Uitschrijven uit: %s',
   'event_manager:unsubscribe:description' => 'Indien u zich wilt uitschrijven uit het evenement %s, voor dan uw email hieronder in. Indien voor het opgegeven emailadres een inschrijving wordt gevonden, ontvangt u een verificatie email met daarin verdere instructies.',
@@ -47,7 +72,6 @@ Indien u deze aanvraag niet heeft gedaan, kunt u deze mail negeren.',
   'event_manager:registration:completed' => '%s u heeft zich met succes ingeschreven voor %s. Veel plezier gewenst bij het evenement.',
   'event_manager:registration:continue' => 'Terug naar het evenement',
   'confirm' => 'Bevestig',
-  'to' => 'Aan',
   'event_manager:edit:form:contact_details' => 'Contact gegevens',
   'event_manager:edit:form:website' => 'Website',
   'event_manager:edit:form:twitter_hash' => 'Twitter Hash',
