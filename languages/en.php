@@ -228,6 +228,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:register:no_registrationform' => 'The organizer of this event hasn\'t created a registration form yet.<br />Please try again later.',
 
 		'event_manager:event:menu:user_hover:resend_confirmation' => 'Resend confirmation email',
+		'event_manager:event:menu:user_hover:move_to_attendees' => 'Move to attendees',
 
 		'event_manager:event:view:event' => 'Event',
 		'event_manager:event:view:date' => 'Date',
@@ -294,7 +295,8 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:action:register:email:account_exists:pending' => 'There is already a registration with the provided emailaddress that is waiting for you to confirm it. We have send you the confirmation mail again.',
 		'event_manager:action:register:email:registration_exists' => 'A registration for this event with the provided emailaddress already exists. You can only register once per emailaddress.',
 		'event_manager:action:register:pending' => "Your registration is almost completed. To confirm your registration please follow the instructions the email we just sent you.",
-		'event_manager:action:resend_confirmation:success' => "Confirmation mail has been resend.",
+		'event_manager:action:resend_confirmation:success' => "Confirmation mail has been resend",
+		'event_manager:action:move_to_attendees:success' => "User has been moved to the attendees",
 			
 		// settings
 		'event_manager:settings:google_maps' => 'Google Maps settings',
