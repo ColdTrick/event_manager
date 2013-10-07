@@ -16,10 +16,20 @@
 			$user = elgg_extract("entity", $params);
 
 			if($event->getOwnerGUID() != $user->getGUID()){
+				// kick from event
 				$href = elgg_get_site_url() . 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&user=' . $user->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO;
 				$href = elgg_add_action_tokens_to_url($href);
 
-				$item = new ElggMenuItem("event_manager", elgg_echo("event_manager:event:relationship:kick"), $href);
+				$item = new ElggMenuItem("event_manager_kick", elgg_echo("event_manager:event:relationship:kick"), $href);
+				$item->setSection("action");
+
+				$result[] = $item;
+
+				// resend confirmation
+				$href = elgg_get_site_url() . 'action/event_manager/event/resend_confirmation?guid=' . $event->getGUID() . '&user=' . $user->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO;
+				$href = elgg_add_action_tokens_to_url($href);
+
+				$item = new ElggMenuItem("event_manager_resend_confirmation", elgg_echo("event_manager:event:menu:user_hover:resend_confirmation"), $href);
 				$item->setSection("action");
 
 				$result[] = $item;

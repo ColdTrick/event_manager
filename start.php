@@ -205,6 +205,7 @@
 	elgg_register_action("event_manager/event/search",					dirname(__FILE__) . "/actions/event/search.php");
 	elgg_register_action("event_manager/event/unsubscribe",				dirname(__FILE__) . "/actions/event/unsubscribe.php", "public");
 	elgg_register_action("event_manager/event/unsubscribe_confirm",		dirname(__FILE__) . "/actions/event/unsubscribe_confirm.php", "public");
+	elgg_register_action("event_manager/event/resend_confirmation",		dirname(__FILE__) . "/actions/event/resend_confirmation.php");
 	elgg_register_action("event_manager/attendees/export",				dirname(__FILE__) . "/actions/attendees/export.php");
 	elgg_register_action("event_manager/attendees/export_waitinglist",	dirname(__FILE__) . "/actions/attendees/exportwaitinglist.php");
 	elgg_register_action("event_manager/slot/edit",						dirname(__FILE__) . "/actions/slot/edit.php");
