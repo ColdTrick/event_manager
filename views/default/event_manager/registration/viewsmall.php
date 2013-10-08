@@ -1,5 +1,7 @@
 <?php
 
+	// @todo where is this view used?
+
 	$registration = $vars["entity"];
 	$owner = $registration->getOwnerEntity();
 	
@@ -22,7 +24,7 @@
 	$output .= '</div>';
 
 	$icon .= '<div class="event_manager_registration_icon">';
-	$icon .= '<img src="' . elgg_get_site_url() . '/mod/event_manager/_graphics/icons/register_icon.png">';
+	$icon .= '<img src="' . elgg_get_site_url() . 'mod/event_manager/_graphics/icons/register_icon.png">';
 	$icon .= '</div>';
 	
 	echo elgg_view_listing($icon, $output);
