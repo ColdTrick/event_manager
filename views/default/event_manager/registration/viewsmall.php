@@ -3,36 +3,26 @@
 	$registration = $vars["entity"];
 	$owner = $registration->getOwnerEntity();
 	
+	$output = "";
+	$icon = "";
+	
 	$output .= '<div class="event_manager_registration_info">';
-		$output .= '<a class="user" href="'.$owner->getURL().'">'.$owner->name.'</a> - '.friendly_time($registration->time_created).'<br />';
-		$output .= '<a href="'.$registration->getURL().'">View registration</a>';
+	$output .= '<a class="user" href="' . $owner->getURL() . '">' . $owner->name . '</a> - ' . friendly_time($registration->time_created) . '<br />';
+	$output .= elgg_view("output/url", array("href" => $registration->getURL(), "text" => elgg_echo('event_manager:event:viewregistration')));
 	$output .= '</div>';
 	
 	$output .= '<div class="event_manager_registration_links">';
 	
-	/*if($registration->approved)
-	{
-		$output .= '<img border="0" src="/mod/event_manager/_graphics/icons/check_icon.png" />';
+	if ($registration->approved) {
+		$output .= elgg_view("output/url", array("href" => "action/event_manager/registration/approve?guid=" . $registration->getGUID() . "&approve=0", "text" => elgg_echo('disapprove'), "is_action" => true));
+	} else {
+		$output .= elgg_view("output/url", array("href" => "action/event_manager/registration/approve?guid=" . $registration->getGUID() . "&approve=1", "text" => elgg_echo('approve'), "is_action" => true));
 	}
-	else
-	{
-		$output .= '<a href="javascript:void(0);" class="event_manager_registration_approve" rel="'.$registration->getGUID().'" title="Appove registration">Approve</a>';
-	}*/
-	
-	if($registration->approved)
-	{
-		$output .= '<a href="'.elgg_add_action_tokens_to_url($vars["url"] . "action/event_manager/registration/approve?guid=" . $registration->getGUID()).'&approve=0">'.elgg_echo('disapprove').'</a>';
-	}
-	else
-	{
-		$output .= '<a href="'.elgg_add_action_tokens_to_url($vars["url"] . "action/event_manager/registration/approve?guid=" . $registration->getGUID()).'&approve=1">'.elgg_echo('approve').'</a>';
-	}
-	
 	
 	$output .= '</div>';
 
 	$icon .= '<div class="event_manager_registration_icon">';
-	$icon .= '<img src="/mod/event_manager/_graphics/icons/register_icon.png">';
+	$icon .= '<img src="' . elgg_get_site_url() . '/mod/event_manager/_graphics/icons/register_icon.png">';
 	$icon .= '</div>';
 	
 	echo elgg_view_listing($icon, $output);
