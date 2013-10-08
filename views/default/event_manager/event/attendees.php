@@ -9,9 +9,13 @@
 		$ordered_relationships = array(
 				EVENT_MANAGER_RELATION_ATTENDING,
 				EVENT_MANAGER_RELATION_INTERESTED,
-				EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
-				EVENT_MANAGER_RELATION_ATTENDING_PENDING
+				EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST
+				
 			);
+		
+		if ($event->canEdit()) {
+			$ordered_relationships[] = EVENT_MANAGER_RELATION_ATTENDING_PENDING;
+		}
 		
 		foreach($ordered_relationships as $rel)	{
 			if(($rel == EVENT_MANAGER_RELATION_ATTENDING) || ($rel == EVENT_MANAGER_RELATION_ATTENDING_PENDING) || $event->$rel || ($rel == EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST &&  $event->canEdit() && $event->waiting_list_enabled)){
