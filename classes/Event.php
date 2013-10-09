@@ -353,7 +353,7 @@
 			if ($eventDays = $this->getEventDays()) {
 				elgg_push_context('programmailview');
 				
-				$result .= elgg_view('event_manager/program/pdf', array('entity' => $this));
+				$result .= elgg_view('event_manager/program/pdf', array('entity' => $this, 'user_guid' => $user_guid));
 									
 				elgg_pop_context();
 				

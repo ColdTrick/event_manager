@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	$day = $vars["entity"];
 	$participate = $vars['participate'];
@@ -10,7 +10,7 @@
 		
 		if ($daySlots = $day->getEventSlots()) {
 			foreach ($daySlots as $slot) {
-				$slots .= elgg_view("event_manager/program/pdf/slot", array("entity" => $slot, 'participate' => $participate, 'register_type' => $register_type));							
+				$slots .= elgg_view("event_manager/program/pdf/slot", array("entity" => $slot, 'participate' => $participate, 'register_type' => $register_type, 'user_guid' => $vars['user_guid']));
 			}
 		}
 		

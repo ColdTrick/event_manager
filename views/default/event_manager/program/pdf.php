@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	$event = $vars["entity"];
 	
@@ -7,8 +7,8 @@
 			$days = "";
 			
 			if($eventDays = $event->getEventDays()) {
-				foreach ($eventDays as $key => $day) {					
-					$days .= elgg_view("event_manager/program/pdf/day", array("entity" => $day, "selected" => $selected));					
+				foreach ($eventDays as $key => $day) {
+					$days .= elgg_view("event_manager/program/pdf/day", array("entity" => $day, "selected" => $selected, 'user_guid' => $vars['user_guid']));
 				}
 			}
 			
@@ -19,4 +19,4 @@
 				echo $content;
 			}
 		}
-	}	
+	}
