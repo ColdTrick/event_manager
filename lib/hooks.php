@@ -25,23 +25,26 @@
 
 				$result[] = $item;
 
-				// resend confirmation
-				$href = elgg_get_site_url() . 'action/event_manager/event/resend_confirmation?guid=' . $event->getGUID() . '&user=' . $user->getGUID();
-				$href = elgg_add_action_tokens_to_url($href);
-
-				$item = new ElggMenuItem("event_manager_resend_confirmation", elgg_echo("event_manager:event:menu:user_hover:resend_confirmation"), $href);
-				$item->setSection("action");
-
-				$result[] = $item;
-
-				// resend confirmation
-				$href = elgg_get_site_url() . 'action/event_manager/attendees/move_to_attendees?guid=' . $event->getGUID() . '&user=' . $user->getGUID();
-				$href = elgg_add_action_tokens_to_url($href);
-
-				$item = new ElggMenuItem("event_manager_move_to_attendees", elgg_echo("event_manager:event:menu:user_hover:move_to_attendees"), $href);
-				$item->setSection("action");
-
-				$result[] = $item;
+				$user_relationship = $event->getRelationshipByUser($user->getGUID());
+				if ($user_relationship == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
+					// resend confirmation
+					$href = elgg_get_site_url() . 'action/event_manager/event/resend_confirmation?guid=' . $event->getGUID() . '&user=' . $user->getGUID();
+					$href = elgg_add_action_tokens_to_url($href);
+	
+					$item = new ElggMenuItem("event_manager_resend_confirmation", elgg_echo("event_manager:event:menu:user_hover:resend_confirmation"), $href);
+					$item->setSection("action");
+	
+					$result[] = $item;
+	
+					// resend confirmation
+					$href = elgg_get_site_url() . 'action/event_manager/attendees/move_to_attendees?guid=' . $event->getGUID() . '&user=' . $user->getGUID();
+					$href = elgg_add_action_tokens_to_url($href);
+	
+					$item = new ElggMenuItem("event_manager_move_to_attendees", elgg_echo("event_manager:event:menu:user_hover:move_to_attendees"), $href);
+					$item->setSection("action");
+	
+					$result[] = $item;
+				}
 			}
 		}
 
@@ -77,6 +80,7 @@
 							$href = elgg_add_action_tokens_to_url($href);
 
 							$item->setHref($href);
+							$item->setConfirmText(elgg_echo("deleteconfirm"));
 							break;
 					}
 				}
