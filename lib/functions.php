@@ -663,7 +663,7 @@
 		
 		// send confirmation mail
 		if (elgg_instanceof($object, "user")) {
-			notify_user($object->getGUID(), $site->getGUID(), $subject, $message);
+			notify_user($object->getGUID(), $site->getGUID(), $subject, $message, null, "email");
 		} else {
 				
 			$from = $site->email;
