@@ -305,7 +305,7 @@
 			$EOL = PHP_EOL;
 		}
 		
-		$headerString .= '"'.elgg_echo('name').'";"'.elgg_echo('email').'";"'.elgg_echo('username').'"';
+		$headerString .= '"'.elgg_echo('guid').'";"'.elgg_echo('name').'";"'.elgg_echo('email').'";"'.elgg_echo('username').'"';
 		
 		if($event->registration_needed) {
 			if($registration_form = $event->getRegistrationFormQuestions()) {
@@ -341,7 +341,7 @@
 			foreach($attendees as $attendee) {
 				$answerString = '';
 				
-				$dataString .= '"'.$attendee->name.'";"'.$attendee->email.'";"'.$attendee->username.'"';
+				$dataString .= '"'.$attendee->guid.'";"'.$attendee->name.'";"'.$attendee->email.'";"'.$attendee->username.'"';
 			
 				if($event->registration_needed) {
 					if($registration_form = $event->getRegistrationFormQuestions()) {
@@ -389,7 +389,7 @@
 			$EOL = PHP_EOL;
 		}
 		
-		$headerString .= '"'.elgg_echo('name').'";"'.elgg_echo('email').'";"'.elgg_echo('username').'"';
+		$headerString .= '"'.elgg_echo('guid').'";"'.elgg_echo('name').'";"'.elgg_echo('email').'";"'.elgg_echo('username').'"';
 		
 		if($event->registration_needed) {
 			if($registration_form = $event->getRegistrationFormQuestions()) {
@@ -425,7 +425,7 @@
 			foreach($waiters as $waiter) {
 				$answerString = '';
 				
-				$dataString .= '"'.$waiter->name.'";"'.$waiter->email.'";"'.$waiter->username.'"';
+				$dataString .= '"'.$waiter->guid.'";"'.$waiter->name.'";"'.$waiter->email.'";"'.$waiter->username.'"';
 			
 				if($event->registration_needed) {
 					if($registration_form = $event->getRegistrationFormQuestions()) {
