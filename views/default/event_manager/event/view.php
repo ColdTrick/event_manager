@@ -1,4 +1,4 @@
-<?php 
+<?php
 	
 	$event = $vars["entity"];
 	$owner = $event->getOwnerEntity();
@@ -65,6 +65,8 @@
 	
 	if($description = $event->description){
 		$event_details .= '<tr><td><label>' . elgg_echo('description') . ':</label></td><td>' . elgg_view("output/longtext", array("value" => $description)) . '</td></tr>';
+	} elseif($shortdescription = $event->shortdescription) {
+		$event_details .= '<tr><td><label>' . elgg_echo('description') . ':</label></td><td>' . elgg_view("output/longtext", array("value" => $shortdescription)) . '</td></tr>';
 	}
 	
 	if($website = $event->website){
@@ -148,6 +150,6 @@
 					display: none;
 				}
 			</style>
-		<?php 
+		<?php
 	}
 	
