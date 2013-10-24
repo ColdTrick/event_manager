@@ -5,8 +5,10 @@
 	<version>2.6</version>
 	<description>Manage events</description>
 	<website>http://www.coldtrick.com/</website>
-	<copyright>(C) ColdTrick IT Solutions 2009 - 2013</copyright>
-	<license>GNU Public License version 2</license>
+	<repository>https://github.com/ColdTrick/event_manager</repository>
+	<bugtracker>https://github.com/ColdTrick/event_manager/issues</bugtracker>
+	<copyright>(C) ColdTrick IT Solutions 2011 - 2013</copyright>
+	<license>GNU General Public License version 2</license>
 	
 	<requires>
 		<type>elgg_release</type>
