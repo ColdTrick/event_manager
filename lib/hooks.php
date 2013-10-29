@@ -26,6 +26,7 @@
 				$result[] = $item;
 
 				$user_relationship = $event->getRelationshipByUser($user->getGUID());
+				
 				if ($user_relationship == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
 					// resend confirmation
 					$href = elgg_get_site_url() . 'action/event_manager/event/resend_confirmation?guid=' . $event->getGUID() . '&user=' . $user->getGUID();
@@ -35,8 +36,10 @@
 					$item->setSection("action");
 	
 					$result[] = $item;
-	
-					// resend confirmation
+				}
+
+				if (in_array($user_relationship, array(EVENT_MANAGER_RELATION_ATTENDING_PENDING, EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST))) {
+					// move to attendees
 					$href = elgg_get_site_url() . 'action/event_manager/attendees/move_to_attendees?guid=' . $event->getGUID() . '&user=' . $user->getGUID();
 					$href = elgg_add_action_tokens_to_url($href);
 	
