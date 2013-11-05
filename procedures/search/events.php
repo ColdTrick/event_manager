@@ -51,18 +51,18 @@
 		}
 		
 		if(!empty($start_day)) {
-			$start_day = explode('-',$start_day);		
-			$start_day_ts 	= mktime(0,	0,	1,	$start_day[1],	$start_day[2],	$start_day[0]);				
+			$start_day = explode('-',$start_day);
+			$start_day_ts 	= mktime(0,	0,	1,	$start_day[1],	$start_day[2],	$start_day[0]);
 			$options['start_day'] = $start_day_ts;
 		}
 		
 		if(!empty($end_day)) {
-			$end_day = explode('-',$end_day);			
-			$end_day_ts 	= mktime(23,59,	59,	$end_day[1], $end_day[2], $end_day[0]);			
+			$end_day = explode('-',$end_day);
+			$end_day_ts 	= mktime(23,59,	59,	$end_day[1], $end_day[2], $end_day[0]);
 			$options['end_day'] = $end_day_ts;
 		}
 		
-		if(empty($end_day) && empty($start_day) && empty($search)){	
+		if(empty($end_day) && empty($start_day) && empty($search)){
 			$options['past_events'] = false;
 		} else {
 			$options['past_events'] = true;
@@ -105,10 +105,10 @@
 			if($event->location) {
 				elgg_push_context("maps");
 								
-				$returnData['markers'][] = array(	'guid' => $event->getGUID(), 
-													'lat' => $event->getLatitude(), 
-													'lng' => $event->getLongitude(), 
-													'title' => $event->title, 
+				$returnData['markers'][] = array(	'guid' => $event->getGUID(),
+													'lat' => $event->getLatitude(),
+													'lng' => $event->getLongitude(),
+													'title' => $event->title,
 													'html' => elgg_view_entity($event),
 													'hasrelation' => $event->getRelationshipByUser(),
 													'iscreator' => (($event->getOwnerGUID() == elgg_get_logged_in_user_guid())?'owner':null)

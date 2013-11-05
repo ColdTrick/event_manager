@@ -1,4 +1,4 @@
-<?php 
+<?php
 	$graphics_folder = $vars["url"] . "mod/event_manager/_graphics/";
 ?>
 
@@ -71,7 +71,7 @@
     border: 1px solid #4690D6;
 }
 
-.event_manager_event_list_count 
+.event_manager_event_list_count
 {
 	color: #666666;
     font-weight: bold;
@@ -92,16 +92,21 @@
 	color: #AAAAAA;
 }
 
-#event_manager_event_list_search_more
-{
-	width: auto; 
-	line-height: 40px;
-	height: 40px;
-	text-align: center;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border: 2px solid #CCCCCC; 
-	cursor: pointer;
+#event_manager_event_list_search_more {
+	border: 1px solid #CCCCCC;
+    cursor: pointer;
+    line-height: 31px;
+    padding: 5px;
+    text-align: center;
+    width: auto;
+    
+    -webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#event_manager_event_list_search_more:hover {
+	border-color: #4690D6;
 }
 
 /* Event Search */
@@ -165,7 +170,7 @@
 	font-weight: bold;
 }
 
-.event_manager_event_actions_drop_down {	
+.event_manager_event_actions_drop_down {
     background: #FFFFFF;
     padding: 5px 2px 5px 0;
     position: absolute;
@@ -180,7 +185,7 @@
 
 .event_manager_event_actions_drop_down li {
 	padding: 0 18px 0 10px;
-	line-height: 18px;	
+	line-height: 18px;
 }
 
 /* Event Program Edit */
@@ -252,16 +257,16 @@
 	width: 20px;
 }
 
-.event_manager_program_slot_attending_user, 
-.event_manager_program_slot_attending_user_pdf { 
+.event_manager_program_slot_attending_user,
+.event_manager_program_slot_attending_user_pdf {
 	width: 16px;
-	height: 16px ;  
+	height: 16px ;
 	background: url(<?php echo $graphics_folder; ?>vink.png) right top no-repeat;
-} 
+}
 
 .event_manager_program_slot_attending_user_pdf {
 	width: 16px;
-	height: 16px ;  
+	height: 16px ;
 	background: url(<?php echo $graphics_folder; ?>icons/check.jpg) right top no-repeat;
 }
 
@@ -297,8 +302,8 @@
 }
 
 /* Editable fields */
-.changeSlotFieldText, 
-.changeSlotFieldLongText, 
+.changeSlotFieldText,
+.changeSlotFieldLongText,
 .changeSlotFieldInteger {
 	margin-left: 20px;
 	font-weight: normal;
@@ -310,8 +315,8 @@
 }
 
 .changeSlotFieldText,
-.changeDayFieldText, 
-.changeSlotFieldLongText, 
+.changeDayFieldText,
+.changeSlotFieldLongText,
 .changeSlotFieldInteger {
 	cursor: url(<?php echo $graphics_folder; ?>icons/edit_cursor2.png), auto ;
 }
@@ -327,21 +332,21 @@
 }
 
 /* google maps */
-.gmaps_infowindow, 
+.gmaps_infowindow,
 .gmaps_infowindow_text div.event_manager_event_view_owner {
 	font-size: 11px;
 }
 
 .gmaps_infowindow_text {
-	float: left; 
+	float: left;
 	width: 250px;
 }
 
 .gmaps_infowindow_icon {
-	float: right; 
-	height: 100px; 
-	width: 100px; 
-	padding: 10px; 
+	float: right;
+	height: 100px;
+	width: 100px;
+	padding: 10px;
 	border: 1px solid #CCCCCC;
 }
 
@@ -365,14 +370,14 @@
 	height: 200px;
 }
 
-#event_manager_registration_form_fields ul, 
+#event_manager_registration_form_fields ul,
 #event_manager_registrationform_fields {
 	margin: 0px;
 	padding: 0px;
 	list-style: none;
 }
 
-#event_manager_registration_form_fields ul li, 
+#event_manager_registration_form_fields ul li,
 #event_manager_registrationform_fields li {
 	margin-bottom: 10px;
 }
