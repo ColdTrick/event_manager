@@ -91,13 +91,8 @@
 	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:start_day') . " *</td>
 		<td>" . elgg_view('input/date', array('name' => 'start_day', 'id' => 'start_day', 'value' => date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $fields["start_day"]))) . "</td></tr>";
-	
-	$start_time_hidden = "";
-	if($fields['with_program'])	{
-		$start_time_hidden = ' style="display: none; "';
-	}
-	
-	$form_body .= "<tr id='event_manager_start_time_pulldown' ".$start_time_hidden." ><td class='event_manager_event_edit_label'>" . elgg_echo("event_manager:edit:form:start_time") . "</td><td>".
+		
+	$form_body .= "<tr id='event_manager_start_time_pulldown'><td class='event_manager_event_edit_label'>" . elgg_echo("event_manager:edit:form:start_time") . "</td><td>".
 		event_manager_get_form_pulldown_hours('start_time_hours', $start_time_hours).
 		event_manager_get_form_pulldown_minutes('start_time_minutes', $start_time_minutes)."</td>";
 	
@@ -114,7 +109,6 @@
 		elgg_view('input/checkboxes', array('name' => 'delete_current_icon', 'id' => 'delete_current_icon', 'value' => 0, 'options' =>
 		array(elgg_echo('event_manager:edit:form:delete_current_icon')=>'1')))."</td></tr>";
 	}
-	
 
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:organizer') . "</td><td>" . elgg_view('input/text', array('name' => 'organizer', 'value' => $fields["organizer"]));
 	if(!$event){

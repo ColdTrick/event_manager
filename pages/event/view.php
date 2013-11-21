@@ -1,14 +1,23 @@
-<?php 
+<?php
 	
 	$guid = get_input("guid");
 	
-	if(!empty($guid) && ($entity = get_entity($guid))){	
+	if(!empty($guid) && ($entity = get_entity($guid))){
 		if($entity->getSubtype() == Event::SUBTYPE) {
 			$event = $entity;
 		}
 	}
 	
-	if($event){		
+	if($event){
+
+		// add export button
+		
+		elgg_load_js("addthisevent");
+		elgg_register_menu_item("title", ElggMenuItem::factory(array(
+			"name" => "addthisevent",
+			"href" => false,
+			"text" => elgg_view("event_manager/event/addthisevent", array("entity" => $event)))));
+		
 		elgg_set_page_owner_guid($event->getContainerGUID());
 		$page_owner = elgg_get_page_owner_entity();
 		if($page_owner instanceof ElggGroup){

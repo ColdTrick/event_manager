@@ -385,3 +385,28 @@
 #event_manager_registrationform_fields li {
 	background: #FFFFFF;
 }
+
+.addthisevent {
+	display: none;
+}
+
+.addthisevent_dropdown {
+	display: none;
+	right: 0px;
+	left: inherit !important;
+	position: absolute;
+	padding: 10px;
+	background: white;
+	border: 1px solid #CCC;
+}
+
+.addthisevent_dropdown span {
+	display: block;
+	white-space: nowrap;
+	color: #4690D6;
+}
+
+.addthisevent_dropdown span:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
