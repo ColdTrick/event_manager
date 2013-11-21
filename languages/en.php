@@ -230,6 +230,8 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:menu:user_hover:resend_confirmation' => 'Resend confirmation email',
 		'event_manager:event:menu:user_hover:move_to_attendees' => 'Move to attendees',
 
+		'event_manager:event:menu:title:add_to_calendar' => 'Add to Calendar',
+
 		'event_manager:event:view:event' => 'Event',
 		'event_manager:event:view:date' => 'Date',
 		'event_manager:event:view:createdby' => 'Created by',

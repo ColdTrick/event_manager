@@ -5,7 +5,7 @@ if (!$event) {
 	return;
 }
 
-$link = "<a class='elgg-button elgg-button-action' href='" . $event->getURL() . "'>" . elgg_view_icon("calendar", "float mrs") . elgg_echo("Add to Calendar") . "</a>";
+$link = "<a class='elgg-button elgg-button-action' href='" . $event->getURL() . "'>" . elgg_view_icon("calendar", "float mrs") . elgg_echo("event_manager:event:menu:title:add_to_calendar") . "</a>";
 
 $location = $event->getLocation();
 if (empty($location)) {
