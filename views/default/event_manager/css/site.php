@@ -395,7 +395,7 @@
 	right: 0px;
 	left: inherit !important;
 	position: absolute;
-	padding: 10px;
+	padding: 10px 0;
 	background: white;
 	border: 1px solid #CCC;
 }
@@ -404,9 +404,11 @@
 	display: block;
 	white-space: nowrap;
 	color: #4690D6;
+	padding: 5px 15px;
 }
 
 .addthisevent_dropdown span:hover {
-	text-decoration: underline;
+	color: white;
+	background: #4690D6;
 	cursor: pointer;
 }
