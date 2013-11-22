@@ -20,7 +20,7 @@
 			"twitter_hash"			=> ELGG_ENTITIES_ANY_VALUE,
 			"organizer"				=> ELGG_ENTITIES_ANY_VALUE,
 			"organizer_rsvp"		=> 0,
-			"start_day" 			=> time(),
+			"start_day" 			=> date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, time()),
 			"start_time"			=> time(),
 			"registration_ended" 	=> ELGG_ENTITIES_ANY_VALUE,
 			"endregistration_day" 	=> ELGG_ENTITIES_ANY_VALUE,
@@ -46,14 +46,11 @@
 	
 	if($event = $vars['entity']) {
 		// edit mode
-		$fields["guid"]			= $event->getGUID();
-		$fields["location"]		= $event->getLocation();
-		$fields["latitude"]		= $event->getLatitude();
-		$fields["longitude"]	= $event->getLongitude();
-		$fields["tags"]			= string_to_tag_array($event->tags);
-		
-		$start_time_hours = date('H', $event->start_time);
-		$start_time_minutes = date('i', $event->start_time);
+		$fields["guid"] = $event->getGUID();
+		$fields["location"] = $event->getLocation();
+		$fields["latitude"] = $event->getLatitude();
+		$fields["longitude"] = $event->getLongitude();
+		$fields["tags"] = string_to_tag_array($event->tags);
 		
 		if($event->icontime) {
 			$currentIcon = '<img src="'.$event->getIcon().'" />';
@@ -63,23 +60,26 @@
 			if(!in_array($field, array("guid", "location", "latitude", "longitude"))){
 				$fields[$field] = $event->$field;
 			}
-		}
-	} else {
-		// new mode
-		if(!empty($_SESSION['createevent_values'])) {
-			// check for empty fields that should revert to defaults
-			foreach(array("start_day", "access_id") as $data){
-				if($_SESSION['createevent_values'][$data] == ''){
-					unset($_SESSION['createevent_values'][$data]);
+			
+			if ($field == "start_day") {
+				// convert timestamp to date notation for correct display
+				$start_day = $event->start_day;
+				if (!empty($start_day)) {
+					$fields[$field] = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $start_day);
 				}
 			}
-			
-			// merge defaults with session data
-			$fields = array_merge($fields, $_SESSION['createevent_values']);
 		}
 	}
 	
-	$form_body = '<a class="hidden" href="' . elgg_get_site_url() . 'events/event/googlemaps/'.$fields["guid"].'" id="openGoogleMaps">google maps</a>';
+	// new mode
+	if (elgg_is_sticky_form('event')) {
+		// merge defaults with session data
+		$fields = array_merge($fields, elgg_get_sticky_values('event'));
+	}
+	
+	elgg_clear_sticky_form('event');
+	
+	$form_body = '<a class="hidden" href="' . elgg_get_site_url() . 'events/event/googlemaps/' . $fields["guid"] . '" id="openGoogleMaps">google maps</a>';
 	$form_body .= elgg_view('input/hidden', array('name' => 'latitude', 'id' => 'event_latitude', 'value' => $fields["latitude"]));
 	$form_body .= elgg_view('input/hidden', array('name' => 'longitude', 'id' => 'event_longitude', 'value' => $fields["longitude"]));
 	$form_body .= elgg_view('input/hidden', array('name' => 'guid', 'value' => $fields["guid"]));
@@ -89,12 +89,12 @@
 	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('title') . " *</td><td>" . elgg_view('input/text', array('name' => 'title', 'value' => $fields["title"])) . "</td></tr>";
 	
-	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:start_day') . " *</td>
-		<td>" . elgg_view('input/date', array('name' => 'start_day', 'id' => 'start_day', 'value' => date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $fields["start_day"]))) . "</td></tr>";
+	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:start_day') . " *</td>";
+	$form_body .= "<td>" . elgg_view('input/date', array('name' => 'start_day', 'id' => 'start_day', 'value' => $fields["start_day"])) . "</td></tr>";
 		
-	$form_body .= "<tr id='event_manager_start_time_pulldown'><td class='event_manager_event_edit_label'>" . elgg_echo("event_manager:edit:form:start_time") . "</td><td>".
-		event_manager_get_form_pulldown_hours('start_time_hours', $start_time_hours).
-		event_manager_get_form_pulldown_minutes('start_time_minutes', $start_time_minutes)."</td>";
+	$form_body .= "<tr id='event_manager_start_time_pulldown'><td class='event_manager_event_edit_label'>" . elgg_echo("event_manager:edit:form:start_time") . "</td><td>";
+	$form_body .= event_manager_get_form_pulldown_hours('start_time_hours', date('H', $fields["start_time"]));
+	$form_body .= event_manager_get_form_pulldown_minutes('start_time_minutes', date('i', $fields["start_time"])) . "</td>";
 	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:shortdescription') . "</td><td>" . elgg_view('input/text', array('name' => 'shortdescription', 'value' => $fields["shortdescription"])) . "</td></tr>";
 	
@@ -104,14 +104,14 @@
 	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:icon') . "</td><td>" . elgg_view('input/file', array('name' => 'icon')) . "</td></tr>";
 	
-	if(!empty($currentIcon)) {
+	if (!empty($currentIcon)) {
 		$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:currenticon') . "</td><td>".$currentIcon."<br />".
 		elgg_view('input/checkboxes', array('name' => 'delete_current_icon', 'id' => 'delete_current_icon', 'value' => 0, 'options' =>
 		array(elgg_echo('event_manager:edit:form:delete_current_icon')=>'1')))."</td></tr>";
 	}
 
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:organizer') . "</td><td>" . elgg_view('input/text', array('name' => 'organizer', 'value' => $fields["organizer"]));
-	if(!$event){
+	if (!$event) {
 		$form_body .= "<br/>" . elgg_view('input/checkboxes', array('name' => 'organizer_rsvp', 'id' => 'organizer_rsvp', 'value' => $fields["organizer_rsvp"], 'options' => array(elgg_echo('event_manager:edit:form:organizer_rsvp')=>'1')));
 	}
 	$form_body .= "</td></tr>";
@@ -120,11 +120,11 @@
 	
 	$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:location') . "</td><td>" . elgg_view('input/text', array('name' => 'location', 'id' => 'openmaps', 'value' => $fields["location"], 'readonly' => true)) . "</td></tr>";
 	
-	if($region_options)	{
+	if ($region_options)	{
 		$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:region') . "</td><td>" . elgg_view('input/dropdown', array('name' => 'region', 'value' => $fields["region"], 'options' => $region_options)) . "</td></tr>";
 	}
 	
-	if($type_options) {
+	if ($type_options) {
 		$form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:type') . "</td><td>" . elgg_view('input/dropdown', array('name' => 'event_type', 'value' => $fields["event_type"], 'options' => $type_options)) . "</td></tr>";
 	}
 
@@ -193,4 +193,4 @@
 	echo elgg_view_module("main", "", $form);
 	
 	// unset sticky data TODO: replace with sticky forms functionality
-	$_SESSION['createevent_values'] = null;
+// 	$_SESSION['createevent_values'] = null;

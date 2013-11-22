@@ -1,5 +1,8 @@
 <?php
- 	
+	
+	// start a new sticky form session in case of failure
+	elgg_make_sticky_form('event');
+
 	$guid 					= get_input("guid");
 	$container_guid			= get_input("container_guid");
 	$title 					= get_input("title");
@@ -81,6 +84,7 @@
 	}
 	
 	if(!empty($title) && !empty($start_day)) {
+		$newEvent = false;
 		if (!isset($event)) {
 			$newEvent = true;
 			$event = new Event();
@@ -202,50 +206,13 @@
 		
 		// added because we need an update event
 		if ($event->save()) {
+			// remove sticky form entries
+			elgg_clear_sticky_form('event');
+			
 			system_message(elgg_echo("event_manager:action:event:edit:ok"));
 			$forward_url = $event->getURL();
 		}
 	} else {
-		
-		// TODO: replace with sticky forms functionality
-		
-		$_SESSION['createevent_values']['title'] 				= $title;
-		$_SESSION['createevent_values']['shortdescription'] 	= $shortdescription;
-		$_SESSION['createevent_values']['tags'] 				= $tags;
-		$_SESSION['createevent_values']['description'] 			= $description;
-		$_SESSION['createevent_values']['organizer'] 			= $organizer;
-		$_SESSION['createevent_values']['organizer_rsvp'] 			= $organizer_rsvp;
-		$_SESSION['createevent_values']['comments_on'] 			= $comments_on;
-		$_SESSION['createevent_values']['venue'] 				= $venue;
-		$_SESSION['createevent_values']['location'] 			= $location;
-		$_SESSION['createevent_values']['region'] 				= $region;
-		$_SESSION['createevent_values']['event_type'] 			= $event_type;
-		$_SESSION['createevent_values']['contact_details'] 		= $contact_details;
-		$_SESSION['createevent_values']['twitter_hash'] 		= $twitter_hash;
-		$_SESSION['createevent_values']['website'] 				= $website;
-		$_SESSION['createevent_values']['fee'] 					= $fee;
-		$_SESSION['createevent_values']['latitude'] 			= $latitude;
-		$_SESSION['createevent_values']['longitude'] 			= $longitude;
-		$_SESSION['createevent_values']['start_day'] 			= $start_day;
-		$_SESSION['createevent_values']['start_time'] 			= $start_time;
-		$_SESSION['createevent_values']['endregistration_day'] 	= $endregistration_day;
-		$_SESSION['createevent_values']['with_program']			= $with_program;
-		$_SESSION['createevent_values']['registration_ended']	= $registration_ended;
-		$_SESSION['createevent_values']['registration_needed']	= $registration_needed;
-		$_SESSION['createevent_values']['register_nologin']		= $register_nologin;
-		$_SESSION['createevent_values']['show_attendees']		= $show_attendees;
-		$_SESSION['createevent_values']['hide_owner_block']		= $hide_owner_block;
-		$_SESSION['createevent_values']['notify_onsignup']		= $notify_onsignup;
-		$_SESSION['createevent_values']['max_attendees']		= $max_attendees;
-		$_SESSION['createevent_values']['waiting_list']			= $waiting_list;
-		$_SESSION['createevent_values']['access_id'] 			= $access_id;
-		
-		$_SESSION['createevent_values']['event_interested'] 	= $event_interested;
-		$_SESSION['createevent_values']['event_presenting'] 	= $event_presenting;
-		$_SESSION['createevent_values']['event_exhibiting'] 	= $event_exhibiting;
-		$_SESSION['createevent_values']['event_organizing'] 	= $event_organizing;
-		$_SESSION['createevent_values']['registration_completed'] 	= $registration_completed;
-		
 		register_error(elgg_echo("event_manager:action:event:edit:error_fields"));
 	}
 	

@@ -570,7 +570,7 @@
 		return $result;
 	}
 	
-	function event_manager_get_form_pulldown_hours($name = '', $value = '', $h = 24) {
+	function event_manager_get_form_pulldown_hours($name = '', $value = '', $h = 23) {
 		$time_hours_options = range(0, $h);
 		
 		array_walk($time_hours_options, 'event_manager_time_pad');
