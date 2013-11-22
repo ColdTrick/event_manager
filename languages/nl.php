@@ -162,6 +162,8 @@ Iemand heeft zich afgemeld van het \'%s\' evenement. Je bent van de wachtlijst n
   'event_manager:edit:form:hide_owner_block' => 'Verberg eigenaarsinformatie in zijbalk',
   'event_manager:edit:form:notify_onsignup' => 'Na deelname notificatie versturen?',
   'event_manager:edit:form:start_day' => 'Datum',
+  'event_manager:edit:form:start' => 'Start',
+  'event_manager:edit:form:end' => 'Eind',
   'event_manager:edit:form:endregistration_day' => 'Datum einde registratie',
   'event_manager:edit:form:multiple_days' => 'Meerdere dagen?',
   'event_manager:edit:form:start_time' => 'Start tijd',

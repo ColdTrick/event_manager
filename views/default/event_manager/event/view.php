@@ -29,9 +29,11 @@
 		$event_details .= '</td></tr>';
 	}
 	
-	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:start_day') . ':</label></td><td>' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . '</td></tr>';
-	
-	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:start_time') . ':</label></td><td>' . date('H', $event->start_time) . ':' . date('i', $event->start_time) . '</td></tr>';
+	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:start') . ':</label></td><td>' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . " ". date('H', $event->start_time) . ':' . date('i', $event->start_time) . '</td></tr>';
+
+	if ($event->end_ts) {
+		$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:end') . ':</label></td><td>' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->end_ts) . " ". date('H', $event->end_ts) . ':' . date('i', $event->end_ts) . '</td></tr>';
+	}
 	
 	// optional end day
 	if($organizer = $event->organizer){

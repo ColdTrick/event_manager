@@ -84,6 +84,8 @@
 		'event_manager:edit:form:show_attendees' => 'Display attendees?',
 		'event_manager:edit:form:hide_owner_block' => 'Hide owner information in sidebar',
 		'event_manager:edit:form:notify_onsignup' => 'Notify me when someone signs up',
+		'event_manager:edit:form:start' => 'Start',
+		'event_manager:edit:form:end' => 'End',
 		'event_manager:edit:form:start_day' => 'Date',
 		'event_manager:edit:form:start_day:from' => 'Date from',
 		'event_manager:edit:form:start_day:to' => 'Date to',

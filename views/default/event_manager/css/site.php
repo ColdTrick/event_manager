@@ -21,6 +21,16 @@
 	max-width: 250px;
 }
 
+.event_manager_event_edit_date {
+	width: 100px;
+	height: 20px;
+	padding: 0 5px;
+}
+
+#event_manager_event_edit > fieldset > table td {
+	padding: 2px 0px;
+}
+
 /* Event listing  */
 #event_manager_event_search_advanced_enable {
 	float: right;
