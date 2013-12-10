@@ -1,8 +1,27 @@
 = Version history =
 
-x.x ():
+2.7 (2013-12-10):
 
+- added: add to calendar functionality (iCal export) 
+- added: end date/time for events
+- added: action to move waiting users to attendees
+- added: events are now notification objects (will generate some more default notification mails)
+- added: event owner listing of pending event registrations
+- added: action to resend event registration validation mail to pending registrations
+- added: action to add pending registrations directly to attendees
+- changed: event owner can also be removed from event with user hover menu 
+- changed: export column separator is now a semicolon
+- changed: default rsvp options is now only attending
+- changed: only show attendees if useful
+- changed: thumbnail generation uses default elgg sizes
+- changed: logged out registration is now possible with email adresses of registered users
+- changed: logged out registration requires email validation of registration
 - removed: twitter sidebar widget because twitter doesn't support this anymore
+- fixed: correctly check if a user can edit an event
+- fixed: non logged in users requires custom questions to register
+- fixed: register button showing even if not possible to register
+- fixed: register form showing even if there are no further questions required to register
+
 
 2.6 (2013-04-19):
 
