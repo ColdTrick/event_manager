@@ -22,7 +22,7 @@ if ($event->end_day) {
 }
 
 $title = $event->title;
-$description = $event->description;
+$description = elgg_get_excerpt($event->description, 500);
 $organizer = $event->organizer;
 
 ?>
