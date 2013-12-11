@@ -14,11 +14,11 @@ if (empty($location)) {
 
 $start = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . " " . date('H', $event->start_time) . ":" . date('i', $event->start_time) . ":00";
 
-if ($event->end_day) {
-	$end = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->end_day);
+if ($event->end_ts) {
+	$end = date('Y-m-d H:i:00', $event->end_ts);
 } else {
 	$end = date_add(date_create($start), date_interval_create_from_date_string("1 hour"));
-	$end = $end->format('Y-m-d H:i:s');
+	$end = $end->format('Y-m-d H:i:00');
 }
 
 $title = $event->title;
