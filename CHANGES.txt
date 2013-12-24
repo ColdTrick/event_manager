@@ -1,5 +1,10 @@
 = Version history =
 
+2.7.1 (2013-12-24):
+
+- fixed: using incorrect end ts for determining end date/time of event for addthisevent script
+- fixed: using date_add (a php 5.3 function) breaks usage for 5.2
+
 2.7 (2013-12-10):
 
 - added: add to calendar functionality (iCal export) 
