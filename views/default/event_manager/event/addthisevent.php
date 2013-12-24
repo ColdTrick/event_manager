@@ -17,8 +17,9 @@ $start = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . " " . dat
 if ($event->end_ts) {
 	$end = date('Y-m-d H:i:00', $event->end_ts);
 } else {
-	$end = date_add(date_create($start), date_interval_create_from_date_string("1 hour"));
-	$end = $end->format('Y-m-d H:i:00');
+	$end_ts = mktime(date('H', $event->start_time), date('i', $event->start_time), 0,date('m', $event->start_day), date('d', $event->start_day), date('Y', $event->start_day));
+	$end_ts = $end_ts + 3600;
+	$end = date('Y-m-d H:i:00', $end_ts);
 }
 
 $title = $event->title;
