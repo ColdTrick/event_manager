@@ -168,16 +168,14 @@
 			return false;
 		}
 		
-		$lat = (real)$lat;
-		$long = (real)$long;
-		$radius = (real)$radius;
+		$lat = (real) $lat;
+		$long = (real) $long;
+		$radius = (real) $radius;
 		
-		$limit = (int)$limit;
-		$offset = (int)$offset;
-		$site_guid = (int) $site_guid;
-		if ($site_guid == 0) {
-			$site_guid = elgg_get_site_entity()->getGUID();
-		}
+		$limit = (int) $limit;
+		$offset = 0;
+		
+		$site_guid = elgg_get_site_entity()->getGUID();
 		
 		$where = array();
 		 
@@ -267,11 +265,7 @@
 		$where[] = "loc_end_value.string >= $long_min";
 		$where[] = "loc_end_value.string <= $long_max";
 		
-		if (!$count) {
-			$query = "SELECT e.* from " . elgg_get_config("dbprefix") . "entities e $loc_join where ";
-		} else {
-			$query = "SELECT count(e.guid) as total from " . elgg_get_config("dbprefix") . "entities e $loc_join where ";
-		}
+		$query = "SELECT e.* from " . elgg_get_config("dbprefix") . "entities e $loc_join where ";
 		
 		foreach ($where as $w) {
 			$query .= " $w and ";
@@ -279,17 +273,13 @@
 		
 		$query .= get_access_sql_suffix('e'); // Add access controls
 		
-		if (!$count) {
-			// Add order and limit
-			if ($limit) {
-				$query .= " limit $offset, $limit";
-			}
-			$dt = get_data($query, "entity_row_to_elggstar");
-			return $dt;
-		} else {
-			$total = get_data_row($query);
-			return $total->total;
+		// Add order and limit
+		if ($limit) {
+			$query .= " limit $offset, $limit";
 		}
+		$dt = get_data($query, "entity_row_to_elggstar");
+		
+		return $dt;
 	}
 	
 	function event_manager_export_attendees($event, $file = false) {
