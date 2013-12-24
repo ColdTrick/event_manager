@@ -88,7 +88,7 @@
 						$include = "/procedures/".$page[1]."/".$page[2].".php";
 					} else {
 						echo json_encode(array("valid" => 0));
-						exit;
+						exit();
 					}
 					break;
 				case "unsubscribe":

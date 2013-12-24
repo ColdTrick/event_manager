@@ -326,7 +326,7 @@
 				$user_guid = elgg_get_logged_in_user_guid();
 			}
 			
-			if ($eventDays = $this->getEventDays()) {
+			if ($this->getEventDays()) {
 				if (!$participate) {
 					elgg_push_context('programmailview');
 					
@@ -350,7 +350,7 @@
 				$user_guid = elgg_get_logged_in_user_guid();
 			}
 			
-			if ($eventDays = $this->getEventDays()) {
+			if ($this->getEventDays()) {
 				elgg_push_context('programmailview');
 				
 				$result .= elgg_view('event_manager/program/pdf', array('entity' => $this, 'user_guid' => $user_guid));

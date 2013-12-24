@@ -1,10 +1,10 @@
-<?php 
+<?php
 
-	class EventRegistrationQuestion extends ElggObject 
+	class EventRegistrationQuestion extends ElggObject
 	{
 		const SUBTYPE = "eventregistrationquestion";
 		
-		protected function initializeAttributes() 
+		protected function initializeAttributes()
 		{
 			parent::initializeAttributes();
 			
@@ -54,7 +54,7 @@
 		}
 		
 		public function deleteAnswerFromUser($user_guid = null)
-		{			
+		{
 			if(empty($user_guid))
 			{
 				$user_guid = elgg_get_logged_in_user_guid();
@@ -67,13 +67,13 @@
 		}
 		
 		public function updateAnswerFromUser($event, $new_answer, $user_guid = null)
-		{	
+		{
 			if(empty($user_guid))
 			{
 				$user_guid = elgg_get_logged_in_user_guid();
 			}
 			
-			if(($old_answer = $this->getAnswerFromUser($user_guid)) && ($user = get_user($user_guid)))
+			if(($old_answer = $this->getAnswerFromUser($user_guid)) && get_user($user_guid))
 			{
 				if(!empty($new_answer))
 				{

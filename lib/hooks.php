@@ -192,7 +192,6 @@
 
 		if (!empty($params) && is_array($params)) {
 			$entity = elgg_extract("entity", $params);
-			$method = elgg_extract("method", $params);
 
 			if (!empty($entity) && elgg_instanceof($entity, "object", Event::SUBTYPE)) {
 				$user = elgg_get_logged_in_user_entity();
