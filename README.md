@@ -1,4 +1,4 @@
-Event Manager
+Event Manager [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/ColdTrick/event_manager/badges/quality-score.png?s=f4892ec66d3ce7309818f7a57824728d7ffb98bd)](https://scrutinizer-ci.com/g/ColdTrick/event_manager/)
 =============
 Manage events, from a simple appointment to a multi day event with day programs and subscriptions
 
