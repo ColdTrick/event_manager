@@ -172,7 +172,6 @@
 		$long = (real)$long;
 		$radius = (real)$radius;
 		
-		$order_by = sanitise_string($order_by);
 		$limit = (int)$limit;
 		$offset = (int)$offset;
 		$site_guid = (int) $site_guid;
