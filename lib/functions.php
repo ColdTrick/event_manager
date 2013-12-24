@@ -48,8 +48,6 @@
 		
 		$options = array_merge($defaults, $options);
 		
-		$fields = array('title', 'description');
-		
 		$entities_options = array(
 			'type' 			=> 'object',
 			'subtype' 		=> 'event',
