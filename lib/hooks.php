@@ -12,10 +12,10 @@
 			}
 		}
 
-		if($event){
+		if ($event && $event->canEdit()) {
 			$user = elgg_extract("entity", $params);
 
-			if($user){
+			if ($user) {
 				// kick from event
 				$href = elgg_get_site_url() . 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&user=' . $user->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO;
 				$href = elgg_add_action_tokens_to_url($href);
