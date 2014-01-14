@@ -317,7 +317,7 @@
 							$end_time_hour = date('H', $end_time);
 							$end_time_minutes = date('i', $end_time);
 							
-							$headerString .= ';"Event activity: \''.$eventSlot->title.'\' '.$date. ' ('.$start_time_hour.':'.$start_time_minutes.' - '.$end_time_hour.':'.$end_time_minutes.')"';
+							$headerString .= ';"Event activity: \'' . addslashes($eventSlot->title) . '\' ' . $date . ' (' . $start_time_hour . ':' . $start_time_minutes . ' - ' . $end_time_hour . ':' . $end_time_minutes . ')"';
 						}
 					}
 				}
@@ -401,7 +401,7 @@
 							$end_time_hour = date('H', $end_time);
 							$end_time_minutes = date('i', $end_time);
 							
-							$headerString .= ';"Event activity: \''.$eventSlot->title.'\' '.$date. ' ('.$start_time_hour.':'.$start_time_minutes.' - '.$end_time_hour.':'.$end_time_minutes.')"';
+							$headerString .= ';"Event activity: \''  .addslashes($eventSlot->title) . '\' ' . $date . ' (' . $start_time_hour . ':' . $start_time_minutes . ' - ' . $end_time_hour . ':' . $end_time_minutes . ')"';
 						}
 					}
 				}
