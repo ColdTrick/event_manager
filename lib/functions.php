@@ -103,7 +103,7 @@
 		if($options['friendsattending']){
 			$friends_guids = array();
 			
-			if($friends = elgg_get_logged_in_user_entity()->getFriends()) {
+			if($friends = elgg_get_logged_in_user_entity()->getFriends("", false)) {
 				foreach($friends as $user) {
 					$friends_guids[] = $user->getGUID();
 				}
