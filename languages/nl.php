@@ -342,7 +342,7 @@ Je hebt je uit het \'%s\' evenement uitgeschreven.
   'event_manager:action:event:delete:ok' => 'Evenement verwijdert',
   'event_manager:settings:google_api_key' => 'Voer hier je "Google API Key" in',
   'event_manager:settings:google_maps:enterdefaultlocation' => 'Voer een standaard locatie in waar google maps op moet centreren',
-  'event_manager:settings:google_maps:enterdefaultzoom' => 'Kies een standaard google maps zoom level (0 = volledig ingezoomd, 19 = volledig uitgezoomd)',
+  'event_manager:settings:google_maps:enterdefaultzoom' => 'Kies een standaard google maps zoom level (0 = volledig uitgezoomd, 19 = volledig ingezoomd)',
   'event_manager:settings:google_api_key:clickhere' => 'Ga naar <a target="_blank" href="https://developers.google.com/maps/documentation/javascript/tutorial#api_key">https://developers.google.com/maps/documentation/javascript/tutorial#api_key</a> om een "Google API key" aan te vragen',
   'event_manager:settings:region_list' => 'Voer (komma gescheiden) evenement regio\'s in',
   'event_manager:settings:type_list' => 'Voer (komma gescheiden) evenementtypes in',
