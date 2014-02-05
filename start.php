@@ -20,12 +20,29 @@
 	define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST", "event_slot_registration_waitinglist");
 	define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING", "event_slot_registration_pending");
 
+/*
 	require_once(dirname(__FILE__) . "/lib/functions.php");
 	require_once(dirname(__FILE__) . "/lib/run_once.php");
 	require_once(dirname(__FILE__) . "/lib/hooks.php");
 	require_once(dirname(__FILE__) . "/lib/events.php");
+	
+	*/
 
 	function event_manager_init() {
+		
+	elgg_register_library('event_manager_functions', elgg_get_plugins_path() . 'event_manager/lib/functions.php');
+    	elgg_load_library('event_manager_functions');
+
+    	elgg_register_library('event_manager_run_once', elgg_get_plugins_path() . 'event_manager/lib/run_once.php');
+    	elgg_load_library('event_manager_run_once');
+
+	elgg_register_library('event_manager_hooks', elgg_get_plugins_path() . 'event_manager/lib/hooks.php');
+    	elgg_load_library('event_manager_hooks');
+
+    	elgg_register_library('event_manager_events', elgg_get_plugins_path() . 'event_manager/lib/events.php');
+    	elgg_load_library('event_manager_events');
+
+		
 		// Register subtype
 		run_function_once("event_manager_run_once_subtypes");
 
