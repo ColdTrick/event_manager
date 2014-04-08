@@ -435,8 +435,6 @@
 				$user_message .= $registrationLink;
 				$user_message .= $unsubscribeLink;
 				
-				register_error($user_message);
-								
 				if ($to_entity instanceof ElggUser) {
 					// use notification system for real users
 					notify_user($to, $this->getGUID(), $user_subject, $user_message);
