@@ -376,6 +376,8 @@
 				$html_email_handler_enabled = elgg_is_active_plugin("html_email_handler");
 				
 				// do we have a registration link
+				$registrationLink = "";
+				$unsubscribeLink = "";
 				if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
 					if ($this->registration_needed) {
 						$link = elgg_get_site_url() . 'events/registration/view/?guid=' . $this->getGUID() . '&u_g=' . $to . '&k=' . md5($this->time_created . get_site_secret() . $to);
@@ -387,6 +389,19 @@
 							$registrationLink .= elgg_view("output/url", array("text" => $link, "href" => $link));
 						} else {
 							$registrationLink .= $link;
+						}
+					}
+					
+					if ($this->register_nologin) {
+						$link = elgg_get_site_url() . "events/unsubscribe/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title) . "?e=" . $to_entity->email;
+						
+						$unsubscribeLink = PHP_EOL . PHP_EOL;
+						$unsubscribeLink .= elgg_echo('event_manager:event:registration:notification:unsubscribe:linktext');
+						$unsubscribeLink .= PHP_EOL . PHP_EOL;
+						if ($html_email_handler_enabled) {
+							$unsubscribeLink .= elgg_view("output/url", array("text" => $link, "href" => $link));
+						} else {
+							$unsubscribeLink .= $link;
 						}
 					}
 				}
@@ -418,6 +433,9 @@
 					$event_title_link));
 				
 				$user_message .= $registrationLink;
+				$user_message .= $unsubscribeLink;
+				
+				register_error($user_message);
 								
 				if ($to_entity instanceof ElggUser) {
 					// use notification system for real users

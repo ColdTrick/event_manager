@@ -1,5 +1,8 @@
 <?php
 $language = array (
+  'event_manager:event:registration:notification:unsubscribe:linktext' => 'Als je je wilt uitschrijven van dit evenement gebruik dan deze link',
+  'event_manager:event:menu:title:add_to_calendar' => 'Toevoegen aan de kalender',
+  'to' => 'Tonga',
   'event_manager:event:menu:user_hover:resend_confirmation' => 'Herzend bevestigings email',
   'event_manager:event:menu:user_hover:move_to_attendees' => 'Verplaats naar deelnemers',
   'event_manager:event:relationship:event_pending:label' => 'In afwachting van email validatie',
@@ -25,7 +28,6 @@ Om uw registratie af te ronden voor het evenement "%s", klik op deze link
 %s
 
 Indien u zich niet heeft geregistreerd kunt u deze email negeren of de link volgen, waar u de mogelijkheid heeft om de registratie te verwijderen.',
-  'to' => 'Tonga',
   'event_manager:menu:unsubscribe' => 'Uitschrijven',
   'event_manager:menu:unsubscribe_confirm' => 'Bevestig uitschrijving',
   'event_manager:menu:registration:completed' => 'Evenement registratie afgerond',
