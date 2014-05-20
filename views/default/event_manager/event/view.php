@@ -115,7 +115,7 @@
 	
 	$body .= elgg_view_module("main", "", elgg_view("event_manager/event/actions", $vars));
 		
-	if($event->show_attendees){
+	if($event->show_attendees || $event->canEdit()){
 		$body .= elgg_view("event_manager/event/attendees", $vars);
 	}
 	
