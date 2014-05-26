@@ -188,7 +188,7 @@ if (!empty($title) && !empty($start_day) && !empty($end_ts)) {
 
 	$event->setAccessToOwningObjects($access_id);
 	
-	$prefix = "events/".$event->guid."/";
+	$prefix = "events/" . $event->guid . "/";
 	
 	if (($icon_file = get_resized_image_from_uploaded_file("icon", 100, 100)) && ($icon_sizes = elgg_get_config("icon_sizes"))) {
 		// create icon

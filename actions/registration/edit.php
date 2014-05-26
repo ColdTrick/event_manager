@@ -9,7 +9,7 @@ if (!empty($guid) && $registration = get_entity($guid)) {
 		foreach ($post as $key => $value) {
 			$questionId = substr($key, 8, strlen($key));
 			if (substr($key, 0, 8) == 'question') {
-				$registrationFields[] = $questionId.'|'.$value;
+				$registrationFields[] = $questionId . '|' . $value;
 			}
 		}
 		
@@ -17,7 +17,7 @@ if (!empty($guid) && $registration = get_entity($guid)) {
 		
 		$registration->clearAnnotations('answer');
 		
-		foreach($registrationFields as $answer) {
+		foreach ($registrationFields as $answer) {
 			$registration->annotate('answer', $answer, $event[0]->access_id);
 		}
 		

@@ -1,7 +1,7 @@
 <?php
 		
 if (!function_exists('DOMPDF_autoload')) {
-	require_once(dirname(dirname(dirname(__FILE__)))."/vendors/dompdf/dompdf_config.inc.php");
+	require_once(dirname(dirname(dirname(__FILE__))) . "/vendors/dompdf/dompdf_config.inc.php");
 }
 
 $key = get_input('k');

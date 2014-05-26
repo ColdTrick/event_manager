@@ -41,7 +41,7 @@ if ($filehandler->exists()) {
 }
 
 if (!$success) {
-	$path = elgg_view('icon/events/default/'.$size);
+	$path = elgg_view('icon/events/default/' . $size);
 	header("Location: {$path}");
 	exit;
 }

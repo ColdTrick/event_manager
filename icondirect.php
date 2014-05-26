@@ -7,7 +7,7 @@
  */
 
 // Get DB settings
-require_once(dirname(dirname(dirname(__FILE__))). '/engine/settings.php');
+require_once(dirname(dirname(dirname(__FILE__))) . '/engine/settings.php');
 
 global $CONFIG;
 
@@ -65,4 +65,4 @@ if ($mysql_dblink) {
 require_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 
 set_input('eventGuid', $guid);
-require_once(dirname(__FILE__).'/icon.php');
+require_once(dirname(__FILE__) . '/icon.php');

@@ -19,7 +19,7 @@ if (!empty($guid) && ($event = get_entity($guid))) {
 				$filesArray = json_decode($event->files, true);
 			}
 			
-			$prefix = "events/".$event->getGUID()."/files/";
+			$prefix = "events/" . $event->getGUID() . "/files/";
 			
 			$newFilename = event_manager_sanitize_filename($_FILES['file']['name']);
 							

@@ -15,7 +15,7 @@ if (!empty($guid) && !empty($filename)) {
 		
 		foreach ($files as $index => $file) {
 			if (strtolower($file["file"]) == strtolower($filename)) {
-				$prefix = "events/".$event->getGUID()."/files/";
+				$prefix = "events/" . $event->getGUID() . "/files/";
 				
 				$fileHandler = new ElggFile();
 				$fileHandler->owner_guid = $event->owner_guid;
