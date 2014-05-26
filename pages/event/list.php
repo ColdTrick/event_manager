@@ -41,7 +41,7 @@ $form = elgg_view("event_manager/forms/event/search");
 
 $result = elgg_view("event_manager/search_result", array("entities" => $entities, "count" => $count));
 
-$content = 	$form . $result;
+$content = $form . $result;
 
 $body = elgg_view_layout('content', array(
 	'filter' => '',

@@ -15,7 +15,7 @@ $save_to_pdf_options = array(
 	"name" => "save_to_pdf",
 	"text" => elgg_echo('event_manager:registration:view:savetopdf'),
 	"class" => "elgg-button elgg-button-action",
-	"href" => "action/event_manager/registration/pdf?k=" . md5($event->time_created . get_site_secret() . $user_guid) . "&guid=" . $guid . "&u_g=" .$user_guid,
+	"href" => "action/event_manager/registration/pdf?k=" . md5($event->time_created . get_site_secret() . $user_guid) . "&guid=" . $guid . "&u_g=" . $user_guid,
 	"is_action" => true
 );
 
@@ -69,7 +69,7 @@ if (!empty($key)) {
 			}			
 
 			if ($user_guid == elgg_get_logged_in_user_guid()) {
-				$output .= '<br /><a class="mlm" href="' . elgg_get_site_url() . 'events/event/register/' . $event->getGUID() . '/event_attending">'.elgg_echo('event_manager:registration:edityourregistration').'</a>';
+				$output .= '<br /><a class="mlm" href="' . elgg_get_site_url() . 'events/event/register/' . $event->getGUID() . '/event_attending">' . elgg_echo('event_manager:registration:edityourregistration') . '</a>';
 			}	
 			
 			elgg_push_breadcrumb($event->title, $event->getURL());

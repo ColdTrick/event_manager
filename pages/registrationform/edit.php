@@ -16,7 +16,7 @@ if (!empty($event)) {
 		elgg_push_breadcrumb($entity->title, $event->getURL());
 		elgg_push_breadcrumb($title_text);
 		
-		$output  ='<ul id="event_manager_registrationform_fields">';
+		$output ='<ul id="event_manager_registrationform_fields">';
 		
 		if ($registration_form = $event->getRegistrationFormQuestions()) {
 			foreach ($registration_form as $question) {
@@ -25,7 +25,7 @@ if (!empty($event)) {
 		}
 		
 		$output .= '</ul>';	
-		$output .= '<br /><a rel="'.$guid.'" id="event_manager_questions_add" href="javascript:void(0);" class="elgg-button elgg-button-action">' . elgg_echo('event_manager:editregistration:addfield') . '</a>';
+		$output .= '<br /><a rel="' . $guid . '" id="event_manager_questions_add" href="javascript:void(0);" class="elgg-button elgg-button-action">' . elgg_echo('event_manager:editregistration:addfield') . '</a>';
 		
 		$body = elgg_view_layout('content', array(
 			'filter' => '',

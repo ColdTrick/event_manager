@@ -56,7 +56,7 @@ if (!empty($parent_guid) && $event = get_entity($parent_guid)) {
 					
 					$result['edit'] = 1;
 				} else {
-					$content_title = '<li><a rel="day_' . $day->getGUID() . '" href="javascript:void(0);">' . $content_title .'</a></li>';
+					$content_title = '<li><a rel="day_' . $day->getGUID() . '" href="javascript:void(0);">' . $content_title . '</a></li>';
 					
 					$content_body = elgg_view("event_manager/program/elements/day", array("entity" => $day));
 					$result['edit'] = 0;

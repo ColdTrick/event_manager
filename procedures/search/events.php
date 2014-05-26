@@ -27,7 +27,7 @@ if ($advanced_search) {
 		$options['meattending'] = true;
 	}
 	
-	if($owning) {
+	if ($owning) {
 		$options['owning'] = true;
 	}
 	
@@ -81,7 +81,8 @@ if ($search_type == 'list') {
 	$returnData['content'] = elgg_view_entity_list($entities['entities'], array("count" => $entities['count'], "offset" => $offset, "limit" => EVENT_MANAGER_SEARCH_LIST_LIMIT, 'full_view' => false, 'pagination' => false));
 	
 	if (($entities['count'] - ($offset + EVENT_MANAGER_SEARCH_LIST_LIMIT)) > 0) {
-		$returnData['content'] .= '<div id="event_manager_event_list_search_more" rel="'.($offset+EVENT_MANAGER_SEARCH_LIST_LIMIT).'">'.elgg_echo('event_manager:list:showmorevents').' ('.($entities['count']-($offset+EVENT_MANAGER_SEARCH_LIST_LIMIT)).')</div>';
+		$returnData['content'] .= '<div id="event_manager_event_list_search_more" rel="' . ($offset + EVENT_MANAGER_SEARCH_LIST_LIMIT) . '">';
+		$returnData['content'] .= elgg_echo('event_manager:list:showmorevents') . ' (' . ($entities['count'] - ($offset + EVENT_MANAGER_SEARCH_LIST_LIMIT)) . ')</div>';
 	}
 	
 	if ($entities['count'] < 1) {
@@ -105,7 +106,7 @@ if ($search_type == 'list') {
 				'title' => $event->title,
 				'html' => elgg_view_entity($event),
 				'hasrelation' => $event->getRelationshipByUser(),
-				'iscreator' => (($event->getOwnerGUID() == elgg_get_logged_in_user_guid())?'owner':null)
+				'iscreator' => (($event->getOwnerGUID() == elgg_get_logged_in_user_guid()) ? 'owner' : null)
 			);
 			elgg_pop_context();
 		}

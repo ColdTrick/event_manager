@@ -22,7 +22,7 @@ if (!empty($event)) {
 
 	$form = elgg_view("event_manager/forms/event/upload", array("entity" => $event));
 	
-	$current_files = elgg_view("event_manager/event/files", array("entity" =>$event));
+	$current_files = elgg_view("event_manager/event/files", array("entity" => $event));
 			
 	$page_data = $form . $current_files;
 	

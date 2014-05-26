@@ -24,7 +24,7 @@ if (elgg_is_logged_in()) {
 	}
 } else {
 	if ($event->register_nologin && $event->openForRegistration()) {
-		$register_link = '/events/event/register/'.$event->getGUID();
+		$register_link = '/events/event/register/' . $event->getGUID();
 		
 		$register_button = elgg_view('output/url', array("class" => "elgg-button elgg-button-submit", "href" => $register_link, "text" => elgg_echo('event_manager:event:register:register_link')));
 

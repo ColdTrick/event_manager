@@ -3,16 +3,20 @@
 $event = $vars["entity"];
 $owner = $event->getOwnerEntity();
 
-if($event->icontime){
+if ($event->icontime) {
 	$output .= '<div class="event_manager_event_view_image"><img src="' . $event->getIcon('medium') . '" border="0" /></div>';
 }
 
-$output .= '<div class="event_manager_event_view_owner">' . elgg_echo('event_manager:event:view:createdby') . '</span> <a class="user" href="'.$owner->getURL().'">'.$owner->name.'</a> '.date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->time_created).'</div>';
+$output .= '<div class="event_manager_event_view_owner">';
+$output .= elgg_echo('event_manager:event:view:createdby');
+$output .= '</span> <a class="user" href="' . $owner->getURL() . '">' . $owner->name . '</a> ';
+$output .= date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->time_created);
+$output .= '</div>';
 
 // event details
 $event_details = "<table>";
 if ($location = $event->getLocation()) {
-	$event_details .= '<tr><td><b>'.elgg_echo('event_manager:edit:form:location').'</b></td><td>: ';
+	$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:location') . '</b></td><td>: ';
 	$event_details .= $event->getLocation();
 	$event_details .= '</td></tr>';
 }
@@ -31,7 +35,7 @@ if ($region = $event->region) {
 	$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:region') . '</b></td><td>: ' . $region . '</td></tr>';
 }
 
-if($type = $event->event_type){
+if ($type = $event->event_type) {
 	$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:type') . '</b></td><td>: ' . $type . '</td></tr>';
 }
 

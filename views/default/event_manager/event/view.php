@@ -29,10 +29,10 @@ if ($location = $event->getLocation()) {
 	$event_details .= '</td></tr>';
 }
 
-$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:start') . ':</label></td><td>' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . " ". date('H', $event->start_time) . ':' . date('i', $event->start_time) . '</td></tr>';
+$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:start') . ':</label></td><td>' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . " " . date('H', $event->start_time) . ':' . date('i', $event->start_time) . '</td></tr>';
 
 if ($event->end_ts) {
-	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:end') . ':</label></td><td>' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->end_ts) . " ". date('H', $event->end_ts) . ':' . date('i', $event->end_ts) . '</td></tr>';
+	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:end') . ':</label></td><td>' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->end_ts) . " " . date('H', $event->end_ts) . ':' . date('i', $event->end_ts) . '</td></tr>';
 }
 
 // optional end day
@@ -102,7 +102,7 @@ if ($files = $event->hasFiles()) {
 	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:files') . ':</label></td><td>';
 	$event_details .= "<div class='event-manager-event-files'>";
 	foreach ($files as $file) {
-		$event_details .= '<a href="' . elgg_get_site_url() . 'events/event/file/' . $event->getGUID() . '/'. $file->file . '">' . elgg_view_icon("download", "mrs") . $file->title . '</a><br />';
+		$event_details .= '<a href="' . elgg_get_site_url() . 'events/event/file/' . $event->getGUID() . '/' . $file->file . '">' . elgg_view_icon("download", "mrs") . $file->title . '</a><br />';
 	}
 	
 	$event_details .= '</div>';

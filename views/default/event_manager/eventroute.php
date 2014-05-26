@@ -32,7 +32,7 @@ $event = $vars['entity'];
 	<div id="map_canvas" style="width: 500px; height: 300px;"></div>
 	<?php 
 	
-	$form_body .= '<label>' . elgg_echo('from') . ': *</label>' . elgg_view('input/text', array('name' => 'address_from', 'id'=> 'address_from')) . '<br />';
+	$form_body .= '<label>' . elgg_echo('from') . ': *</label>' . elgg_view('input/text', array('name' => 'address_from', 'id' => 'address_from')) . '<br />';
 	$form_body .= '<label>' . elgg_echo('to') . ': </label><br />' . $event->location . '<br />';
 	
 	$form_body .= '<a style="display: none;" target="_blank" href="" id="openRouteLink">google maps</a>';
