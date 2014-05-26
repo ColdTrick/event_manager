@@ -4,8 +4,8 @@ gatekeeper();
 
 $guid = get_input('guid');
 	
-if(!empty($guid) && ($entity = get_entity($guid))) {
-	if($entity instanceof Event) {
+if (!empty($guid) && ($entity = get_entity($guid))) {
+	if ($entity instanceof Event) {
 		$event = $entity;
 		
 		elgg_push_breadcrumb($event->title, $event->getURL());
@@ -13,7 +13,7 @@ if(!empty($guid) && ($entity = get_entity($guid))) {
 		
 		$title_text = elgg_echo("event_manager:registration:programparticipation");
 		
-		if($event->with_program) {
+		if ($event->with_program) {
 			$content = $event->getProgramData(elgg_get_logged_in_user_guid(), true);
 			
 			$content .= elgg_view('input/button', array('type' => 'button', 'id' => 'event_manager_save_program_participation', 'value' => elgg_echo('save')));
@@ -33,4 +33,3 @@ if(!empty($guid) && ($entity = get_entity($guid))) {
 	register_error(elgg_echo("InvalidParameterException:GUIDNotFound", array($guid)));
 	forward("/events");
 }
-	

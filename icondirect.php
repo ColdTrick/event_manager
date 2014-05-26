@@ -6,7 +6,6 @@
  * @package ElggEvent
  */
 
-
 // Get DB settings
 require_once(dirname(dirname(dirname(__FILE__))). '/engine/settings.php');
 

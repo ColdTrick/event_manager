@@ -6,12 +6,9 @@ $returnData['valid'] = 0;
 
 $guid = get_input("guid");
 
-if(!empty($guid) && ($eventDay = get_entity($guid)))
-{
-	if($eventDay->getSubtype() == EventDay::SUBTYPE)
-	{
-		if($eventDay->delete())
-		{
+if (!empty($guid) && ($eventDay = get_entity($guid))) {
+	if ($eventDay->getSubtype() == EventDay::SUBTYPE) 	{
+		if ($eventDay->delete()) {
 			$returnData['valid'] = 1;
 		} 
 	}

@@ -1,4 +1,8 @@
-= Version history =
+Version history
+===============
+
+x.x:
+- removed: support for importing Event Calendar Events
 
 2.7.1 (2013-12-24):
 

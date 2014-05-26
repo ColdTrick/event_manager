@@ -38,12 +38,11 @@
 	font-weight: normal;
 }
 
-.event_manager_event_list_search_input
-{
+.event_manager_event_list_search_input {
 	width: 300px;
 }
-.event_manager_event_list_owner, .event_manager_event_view_owner
-{
+.event_manager_event_list_owner, 
+.event_manager_event_view_owner {
 	color: #808080;
 	font-size: 11px;
 	border-bottom: 1px solid #CCCCCC;
@@ -81,8 +80,7 @@
     border: 1px solid #4690D6;
 }
 
-.event_manager_event_list_count
-{
+.event_manager_event_list_count {
 	color: #666666;
     font-weight: bold;
     margin: 0 0 5px 4px;

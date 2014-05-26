@@ -3,16 +3,16 @@
 $guid = get_input('guid');
 $filename = get_input('file');
 
-if(!empty($guid) && !empty($filename)) {
-	if($entity = get_entity($guid)) {
-		if($entity->getSubtype() == Event::SUBTYPE) {
+if (!empty($guid) && !empty($filename)) {
+	if ($entity = get_entity($guid)) {
+		if ($entity->getSubtype() == Event::SUBTYPE) {
 			$event = $entity;
 		}
 	}
 	
 	$files = json_decode($event->files);
-	foreach($files as $file) {
-		if(strtolower($file->file) == strtolower($filename)) {
+	foreach ($files as $file) {
+		if (strtolower($file->file) == strtolower($filename)) {
 			$prefix = "events/" . $event->getGUID() . "/files/";
 				
 			$fileHandler = new ElggFile();
@@ -22,7 +22,7 @@ if(!empty($guid) && !empty($filename)) {
 			
 			//fix for IE https issue
 			header('Pragma: public');
-			header('Content-Type: '.$file->mime);
+			header('Content-Type: ' . $file->mime);
 			header('Content-Disposition: Attachment; filename=' . $file->file);				
 			
 			echo $fileHandler->grabFile();

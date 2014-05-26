@@ -312,9 +312,6 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:settings:other' => 'Other',
 		'event_manager:settings:region_list' => 'Enter (comma separated) event regions',
 		'event_manager:settings:type_list' => 'Enter (comma separated) event types',
-		'event_manager:settings:migration' => 'Migrate %d events from "Event calender" plugin',
-		'event_manager:settings:migration:success' => 'Succesfully migrated %d events',
-		'event_manager:settings:migration:noeventstomigrate' => 'No events found to migrate',
 		'event_manager:settings:notification_sender' => 'RSVP notification sender (email)',
 
 		'event_manager:settings:migration:site:whocancreate' => 'Who can create site events',

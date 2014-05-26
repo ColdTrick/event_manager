@@ -1,213 +1,216 @@
 <?php
+/**
+ * Hook are bundled here
+ */
 
-	function event_manager_user_hover_menu($hook, $entity_type, $returnvalue, $params){
-		$result = $returnvalue;
-		$event = false;
+function event_manager_user_hover_menu($hook, $entity_type, $returnvalue, $params){
+	$result = $returnvalue;
+	$event = false;
 
-		$guid = get_input("guid");
+	$guid = get_input("guid");
 
-		if(!empty($guid) && ($entity = get_entity($guid))){
-			if($entity->getSubtype() == Event::SUBTYPE) {
-				$event = $entity;
-			}
+	if (!empty($guid) && ($entity = get_entity($guid))) {
+		if ($entity->getSubtype() == Event::SUBTYPE) {
+			$event = $entity;
 		}
+	}
 
-		if ($event && $event->canEdit()) {
-			$user = elgg_extract("entity", $params);
+	if ($event && $event->canEdit()) {
+		$user = elgg_extract("entity", $params);
 
-			if ($user) {
-				// kick from event
-				$href = elgg_get_site_url() . 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&user=' . $user->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO;
+		if ($user) {
+			// kick from event
+			$href = elgg_get_site_url() . 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&user=' . $user->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO;
+			$href = elgg_add_action_tokens_to_url($href);
+
+			$item = new ElggMenuItem("event_manager_kick", elgg_echo("event_manager:event:relationship:kick"), $href);
+			$item->setSection("action");
+
+			$result[] = $item;
+
+			$user_relationship = $event->getRelationshipByUser($user->getGUID());
+			
+			if ($user_relationship == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
+				// resend confirmation
+				$href = elgg_get_site_url() . 'action/event_manager/event/resend_confirmation?guid=' . $event->getGUID() . '&user=' . $user->getGUID();
 				$href = elgg_add_action_tokens_to_url($href);
 
-				$item = new ElggMenuItem("event_manager_kick", elgg_echo("event_manager:event:relationship:kick"), $href);
+				$item = new ElggMenuItem("event_manager_resend_confirmation", elgg_echo("event_manager:event:menu:user_hover:resend_confirmation"), $href);
 				$item->setSection("action");
 
 				$result[] = $item;
+			}
 
-				$user_relationship = $event->getRelationshipByUser($user->getGUID());
-				
-				if ($user_relationship == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
-					// resend confirmation
-					$href = elgg_get_site_url() . 'action/event_manager/event/resend_confirmation?guid=' . $event->getGUID() . '&user=' . $user->getGUID();
-					$href = elgg_add_action_tokens_to_url($href);
-	
-					$item = new ElggMenuItem("event_manager_resend_confirmation", elgg_echo("event_manager:event:menu:user_hover:resend_confirmation"), $href);
-					$item->setSection("action");
-	
-					$result[] = $item;
-				}
+			if (in_array($user_relationship, array(EVENT_MANAGER_RELATION_ATTENDING_PENDING, EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST))) {
+				// move to attendees
+				$href = elgg_get_site_url() . 'action/event_manager/attendees/move_to_attendees?guid=' . $event->getGUID() . '&user=' . $user->getGUID();
+				$href = elgg_add_action_tokens_to_url($href);
 
-				if (in_array($user_relationship, array(EVENT_MANAGER_RELATION_ATTENDING_PENDING, EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST))) {
-					// move to attendees
-					$href = elgg_get_site_url() . 'action/event_manager/attendees/move_to_attendees?guid=' . $event->getGUID() . '&user=' . $user->getGUID();
-					$href = elgg_add_action_tokens_to_url($href);
-	
-					$item = new ElggMenuItem("event_manager_move_to_attendees", elgg_echo("event_manager:event:menu:user_hover:move_to_attendees"), $href);
-					$item->setSection("action");
-	
-					$result[] = $item;
-				}
+				$item = new ElggMenuItem("event_manager_move_to_attendees", elgg_echo("event_manager:event:menu:user_hover:move_to_attendees"), $href);
+				$item->setSection("action");
+
+				$result[] = $item;
 			}
 		}
+	}
 
+	return $result;
+}
+
+function event_manager_entity_menu($hook, $entity_type, $returnvalue, $params){
+	$result = $returnvalue;
+
+	if (elgg_in_context("widgets")) {
 		return $result;
 	}
 
-	function event_manager_entity_menu($hook, $entity_type, $returnvalue, $params){
-		$result = $returnvalue;
+	if (($entity = elgg_extract("entity", $params)) && elgg_instanceof($entity, "object", Event::SUBTYPE)) {
+		$attendee_menu_options = array(
+			"name" => "attendee_count",
+			"priority" => 50,
+			"text" => elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($entity->countAttendees())),
+			"href" => false
+		);
 
-		if (elgg_in_context("widgets")) {
-			return $result;
-		}
+		$result[] = ElggMenuItem::factory($attendee_menu_options);
 
-		if (($entity = elgg_extract("entity", $params)) && elgg_instanceof($entity, "object", Event::SUBTYPE)) {
-			$attendee_menu_options = array(
-				"name" => "attendee_count",
-				"priority" => 50,
-				"text" => elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($entity->countAttendees())),
-				"href" => false
-			);
+		// change some of the basic menus
+		if (!empty($result) && is_array($result)) {
+			foreach ($result as &$item) {
+				switch ($item->getName()) {
+					case "edit":
+						$item->setHref("events/event/edit/" . $entity->getGUID());
+						break;
+					case "delete":
+						$href = elgg_get_site_url() . "action/event_manager/event/delete?guid=" . $entity->getGUID();
+						$href = elgg_add_action_tokens_to_url($href);
 
-			$result[] = ElggMenuItem::factory($attendee_menu_options);
-
-			// change some of the basic menus
-			if (!empty($result) && is_array($result)) {
-				foreach ($result as &$item) {
-					switch ($item->getName()) {
-						case "edit":
-							$item->setHref("events/event/edit/" . $entity->getGUID());
-							break;
-						case "delete":
-							$href = elgg_get_site_url() . "action/event_manager/event/delete?guid=" . $entity->getGUID();
-							$href = elgg_add_action_tokens_to_url($href);
-
-							$item->setHref($href);
-							$item->setConfirmText(elgg_echo("deleteconfirm"));
-							break;
-					}
-				}
-			}
-
-			// show an unregister link for non logged in users
-			if (!elgg_is_logged_in() && $entity->register_nologin) {
-				$result[] = ElggMenuItem::factory(array(
-					"name" => "unsubscribe",
-					"text" => elgg_echo("event_manager:menu:unsubscribe"),
-					"href" => "events/unsubscribe/" . $entity->getGUID() . "/" . elgg_get_friendly_title($entity->title),
-					"priority" => 300
-				));
-			}
-		}
-
-		return $result;
-	}
-
-	/**
-	 * add menu item to owner block
-	 *
-	 * @param unknown_type $hook
-	 * @param unknown_type $entity_type
-	 * @param unknown_type $returnvalue
-	 * @param unknown_type $params
-	 */
-	function event_manager_owner_block_menu($hook, $entity_type, $returnvalue, $params){
-		$group = elgg_extract("entity", $params);
-		if (elgg_instanceof($group, 'group') && $group->event_manager_enable != "no") {
-			$url = '/events/event/list/' . $group->getGUID();
-			$item = new ElggMenuItem('events', elgg_echo('event_manager:menu:group_events'), $url);
-			$returnvalue[] = $item;
-		}
-
-		return $returnvalue;
-	}
-
-	/**
-	 * Generates correct title link for widgets depending on the context
-	 *
-	 * @param unknown_type $hook
-	 * @param unknown_type $entity_type
-	 * @param unknown_type $returnvalue
-	 * @param unknown_type $params
-	 * @return optional new link
-	 */
-	function event_manager_widget_events_url($hook, $entity_type, $returnvalue, $params){
-		$result = $returnvalue;
-		$widget = $params["entity"];
-
-		if(empty($result) && ($widget instanceof ElggWidget) && $widget->handler == "events"){
-			switch($widget->context){
-				case "index":
-					$result = "/events";
-					break;
-				case "groups":
-					$result = "/events/event/list/" . $widget->getOwnerGUID();
-					break;
-				case "profile":
-				case "dashboard":
-					break;
-			}
-		}
-		return $result;
-	}
-
-	/**
-	 * Allow non user to remove their registration correctly
-	 *
-	 * @param string $hook
-	 * @param string $entity_type
-	 * @param bool $returnvalue
-	 * @param array $params
-	 * @return bool
-	 */
-	function event_manager_permissions_check_handler($hook, $entity_type, $returnvalue, $params) {
-		global $EVENT_MANAGER_UNDO_REGISTRATION;
-		$result = $returnvalue;
-
-		// only override the hook if not already allowed
-		if (!$result && !empty($params) && is_array($params)) {
-			$entity = elgg_extract("entity", $params);
-
-			if (elgg_instanceof($entity, "object", EventRegistration::SUBTYPE)) {
-				if (!empty($EVENT_MANAGER_UNDO_REGISTRATION)) {
-					$result = true;
+						$item->setHref($href);
+						$item->setConfirmText(elgg_echo("deleteconfirm"));
+						break;
 				}
 			}
 		}
 
-		return $result;
+		// show an unregister link for non logged in users
+		if (!elgg_is_logged_in() && $entity->register_nologin) {
+			$result[] = ElggMenuItem::factory(array(
+				"name" => "unsubscribe",
+				"text" => elgg_echo("event_manager:menu:unsubscribe"),
+				"href" => "events/unsubscribe/" . $entity->getGUID() . "/" . elgg_get_friendly_title($entity->title),
+				"priority" => 300
+			));
+		}
 	}
 
-	/**
-	 * Notification body for events
-	 *
-	 * @param string $hook
-	 * @param string $entity_type
-	 * @param string $returnvalue
-	 * @param array $params
-	 * @return string
-	 */
-	function event_manager_notify_message($hook, $entity_type, $returnvalue, $params) {
-		$result = $returnvalue;
+	return $result;
+}
 
-		if (!empty($params) && is_array($params)) {
-			$entity = elgg_extract("entity", $params);
+/**
+ * add menu item to owner block
+ *
+ * @param unknown_type $hook
+ * @param unknown_type $entity_type
+ * @param unknown_type $returnvalue
+ * @param unknown_type $params
+ */
+function event_manager_owner_block_menu($hook, $entity_type, $returnvalue, $params){
+	$group = elgg_extract("entity", $params);
+	if (elgg_instanceof($group, 'group') && $group->event_manager_enable != "no") {
+		$url = '/events/event/list/' . $group->getGUID();
+		$item = new ElggMenuItem('events', elgg_echo('event_manager:menu:group_events'), $url);
+		$returnvalue[] = $item;
+	}
 
-			if (!empty($entity) && elgg_instanceof($entity, "object", Event::SUBTYPE)) {
-				$user = elgg_get_logged_in_user_entity();
-				if (!$user) {
-					$user = $entity->getOwnerEntity();
-				}
+	return $returnvalue;
+}
 
-				$result = elgg_echo("event_manager:notification:body", array($user->name, $entity->title));
+/**
+ * Generates correct title link for widgets depending on the context
+ *
+ * @param unknown_type $hook
+ * @param unknown_type $entity_type
+ * @param unknown_type $returnvalue
+ * @param unknown_type $params
+ * @return optional new link
+ */
+function event_manager_widget_events_url($hook, $entity_type, $returnvalue, $params){
+	$result = $returnvalue;
+	$widget = $params["entity"];
 
-				if ($description = $entity->description) {
-					$result .= PHP_EOL . PHP_EOL . elgg_get_excerpt($description);
-				}
+	if(empty($result) && ($widget instanceof ElggWidget) && $widget->handler == "events"){
+		switch($widget->context){
+			case "index":
+				$result = "/events";
+				break;
+			case "groups":
+				$result = "/events/event/list/" . $widget->getOwnerGUID();
+				break;
+			case "profile":
+			case "dashboard":
+				break;
+		}
+	}
+	return $result;
+}
 
-				$result .= PHP_EOL . PHP_EOL . $entity->getURL();
+/**
+ * Allow non user to remove their registration correctly
+ *
+ * @param string $hook
+ * @param string $entity_type
+ * @param bool $returnvalue
+ * @param array $params
+ * @return bool
+ */
+function event_manager_permissions_check_handler($hook, $entity_type, $returnvalue, $params) {
+	global $EVENT_MANAGER_UNDO_REGISTRATION;
+	$result = $returnvalue;
+
+	// only override the hook if not already allowed
+	if (!$result && !empty($params) && is_array($params)) {
+		$entity = elgg_extract("entity", $params);
+
+		if (elgg_instanceof($entity, "object", EventRegistration::SUBTYPE)) {
+			if (!empty($EVENT_MANAGER_UNDO_REGISTRATION)) {
+				$result = true;
 			}
 		}
-
-		return $result;
 	}
+
+	return $result;
+}
+
+/**
+ * Notification body for events
+ *
+ * @param string $hook
+ * @param string $entity_type
+ * @param string $returnvalue
+ * @param array $params
+ * @return string
+ */
+function event_manager_notify_message($hook, $entity_type, $returnvalue, $params) {
+	$result = $returnvalue;
+
+	if (!empty($params) && is_array($params)) {
+		$entity = elgg_extract("entity", $params);
+
+		if (!empty($entity) && elgg_instanceof($entity, "object", Event::SUBTYPE)) {
+			$user = elgg_get_logged_in_user_entity();
+			if (!$user) {
+				$user = $entity->getOwnerEntity();
+			}
+
+			$result = elgg_echo("event_manager:notification:body", array($user->name, $entity->title));
+
+			if ($description = $entity->description) {
+				$result .= PHP_EOL . PHP_EOL . elgg_get_excerpt($description);
+			}
+
+			$result .= PHP_EOL . PHP_EOL . $entity->getURL();
+		}
+	}
+
+	return $result;
+}
