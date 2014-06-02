@@ -2,9 +2,6 @@
 
 define("EVENT_MANAGER_FORMAT_DATE_EVENTDAY", "Y-m-d");
 
-define("EVENT_MANAGER_SEARCH_LIST_LIMIT", 10);
-define("EVENT_MANAGER_SEARCH_LIST_MAPS_LIMIT", 50);
-
 define("EVENT_MANAGER_RELATION_ATTENDING", "event_attending");
 define("EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST", "event_waitinglist");
 define("EVENT_MANAGER_RELATION_ATTENDING_PENDING", "event_pending");
@@ -107,10 +104,8 @@ function event_manager_init() {
 	
 	elgg_register_action("event_manager/registration/pdf", dirname(__FILE__) . "/actions/registration/pdf.php", "public");
 	elgg_register_action("event_manager/registration/confirm", dirname(__FILE__) . "/actions/registration/confirm.php", "public");
-	elgg_register_action("event_manager/event/register", dirname(__FILE__) . "/actions/event/register.php", "public");
-	
+	elgg_register_action("event_manager/event/register", dirname(__FILE__) . "/actions/event/register.php", "public");	
 }
-
 
 /**
  * Page handler

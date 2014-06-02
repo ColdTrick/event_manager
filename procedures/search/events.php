@@ -75,14 +75,15 @@ $options['query'] = $search;
 $options['offset'] = $offset;
 
 if ($search_type == 'list') {
-	$options['limit'] = EVENT_MANAGER_SEARCH_LIST_LIMIT;
+	$limit = 10;
+	$options['limit'] = $limit;
 	$entities = event_manager_search_events($options);
 	
-	$returnData['content'] = elgg_view_entity_list($entities['entities'], array("count" => $entities['count'], "offset" => $offset, "limit" => EVENT_MANAGER_SEARCH_LIST_LIMIT, 'full_view' => false, 'pagination' => false));
+	$returnData['content'] = elgg_view_entity_list($entities['entities'], array("count" => $entities['count'], "offset" => $offset, "limit" => $limit, 'full_view' => false, 'pagination' => false));
 	
-	if (($entities['count'] - ($offset + EVENT_MANAGER_SEARCH_LIST_LIMIT)) > 0) {
-		$returnData['content'] .= '<div id="event_manager_event_list_search_more" rel="' . ($offset + EVENT_MANAGER_SEARCH_LIST_LIMIT) . '">';
-		$returnData['content'] .= elgg_echo('event_manager:list:showmorevents') . ' (' . ($entities['count'] - ($offset + EVENT_MANAGER_SEARCH_LIST_LIMIT)) . ')</div>';
+	if (($entities['count'] - ($offset + $limit)) > 0) {
+		$returnData['content'] .= '<div id="event_manager_event_list_search_more" rel="' . ($offset + $limit) . '">';
+		$returnData['content'] .= elgg_echo('event_manager:list:showmorevents') . ' (' . ($entities['count'] - ($offset + $limit)) . ')</div>';
 	}
 	
 	if ($entities['count'] < 1) {
@@ -92,7 +93,7 @@ if ($search_type == 'list') {
 	$options['latitude'] = $latitude;
 	$options['longitude'] = $longitude;
 	$options['distance'] = $distance;
-	$options['limit'] = EVENT_MANAGER_SEARCH_LIST_MAPS_LIMIT;
+	$options['limit'] = 50;
 	
 	$entities = event_manager_search_events($options);
 	foreach ($entities['entities'] as $event) {
