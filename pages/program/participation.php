@@ -9,9 +9,10 @@ if (!empty($guid) && ($entity = get_entity($guid))) {
 		$event = $entity;
 		
 		elgg_push_breadcrumb($event->title, $event->getURL());
-		elgg_push_breadcrumb($title_text);
 		
 		$title_text = elgg_echo("event_manager:registration:programparticipation");
+		
+		elgg_push_breadcrumb($title_text);
 		
 		if ($event->with_program) {
 			$content = $event->getProgramData(elgg_get_logged_in_user_guid(), true);
