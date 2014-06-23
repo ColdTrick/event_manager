@@ -392,17 +392,13 @@ elgg.event_manager.init = function() {
 		}
 	});
 	
-	$('#event_manager_event_search_advanced_enable').click(function()
-	{
+	$('#event_manager_event_search_advanced_enable').click(function() {
 		$('#event_manager_event_search_advanced_container, #past_events, #event_manager_event_search_advanced_enable span').toggle();
 
-		if($('#past_events').is(":hidden"))
-		{
+		if($('#past_events').is(":hidden")) {
 			console.log('advanced');
 			$('#advanced_search').val('1');
-		}
-		else
-		{
+		} else {
 			console.log('simple');
 			$('#advanced_search').val('0');
 		}
@@ -468,11 +464,11 @@ elgg.event_manager.init = function() {
 	$('.event_manager_program_day_add').live('click', function() {
 		eventGuid = $(this).attr("rel");
 		$.fancybox({
-				'href': elgg.get_site_url() + 'events/program/day?event_guid=' + eventGuid,
-				'onComplete'		: function() {
-						elgg.ui.initDatePicker();
-					}
-			});
+			'href': elgg.get_site_url() + 'events/program/day?event_guid=' + eventGuid,
+			'onComplete': function() {
+				elgg.ui.initDatePicker();
+			}
+		});
 		
 		return false;
 	});
@@ -480,45 +476,53 @@ elgg.event_manager.init = function() {
 	$('.event_manager_program_day_edit').live('click', function() {
 		guid = $(this).attr("rel");
 		$.fancybox({
-				'href': elgg.get_site_url() + 'events/program/day?day_guid=' + guid,
-				'onComplete'		: function() {
-					elgg.ui.initDatePicker();
-				}
-			});
+			'href': elgg.get_site_url() + 'events/program/day?day_guid=' + guid,
+			'onComplete': function() {
+				elgg.ui.initDatePicker();
+			}
+		});
 		
 		return false;
 	});
 	
 	$('.event_manager_program_slot_add').live('click', function() {
-		dayGuid = $(this).attr("rel");
-		$.fancybox({'href': elgg.get_site_url() + 'events/program/slot?day_guid=' + dayGuid});
+		var dayGuid = $(this).attr("rel");
+		$.fancybox({
+			'href': elgg.get_site_url() + 'events/program/slot?day_guid=' + dayGuid
+		});
 		
 		return false;
 	});
 
 	$('.event_manager_program_slot_edit').live('click', function() {
-		guid = $(this).attr("rel");
-		$.fancybox({'href': elgg.get_site_url() + 'events/program/slot?slot_guid=' + guid});
+		var guid = $(this).attr("rel");
+		$.fancybox({
+			'href': elgg.get_site_url() + 'events/program/slot?slot_guid=' + guid
+		});
 		
 		return false;
 	});
 	
 	$('#event_manager_questions_add').click(function() {
-		eventGuid = $(this).attr("rel");
-		$.fancybox({'href': elgg.get_site_url() + 'events/registrationform/question?event_guid=' + eventGuid});
+		var eventGuid = $(this).attr("rel");
+		$.fancybox({
+			'href': elgg.get_site_url() + 'events/registrationform/question?event_guid=' + eventGuid
+		});
 
 		return false;
 	});
 
 	$('.event_manager_questions_edit').live('click', function()	{
-		guid = $(this).attr("rel");
-		$.fancybox({'href': elgg.get_site_url() + 'events/registrationform/question?question_guid=' + guid});
+		var guid = $(this).attr("rel");
+		$.fancybox({
+			'href': elgg.get_site_url() + 'events/registrationform/question?question_guid=' + guid
+		});
 		
 		return false;
 	});
 	
 	$('#event_manager_registrationform_question_fieldtype').live('change', function() {
-		if($('#event_manager_registrationform_question_fieldtype').val() == 'Radiobutton' || $('#event_manager_registrationform_question_fieldtype').val() == 'Dropdown') {
+		if ($('#event_manager_registrationform_question_fieldtype').val() == 'Radiobutton' || $('#event_manager_registrationform_question_fieldtype').val() == 'Dropdown') {
 			$('#event_manager_registrationform_select_options').show();
 		} else {
 			$('#event_manager_registrationform_select_options').hide();
@@ -526,35 +530,34 @@ elgg.event_manager.init = function() {
 	});
 
 	$('#event_manager_event_register').submit(function() {
-		if(($("input[name='question_name']").val() == "") || ($("input[name='question_email']").val() == "")){
+		if (($("input[name='question_name']").val() == "") || ($("input[name='question_email']").val() == "")) {
 			elgg.register_error(elgg.echo("event_manager:registration:required_fields"));
 			return false;
 		}
 
-		error_found = false;
+		var error_found = false;
 		
 		$("#event_manager_registration_form_fields .required").each(function(index, elem){
-			if($(this).hasClass("elgg-input-radios")){
-				if($(this).find("input[type='radio']:checked").length == 0){
+			if ($(this).hasClass("elgg-input-radios")) {
+				if ($(this).find("input[type='radio']:checked").length == 0) {
 					error_found = true;
 					return false;
 				}
-			} else if($(this).val() == ""){
+			} else if($(this).val() == "") {
 				error_found = true;
 				return false;
-				
 			}
 		});
-		if(error_found){
+		
+		if (error_found) {
 			elgg.register_error(elgg.echo("event_manager:registration:required_fields"));
-			
 			return false;
 		}
 		
-		guids = [];
+		var guids = [];
 		$.each($('.event_manager_program_participatetoslot'), function(i, value) {
 			elementId = $(value).attr('id');
-			if($(value).is(':checked')) {
+			if ($(value).is(':checked')) {
 				guids.push(elementId.substring(9, elementId.length));
 			}
 		});
@@ -563,7 +566,7 @@ elgg.event_manager.init = function() {
 	});
 	
 	$('#with_program').change(function() {
-		if($(this).is(':checked')) {
+		if ($(this).is(':checked')) {
 			$('#event_manager_start_time_pulldown').css('display', 'none');
 		} else {
 			$('#event_manager_start_time_pulldown').css('display', 'table-row');
