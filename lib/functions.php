@@ -14,17 +14,6 @@ function event_manager_event_get_relationship_options()	{
 	return $result;
 }
 
-function event_manager_get_registration_fiedtypes()	{
-	$result = array(
-		'Textfield' => 'text',
-		'Textarea' => 'plaintext',
-		'Dropdown' => 'dropdown',
-		'Radiobutton' => 'radio'
-	);
-		
-	return $result;
-}
-
 function event_manager_search_events($options = array()){
 	$defaults = array(
 		'past_events' => false,
