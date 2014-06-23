@@ -161,7 +161,7 @@ $form_body .= "</td></tr>";
 
 $form_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:endregistration_day') . "</td><td>";
 
-$form_body .= elgg_view('input/date', array('name' => 'endregistration_day', 'id' => 'endregistration_day', 'value' => (($fields["endregistration_day"]!=0)?date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY,$fields["endregistration_day"]):''))) . "<br />";
+$form_body .= elgg_view('input/date', array('name' => 'endregistration_day', 'id' => 'endregistration_day', 'value' => (($fields["endregistration_day"] != 0) ? date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $fields["endregistration_day"]) : ''))) . "<br />";
 $form_body .= elgg_view('input/checkboxes', array('name' => 'registration_ended', 'value' => $fields["registration_ended"], 'options' => array(elgg_echo('event_manager:edit:form:registration_ended')=>'1')));
 
 $form_body .= "</td></tr><tr><td>&nbsp</td></tr>";
