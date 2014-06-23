@@ -6,6 +6,7 @@ $rel = get_input("type");
 
 $forward_url = get_input("forward_url", REFERER);
 $notice = true;
+$rsvp = null;
 
 if (!empty($guid) && !empty($rel)) {
 	$event = get_entity($guid);

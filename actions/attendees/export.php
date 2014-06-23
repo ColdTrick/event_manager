@@ -2,6 +2,8 @@
 $guid = (int) get_input("guid");
 $type = get_input("type");
 
+$event = false;
+
 if ($entity = get_entity($guid)) {	
 	if ($entity->getSubtype() == Event::SUBTYPE) {
 		$event = $entity;

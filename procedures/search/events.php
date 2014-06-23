@@ -19,6 +19,7 @@ $longitude = get_input("longitude");
 $distance = array("latitude" => get_input("distance_latitude"),"longitude" => get_input("distance_longitude"));
 
 $returnData['valid'] = 0;
+$options = array();
 
 if ($advanced_search) {
 	$options['advanced'] = true;

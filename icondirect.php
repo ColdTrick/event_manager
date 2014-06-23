@@ -22,7 +22,9 @@ if (!in_array($size, array('large','medium','small','tiny','master','topbar'))) 
 $mysql_dblink = @mysql_connect($CONFIG->dbhost,$CONFIG->dbuser,$CONFIG->dbpass, true);
 if ($mysql_dblink) {
 	if (@mysql_select_db($CONFIG->dbname,$mysql_dblink)) {
-
+		$simplecache_enabled = false;
+		$dataroot = "";
+		
 		// get dataroot and simplecache_enabled in one select for efficiency
 		if ($result = mysql_query("select name, value from {$CONFIG->dbprefix}datalists where name in ('dataroot','simplecache_enabled')",$mysql_dblink)) {
 			$simplecache_enabled = true;

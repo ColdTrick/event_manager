@@ -3,6 +3,8 @@
 $event = $vars["entity"];
 $owner = $event->getOwnerEntity();
 
+$output = "";
+
 if ($event->icontime) {
 	$output .= '<div class="event_manager_event_view_image"><img src="' . $event->getIcon('medium') . '" border="0" /></div>';
 }

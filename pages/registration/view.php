@@ -2,6 +2,7 @@
 $key = get_input('k');		
 $guid = get_input("guid");
 $user_guid = get_input('u_g', elgg_get_logged_in_user_guid());
+$event = null;
 
 if ($guid && ($entity = get_entity($guid))) {	
 	if ($entity instanceof Event) {
@@ -11,24 +12,27 @@ if ($guid && ($entity = get_entity($guid))) {
 
 $output = "";
 
-$save_to_pdf_options = array(
-	"name" => "save_to_pdf",
-	"text" => elgg_echo('event_manager:registration:view:savetopdf'),
-	"class" => "elgg-button elgg-button-action",
-	"href" => "action/event_manager/registration/pdf?k=" . md5($event->time_created . get_site_secret() . $user_guid) . "&guid=" . $guid . "&u_g=" . $user_guid,
-	"is_action" => true
-);
+if ($event) {
+	// @todo move to menu hook
+	$save_to_pdf_options = array(
+		"name" => "save_to_pdf",
+		"text" => elgg_echo('event_manager:registration:view:savetopdf'),
+		"class" => "elgg-button elgg-button-action",
+		"href" => "action/event_manager/registration/pdf?k=" . md5($event->time_created . get_site_secret() . $user_guid) . "&guid=" . $guid . "&u_g=" . $user_guid,
+		"is_action" => true
+	);
+	
+	elgg_register_menu_item("title", ElggMenuItem::factory($save_to_pdf_options));
+}
 
-elgg_register_menu_item("title", ElggMenuItem::factory($save_to_pdf_options));
-
-if (!empty($key)) {
+if ($event && !empty($key)) {
 	$tempKey = md5($event->time_created . get_site_secret() . $user_guid);
 	
-	if ($event && ($tempKey == $key) && get_entity($user_guid)) {
+	if (($tempKey == $key) && get_entity($user_guid)) {
 		
 		$title_text = elgg_echo('event_manager:registration:registrationto') . " '" . $event->title . "'";
 		
-		elgg_set_ignore_access(true);
+		$old_ia = elgg_set_ignore_access(true);
 		
 		$output .= elgg_view('event_manager/event/pdf', array('entity' => $event));
 		$output .= $event->getRegistrationData($user_guid);
@@ -37,7 +41,7 @@ if (!empty($key)) {
 			$output .= $event->getProgramData($user_guid);
 		}
 
-		elgg_set_ignore_access(false);
+		elgg_set_ignore_access($old_ia);
 		
 		elgg_push_breadcrumb($event->title, $event->getURL());
 		elgg_push_breadcrumb($title_text);
@@ -51,7 +55,7 @@ if (!empty($key)) {
 		echo elgg_view_page($title_text, $body);
 	
 	} else {
-		forward("/events");
+		forward("events");
 	}
 } else {
 	gatekeeper();

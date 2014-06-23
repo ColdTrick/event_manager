@@ -24,6 +24,7 @@ $forward_url = REFERER;
 if (!empty($guid) && !empty($relation) && ($event = get_entity($guid))) {
 	if ($event instanceof Event) {
 		$user = elgg_get_logged_in_user_entity();
+		$required_error = false;
 		
 		if ($questions = $event->getRegistrationFormQuestions()) {
 			foreach ($questions as $question) {

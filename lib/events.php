@@ -6,8 +6,8 @@
 /**
  * Checks if there are new slots available after updating an event
  *
- * @param string $event      name of the event
- * @param string $type       type of the event
+ * @param string     $event  name of the event
+ * @param string     $type   type of the event
  * @param ElggEntity $object object related to the event
  * 
  * @return void

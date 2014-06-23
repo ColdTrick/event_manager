@@ -296,7 +296,6 @@ Je hebt je uit het \'%s\' evenement uitgeschreven.
   'event_manager:event:viewregistrations' => 'Registraties weergeven',
   'event_manager:event:noregistrations' => 'Er zijn nog geen registraties',
   'event_manager:event:exportattendees' => 'Deelnemers exporteren',
-  'event_manager:event:viewwaitinglist' => 'Wachtlijst weergeven',
   'event_manager:event:waitinglist:empty' => 'Wachtlijst is leeg',
   'event_manager:event:currentavatar' => 'Huidige evenements icoon',
   'event_manager:event:editicon' => 'Wijzig icoon',

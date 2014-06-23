@@ -160,7 +160,6 @@ une personne s\'est désinscrite de l\'évènement \'%s\' . Vous n\'êtes plus s
   'event_manager:event:program' => 'Programme',
   'event_manager:event:editprogram' => 'Modifier le programme',
   'event_manager:event:editquestions' => 'Modifier les questions pour s\'inscrire',
-  'event_manager:event:viewwaitinglist' => 'Afficher la liste d\'attente',
   'event_manager:event:waitinglist:empty' => 'La liste d\'attente est vide',
   'event_manager:event:viewregistrations' => 'Afficher les inscriptions',
   'event_manager:event:viewregistration' => 'Afficher l\'inscription',

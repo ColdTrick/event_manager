@@ -1,6 +1,7 @@
 <?php
 
 $guid = get_input("guid");
+$event = null;
 
 if (!empty($guid) && ($entity = get_entity($guid))) {
 	if ($entity->getSubtype() == Event::SUBTYPE) {
@@ -9,7 +10,6 @@ if (!empty($guid) && ($entity = get_entity($guid))) {
 }
 
 if ($event) {
-
 	// add export button
 	elgg_load_js("addthisevent");
 	elgg_register_menu_item("title", ElggMenuItem::factory(array(

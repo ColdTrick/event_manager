@@ -34,6 +34,8 @@ $filehandler->owner_guid = $event->getOwnerGUID();
 $filehandler->setFilename("events/" . $event->getGUID() . '/' . $size . ".jpg");
 
 $success = false;
+$contents = "";
+
 if ($filehandler->exists()) {
 	if ($contents = $filehandler->grabFile()) {
 		$success = true;

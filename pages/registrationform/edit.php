@@ -16,7 +16,7 @@ if (!empty($event)) {
 		elgg_push_breadcrumb($entity->title, $event->getURL());
 		elgg_push_breadcrumb($title_text);
 		
-		$output ='<ul id="event_manager_registrationform_fields">';
+		$output = '<ul id="event_manager_registrationform_fields">';
 		
 		if ($registration_form = $event->getRegistrationFormQuestions()) {
 			foreach ($registration_form as $question) {

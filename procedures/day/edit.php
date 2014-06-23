@@ -12,6 +12,8 @@ if (!empty($parent_guid) && $event = get_entity($parent_guid)) {
 		$title = get_input("title");
 		$description = get_input("description");
 		$date = get_input("date");
+		
+		$edit = false;
 	
 		if (!empty($date)) {
 			$date_parts = explode('-',$date);

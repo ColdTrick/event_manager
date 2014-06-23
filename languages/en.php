@@ -208,7 +208,6 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:program' => 'Program',
 		'event_manager:event:editprogram' => 'Edit program',
 		'event_manager:event:editquestions' => 'Edit registration questions',
-		'event_manager:event:viewwaitinglist' => 'View waiting list',
 		'event_manager:event:waitinglist:empty' => 'Waiting list is empty',
 		'event_manager:event:viewregistrations' => 'View registrations',
 		'event_manager:event:viewregistration' => 'View registration',
