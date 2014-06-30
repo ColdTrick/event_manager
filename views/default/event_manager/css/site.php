@@ -1,5 +1,5 @@
 <?php
-	$graphics_folder = $vars["url"] . "mod/event_manager/_graphics/";
+	$graphics_folder = elgg_get_site_url() . "mod/event_manager/_graphics/";
 ?>
 
 /* Event global */

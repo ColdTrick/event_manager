@@ -55,7 +55,7 @@ function event_manager_init() {
 	elgg_extend_view("groups/tool_latest", "event_manager/group_module");
 
 	// add widgets
-	elgg_register_widget_type("events", elgg_echo("event_manager:widgets:events:title"), elgg_echo("event_manager:widgets:events:description"), "index,dashboard,profile,groups");
+	elgg_register_widget_type("events", elgg_echo("event_manager:widgets:events:title"), elgg_echo("event_manager:widgets:events:description"), array("index", "dashboard", "profile", "groups"));
 	
 	// register js libraries
 	$maps_key = elgg_get_plugin_setting("google_api_key", "event_manager");
