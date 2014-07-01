@@ -108,7 +108,7 @@ function event_manager_program_add_day(form){
 	
 	$.post(elgg.get_site_url() + 'events/proc/day/edit', $(form).serialize(), function(response) {
 		if(response.valid) {
-			$.fancybox.close();
+			$.colorbox.close();
 			guid = response.guid;
 			if(response.edit){
 				$("#day_" + guid + " .event_manager_program_day_details").html(response.content_body);
@@ -129,7 +129,7 @@ function event_manager_program_add_slot(form){
 	
 	$.post(elgg.get_site_url() + 'events/proc/slot/edit', $(form).serialize(), function(response) {
 		if(response.valid) {
-			$.fancybox.close();
+			$.colorbox.close();
 			
 			guid = response.guid;
 			parent_guid = response.parent_guid;
@@ -149,7 +149,7 @@ function event_manager_registrationform_add_field(form) {
 	
 	$.post(elgg.get_site_url() + 'events/proc/question/edit', $(form).serialize(), function(response){
 		if(response.valid) {
-			$.fancybox.close();
+			$.colorbox.close();
 			guid = response.guid;
 
 			if(response.edit) {
@@ -396,10 +396,8 @@ elgg.event_manager.init = function() {
 		$('#event_manager_event_search_advanced_container, #past_events, #event_manager_event_search_advanced_enable span').toggle();
 
 		if($('#past_events').is(":hidden")) {
-			console.log('advanced');
 			$('#advanced_search').val('1');
 		} else {
-			console.log('simple');
 			$('#advanced_search').val('0');
 		}
 	});
@@ -463,7 +461,7 @@ elgg.event_manager.init = function() {
 	
 	$('.event_manager_program_day_add').live('click', function() {
 		eventGuid = $(this).attr("rel");
-		$.fancybox({
+		$.colorbox({
 			'href': elgg.get_site_url() + 'events/program/day?event_guid=' + eventGuid,
 			'onComplete': function() {
 				elgg.ui.initDatePicker();
@@ -475,7 +473,7 @@ elgg.event_manager.init = function() {
 
 	$('.event_manager_program_day_edit').live('click', function() {
 		guid = $(this).attr("rel");
-		$.fancybox({
+		$.colorbox({
 			'href': elgg.get_site_url() + 'events/program/day?day_guid=' + guid,
 			'onComplete': function() {
 				elgg.ui.initDatePicker();
@@ -487,7 +485,7 @@ elgg.event_manager.init = function() {
 	
 	$('.event_manager_program_slot_add').live('click', function() {
 		var dayGuid = $(this).attr("rel");
-		$.fancybox({
+		$.colorbox({
 			'href': elgg.get_site_url() + 'events/program/slot?day_guid=' + dayGuid
 		});
 		
@@ -496,7 +494,7 @@ elgg.event_manager.init = function() {
 
 	$('.event_manager_program_slot_edit').live('click', function() {
 		var guid = $(this).attr("rel");
-		$.fancybox({
+		$.colorbox({
 			'href': elgg.get_site_url() + 'events/program/slot?slot_guid=' + guid
 		});
 		
@@ -505,7 +503,7 @@ elgg.event_manager.init = function() {
 	
 	$('#event_manager_questions_add').click(function() {
 		var eventGuid = $(this).attr("rel");
-		$.fancybox({
+		$.colorbox({
 			'href': elgg.get_site_url() + 'events/registrationform/question?event_guid=' + eventGuid
 		});
 
@@ -514,7 +512,7 @@ elgg.event_manager.init = function() {
 
 	$('.event_manager_questions_edit').live('click', function()	{
 		var guid = $(this).attr("rel");
-		$.fancybox({
+		$.colorbox({
 			'href': elgg.get_site_url() + 'events/registrationform/question?question_guid=' + guid
 		});
 		

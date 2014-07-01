@@ -8,7 +8,7 @@ $(function() {
 	$('.openRouteToEvent').live('click', function(e) {
 		var $elem = $(this);
 		
-		$.fancybox({
+		$.colorbox({
 			
 			'href': $elem.attr('href'),
 			'onComplete': function() {
@@ -29,7 +29,7 @@ $(function() {
 	});
 	
 	// used for edit event form
-	$("#openGoogleMaps").fancybox({
+	$("#openGoogleMaps").colorbox({
 			'onComplete': function() {
 				var location = $('#event_manager_event_edit input[name="location"]').val();
 				initMaps('map_canvas');
@@ -67,7 +67,7 @@ $(function() {
 	   		$('#event_longitude').val("");
 	   	}
 		
-		$.fancybox.close();
+		$.colorbox.close();
 	});
 	
 	$('#event_manager_address_route_search').live("submit", function(e)	{
