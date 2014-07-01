@@ -578,6 +578,16 @@ elgg.event_manager.init = function() {
 	$("#event-manager-new-slot-set-name-button").live("click", function(){
 		elgg.event_manager.add_new_slot_set_name($("#event-manager-new-slot-set-name").val());
 	});
+
+	$("#event-manager-forms-event-edit li").on("click", function(event, elem) {
+		var href = $(this).find("> a").attr("href");
+		$("#event_manager_event_edit table").hide();
+		$(href).show();
+		
+		$(this).parent().find(".elgg-state-selected").removeClass("elgg-state-selected");
+		$(this).addClass("elgg-state-selected");
+		return false;
+	});	
 };
 
 elgg.register_hook_handler('init', 'system', elgg.event_manager.init);
