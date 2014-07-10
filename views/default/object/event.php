@@ -41,7 +41,7 @@ if ($vars["full"]) {
         	
 		if($location = $event->getLocation()){
 			$content .= '<div>' . elgg_echo('event_manager:edit:form:location') . ': ';
-			$content .= '<a href="' . elgg_get_site_url() . 'events/event/route?from=' . $location . '" class="openRouteToEvent">' . $location . '</a>';
+			$content .= '<a href="' . elgg_get_site_url() . 'events/event/route?from=' . urlencode($location) . '" class="openRouteToEvent">' . $location . '</a>';
             $content .= '</div>'; 
         }
 	        
