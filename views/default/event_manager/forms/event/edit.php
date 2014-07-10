@@ -90,7 +90,7 @@ $general_body .= elgg_view('input/hidden', array('name' => 'longitude', 'id' => 
 $general_body .= elgg_view('input/hidden', array('name' => 'guid', 'value' => $fields["guid"]));
 $general_body .= elgg_view('input/hidden', array('name' => 'container_guid', 'value' => $fields["container_guid"]));
 
-$general_body .= "<table class='mbl'>";
+$general_body .= "<table id='event-manager-forms-event-edit-general' class='mbl'>";
 
 $general_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('title') . " *</td><td colspan='4'>" . elgg_view('input/text', array('name' => 'title', 'value' => $fields["title"])) . "</td></tr>";
 

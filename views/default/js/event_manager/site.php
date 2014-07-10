@@ -581,7 +581,7 @@ elgg.event_manager.init = function() {
 
 	$("#event-manager-forms-event-edit li").on("click", function(event, elem) {
 		var href = $(this).find("> a").attr("href");
-		$("#event_manager_event_edit table").hide();
+		$("#event_manager_event_edit table").not("#event-manager-forms-event-edit-general").hide();
 		$(href).show();
 		
 		$(this).parent().find(".elgg-state-selected").removeClass("elgg-state-selected");
