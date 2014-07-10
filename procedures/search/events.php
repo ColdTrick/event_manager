@@ -106,7 +106,7 @@ if ($search_type == 'list') {
 				'lat' => $event->getLatitude(),
 				'lng' => $event->getLongitude(),
 				'title' => $event->title,
-				'html' => elgg_view_entity($event),
+				'html' => elgg_view_entity($event, array("full_view" => false)),
 				'hasrelation' => $event->getRelationshipByUser(),
 				'iscreator' => (($event->getOwnerGUID() == elgg_get_logged_in_user_guid()) ? 'owner' : null)
 			);
