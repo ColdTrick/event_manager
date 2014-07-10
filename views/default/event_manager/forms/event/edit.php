@@ -273,14 +273,15 @@ $registration_body .= elgg_view('input/checkboxes', array(
 		)
 ));
 
-$registration_body .= elgg_view('input/checkboxes', array(
-		'name' => 'register_nologin',
-		'value' => $fields["register_nologin"],
-		'options' => array(
-				elgg_echo('event_manager:edit:form:register_nologin') => '1'
-		)
-));
-
+if (!elgg_get_config("walled_garden")) {
+	$registration_body .= elgg_view('input/checkboxes', array(
+			'name' => 'register_nologin',
+			'value' => $fields["register_nologin"],
+			'options' => array(
+					elgg_echo('event_manager:edit:form:register_nologin') => '1'
+			)
+	));
+}
 $registration_body .= "</td></tr>";
 $registration_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:endregistration_day') . "</td><td>";
 
