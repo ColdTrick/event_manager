@@ -29,7 +29,8 @@ function event_manager_search_events($options = array()){
 		'distance' => null,
 		'event_type' => false,
 		'past_events' => false,
-		'search_type' => "list"					
+		'search_type' => "list",
+		'user_guid' => elgg_get_logged_in_user_guid()				
 	);
 	
 	$options = array_merge($defaults, $options);
@@ -67,15 +68,15 @@ function event_manager_search_events($options = array()){
 		$entities_options['metadata_name_value_pairs'][] = array('name' => 'start_day', 'value' => mktime(0, 0, 1), 'operand' => '>=');
 	}
 	
-	if ($options['meattending']) {
+	if ($options['meattending'] && !empty($options["user_guid"])) {
 		$entities_options['joins'][] = "JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_r ON e.guid = e_r.guid_one";
 		
-		$entities_options['wheres'][] = "e_r.guid_two = " . elgg_get_logged_in_user_guid();
+		$entities_options['wheres'][] = "e_r.guid_two = " . $options["user_guid"];
 		$entities_options['wheres'][] = "e_r.relationship = '" . EVENT_MANAGER_RELATION_ATTENDING . "'";
 	}
 	
-	if ($options['owning']) {
-		$entities_options['owner_guids'] = array(elgg_get_logged_in_user_guid());
+	if ($options['owning'] && !empty($options["user_guid"])) {
+		$entities_options['owner_guids'] = array($options["user_guid"]);
 	}
 	
 	if ($options["region"]) {
@@ -86,12 +87,13 @@ function event_manager_search_events($options = array()){
 		$entities_options['metadata_name_value_pairs'][] = array('name' => 'event_type', 'value' => $options["event_type"]);
 	}
 	
-	if ($options['friendsattending']) {
+	if ($options['friendsattending'] && !empty($options["user_guid"])) {
 		$friends_guids = array();
+		$user = get_entity($options["user_guid"]);
 		
-		if ($friends = elgg_get_logged_in_user_entity()->getFriends("", false)) {
-			foreach ($friends as $user) {
-				$friends_guids[] = $user->getGUID();
+		if ($friends =$user->getFriends("", false)) {
+			foreach ($friends as $friend) {
+				$friends_guids[] = $friend->getGUID();
 			}
 			$entities_options['joins'][] = "JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_ra ON e.guid = e_ra.guid_one";
 			$entities_options['wheres'][] = "(e_ra.guid_two IN (" . implode(", ", $friends_guids) . "))";

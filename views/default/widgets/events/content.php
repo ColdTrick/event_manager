@@ -15,6 +15,7 @@ switch ($owner->getType()) {
 		$event_options["container_guid"] = $owner->getGUID();
 		break;
 	case "user":
+		$event_options["user_guid"] = $owner->getGUID();
 		switch ($widget->type_to_show) {
 			case "owning":
 				$event_options["owning"] = true;
@@ -47,7 +48,7 @@ if ($user = elgg_get_logged_in_user_entity()) {
 	}
 	
 	if ($add_link) {
-		$content .= "<div>" . elgg_view("output/url", array("text" => elgg_echo("event_manager:menu:new_event"), "href" => $add_link)) . "</div>";
+		$content .= "<span class='elgg-widget-more'>" . elgg_view("output/url", array("text" => elgg_echo("event_manager:menu:new_event"), "href" => $add_link)) . "</span>";
 	}
 }
 
