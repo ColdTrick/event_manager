@@ -80,7 +80,7 @@ function event_manager_init() {
 	elgg_register_plugin_hook_handler("register", "menu:owner_block", "event_manager_owner_block_menu");
 	
 	elgg_register_plugin_hook_handler("permissions_check", "object", "event_manager_permissions_check_handler");
-	elgg_register_plugin_hook_handler("widget_url", "widget_manager", "event_manager_widget_events_url");
+	elgg_register_plugin_hook_handler("entity:url", "object", "event_manager_widget_events_url");
 	
 	// Listen to notification events and supply a more useful message
 	elgg_register_plugin_hook_handler("notify:entity:message", "object", "event_manager_notify_message");
