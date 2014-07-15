@@ -30,7 +30,7 @@ function event_manager_search_events($options = array()){
 		'event_type' => false,
 		'past_events' => false,
 		'search_type' => "list",
-		'user_guid' => elgg_get_logged_in_user_guid()				
+		'user_guid' => elgg_get_logged_in_user_guid()
 	);
 	
 	$options = array_merge($defaults, $options);
@@ -236,7 +236,7 @@ function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype =
 	// Add the calendar stuff
 	$loc_join = "JOIN " . $dbprefix . "metadata loc_start on e.guid=loc_start.entity_guid";
 	$loc_join .= "JOIN " . $dbprefix . "metastrings loc_start_name on loc_start.name_id=loc_start_name.id";
-	$loc_join .= "JOIN " . $dbprefix . "metastrings loc_start_value on loc_start.value_id=loc_start_value.id";					
+	$loc_join .= "JOIN " . $dbprefix . "metastrings loc_start_value on loc_start.value_id=loc_start_value.id";
 	$loc_join .= "JOIN " . $dbprefix . "metadata loc_end on e.guid=loc_end.entity_guid";
 	$loc_join .= "JOIN " . $dbprefix . "metastrings loc_end_name on loc_end.name_id=loc_end_name.id";
 	$loc_join .= "JOIN " . $dbprefix . "metastrings loc_end_value on loc_end.value_id=loc_end_value.id";
@@ -625,4 +625,18 @@ function event_manager_send_registration_validation_email($event, $object) {
 			
 		elgg_send_email($from, $object->email, $subject, $message);
 	}
+}
+
+function event_manager_groups_enabled() {
+	static $result;
+	
+	if (!isset($result)) {
+		$result = true;
+		
+		if (!elgg_get_plugin_setting("who_create_group_events", "event_manager")) {
+			$result = false;
+		}
+	}
+	
+	return $result;
 }

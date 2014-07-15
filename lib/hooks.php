@@ -114,14 +114,27 @@ function event_manager_entity_menu($hook, $entity_type, $returnvalue, $params){
  * @param unknown_type $returnvalue
  * @param unknown_type $params
  */
-function event_manager_owner_block_menu($hook, $entity_type, $returnvalue, $params){
-	$group = elgg_extract("entity", $params);
-	if (elgg_instanceof($group, 'group') && $group->event_manager_enable != "no") {
-		$url = '/events/event/list/' . $group->getGUID();
-		$item = new ElggMenuItem('events', elgg_echo('event_manager:menu:group_events'), $url);
-		$returnvalue[] = $item;
+function event_manager_owner_block_menu($hook, $entity_type, $returnvalue, $params) {
+	
+	if (empty($params) || !is_array($params)) {
+		return $returnvalue;
 	}
-
+	
+	$group = elgg_extract("entity", $params);
+	if (empty($group) || !elgg_instanceof($group, "group")) {
+		return $returnvalue;
+	}
+	
+	if (!event_manager_groups_enabled() || $group->event_manager_enable == "no") {
+		return $returnvalue;
+	}
+	
+	$returnvalue[] = ElggMenuItem::factory(array(
+		"name" => "events",
+		"text" => elgg_echo("event_manager:menu:group_events"),
+		"href" => "events/event/list/" . $group->getGUID()
+	));
+	
 	return $returnvalue;
 }
 

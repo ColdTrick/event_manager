@@ -24,7 +24,7 @@ require_once(dirname(__FILE__) . "/lib/events.php");
 
 /**
  * Init function for this plugin
- * 
+ *
  * @return void
  */
 function event_manager_init() {
@@ -49,7 +49,9 @@ function event_manager_init() {
 	));
 
 	// add group tool option
-	add_group_tool_option("event_manager", elgg_echo("groups:enableevents"), true);
+	if (event_manager_groups_enabled()) {
+		add_group_tool_option("event_manager", elgg_echo("groups:enableevents"), true);
+	}
 
 	// add to group profile
 	elgg_extend_view("groups/tool_latest", "event_manager/group_module");
@@ -104,14 +106,14 @@ function event_manager_init() {
 	elgg_register_action("event_manager/registration/edit", dirname(__FILE__) . "/actions/registration/edit.php");
 	elgg_register_action("event_manager/registration/approve", dirname(__FILE__) . "/actions/registration/approve.php");
 	elgg_register_action("event_manager/registration/pdf", dirname(__FILE__) . "/actions/registration/pdf.php", "public");
-	elgg_register_action("event_manager/registration/confirm", dirname(__FILE__) . "/actions/registration/confirm.php", "public");	
+	elgg_register_action("event_manager/registration/confirm", dirname(__FILE__) . "/actions/registration/confirm.php", "public");
 }
 
 /**
  * Page handler
- * 
+ *
  * @param array $page page elements
- * 
+ *
  * @return boolean
  */
 function event_manager_page_handler($page) {
@@ -213,7 +215,7 @@ function event_manager_page_handler($page) {
 
 /**
  * Page setup function
- * 
+ *
  * @return void
  */
 function event_manager_pagesetup() {
