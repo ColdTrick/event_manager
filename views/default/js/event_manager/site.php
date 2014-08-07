@@ -454,7 +454,7 @@ elgg.event_manager.init = function() {
 		$.getJSON(elgg.get_site_url() + 'events/proc/registration/approve', {guid: regId}, function(response) {
 			if(response.valid) {
 				regElmnt.unbind('click');
-				regElmnt.replaceWith('<img border="0" src="/mod/event_manager/_graphics/icons/check_icon.png" />');
+				regElmnt.replaceWith('<img border="0" src="' + elgg.get_site_url() + 'mod/event_manager/_graphics/icons/check_icon.png" />');
 			}
 		});
 	});
