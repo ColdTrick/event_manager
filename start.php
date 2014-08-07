@@ -100,7 +100,6 @@ function event_manager_init() {
 	elgg_register_action("event_manager/event/register", dirname(__FILE__) . "/actions/event/register.php", "public");
 	
 	elgg_register_action("event_manager/attendees/export", dirname(__FILE__) . "/actions/attendees/export.php");
-	elgg_register_action("event_manager/attendees/export_waitinglist", dirname(__FILE__) . "/actions/attendees/exportwaitinglist.php");
 	elgg_register_action("event_manager/attendees/move_to_attendees", dirname(__FILE__) . "/actions/attendees/move_to_attendees.php");
 	
 	elgg_register_action("event_manager/registration/edit", dirname(__FILE__) . "/actions/registration/edit.php");

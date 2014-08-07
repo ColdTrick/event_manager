@@ -796,12 +796,12 @@ class Event extends ElggObject {
 		return $entities;
 	}
 	
-	public function exportAttendees() {
+	public function exportAttendees($rel = EVENT_MANAGER_RELATION_ATTENDING) {
 		
 		$old_ia = elgg_set_ignore_access(true);
 		
 		$entities = elgg_get_entities_from_relationship(array(
-			'relationship' => EVENT_MANAGER_RELATION_ATTENDING,
+			'relationship' => $rel,
 			'relationship_guid' => $this->getGUID(),
 			'inverse_relationship' => FALSE,
 			'site_guids' => false,
@@ -810,22 +810,6 @@ class Event extends ElggObject {
 		
 		elgg_set_ignore_access($old_ia);
 		
-		return $entities;
-	}
-	
-	public function exportWaiters() {
-		$old_ia = elgg_set_ignore_access(true);
-			
-		$entities = elgg_get_entities_from_relationship(array(
-			'relationship' => EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
-			'relationship_guid' => $this->getGUID(),
-			'inverse_relationship' => FALSE,
-			'limit' => false,
-			'site_guids' => false
-		));
-			
-		elgg_set_ignore_access($old_ia);
-			
 		return $entities;
 	}
 }

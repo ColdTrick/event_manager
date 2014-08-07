@@ -144,6 +144,10 @@
 	border: 1px solid #CCCCCC;
 }
 
+.event-manager-event-view-attendees .elgg-head h3 a {
+	font-size: 1em;
+}
+
 .event-manager-event-view-attendees .elgg-avatar {
 	float: left;
 	margin-right: 5px;

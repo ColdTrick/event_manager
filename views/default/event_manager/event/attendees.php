@@ -22,7 +22,17 @@ if ($relationships = $event->getRelationships()) {
 
 				$members = $relationships[$rel];
 				
-				$rel_title = elgg_echo("event_manager:event:relationship:" . $rel . ":label") . " (" . count($members) . ")";
+				$rel_title = "";
+				if ($event->canEdit()) {
+					$rel_title .= elgg_view("output/url", array(
+						"is_action" => true, 
+						"href" => "action/event_manager/attendees/export?guid=" . $event->getGUID() . "&rel=" . $rel, 
+						"title" => elgg_echo("event_manager:event:exportattendees"), 
+						"text" => elgg_view_icon("download"),
+						"class" => "float-alt"
+					));
+				}
+				$rel_title .= elgg_echo("event_manager:event:relationship:" . $rel . ":label") . " (" . count($members) . ")";
 				
 				$rel_content = "";
 				foreach ($members as $member) {
