@@ -7,9 +7,10 @@ if (!empty($event) && !empty($entity)) {
 	$result = "<div class='elgg-avatar elgg-avatar-" . $vars["size"] . "'>";
 		
 	if ($event->canEdit()) {
-		$result .= "<span class='elgg-icon elgg-icon-hover-menu hidden'></span>";
-		$result .= "<ul class='elgg-menu elgg-menu-hover'><h3>" . $entity->name . "</h3><li>";
-		$result .= "<ul class='elgg-menu elgg-menu-hover-actions'>";
+		$result .= elgg_view_icon("hover-menu", "hidden");
+		$result .= "<ul class='elgg-menu elgg-menu-hover'>";
+		$result .= "<li><a href='javascript:void(0);'><span class='elgg-heading-basic'>" . $entity->name . "</span></a></li>";
+		$result .= "<li><ul class='elgg-menu elgg-menu-hover-actions'>";
 		
 		$result .= "<li>";
 		$result .= elgg_view("output/url", array("href" => "action/event_manager/event/rsvp?guid=" . $event->getGUID() . "&user=" . $entity->getGUID() . "&type=" . EVENT_MANAGER_RELATION_UNDO, "text" => elgg_echo('event_manager:event:relationship:kick'), "is_action" => true));
