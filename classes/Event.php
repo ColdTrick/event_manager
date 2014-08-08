@@ -210,7 +210,7 @@ class Event extends ElggObject {
 	 * 
 	 * @return boolean
 	 */
-	public function hasEventSpotsLeft()	{
+	public function hasEventSpotsLeft() {
 		$result = false;
 		
 		if ($this->max_attendees != '') {
