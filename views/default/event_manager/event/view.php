@@ -96,17 +96,33 @@ if ($type = $event->event_type) {
 	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:type') . ':</label></td><td>' . $type . '</td></tr>';
 }
 
-if ($files = $event->hasFiles()) {
-	$user_path = 'events/' . $event->getGUID() . '/files/';
+$files = $event->hasFiles();
+
+if (!empty($files) || $event->canEdit()) {
+	$user_path = "events/" . $event->getGUID() . "/files/";
 	
-	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:files') . ':</label></td><td>';
-	$event_details .= "<div class='event-manager-event-files'>";
-	foreach ($files as $file) {
-		$event_details .= '<a href="' . elgg_get_site_url() . 'events/event/file/' . $event->getGUID() . '/' . $file->file . '">' . elgg_view_icon("download", "mrs") . $file->title . '</a><br />';
+	$event_details .= "<tr><td><label>" . elgg_echo("event_manager:edit:form:files") . ":</label></td><td>";
+	$event_details .= "<ul>";
+	if (!empty($files)) {
+		foreach ($files as $file) {
+			$file_link = elgg_view("output/url", array(
+				"href" => "events/event/file/" . $event->getGUID() . "/" . $file->file,
+				"text" => elgg_view_icon("download", "mrs") . $file->title
+			));
+			$event_details .= "<li>" . $file_link . "</li>";
+		}
 	}
 	
-	$event_details .= '</div>';
-	$event_details .= '</td></tr>';
+	if ($event->canEdit()) {
+		$add_link = elgg_view("output/url", array(
+			"href" => "events/event/upload/" . $event->getGUID(),
+			"text" => elgg_view_icon("round-plus", "mrs") . elgg_echo("event_manager:event:uploadfiles")
+		));
+		$event_details .= "<li>" . $add_link . "</li>";
+	}
+	
+	$event_details .= "</ul>";
+	$event_details .= "</td></tr>";
 }
 
 $event_details .= "</table>";

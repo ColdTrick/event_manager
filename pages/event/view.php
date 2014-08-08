@@ -10,12 +10,23 @@ if (!empty($guid) && ($entity = get_entity($guid))) {
 }
 
 if ($event) {
+	if ($event->canEdit() && $event->registration_needed) {
+		// add title button to edit registration questions
+		elgg_register_menu_item("title", ElggMenuItem::factory(array(
+			"name" => "editquestions",
+			"href" => "events/registrationform/edit/" . $event->getGUID(),
+			"text" => elgg_echo("event_manager:event:editquestions"),
+			"class" => "elgg-button elgg-button-action"
+		)));
+	}
+	
 	// add export button
 	elgg_load_js("addthisevent");
 	elgg_register_menu_item("title", ElggMenuItem::factory(array(
 		"name" => "addthisevent",
 		"href" => false,
-		"text" => elgg_view("event_manager/event/addthisevent", array("entity" => $event)))));
+		"text" => elgg_view("event_manager/event/addthisevent", array("entity" => $event))
+	)));
 	
 	elgg_set_page_owner_guid($event->getContainerGUID());
 	$page_owner = elgg_get_page_owner_entity();
