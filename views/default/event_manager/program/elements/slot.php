@@ -77,7 +77,7 @@ if (!empty($slot) && ($slot instanceof EventSlot)) {
 		} else {
 			$subtitle_data[] = strtolower(elgg_echo('event_manager:edit:form:spots_left:full'));
 			
-			$event = $slot->getEvent();
+			$event = $slot->getOwnerEntity();
 			if ($event->waiting_list_enabled && $slot->getWaitingUsers(true)>0) {
 				$subtitle_data[] = $slot->getWaitingUsers(true).elgg_echo('event_manager:edit:form:spots_left:waiting_list');
 			} 

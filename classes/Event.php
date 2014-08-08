@@ -125,8 +125,6 @@ class Event extends ElggObject {
 	public function rsvp($type = EVENT_MANAGER_RELATION_UNDO, $user_guid = 0, $reset_program = true, $add_to_river = true) {
 		global $EVENT_MANAGER_UNDO_REGISTRATION;
 		
-		$result = false;
-		
 		$user_guid = sanitise_int($user_guid, false);
 		
 		if (empty($user_guid)) {
@@ -143,7 +141,7 @@ class Event extends ElggObject {
 		$event_guid = $this->getGUID();
 		
 		// remove registrations
-		if ($type == EVENT_MANAGER_RELATION_UNDO){
+		if ($type == EVENT_MANAGER_RELATION_UNDO) {
 			if (empty($user_entity)) {
 				// make sure we can remove the registration object
 				$EVENT_MANAGER_UNDO_REGISTRATION = true;
@@ -188,11 +186,11 @@ class Event extends ElggObject {
 		if ($type && ($type != EVENT_MANAGER_RELATION_UNDO) && (in_array($type, event_manager_event_get_relationship_options()))) {
 			$result = $this->addRelationship($user_guid, $type);
 			
-			if ($result && $add_to_river){
+			if ($result && $add_to_river) {
 				if ($user_entity) {
 					// add river events
 					if (($type != "event_waitinglist") && ($type != "event_pending")) {
-						add_to_river('river/event_relationship/create', 'event_relationship', $user_guid, $event_guid);
+						add_to_river("river/event_relationship/create", "event_relationship", $user_guid, $event_guid);
 					}
 				}
 			}				
@@ -342,8 +340,8 @@ class Event extends ElggObject {
 		$registration_table .= "<table>";
 
 		if (($guid != elgg_get_logged_in_user_guid()) && !($entity instanceof ElggUser)) {
-			$registration_table .= "<tr><td><label>" . elgg_echo("user:name:label") . "</label></td><td>: " . $user->name . "</td></tr>";
-			$registration_table .= "<tr><td><label>" . elgg_echo("email") . "</label></td><td>: " . $user->email . "</td></tr>";
+			$registration_table .= "<tr><td><label>" . elgg_echo("user:name:label") . "</label></td><td>: " . $entity->name . "</td></tr>";
+			$registration_table .= "<tr><td><label>" . elgg_echo("email") . "</label></td><td>: " . $entity->email . "</td></tr>";
 		}
 		
 		foreach ($questions as $question) {

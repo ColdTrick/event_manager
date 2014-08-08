@@ -1,30 +1,31 @@
 <?php
-
+/**
+ * EventRegistrationQuestion
+ *
+ * @package EventManager
+ *
+ */
 class EventRegistrationQuestion extends ElggObject {
 	const SUBTYPE = "eventregistrationquestion";
 	
+	/**
+	 * initializes the default class attributes
+	 *
+	 * @return void
+	 */
 	protected function initializeAttributes() {
 		parent::initializeAttributes();
 		
 		$this->attributes["subtype"] = self::SUBTYPE;
 	}
-	
-	public function getAllAnswers() {
-		$result = false;
-		
-		$params = array(
-			"guid" => $this->getGUID(),
-			"annotation_name" => "answer_to_event_registration",
-			"limit" => false
-		);
-		
-		if($annotations = elgg_get_annotations($params)) {
-			$result = $annotations;
-		}
-		
-		return $result;
-	}
-	
+
+	/**
+	 * Returns the answer given by a user
+	 * 
+	 * @param string $user_guid guid of the entity
+	 * 
+	 * @return boolean|ElggAnnotation
+	 */
 	public function getAnswerFromUser($user_guid = null) {
 		$result = false;
 		
@@ -39,39 +40,63 @@ class EventRegistrationQuestion extends ElggObject {
 			"limit" => 1
 		);
 		
-		if ($annotations = elgg_get_annotations($params)) {
+		$annotations = elgg_get_annotations($params);
+		if ($annotations) {
 			$result = $annotations[0];
 		}
 		
 		return $result;
 	}
 	
+	/**
+	 * Removes the answer given by a user
+	 * 
+	 * @param string $user_guid guid of the entity
+	 * 
+	 * @return void
+	 */
 	public function deleteAnswerFromUser($user_guid = null) {
 		if (empty($user_guid)) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
 		
-		if ($annotation = $this->getAnswerFromUser($user_guid)) {
+		$annotation = $this->getAnswerFromUser($user_guid);
+		if ($annotation) {
 			$annotation->delete();
 		}
 	}
 	
+	/**
+	 * Updates the answer given by a user
+	 * 
+	 * @param Event  $event      the event entity used for setting the access of the annotation correctly
+	 * @param string $new_answer the new answer
+	 * @param string $user_guid  guid of the entity giving the answer
+	 * 
+	 * @return void
+	 */
 	public function updateAnswerFromUser($event, $new_answer, $user_guid = null) {
 		if (empty($user_guid)) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
 		
-		if (($old_answer = $this->getAnswerFromUser($user_guid)) && get_user($user_guid)) {
+		$old_answer = $this->getAnswerFromUser($user_guid);
+		if ($old_answer && get_user($user_guid)) {
 			if (!empty($new_answer)) {
-				update_annotation($old_answer->id, 'answer_to_event_registration', $new_answer, '', $user_guid, $event->access_id);
+				update_annotation($old_answer->id, "answer_to_event_registration", $new_answer, "", $user_guid, $event->access_id);
 			} else {
 				elgg_delete_annotation_by_id($old_answer->id);
 			}
 		} else {
-			$this->annotate('answer_to_event_registration', $new_answer, $event->access_id, $user_guid);
+			$this->annotate("answer_to_event_registration", $new_answer, $event->access_id, $user_guid);
 		}
 	}
 	
+	/**
+	 * Returns the options of this question
+	 * 
+	 * @return array
+	 */
 	public function getOptions() {
 		$field_options = array();
 		
