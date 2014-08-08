@@ -37,7 +37,7 @@ class Event extends ElggObject {
 	 * 
 	 * @return void
 	 */
-	public function setAccessToOwningObjects($access_id = null)	{
+	public function setAccessToOwningObjects($access_id = null) {
 		$this->setAccessToProgramEntities($access_id);
 		$this->setAccessToRegistrationForm($access_id);
 	}
@@ -115,8 +115,8 @@ class Event extends ElggObject {
 	/**
 	 * RSVP to the event
 	 * 
-	 * @param string $type           type of the rsvp
-	 * @param number $user_guid      guid of the user for whom the rsvp is changed
+	 * @param string  $type          type of the rsvp
+	 * @param number  $user_guid     guid of the user for whom the rsvp is changed
 	 * @param boolean $reset_program does the program need a reset with this rsvp
 	 * @param boolean $add_to_river  add an event to the river
 	 * 
@@ -287,8 +287,8 @@ class Event extends ElggObject {
 	/**
 	 * Returns the registrations for a given user
 	 * 
-	 * @param boolean $count    return count
-	 * @param string $user_guid guid of the user
+	 * @param boolean $count     return count
+	 * @param string  $user_guid guid of the user
 	 * 
 	 * @return array|boolean
 	 */
@@ -369,7 +369,7 @@ class Event extends ElggObject {
 			return true;
 		}
 		
-		if($this->with_program && $this->getEventDays()) {
+		if ($this->with_program && $this->getEventDays()) {
 			return true;
 		}
 		
@@ -416,6 +416,8 @@ class Event extends ElggObject {
 	 * 
 	 * @param string $type type of the RSVP
 	 * @param string $to   guid of the user
+	 * 
+	 * @return void
 	 */
 	public function notifyOnRsvp($type, $to = null) {
 
@@ -661,7 +663,7 @@ class Event extends ElggObject {
 		$event_guid = $this->getGUID();
 		
 		$row = get_data_row("SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid AND guid_two=$user_guid");
-		if ($row){
+		if ($row) {
 			$result = $row->relationship;
 		}
 		
@@ -678,7 +680,7 @@ class Event extends ElggObject {
 	public function getRelationships($count = false) {
 		$event_guid = $this->getGUID();
 		
-		if ($count){
+		if ($count) {
 			$query = "SELECT relationship, count(*) as count FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid GROUP BY relationship ORDER BY relationship ASC";
 		} else {
 			$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid ORDER BY relationship ASC";
@@ -693,7 +695,7 @@ class Event extends ElggObject {
 		foreach ($all_relations as $row) {
 			$relationship = $row->relationship;
 			
-			if ($count){
+			if ($count) {
 				$result[$relationship] = $row->count;
 				$result["total"] += $row->count;
 			} else {
@@ -769,7 +771,7 @@ class Event extends ElggObject {
 	public function getWaitingUsers() {
 		$result = false;
 			
-		$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one= '".$this->getGUID(). "' AND relationship = '".EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST."' ORDER BY time_created ASC";
+		$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one= '" . $this->getGUID() . "' AND relationship = '" . EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST . "' ORDER BY time_created ASC";
 			
 		if ($waiting_users = get_data($query)) {
 			$result = array();
@@ -789,7 +791,7 @@ class Event extends ElggObject {
 	public function getFirstWaitingUser() {
 		$result = false;
 			
-		$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one= '".$this->getGUID(). "' AND relationship = '".EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST."' ORDER BY time_created ASC LIMIT 1";
+		$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one= '" . $this->getGUID() . "' AND relationship = '" . EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST . "' ORDER BY time_created ASC LIMIT 1";
 		
 		$waiting_users = get_data($query);
 		if (!empty($waiting_users)) {
@@ -925,7 +927,7 @@ class Event extends ElggObject {
 			),
 			"limit" => false
 		);
-	 
+
 		return elgg_get_entities_from_relationship($entities_options);
 	}
 	
