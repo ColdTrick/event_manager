@@ -65,7 +65,7 @@ class EventRegistrationQuestion extends ElggObject {
 			if (!empty($new_answer)) {
 				update_annotation($old_answer->id, 'answer_to_event_registration', $new_answer, '', $user_guid, $event->access_id);
 			} else {
-				delete_annotation($old_answer->id);
+				elgg_delete_annotation_by_id($old_answer->id);
 			}
 		} else {
 			$this->annotate('answer_to_event_registration', $new_answer, $event->access_id, $user_guid);

@@ -17,15 +17,15 @@ $subtitle = "$author_text $date";
 
 // event details
 if ($event->icontime) {
-	$event_details .= '<div class="event_manager_event_view_image"><a href="' . $event->getIcon('master') . '" target="_blank"><img src="' . $event->getIcon('medium') . '" border="0" /></a></div>';
+	$event_details .= '<div class="event_manager_event_view_image"><a href="' . $event->getIconURL('master') . '" target="_blank"><img src="' . $event->getIconURL() . '" border="0" /></a></div>';
 }
 $event_details .= "<table class='event-manager-event-details'>";
 if ($venue = $event->venue) {
 	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:venue') . ':</label></td><td>' . $venue . '</td></tr>';
 }
-if ($location = $event->getLocation()) {
+if ($location = $event->getEventLocation()) {
 	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:location') . ':</label></td><td>';
-	$event_details .= '<a href="' . elgg_get_site_url() . 'events/event/route?from=' . urlencode($event->getLocation()) . '" class="openRouteToEvent">' . $event->getLocation() . '</a>';
+	$event_details .= '<a href="' . elgg_get_site_url() . 'events/event/route?from=' . urlencode($event->getEventLocation()) . '" class="openRouteToEvent">' . $event->getEventLocation() . '</a>';
 	$event_details .= '</td></tr>';
 }
 

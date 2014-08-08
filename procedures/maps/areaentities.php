@@ -15,12 +15,12 @@ foreach ($entities as $event) {
 	$eventBox .= "<div class='event_manager_event_view_owner'>";
 	$eventBox .= "<a href='" . $event->getURL() . "'>" . $event->title . "</a> ";
 	$eventBox .= "(" . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . ")</div>";
-	$eventBox .= $event->getLocation(true) . "<br /><br />";
+	$eventBox .= $event->getEventLocation(true) . "<br /><br />";
 	$eventBox .= $event->shortdescription . "<br />";
 	$eventBox .= elgg_view("event_manager/event/action", array("entity" => $event));
 	$eventBox .= "</div>";
 	$eventBox .= "<div class='gmaps_infowindow_icon'>";
-	$eventBox .= "<img src='" . $event->getIcon("medium") . "' />";
+	$eventBox .= "<img src='" . $event->getIconURL("medium") . "' />";
 	$eventBox .= "</div></div>";
 						
 	$returnData['markers'][] = array(

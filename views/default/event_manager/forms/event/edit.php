@@ -49,13 +49,13 @@ $type_options = event_manager_event_type_options();
 if ($event = $vars['entity']) {
 	// edit mode
 	$fields["guid"] = $event->getGUID();
-	$fields["location"] = $event->getLocation();
+	$fields["location"] = $event->getEventLocation();
 	$fields["latitude"] = $event->getLatitude();
 	$fields["longitude"] = $event->getLongitude();
 	$fields["tags"] = string_to_tag_array($event->tags);
 	
 	if ($event->icontime) {
-		$currentIcon = '<img src="' . $event->getIcon() . '" />';
+		$currentIcon = '<img src="' . $event->getIconURL() . '" />';
 	}
 	
 	foreach ($fields as $field => $value) {
@@ -122,10 +122,9 @@ if (!empty($currentIcon)) {
 		'name' => 'delete_current_icon',
 		'id' => 'delete_current_icon',
 		'value' => 0,
-		'options' => 
-			array(
-				elgg_echo('event_manager:edit:form:delete_current_icon') => '1'
-			)
+		'options' => array(
+			elgg_echo('event_manager:edit:form:delete_current_icon') => '1'
+		)
 	));
 	$profile_body .= "</td></tr>";
 }

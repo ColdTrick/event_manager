@@ -6,7 +6,7 @@ $owner = $event->getOwnerEntity();
 $output = "";
 
 if ($event->icontime) {
-	$output .= '<div class="event_manager_event_view_image"><img src="' . $event->getIcon('medium') . '" border="0" /></div>';
+	$output .= '<div class="event_manager_event_view_image"><img src="' . $event->getIconURL() . '" border="0" /></div>';
 }
 
 $output .= '<div class="event_manager_event_view_owner">';
@@ -17,9 +17,9 @@ $output .= '</div>';
 
 // event details
 $event_details = "<table>";
-if ($location = $event->getLocation()) {
+if ($location = $event->getEventLocation()) {
 	$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:location') . '</b></td><td>: ';
-	$event_details .= $event->getLocation();
+	$event_details .= $event->getEventLocation();
 	$event_details .= '</td></tr>';
 }
 

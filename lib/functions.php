@@ -129,26 +129,6 @@ function event_manager_search_events($options = array()){
 	return $result;
 }
 
-function event_manager_get_eventregistrationform_fields($event_guid, $count = false) {
-	$entities_options = array(
-		'type' => 'object',
-		'subtype' => 'eventregistrationquestion',
-		'joins' => array(
-						"JOIN " . elgg_get_config("dbprefix") . "metadata n_table_r on e.guid = n_table_r.entity_guid",
-						"JOIN " . elgg_get_config("dbprefix") . "entity_relationships r on r.guid_one = e.guid"),
-		'wheres' => array("r.guid_two = " . $event_guid, "r.relationship = 'event_registrationquestion_relation'"),
-		'order_by_metadata' => array("name" => 'order', 'direction' => 'ASC', "as" => "integer"),
-		'count' => $count,
-		'limit' => false
-	);
-	
-	if($entities = elgg_get_entities_from_metadata($entities_options)) {
-		return $entities;
-	} else {
-		return false;
-	}
-}
-
 function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype = "", $limit = 20) {
 	if (empty($subtype)) {
 		return false;
