@@ -26,8 +26,11 @@ if (!empty($guid) && ($entity = get_entity($guid))) {
 			register_error(elgg_echo("event_manager:event:rsvp:registration_ended"));
 			forward($event->getURL());
 		}
-			
-		$form = $event->generateRegistrationForm();
+
+		$form_vars = array("id" => "event_manager_event_register", "name" => "event_manager_event_register");
+		$body_vars = array("entity" => $event);
+		
+		$form = elgg_view_form("event_manager/event/register", $form_vars, $body_vars);
 
 		$title_text = elgg_echo("event_manager:registration:register:title");
 		

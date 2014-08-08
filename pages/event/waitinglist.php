@@ -20,7 +20,10 @@ if (!empty($guid) && ($entity = get_entity($guid))) {
 			elgg_push_breadcrumb($event->title, $event->getURL());
 			elgg_push_breadcrumb($title_text);
 			
-			$form = $event->generateRegistrationForm('waitinglist');
+			$form_vars = array("id" => "event_manager_event_register", "name" => "event_manager_event_register");
+			$body_vars = array("entity" => $event, "register_type" => "waitinglist");
+			
+			$form = elgg_view_form("event_manager/event/register", $form_vars, $body_vars);
 			
 			$body = elgg_view_layout('one_sidebar', array(
 				'filter' => '',

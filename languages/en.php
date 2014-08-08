@@ -227,8 +227,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:file:notfound:text' => 'The file you are looking for couldn\'t be found',
 
 		'event_manager:event:register:register_link' => 'Register to this event',
-		'event_manager:event:register:no_registrationform' => 'The organizer of this event hasn\'t created a registration form yet.<br />Please try again later.',
-
+		
 		'event_manager:event:menu:user_hover:resend_confirmation' => 'Resend confirmation email',
 		'event_manager:event:menu:user_hover:move_to_attendees' => 'Move to attendees',
 

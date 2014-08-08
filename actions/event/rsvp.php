@@ -15,7 +15,7 @@ if (!empty($guid) && !empty($rel)) {
 	if (!empty($event) && elgg_instanceof($event, "object", Event::SUBTYPE) && !empty($user)) {
 		if ($rel == EVENT_MANAGER_RELATION_ATTENDING) {
 			if ($event->hasEventSpotsLeft() && $event->hasSlotSpotsLeft()) {
-				if ($event->registration_needed && $event->generateRegistrationForm()) {
+				if ($event->registration_needed && $event->hasRegistrationForm()) {
 					$forward_url = '/events/event/register/' . $guid . '/' . $rel;
 					$notice = false;
 				} else {
@@ -25,13 +25,9 @@ if (!empty($guid) && !empty($rel)) {
 				if ($event->waiting_list_enabled) {
 					$rel = EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST;
 					if ($event->openForRegistration()) {
-						if ($event->registration_needed && $event->generateRegistrationForm()) {
-							if ($registration = $event->generateRegistrationForm()) {
-								$forward_url = '/events/event/waitinglist/' . $guid;
-								$notice = false;
-							} else {
-								register_error(elgg_echo('event_manager:event:register:no_registrationform'));
-							}
+						if ($event->registration_needed && $event->hasRegistrationForm()) {
+							$forward_url = '/events/event/waitinglist/' . $guid;
+							$notice = false;
 						} else {
 							$rsvp = $event->rsvp($rel, $user_guid);
 						}

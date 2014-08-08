@@ -294,85 +294,27 @@ class Event extends ElggObject {
 		return $result;
 	}
 	
-	public function generateRegistrationForm($register_type = 'register') {
-		$form = false;
-		$show_required = false;
-		
-		$form_body = "";
-		
+	/**
+	 * Checks if the event has a registration form
+	 * 
+	 * @return boolean
+	 */
+	public function hasRegistrationForm() {
 		if (!elgg_is_logged_in()) {
-			$form_body .= elgg_view("event_manager/registration/non_loggedin");
-			$show_required = true;
-		}
-
-		if ($registration_form = $this->getRegistrationFormQuestions()) {
-			if ($register_type == 'waitinglist') {
-				$form_body .= '<p>'. elgg_echo('event_manager:event:rsvp:waiting_list:message') .'</p><br />';
-			}
-				
-			$form_body .= '<ul>';
-			
-			foreach ($registration_form as $question) {
-				$value = null;
-				if(array_key_exists("registerevent_values", $_SESSION) && is_array($_SESSION["registerevent_values"])){
-					$value = elgg_extract('question_' . $question->getGUID(), $_SESSION['registerevent_values']);
-				}
-				
-				if($value == null){
-					if (elgg_is_logged_in()) {
-						if($answer = $question->getAnswerFromUser()){
-							$value = $answer->value;
-						}
-					}
-				}
-				
-				$form_body .= elgg_view('event_manager/registration/question', array('entity' => $question, 'register' => true, 'value' => $value));
-				
-				if($question->required){
-					$show_required = true;
-				}
-			}
-			
-			$form_body .= '</ul>';
+			return true;
 		}
 		
-		if ($show_required) {
-			$form_body .= "<div class='elgg-subtext'>" . elgg_echo("event_manager:registration:required_fields:info") . "</div>";
+		if ($this->getRegistrationFormQuestions(true)) {
+			return true;
 		}
 		
-		if (!empty($form_body)) {
-			$form_body = elgg_view_module('info', "", $form_body, array("id" => "event_manager_registration_form_fields"));
-		}
-
-		if ($this->with_program) {
-			$form_body .= $this->getProgramData(elgg_get_logged_in_user_guid(), true, $register_type);
+		if($this->with_program && $this->getEventDays()) {
+			return true;
 		}
 		
-		if ($form_body) {
-			$form_body .= elgg_view('input/hidden', array('name' => 'event_guid', 'value' => $this->getGUID()));
-			if ($register_type == 'register') {
-				$form_body .= elgg_view('input/hidden', array('name' => 'relation', 'value' => EVENT_MANAGER_RELATION_ATTENDING));
-			} elseif ($register_type == 'waitinglist') {
-				$form_body .= elgg_view('input/hidden', array('name' => 'relation', 'value' => EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST));
-			}
-			
-			$form_body .= elgg_view('input/hidden', array('name' => 'register_type', 'value' => $register_type));
-			
-			$form_body .= elgg_view('input/submit', array('value' => elgg_echo('register')));
-			
-			$form_body = elgg_view_module('main', "", $form_body);
-							
-			$form = elgg_view('input/form', array(
-				'id' => 'event_manager_event_register',
-				'name' => 'event_manager_event_register',
-				'action' => elgg_get_site_url() . 'action/event_manager/event/register',
-				'body' => $form_body
-			));
-		}
-		
-		return $form;
+		return false;
 	}
-
+	
 	public function getProgramData($user_guid = null, $participate = false, $register_type = 'register') {
 		$result = false;
 		
@@ -417,6 +359,12 @@ class Event extends ElggObject {
 		return $result;
 	}
 	
+	/**
+	 * Notifies an user of the RSVP
+	 * 
+	 * @param string $type type of the RSVP
+	 * @param string $to   guid of the user
+	 */
 	public function notifyOnRsvp($type, $to = null) {
 
 		$ia = elgg_set_ignore_access(true);
@@ -425,97 +373,102 @@ class Event extends ElggObject {
 			$to = elgg_get_logged_in_user_guid();
 		}
 		
-		if ($to_entity = get_entity($to)) {
-			// can we make nice links in the emails
-			$html_email_handler_enabled = elgg_is_active_plugin("html_email_handler");
-			
-			// do we have a registration link
-			$registrationLink = "";
-			$unsubscribeLink = "";
-			if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
-				if ($this->registration_needed) {
-					$link = elgg_get_site_url() . 'events/registration/view/?guid=' . $this->getGUID() . '&u_g=' . $to . '&k=' . md5($this->time_created . get_site_secret() . $to);
-					
-					$registrationLink = PHP_EOL . PHP_EOL;
-					$registrationLink .= elgg_echo('event_manager:event:registration:notification:program:linktext');
-					$registrationLink .= PHP_EOL . PHP_EOL;
-					if ($html_email_handler_enabled) {
-						$registrationLink .= elgg_view("output/url", array("text" => $link, "href" => $link));
-					} else {
-						$registrationLink .= $link;
-					}
-				}
+		$to_entity = get_entity($to);
+		if (empty($to_entity)) {
+			elgg_set_ignore_access($ia);
+			return;
+		}
 				
-				if ($this->register_nologin) {
-					$link = elgg_get_site_url() . "events/unsubscribe/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title) . "?e=" . $to_entity->email;
-					
-					$unsubscribeLink = PHP_EOL . PHP_EOL;
-					$unsubscribeLink .= elgg_echo('event_manager:event:registration:notification:unsubscribe:linktext');
-					$unsubscribeLink .= PHP_EOL . PHP_EOL;
-					if ($html_email_handler_enabled) {
-						$unsubscribeLink .= elgg_view("output/url", array("text" => $link, "href" => $link));
-					} else {
-						$unsubscribeLink .= $link;
-					}
-				}
-			}
-			
-			// make the event title for in the e-mail
-			if ($html_email_handler_enabled) {
-				$event_title_link = elgg_view("output/url", array("text" => $this->title, "href" => $this->getURL()));
-			} else {
-				$event_title_link = $this->title;
-			}
-			
-			// notify the onwer of the event
-			$owner_subject = elgg_echo('event_manager:event:registration:notification:owner:subject');
-			
-			$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, array(
-				$this->getOwnerEntity()->name,
-				$to_entity->name,
-				$event_title_link
-			));
-			
-			$owner_message .= $registrationLink;
-			
-			notify_user($this->getOwnerGUID(), $this->getGUID(), $owner_subject, $owner_message);
-
-			// notify the attending user
-			$user_subject = elgg_echo('event_manager:event:registration:notification:user:subject');
-			
-			$user_message = elgg_echo('event_manager:event:registration:notification:user:text:' . $type, array(
-				$to_entity->name,
-				$event_title_link
-			));
-			
-			$user_message .= $registrationLink;
-			$user_message .= $unsubscribeLink;
-			
-			if ($to_entity instanceof ElggUser) {
-				// use notification system for real users
-				notify_user($to, $this->getGUID(), $user_subject, $user_message);
-			} else {
-				// send e-mail for non users
-				$to_email = $to_entity->name . "<" . $to_entity->email . ">";
+		// can we make nice links in the emails
+		$html_email_handler_enabled = elgg_is_active_plugin("html_email_handler");
+		
+		// do we have a registration link
+		$registrationLink = "";
+		$unsubscribeLink = "";
+		
+		if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
+			if ($this->registration_needed) {
+				$link = elgg_get_site_url() . 'events/registration/view/?guid=' . $this->getGUID() . '&u_g=' . $to . '&k=' . md5($this->time_created . get_site_secret() . $to);
 				
-				$site = elgg_get_site_entity($this->site_guid);
-				if ($site->email){
-					if ($site->name) {
-						$site_from = $site->name . " <" . $site->email . ">";
-					} else {
-						$site_from = $site->email;
-					}
+				$registrationLink = PHP_EOL . PHP_EOL;
+				$registrationLink .= elgg_echo('event_manager:event:registration:notification:program:linktext');
+				$registrationLink .= PHP_EOL . PHP_EOL;
+				if ($html_email_handler_enabled) {
+					$registrationLink .= elgg_view("output/url", array("text" => $link, "href" => $link));
 				} else {
-					// no site email, so make one up
-					if ($site->name) {
-						$site_from = $site->name . " <noreply@" . get_site_domain($site->getGUID()) . ">";
-					} else {
-						$site_from = "noreply@" . get_site_domain($site->getGUID());
-					}
+					$registrationLink .= $link;
 				}
-				
-				elgg_send_email($site_from, $to_email, $user_subject, $user_message);
 			}
+			
+			if ($this->register_nologin) {
+				$link = elgg_get_site_url() . "events/unsubscribe/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title) . "?e=" . $to_entity->email;
+				
+				$unsubscribeLink = PHP_EOL . PHP_EOL;
+				$unsubscribeLink .= elgg_echo('event_manager:event:registration:notification:unsubscribe:linktext');
+				$unsubscribeLink .= PHP_EOL . PHP_EOL;
+				if ($html_email_handler_enabled) {
+					$unsubscribeLink .= elgg_view("output/url", array("text" => $link, "href" => $link));
+				} else {
+					$unsubscribeLink .= $link;
+				}
+			}
+		}
+		
+		// make the event title for in the e-mail
+		if ($html_email_handler_enabled) {
+			$event_title_link = elgg_view("output/url", array("text" => $this->title, "href" => $this->getURL()));
+		} else {
+			$event_title_link = $this->title;
+		}
+		
+		// notify the owner of the event
+		$owner_subject = elgg_echo('event_manager:event:registration:notification:owner:subject');
+		
+		$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, array(
+			$this->getOwnerEntity()->name,
+			$to_entity->name,
+			$event_title_link
+		));
+		
+		$owner_message .= $registrationLink;
+		
+		notify_user($this->getOwnerGUID(), $this->getGUID(), $owner_subject, $owner_message);
+
+		// notify the attending user
+		$user_subject = elgg_echo('event_manager:event:registration:notification:user:subject');
+		
+		$user_message = elgg_echo('event_manager:event:registration:notification:user:text:' . $type, array(
+			$to_entity->name,
+			$event_title_link
+		));
+		
+		$user_message .= $registrationLink;
+		$user_message .= $unsubscribeLink;
+		
+		if ($to_entity instanceof ElggUser) {
+			// use notification system for real users
+			notify_user($to, $this->getGUID(), $user_subject, $user_message);
+		} else {
+			// send e-mail for non users
+			$to_email = $to_entity->name . "<" . $to_entity->email . ">";
+			
+			$site = elgg_get_site_entity($this->site_guid);
+			if ($site->email) {
+				if ($site->name) {
+					$site_from = $site->name . " <" . $site->email . ">";
+				} else {
+					$site_from = $site->email;
+				}
+			} else {
+				// no site email, so make one up
+				if ($site->name) {
+					$site_from = $site->name . " <noreply@" . get_site_domain($site->getGUID()) . ">";
+				} else {
+					$site_from = "noreply@" . get_site_domain($site->getGUID());
+				}
+			}
+			
+			elgg_send_email($site_from, $to_email, $user_subject, $user_message);
 		}
 		
 		elgg_set_ignore_access($ia);

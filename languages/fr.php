@@ -1,7 +1,6 @@
 <?php
 $language = array (
   'groups:enableevents' => 'Activer évènements de groupe',
-  'event_manager:event:register:no_registrationform' => 'L\'organisateur de cet évènement n\'a pas encore créé de formulaire d\'inscription.<br>Veuillez essayer plus tard.',
   'event_manager' => 'Event Manager',
   'event_manager:group' => 'Evènements de groupe',
   'event_manager:group:more' => 'Plus d\'évènements',

@@ -99,7 +99,6 @@ Iemand heeft zich afgemeld van het \'%s\' evenement. Je bent van de wachtlijst n
   'event_manager:event:preview' => 'Voorbeeld icoon',
   'event_manager:event:createicon' => 'Maak icoon',
   'event_manager:registrationform:fieldorder:error' => 'Fout tijdens het herordenen van de velden',
-  'event_manager:event:register:no_registrationform' => 'De organisator heeft nog geen registratie formulier aangemaakt<br>Probeer het later nog eens.',
   'event_manager:action:registration:edit:error_fields_with_program' => 'Vul de verplichte velden in en selecteer ten minste 1 activiteiten slot om aan deel te nemen',
   'event_manager:settings:google_maps' => 'Google Maps instellingen',
   'event_manager:settings:other' => 'Overige',
