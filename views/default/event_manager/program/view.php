@@ -9,7 +9,7 @@ if (!empty($event) && ($event instanceof Event)) {
 		if ($eventDays = $event->getEventDays()) {
 			foreach ($eventDays as $key => $day) {
 					
-				if ($key == 0 ) {
+				if ($key == 0) {
 					$selected = true;
 					$tabtitles .= "<li class='elgg-state-selected'>";
 				} else {

@@ -3,20 +3,34 @@
 $question = $vars["entity"];
 $value = $vars["value"];
 $register = elgg_extract("register", $vars, false);
+$actions = "";
 
 if (!empty($question) && ($question instanceof EventRegistrationQuestion)) {
 	if ($question->canEdit() && !$register) {
-		$edit_question = " <a href='javascript:void(0);' class='event_manager_questions_edit' rel='" . $question->getGUID() . "' title='" . elgg_echo("edit") . "'>" . elgg_view_icon("settings-alt") . "</a>";
-		$delete_question = "<a href='javascript:void(0);' class='event_manager_questions_delete' rel='" . $question->getGUID() . "' title='" . elgg_echo("delete") . "'>" . elgg_view_icon("delete") . "</a>";
+		$edit_question = elgg_view("output/url", array(
+			"href" => "javascript:void(0);",
+			"text" => elgg_view_icon("settings-alt"),
+			"class" => "event_manager_questions_edit mlm",
+			"title" => elgg_echo("edit"),
+			"rel" => $question->getGUID(),
+		));
 		
-		$tools .= $edit_question . " " . $delete_question;
+		$delete_question = elgg_view("output/url", array(
+			"href" => "javascript:void(0);",
+			"text" => elgg_view_icon("delete"),
+			"class" => "event_manager_questions_delete",
+			"title" => elgg_echo("delete"),
+			"rel" => $question->getGUID(),
+		));
+		
+		$actions = $edit_question . " " . $delete_question;
 	}
 	
 	$fieldtypes = array(
-		'Textfield' => 'text',
-		'Textarea' => 'plaintext',
-		'Dropdown' => 'dropdown',
-		'Radiobutton' => 'radio'
+		"Textfield" => "text",
+		"Textarea" => "plaintext",
+		"Dropdown" => "dropdown",
+		"Radiobutton" => "radio"
 	);
 	
 	if (array_key_exists($question->fieldtype, $fieldtypes)) {			
@@ -26,24 +40,27 @@ if (!empty($question) && ($question instanceof EventRegistrationQuestion)) {
 		$required_class = "";
 		
 		if ($question->required) {
-			$required = ' *';
+			$required = " *";
 			$required_class = "required";
 		}
 		
-		if ($question->fieldtype == 'Checkbox') {
-			$field_options = array($question->title . $required => '1');
+		if ($question->fieldtype == "Checkbox") {
+			$field_options = array($question->title . $required => "1");
 			
-			$result = $tools . elgg_view('input/' . $fieldtypes[$question->fieldtype], array('name' => 'question_'.$question->getGUID(), 'value' => $value, 'options' => $field_options, "class" => $required_class));
+			$result = $actions . elgg_view("input/" . $fieldtypes[$question->fieldtype], array("name" => "question_".$question->getGUID(), "value" => $value, "options" => $field_options, "class" => $required_class));
 		} else {
+			$result = "";
 			if (!$register) {
-				$result = elgg_view_icon("cursor-drag-arrow") . " ";
+				$result = elgg_view_icon("cursor-drag-arrow", "mrm");
 			}
-			$result .= '<label>' . $question->title . $required . '</label>' . $tools . '<br />' . elgg_view('input/' . $fieldtypes[$question->fieldtype], array('name' => 'question_'.$question->getGUID(), 'value' => $value, 'options' => $field_options, "class" => $required_class));
+			$result .= "<label>" . $question->title . $required . "</label>" . $actions . "<br />" . elgg_view("input/" . $fieldtypes[$question->fieldtype], array("name" => "question_" . $question->getGUID(), "value" => $value, "options" => $field_options, "class" => $required_class));
 		}
 	}
+	
+	$class = "";
 	if (!$register) {
 		$class = " class='elgg-module-popup'";
 	}
 	
-	echo '<li' . $class . ' id="question_'.$question->getGUID().'">'.$result.'</li>';
+	echo "<li" . $class . " id='question_" . $question->getGUID()."'>" . $result . "</li>";
 }
