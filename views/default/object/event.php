@@ -20,14 +20,14 @@ if ($vars["full"]) {
 	$event = $vars["entity"];
 	$owner = $event->getOwnerEntity();
 	$container = $event->getContainerEntity();
-        
+
 	$owner_link = elgg_view('output/url', array(
 		'href' => $owner->getURL(),
 		'text' => $owner->name,
 	));
 		
 	$author_text = elgg_echo('byline', array($owner_link));
-	if(($container instanceof ElggGroup) && (elgg_get_page_owner_guid() !== $container->getGUID())){
+	if (($container instanceof ElggGroup) && (elgg_get_page_owner_guid() !== $container->getGUID())) {
 		$author_text .= ' ' . elgg_echo('in') . ' <a href="' . elgg_get_site_url() . 'events/event/list/' . $container->getGUID() . '">' . $container->name . '</a>';
 	}
 		
@@ -36,31 +36,31 @@ if ($vars["full"]) {
 	$content = "";
 	$subtitle = "";
 		
-	if(!elgg_in_context("widgets")){
+	if (!elgg_in_context("widgets")) {
 		$subtitle = "<p>$author_text $date</p>";
-        	
-		if($location = $event->getEventLocation()){
+
+		if ($location = $event->getEventLocation()) {
 			$content .= '<div>' . elgg_echo('event_manager:edit:form:location') . ': ';
 			$content .= '<a href="' . elgg_get_site_url() . 'events/event/route?from=' . urlencode($location) . '" class="openRouteToEvent">' . $location . '</a>';
             $content .= '</div>'; 
-        }
-	        
-		if($shortdescription = $event->shortdescription){
+		}
+        
+		if ($shortdescription = $event->shortdescription) {
 			$content .= "<div>" . $shortdescription . "</div>";
 		}
 	}
-        
+
 	$content .= elgg_view("event_manager/event/actions", $vars);
-        
+
 	$icon = elgg_view_entity_icon($event, "date");
-        
+
 	$menu = elgg_view_menu('entity', array(
 		'entity' => $vars['entity'],
 		'handler' => 'event',
 		'sort_by' => 'priority',
 		'class' => 'elgg-menu-hz',
 	));
-		
+
 	$params = array(
 		'entity' => $event,
 		'metadata' => $menu,
@@ -69,7 +69,7 @@ if ($vars["full"]) {
 		'content' => $content,
 	);
 	$params = $params + $vars;
-	
+
 	$list_body = elgg_view('object/elements/summary', $params);
 
 	echo elgg_view_image_block($icon, $list_body);

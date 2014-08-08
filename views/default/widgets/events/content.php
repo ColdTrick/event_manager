@@ -35,6 +35,8 @@ if (empty($content)) {
 }
 
 if ($user = elgg_get_logged_in_user_entity()) {
+	$add_link = false;
+	
 	if ($owner instanceof ElggGroup) {
 		$who_create_group_events = elgg_get_plugin_setting('who_create_group_events', 'event_manager'); // group_admin, members
 		if ((($who_create_group_events == "group_admin") && $owner->canEdit()) || (($who_create_group_events == "members") && $owner->isMember($user))) {

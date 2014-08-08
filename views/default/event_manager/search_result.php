@@ -24,7 +24,7 @@ $result .= elgg_view("event_manager/onthemap", $vars);
 $limit = elgg_extract("limit", $vars, 10);
 
 if ($vars["count"] > $limit) {
-	$result .= '<div id="event_manager_event_list_search_more" rel="'. ((isset($vars["offset"])) ? $vars["offset"] : $limit).'">';
+	$result .= '<div id="event_manager_event_list_search_more" rel="' . ((isset($vars["offset"])) ? $vars["offset"] : $limit) . '">';
 	$result .= elgg_echo('event_manager:list:showmorevents');
 	$result .= ' (' . ($vars["count"] - ($offset + $limit)) . ')</div>';
 }

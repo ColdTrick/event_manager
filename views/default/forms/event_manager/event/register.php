@@ -15,18 +15,18 @@ if (!elgg_is_logged_in()) {
 $registration_form = $event->getRegistrationFormQuestions();
 if ($registration_form) {
 	if ($register_type == "waitinglist") {
-		$form_body .= "<p>". elgg_echo("event_manager:event:rsvp:waiting_list:message") ."</p><br />";
+		$form_body .= "<p>" . elgg_echo("event_manager:event:rsvp:waiting_list:message") . "</p><br />";
 	}
 
 	$form_body .= "<ul>";
 		
 	foreach ($registration_form as $question) {
 		$value = null;
-		if(array_key_exists("registerevent_values", $_SESSION) && is_array($_SESSION["registerevent_values"])){
+		if (array_key_exists("registerevent_values", $_SESSION) && is_array($_SESSION["registerevent_values"])) {
 			$value = elgg_extract("question_" . $question->getGUID(), $_SESSION["registerevent_values"]);
 		}
 
-		if($value == null){
+		if ($value == null) {
 			if (elgg_is_logged_in()) {
 				$answer = $question->getAnswerFromUser();
 				if ($answer) {
