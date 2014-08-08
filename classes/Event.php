@@ -1,56 +1,108 @@
 <?php
-
+/**
+ * Event
+ *
+ * @package EventManager
+ *
+ */
 class Event extends ElggObject {
 	const SUBTYPE = "event";
-			
+
+	/**
+	 * initializes the default class attributes
+	 *
+	 * @return void
+	 */
 	protected function initializeAttributes() {
 		parent::initializeAttributes();
 		
 		$this->attributes["subtype"] = self::SUBTYPE;
 	}
 	
+	/**
+	 * Returns URL to the entity
+	 * 
+	 * @return string
+	 * 
+	 * @see ElggEntity::getURL()
+	 */
 	public function getURL() {
 		return elgg_get_site_url() . "events/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
 	}
 	
+	/**
+	 * Updates access of objects owned
+	 * 
+	 * @param string $access_id
+	 * 
+	 * @return void
+	 */
 	public function setAccessToOwningObjects($access_id = null)	{
 		$this->setAccessToProgramEntities($access_id);
 		$this->setAccessToRegistrationForm($access_id);
 	}
 	
+	/**
+	 * Updates access of Program Entities
+	 * 
+	 * @param string $access_id
+	 * 
+	 * @return void
+	 */
 	public function setAccessToProgramEntities($access_id = null) {
 		if ($access_id == null) {
 			$access_id = $this->access_id;
 		}
 		
-		if ($eventDays = $this->getEventDays()) {
-			foreach ($eventDays as $day) {
-				$day->access_id = $access_id;
-				$day->save();
-				
-				if ($eventSlots = $day->getEventSlots()) {
-					foreach ($eventSlots as $slot) {
-						$slot->access_id = $access_id;
-						$slot->save();
-					}
-				}
+		$eventDays = $this->getEventDays();
+		if (empty($eventDays)) {
+			return;
+		}
+		
+		foreach ($eventDays as $day) {
+			$day->access_id = $access_id;
+			$day->save();
+			
+			$eventSlots = $day->getEventSlots();
+			if (empty($eventSlots)) {
+				continue;
 			}
+			
+			foreach ($eventSlots as $slot) {
+				$slot->access_id = $access_id;
+				$slot->save();
+			}			
 		}
 	}
 	
+	/**
+	 * Updates access of Registration Form Entities
+	 *
+	 * @param string $access_id
+	 *
+	 * @return void
+	 */
 	public function setAccessToRegistrationForm($access_id = null) {
 		if ($access_id == null) {
 			$access_id = $this->access_id;
 		}
 		
-		if ($questions = $this->getRegistrationFormQuestions()) {
-			foreach ($questions as $question) {
-				$question->access_id = $access_id;
-				$question->save();
-			}
+		$questions = $this->getRegistrationFormQuestions();
+		if (empty($questions)) {
+			return;
+		}
+
+		foreach ($questions as $question) {
+			$question->access_id = $access_id;
+			$question->save();
 		}
 	}
 	
+	/**
+	 * Returns files for the event
+	 * 
+	 * @return mixed|boolean
+	 */
 	public function hasFiles() {
 		$files = json_decode($this->files);
 		if (count($files) > 0) {
@@ -503,18 +555,34 @@ class Event extends ElggObject {
 		return $spots;
 	}
 
+	/**
+	 * Checks if the event has unlimited spot slots
+	 *
+	 * @return boolean
+	 */
 	public function hasUnlimitedSpotSlots() {
-		if ($eventDays = $this->getEventDays()) {
-			foreach ($eventDays as $eventDay) {
-				if ($eventSlots = $eventDay->getEventSlots()) {
-					foreach ($eventSlots as $eventSlot) {
-						if ($eventSlot->max_attendees == '' || $eventSlot->max_attendees == 0) {
-							return true;
-						}
-					}
+		$result = false;
+		
+		$eventDays = $this->getEventDays();
+		if (empty($eventDays)) {
+			return $result;
+		}
+		
+		foreach ($eventDays as $eventDay) {
+			$eventSlots = $eventDay->getEventSlots();
+			if (empty($eventSlots)) {
+				continue;
+			}
+			
+			foreach ($eventSlots as $eventSlot) {
+				if (empty($eventSlot->max_attendees)) {
+					$result = true;
+					break;
 				}
 			}
 		}
+		
+		return $result;
 	}
 	
 	public function getLocation($type = false) {
