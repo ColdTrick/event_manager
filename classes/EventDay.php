@@ -34,7 +34,7 @@ class EventDay extends ElggObject {
 			"order_by_metadata" => array("name" => "start_time", "as" => "interger"),
 			"limit" => false
 		);
-	 
+
 		return elgg_get_entities_from_relationship($entities_options);
 	}
 }
