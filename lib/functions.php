@@ -292,7 +292,7 @@
 			$EOL = PHP_EOL;
 		}
 		
-		$headerString .= '"'.elgg_echo('guid').'";"'.elgg_echo('name').'";"'.elgg_echo('email').'";"'.elgg_echo('username').'"';
+		$headerString .= '"'.elgg_echo('guid').'";"'.elgg_echo('name').'";"'.elgg_echo('email').'";"'.elgg_echo('username') . '";"' . elgg_echo('registration date') . '"';
 		
 		if($event->registration_needed) {
 			if($registration_form = $event->getRegistrationFormQuestions()) {
@@ -330,6 +330,9 @@
 				
 				$dataString .= '"'.$attendee->guid.'";"'.$attendee->name.'";"'.$attendee->email.'";"'.$attendee->username.'"';
 			
+				$relation = check_entity_relationship($event->guid, EVENT_MANAGER_RELATION_ATTENDING, $attendee->guid);
+				$dataString .= ';"' . date("d-m-Y H:i:s", $relation->time_created) . '"';
+				
 				if($event->registration_needed) {
 					if($registration_form = $event->getRegistrationFormQuestions()) {
 						foreach($registration_form as $question) {
@@ -376,7 +379,7 @@
 			$EOL = PHP_EOL;
 		}
 		
-		$headerString .= '"'.elgg_echo('guid').'";"'.elgg_echo('name').'";"'.elgg_echo('email').'";"'.elgg_echo('username').'"';
+		$headerString .= '"'.elgg_echo('guid').'";"'.elgg_echo('name').'";"'.elgg_echo('email').'";"'.elgg_echo('username') . '";"' . elgg_echo('registration date') . '"';
 		
 		if($event->registration_needed) {
 			if($registration_form = $event->getRegistrationFormQuestions()) {
@@ -413,7 +416,10 @@
 				$answerString = '';
 				
 				$dataString .= '"'.$waiter->guid.'";"'.$waiter->name.'";"'.$waiter->email.'";"'.$waiter->username.'"';
-			
+				
+				$relation = check_entity_relationship($event->guid, EVENT_MANAGER_RELATION_ATTENDING, $waiter->guid);
+				$dataString .= ';"' . date("d-m-Y H:i:s", $relation->time_created) . '"';
+				
 				if($event->registration_needed) {
 					if($registration_form = $event->getRegistrationFormQuestions()) {
 						foreach($registration_form as $question) {
