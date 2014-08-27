@@ -253,7 +253,7 @@ function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype =
 function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_ATTENDING) {
 	$old_ia = elgg_set_ignore_access(true);
 	
-	$headerString .= '"' . elgg_echo('guid') . '";"' . elgg_echo('name') . '";"' . elgg_echo('email') . '";"' . elgg_echo('username') . '"';
+	$headerString .= '"' . elgg_echo('guid') . '";"' . elgg_echo('name') . '";"' . elgg_echo('email') . '";"' . elgg_echo('username') . '";"' . elgg_echo('registration date') . '"';
 	
 	if ($event->registration_needed) {
 		if ($registration_form = $event->getRegistrationFormQuestions()) {
@@ -292,6 +292,9 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
 			
 			$dataString .= '"' . $attendee->guid . '";"'.$attendee->name . '";"' . $attendee->email . '";"' . $attendee->username . '"';
 		
+			$relation = check_entity_relationship($event->guid, EVENT_MANAGER_RELATION_ATTENDING, $attendee->guid);
+			$dataString .= ';"' . date("d-m-Y H:i:s", $relation->time_created) . '"';
+			
 			if ($event->registration_needed) {
 				if ($registration_form = $event->getRegistrationFormQuestions()) {
 					foreach ($registration_form as $question) {
