@@ -417,7 +417,7 @@
 				
 				$dataString .= '"'.$waiter->guid.'";"'.$waiter->name.'";"'.$waiter->email.'";"'.$waiter->username.'"';
 				
-				$relation = check_entity_relationship($event->guid, EVENT_MANAGER_RELATION_ATTENDING, $waiter->guid);
+				$relation = check_entity_relationship($event->guid, EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST, $waiter->guid);
 				$dataString .= ';"' . date("d-m-Y H:i:s", $relation->time_created) . '"';
 				
 				if($event->registration_needed) {
