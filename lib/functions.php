@@ -292,7 +292,7 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
 			
 			$dataString .= '"' . $attendee->guid . '";"'.$attendee->name . '";"' . $attendee->email . '";"' . $attendee->username . '"';
 		
-			$relation = check_entity_relationship($event->guid, EVENT_MANAGER_RELATION_ATTENDING, $attendee->guid);
+			$relation = check_entity_relationship($event->guid, $rel, $attendee->guid);
 			$dataString .= ';"' . date("d-m-Y H:i:s", $relation->time_created) . '"';
 			
 			if ($event->registration_needed) {
