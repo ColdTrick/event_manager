@@ -91,15 +91,6 @@
 							}
 							$this->clearRegistrations($user_guid);
 						}
-						
-						// check if currently attending
-						if (check_entity_relationship($this->getGUID(), EVENT_MANAGER_RELATION_ATTENDING, $user_guid)) {
-							if (!$this->hasEventSpotsLeft() || !$this->hasSlotSpotsLeft()) {
-								if ($this->getWaitingUsers()) {
-									$this->generateNewAttendee();
-								}
-							}
-						}
 					}
 				}
 				
@@ -129,6 +120,9 @@
 						}
 					}
 				} else {
+					if ($this->hasEventSpotsLeft() || $this->hasSlotSpotsLeft()) {
+						$this->generateNewAttendee();
+					}
 					$result = true;
 				}
 				
