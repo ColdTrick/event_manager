@@ -179,7 +179,6 @@
 	background: url(<?php echo $graphics_folder; ?>arrows_down.png) right center no-repeat;
 	padding-right: 15px;
 	cursor: pointer;
-	font-weight: bold;
 }
 
 .event_manager_event_actions_drop_down {
