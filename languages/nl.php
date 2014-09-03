@@ -1,5 +1,14 @@
 <?php
-$language = array (
+/**
+ * This file was created by Translation Editor v2.0
+ * On 2014-09-03 17:08
+ */
+
+return array (
+  'event_manager:edit:form:tabs:profile' => 'Profile',
+  'event_manager:edit:form:tabs:location' => 'Locatie',
+  'event_manager:edit:form:tabs:registration' => 'Registratie',
+  'event_manager:edit:form:tabs:extra' => 'Extra',
   'event_manager:event:registration:notification:unsubscribe:linktext' => 'Als je je wilt uitschrijven van dit evenement gebruik dan deze link',
   'event_manager:event:menu:title:add_to_calendar' => 'Toevoegen aan de kalender',
   'to' => 'Tonga',
@@ -365,4 +374,3 @@ Je hebt je uit het \'%s\' evenement uitgeschreven.
   'disapprove' => 'Afkeuren',
   'requiredfields' => 'Verplichte velden',
 );
-add_translation("nl", $language);

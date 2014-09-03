@@ -60,6 +60,10 @@
 
 		'event_manager:edit:title' => 'Create / Edit Event',
 		'event_manager:edit:upload:title' => 'Add files to your event',
+		'event_manager:edit:form:tabs:profile' => 'Profile',
+		'event_manager:edit:form:tabs:location' => 'Location',
+		'event_manager:edit:form:tabs:registration' => 'Registration',
+		'event_manager:edit:form:tabs:extra' => 'Extra',
 		'event_manager:edit:form:file' => 'Choose file',
 		'event_manager:edit:form:files' => 'Files',
 		'event_manager:edit:form:venue' => 'Venue',
