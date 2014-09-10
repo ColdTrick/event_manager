@@ -27,6 +27,15 @@ switch ($owner->getType()) {
 		break;
 }
 
+$group_guid = $widget->group_guid;
+if (is_array($group_guid)) {
+	$group_guid = $group_guid[0];	
+}
+
+if (!empty($group_guid)) {
+	$event_options["container_guid"] = $group_guid;
+}
+
 $events = event_manager_search_events($event_options);
 $content = elgg_view_entity_list($events['entities'], array("count" => $events["count"], "offset" => 0, "limit" => $num_display, "pagination" => false, "full_view" => false));	
 

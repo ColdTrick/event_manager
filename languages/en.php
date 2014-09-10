@@ -289,7 +289,9 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:widgets:events:showevents' => 'Show events',
 		'event_manager:widgets:events:showevents:icreated' => 'I created',
 		'event_manager:widgets:events:showevents:attendingto' => 'I\'m attending',
-
+		'event_manager:widgets:events:group' => "Enter a group name to limit the results (optional)",
+		'event_manager:widgets:events:group_guid' => "Enter a group guid to limit the results (optional)",
+				
 		// actions
 		'event_manager:action:event:edit:ok' => 'Event saved',
 		'event_manager:action:event:edit:error_fields' => 'Fill in the required fields',

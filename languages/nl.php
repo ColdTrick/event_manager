@@ -59,6 +59,8 @@ Indien u zich niet heeft geregistreerd kunt u deze email negeren of de link volg
   'event_manager:event:relationship:event_exhibiting:label' => 'Exposanten',
   'event_manager:event:relationship:event_organizing:label' => 'Organisatoren',
   'event_manager:widgets:events:title' => 'Evenementen',
+  'event_manager:widgets:events:group' => "Voer een groepsnaam in om de resultaten te beperken (optioneel)",
+  'event_manager:widgets:events:group_guid' => "Voer een groeps guid in om de resultaten te beperken (optionel)",
   'event_manager:action:registration:edit:error_slots' => 'Er kan slechts één slot per set worden geselecteerd. Er zijn er meerdere gedetecteerd voor %s.',
   'event_manager:action:register:email:registration_exists' => 'Er bestaat al een registratie voor dit evenement met opgegeven emailadres. Slechts één registratie per emailadres is toegestaan.',
   'event_manager:unsubscribe:title' => 'Uitschrijven uit: %s',
