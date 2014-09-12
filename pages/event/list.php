@@ -1,13 +1,14 @@
 <?php
 
-$title_text = elgg_echo("event_manager:list:searchevents");
+$title_text = elgg_echo("event_manager:list:title");
 
 $event_options = array();
 
 if (($page_owner = elgg_get_page_owner_entity()) && ($page_owner instanceof ElggGroup)) {
 	group_gatekeeper();
+	$title_text = elgg_echo("event_manager:list:group:title");
 	
-	elgg_push_breadcrumb($page_owner->name);
+	elgg_push_breadcrumb($page_owner->name, $page_owner->getURL());
 	
 	$event_options["container_guid"] = $page_owner->getGUID();
 	

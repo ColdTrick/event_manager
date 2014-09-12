@@ -29,7 +29,7 @@
 		'river:comment:object:event' => '%s commented on %s',
 
 		'event_manager:list:title' => 'Events',
-		'event_manager:list:searchevents' => 'Search events',
+		'event_manager:list:group:title' => 'Group events',
 		'event_manager:list:advancedsearch' => 'Advanced search',
 		'event_manager:list:simplesearch' => 'Simple search',
 		'event_manager:list:noresults' => 'No events found',
