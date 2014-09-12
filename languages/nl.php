@@ -128,7 +128,7 @@ Iemand heeft zich afgemeld van het \'%s\' evenement. Je bent van de wachtlijst n
   'event_manager:menu:group_events' => 'Groeps evenementen',
   'event_manager:menu:new_event' => 'Nieuw Evenement',
   'event_manager:list:title' => 'Evenementen',
-  'event_manager:list:searchevents' => 'Zoek evenementen',
+  'event_manager:list:group:title' => 'Groeps evenementen',
   'event_manager:list:advancedsearch' => 'Geavanceerd zoeken',
   'event_manager:list:simplesearch' => 'Simpel zoeken',
   'event_manager:list:noresults' => 'Geen evenementen gevonden',
