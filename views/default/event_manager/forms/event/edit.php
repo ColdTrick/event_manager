@@ -68,6 +68,12 @@ if ($event = $vars['entity']) {
 	if (!empty($fields["start_day"])) {
 		$fields["start_day"] = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $fields["start_day"]);
 	}
+	if (empty($fields["start_time_hours"])) {
+			$fields["start_time_hours"]=date('H', $fields["start_time"]);
+	}
+		if (empty($fields["start_time_minutes"])) {
+			$fields["start_time_minutes"]=date('i', $fields["start_time"]);
+		}
 	if (empty($fields["end_ts"])) {
 		$start_date = explode('-', $fields["start_day"]);
 		$fields["end_ts"] = mktime($fields["start_time_hours"], $fields["start_time_minutes"], 1, $start_date[1],$start_date[2],$start_date[0]) + 3600;
