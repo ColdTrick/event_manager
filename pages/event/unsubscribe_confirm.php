@@ -24,22 +24,20 @@ if (!empty($guid) && !empty($code)) {
 			// make page elements
 			$title_text = elgg_echo("event_manager:unsubscribe_confirm:title", array($event->title));
 			
-			if ($event->hide_owner_block) {
-				?>
-					<style type='text/css'>
-						.elgg-sidebar .elgg-owner-block {
-							display: none;
-						}
-					</style>
-				<?php 
-			}
-
 			$body_vars = array(
 				"entity" => $event, 
 				"registration" => $registration,
 				"code" => $code
 			);
 			$body = elgg_view_form("event_manager/event/unsubscribe_confirm", array(), $body_vars);
+			if ($event->hide_owner_block) {
+				$body .= "
+					<style type='text/css'>
+						.elgg-sidebar .elgg-owner-block {
+							display: none;
+						}
+					</style>";
+			}
 			
 			// make page
 			$page_data = elgg_view_layout("content", array(

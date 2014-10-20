@@ -40,22 +40,20 @@ if (!empty($guid) && ($entity = get_entity($guid))) {
 		elgg_push_breadcrumb($title_text);
 		
 		$title = $title_text . " '" . $event->title . "'";
-		
-		if ($event->hide_owner_block) {
-			?>
-				<style type='text/css'>
-					.elgg-sidebar .elgg-owner-block {
-						display: none;
-					}
-				</style>
-			<?php
-		}
-					
+							
 		$body = elgg_view_layout('content', array(
 			'filter' => '',
 			'content' => $form,
 			'title' => $title,
 		));
+		if ($event->hide_owner_block) {
+			$body .= "
+					<style type='text/css'>
+						.elgg-sidebar .elgg-owner-block {
+							display: none;
+						}
+					</style>";
+		}
 					
 		echo elgg_view_page($title, $body);
 			
