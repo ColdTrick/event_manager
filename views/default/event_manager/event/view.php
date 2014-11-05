@@ -17,7 +17,19 @@ $subtitle = "$author_text $date";
 
 // event details
 if ($event->icontime) {
-	$event_details .= '<div class="event_manager_event_view_image"><a href="' . $event->getIconURL('master') . '" target="_blank"><img src="' . $event->getIconURL() . '" border="0" /></a></div>';
+	$image = elgg_view("output/img", array(
+		"src" => $event->getIconURL(),
+	));
+		
+	$event_details .= "<div class='event_manager_event_view_image'>";
+	$event_details .= elgg_view("output/url", array(
+		"href" => $event->getIconURL('master'),
+		"text" => $image,
+		"target" => "_blank",
+		"class" => "elgg-lightbox-photo"
+	));
+	
+	$event_details .= "</div>";
 }
 $event_details .= "<table class='event-manager-event-details'>";
 if ($venue = $event->venue) {
