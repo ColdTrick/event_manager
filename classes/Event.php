@@ -885,21 +885,16 @@ class Event extends ElggObject {
 	 * @see ElggEntity::getIconURL()
 	 */
 	public function getIconURL($size = "medium") {
-		if (!in_array($size, array("small", "medium", "large", "tiny", "master", "topbar"))) {
+		$size = strtolower($size);
+		
+		$iconsizes = (array) elgg_get_config("icon_sizes");
+		if (!array_key_exists($size, $iconsizes)) {
 			$size = "medium";
 		}
 		
 		$icontime = $this->icontime;
-		if (!$icontime) {
-			$icontime = "default";
-		}
-		
-		$filehandler = new ElggFile();
-		$filehandler->owner_guid = $this->getOwnerGUID();
-		$filehandler->setFilename("events/" . $this->getGUID() . "/" . $size . ".jpg");
-		
-		if ($filehandler->exists()) {
-			return elgg_get_site_url() . "mod/event_manager/icondirect.php?lastcache=" . $icontime . "&joindate=" . $this->time_created . "&guid=" . $this->getGUID() . "&size=" . $size;
+		if ($icontime) {
+			return elgg_normalize_url("mod/event_manager/pages/event/thumbnail.php?icontime=" . $icontime . "&guid=" . $this->getOwnerGUID() . "&event_guid=" . $this->getGUID() . "&size=" . $size);
 		}
 	}
 	
