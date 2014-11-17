@@ -1,7 +1,28 @@
 Version history
 ===============
 
-x.x:
+3.0 (2014-11-17):
+
+- added: direct unsubscribe link in notifications
+- added: always show attendees if you can edit the event
+- added: tabbed edit form
+- added: registration date to export of attendees
+- added: events widget now has option to filter by group
+- changed: updated for Elgg 1.9
+- changed: updated to latest addthisevent library
+- changed: consolidated export attendees actions/functions
+- changed: replaced generateRegistrationForm function with form view
+- changed: custom tools dropdown actions are moved to better/standard locations
+- fixed: group tool option respects plugin settings
+- fixed: friends events only checked for 10 friends
+- fixed: added slashes to csv export
+- fixed: only show user hover actions if event->canEdit()
+- fixed: incorrect breadcrumb on participation page
+- fixed: #46 profile widget should show events for owner instead of viewer
+- fixed: location click not working with special chars
+- fixed: route click not working with special chars
+- fixed: #34 only show rsvp button if there are options
+- removed: unused icons
 - removed: support for importing Event Calendar Events
 
 2.7.1 (2013-12-24):
