@@ -38,8 +38,9 @@ function event_manager_init() {
 	elgg_extend_view("js/elgg", "js/event_manager/site");
 	elgg_extend_view("page/elements/head", "event_manager/metatags");
 
-	// Register granular notification for this type
-	register_notification_object("object", Event::SUBTYPE, elgg_echo("event_manager:notification:subject"));
+	// notifications
+	elgg_register_notification_event('object', Event::SUBTYPE, array('create'));
+	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:' . Event::SUBTYPE, 'event_manager_prepare_notification');
 	
 	// add site menu item
 	elgg_register_menu_item("site", array(
@@ -83,9 +84,6 @@ function event_manager_init() {
 	
 	elgg_register_plugin_hook_handler("permissions_check", "object", "event_manager_permissions_check_handler");
 	elgg_register_plugin_hook_handler("entity:url", "object", "event_manager_widget_events_url");
-	
-	// Listen to notification events and supply a more useful message
-	elgg_register_plugin_hook_handler("notify:entity:message", "object", "event_manager_notify_message");
 	
 	// actions
 	elgg_register_action("event_manager/event/edit", dirname(__FILE__) . "/actions/event/edit.php");

@@ -195,35 +195,35 @@ function event_manager_permissions_check_handler($hook, $entity_type, $returnval
 }
 
 /**
- * Notification body for events
+ * Prepare a notification message about a created event
  *
- * @param string $hook
- * @param string $entity_type
- * @param string $returnvalue
- * @param array $params
- * @return string
+ * @param string                          $hook         Hook name
+ * @param string                          $type         Hook type
+ * @param Elgg_Notifications_Notification $notification The notification to prepare
+ * @param array                           $params       Hook parameters
+ * @return Elgg_Notifications_Notification
  */
-function event_manager_notify_message($hook, $entity_type, $returnvalue, $params) {
-	$result = $returnvalue;
-
-	if (!empty($params) && is_array($params)) {
-		$entity = elgg_extract("entity", $params);
-
-		if (!empty($entity) && elgg_instanceof($entity, "object", Event::SUBTYPE)) {
-			$user = elgg_get_logged_in_user_entity();
-			if (!$user) {
-				$user = $entity->getOwnerEntity();
-			}
-
-			$result = elgg_echo("event_manager:notification:body", array($user->name, $entity->title));
-
-			if ($description = $entity->description) {
-				$result .= PHP_EOL . PHP_EOL . elgg_get_excerpt($description);
-			}
-
-			$result .= PHP_EOL . PHP_EOL . $entity->getURL();
-		}
+function event_manager_prepare_notification($hook, $type, $notification, $params) {
+	$entity = $params['event']->getObject();
+	$owner = $params['event']->getActor();
+	$recipient = $params['recipient'];
+	$language = $params['language'];
+	$method = $params['method'];
+	
+	$subject = elgg_echo('event_manager:notification:subject', array(), $language);
+	$summary = elgg_echo('event_manager:notification:summary', array(), $language);
+	
+	$body = elgg_echo('event_manager:notification:body', array($owner->name, $entity->title), $language);
+	
+	if ($description = $entity->description) {
+		$body .= PHP_EOL . PHP_EOL . elgg_get_excerpt($description);
 	}
+	
+	$body .= PHP_EOL . PHP_EOL . $entity->getURL();
+	
+	$notification->subject = $subject;
+	$notification->body = $body;
+	$notification->summary = $summary;
 
-	return $result;
+	return $notification;
 }
