@@ -68,7 +68,10 @@ class EventSlot extends ElggObject {
 		if ($count) {
 			$result = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST, true);
 		} else {
-			$result = $this->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST, true);
+			$result = $this->getEntitiesFromRelationship(array(
+				'relationship' => EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST,
+				'inverse_relationship' => true,
+			));
 		}
 		
 		elgg_set_ignore_access($old_ia);
