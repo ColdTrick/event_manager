@@ -18,7 +18,6 @@ define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST", "event_slot_regis
 define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING", "event_slot_registration_pending");
 
 require_once(dirname(__FILE__) . "/lib/functions.php");
-require_once(dirname(__FILE__) . "/lib/run_once.php");
 require_once(dirname(__FILE__) . "/lib/hooks.php");
 require_once(dirname(__FILE__) . "/lib/events.php");
 
@@ -28,9 +27,6 @@ require_once(dirname(__FILE__) . "/lib/events.php");
  * @return void
  */
 function event_manager_init() {
-	// Register subtype
-	run_function_once("event_manager_run_once_subtypes");
-
 	// Register entity_type for search
 	elgg_register_entity_type("object", Event::SUBTYPE);
 
