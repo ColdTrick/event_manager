@@ -21,14 +21,10 @@
 	define("EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING", "event_slot_registration_pending");
 
 	require_once(dirname(__FILE__) . "/lib/functions.php");
-	require_once(dirname(__FILE__) . "/lib/run_once.php");
 	require_once(dirname(__FILE__) . "/lib/hooks.php");
 	require_once(dirname(__FILE__) . "/lib/events.php");
 
 	function event_manager_init() {
-		// Register subtype
-		run_function_once("event_manager_run_once_subtypes");
-
 		// Register entity_type for search
 		elgg_register_entity_type("object", Event::SUBTYPE);
 
@@ -70,7 +66,7 @@
 
 		elgg_register_js("event_manager.maps.helper", $em_maps_js);
 		elgg_register_js("event_manager.maps.base", "//maps.googleapis.com/maps/api/js?key=" . $maps_key . "&sensor=true");
-		
+
 		elgg_register_js("addthisevent", elgg_get_site_url() . "mod/event_manager/vendors/addthisevent/atemay.js");
 	}
 
@@ -112,24 +108,24 @@
 					break;
 				case "registration":
 					if (isset($page[1])) {
-						
+
 						switch ($page[1]) {
 							case "confirm":
 								if (isset($page[2])) {
 									set_input("event_guid", $page[2]);
 								}
-								
+
 								$include = "/pages/registration/confirm.php";
 								break(2);
 							case "completed":
 								if (isset($page[2])) {
 									set_input("event_guid", $page[2]);
 								}
-	
+
 								if (isset($page[3])) {
 									set_input("object_guid", $page[3]);
 								}
-	
+
 								$include = "/pages/registration/completed.php";
 								break(2);
 						}
