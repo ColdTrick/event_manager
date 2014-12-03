@@ -41,8 +41,13 @@ if ($entity && $entity->canEdit()) {
 		$end_time_hours = date('H', $entity->end_time);
 		$end_time_minutes = date('i', $entity->end_time);			
 		
+		$related_days = $entity->getEntitiesFromRelationship(array(
+			'relationship' => 'event_day_slot_relation',
+			'inverse_relationship' => false,
+			'limit' => 1,
+		));
 		
-		if ($related_days = $entity->getEntitiesFromRelationship('event_day_slot_relation', false, 1)) {
+		if ($related_days) {
 			$parent_guid = $related_days[0]->getGUID();
 		}
 	} else {

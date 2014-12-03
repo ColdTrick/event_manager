@@ -13,7 +13,10 @@ if (!empty($guid) && $registration = get_entity($guid)) {
 			}
 		}
 		
-		$event = $registration->getEntitiesFromRelationship(EVENT_MANAGER_RELATION_USER_REGISTERED, true);
+		$event = $registration->getEntitiesFromRelationship(array(
+			'relationship' => EVENT_MANAGER_RELATION_USER_REGISTERED,
+			'inverse_relationship' => true,
+		));
 		
 		$registration->clearAnnotations('answer');
 		
