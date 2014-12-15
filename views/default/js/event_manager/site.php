@@ -581,9 +581,13 @@ elgg.event_manager.init = function() {
 
 	$("#event-manager-forms-event-edit li").on("click", function(event, elem) {
 		var href = $(this).find("> a").attr("href");
-		$("#event_manager_event_edit table").not("#event-manager-forms-event-edit-general").hide();
+
+		// First make sure all tabs are hidden
+		$(".event-tab").hide();
+
+		// Now show the selected tab
 		$(href).show();
-		
+
 		$(this).parent().find(".elgg-state-selected").removeClass("elgg-state-selected");
 		$(this).addClass("elgg-state-selected");
 		return false;
