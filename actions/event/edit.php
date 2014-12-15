@@ -192,14 +192,20 @@ $event->setAccessToOwningObjects($access_id);
 
 $prefix = "events/" . $event->guid . "/";
 
-if (($icon_file = get_resized_image_from_uploaded_file("icon", 100, 100)) && ($icon_sizes = elgg_get_config("icon_sizes"))) {
-	// create icon
+$icon_sizes = elgg_get_config("icon_sizes");
+
+$icon_file = get_resized_image_from_uploaded_file("icon", 100, 100);
+
+if ($icon_file) {
+	// create icons
 
 	$fh = new ElggFile();
 	$fh->owner_guid = $event->getOwnerGUID();
 
 	foreach ($icon_sizes as $icon_name => $icon_info) {
-		if ($icon_file = get_resized_image_from_uploaded_file("icon", $icon_info["w"], $icon_info["h"], $icon_info["square"], $icon_info["upscale"])) {
+		$icon_file = get_resized_image_from_uploaded_file("icon", $icon_info["w"], $icon_info["h"], $icon_info["square"], $icon_info["upscale"]);
+
+		if ($icon_file) {
 			$fh->setFilename($prefix . $icon_name . ".jpg");
 
 			if ($fh->open("write")) {
@@ -211,16 +217,14 @@ if (($icon_file = get_resized_image_from_uploaded_file("icon", 100, 100)) && ($i
 
 	$event->icontime = time();
 } elseif ($delete_current_icon) {
-	if ($icon_sizes = elgg_get_config("icon_sizes")) {
-		$fh = new ElggFile();
-		$fh->owner_guid = $event->getOwnerGUID();
+	$fh = new ElggFile();
+	$fh->owner_guid = $event->getOwnerGUID();
 
-		foreach ($icon_sizes as $name => $info) {
-			$fh->setFilename($prefix . $name . ".jpg");
+	foreach ($icon_sizes as $name => $info) {
+		$fh->setFilename($prefix . $name . ".jpg");
 
-			if ($fh->exists()) {
-				$fh->delete();
-			}
+		if ($fh->exists()) {
+			$fh->delete();
 		}
 	}
 
