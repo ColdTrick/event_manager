@@ -406,22 +406,6 @@ function event_manager_event_type_options()	{
 	return $result;
 }
 
-function event_manager_get_form_pulldown_hours($name = '', $value = '', $h = 23) {
-	$time_hours_options = range(0, $h);
-	
-	array_walk($time_hours_options, 'event_manager_time_pad');
-	
-	return elgg_view('input/dropdown', array('name' => $name, 'value' => $value, 'options' => $time_hours_options));
-}
-
-function event_manager_get_form_pulldown_minutes($name = '', $value = '') {
-	$time_minutes_options = range(0, 59, 5);
-	
-	array_walk($time_minutes_options, 'event_manager_time_pad');
-	
-	return elgg_view('input/dropdown', array('name' => $name, 'value' => $value, 'options' => $time_minutes_options));
-}
-
 function event_manager_time_pad(&$value) {
     $value = str_pad($value, 2, "0", STR_PAD_LEFT);
 }

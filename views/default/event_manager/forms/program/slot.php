@@ -9,11 +9,8 @@ if ($day_guid && ($entity = get_entity($day_guid))) {
 		unset($entity);
 	}
 	
-	$start_time_hours = '';
-	$start_time_minutes = '';
-	
-	$end_time_hours = '';
-	$end_time_minutes = '';
+	$start_time = null;
+	$end_time = null;
 } elseif ($slot_guid && ($entity = get_entity($slot_guid))) {
 	// assume slot edit mode
 	if (!($entity instanceof EventSlot))	{
@@ -34,13 +31,7 @@ if ($entity && $entity->canEdit()) {
 		$max_attendees = $entity->max_attendees;
 		$description = $entity->description;			
 		$slot_set = $entity->slot_set;
-		
-		$start_time_hours = date('H', $entity->start_time);
-		$start_time_minutes = date('i', $entity->start_time);	
-	
-		$end_time_hours = date('H', $entity->end_time);
-		$end_time_minutes = date('i', $entity->end_time);			
-		
+
 		$related_days = $entity->getEntitiesFromRelationship(array(
 			'relationship' => 'event_day_slot_relation',
 			'inverse_relationship' => false,
@@ -71,16 +62,14 @@ if ($entity && $entity->canEdit()) {
 	
 	$form_body .= "<td><label>" . elgg_echo("event_manager:edit:form:start_time") . " *</label></td>";
 	$form_body .= "<td>";
-	$form_body .= event_manager_get_form_pulldown_hours('start_time_hours', $start_time_hours);
-	$form_body .= event_manager_get_form_pulldown_minutes('start_time_minutes', $start_time_minutes);
+	$form_body .= elgg_view('input/time', array('name' => 'start_time',	'value' => $start_time));
 	$form_body .= "</td>";
 	
 	$form_body .= "</tr><tr>";
 	
 	$form_body .= "<td><label>" . elgg_echo("event_manager:edit:form:end_time") . " *</label></td>";
 	$form_body .= "<td>";
-	$form_body .= event_manager_get_form_pulldown_hours('end_time_hours', $end_time_hours);
-	$form_body .= event_manager_get_form_pulldown_minutes('end_time_minutes', $end_time_minutes);
+	$form_body .= elgg_view('input/time', array('name' => 'end_time', 'value' => $end_time));
 	$form_body .= "</td>";
 	
 	$form_body .= "</tr><tr>";
