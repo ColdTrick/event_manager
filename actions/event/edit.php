@@ -1,5 +1,5 @@
 <?php
-	
+
 // start a new sticky form session in case of failure
 elgg_make_sticky_form('event');
 
@@ -57,14 +57,12 @@ if (!empty($end_day)) {
 	$end_ts = mktime($end_time_hours, $end_time_minutes, 1, $end_date[1], $end_date[2], $end_date[0]);
 }
 
-$forward_url = REFERER;
-
 if (!empty($start_day)) {
 	$date = explode('-',$start_day);
 	$start_day = mktime(0,0,1,$date[1],$date[2],$date[0]);
-	
+
 	$start_ts = mktime($start_time_hours, $start_time_minutes, 1, $date[1], $date[2], $date[0]);
-	
+
 	if (!empty($end_ts) && ($end_ts < $start_ts)) {
 		register_error("End time has to be after start time");
 		forward(REFERER);
@@ -98,143 +96,143 @@ if (!empty($max_attendees) && !is_numeric($max_attendees)) {
 	$max_attendees = "";
 }
 
-if (!empty($title) && !empty($start_day) && !empty($end_ts)) {
-	$newEvent = false;
-	if (!isset($event)) {
-		$newEvent = true;
-		$event = new Event();
-	}
-	
-	$event->title = $title;
-	$event->description = $description;
-	$event->container_guid = $container_guid;
-	$event->access_id = $access_id;
-	$event->save();
-	
-	$event->setLocation($location);
-	$event->setLatLong($latitude, $longitude);
-	$event->tags = $tags;
-	
-	if ($newEvent) {
-		// add event create river event
-		add_to_river('river/object/event/create', 'create', elgg_get_logged_in_user_guid(), $event->getGUID());
-		
-		// add optional organizer relationship
-		if ($organizer_rsvp) {
-			$event->rsvp(EVENT_MANAGER_RELATION_ORGANIZING, null, true, false);
-		}
-	}
-	
-	$event->shortdescription = $shortdescription;
-	$event->comments_on = $comments_on;
-	$event->registration_ended = $registration_ended;
-	$event->registration_needed = $registration_needed;
-	$event->show_attendees = $show_attendees;
-	$event->hide_owner_block = $hide_owner_block;
-	$event->notify_onsignup = $notify_onsignup;
-	$event->max_attendees = $max_attendees;
-	$event->waiting_list = $waiting_list;
-	$event->venue = $venue;
-	$event->twitter_hash = $twitter_hash;
-	$event->contact_details = $contact_details;
-	$event->region = $region;
-	$event->website = $website;
-	$event->event_type = $event_type;
-	$event->organizer = $organizer;
-	$event->fee = $fee;
-	$event->start_day = $start_day;
-	$event->start_time = $start_time;
-	
-	if (!empty($end_ts)) {
-		$event->end_ts = $end_ts;
-	}
-	
-	$event->with_program = $with_program;
-	$event->endregistration_day = $endregistration_day;
-	$event->register_nologin = $register_nologin;
-	
-	$event->event_interested = $event_interested;
-	$event->event_presenting = $event_presenting;
-	$event->event_exhibiting = $event_exhibiting;
-	$event->event_organizing = $event_organizing;
-	
-	$event->waiting_list_enabled = $waiting_list_enabled;
-	$event->registration_completed = $registration_completed;
-			
-	$eventDays = $event->getEventDays();
-	if ($with_program && !$eventDays) {
-		$eventDay = new EventDay();
-		$eventDay->title = 'Event day 1';
-		$eventDay->container_guid = $event->getGUID();
-		$eventDay->owner_guid = $event->getGUID();
-		$eventDay->access_id = $event->access_id;
-		$eventDay->save();
-		$eventDay->date = $event->start_day;
-		$eventDay->addRelationship($event->getGUID(), 'event_day_relation');
-		
-		$eventSlot = new EventSlot();
-		$eventSlot->title = 'Activity title';
-		$eventSlot->description = 'Activity description';
-		$eventSlot->container_guid = $event->container_guid;
-		$eventSlot->owner_guid = $event->owner_guid;
-		$eventSlot->access_id = $event->access_id;
-		$eventSlot->save();
-		
-		$eventSlot->location = $event->location;
-		$eventSlot->start_time = '08:00';
-		$eventSlot->end_time = '09:00';
-		$eventSlot->addRelationship($eventDay->getGUID(), 'event_day_slot_relation');
-	}
-
-	$event->setAccessToOwningObjects($access_id);
-	
-	$prefix = "events/" . $event->guid . "/";
-	
-	if (($icon_file = get_resized_image_from_uploaded_file("icon", 100, 100)) && ($icon_sizes = elgg_get_config("icon_sizes"))) {
-		// create icon
-			
-		$fh = new ElggFile();
-		$fh->owner_guid = $event->getOwnerGUID();
-			
-		foreach ($icon_sizes as $icon_name => $icon_info) {
-			if ($icon_file = get_resized_image_from_uploaded_file("icon", $icon_info["w"], $icon_info["h"], $icon_info["square"], $icon_info["upscale"])) {
-				$fh->setFilename($prefix . $icon_name . ".jpg");
-					
-				if ($fh->open("write")) {
-					$fh->write($icon_file);
-					$fh->close();
-				}
-			}
-		}
-			
-		$event->icontime = time();
-	} elseif ($delete_current_icon) {
-		if ($icon_sizes = elgg_get_config("icon_sizes")) {
-			$fh = new ElggFile();
-			$fh->owner_guid = $event->getOwnerGUID();
-				
-			foreach ($icon_sizes as $name => $info) {
-				$fh->setFilename($prefix . $name . ".jpg");
-		
-				if ($fh->exists()) {
-					$fh->delete();
-				}
-			}
-		}
-		
-		unset($event->icontime);
-	}
-	
-	// added because we need an update event
-	if ($event->save()) {
-		// remove sticky form entries
-		elgg_clear_sticky_form('event');
-		
-		system_message(elgg_echo("event_manager:action:event:edit:ok"));
-		$forward_url = $event->getURL();
-	}
-} else {
+if (empty($title) || empty($start_day) || empty($end_ts)) {
 	register_error(elgg_echo("event_manager:action:event:edit:error_fields"));
+	forward(REFERER);
 }
 
-forward($forward_url);
+$newEvent = false;
+if (!isset($event)) {
+	$newEvent = true;
+	$event = new Event();
+}
+
+$event->title = $title;
+$event->description = $description;
+$event->container_guid = $container_guid;
+$event->access_id = $access_id;
+$event->save();
+
+$event->setLocation($location);
+$event->setLatLong($latitude, $longitude);
+$event->tags = $tags;
+
+if ($newEvent) {
+	// add event create river event
+	add_to_river('river/object/event/create', 'create', elgg_get_logged_in_user_guid(), $event->getGUID());
+
+	// add optional organizer relationship
+	if ($organizer_rsvp) {
+		$event->rsvp(EVENT_MANAGER_RELATION_ORGANIZING, null, true, false);
+	}
+}
+
+$event->shortdescription = $shortdescription;
+$event->comments_on = $comments_on;
+$event->registration_ended = $registration_ended;
+$event->registration_needed = $registration_needed;
+$event->show_attendees = $show_attendees;
+$event->hide_owner_block = $hide_owner_block;
+$event->notify_onsignup = $notify_onsignup;
+$event->max_attendees = $max_attendees;
+$event->waiting_list = $waiting_list;
+$event->venue = $venue;
+$event->twitter_hash = $twitter_hash;
+$event->contact_details = $contact_details;
+$event->region = $region;
+$event->website = $website;
+$event->event_type = $event_type;
+$event->organizer = $organizer;
+$event->fee = $fee;
+$event->start_day = $start_day;
+$event->start_time = $start_time;
+
+if (!empty($end_ts)) {
+	$event->end_ts = $end_ts;
+}
+
+$event->with_program = $with_program;
+$event->endregistration_day = $endregistration_day;
+$event->register_nologin = $register_nologin;
+
+$event->event_interested = $event_interested;
+$event->event_presenting = $event_presenting;
+$event->event_exhibiting = $event_exhibiting;
+$event->event_organizing = $event_organizing;
+
+$event->waiting_list_enabled = $waiting_list_enabled;
+$event->registration_completed = $registration_completed;
+
+$eventDays = $event->getEventDays();
+if ($with_program && !$eventDays) {
+	$eventDay = new EventDay();
+	$eventDay->title = 'Event day 1';
+	$eventDay->container_guid = $event->getGUID();
+	$eventDay->owner_guid = $event->getGUID();
+	$eventDay->access_id = $event->access_id;
+	$eventDay->save();
+	$eventDay->date = $event->start_day;
+	$eventDay->addRelationship($event->getGUID(), 'event_day_relation');
+
+	$eventSlot = new EventSlot();
+	$eventSlot->title = 'Activity title';
+	$eventSlot->description = 'Activity description';
+	$eventSlot->container_guid = $event->container_guid;
+	$eventSlot->owner_guid = $event->owner_guid;
+	$eventSlot->access_id = $event->access_id;
+	$eventSlot->save();
+
+	$eventSlot->location = $event->location;
+	$eventSlot->start_time = '08:00';
+	$eventSlot->end_time = '09:00';
+	$eventSlot->addRelationship($eventDay->getGUID(), 'event_day_slot_relation');
+}
+
+$event->setAccessToOwningObjects($access_id);
+
+$prefix = "events/" . $event->guid . "/";
+
+if (($icon_file = get_resized_image_from_uploaded_file("icon", 100, 100)) && ($icon_sizes = elgg_get_config("icon_sizes"))) {
+	// create icon
+
+	$fh = new ElggFile();
+	$fh->owner_guid = $event->getOwnerGUID();
+
+	foreach ($icon_sizes as $icon_name => $icon_info) {
+		if ($icon_file = get_resized_image_from_uploaded_file("icon", $icon_info["w"], $icon_info["h"], $icon_info["square"], $icon_info["upscale"])) {
+			$fh->setFilename($prefix . $icon_name . ".jpg");
+
+			if ($fh->open("write")) {
+				$fh->write($icon_file);
+				$fh->close();
+			}
+		}
+	}
+
+	$event->icontime = time();
+} elseif ($delete_current_icon) {
+	if ($icon_sizes = elgg_get_config("icon_sizes")) {
+		$fh = new ElggFile();
+		$fh->owner_guid = $event->getOwnerGUID();
+
+		foreach ($icon_sizes as $name => $info) {
+			$fh->setFilename($prefix . $name . ".jpg");
+
+			if ($fh->exists()) {
+				$fh->delete();
+			}
+		}
+	}
+
+	unset($event->icontime);
+}
+
+// added because we need an update event
+$event->save();
+
+// remove sticky form entries
+elgg_clear_sticky_form('event');
+
+system_message(elgg_echo("event_manager:action:event:edit:ok"));
+
+forward($event->getURL());
