@@ -119,7 +119,12 @@ $event->tags = $tags;
 
 if ($newEvent) {
 	// add event create river event
-	add_to_river('river/object/event/create', 'create', elgg_get_logged_in_user_guid(), $event->getGUID());
+	elgg_create_river_item(array(
+		'view' => 'river/object/event/create',
+		'action_type' => 'create',
+		'subject_guid' => elgg_get_logged_in_user_guid(),
+		'object_guid' => $event->getGUID(),
+	));
 
 	// add optional organizer relationship
 	if ($organizer_rsvp) {
