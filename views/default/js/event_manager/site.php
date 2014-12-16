@@ -92,7 +92,7 @@ var infowindow = null;
 			css_left = $(this).offset().left;
 			$("body > .event_manager_event_actions_drop_down").css({top: css_top, left: css_left}).show();;
         }
-        
+
 		event.stopPropagation();
     });
 
@@ -105,7 +105,7 @@ var infowindow = null;
 
 function event_manager_program_add_day(form){
 	$(form).find("input[type='submit']").hide();
-	
+
 	$.post(elgg.get_site_url() + 'events/proc/day/edit', $(form).serialize(), function(response) {
 		if(response.valid) {
 			$.colorbox.close();
@@ -126,11 +126,11 @@ function event_manager_program_add_day(form){
 
 function event_manager_program_add_slot(form){
 	$(form).find("input[type='submit']").hide();
-	
+
 	$.post(elgg.get_site_url() + 'events/proc/slot/edit', $(form).serialize(), function(response) {
 		if(response.valid) {
 			$.colorbox.close();
-			
+
 			guid = response.guid;
 			parent_guid = response.parent_guid;
 			if(response.edit){
@@ -146,7 +146,7 @@ function event_manager_program_add_slot(form){
 
 function event_manager_registrationform_add_field(form) {
 	$(form).find("input[type='submit']").hide();
-	
+
 	$.post(elgg.get_site_url() + 'events/proc/question/edit', $(form).serialize(), function(response){
 		if(response.valid) {
 			$.colorbox.close();
@@ -156,7 +156,7 @@ function event_manager_registrationform_add_field(form) {
 				$('#question_' + guid).replaceWith(response.content);
 			} else {
 				$("#event_manager_registrationform_fields").append(response.content);
-				
+
 				save_registrationform_question_order();
 			}
 		} else {
@@ -166,9 +166,9 @@ function event_manager_registrationform_add_field(form) {
 }
 
 function event_manager_execute_search(){
-	
+
 	$("#event_manager_result_refreshing").show();
-	
+
 	map_data_only = false;
 	if($("#event_manager_result_navigation li.elgg-state-selected a").attr("rel") == "onthemap"){
 		map_data_only = true;
@@ -186,25 +186,25 @@ function event_manager_execute_search(){
 		$("#distance_latitude").val(distance_latitude);
 		$("#distance_longitude").val(distance_longitude);
 	}
-	
+
 	var formData = $("#event_manager_search_form").serialize();
-	
+
 	$.post(elgg.get_site_url() + 'events/proc/search/events', formData, function(response){
 		if(response.valid){
-		
+
 			if(map_data_only) {
-				
+
 				if(response.markers) {
-					
+
 					infowindow = new google.maps.InfoWindow();
-					
+
 					var shadowIcon = new google.maps.MarkerImage("//chart.apis.google.com/chart?chst=d_map_pin_shadow",
 					        new google.maps.Size(40, 37),
 					        new google.maps.Point(0, 0),
 					        new google.maps.Point(12, 35));
 			        var ownIcon = "//maps.google.com/mapfiles/ms/icons/yellow-dot.png";
 			        var attendingIcon = "//maps.google.com/mapfiles/ms/icons/blue-dot.png";
-										
+
 					$.each(response.markers, function(i, event) {
 						existing = false;
 						if (event_manager_gmarkers) {
@@ -214,7 +214,7 @@ function event_manager_execute_search(){
 					  	}
 					  	if(!existing){
 							var myLatlng = new google.maps.LatLng(event.lat, event.lng);
-	
+
 							markerOptions = {
 									map: event_manager_gmap,
 									position: myLatlng,
@@ -230,12 +230,12 @@ function event_manager_execute_search(){
 								}
 							}
 							var marker = new google.maps.Marker(markerOptions);
-							
+
 							google.maps.event.addListener(marker, 'click', function() {
 								infowindow.setContent(event.html);
 							  	infowindow.open(event_manager_gmap,marker);
 							});
-												
+
 							event_manager_gmarkers[event.guid] = marker;
 					  	}
 					});
@@ -249,7 +249,7 @@ function event_manager_execute_search(){
 				$("#event_manager_result_refreshing").hide();
 			}
 		}
-		
+
 		$("#event_manager_result_refreshing").hide();
 	}, 'json');
 }
@@ -268,7 +268,7 @@ elgg.event_manager.slot_set_init = function() {
 	$form = $("#event_manager_event_register");
 	if ($form.length > 0) {
 		set_names = []; // store processed set names
-		
+
 		$form.find(".event_manager_program_participatetoslot[rel]:checked").each(function(){
 			rel = $(this).attr("rel");
 			if ($.inArray(rel, set_names) < 0) {
@@ -315,7 +315,7 @@ elgg.event_manager.add_new_slot_set_name = function(set_name) {
 elgg.event_manager.init = function() {
 
 	elgg.event_manager.slot_set_init();
-	
+
 	$('.event_manager_program_slot_delete').live('click', function() {
 		if(confirm(elgg.echo('deleteconfirm'))) {
 			slotGuid = $(this).parent().attr("rel");
@@ -332,7 +332,7 @@ elgg.event_manager.init = function() {
 			}
 		}
 		return false;
-		
+
 	});
 
 	$('.event_manager_program_day_delete').live('click', function(e) {
@@ -355,7 +355,7 @@ elgg.event_manager.init = function() {
 				});
 			}
 		}
-		
+
 		return false;
 	});
 
@@ -376,10 +376,10 @@ elgg.event_manager.init = function() {
 				});
 			}
 		}
-		
+
 		return false;
 	});
-	
+
 	/* Event Manager Search Form */
 	$('#event_manager_registrationform_fields').sortable({
 		axis: 'y',
@@ -391,7 +391,7 @@ elgg.event_manager.init = function() {
 			save_registrationform_question_order();
 		}
 	});
-	
+
 	$('#event_manager_event_search_advanced_enable').click(function() {
 		$('#event_manager_event_search_advanced_container, #past_events, #event_manager_event_search_advanced_enable span').toggle();
 
@@ -401,19 +401,19 @@ elgg.event_manager.init = function() {
 			$('#advanced_search').val('0');
 		}
 	});
-	
+
 	$('#event_manager_event_list_search_more').live('click', function()	{
 		clickedElement = $(this);
 		clickedElement.html('<div class="elgg-ajax-loader"></div>');
 		offset = parseInt($(this).attr('rel'), 10);
-		
+
 		$("#event_manager_result_refreshing").show();
 		if($('#past_events').is(":hidden") == true) {
 			var formData = $("#event_manager_search_form").serialize();
 		} else {
 			var formData = $($("#event_manager_search_form")[0].elements).not($("#event_manager_event_search_advanced_container")[0].children).serialize();
 		}
-		
+
 		$.post(elgg.get_site_url() + 'events/proc/search/events?offset='+offset, formData, function(response) {
 			if(response.valid) {
 				$('#event_manager_event_list_search_more').remove();
@@ -423,12 +423,12 @@ elgg.event_manager.init = function() {
 			$("#event_manager_result_refreshing").hide();
 		}, 'json');
 	});
-	
+
 	$('#event_manager_search_form').submit(function(e) {
 		event_manager_execute_search();
 		e.preventDefault();
 	});
-	
+
 	$("#event_manager_result_navigation li a").click(function() {
 		if(!($(this).parent().hasClass("elgg-state-selected"))){
 			selected = $(this).attr("rel");
@@ -437,7 +437,7 @@ elgg.event_manager.init = function() {
 			$("#event_manager_event_map, #event_manager_event_listing").toggle();
 
 			$('#search_type').val(selected);
-			
+
 			if(selected == "onthemap"){
 				initMaps('event_manager_onthemap_canvas', true);
 			} else {
@@ -458,7 +458,7 @@ elgg.event_manager.init = function() {
 			}
 		});
 	});
-	
+
 	$('.event_manager_program_day_add').live('click', function() {
 		eventGuid = $(this).attr("rel");
 		$.colorbox({
@@ -467,7 +467,7 @@ elgg.event_manager.init = function() {
 				elgg.ui.initDatePicker();
 			}
 		});
-		
+
 		return false;
 	});
 
@@ -479,16 +479,16 @@ elgg.event_manager.init = function() {
 				elgg.ui.initDatePicker();
 			}
 		});
-		
+
 		return false;
 	});
-	
+
 	$('.event_manager_program_slot_add').live('click', function() {
 		var dayGuid = $(this).attr("rel");
 		$.colorbox({
 			'href': elgg.get_site_url() + 'events/program/slot?day_guid=' + dayGuid
 		});
-		
+
 		return false;
 	});
 
@@ -497,10 +497,10 @@ elgg.event_manager.init = function() {
 		$.colorbox({
 			'href': elgg.get_site_url() + 'events/program/slot?slot_guid=' + guid
 		});
-		
+
 		return false;
 	});
-	
+
 	$('#event_manager_questions_add').click(function() {
 		var eventGuid = $(this).attr("rel");
 		$.colorbox({
@@ -515,10 +515,10 @@ elgg.event_manager.init = function() {
 		$.colorbox({
 			'href': elgg.get_site_url() + 'events/registrationform/question?question_guid=' + guid
 		});
-		
+
 		return false;
 	});
-	
+
 	$('#event_manager_registrationform_question_fieldtype').live('change', function() {
 		if ($('#event_manager_registrationform_question_fieldtype').val() == 'Radiobutton' || $('#event_manager_registrationform_question_fieldtype').val() == 'Dropdown') {
 			$('#event_manager_registrationform_select_options').show();
@@ -534,7 +534,7 @@ elgg.event_manager.init = function() {
 		}
 
 		var error_found = false;
-		
+
 		$("#event_manager_registration_form_fields .required").each(function(index, elem){
 			if ($(this).hasClass("elgg-input-radios")) {
 				if ($(this).find("input[type='radio']:checked").length == 0) {
@@ -546,12 +546,12 @@ elgg.event_manager.init = function() {
 				return false;
 			}
 		});
-		
+
 		if (error_found) {
 			elgg.register_error(elgg.echo("event_manager:registration:required_fields"));
 			return false;
 		}
-		
+
 		var guids = [];
 		$.each($('.event_manager_program_participatetoslot'), function(i, value) {
 			elementId = $(value).attr('id');
@@ -562,7 +562,7 @@ elgg.event_manager.init = function() {
 
 		$('#event_manager_program_guids').val(guids.join(','));
 	});
-	
+
 	$('#with_program').change(function() {
 		if ($(this).is(':checked')) {
 			$('#event_manager_start_time_pulldown').css('display', 'none');
@@ -591,7 +591,7 @@ elgg.event_manager.init = function() {
 		$(this).parent().find(".elgg-state-selected").removeClass("elgg-state-selected");
 		$(this).addClass("elgg-state-selected");
 		return false;
-	});	
+	});
 };
 
 elgg.register_hook_handler('init', 'system', elgg.event_manager.init);
