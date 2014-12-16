@@ -232,7 +232,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:event:file:notfound:text' => 'The file you are looking for couldn\'t be found',
 
 		'event_manager:event:register:register_link' => 'Register to this event',
-		
+
 		'event_manager:event:menu:user_hover:resend_confirmation' => 'Resend confirmation email',
 		'event_manager:event:menu:user_hover:move_to_attendees' => 'Move to attendees',
 
@@ -292,7 +292,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:widgets:events:showevents:attendingto' => 'I\'m attending',
 		'event_manager:widgets:events:group' => "Enter a group name to limit the results (optional)",
 		'event_manager:widgets:events:group_guid' => "Enter a group guid to limit the results (optional)",
-				
+
 		// actions
 		'event_manager:action:event:edit:ok' => 'Event saved',
 		'event_manager:action:event:edit:error_fields' => 'Fill in the required fields',
@@ -307,7 +307,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 		'event_manager:action:register:pending' => "Your registration is almost completed. To confirm your registration please follow the instructions the email we just sent you.",
 		'event_manager:action:resend_confirmation:success' => "Confirmation mail has been resend",
 		'event_manager:action:move_to_attendees:success' => "User has been moved to the attendees",
-			
+
 		// settings
 		'event_manager:settings:google_maps' => 'Google Maps settings',
 		'event_manager:settings:google_api_key' => 'Enter your Google API key',
@@ -367,15 +367,15 @@ To confirm your registration for the event \"%s\", please click the Confirm butt
 
 If you didn't register for this event, or you wish to remove the registration click the Delete button.",
 		'event_manager:registration:confirm:delete' => "Are you sure you wish to remove this registration?",
-		
+
 		'event_manager:registration:confirm:subject' => "Please confirm your registration for %s",
 		'event_manager:registration:confirm:message' => "Hi %s,
 
 In order to complete your registration for the event \"%s\", please click on this link
 %s
-		
+
 If you didn't register for this event, you can ignore this email or click on the link and remove the registration.",
-		
+
 		// river
 		'event_manager:river:event_relationship:create:event_attending' => '%s is attending %s',
 		'event_manager:river:event_relationship:create:event_interested' => '%s is interested in %s',
