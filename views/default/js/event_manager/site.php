@@ -124,24 +124,36 @@ function event_manager_program_add_day(form){
 	}, 'json');
 }
 
-function event_manager_program_add_slot(form){
-	$(form).find("input[type='submit']").hide();
+function event_manager_program_add_slot(event){
+	event.preventDefault();
 
-	$.post(elgg.get_site_url() + 'events/proc/slot/edit', $(form).serialize(), function(response) {
-		if(response.valid) {
-			$.colorbox.close();
+	var button = $(this).find("input[type='submit']");
 
-			guid = response.guid;
-			parent_guid = response.parent_guid;
-			if(response.edit){
-				$("#" + guid).replaceWith(response.content);
+	// Prevent accidental double click
+	button.hide();
+
+	var url = $(this).attr('action');
+	var data = $(this).serialize();
+
+	elgg.action(url, {
+		data: data,
+		success: function(json) {
+			if (json.status === 0) {
+				$.colorbox.close();
+
+				guid = json.output.guid;
+				parent_guid = json.output.parent_guid;
+
+				if (json.output.edit) {
+					$("#" + guid).replaceWith(json.output.content);
+				} else {
+					$("#day_" + parent_guid).find("a.event_manager_program_slot_add").before(json.output.content);
+				}
 			} else {
-				$("#day_" + parent_guid).find("a.event_manager_program_slot_add").before(response.content);
+				button.show();
 			}
-		} else {
-			$(form).find("input[type='submit']").show();
 		}
-	}, 'json');
+	});
 }
 
 function event_manager_registrationform_add_field(form) {
@@ -592,6 +604,8 @@ elgg.event_manager.init = function() {
 		$(this).addClass("elgg-state-selected");
 		return false;
 	});
+
+	$('#event_manager_form_program_slot').live('submit', event_manager_program_add_slot);
 };
 
 elgg.register_hook_handler('init', 'system', elgg.event_manager.init);

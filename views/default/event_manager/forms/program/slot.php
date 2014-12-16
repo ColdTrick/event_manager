@@ -126,7 +126,7 @@ if ($entity && $entity->canEdit()) {
 	$form = elgg_view('input/form', array(
 		'id' => 'event_manager_form_program_slot',
 		'name' => 'event_manager_form_program_slot',
-		'action' => 'javascript:event_manager_program_add_slot($(\'#event_manager_form_program_slot\'))',
+		'action' => 'action/event_manager/slot/save',
 		'body' => $form_body
 	));
 

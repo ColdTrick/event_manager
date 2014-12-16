@@ -305,6 +305,11 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 	'event_manager:action:register:pending' => "Your registration is almost completed. To confirm your registration please follow the instructions the email we just sent you.",
 	'event_manager:action:resend_confirmation:success' => "Confirmation mail has been resend",
 	'event_manager:action:move_to_attendees:success' => "User has been moved to the attendees",
+	'event_manager:action:slot:day_not_found' => "The given day was not found",
+	'event_manager:action:slot:missing_fields' => "Please fill the required fields",
+	'event_manager:action:slot:not_found' => "The slot was not found",
+	'event_manager:action:slot:cannot_save' => 'Something went wrong when attempting to save the slot',
+	'event_manager:action:slot:saved' => 'Slot saved',
 
 	// settings
 	'event_manager:settings:google_maps' => 'Google Maps settings',
