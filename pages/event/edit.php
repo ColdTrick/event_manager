@@ -37,7 +37,7 @@ if (!$event) {
 		}
 		elgg_set_page_owner_guid(elgg_get_logged_in_user_guid());
 	}
-	
+
 	if ($forward) {
 		forward("/events");
 	}
@@ -45,7 +45,7 @@ if (!$event) {
 
 elgg_push_breadcrumb($title_text);
 
-$form = elgg_view("event_manager/forms/event/edit", array("entity" => $event));
+$form = elgg_view_form("event_manager/event/edit", array(), array("entity" => $event));
 
 $body = elgg_view_layout('content', array(
 	'filter' => '',

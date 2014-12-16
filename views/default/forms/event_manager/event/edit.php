@@ -115,11 +115,11 @@ $hidden .= elgg_view('input/hidden', array('name' => 'longitude', 'id' => 'event
 $hidden .= elgg_view('input/hidden', array('name' => 'guid', 'value' => $fields["guid"]));
 $hidden .= elgg_view('input/hidden', array('name' => 'container_guid', 'value' => $fields["container_guid"]));
 
-$general_body = elgg_view('event_manager/forms/event/tabs/general', $vars);
-$profile_body = elgg_view('event_manager/forms/event/tabs/profile', $vars);
-$location_body = elgg_view('event_manager/forms/event/tabs/location', $vars);
-$registration_body = elgg_view('event_manager/forms/event/tabs/registration', $vars);
-$extra_body = elgg_view('event_manager/forms/event/tabs/extra', $vars);
+$general_body = elgg_view('forms/event_manager/event/tabs/general', $vars);
+$profile_body = elgg_view('forms/event_manager/event/tabs/profile', $vars);
+$location_body = elgg_view('forms/event_manager/event/tabs/location', $vars);
+$registration_body = elgg_view('forms/event_manager/event/tabs/registration', $vars);
+$extra_body = elgg_view('forms/event_manager/event/tabs/extra', $vars);
 
 $required_fields = elgg_echo('requiredfields');
 
