@@ -37,7 +37,7 @@ function event_manager_init() {
 	// notifications
 	elgg_register_notification_event('object', Event::SUBTYPE, array('create'));
 	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:' . Event::SUBTYPE, 'event_manager_prepare_notification');
-	
+
 	// add site menu item
 	elgg_register_menu_item("site", array(
 		"name" => "event_manager",
@@ -55,7 +55,7 @@ function event_manager_init() {
 
 	// add widgets
 	elgg_register_widget_type("events", elgg_echo("event_manager:widgets:events:title"), elgg_echo("event_manager:widgets:events:description"), array("index", "dashboard", "profile", "groups"));
-	
+
 	// register js libraries
 	$maps_key = elgg_get_plugin_setting("google_api_key", "event_manager");
 
@@ -64,23 +64,23 @@ function event_manager_init() {
 
 	elgg_register_js("event_manager.maps.helper", $em_maps_js);
 	elgg_register_js("event_manager.maps.base", "//maps.googleapis.com/maps/api/js?key=" . $maps_key . "&sensor=true");
-	
+
 	elgg_register_js("addthisevent", "mod/event_manager/vendors/addthisevent/atemay.js");
 
 	// page handlers
 	elgg_register_page_handler("events", "event_manager_page_handler");
-	
+
 	// events
 	elgg_register_event_handler("update", "object", "event_manager_update_object_handler");
-	
+
 	// hooks
 	elgg_register_plugin_hook_handler("register", "menu:user_hover", "event_manager_user_hover_menu");
 	elgg_register_plugin_hook_handler("register", "menu:entity", "event_manager_entity_menu", 600);
 	elgg_register_plugin_hook_handler("register", "menu:owner_block", "event_manager_owner_block_menu");
-	
+
 	elgg_register_plugin_hook_handler("permissions_check", "object", "event_manager_permissions_check_handler");
 	elgg_register_plugin_hook_handler("entity:url", "object", "event_manager_widget_events_url");
-	
+
 	// actions
 	elgg_register_action("event_manager/event/edit", dirname(__FILE__) . "/actions/event/edit.php");
 	elgg_register_action("event_manager/event/delete", dirname(__FILE__) . "/actions/event/delete.php");
@@ -92,10 +92,10 @@ function event_manager_init() {
 	elgg_register_action("event_manager/event/unsubscribe_confirm", dirname(__FILE__) . "/actions/event/unsubscribe_confirm.php", "public");
 	elgg_register_action("event_manager/event/resend_confirmation", dirname(__FILE__) . "/actions/event/resend_confirmation.php");
 	elgg_register_action("event_manager/event/register", dirname(__FILE__) . "/actions/event/register.php", "public");
-	
+
 	elgg_register_action("event_manager/attendees/export", dirname(__FILE__) . "/actions/attendees/export.php");
 	elgg_register_action("event_manager/attendees/move_to_attendees", dirname(__FILE__) . "/actions/attendees/move_to_attendees.php");
-	
+
 	elgg_register_action("event_manager/registration/edit", dirname(__FILE__) . "/actions/registration/edit.php");
 	elgg_register_action("event_manager/registration/approve", dirname(__FILE__) . "/actions/registration/approve.php");
 	elgg_register_action("event_manager/registration/pdf", dirname(__FILE__) . "/actions/registration/pdf.php", "public");
@@ -152,7 +152,7 @@ function event_manager_page_handler($page) {
 							if (isset($page[2])) {
 								set_input("event_guid", $page[2]);
 							}
-							
+
 							$include = "/pages/registration/confirm.php";
 							break(2);
 						case "completed":
