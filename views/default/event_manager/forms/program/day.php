@@ -39,7 +39,7 @@ if ($entity && $entity->canEdit()) {
 		$days = $entity->getEventDays();
 		$last_day = end($days);
 		if (!$last_day) {
-			$date = ($entity->start_day + (3600 * 24));
+			$date = ($entity->start_time + (3600 * 24));
 		} else {
 			$date = ($last_day->date + (3600 * 24));
 		}

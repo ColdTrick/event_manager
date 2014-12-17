@@ -41,10 +41,10 @@ if ($location = $event->getEventLocation()) {
 	$event_details .= '</td></tr>';
 }
 
-$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:start') . ':</label></td><td>' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . " " . date('H', $event->start_time) . ':' . date('i', $event->start_time) . '</td></tr>';
+$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:start') . ':</label></td><td>' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_time) . " " . date('H', $event->start_time) . ':' . date('i', $event->start_time) . '</td></tr>';
 
-if ($event->end_ts) {
-	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:end') . ':</label></td><td>' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->end_ts) . " " . date('H', $event->end_ts) . ':' . date('i', $event->end_ts) . '</td></tr>';
+if ($event->end_time) {
+	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:end') . ':</label></td><td>' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->end_time) . " " . date('H', $event->end_time) . ':' . date('i', $event->end_time) . '</td></tr>';
 }
 
 // optional end day

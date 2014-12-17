@@ -20,8 +20,8 @@ $form_body .= elgg_view('input/hidden', array('name' => 'advanced_search', 'id' 
 $form_body .= "<table><tr><td class='prl'>";
 
 $form_body .= "<table>";
-$form_body .= "<tr><td class='prm'>" . elgg_echo('event_manager:edit:form:start_day:from') . ':</td><td>' . elgg_view('input/date', array('name' => 'start_day', 'id' => 'start_day')) . '</td></tr>';
-$form_body .= "<tr><td class='prm'>" . elgg_echo('event_manager:edit:form:start_day:to') . ':</td><td>' . elgg_view('input/date', array('name' => 'end_day', 'id' => 'end_day')) . '</td></tr>';
+$form_body .= "<tr><td class='prm'>" . elgg_echo('event_manager:edit:form:start_day:from') . ':</td><td>' . elgg_view('input/date', array('name' => 'start_time', 'id' => 'start_time', 'timestamp' => true)) . '</td></tr>';
+$form_body .= "<tr><td class='prm'>" . elgg_echo('event_manager:edit:form:start_day:to') . ':</td><td>' . elgg_view('input/date', array('name' => 'end_time', 'id' => 'end_time', 'timestamp' => true)) . '</td></tr>';
 $form_body .= "</table>";
 
 $form_body .= "</td>";

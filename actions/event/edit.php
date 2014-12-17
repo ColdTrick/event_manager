@@ -22,8 +22,8 @@ $latitude = get_input("latitude");
 $longitude = get_input("longitude");
 $venue = get_input("venue");
 $fee = get_input("fee");
-$start_day = get_input("start_day");
-$end_day = get_input("end_day");
+$start_time = get_input("start_time");
+$end_time = get_input("end_time");
 $end_time_hours = get_input("end_time_hours");
 $end_time_minutes = get_input("end_time_minutes");
 $registration_ended = get_input("registration_ended");
@@ -50,23 +50,28 @@ $waiting_list_enabled = get_input("waiting_list_enabled");
 
 $start_time_hours = get_input("start_time_hours");
 $start_time_minutes = get_input("start_time_minutes");
-$start_time = mktime($start_time_hours, $start_time_minutes, 1, 0, 0, 0);
 
-if (!empty($end_day)) {
-	$end_date = explode('-', $end_day);
-	$end_ts = mktime($end_time_hours, $end_time_minutes, 1, $end_date[1], $end_date[2], $end_date[0]);
+if ($start_time_hours || $start_time_minutes) {
+	// Convert starting hour and starting minute to seconds
+	$start_seconds = ($start_time_minutes * 60) + ($start_time_hours * 60 * 60);
+
+	// Add the starting time to the starting day timestamp
+	$start_time += $start_seconds;
 }
 
-if (!empty($start_day)) {
-	$date = explode('-',$start_day);
-	$start_day = mktime(0,0,1,$date[1],$date[2],$date[0]);
+if (!empty($end_time)) {
+	if ($end_time_hours || $end_time_minutes) {
+		// Convert starting hour and starting minute to seconds
+		$end_seconds = ($end_time_minutes * 60) + ($end_time_hours * 60 * 60);
 
-	$start_ts = mktime($start_time_hours, $start_time_minutes, 1, $date[1], $date[2], $date[0]);
-
-	if (!empty($end_ts) && ($end_ts < $start_ts)) {
-		register_error("End time has to be after start time");
-		forward(REFERER);
+		// Add the starting time to the starting day timestamp
+		$end_time += $end_seconds;
 	}
+}
+
+if ($end_time < $start_time) {
+	register_error("End time has to be after start time");
+	forward(REFERER);
 }
 
 if (!empty($endregistration_day)) {
@@ -96,7 +101,7 @@ if (!empty($max_attendees) && !is_numeric($max_attendees)) {
 	$max_attendees = "";
 }
 
-if (empty($title) || empty($start_day) || empty($end_ts)) {
+if (empty($title) || empty($start_time) || empty($end_time)) {
 	register_error(elgg_echo("event_manager:action:event:edit:error_fields"));
 	forward(REFERER);
 }
@@ -149,11 +154,10 @@ $event->website = $website;
 $event->event_type = $event_type;
 $event->organizer = $organizer;
 $event->fee = $fee;
-$event->start_day = $start_day;
 $event->start_time = $start_time;
 
-if (!empty($end_ts)) {
-	$event->end_ts = $end_ts;
+if (!empty($end_time)) {
+	$event->end_time = $end_time;
 }
 
 $event->with_program = $with_program;
@@ -176,7 +180,7 @@ if ($with_program && !$eventDays) {
 	$eventDay->owner_guid = $event->getGUID();
 	$eventDay->access_id = $event->access_id;
 	$eventDay->save();
-	$eventDay->date = $event->start_day;
+	$eventDay->date = $event->start_time;
 	$eventDay->addRelationship($event->getGUID(), 'event_day_relation');
 
 	$eventSlot = new EventSlot();
