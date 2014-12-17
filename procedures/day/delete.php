@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $returnData = array();
 
@@ -10,7 +10,7 @@ if (!empty($guid) && ($eventDay = get_entity($guid))) {
 	if ($eventDay->getSubtype() == EventDay::SUBTYPE) {
 		if ($eventDay->delete()) {
 			$returnData['valid'] = 1;
-		} 
+		}
 	}
 }
 

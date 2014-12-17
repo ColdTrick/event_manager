@@ -1,5 +1,5 @@
 <?php
-		
+
 if (!function_exists("DOMPDF_autoload")) {
 	require_once(dirname(dirname(dirname(__FILE__))) . "/vendors/dompdf/dompdf_config.inc.php");
 }
@@ -19,32 +19,32 @@ if (!$event || empty($key)) {
 	forward("events");
 } else {
 	$tempKey = md5($event->time_created . get_site_secret() . $user_guid);
-	
+
 	if (($tempKey == $key) && get_entity($user_guid)) {
 		$html = elgg_view_title(elgg_echo("event_manager:registration:yourregistration"));
-	
+
 		$html .= elgg_view("event_manager/event/pdf", array("entity" => $event));
-	
+
 		$old_ia = elgg_set_ignore_access(true);
-	
+
 		$html .= $event->getRegistrationData($user_guid, true);
-	
+
 		if ($event->with_program) {
 			elgg_push_context("programmailview");
-						
+
 			$html .= elgg_view_module("main", "", elgg_view("event_manager/program/pdf", array("entity" => $event, "user_guid" => $user_guid)));
-	
+
 			elgg_pop_context();
 		}
-	
+
 		elgg_set_ignore_access($old_ia);
-	
+
 		$dompdf = new DOMPDF();
 		$dompdf->set_paper("A4");
 		$dompdf->load_html($html);
 		$dompdf->render();
 		$dompdf->stream("registration.pdf");
-	
+
 		exit;
 	} else {
 		forward("events");

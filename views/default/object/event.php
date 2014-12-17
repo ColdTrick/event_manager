@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 if ($vars["full"]) {
 	echo elgg_view("event_manager/event/view", $vars);
-} elseif (elgg_in_context("maps")) {    
+} elseif (elgg_in_context("maps")) {
 	$event = $vars["entity"];
 
 	$output = '<div class="gmaps_infowindow">';
@@ -13,7 +13,7 @@ if ($vars["full"]) {
 	if ($event->icontime) {
 		$output .= '<div class="gmaps_infowindow_icon"><img src="' . $event->getIconURL() . '" /></div>';
 	}
-	$output .= '</div>';    
+	$output .= '</div>';
 
 	echo $output;
 } else {
@@ -25,24 +25,24 @@ if ($vars["full"]) {
 		'href' => $owner->getURL(),
 		'text' => $owner->name,
 	));
-		
+
 	$author_text = elgg_echo('byline', array($owner_link));
 	if (($container instanceof ElggGroup) && (elgg_get_page_owner_guid() !== $container->getGUID())) {
 		$author_text .= ' ' . elgg_echo('in') . ' <a href="' . elgg_get_site_url() . 'events/event/list/' . $container->getGUID() . '">' . $container->name . '</a>';
 	}
-		
+
 	$date = elgg_view_friendly_time($event->time_created);
-		
+
 	$content = "";
 	$subtitle = "";
-		
+
 	if (!elgg_in_context("widgets")) {
 		$subtitle = "<p>$author_text $date</p>";
 
 		if ($location = $event->getEventLocation()) {
 			$content .= '<div>' . elgg_echo('event_manager:edit:form:location') . ': ';
 			$content .= '<a href="' . elgg_get_site_url() . 'events/event/route?from=' . urlencode($location) . '" class="openRouteToEvent">' . $location . '</a>';
-			$content .= '</div>'; 
+			$content .= '</div>';
 		}
 
 		if ($shortdescription = $event->shortdescription) {

@@ -47,11 +47,11 @@ if (!isset($data_root)) {
 					if ($row->name == 'dataroot') {
 						$data_root = $row->value;
 					}
-	
+
 					$row = mysql_fetch_object($result);
 				}
 			}
-	
+
 			@mysql_close($mysql_dblink);
 		}
 	}
@@ -62,7 +62,7 @@ if (isset($data_root)) {
 
 	$locator = new Elgg_EntityDirLocator($guid);
 	$entity_path = $data_root . $locator->getPath();
-	
+
 	$filename = $entity_path . "events/{$event_guid}/{$size}.jpg";
 	$filecontents = @file_get_contents($filename);
 
@@ -71,17 +71,17 @@ if (isset($data_root)) {
 		$filename = $entity_path . "events/{$event_guid}/medium.jpg";
 		$filecontents = @file_get_contents($filename);
 	}
-	
+
 	if ($filecontents) {
 		$filesize = strlen($filecontents);
-		
+
 		header("Content-type: image/jpeg");
 		header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', strtotime("+6 months")), true);
 		header("Pragma: public");
 		header("Cache-Control: public");
 		header("Content-Length: $filesize");
 		header("ETag: \"$etag\"");
-		
+
 		echo $filecontents;
 		exit;
 	}

@@ -12,7 +12,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 // Get the owning event
 $eventGuid = get_input('eventGuid');
 $event = get_entity($eventGuid);
-	
+
 // Get the size
 $size = strtolower(get_input('size'));
 $icon_sizes = elgg_get_config("icon_sizes");
@@ -27,7 +27,7 @@ if (!$event) {
 	header("Location: $path");
 	exit;
 }
-	
+
 // Try and get the icon
 $filehandler = new ElggFile();
 $filehandler->owner_guid = $event->getOwnerGUID();

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $returnData = array();
 
@@ -10,7 +10,7 @@ if (!empty($guid) && $eventSlot = get_entity($guid)) {
 	if ($eventSlot->getSubtype() == EventSlot::SUBTYPE) {
 		if ($eventSlot->delete()) {
 			$returnData['valid'] = 1;
-		} 
+		}
 	}
 }
 

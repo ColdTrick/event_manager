@@ -7,14 +7,14 @@ echo "<div id='map_canvas' style='width: 800px; height: 600px;'></div>";
 $location = $event->location;
 $form_body .= '<label>' . elgg_echo('event_manager:event:edit:maps_address') . '</label>';
 $form_body .= elgg_view('input/text', array(
-	'name' => 'address_search', 
+	'name' => 'address_search',
 	'id' => 'address_search',
 	'value' => $location
 ));
-	
+
 $form_body .= elgg_view('input/submit', array(
-	'class' => "elgg-button-action", 
-	'name' => 'address_search_submit', 
+	'class' => "elgg-button-action",
+	'name' => 'address_search_submit',
 	'value' => elgg_echo('search')
 )) . '&nbsp';
 
@@ -26,7 +26,7 @@ $form_body .= elgg_view('input/button', array(
 ));
 
 echo elgg_view('input/form', array(
-	'id' => 'event_manager_address_search', 
+	'id' => 'event_manager_address_search',
 	'name' => 'event_manager_address_search',
 	'body' => $form_body
 ));

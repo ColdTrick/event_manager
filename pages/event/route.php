@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 echo "<div id='google_maps' style='width: 500px; height: 425px; overflow:hidden;'>";
 echo "<div id='map_canvas' style='width: 500px; height: 300px;'></div>";
@@ -12,9 +12,9 @@ $form_body .= "<a class='hidden' target='_blank' href='' id='openRouteLink'>goog
 $form_body .= elgg_view("input/submit", array("name" => "address_route_search", "id" => "address_route_search", "type" => "button", "value" => elgg_echo("calculate_route"))) . "&nbsp";
 
 echo elgg_view("input/form", array(
-		"id" => "event_manager_address_route_search", 
+		"id" => "event_manager_address_route_search",
 		"name" => "event_manager_address_route_search",
 		"body" => $form_body
-));	
+));
 
 echo "</div>";

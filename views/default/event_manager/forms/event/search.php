@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $region_options = event_manager_event_region_options();
 $type_options = event_manager_event_type_options();
@@ -59,8 +59,8 @@ $form_body .= elgg_view('input/checkboxes', array('name' => 'past_events', 'valu
 $form_body .= "</span>";
 
 $form = elgg_view('input/form', array(
-	'id' => 'event_manager_search_form', 
-	'name' => 'event_manager_search_form', 
+	'id' => 'event_manager_search_form',
+	'name' => 'event_manager_search_form',
 	'action' => '/action/event_manager/event/search',
 	'body' => $form_body
 ));

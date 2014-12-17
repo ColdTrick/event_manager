@@ -22,7 +22,7 @@ if ($entity && $entity->register_nologin) {
 
 	// build page elements
 	$title_text = elgg_echo("event_manager:unsubscribe:title", array($entity->title));
-		
+
 	$body = elgg_view_form("event_manager/event/unsubscribe", array(), array("entity" => $entity));
 
 	if ($entity->hide_owner_block) {
@@ -33,7 +33,7 @@ if ($entity && $entity->register_nologin) {
 				}
 			</style>";
 	}
-	
+
 	$page_data = elgg_view_layout("content", array(
 		"title" => $title_text,
 		"content" => $body,

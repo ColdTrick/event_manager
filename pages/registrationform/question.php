@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $event_guid = get_input("event_guid");
 $question_guid = get_input("question_guid");

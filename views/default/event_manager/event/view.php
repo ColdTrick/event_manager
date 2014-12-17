@@ -1,5 +1,5 @@
 <?php
-	
+
 $event = $vars["entity"];
 $owner = $event->getOwnerEntity();
 $event_details = "";
@@ -20,7 +20,7 @@ if ($event->icontime) {
 	$image = elgg_view("output/img", array(
 		"src" => $event->getIconURL(),
 	));
-		
+
 	$event_details .= "<div class='event_manager_event_view_image'>";
 	$event_details .= elgg_view("output/url", array(
 		"href" => $event->getIconURL('master'),
@@ -28,7 +28,7 @@ if ($event->icontime) {
 		"target" => "_blank",
 		"class" => "elgg-lightbox-photo"
 	));
-	
+
 	$event_details .= "</div>";
 }
 $event_details .= "<table class='event-manager-event-details'>";
@@ -54,7 +54,7 @@ if ($organizer = $event->organizer) {
 
 if ($max_attendees = $event->max_attendees) {
 	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:spots_left') . ':</label></td><td>';
-	
+
 	$spots_left = ($max_attendees - $event->countAttendees());
 	if ($spots_left < 1) {
 		$count_waitinglist = $event->countWaiters();
@@ -71,7 +71,7 @@ if ($max_attendees = $event->max_attendees) {
 	} else {
 		$event_details .= $spots_left . " / " . $max_attendees;
 	}
-	
+
 	$event_details .= '</td></tr>';
 }
 
@@ -112,7 +112,7 @@ $files = $event->hasFiles();
 
 if (!empty($files) || $event->canEdit()) {
 	$user_path = "events/" . $event->getGUID() . "/files/";
-	
+
 	$event_details .= "<tr><td><label>" . elgg_echo("event_manager:edit:form:files") . ":</label></td><td>";
 	$event_details .= "<ul>";
 	if (!empty($files)) {
@@ -124,7 +124,7 @@ if (!empty($files) || $event->canEdit()) {
 			$event_details .= "<li>" . $file_link . "</li>";
 		}
 	}
-	
+
 	if ($event->canEdit()) {
 		$add_link = elgg_view("output/url", array(
 			"href" => "events/event/upload/" . $event->getGUID(),
@@ -132,7 +132,7 @@ if (!empty($files) || $event->canEdit()) {
 		));
 		$event_details .= "<li>" . $add_link . "</li>";
 	}
-	
+
 	$event_details .= "</ul>";
 	$event_details .= "</td></tr>";
 }
@@ -142,7 +142,7 @@ $event_details .= "</table>";
 $body = elgg_view_module("main", "", $event_details);
 
 $body .= elgg_view_module("main", "", elgg_view("event_manager/event/actions", $vars));
-	
+
 if ($event->show_attendees || $event->canEdit()) {
 	$body .= elgg_view("event_manager/event/attendees", $vars);
 }

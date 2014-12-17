@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $result = array();
 
@@ -23,27 +23,27 @@ if ($event_guid && ($event = get_entity($event_guid))) {
 			$result['edit'] = 0;
 			$question = new EventRegistrationQuestion();
 		}
-		
+
 		if ($question && !empty($question)) {
 			$question->title			= $questiontext;
 			$question->container_guid	= $event->getGUID();
 			$question->owner_guid		= $event->getGUID();
 			$question->access_id		= $event->access_id;
-			
+
 			if ($question->save()) {
 				$question->fieldtype = $fieldtype;
 				$question->required = $required;
 				$question->fieldoptions = $fieldoptions;
-				
+
 				if ($result['edit'] == 0) {
 					$question->order = $event->getRegistrationFormQuestions(true);
 				}
-				
+
 				$question->addRelationship($event->getGUID(), 'event_registrationquestion_relation');
-				
+
 				$result['valid'] = 1;
 				$result['guid'] = $question->getGUID();
-				
+
 				$result['content'] = elgg_view("event_manager/registration/question", array("entity" => $question));
 			}
 		}

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $day = $vars["entity"];
 $participate = $vars['participate'];
@@ -6,21 +6,21 @@ $register_type = $vars['register_type'];
 
 if (!empty($day) && ($day instanceof EventDay)) {
 	$can_edit = $day->canEdit();
-	
+
 	$details = "";
 	if ($description = $day->description) {
 		$details .= "<div><b>" . elgg_echo("event_manager:edit:form:start_day") . ":</b> " . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date) . "</div>";
-	} 
-	
+	}
+
 	$details .= $day->title;
-	
+
 	if ($can_edit && !elgg_in_context('programmailview') && ($participate == false)) {
 		$edit_day = "<a href='#' class='event_manager_program_day_edit' rel='" . $day->getGUID() . "'>" . elgg_echo("edit") . "</a>";
 		$delete_day = "<a href='#' class='event_manager_program_day_delete'>" . elgg_echo("delete") . "</a>";
-		
+
 		$details .= " [ " . $edit_day . " | " . $delete_day . " ]";
 	}
-	
+
 	if ($vars["details_only"]) {
 		$result = $details;
 	} else {
@@ -29,16 +29,16 @@ if (!empty($day) && ($day instanceof EventDay)) {
 			$result .= ' style="display: block;"';
 		}
 		$result .= ' id="day_' . $day->getGUID() . '">';
-		
+
 		$result .= '<div class="event_manager_program_day_details" rel="' . $day->getGUID() . '">';
-		
+
 		$result .= $details;
-		
+
 		$result .= '</div>';
-		
+
 		if ($daySlots = $day->getEventSlots()) {
 			foreach ($daySlots as $slot) {
-				$result .= elgg_view("event_manager/program/elements/slot", array("entity" => $slot, 'participate' => $participate, 'register_type' => $register_type, "member" => $vars["member"]));							
+				$result .= elgg_view("event_manager/program/elements/slot", array("entity" => $slot, 'participate' => $participate, 'register_type' => $register_type, "member" => $vars["member"]));
 			}
 		}
 		if ($can_edit && !elgg_in_context('programmailview') && ($participate == false)) {
@@ -46,6 +46,6 @@ if (!empty($day) && ($day instanceof EventDay)) {
 		}
 		$result .= '</div>';
 	}
-	
+
 	echo $result;
 }

@@ -1,5 +1,5 @@
-<?php 
-	
+<?php
+
 $event = $vars["entity"];
 $owner = $event->getOwnerEntity();
 
@@ -44,5 +44,5 @@ if ($type = $event->event_type) {
 $event_details .= "</table>";
 
 $output .= $event_details;
-	
+
 echo $output;

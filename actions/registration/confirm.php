@@ -37,7 +37,7 @@ if (!$event->hasEventSpotsLeft() || !$event->hasSlotSpotsLeft()) {
 		forward($event->getURL());
 	}
 }
-	
+
 // update all slots from pending to attending/waiting
 $slots = $event->getRegisteredSlotsForEntity($user->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING);
 if ($slots) {
@@ -46,7 +46,7 @@ if ($slots) {
 		$user->addRelationship($slot->getGUID(), $slot_relation);
 	}
 }
-	
+
 // update event relationsship to attending/waiting
 $event->rsvp($relation, $user->getGUID());
 system_message(elgg_echo("event_manager:event:relationship:message:" . $relation));

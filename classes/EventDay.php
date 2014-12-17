@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * EventDay
  *
@@ -7,7 +7,7 @@
  */
 class EventDay extends ElggObject {
 	const SUBTYPE = "eventday";
-	
+
 	/**
 	 * initializes the default class attributes
 	 *
@@ -15,13 +15,13 @@ class EventDay extends ElggObject {
 	 */
 	protected function initializeAttributes() {
 		parent::initializeAttributes();
-		
+
 		$this->attributes["subtype"] = self::SUBTYPE;
 	}
-	
+
 	/**
 	 * Returns the slots
-	 * 
+	 *
 	 * @return array|boolean
 	 */
 	public function getEventSlots() {

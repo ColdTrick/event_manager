@@ -1,10 +1,10 @@
-<?php 
-$key = get_input('k');		
+<?php
+$key = get_input('k');
 $guid = get_input("guid");
 $user_guid = get_input('u_g', elgg_get_logged_in_user_guid());
 $event = null;
 
-if ($guid && ($entity = get_entity($guid))) {	
+if ($guid && ($entity = get_entity($guid))) {
 	if ($entity instanceof Event) {
 		$event = $entity;
 	}
@@ -21,31 +21,31 @@ if ($event) {
 		"href" => "action/event_manager/registration/pdf?k=" . md5($event->time_created . get_site_secret() . $user_guid) . "&guid=" . $guid . "&u_g=" . $user_guid,
 		"is_action" => true
 	);
-	
+
 	elgg_register_menu_item("title", ElggMenuItem::factory($save_to_pdf_options));
 }
 
 if ($event && !empty($key)) {
 	$tempKey = md5($event->time_created . get_site_secret() . $user_guid);
-	
+
 	if (($tempKey == $key) && get_entity($user_guid)) {
-		
+
 		$title_text = elgg_echo('event_manager:registration:registrationto') . " '" . $event->title . "'";
-		
+
 		$old_ia = elgg_set_ignore_access(true);
-		
+
 		$output .= elgg_view('event_manager/event/pdf', array('entity' => $event));
 		$output .= $event->getRegistrationData($user_guid);
-		
+
 		if ($event->with_program) {
 			$output .= $event->getProgramData($user_guid);
 		}
 
 		elgg_set_ignore_access($old_ia);
-		
+
 		elgg_push_breadcrumb($event->title, $event->getURL());
 		elgg_push_breadcrumb($title_text);
-			
+
 		$body = elgg_view_layout('content', array(
 			'filter' => '',
 			'content' => $output,
@@ -53,7 +53,7 @@ if ($event && !empty($key)) {
 		));
 
 		echo elgg_view_page($title_text, $body);
-	
+
 	} else {
 		forward("events");
 	}
@@ -63,28 +63,28 @@ if ($event && !empty($key)) {
 	if ($event) {
 		if ($event->canEdit() || ($user_guid == elgg_get_logged_in_user_guid())) {
 			$title_text = elgg_echo('event_manager:registration:registrationto') . " '" . $event->title . "'";
-			
+
 			$output .= elgg_view('event_manager/event/pdf', array('entity' => $event));
 
 			$output .= $event->getRegistrationData($user_guid);
 
 			if ($event->with_program) {
 				$output .= $event->getProgramData($user_guid);
-			}			
+			}
 
 			if ($user_guid == elgg_get_logged_in_user_guid()) {
 				$output .= '<br /><a class="mlm" href="' . elgg_get_site_url() . 'events/event/register/' . $event->getGUID() . '/event_attending">' . elgg_echo('event_manager:registration:edityourregistration') . '</a>';
-			}	
-			
+			}
+
 			elgg_push_breadcrumb($event->title, $event->getURL());
 			elgg_push_breadcrumb($title_text);
-			
+
 			$body = elgg_view_layout('content', array(
 				'filter' => '',
 				'content' => $output,
 				'title' => $title_text,
 			));
-	
+
 			echo elgg_view_page($title_text, $body);
 		} else {
 			forward($event->getURL());

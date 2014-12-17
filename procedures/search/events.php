@@ -23,39 +23,39 @@ $options = array();
 
 if ($advanced_search) {
 	$options['advanced'] = true;
-	
+
 	if ($attending) {
 		$options['meattending'] = true;
 	}
-	
+
 	if ($owning) {
 		$options['owning'] = true;
 	}
-	
+
 	if ($friendsattending) {
 		$options['friendsattending'] = true;
 	}
-	
+
 	if ($region != '-') {
 		$options['region'] = $region;
 	}
-	
+
 	if ($event_type != '-') {
 		$options['event_type'] = $event_type;
 	}
-	
+
 	if (!empty($start_day)) {
 		$start_day = explode('-', $start_day);
 		$start_day_ts = mktime(0, 0, 1, $start_day[1], $start_day[2], $start_day[0]);
 		$options['start_day'] = $start_day_ts;
 	}
-	
+
 	if (!empty($end_day)) {
 		$end_day = explode('-',$end_day);
 		$end_day_ts = mktime(23,59,	59,	$end_day[1], $end_day[2], $end_day[0]);
 		$options['end_day'] = $end_day_ts;
 	}
-	
+
 	if (empty($end_day) && empty($start_day) && empty($search)) {
 		$options['past_events'] = false;
 	} else {
@@ -79,14 +79,14 @@ if ($search_type == 'list') {
 	$limit = 10;
 	$options['limit'] = $limit;
 	$entities = event_manager_search_events($options);
-	
+
 	$returnData['content'] = elgg_view_entity_list($entities['entities'], array("count" => $entities['count'], "offset" => $offset, "limit" => $limit, 'full_view' => false, 'pagination' => false));
-	
+
 	if (($entities['count'] - ($offset + $limit)) > 0) {
 		$returnData['content'] .= '<div id="event_manager_event_list_search_more" rel="' . ($offset + $limit) . '">';
 		$returnData['content'] .= elgg_echo('event_manager:list:showmorevents') . ' (' . ($entities['count'] - ($offset + $limit)) . ')</div>';
 	}
-	
+
 	if ($entities['count'] < 1) {
 		$returnData['content'] .= elgg_echo('event_manager:list:noresults');
 	}
@@ -95,12 +95,12 @@ if ($search_type == 'list') {
 	$options['longitude'] = $longitude;
 	$options['distance'] = $distance;
 	$options['limit'] = 50;
-	
+
 	$entities = event_manager_search_events($options);
 	foreach ($entities['entities'] as $event) {
 		if ($event->location) {
 			elgg_push_context("maps");
-							
+
 			$returnData['markers'][] = array(
 				'guid' => $event->getGUID(),
 				'lat' => $event->getLatitude(),

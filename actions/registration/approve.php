@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $registrationId = get_input("guid");
 $approve = get_input("approve", 0);

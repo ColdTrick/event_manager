@@ -7,11 +7,11 @@ $event_options = array();
 if (($page_owner = elgg_get_page_owner_entity()) && ($page_owner instanceof ElggGroup)) {
 	group_gatekeeper();
 	$title_text = elgg_echo("event_manager:list:group:title");
-	
+
 	elgg_push_breadcrumb($page_owner->name, $page_owner->getURL());
-	
+
 	$event_options["container_guid"] = $page_owner->getGUID();
-	
+
 	$who_create_group_events = elgg_get_plugin_setting('who_create_group_events', 'event_manager'); // group_admin, members
 	if ((($who_create_group_events == "group_admin") && $page_owner->canEdit()) || (($who_create_group_events == "members") && $page_owner->isMember($user))) {
 		elgg_register_menu_item('title', array(

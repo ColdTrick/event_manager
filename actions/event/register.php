@@ -2,11 +2,11 @@
 
 $guid = get_input("event_guid");
 $relation = get_input("relation");
-	
+
 $register_type = get_input('register_type');
-	
+
 $program_guids = get_input('program_guids');
-	
+
 $answers = array();
 foreach ($_POST as $key => $value) {
 	$value = get_input($key);
@@ -14,42 +14,42 @@ foreach ($_POST as $key => $value) {
 		if (is_array($value)) {
 			$value = $value[0];
 		}
-		
+
 		$answers[substr($key, 9, strlen($key))] = $value;
 	}
 }
 
 $forward_url = REFERER;
-	
+
 if (!empty($guid) && !empty($relation) && ($event = get_entity($guid))) {
 	if ($event instanceof Event) {
 		$user = elgg_get_logged_in_user_entity();
 		$required_error = false;
-		
+
 		if ($questions = $event->getRegistrationFormQuestions()) {
 			foreach ($questions as $question) {
 				if ($question->required && empty($answers[$question->getGUID()])) {
 					$required_error = true;
 				}
-				
+
 				if (empty($user)) {
 					if (empty($answers['name']) || empty($answers['email'])) {
 						$required_error = true;
 					}
 				}
-				
+
 				$_SESSION['registerevent_values']['question_' . $question->getGUID()] = $answers[$question->getGUID()];
 			}
 		}
-		
+
 		// @todo: replace with sticky form functions
 		// @todo: make program also sticky
-		
+
 		if (empty($user)) {
 			$_SESSION['registerevent_values']['question_name'] = $answers["name"];
 			$_SESSION['registerevent_values']['question_email']	= $answers["email"];
 		}
-		
+
 		if ($event->with_program && !$required_error) {
 			if (empty($program_guids)) {
 				$required_error = true;
@@ -62,7 +62,7 @@ if (!empty($guid) && !empty($relation) && ($event = get_entity($guid))) {
 					"metadata_names" => "slot_set",
 					"guids" => explode(',', $program_guids)
 				);
-				
+
 				if ($set_metadata = elgg_get_metadata($slot_options)) {
 					$sets_found = array();
 					foreach ($set_metadata as $md) {
@@ -77,7 +77,7 @@ if (!empty($guid) && !empty($relation) && ($event = get_entity($guid))) {
 				}
 			}
 		}
-		
+
 		if ($required_error) {
 			if ($event->with_program) {
 				if ($questions) {
@@ -88,18 +88,18 @@ if (!empty($guid) && !empty($relation) && ($event = get_entity($guid))) {
 			} else {
 				register_error(elgg_echo("event_manager:action:event:edit:error_fields"));
 			}
-			
+
 			forward($forward_url);
 		} else {
 			$_SESSION['registerevent_values'] = null;
 		}
-		
+
 		if (elgg_is_logged_in()) {
 			$object = elgg_get_logged_in_user_entity();
 		} else {
 			// validate email
 			$old_ia = elgg_set_ignore_access(true);
-			
+
 			if (!is_email_address($answers["email"])) {
 				register_error(elgg_echo("registration:notemail"));
 				forward($forward_url);
@@ -122,13 +122,13 @@ if (!empty($guid) && !empty($relation) && ($event = get_entity($guid))) {
 							case EVENT_MANAGER_RELATION_ATTENDING_PENDING:
 								// pending confirmation resend mail
 								event_manager_send_registration_validation_email($event, $object);
-								
+
 								register_error(elgg_echo("event_manager:action:register:email:account_exists:pending"));
 								forward($forward_url);
 						}
 					}
 				}
-				
+
 				// check for existing registration based on this email
 				$options = array(
 					"type" => "object",
@@ -137,10 +137,10 @@ if (!empty($guid) && !empty($relation) && ($event = get_entity($guid))) {
 					"metadata_name_value_pairs" => array("email" => $answers["email"]),
 					"metadata_case_sensitive" => false
 				);
-				
+
 				if ($existing_entities = elgg_get_entities_from_metadata($options)) {
 					$object = $existing_entities[0];
-					
+
 					$current_relationship = $event->getRelationshipByUser($object->getGUID());
 					if ($current_relationship) {
 						switch ($current_relationship) {
@@ -156,14 +156,14 @@ if (!empty($guid) && !empty($relation) && ($event = get_entity($guid))) {
 							default:
 								// pending confirmation resend mail
 								event_manager_send_registration_validation_email($event, $object);
-									
+
 								register_error(elgg_echo("event_manager:action:register:email:account_exists:pending"));
 								forward($forward_url);
 						}
 					}
 				}
 			}
-			
+
 			if (!$object) {
 				// create new registration
 				$object = new EventRegistration();
@@ -173,7 +173,7 @@ if (!empty($guid) && !empty($relation) && ($event = get_entity($guid))) {
 				$object->container_guid = $event->getGUID();
 				$object->save();
 			}
-			
+
 			elgg_set_ignore_access($old_ia);
 		}
 
@@ -192,7 +192,7 @@ if (!empty($guid) && !empty($relation) && ($event = get_entity($guid))) {
 			// remove existing relations with slots
 			$event->relateToAllSlots(false);
 		}
-		
+
 		if (!elgg_is_logged_in()) {
 			// change relationship to pending
 			$relation = EVENT_MANAGER_RELATION_ATTENDING_PENDING;
@@ -205,21 +205,21 @@ if (!empty($guid) && !empty($relation) && ($event = get_entity($guid))) {
 				$slot_relation = EVENT_MANAGER_RELATION_SLOT_REGISTRATION;
 			}
 		}
-		
+
 		$guid_explode = explode(',', $program_guids);
-		
+
 		foreach ($guid_explode as $slot_guid) {
 			// add relationships with slots
 			if (!empty($slot_guid)) {
 				$object->addRelationship($slot_guid, $slot_relation);
 			}
 		}
-		
+
 		if (!elgg_is_logged_in()) {
 			event_manager_send_registration_validation_email($event, $object);
 			system_message(elgg_echo("event_manager:action:register:pending"));
 		}
-		
+
 		$forward_url = $event->getURL();
 		if ($event->rsvp($relation, $object->getGUID())) {
 			// relate to the event

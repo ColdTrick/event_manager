@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $lat = get_input('lat', 52.1879034);
 $lng = get_input('lng', 6.9043385);
@@ -22,11 +22,11 @@ foreach ($entities as $event) {
 	$eventBox .= "<div class='gmaps_infowindow_icon'>";
 	$eventBox .= "<img src='" . $event->getIconURL("medium") . "' />";
 	$eventBox .= "</div></div>";
-						
+
 	$returnData['markers'][] = array(
-		'lat' => $event->getLatitude(), 
-		'lng' => $event->getLongitude(), 
-		'title' => $event->title, 
+		'lat' => $event->getLatitude(),
+		'lng' => $event->getLongitude(),
+		'title' => $event->title,
 		'html' => $eventBox,
 		'hasrelation' => $event->getRelationshipByUser(),
 		'iscreator' => (($event->getOwnerGUID() == elgg_get_logged_in_user_guid()) ? 'owner' : null)

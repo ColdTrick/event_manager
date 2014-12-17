@@ -10,7 +10,7 @@ function event_manager_event_get_relationship_options()	{
 		EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
 		EVENT_MANAGER_RELATION_ATTENDING_PENDING
 	);
-		
+
 	return $result;
 }
 
@@ -32,9 +32,9 @@ function event_manager_search_events($options = array()){
 		'search_type' => "list",
 		'user_guid' => elgg_get_logged_in_user_guid()
 	);
-	
+
 	$options = array_merge($defaults, $options);
-	
+
 	$entities_options = array(
 		'type' => 'object',
 		'subtype' => 'event',
@@ -44,53 +44,53 @@ function event_manager_search_events($options = array()){
 		'wheres' => array(),
 		'order_by_metadata' => array("name" => 'start_day', "direction" => 'ASC', "as" => "integer")
 	);
-	
+
 	if ($options["container_guid"]) {
 		// limit for a group
 		$entities_options['container_guid'] = $options['container_guid'];
 	}
-	
+
 	if ($options['query']) {
 		$entities_options["joins"][] = "JOIN " . elgg_get_config("dbprefix") . "objects_entity oe ON e.guid = oe.guid";
 		$entities_options['wheres'][] = event_manager_search_get_where_sql('oe', array('title', 'description'), $options, false);
 	}
-				
+
 	if (!empty($options['start_day'])) {
 		$entities_options['metadata_name_value_pairs'][] = array('name' => 'start_day', 'value' => $options['start_day'], 'operand' => '>=');
 	}
-	
+
 	if (!empty($options['end_day'])) {
 		$entities_options['metadata_name_value_pairs'][] = array('name' => 'start_day', 'value' => $options['end_day'], 'operand' => '<=');
 	}
-	
+
 	if (!$options['past_events']) {
 		// only show from current day or newer
 		$entities_options['metadata_name_value_pairs'][] = array('name' => 'start_day', 'value' => mktime(0, 0, 1), 'operand' => '>=');
 	}
-	
+
 	if ($options['meattending'] && !empty($options["user_guid"])) {
 		$entities_options['joins'][] = "JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_r ON e.guid = e_r.guid_one";
-		
+
 		$entities_options['wheres'][] = "e_r.guid_two = " . $options["user_guid"];
 		$entities_options['wheres'][] = "e_r.relationship = '" . EVENT_MANAGER_RELATION_ATTENDING . "'";
 	}
-	
+
 	if ($options['owning'] && !empty($options["user_guid"])) {
 		$entities_options['owner_guids'] = array($options["user_guid"]);
 	}
-	
+
 	if ($options["region"]) {
 		$entities_options['metadata_name_value_pairs'][] = array('name' => 'region', 'value' => $options["region"]);
 	}
-	
+
 	if ($options["event_type"]) {
 		$entities_options['metadata_name_value_pairs'][] = array('name' => 'event_type', 'value' => $options["event_type"]);
 	}
-	
+
 	if ($options['friendsattending'] && !empty($options["user_guid"])) {
 		$friends_guids = array();
 		$user = get_entity($options["user_guid"]);
-		
+
 		if ($friends =$user->getFriends("", false)) {
 			foreach ($friends as $friend) {
 				$friends_guids[] = $friend->getGUID();
@@ -103,29 +103,29 @@ function event_manager_search_events($options = array()){
 			$entities_options['wheres'] = array("(1=0)");
 		}
 	}
-	
+
 	if (($options["search_type"] == "onthemap") && !empty($options['latitude']) && !empty($options['longitude']) && !empty($options['distance'])) {
 		$entities_options["latitude"] = $options['latitude'];
 		$entities_options["longitude"] = $options['longitude'];
 		$entities_options["distance"] = $options['distance'];
 		$entities = elgg_get_entities_from_location($entities_options);
-			
+
 		$entities_options['count'] = true;
 		$count_entities = elgg_get_entities_from_location($entities_options);
-		
+
 	} else {
-		
+
 		$entities = elgg_get_entities_from_metadata($entities_options);
-		
+
 		$entities_options['count'] = true;
 		$count_entities = elgg_get_entities_from_metadata($entities_options);
 	}
-	
+
 	$result = array(
 		"entities" => $entities,
 		"count" => $count_entities
 	);
-		
+
 	return $result;
 }
 
@@ -133,19 +133,19 @@ function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype =
 	if (empty($subtype)) {
 		return false;
 	}
-	
+
 	$lat = (real) $lat;
 	$long = (real) $long;
 	$radius = (real) $radius;
-	
+
 	$limit = (int) $limit;
 	$offset = 0;
-	
+
 	$site_guid = elgg_get_site_entity()->getGUID();
 	$dbprefix = elgg_get_config("dbprefix");
-	
+
 	$where = array();
-	 
+
 	if (is_array($type)) {
 		$tempwhere = "";
 		if (sizeof($type)) {
@@ -170,16 +170,16 @@ function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype =
 	} else {
 		$type = sanitise_string($type);
 		$subtype = get_subtype_id($type, $subtype);
-		
+
 		if ($type != "") {
 			$where[] = "e.type='$type'";
 		}
-		
+
 		if ($subtype!=="") {
 			$where[] = "e.subtype=$subtype";
 		}
 	}
-	
+
 	if ($owner_guid != "") {
 		if (!is_array($owner_guid)) {
 			$owner_array = array($owner_guid);
@@ -187,7 +187,7 @@ function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype =
 			$where[] = "e.owner_guid = '$owner_guid'";
 		} else if (sizeof($owner_guid) > 0) {
 			$owner_array = array_map('sanitise_int', $owner_guid);
-			
+
 			// Cast every element to the owner_guid array to int
 			$owner_guid = implode(",",$owner_guid); //
 			$where[] = "e.owner_guid in ({$owner_guid})" ; //
@@ -196,11 +196,11 @@ function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype =
 			$container_guid = $owner_array;
 		}
 	}
-	
+
 	if ($site_guid > 0) {
 		$where[] = "e.site_guid = {$site_guid}";
 	}
-	
+
 	if (!is_null($container_guid)) {
 		if (is_array($container_guid)) {
 			foreach ($container_guid as $key => $val) {
@@ -212,7 +212,7 @@ function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype =
 			$where[] = "e.container_guid = {$container_guid}";
 		}
 	}
-	
+
 	// Add the calendar stuff
 	$loc_join = "JOIN " . $dbprefix . "metadata loc_start on e.guid=loc_start.entity_guid";
 	$loc_join .= "JOIN " . $dbprefix . "metastrings loc_start_name on loc_start.name_id=loc_start_name.id";
@@ -220,41 +220,41 @@ function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype =
 	$loc_join .= "JOIN " . $dbprefix . "metadata loc_end on e.guid=loc_end.entity_guid";
 	$loc_join .= "JOIN " . $dbprefix . "metastrings loc_end_name on loc_end.name_id=loc_end_name.id";
 	$loc_join .= "JOIN " . $dbprefix . "metastrings loc_end_value on loc_end.value_id=loc_end_value.id";
-	
+
 	$lat_min = $lat - $radius;
 	$lat_max = $lat + $radius;
 	$long_min = $long - $radius;
 	$long_max = $long + $radius;
-	
+
 	$where[] = "loc_start_name.string = 'geo:lat'";
 	$where[] = "loc_start_value.string >= $lat_min";
 	$where[] = "loc_start_value.string <= $lat_max";
 	$where[] = "loc_end_name.string = 'geo:long'";
 	$where[] = "loc_end_value.string >= $long_min";
 	$where[] = "loc_end_value.string <= $long_max";
-	
+
 	$query = "SELECT e.* from " . $dbprefix . "entities e $loc_join where ";
-	
+
 	foreach ($where as $w) {
 		$query .= " $w and ";
 	}
-	
+
 	$query .= get_access_sql_suffix('e'); // Add access controls
-	
+
 	// Add order and limit
 	if ($limit) {
 		$query .= " limit $offset, $limit";
 	}
 	$dt = get_data($query, "entity_row_to_elggstar");
-	
+
 	return $dt;
 }
 
 function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_ATTENDING) {
 	$old_ia = elgg_set_ignore_access(true);
-	
+
 	$headerString .= '"' . elgg_echo('guid') . '";"' . elgg_echo('name') . '";"' . elgg_echo('email') . '";"' . elgg_echo('username') . '";"' . elgg_echo('registration date') . '"';
-	
+
 	if ($event->registration_needed) {
 		if ($registration_form = $event->getRegistrationFormQuestions()) {
 			foreach ($registration_form as $question) {
@@ -262,7 +262,7 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
 			}
 		}
 	}
-	
+
 	if ($event->with_program) {
 		if ($eventDays = $event->getEventDays()) {
 			foreach ($eventDays as $eventDay) {
@@ -271,41 +271,41 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
 					foreach ($eventSlots as $eventSlot) {
 						$start_time = $eventSlot->start_time;
 						$end_time = $eventSlot->end_time;
-						
+
 						$start_time_hour = date('H', $start_time);
 						$start_time_minutes = date('i', $start_time);
-						
+
 						$end_time_hour = date('H', $end_time);
 						$end_time_minutes = date('i', $end_time);
-						
+
 						$headerString .= ';"Event activity: \'' . addslashes($eventSlot->title) . '\' ' . $date . ' (' . $start_time_hour . ':' . $start_time_minutes . ' - ' . $end_time_hour . ':' . $end_time_minutes . ')"';
 					}
 				}
 			}
 		}
 	}
-	
+
 	$attendees = $event->exportAttendees($rel);
 	if ($attendees) {
 		foreach ($attendees as $attendee) {
 			$answerString = '';
-			
+
 			$dataString .= '"' . $attendee->guid . '";"'.$attendee->name . '";"' . $attendee->email . '";"' . $attendee->username . '"';
-		
+
 			$relation = check_entity_relationship($event->guid, $rel, $attendee->guid);
 			$dataString .= ';"' . date("d-m-Y H:i:s", $relation->time_created) . '"';
-			
+
 			if ($event->registration_needed) {
 				if ($registration_form = $event->getRegistrationFormQuestions()) {
 					foreach ($registration_form as $question) {
 						$answer = $question->getAnswerFromUser($attendee->getGUID());
-						
+
 						$answerString .= '"' . addslashes($answer->value) . '";';
 					}
 				}
 				$dataString .= ';'.substr($answerString, 0, (strlen($answerString) -1));
 			}
-			
+
 			if ($event->with_program) {
 				if ($eventDays = $event->getEventDays()) {
 					foreach ($eventDays as $eventDay) {
@@ -321,13 +321,13 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
 					}
 				}
 			}
-			
+
 			$dataString .= PHP_EOL;
 		}
 	}
-	
+
 	elgg_set_ignore_access($old_ia);
-	
+
 	return $headerString . PHP_EOL . $dataString;
 }
 
@@ -346,19 +346,19 @@ function event_manager_sanitize_filename($string, $force_lowercase = true, $anal
 }
 
 function event_manager_search_get_where_sql($table, $fields, $params, $use_fulltext = true)	{
-	
+
 	// TODO: why not use a search hook?
 	$query = $params['query'];
-	
+
 	// add the table prefix to the fields
 	foreach ($fields as $i => $field) {
 		if ($table) {
 			$fields[$i] = "$table.$field";
 		}
 	}
-	
+
 	$where = '';
-	
+
 	$likes = array();
 	$query = sanitise_string($query);
 	foreach ($fields as $field) {
@@ -366,43 +366,43 @@ function event_manager_search_get_where_sql($table, $fields, $params, $use_fullt
 	}
 	$likes_str = implode(' OR ', $likes);
 	$where = "($likes_str)";
-	
+
 	return $where;
 }
 
 function event_manager_event_region_options() {
 	$result = false;
-	
+
 	$region_settings = trim(elgg_get_plugin_setting('region_list', 'event_manager'));
-	
+
 	if (!empty($region_settings)) {
 		$region_options = array('-');
 		$region_list = explode(',', $region_settings);
 		$region_options = array_merge($region_options, $region_list);
 
 		array_walk($region_options, create_function('&$val', '$val = trim($val);'));
-		
+
 		$result = $region_options;
 	}
-	
+
 	return $result;
 }
 
 function event_manager_event_type_options()	{
 	$result = false;
-	
+
 	$type_settings = trim(elgg_get_plugin_setting('type_list', 'event_manager'));
-	
+
 	if (!empty($type_settings)) {
 		$type_options = array('-');
 		$type_list = explode(',', $type_settings);
 		$type_options = array_merge($type_options, $type_list);
-		
+
 		array_walk($type_options, create_function('&$val', '$val = trim($val);'));
-			
+
 		$result = $type_options;
 	}
-	
+
 	return $result;
 }
 
@@ -412,109 +412,109 @@ function event_manager_time_pad(&$value) {
 
 function event_manager_create_unsubscribe_code(EventRegistration $registration, Event $event = null) {
 	$result = false;
-	
+
 	if (!empty($registration) && elgg_instanceof($registration, "object", EventRegistration::SUBTYPE)) {
 		if (empty($event) || !elgg_instanceof($event, "object", Event::SUBTYPE)) {
 			$event = $registration->getOwnerEntity();
 		}
-		
+
 		$site_secret = get_site_secret();
-		
+
 		$result = md5($registration->getGUID() . $site_secret . $event->time_created);
 	}
-	
+
 	return $result;
 }
 
 function event_manager_get_registration_validation_url($event_guid, $user_guid) {
 	$result = false;
-	
+
 	if (!empty($event_guid) && !empty($user_guid)) {
 		$code = event_manager_generate_registration_validation_code($event_guid, $user_guid);
-		
+
 		if (!empty($code)) {
 			$result = "events/registration/confirm/" . $event_guid . "?user_guid=" . $user_guid . "&code=" . $code;
 			$result = elgg_normalize_url($result);
 		}
 	}
-	
+
 	return $result;
 }
 
 function event_manager_generate_registration_validation_code($event_guid, $user_guid) {
 	$result = false;
-	
+
 	if (!empty($event_guid) && !empty($user_guid)) {
 		$event = get_entity($event_guid);
 		$user = get_entity($user_guid);
-		
+
 		if (!empty($event) && elgg_instanceof($event, "object", Event::SUBTYPE) && !empty($user) && (elgg_instanceof($user, "user") || elgg_instanceof($user, "object", EventRegistration::SUBTYPE))) {
 			$site_secret = elgg_get_config("site_secret");
 			$time_created = $event->time_created;
-			
+
 			$result = md5($event_guid . $site_secret . $user_guid . $time_created);
 		}
 	}
-	
+
 	return $result;
 }
 
 function event_manager_validate_registration_validation_code($event_guid, $user_guid, $code) {
 	$result = false;
-	
+
 	if (!empty($event_guid) && !empty($user_guid) && !empty($code)) {
 		$valid_code = event_manager_generate_registration_validation_code($event_guid, $user_guid);
-		
+
 		if (!empty($valid_code)) {
 			if ($code == $valid_code) {
 				$result = true;
 			}
 		}
 	}
-	
+
 	return $result;
 }
 
 function event_manager_send_registration_validation_email($event, $object) {
 	$subject = elgg_echo("event_manager:registration:confirm:subject", array($event->title));
 	$message = elgg_echo("event_manager:registration:confirm:message", array($object->name, $event->title, event_manager_get_registration_validation_url($event->getGUID(), $object->getGUID())));
-	
+
 	$site = elgg_get_site_entity();
-	
+
 	// send confirmation mail
 	if (elgg_instanceof($object, "user")) {
 		notify_user($object->getGUID(), $site->getGUID(), $subject, $message, null, "email");
 	} else {
-			
+
 		$from = $site->email;
 		if (empty($from)) {
 			$from = "noreply@" . get_site_domain($site->getGUID());
 		}
-			
+
 		if (!empty($site->name)) {
 			$site_name = $site->name;
 			if (strstr($site_name, ',')) {
 				$site_name = '"' . $site_name . '"'; // Protect the name with quotations if it contains a comma
 			}
-	
+
 			$site_name = '=?UTF-8?B?' . base64_encode($site_name) . '?='; // Encode the name. If may content nos ASCII chars.
 			$from = $site_name . " <" . $from . ">";
 		}
-			
+
 		elgg_send_email($from, $object->email, $subject, $message);
 	}
 }
 
 function event_manager_groups_enabled() {
 	static $result;
-	
+
 	if (!isset($result)) {
 		$result = true;
-		
+
 		if (!elgg_get_plugin_setting("who_create_group_events", "event_manager")) {
 			$result = false;
 		}
 	}
-	
+
 	return $result;
 }
