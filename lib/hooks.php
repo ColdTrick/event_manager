@@ -29,7 +29,7 @@ function event_manager_user_hover_menu($hook, $entity_type, $returnvalue, $param
 			$result[] = $item;
 
 			$user_relationship = $event->getRelationshipByUser($user->getGUID());
-			
+
 			if ($user_relationship == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
 				// resend confirmation
 				$href = elgg_get_site_url() . 'action/event_manager/event/resend_confirmation?guid=' . $event->getGUID() . '&user=' . $user->getGUID();
@@ -115,26 +115,26 @@ function event_manager_entity_menu($hook, $entity_type, $returnvalue, $params){
  * @param unknown_type $params
  */
 function event_manager_owner_block_menu($hook, $entity_type, $returnvalue, $params) {
-	
+
 	if (empty($params) || !is_array($params)) {
 		return $returnvalue;
 	}
-	
+
 	$group = elgg_extract("entity", $params);
 	if (empty($group) || !elgg_instanceof($group, "group")) {
 		return $returnvalue;
 	}
-	
+
 	if (!event_manager_groups_enabled() || $group->event_manager_enable == "no") {
 		return $returnvalue;
 	}
-	
+
 	$returnvalue[] = ElggMenuItem::factory(array(
 		"name" => "events",
 		"text" => elgg_echo("event_manager:menu:group_events"),
 		"href" => "events/event/list/" . $group->getGUID()
 	));
-	
+
 	return $returnvalue;
 }
 
@@ -209,18 +209,18 @@ function event_manager_prepare_notification($hook, $type, $notification, $params
 	$recipient = $params['recipient'];
 	$language = $params['language'];
 	$method = $params['method'];
-	
+
 	$subject = elgg_echo('event_manager:notification:subject', array(), $language);
 	$summary = elgg_echo('event_manager:notification:summary', array(), $language);
-	
+
 	$body = elgg_echo('event_manager:notification:body', array($owner->name, $entity->title), $language);
-	
+
 	if ($description = $entity->description) {
 		$body .= PHP_EOL . PHP_EOL . elgg_get_excerpt($description);
 	}
-	
+
 	$body .= PHP_EOL . PHP_EOL . $entity->getURL();
-	
+
 	$notification->subject = $subject;
 	$notification->body = $body;
 	$notification->summary = $summary;
