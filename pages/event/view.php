@@ -16,7 +16,7 @@ if ($event) {
 			"name" => "editquestions",
 			"href" => "events/registrationform/edit/" . $event->getGUID(),
 			"text" => elgg_echo("event_manager:event:editquestions"),
-			"class" => "elgg-button elgg-button-action"
+			"link_class" => "elgg-button elgg-button-action"
 		)));
 	}
 

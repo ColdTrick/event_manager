@@ -17,7 +17,7 @@ if ($event) {
 	$save_to_pdf_options = array(
 		"name" => "save_to_pdf",
 		"text" => elgg_echo('event_manager:registration:view:savetopdf'),
-		"class" => "elgg-button elgg-button-action",
+		"link_class" => "elgg-button elgg-button-action",
 		"href" => "action/event_manager/registration/pdf?k=" . md5($event->time_created . get_site_secret() . $user_guid) . "&guid=" . $guid . "&u_g=" . $user_guid,
 		"is_action" => true
 	);
