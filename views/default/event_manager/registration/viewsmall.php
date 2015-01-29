@@ -7,7 +7,7 @@ $output = "";
 $icon = "";
 
 $output .= '<div class="event_manager_registration_info">';
-$output .= '<a class="user" href="' . $owner->getURL() . '">' . $owner->name . '</a> - ' . friendly_time($registration->time_created) . '<br />';
+$output .= '<a class="user" href="' . $owner->getURL() . '">' . $owner->name . '</a> - ' . elgg_view_friendly_time($registration->time_created) . '<br />';
 $output .= elgg_view("output/url", array("href" => $registration->getURL(), "text" => elgg_echo('event_manager:event:viewregistration')));
 $output .= '</div>';
 
@@ -25,4 +25,4 @@ $icon .= '<div class="event_manager_registration_icon">';
 $icon .= '<img src="' . elgg_get_site_url() . 'mod/event_manager/_graphics/icons/register_icon.png">';
 $icon .= '</div>';
 
-echo elgg_view_listing($icon, $output);
+echo elgg_view_image_block($icon, $output);

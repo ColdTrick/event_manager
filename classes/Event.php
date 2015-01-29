@@ -517,9 +517,9 @@ class Event extends ElggObject {
 			} else {
 				// no site email, so make one up
 				if ($site->name) {
-					$site_from = $site->name . " <noreply@" . get_site_domain($site->getGUID()) . ">";
+					$site_from = $site->name . " <noreply@" . $site->getDomain() . ">";
 				} else {
-					$site_from = "noreply@" . get_site_domain($site->getGUID());
+					$site_from = "noreply@" . $site->getDomain();
 				}
 			}
 

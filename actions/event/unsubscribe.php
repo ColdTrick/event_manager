@@ -40,7 +40,7 @@ if (!empty($guid) && ($entity = get_entity($guid))) {
 				if ($site->email) {
 					$from = $site->name . " <" . $site->email . ">";
 				} else {
-					$from = $site->name . " <noreply@" . get_site_domain($site->getGUID()) . ">";
+					$from = $site->name . " <noreply@" . $site->getDomain() . ">";
 				}
 
 				$to = $registration->name . " <" . $registration->email . ">";

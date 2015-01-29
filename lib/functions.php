@@ -488,7 +488,7 @@ function event_manager_send_registration_validation_email($event, $object) {
 
 		$from = $site->email;
 		if (empty($from)) {
-			$from = "noreply@" . get_site_domain($site->getGUID());
+			$from = "noreply@" . $site->getDomain();
 		}
 
 		if (!empty($site->name)) {
