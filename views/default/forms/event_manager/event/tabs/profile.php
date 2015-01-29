@@ -26,11 +26,12 @@ $tags_input = elgg_view('input/tags', array(
 $icon_label = elgg_echo('event_manager:edit:form:icon');
 $icon_input = elgg_view('input/file', array('name' => 'icon'));
 
-$current_icon_label = elgg_echo('event_manager:edit:form:currenticon');
-$current_icon = '';
-$remove_icon_input = '';
+$current_icon_content = '';
 
 if ($entity && $entity->icontime) {
+
+	$current_icon_label = elgg_echo('event_manager:edit:form:currenticon');
+	
 	$current_icon = elgg_view('output/img', array(
 		'src' => $entity->getIconURL(),
 		'alt' => $entity->title,
@@ -44,7 +45,16 @@ if ($entity && $entity->icontime) {
 			elgg_echo('event_manager:edit:form:delete_current_icon') => '1'
 		)
 	));
+
+	$current_icon_content = <<<CURRENT
+<div>
+	<label>$current_icon_label</label>
+	<div>$current_icon</div>
+	$remove_icon_input
+</div>
+CURRENT;
 }
+
 
 $type_label = '';
 $type_input = '';
@@ -64,6 +74,7 @@ $access_input = elgg_view('input/access', array(
 	'value' => $vars["access_id"]
 ));
 
+
 echo <<<HTML
 	<div>
 		<label>$short_description_label</label>
@@ -81,11 +92,7 @@ echo <<<HTML
 		<label>$icon_label</label>
 		$icon_input
 	</div>
-	<div>
-		<label>$current_icon_label</label>
-		<div>$current_icon</div>
-		$current_icon_input
-	</div>
+	$current_icon_content
 	<div>
 		<label>$type_label</label>
 		$type_input
