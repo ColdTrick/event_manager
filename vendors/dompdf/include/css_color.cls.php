@@ -1,42 +1,11 @@
 <?php
 /**
- * DOMPDF - PHP5 HTML to PDF renderer
- *
- * File: $RCSfile$
- * Created on: 2010-03-03
- *
- * Copyright (c) 2004 - Benj Carson <benjcarson@digitaljunkies.ca>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library in the file LICENSE.LGPL; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
- * 02111-1307 USA
- *
- * Alternatively, you may distribute this software under the terms of the
- * PHP License, version 3.0 or later.  A copy of this license should have
- * been distributed with this file in the file LICENSE.PHP .  If this is not
- * the case, you can obtain a copy at http://www.php.net/license/3_0.txt.
- *
- * The latest version of DOMPDF might be available at:
- * http://www.dompdf.com/
- *
- * @link http://www.dompdf.com/
- * @copyright 2004 Benj Carson
- * @author Fabien M�nager
  * @package dompdf
+ * @link    http://dompdf.github.com/
+ * @author  Benj Carson <benjcarson@digitaljunkies.ca>
+ * @author  Fabien Ménager <fabien.menager@gmail.com>
+ * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
-
-/* $Id: css_color.cls.php 300 2010-08-11 22:01:09Z fabien.menager $ */
 
 class CSS_Color {
   static $cssColorNames = array(
@@ -189,67 +158,96 @@ class CSS_Color {
     "yellowgreen" => "9ACD32",
   );
 
-  static function parse($colour) {
-    if ( is_array($colour) )
+  static function parse($color) {
+    if ( is_array($color) ) {
       // Assume the array has the right format...
       // FIXME: should/could verify this.
-      return $colour;
+      return $color;
+    }
     
-    $colour = strtolower($colour);
+    static $cache = array();
     
-    if (isset(self::$cssColorNames[$colour])) 
-      return self::getArray(self::$cssColorNames[$colour]);
+    $color = strtolower($color);
+    
+    if ( isset($cache[$color]) ) {
+      return $cache[$color];
+    }
       
-    if ($colour === "transparent")
-      return "transparent";
-      
-    $length = mb_strlen($colour);
+    if ( in_array($color, array("transparent", "inherit")) ) {
+      return $cache[$color] = $color;
+    }
+    
+    if ( isset(self::$cssColorNames[$color]) ) {
+      return $cache[$color] = self::getArray(self::$cssColorNames[$color]);
+    }
+    
+    $length = mb_strlen($color);
     
     // #rgb format
-    if ( $length == 4 && $colour[0] === "#" ) {
-      return self::getArray($colour[1].$colour[1].$colour[2].$colour[2].$colour[3].$colour[3]);
+    if ( $length == 4 && $color[0] === "#" ) {
+      return $cache[$color] = self::getArray($color[1].$color[1].$color[2].$color[2].$color[3].$color[3]);
+    }
 
     // #rrggbb format
-    } else if ( $length == 7 && $colour[0] === "#" ) {
-      return self::getArray(mb_substr($colour, 1, 6));
-
-    // rgb( r,g,b ) format
-    } else if ( mb_strpos($colour, "rgb") !== false ) {
-      $i = mb_strpos($colour, "(");
-      $j = mb_strpos($colour, ")");
+    else if ( $length == 7 && $color[0] === "#" ) {
+      return $cache[$color] = self::getArray(mb_substr($color, 1, 6));
+    }
+    
+    // rgb( r,g,b ) / rgbaa( r,g,b,α ) format
+    else if ( mb_strpos($color, "rgb") !== false ) {
+      $i = mb_strpos($color, "(");
+      $j = mb_strpos($color, ")");
       
-      // Bad colour value
-      if ($i === false || $j === false)
+      // Bad color value
+      if ( $i === false || $j === false ) {
         return null;
-
-      $triplet = explode(",", mb_substr($colour, $i+1, $j-$i-1));
-
-      if (count($triplet) != 3)
+      }
+      
+      $triplet = explode(",", mb_substr($color, $i+1, $j-$i-1));
+      
+      // alpha transparency
+      // FIXME: not currently using transparency
+      $alpha = 1;
+      if ( count( $triplet ) == 4 ) {
+        $alpha = (float) ( trim( array_pop( $triplet ) ) );
+        // bad value, set to fully opaque
+        if ( $alpha > 1 || $alpha < 0 ) {
+          $alpha = 1;
+        }
+      }
+      
+      if ( count($triplet) != 3 ) {
         return null;
+      }
       
       foreach (array_keys($triplet) as $c) {
         $triplet[$c] = trim($triplet[$c]);
         
-        if ( $triplet[$c][mb_strlen($triplet[$c]) - 1] === "%" ) 
+        if ( $triplet[$c][mb_strlen($triplet[$c]) - 1] === "%" ) {
           $triplet[$c] = round($triplet[$c] * 2.55);
+        }
       }
       
-      return self::getArray(vsprintf("%02X%02X%02X", $triplet));
+      return $cache[$color] = self::getArray(vsprintf("%02X%02X%02X", $triplet));
+    
+    }
     
     // cmyk( c,m,y,k ) format
     // http://www.w3.org/TR/css3-gcpm/#cmyk-colors
-    } else if ( mb_strpos($colour, "cmyk") !== false ) {
-      $i = mb_strpos($colour, "(");
-      $j = mb_strpos($colour, ")");
+    else if ( mb_strpos($color, "cmyk") !== false ) {
+      $i = mb_strpos($color, "(");
+      $j = mb_strpos($color, ")");
       
-      // Bad colour value
-      if ($i === false || $j === false)
+      // Bad color value
+      if ( $i === false || $j === false ) {
         return null;
+      }
 
-      $values = explode(",", mb_substr($colour, $i+1, $j-$i-1));
+      $values = explode(",", mb_substr($color, $i+1, $j-$i-1));
 
-      if (count($values) != 4)
+      if ( count($values) != 4 ) {
         return null;
+      }
       
       foreach ($values as &$c) {
         $c = floatval(trim($c));
@@ -257,15 +255,17 @@ class CSS_Color {
         if ($c < 0.0) $c = 0.0;
       }
       
-      return self::getArray($values);
+      return $cache[$color] = self::getArray($values);
     }
+
+    return null;
   }
   
-  static function getArray($colour) {
+  static function getArray($color) {
     $c = array(null, null, null, null, "hex" => null);
     
-    if (is_array($colour)) {
-      $c = $colour;
+    if (is_array($color)) {
+      $c = $color;
       $c["c"] = $c[0];
       $c["m"] = $c[1];
       $c["y"] = $c[2];
@@ -273,13 +273,13 @@ class CSS_Color {
       $c["hex"] = "cmyk($c[0],$c[1],$c[2],$c[3])";
     }
     else {
-      $c[0] = hexdec(mb_substr($colour, 0, 2)) / 0xff;
-      $c[1] = hexdec(mb_substr($colour, 2, 2)) / 0xff;
-      $c[2] = hexdec(mb_substr($colour, 4, 2)) / 0xff;
+      $c[0] = hexdec(mb_substr($color, 0, 2)) / 0xff;
+      $c[1] = hexdec(mb_substr($color, 2, 2)) / 0xff;
+      $c[2] = hexdec(mb_substr($color, 4, 2)) / 0xff;
       $c["r"] = $c[0];
       $c["g"] = $c[1];
       $c["b"] = $c[2];
-      $c["hex"] = "#$colour";
+      $c["hex"] = "#$color";
     }
     
     return $c;

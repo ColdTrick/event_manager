@@ -1,43 +1,10 @@
 <?php
 /**
- * DOMPDF - PHP5 HTML to PDF renderer
- *
- * File: $RCSfile: renderer.cls.php,v $
- * Created on: 2004-06-03
- *
- * Copyright (c) 2004 - Benj Carson <benjcarson@digitaljunkies.ca>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library in the file LICENSE.LGPL; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
- * 02111-1307 USA
- *
- * Alternatively, you may distribute this software under the terms of the
- * PHP License, version 3.0 or later.  A copy of this license should have
- * been distributed with this file in the file LICENSE.PHP .  If this is not
- * the case, you can obtain a copy at http://www.php.net/license/3_0.txt.
- *
- * The latest version of DOMPDF might be available at:
- * http://www.dompdf.com/
- *
- * @link http://www.dompdf.com/
- * @copyright 2004 Benj Carson
- * @author Benj Carson <benjcarson@digitaljunkies.ca>
  * @package dompdf
-
+ * @link    http://dompdf.github.com/
+ * @author  Benj Carson <benjcarson@digitaljunkies.ca>
+ * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
-
-/* $Id: renderer.cls.php 351 2011-01-19 20:27:02Z fabien.menager $ */
 
 /**
  * Concrete renderer
@@ -53,7 +20,7 @@ class Renderer extends Abstract_Renderer {
   /**
    * Array of renderers for specific frame types
    *
-   * @var array
+   * @var Abstract_Renderer[]
    */
   protected $_renderers;
     
@@ -68,7 +35,7 @@ class Renderer extends Abstract_Renderer {
    * Class destructor
    */
   function __destruct() {
-  	clear_object($this);
+    clear_object($this);
   }
   
   /**
@@ -83,21 +50,26 @@ class Renderer extends Abstract_Renderer {
    *
    * @param Frame $frame the frame to render
    */
-  function render(Frame $frame) {    
+  function render(Frame $frame) {
     global $_dompdf_debug;
 
     if ( $_dompdf_debug ) {
       echo $frame;
       flush();
     }
-
+    
     $style = $frame->get_style();
+    
+    if ( in_array($style->visibility, array("hidden", "collapse")) ) {
+      return;
+    }
+    
     $display = $style->display;
     
     // Starts the CSS transformation
     if ( $style->transform && is_array($style->transform) ) {
       $this->_canvas->save();
-      list($x, $y, $w, $h) = $frame->get_padding_box();
+      list($x, $y) = $frame->get_padding_box();
       $origin = $style->transform_origin;
       
       foreach($style->transform as $transform) {
@@ -113,22 +85,19 @@ class Renderer extends Abstract_Renderer {
         call_user_func_array(array($this->_canvas, $function), $values);
       }
     }
-  
+    
     switch ($display) {
       
     case "block":
     case "list-item":
     case "inline-block":
     case "table":
-    case "table-row-group":
-    case "table-header-group":
-    case "table-footer-group":
     case "inline-table":
       $this->_render_frame("block", $frame);
       break;
 
     case "inline":
-      if ( $frame->get_node()->nodeName === "#text" )
+      if ( $frame->is_text_node() )
         $this->_render_frame("text", $frame);
       else
         $this->_render_frame("inline", $frame);
@@ -136,6 +105,12 @@ class Renderer extends Abstract_Renderer {
 
     case "table-cell":
       $this->_render_frame("table-cell", $frame);
+      break;
+
+    case "table-row-group":
+    case "table-header-group":
+    case "table-footer-group":
+      $this->_render_frame("table-row-group", $frame);
       break;
 
     case "-dompdf-list-bullet":
@@ -171,32 +146,51 @@ class Renderer extends Abstract_Renderer {
 
     }
 
-    // Check for begin frame callback
-    $this->_check_callbacks("begin_frame", $frame);
-    
     // Starts the overflow: hidden box
     if ( $style->overflow === "hidden" ) {
       list($x, $y, $w, $h) = $frame->get_padding_box();
-      $this->_canvas->clipping_rectangle($x, $y, $w, $h);
+      
+      // get border radii
+      $style = $frame->get_style();
+      list($tl, $tr, $br, $bl) = $style->get_computed_border_radius($w, $h);
+      
+      if ( $tl + $tr + $br + $bl > 0 ) {
+        $this->_canvas->clipping_roundrectangle($x, $y, $w, $h, $tl, $tr, $br, $bl);
+      }
+      else {
+        $this->_canvas->clipping_rectangle($x, $y, $w, $h);
+      }
     }
-  
-    $page = $frame->get_root()->get_reflower();
+
+    $stack = array();
     
     foreach ($frame->get_children() as $child) {
+      // < 0 : nagative z-index
+      // = 0 : no z-index, no stacking context
+      // = 1 : stacking context without z-index
+      // > 1 : z-index
       $child_style = $child->get_style();
+      $child_z_index = $child_style->z_index;
+      $z_index = 0;
       
-      // Stacking context
-      if ( $child_style->z_index !== false && ($child_style->z_index !== "auto" || in_array($child_style->position, Style::$POSITIONNED_TYPES)) ) {
-        $z_index = ($child_style->z_index === "auto") ? 0 : intval($child_style->z_index);
-        $page->add_frame_to_stacking_context($child, $z_index);
-        $child_style->z_index = false;
+      if ( $child_z_index !== "auto" ) {
+        $z_index = intval($child_z_index) + 1;
+      } 
+      elseif ( $child_style->float !== "none" || $child->is_positionned()) {
+        $z_index = 1;
       }
       
-      else {
+      $stack[$z_index][] = $child;
+    }
+    
+    ksort($stack);
+    
+    foreach ($stack as $by_index) {
+      foreach($by_index as $child) {
         $this->render($child);
       }
     }
-      
+     
     // Ends the overflow: hidden box
     if ( $style->overflow === "hidden" ) {
       $this->_canvas->clipping_end();
@@ -208,7 +202,6 @@ class Renderer extends Abstract_Renderer {
 
     // Check for end frame callback
     $this->_check_callbacks("end_frame", $frame);
-    
   }
   
   /**
@@ -270,6 +263,10 @@ class Renderer extends Abstract_Renderer {
       
       case "table-cell":
         $this->_renderers[$type] = new Table_Cell_Renderer($this->_dompdf);
+        break;
+      
+      case "table-row-group":
+        $this->_renderers[$type] = new Table_Row_Group_Renderer($this->_dompdf);
         break;
 
       case "list-bullet":

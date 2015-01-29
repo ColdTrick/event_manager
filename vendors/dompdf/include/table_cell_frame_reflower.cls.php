@@ -1,44 +1,10 @@
 <?php
 /**
- * DOMPDF - PHP5 HTML to PDF renderer
- *
- * File: $RCSfile: table_cell_frame_reflower.cls.php,v $
- * Created on: 2004-06-07
- *
- * Copyright (c) 2004 - Benj Carson <benjcarson@digitaljunkies.ca>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library in the file LICENSE.LGPL; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
- * 02111-1307 USA
- *
- * Alternatively, you may distribute this software under the terms of the
- * PHP License, version 3.0 or later.  A copy of this license should have
- * been distributed with this file in the file LICENSE.PHP .  If this is not
- * the case, you can obtain a copy at http://www.php.net/license/3_0.txt.
- *
- * The latest version of DOMPDF might be available at:
- * http://www.dompdf.com/
- *
- * @link http://www.dompdf.com/
- * @copyright 2004 Benj Carson
- * @author Benj Carson <benjcarson@digitaljunkies.ca>
  * @package dompdf
-
+ * @link    http://dompdf.github.com/
+ * @author  Benj Carson <benjcarson@digitaljunkies.ca>
+ * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
-
-/* $Id: table_cell_frame_reflower.cls.php 358 2011-01-30 22:22:47Z fabien.menager $ */
-
 
 /**
  * Reflows table cells
@@ -50,13 +16,13 @@ class Table_Cell_Frame_Reflower extends Block_Frame_Reflower {
 
   //........................................................................
 
-  function __construct(Frame $frame) {
+  function __construct(Block_Frame_Decorator $frame) {
     parent::__construct($frame);
   }
 
   //........................................................................
 
-  function reflow(Frame_Decorator $block = null) {
+  function reflow(Block_Frame_Decorator $block = null) {
 
     $style = $this->_frame->get_style();
 
@@ -105,9 +71,11 @@ class Table_Cell_Frame_Reflower extends Block_Frame_Reflower {
     $indent = $style->length_in_pt($style->text_indent, $w);
     $this->_frame->increase_line_width($indent);
 
-    // Set the y position of the first line in the cell
     $page = $this->_frame->get_root();
-    $this->_frame->set_current_line($line_y);
+    
+    // Set the y position of the first line in the cell
+    $line_box = $this->_frame->get_current_line_box();
+    $line_box->y = $line_y;
     
     // Set the containing blocks and reflow each child
     foreach ( $this->_frame->get_children() as $child ) {
@@ -116,8 +84,12 @@ class Table_Cell_Frame_Reflower extends Block_Frame_Reflower {
         break;
     
       $child->set_containing_block($content_x, $content_y, $cb_w, $h);
+      
+      $this->process_clear($child);
+      
       $child->reflow($this->_frame);
-
+    
+      $this->process_float($child, $x + $left_space, $w - $right_space - $left_space);
     }
 
     // Determine our height

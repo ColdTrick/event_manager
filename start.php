@@ -27,6 +27,8 @@ require_once(dirname(__FILE__) . "/lib/events.php");
  * @return void
  */
 function event_manager_init() {
+	elgg_register_library("dompdf", dirname(__FILE__) . "/vendors/dompdf/dompdf_config.inc.php");
+	
 	// Register entity_type for search
 	elgg_register_entity_type("object", Event::SUBTYPE);
 
