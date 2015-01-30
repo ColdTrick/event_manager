@@ -99,7 +99,8 @@ if (!empty($guid) && !empty($relation) && ($event = get_entity($guid))) {
 		} else {
 			// validate email
 			$old_ia = elgg_set_ignore_access(true);
-
+			$object = null;
+			
 			if (!is_email_address($answers["email"])) {
 				register_error(elgg_echo("registration:notemail"));
 				forward($forward_url);

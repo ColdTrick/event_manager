@@ -1,7 +1,15 @@
 <?php
+/**
+ * Functions for Event Manager
+ */
 
+/**
+ * Returns all relationship options
+ * 
+ * @return array
+ */
 function event_manager_event_get_relationship_options()	{
-	$result = array(
+	return array(
 		EVENT_MANAGER_RELATION_ATTENDING,
 		EVENT_MANAGER_RELATION_INTERESTED,
 		EVENT_MANAGER_RELATION_PRESENTING,
@@ -10,10 +18,15 @@ function event_manager_event_get_relationship_options()	{
 		EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
 		EVENT_MANAGER_RELATION_ATTENDING_PENDING
 	);
-
-	return $result;
 }
 
+/**
+ * Search for events
+ * 
+ * @param array $options search options
+ * 
+ * @return array
+ */
 function event_manager_search_events($options = array()){
 	$defaults = array(
 		'past_events' => false,
@@ -52,7 +65,7 @@ function event_manager_search_events($options = array()){
 
 	if ($options['query']) {
 		$entities_options["joins"][] = "JOIN " . elgg_get_config("dbprefix") . "objects_entity oe ON e.guid = oe.guid";
-		$entities_options['wheres'][] = event_manager_search_get_where_sql('oe', array('title', 'description'), $options, false);
+		$entities_options['wheres'][] = event_manager_search_get_where_sql('oe', array('title', 'description'), $options);
 	}
 
 	if (!empty($options['start_day'])) {
@@ -129,6 +142,18 @@ function event_manager_search_events($options = array()){
 	return $result;
 }
 
+/**
+ * Returns entities based on view port
+ * 
+ * @param string $lat
+ * @param string $long
+ * @param string $radius
+ * @param string $type
+ * @param string $subtype
+ * @param int $limit
+ * 
+ * @return boolean|array
+ */
 function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype = "", $limit = 20) {
 	if (empty($subtype)) {
 		return false;
@@ -250,6 +275,14 @@ function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype =
 	return $dt;
 }
 
+/**
+ * Export the event attendees. Returns csv body
+ * 
+ * @param ElggObject $event the event
+ * @param string     $rel   relationship type
+ * 
+ * @return string
+ */
 function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_ATTENDING) {
 	$old_ia = elgg_set_ignore_access(true);
 
@@ -331,6 +364,15 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
 	return $headerString . PHP_EOL . $dataString;
 }
 
+/**
+ * Sanitizes file name
+ * 
+ * @param string $string          file name
+ * @param bool   $force_lowercase forces file name to lower case
+ * @param bool   $anal            only return alfanumeric characters
+ * 
+ * @return string
+ */
 function event_manager_sanitize_filename($string, $force_lowercase = true, $anal = false) {
     $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
                    "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
@@ -345,7 +387,16 @@ function event_manager_sanitize_filename($string, $force_lowercase = true, $anal
         $clean;
 }
 
-function event_manager_search_get_where_sql($table, $fields, $params, $use_fulltext = true)	{
+/**
+ * Returns the where part for a event search sql query
+ * 
+ * @param string $table  table prefix
+ * @param array  $fields fields to search
+ * @param array  $params parameters to search
+ * 
+ * @return string
+ */
+function event_manager_search_get_where_sql($table, $fields, $params)	{
 
 	// TODO: why not use a search hook?
 	$query = $params['query'];
@@ -370,6 +421,11 @@ function event_manager_search_get_where_sql($table, $fields, $params, $use_fullt
 	return $where;
 }
 
+/**
+ * Returns event region options
+ * 
+ * @return bool|array
+ */
 function event_manager_event_region_options() {
 	$result = false;
 
@@ -388,6 +444,11 @@ function event_manager_event_region_options() {
 	return $result;
 }
 
+/**
+ * Returns event type options
+ *
+ * @return bool|array
+ */
 function event_manager_event_type_options()	{
 	$result = false;
 
@@ -406,10 +467,25 @@ function event_manager_event_type_options()	{
 	return $result;
 }
 
+/**
+ * Pad time 
+ * 
+ * @param string $value current value to be padded
+ * 
+ * @return void
+ */
 function event_manager_time_pad(&$value) {
     $value = str_pad($value, 2, "0", STR_PAD_LEFT);
 }
 
+/**
+ * Creates an unsubscribe code
+ * 
+ * @param EventRegistration $registration registration object
+ * @param Event             $event        event
+ * 
+ * @return false|string
+ */
 function event_manager_create_unsubscribe_code(EventRegistration $registration, Event $event = null) {
 	$result = false;
 
@@ -426,6 +502,14 @@ function event_manager_create_unsubscribe_code(EventRegistration $registration, 
 	return $result;
 }
 
+/**
+ * Returns registration validation url
+ * 
+ * @param string $event_guid guid of event
+ * @param string $user_guid  guid of user
+ * 
+ * @return false|string
+ */
 function event_manager_get_registration_validation_url($event_guid, $user_guid) {
 	$result = false;
 
@@ -441,6 +525,14 @@ function event_manager_get_registration_validation_url($event_guid, $user_guid) 
 	return $result;
 }
 
+/**
+ * Returns registration validation code
+ * 
+ * @param string $event_guid guid of event
+ * @param string $user_guid  guid of user
+ * 
+ * @return false|string
+ */
 function event_manager_generate_registration_validation_code($event_guid, $user_guid) {
 	$result = false;
 
@@ -459,6 +551,15 @@ function event_manager_generate_registration_validation_code($event_guid, $user_
 	return $result;
 }
 
+/**
+ * Validates registration validation code
+ *
+ * @param string $event_guid guid of event
+ * @param string $user_guid  guid of user
+ * @param string $code       code to validate
+ *
+ * @return bool
+ */
 function event_manager_validate_registration_validation_code($event_guid, $user_guid, $code) {
 	$result = false;
 
@@ -475,15 +576,23 @@ function event_manager_validate_registration_validation_code($event_guid, $user_
 	return $result;
 }
 
-function event_manager_send_registration_validation_email($event, $object) {
+/**
+ * Send registration validation email
+ * 
+ * @param Event      $event  event
+ * @param ElggEntity $entity object or user to send mail to
+ * 
+ * @return void
+ */
+function event_manager_send_registration_validation_email(Event $event, ElggEntity $entity) {
 	$subject = elgg_echo("event_manager:registration:confirm:subject", array($event->title));
-	$message = elgg_echo("event_manager:registration:confirm:message", array($object->name, $event->title, event_manager_get_registration_validation_url($event->getGUID(), $object->getGUID())));
+	$message = elgg_echo("event_manager:registration:confirm:message", array($entity->name, $event->title, event_manager_get_registration_validation_url($event->getGUID(), $entity->getGUID())));
 
 	$site = elgg_get_site_entity();
 
 	// send confirmation mail
-	if (elgg_instanceof($object, "user")) {
-		notify_user($object->getGUID(), $site->getGUID(), $subject, $message, null, "email");
+	if (elgg_instanceof($entity, "user")) {
+		notify_user($entity->getGUID(), $site->getGUID(), $subject, $message, null, "email");
 	} else {
 
 		$from = $site->email;
@@ -501,10 +610,15 @@ function event_manager_send_registration_validation_email($event, $object) {
 			$from = $site_name . " <" . $from . ">";
 		}
 
-		elgg_send_email($from, $object->email, $subject, $message);
+		elgg_send_email($from, $entity->email, $subject, $message);
 	}
 }
 
+/**
+ * Checks if it is allowed to create events in groups
+ * 
+ * @return bool
+ */
 function event_manager_groups_enabled() {
 	static $result;
 
