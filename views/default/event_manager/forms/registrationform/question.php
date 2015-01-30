@@ -7,14 +7,18 @@ if ($event_guid && ($entity = get_entity($event_guid))) {
 	// assume new question mode
 	if (!($entity instanceof Event)) {
 		unset($entity);
-	}
-	
+	}	
 } elseif ($question_guid && ($entity = get_entity($question_guid))) {
 	// assume question edit mode
 	if (!($entity instanceof EventRegistrationQuestion)) {
 		unset($entity);
 	}
 }
+
+$fieldtype = null;
+$fieldoptions = null;
+$required = null;
+$guid = null;
 
 if ($entity instanceof EventRegistrationQuestion) {
 	// assume day edit mode
@@ -36,25 +40,38 @@ if ($entity && $entity->canEdit()) {
 	$form_body = elgg_view('input/hidden', array('name' => 'event_guid', 'value' => $event_guid));
 	$form_body .= elgg_view('input/hidden', array('name' => 'question_guid', 'value' => $question_guid));
 	$form_body .= "<table class='elgg-table'><tr><td>";
-	$form_body .= '<label>'.elgg_echo('event_manager:editregistration:question').'</label>';
+	$form_body .= '<label>' . elgg_echo('event_manager:editregistration:question') . '</label>';
 	$form_body .= "</td><td>";
 	$form_body .= elgg_view('input/text', array('name' => 'questiontext', 'value' => $title));
 	$form_body .= "</td></tr><tr><td>";
-	$form_body .= '<label>'.elgg_echo('event_manager:editregistration:fieldtype').'</label>';
+	$form_body .= '<label>' . elgg_echo('event_manager:editregistration:fieldtype') . '</label>';
 	$form_body .= "</td><td>";
-	$form_body .= elgg_view('input/dropdown', array('id' => 'event_manager_registrationform_question_fieldtype', 'value' => $fieldtype, 'name' => 'fieldtype', 'options' => array('Textfield', 'Textarea', 'Dropdown', 'Radiobutton')));
+	$form_body .= elgg_view('input/dropdown', array(
+		'id' => 'event_manager_registrationform_question_fieldtype', 
+		'value' => $fieldtype, 
+		'name' => 'fieldtype', 
+		'options' => array('Textfield', 'Textarea', 'Dropdown', 'Radiobutton')
+	));
 	$form_body .= "</td></tr>";
 	
+	$displayNone = "";
 	if (!in_array($fieldtype, array('Radiobutton', 'Dropdown'))) {
 		$displayNone = ' style="display:none;"';
 	}
 	
-	$form_body .= '<tr id="event_manager_registrationform_select_options" '.$displayNone.'><td>';
-	$form_body .= '<label>' . elgg_echo('event_manager:editregistration:fieldoptions') . '</label> ('.elgg_echo('event_manager:editregistration:commasepetared').')';
+	$form_body .= '<tr id="event_manager_registrationform_select_options" ' . $displayNone . '><td>';
+	$form_body .= '<label>' . elgg_echo('event_manager:editregistration:fieldoptions') . '</label> (' . elgg_echo('event_manager:editregistration:commasepetared') . ')';
 	$form_body .= "</td><td>";
-	$form_body .= elgg_view('input/text', array('name' => 'fieldoptions', 'value' => $fieldoptions));
+	$form_body .= elgg_view('input/text', array(
+		'name' => 'fieldoptions', 
+		'value' => $fieldoptions
+	));
 	$form_body .= "</td></tr><tr><td>&nbsp;</td><td>";
-	$form_body .= elgg_view('input/checkboxes', array('name' => 'required', 'value' => $required, 'options' => array(elgg_echo('event_manager:registrationform:editquestion:required') => '1')));
+	$form_body .= elgg_view('input/checkboxes', array(
+		'name' => 'required', 
+		'value' => $required, 
+		'options' => array(elgg_echo('event_manager:registrationform:editquestion:required') => '1')
+	));
 	$form_body .= "</td></tr></table>";
 	
 	$form_body .= elgg_view('input/submit', array('value' => elgg_echo('submit')));

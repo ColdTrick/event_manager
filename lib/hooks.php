@@ -3,7 +3,17 @@
  * Hook are bundled here
  */
 
-function event_manager_user_hover_menu($hook, $entity_type, $returnvalue, $params){
+/**
+ * Adds menu items to the user hover menu
+ * 
+ * @param string $hook        hook name
+ * @param string $entity_type hook type
+ * @param array  $returnvalue current return value
+ * @param array  $params      parameters
+ * 
+ * @return array
+ */
+function event_manager_user_hover_menu($hook, $entity_type, $returnvalue, $params) {
 	$result = $returnvalue;
 	$event = false;
 
@@ -57,7 +67,17 @@ function event_manager_user_hover_menu($hook, $entity_type, $returnvalue, $param
 	return $result;
 }
 
-function event_manager_entity_menu($hook, $entity_type, $returnvalue, $params){
+/**
+ * Adds menu items to the entity menu
+ * 
+ * @param string $hook        hook name
+ * @param string $entity_type hook type
+ * @param array  $returnvalue current return value
+ * @param array  $params      parameters
+ * 
+ * @return array
+ */
+function event_manager_entity_menu($hook, $entity_type, $returnvalue, $params) {
 	$result = $returnvalue;
 
 	if (elgg_in_context("widgets")) {
@@ -109,10 +129,12 @@ function event_manager_entity_menu($hook, $entity_type, $returnvalue, $params){
 /**
  * add menu item to owner block
  *
- * @param unknown_type $hook
- * @param unknown_type $entity_type
- * @param unknown_type $returnvalue
- * @param unknown_type $params
+ * @param string $hook        hook name
+ * @param string $entity_type hook type
+ * @param array  $returnvalue current return value
+ * @param array  $params      parameters
+ * 
+ * @return array
  */
 function event_manager_owner_block_menu($hook, $entity_type, $returnvalue, $params) {
 
@@ -141,18 +163,19 @@ function event_manager_owner_block_menu($hook, $entity_type, $returnvalue, $para
 /**
  * Generates correct title link for widgets depending on the context
  *
- * @param unknown_type $hook
- * @param unknown_type $entity_type
- * @param unknown_type $returnvalue
- * @param unknown_type $params
- * @return optional new link
+ * @param string $hook        hook name
+ * @param string $entity_type hook type
+ * @param array  $returnvalue current return value
+ * @param array  $params      parameters
+ * 
+ * @return string
  */
-function event_manager_widget_events_url($hook, $entity_type, $returnvalue, $params){
+function event_manager_widget_events_url($hook, $entity_type, $returnvalue, $params) {
 	$result = $returnvalue;
 	$widget = $params["entity"];
 
-	if(empty($result) && ($widget instanceof ElggWidget) && $widget->handler == "events"){
-		switch($widget->context){
+	if (empty($result) && ($widget instanceof ElggWidget) && $widget->handler == "events") {
+		switch ($widget->context) {
 			case "index":
 				$result = "/events";
 				break;
@@ -170,10 +193,11 @@ function event_manager_widget_events_url($hook, $entity_type, $returnvalue, $par
 /**
  * Allow non user to remove their registration correctly
  *
- * @param string $hook
- * @param string $entity_type
- * @param bool $returnvalue
- * @param array $params
+ * @param string $hook        hook name
+ * @param string $entity_type hook type
+ * @param array  $returnvalue current return value
+ * @param array  $params      parameters
+ * 
  * @return bool
  */
 function event_manager_permissions_check_handler($hook, $entity_type, $returnvalue, $params) {
@@ -201,15 +225,14 @@ function event_manager_permissions_check_handler($hook, $entity_type, $returnval
  * @param string                          $type         Hook type
  * @param Elgg_Notifications_Notification $notification The notification to prepare
  * @param array                           $params       Hook parameters
+ * 
  * @return Elgg_Notifications_Notification
  */
 function event_manager_prepare_notification($hook, $type, $notification, $params) {
 	$entity = $params['event']->getObject();
 	$owner = $params['event']->getActor();
-	$recipient = $params['recipient'];
 	$language = $params['language'];
-	$method = $params['method'];
-
+	
 	$subject = elgg_echo('event_manager:notification:subject', array(), $language);
 	$summary = elgg_echo('event_manager:notification:summary', array(), $language);
 

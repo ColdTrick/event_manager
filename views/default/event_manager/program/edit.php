@@ -5,6 +5,10 @@ $register_type = $vars["register_type"];
 
 if (!empty($event) && ($event instanceof Event)) {
 	if ($event->with_program) {
+		
+		$tabtitles = "";
+		$tabcontent = "";
+		
 		if ($eventDays = $event->getEventDays()) {
 			foreach ($eventDays as $key => $day) {
 				if ($key == 0) {

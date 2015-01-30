@@ -13,14 +13,22 @@ if ($day_guid && ($entity = get_entity($day_guid))) {
 	$end_time = null;
 } elseif ($slot_guid && ($entity = get_entity($slot_guid))) {
 	// assume slot edit mode
-	if (!($entity instanceof EventSlot))	{
+	if (!($entity instanceof EventSlot)) {
 		unset($entity);
 	}
 }
 
 
 if ($entity && $entity->canEdit()) {
-
+	$guid = null;
+	$parent_guid = null;
+	$title = null;
+	$description = null;
+	$start_time = null;
+	$end_time = null;
+	$location = null;
+	$max_attendees = null;
+	
 	if ($entity instanceof EventSlot) {
 		// assume slot edit mode
 		$guid = $entity->getGUID();

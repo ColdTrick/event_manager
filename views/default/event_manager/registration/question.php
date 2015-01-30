@@ -33,6 +33,8 @@ if (!empty($question) && ($question instanceof EventRegistrationQuestion)) {
 		"Radiobutton" => "radio"
 	);
 	
+	$result = "";
+	
 	if (array_key_exists($question->fieldtype, $fieldtypes)) {			
 		$field_options = $question->getOptions();
 		
@@ -47,7 +49,12 @@ if (!empty($question) && ($question instanceof EventRegistrationQuestion)) {
 		if ($question->fieldtype == "Checkbox") {
 			$field_options = array($question->title . $required => "1");
 			
-			$result = $actions . elgg_view("input/" . $fieldtypes[$question->fieldtype], array("name" => "question_".$question->getGUID(), "value" => $value, "options" => $field_options, "class" => $required_class));
+			$result = $actions . elgg_view("input/" . $fieldtypes[$question->fieldtype], array(
+				"name" => "question_" . $question->getGUID(), 
+				"value" => $value, 
+				"options" => $field_options, 
+				"class" => $required_class
+			));
 		} else {
 			$result = "";
 			if (!$register) {
@@ -62,5 +69,5 @@ if (!empty($question) && ($question instanceof EventRegistrationQuestion)) {
 		$class = " class='elgg-module-popup'";
 	}
 	
-	echo "<li" . $class . " id='question_" . $question->getGUID()."'>" . $result . "</li>";
+	echo "<li" . $class . " id='question_" . $question->getGUID() . "'>" . $result . "</li>";
 }

@@ -17,7 +17,10 @@ if ($event_guid && ($entity = get_entity($event_guid))) {
 }
 
 if ($entity && $entity->canEdit()) {
-
+	$guid = null;
+	$description = null;
+	$title = null;
+	
 	if ($entity instanceof EventDay) {
 		// assume day edit mode
 		$guid = $entity->getGUID();
@@ -30,7 +33,7 @@ if ($entity && $entity->canEdit()) {
 		}
 	} else {
 		// entity is a event
-		$parent_guid	= $entity->getGUID();
+		$parent_guid = $entity->getGUID();
 
 		// make nice default date
 		$days = $entity->getEventDays();
@@ -50,7 +53,7 @@ if ($entity && $entity->canEdit()) {
 	$form_body .= elgg_view('input/hidden', array('name' => 'parent_guid', 'value' => $parent_guid));
 
 	$form_body .= "<label>" . elgg_echo("event_manager:edit:form:start_day") . " *</label><br />";
-	$form_body .= elgg_view('input/date', array('name' => 'date',  'id' => 'date',  'value' => $date)).'<br />';
+	$form_body .= elgg_view('input/date', array('name' => 'date',  'id' => 'date',  'value' => $date)) . '<br />';
 
 	$form_body .= "<label>" . elgg_echo("title") . "</label><br />";
 	$form_body .= elgg_view('input/text', array('name' => 'description', 'value' => $description));

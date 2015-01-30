@@ -8,7 +8,7 @@
  * 
  * @return array
  */
-function event_manager_event_get_relationship_options()	{
+function event_manager_event_get_relationship_options() {
 	return array(
 		EVENT_MANAGER_RELATION_ATTENDING,
 		EVENT_MANAGER_RELATION_INTERESTED,
@@ -27,7 +27,7 @@ function event_manager_event_get_relationship_options()	{
  * 
  * @return array
  */
-function event_manager_search_events($options = array()){
+function event_manager_search_events($options = array()) {
 	$defaults = array(
 		'past_events' => false,
 		'count' => false,
@@ -104,13 +104,13 @@ function event_manager_search_events($options = array()){
 		$friends_guids = array();
 		$user = get_entity($options["user_guid"]);
 
-		if ($friends =$user->getFriends("", false)) {
+		if ($friends = $user->getFriends("", false)) {
 			foreach ($friends as $friend) {
 				$friends_guids[] = $friend->getGUID();
 			}
 			$entities_options['joins'][] = "JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_ra ON e.guid = e_ra.guid_one";
 			$entities_options['wheres'][] = "(e_ra.guid_two IN (" . implode(", ", $friends_guids) . "))";
-		} else	{
+		} else {
 			// return no result
 			$entities_options['joins'] = array();
 			$entities_options['wheres'] = array("(1=0)");
@@ -145,12 +145,12 @@ function event_manager_search_events($options = array()){
 /**
  * Returns entities based on view port
  * 
- * @param string $lat
- * @param string $long
- * @param string $radius
- * @param string $type
- * @param string $subtype
- * @param int $limit
+ * @param string $lat     latitude
+ * @param string $long    longitude
+ * @param string $radius  radius to search in
+ * @param string $type    type of the entity
+ * @param string $subtype subtype of the entity
+ * @param int    $limit   max amount
  * 
  * @return boolean|array
  */
@@ -200,42 +200,13 @@ function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype =
 			$where[] = "e.type='$type'";
 		}
 
-		if ($subtype!=="") {
+		if ($subtype !== "") {
 			$where[] = "e.subtype=$subtype";
-		}
-	}
-
-	if ($owner_guid != "") {
-		if (!is_array($owner_guid)) {
-			$owner_array = array($owner_guid);
-			$owner_guid = (int) $owner_guid;
-			$where[] = "e.owner_guid = '$owner_guid'";
-		} else if (sizeof($owner_guid) > 0) {
-			$owner_array = array_map('sanitise_int', $owner_guid);
-
-			// Cast every element to the owner_guid array to int
-			$owner_guid = implode(",",$owner_guid); //
-			$where[] = "e.owner_guid in ({$owner_guid})" ; //
-		}
-		if (is_null($container_guid)) {
-			$container_guid = $owner_array;
 		}
 	}
 
 	if ($site_guid > 0) {
 		$where[] = "e.site_guid = {$site_guid}";
-	}
-
-	if (!is_null($container_guid)) {
-		if (is_array($container_guid)) {
-			foreach ($container_guid as $key => $val) {
-				$container_guid[$key] = (int) $val;
-			}
-			$where[] = "e.container_guid in (" . implode(",",$container_guid) . ")";
-		} else {
-			$container_guid = (int) $container_guid;
-			$where[] = "e.container_guid = {$container_guid}";
-		}
 	}
 
 	// Add the calendar stuff
@@ -286,6 +257,9 @@ function get_entities_from_viewport($lat, $long, $radius, $type = "", $subtype =
 function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_ATTENDING) {
 	$old_ia = elgg_set_ignore_access(true);
 
+	$headerString = "";
+	$dataString = "";
+
 	$headerString .= '"' . elgg_echo('guid') . '";"' . elgg_echo('name') . '";"' . elgg_echo('email') . '";"' . elgg_echo('username') . '";"' . elgg_echo('registration date') . '"';
 
 	if ($event->registration_needed) {
@@ -323,7 +297,7 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
 		foreach ($attendees as $attendee) {
 			$answerString = '';
 
-			$dataString .= '"' . $attendee->guid . '";"'.$attendee->name . '";"' . $attendee->email . '";"' . $attendee->username . '"';
+			$dataString .= '"' . $attendee->guid . '";"' . $attendee->name . '";"' . $attendee->email . '";"' . $attendee->username . '"';
 
 			$relation = check_entity_relationship($event->guid, $rel, $attendee->guid);
 			$dataString .= ';"' . date("d-m-Y H:i:s", $relation->time_created) . '"';
@@ -336,7 +310,7 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
 						$answerString .= '"' . addslashes($answer->value) . '";';
 					}
 				}
-				$dataString .= ';'.substr($answerString, 0, (strlen($answerString) -1));
+				$dataString .= ';' . substr($answerString, 0, (strlen($answerString) - 1));
 			}
 
 			if ($event->with_program) {
@@ -374,17 +348,20 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
  * @return string
  */
 function event_manager_sanitize_filename($string, $force_lowercase = true, $anal = false) {
-    $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
-                   "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
-                   "—", "–", ",", "<", ">", "/", "?");
-    $clean = trim(str_replace($strip, "", strip_tags($string)));
-    $clean = preg_replace('/\s+/', "-", $clean);
-    $clean = ($anal) ? preg_replace("/[^a-zA-Z0-9]/", "", $clean) : $clean ;
-    return ($force_lowercase) ?
-        (function_exists('mb_strtolower')) ?
-            mb_strtolower($clean, 'UTF-8') :
-            strtolower($clean) :
-        $clean;
+	$strip = array(
+		"~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
+		"}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
+		"—", "–", ",", "<", ">", "/", "?"
+	);
+	$clean = trim(str_replace($strip, "", strip_tags($string)));
+	$clean = preg_replace('/\s+/', "-", $clean);
+	$clean = ($anal) ? preg_replace("/[^a-zA-Z0-9]/", "", $clean) : $clean ;
+	
+	return ($force_lowercase) ?
+		(function_exists('mb_strtolower')) ?
+			mb_strtolower($clean, 'UTF-8') :
+			strtolower($clean) :
+		$clean;
 }
 
 /**
@@ -396,7 +373,7 @@ function event_manager_sanitize_filename($string, $force_lowercase = true, $anal
  * 
  * @return string
  */
-function event_manager_search_get_where_sql($table, $fields, $params)	{
+function event_manager_search_get_where_sql($table, $fields, $params) {
 
 	// TODO: why not use a search hook?
 	$query = $params['query'];
@@ -408,17 +385,14 @@ function event_manager_search_get_where_sql($table, $fields, $params)	{
 		}
 	}
 
-	$where = '';
-
 	$likes = array();
 	$query = sanitise_string($query);
 	foreach ($fields as $field) {
 		$likes[] = "$field LIKE '%$query%'";
 	}
 	$likes_str = implode(' OR ', $likes);
-	$where = "($likes_str)";
-
-	return $where;
+	
+	return "($likes_str)";
 }
 
 /**
@@ -449,7 +423,7 @@ function event_manager_event_region_options() {
  *
  * @return bool|array
  */
-function event_manager_event_type_options()	{
+function event_manager_event_type_options() {
 	$result = false;
 
 	$type_settings = trim(elgg_get_plugin_setting('type_list', 'event_manager'));
@@ -470,12 +444,12 @@ function event_manager_event_type_options()	{
 /**
  * Pad time 
  * 
- * @param string $value current value to be padded
+ * @param string &$value current value to be padded
  * 
  * @return void
  */
 function event_manager_time_pad(&$value) {
-    $value = str_pad($value, 2, "0", STR_PAD_LEFT);
+	$value = str_pad($value, 2, "0", STR_PAD_LEFT);
 }
 
 /**
