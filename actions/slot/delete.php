@@ -1,18 +1,16 @@
 <?php
 
-$returnData = array();
-
-$returnData['valid'] = 0;
-
 $guid = (int) get_input("guid");
+$success = false;
 
 if (!empty($guid) && $eventSlot = get_entity($guid)) {
 	if ($eventSlot->getSubtype() == EventSlot::SUBTYPE) {
 		if ($eventSlot->delete()) {
-			$returnData['valid'] = 1;
+			$success = true;
 		}
 	}
 }
 
-echo json_encode($returnData);
-exit;
+if (!$success) {
+	register_error(elgg_echo("event_manager:action:slot:delete:error"));
+}

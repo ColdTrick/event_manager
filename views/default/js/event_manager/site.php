@@ -329,16 +329,22 @@ elgg.event_manager.init = function() {
 	elgg.event_manager.slot_set_init();
 
 	$('.event_manager_program_slot_delete').live('click', function() {
-		if(confirm(elgg.echo('deleteconfirm'))) {
+		if (confirm(elgg.echo('deleteconfirm'))) {
 			slotGuid = $(this).parent().attr("rel");
-			if(slotGuid) {
+			if (slotGuid) {
 				$slotElement = $("#" + slotGuid);
 				$slotElement.hide();
-				$.getJSON(elgg.get_site_url() + 'events/proc/slot/delete', {guid: slotGuid}, function(response) {
-					if(response.valid) {
-						$slotElement.remove();
-					} else {
-						$slotElement.show();
+
+				elgg.action('event_manager/slot/delete', {
+					data: {
+						guid: slotGuid
+					},
+					success: function(json) {
+						if (json.status >= 0) {
+							$slotElement.remove();
+						} else {
+							$slotElement.show();
+						}
 					}
 				});
 			}
