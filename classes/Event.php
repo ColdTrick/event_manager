@@ -404,7 +404,7 @@ class Event extends ElggObject {
 
 		$ia = elgg_set_ignore_access(true);
 
-		if ($to == null) {
+		if ($to === null) {
 			$to = elgg_get_logged_in_user_guid();
 		}
 
@@ -451,23 +451,16 @@ class Event extends ElggObject {
 
 		// make the event title for in the e-mail
 		if ($html_email_handler_enabled) {
-			$event_title_link = elgg_view("output/url", array("text" => $this->title, "href" => $this->getURL()));
+			$event_title_link = elgg_view("output/url", array(
+				"text" => $this->title, 
+				"href" => $this->getURL()
+			));
 		} else {
 			$event_title_link = $this->title;
 		}
 
 		// notify the owner of the event
-		$owner_subject = elgg_echo('event_manager:event:registration:notification:owner:subject');
-
-		$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, array(
-			$this->getOwnerEntity()->name,
-			$to_entity->name,
-			$event_title_link
-		));
-
-		$owner_message .= $registrationLink;
-
-		notify_user($this->getOwnerGUID(), $this->getGUID(), $owner_subject, $owner_message);
+		$this->notifyOwnerOnRSVP($type, $to_entity, $event_title_link, $registrationLink);
 
 		// notify the attending user
 		$user_subject = elgg_echo('event_manager:event:registration:notification:user:subject');
@@ -507,6 +500,28 @@ class Event extends ElggObject {
 		}
 
 		elgg_set_ignore_access($ia);
+	}
+
+	/**
+	 * Notifies an owner of the event
+	 *
+	 * @param string     $type              type of the RSVP
+	 * @param ElggEntity $to                registering entity
+	 * @param string     $event_title_link  title of the event
+	 * @param string     $registration_link registration link of the event
+	 *
+	 * @return void
+	 */
+	public function notifyOwnerOnRSVP($type, ElggEntity $to, $event_title_link, $registration_link = "") {
+		$owner_subject = elgg_echo('event_manager:event:registration:notification:owner:subject');
+
+		$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, array(
+			$this->getOwnerEntity()->name,
+			$to->name,
+			$event_title_link
+		)) . $registration_link;
+
+		notify_user($this->getOwnerGUID(), $this->getGUID(), $owner_subject, $owner_message);
 	}
 
 	/**
