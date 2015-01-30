@@ -1,5 +1,3 @@
-<?php ?>
-//<script>
 var event_manager_gmap;
 var event_manager_geocoder;
 var event_manager_gmarkers = [];

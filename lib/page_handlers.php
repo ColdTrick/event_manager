@@ -12,7 +12,7 @@
  */
 function event_manager_page_handler($page) {
 	elgg_load_js("event_manager.maps.base");
-	elgg_load_js("event_manager.maps.helper");
+	elgg_require_js("event_manager/googlemaps");
 
 	elgg_push_breadcrumb(elgg_echo("event_manager:menu:events"), "/events");
 
