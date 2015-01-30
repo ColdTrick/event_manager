@@ -73,7 +73,7 @@ function event_manager_search_events($options = array()) {
 	}
 
 	if (!empty($options['end_day'])) {
-		$entities_options['metadata_name_value_pairs'][] = array('name' => 'start_day', 'value' => $options['end_day'], 'operand' => '<=');
+		$entities_options['metadata_name_value_pairs'][] = array('name' => 'end_ts', 'value' => $options['end_day'], 'operand' => '<=');
 	}
 
 	if (!$options['past_events']) {
