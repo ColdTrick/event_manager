@@ -10,26 +10,29 @@ if (!empty($day) && ($day instanceof EventDay)) {
 	
 	if ($daySlots = $day->getEventSlots()) {
 		foreach ($daySlots as $slot) {
-			$slots .= elgg_view("event_manager/program/pdf/slot", array("entity" => $slot, 'participate' => $participate, 'register_type' => $register_type, 'user_guid' => $vars['user_guid']));
+			$slots .= elgg_view("event_manager/program/pdf/slot", array(
+				'entity' => $slot, 
+				'participate' => $participate, 
+				'register_type' => $register_type, 
+				'user_guid' => $vars['user_guid']
+			));
 		}
 	}
 	
 	if (!empty($slots)) {
 		
-		$date = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date);
+		$title = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date);
 		
 		if ($description = $day->description) {
-			$title = $description . " (" . $date . ")";
-		} else {
-			$title = $date;
+			$title = $description . " (" . $title . ")";
 		}
 		
-		$result = "<div>" . $title ."</div>";
+		$result = "<div>{$title}</div>";
 		if ($day->title) {
-			$result .= "<div>" . $day->title ."</div>";
+			$result .= "<div>{$day->title}</div>";
 		}
 		
-		$result .= "<br /><br />" . $slots . "<br /><br />";
+		$result .= "<br /><br />{$slots}<br /><br />";
 		
 		echo $result;
 	}

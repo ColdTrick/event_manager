@@ -13,7 +13,7 @@ if (!empty($slot) && ($slot instanceof EventSlot)) {
 	
 	$checkbox_options = array(
 		"rel" => $slot_set,
-		'name' => 'slotguid_'  .$slot->getGUID(), 
+		'name' => 'slotguid_'  . $slot->getGUID(), 
 		'id' => 'slotguid_' . $slot->getGUID(),
 		'value' => '1',
 		'class' => 'event_manager_program_participatetoslot'
@@ -78,8 +78,8 @@ if (!empty($slot) && ($slot instanceof EventSlot)) {
 			$subtitle_data[] = strtolower(elgg_echo('event_manager:edit:form:spots_left:full'));
 			
 			$event = $slot->getOwnerEntity();
-			if ($event->waiting_list_enabled && $slot->getWaitingUsers(true)>0) {
-				$subtitle_data[] = $slot->getWaitingUsers(true).elgg_echo('event_manager:edit:form:spots_left:waiting_list');
+			if ($event->waiting_list_enabled && ($slot->getWaitingUsers(true) > 0)) {
+				$subtitle_data[] = $slot->getWaitingUsers(true) . elgg_echo('event_manager:edit:form:spots_left:waiting_list');
 			} 
 		}
 	}
