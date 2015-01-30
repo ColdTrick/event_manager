@@ -314,6 +314,7 @@ Someone signed off from the '%s' event. You are moved from the waiting list to a
 	'event_manager:action:slot:cannot_save' => 'Something went wrong when attempting to save the slot',
 	'event_manager:action:slot:saved' => 'Slot saved',
 	'event_manager:action:slot:delete:error' => 'Can not delete the slot',
+	'event_manager:action:day:delete:error' => 'Can not delete the day',
 
 	// settings
 	'event_manager:settings:google_maps' => 'Google Maps settings',

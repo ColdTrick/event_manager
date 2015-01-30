@@ -1,19 +1,16 @@
 <?php
 
-$returnData = array();
-
-$returnData['valid'] = 0;
-
 $guid = (int) get_input("guid");
+$success = false;
 
 if (!empty($guid) && ($eventDay = get_entity($guid))) {
 	if ($eventDay->getSubtype() == EventDay::SUBTYPE) {
 		if ($eventDay->delete()) {
-			$returnData['valid'] = 1;
+			$success = true;
 		}
 	}
 }
 
-echo json_encode($returnData);
-
-exit;
+if (!$success) {
+	register_error(elgg_echo("event_manager:action:day:delete:error"));
+}

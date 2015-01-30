@@ -359,16 +359,20 @@ elgg.event_manager.init = function() {
 			if(dayGuid) {
 				$dayElements = $("#day_" + dayGuid + ", #event_manager_event_view_program li.elgg-state-selected");
 				$dayElements.hide();
-				$.getJSON(elgg.get_site_url() + 'events/proc/day/delete', {guid: dayGuid}, function(response) {
-					if(response.valid) {
-						// remove from DOM
-						$dayElements.remove();
-						if($("#event_manager_event_view_program li").length > 1){
-							$("#event_manager_event_view_program li:first a").click();
+
+				elgg.action('event_manager/day/delete', {
+					data: {
+						guid: dayGuid
+					},
+					success: function(json) {
+						if (json.status >= 0) {
+							$dayElements.remove();
+							if($("#event_manager_event_view_program li").length > 1){
+								$("#event_manager_event_view_program li:first a").click();
+							}
+						} else {
+							$dayElements.show();
 						}
-					} else {
-						// revert
-						$dayElements.show();
 					}
 				});
 			}

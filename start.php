@@ -106,6 +106,8 @@ function event_manager_init() {
 
 	elgg_register_action("event_manager/slot/save", dirname(__FILE__) . "/actions/slot/save.php");
 	elgg_register_action("event_manager/slot/delete", dirname(__FILE__) . "/actions/slot/delete.php");
+
+	elgg_register_action("event_manager/day/delete", dirname(__FILE__) . "/actions/day/delete.php");
 }
 
 /**
