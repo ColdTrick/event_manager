@@ -16,11 +16,13 @@ function event_manager_page_handler($page) {
 
 	elgg_push_breadcrumb(elgg_echo("event_manager:menu:events"), "/events");
 
+	$base_dir = elgg_get_plugins_path() . "event_manager";
+	
 	$include = "/pages/event/list.php";
 	if (!empty($page)) {
 		switch ($page[0]) {
 			case "proc":
-				if (file_exists(dirname(dirname(__FILE__)) . "/procedures/" . $page[1] . "/" . $page[2] . ".php")) {
+				if (file_exists($base_dir . "/procedures/" . $page[1] . "/" . $page[2] . ".php")) {
 					$include = "/procedures/" . $page[1] . "/" . $page[2] . ".php";
 				} else {
 					echo json_encode(array("valid" => 0));
@@ -93,7 +95,7 @@ function event_manager_page_handler($page) {
 					set_input("guid", $page[2]);
 				}
 
-				if (file_exists(dirname(dirname(__FILE__)) . "/pages/" . $page[0] . "/" . $page[1] . ".php")) {
+				if (file_exists($base_dir . "/pages/" . $page[0] . "/" . $page[1] . ".php")) {
 					$include = "/pages/" . $page[0] . "/" . $page[1] . ".php";
 				} else {
 					forward("/events");
@@ -102,7 +104,7 @@ function event_manager_page_handler($page) {
 		}
 	}
 
-	include(dirname(dirname(__FILE__)) . $include);
+	include($base_dir . $include);
 
 	return true;
 }
