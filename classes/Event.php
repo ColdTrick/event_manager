@@ -328,32 +328,12 @@ class Event extends ElggObject {
 			return false;
 		}
 
-		$questions = $this->getRegistrationFormQuestions();
-		if (empty($questions)) {
-			return false;
-		}
-
-		$registration_table = "";
-		if ($view) {
-			$registration_table .= "<h3>Information</h3>";
-		}
-
-		$registration_table .= "<table>";
-
-		if (($guid != elgg_get_logged_in_user_guid()) && !($entity instanceof ElggUser)) {
-			$registration_table .= "<tr><td><label>" . elgg_echo("user:name:label") . "</label></td><td>: " . $entity->name . "</td></tr>";
-			$registration_table .= "<tr><td><label>" . elgg_echo("email") . "</label></td><td>: " . $entity->email . "</td></tr>";
-		}
-
-		foreach ($questions as $question) {
-			$answer = $question->getAnswerFromUser($guid);
-
-			$registration_table .= "<tr><td><label>" . $question->title . "</label></td><td>: " . $answer->value . "</td></tr>";
-		}
-
-		$registration_table .= "</table>";
-
-		return elgg_view_module("main", "", $registration_table);
+		return elgg_view("event_manager/registration/user_data", array(
+			"event" => $this, 
+			"entity" => $entity,
+			"show_title" => $view,
+			"questions" => $this->getRegistrationFormQuestions()
+		));
 	}
 
 	/**

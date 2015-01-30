@@ -133,6 +133,7 @@ return array(
 	'event_manager:registration:edit:title' => 'Edit your registration',
 	'event_manager:registration:edityourregistration' => 'Edit your registration',
 	'event_manager:registration:viewyourregistration' => 'View your registration',
+	'event_manager:registration:view:information' => 'Information',
 	'event_manager:registration:yourregistration' => 'Your registration',
 	'event_manager:registration:programparticipation' => 'Program participation',
 	'event_manager:registration:editprogramparticipation' => 'Edit your program participation',
