@@ -104,7 +104,7 @@ $tabs_body = elgg_view("navigation/tabs", array(
 
 $vars = array_merge($vars, $fields);
 
-$hidden = elgg_view('input/hidden', array(
+$hidden = elgg_view('output/url', array(
 	'href' => "events/event/googlemaps/{$fields["guid"]}",
 	'text' => "google maps",
 	'id' => "openGoogleMaps",

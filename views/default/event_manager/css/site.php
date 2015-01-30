@@ -8,11 +8,6 @@
 }
 
 /* Event Edit */
-#event_manager_event_edit label{
-	font-weight: normal;
-	font-size: 100%;
-}
-
 #event_manager_event_edit > fieldset > table {
 	width: 100%;
 }

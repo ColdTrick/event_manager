@@ -34,7 +34,7 @@ $(function() {
 				var location = $('#event_manager_event_edit input[name="location"]').val();
 				initMaps('map_canvas');
 				
-				if(location) {
+				if (location) {
 					$("#address_search").val(location);
 					event_manager_geocoder.geocode( { 'address': location}, function(results, status) {
 						if (status == google.maps.GeocoderStatus.OK) {
@@ -53,9 +53,9 @@ $(function() {
 
 	$('#address_search_save').live("click", function() {
 		var address = $('#address_search').val();
-	
+		
 		$('#event_manager_event_edit input[name="location"]').val(address);
-		if(address){
+		if (address){
 			event_manager_geocoder.geocode( { 'address': address}, function(results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
 					$('#event_latitude').val(results[0].geometry.location.lat());

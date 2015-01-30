@@ -45,7 +45,12 @@ if (!$event) {
 
 elgg_push_breadcrumb($title_text);
 
-$form = elgg_view_form("event_manager/event/edit", array("enctype" => "multipart/form-data"), array("entity" => $event));
+$form_vars = array(
+	"id" => "event_manager_event_edit",
+	"enctype" => "multipart/form-data"
+);
+
+$form = elgg_view_form("event_manager/event/edit", $form_vars, array("entity" => $event));
 
 $body = elgg_view_layout('content', array(
 	'filter' => '',
