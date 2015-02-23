@@ -22,7 +22,8 @@
 			if ($access_id == null) {
 				$access_id = $this->access_id;
 			}
-			
+			// Have to do this for private events
+			$ia = elgg_set_ignore_access(true);
 			if ($eventDays = $this->getEventDays()) {
 				foreach ($eventDays as $day) {
 					$day->access_id = $access_id;
@@ -36,18 +37,25 @@
 					}
 				}
 			}
+			if ($ia) {
+				elgg_set_ignore_access($ia);
+			}
 		}
 		
 		public function setAccessToRegistrationForm($access_id = null) {
 			if ($access_id == null) {
 				$access_id = $this->access_id;
 			}
-			
+			// Have to do this for private events
+			$ia = elgg_set_ignore_access(true);
 			if ($questions = $this->getRegistrationFormQuestions()) {
 				foreach ($questions as $question) {
 					$question->access_id = $access_id;
 					$question->save();
 				}
+			}
+			if ($ia) {
+				elgg_set_ignore_access($ia);
 			}
 		}
 		
