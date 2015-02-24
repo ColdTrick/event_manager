@@ -16,6 +16,9 @@ if (!empty($event)) {
 		elgg_push_breadcrumb($entity->title, $event->getURL());
 		elgg_push_breadcrumb($title_text);
 
+		// Have to do this for private events
+		$ia = elgg_set_ignore_access(true);
+		
 		$output = '<ul id="event_manager_registrationform_fields">';
 
 		if ($registration_form = $event->getRegistrationFormQuestions()) {
@@ -33,6 +36,8 @@ if (!empty($event)) {
 			'title' => $title_text,
 		));
 
+		elgg_set_ignore_access($ia);
+		
 		echo elgg_view_page($title_text, $body);
 	} else {
 		forward($event->getURL());

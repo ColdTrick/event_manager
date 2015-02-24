@@ -54,8 +54,12 @@ class Event extends ElggObject {
 			$access_id = $this->access_id;
 		}
 
+		// Have to do this for private events
+		$ia = elgg_set_ignore_access(true);
+		
 		$eventDays = $this->getEventDays();
 		if (empty($eventDays)) {
+			elgg_set_ignore_access($ia);
 			return;
 		}
 
@@ -73,6 +77,8 @@ class Event extends ElggObject {
 				$slot->save();
 			}
 		}
+		
+		elgg_set_ignore_access($ia);
 	}
 
 	/**
@@ -87,8 +93,12 @@ class Event extends ElggObject {
 			$access_id = $this->access_id;
 		}
 
+		// Have to do this for private events
+		$ia = elgg_set_ignore_access(true);
+		
 		$questions = $this->getRegistrationFormQuestions();
 		if (empty($questions)) {
+			elgg_set_ignore_access($ia);
 			return;
 		}
 
@@ -96,6 +106,8 @@ class Event extends ElggObject {
 			$question->access_id = $access_id;
 			$question->save();
 		}
+		
+		elgg_set_ignore_access($ia);
 	}
 
 	/**

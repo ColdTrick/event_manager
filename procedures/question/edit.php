@@ -14,6 +14,10 @@ $result['valid'] = 0;
 
 if ($event_guid && ($event = get_entity($event_guid))) {
 	if (($event->getSubtype() == Event::SUBTYPE) && ($event->canEdit())) {
+		
+		// Have to do this for private events
+		$ia = elgg_set_ignore_access(true);
+		
 		if ($question_guid && ($question = get_entity($question_guid))) {
 			if (!($question instanceof EventRegistrationQuestion)) {
 				unset($question);
@@ -47,6 +51,8 @@ if ($event_guid && ($event = get_entity($event_guid))) {
 				$result['content'] = elgg_view("event_manager/registration/question", array("entity" => $question));
 			}
 		}
+		
+		elgg_set_ignore_access($ia);
 	}
 }
 
