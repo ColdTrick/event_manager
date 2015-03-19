@@ -30,31 +30,17 @@ if (elgg_is_logged_in()) {
 	}
 }
 
-if ($event->show_attendees && (elgg_in_context("widgets") || elgg_in_context("maps"))) {
-	$attending_count = 0;
-	if ($count = $event->getRelationships(true)) {
-		if (array_key_exists(EVENT_MANAGER_RELATION_ATTENDING, $count)) {
-			$attending_count = $count[EVENT_MANAGER_RELATION_ATTENDING];
-		}
-	}
-	
-	$options[] = elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($attending_count));
+$attendee_count = $event->countAttendees();
+if (($attendee_count > 0 || $event->openForRegistration()) && (elgg_in_context("widgets") || elgg_in_context("maps"))) {
+	$options[] = elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($attendee_count));
 }
 
 if ($event->canEdit() && $vars["full_view"] && $event->show_attendees) {
-	$attending_count = 0;
-	$waiting_count = 0;
+	$waiting_count = $event->countWaiters();
 	
-	if ($count = $event->getRelationships(true)) {
-		if (array_key_exists(EVENT_MANAGER_RELATION_ATTENDING, $count)) {
-			$attending_count = $count[EVENT_MANAGER_RELATION_ATTENDING];
-		}
-		if (array_key_exists(EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST, $count)) {
-			$waiting_count = $count[EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST];
-		}
-	}
-	
-	if ($attending_count || $waiting_count) {
+	if ($attendee_count || $waiting_count) {
+		
+
 		// add attendee search
 		$search_box = "<span class='event-manager-event-view-search-attendees' title='" . elgg_echo("event_manager:event:search_attendees") . "'>";
 		$search_box .= elgg_view("input/text", array("id" => "event-manager-event-view-search-attendees","name" => "q","class" => "mrs", "autocomplete" => "off"));

@@ -85,15 +85,19 @@ function event_manager_entity_menu($hook, $entity_type, $returnvalue, $params) {
 	}
 
 	if (($entity = elgg_extract("entity", $params)) && elgg_instanceof($entity, "object", Event::SUBTYPE)) {
-		$attendee_menu_options = array(
-			"name" => "attendee_count",
-			"priority" => 50,
-			"text" => elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($entity->countAttendees())),
-			"href" => false
-		);
-
-		$result[] = ElggMenuItem::factory($attendee_menu_options);
-
+		
+		$attendee_count = $entity->countAttendees();
+		if ($attendee_count > 0 || $entity->openForRegistration()) {
+			$attendee_menu_options = array(
+				"name" => "attendee_count",
+				"priority" => 50,
+				"text" => elgg_echo("event_manager:event:relationship:event_attending:entity_menu", array($attendee_count)),
+				"href" => false
+			);
+	
+			$result[] = ElggMenuItem::factory($attendee_menu_options);
+		}
+		
 		// change some of the basic menus
 		if (!empty($result) && is_array($result)) {
 			foreach ($result as &$item) {
