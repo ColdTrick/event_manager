@@ -462,7 +462,7 @@ function event_manager_send_registration_validation_email(Event $event, ElggEnti
 
 	// send confirmation mail
 	if (elgg_instanceof($entity, "user")) {
-		notify_user($entity->getGUID(), $site->getGUID(), $subject, $message, null, "email");
+		notify_user($entity->getGUID(), $event->getOwnerGUID(), $subject, $message, null, "email");
 	} else {
 
 		$from = $site->email;

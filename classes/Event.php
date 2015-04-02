@@ -487,7 +487,7 @@ class Event extends ElggObject {
 
 		if ($to_entity instanceof ElggUser) {
 			// use notification system for real users
-			notify_user($to, $this->getGUID(), $user_subject, $user_message);
+			notify_user($to, $this->getOwnerGUID(), $user_subject, $user_message);
 		} else {
 			// send e-mail for non users
 			$to_email = $to_entity->name . "<" . $to_entity->email . ">";
@@ -533,7 +533,7 @@ class Event extends ElggObject {
 			$event_title_link
 		)) . $registration_link;
 
-		notify_user($this->getOwnerGUID(), $this->getGUID(), $owner_subject, $owner_message);
+		notify_user($this->getOwnerGUID(), $this->getOwnerGUID(), $owner_subject, $owner_message);
 	}
 
 	/**
@@ -846,7 +846,7 @@ class Event extends ElggObject {
 			$this->rsvp(EVENT_MANAGER_RELATION_ATTENDING, $waiting_user->getGUID(), false);
 
 			notify_user(elgg_get_logged_in_user_guid(),
-						$this->getGUID(),
+						$this->getOwnerGUID(),
 						elgg_echo("event_manager:event:registration:notification:user:subject"),
 						elgg_echo("event_manager:event:registration:notification:user:text:event_spotfree", array(
 							$waiting_user->name,
