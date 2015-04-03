@@ -1,3 +1,4 @@
+<?php ?>
 <div id="event_manager_result_navigation">
 	<div id="event_manager_result_refreshing"><?php echo elgg_echo("event_manager:list:navigation:refreshing"); ?></div>	
 	<ul class="elgg-tabs elgg-htabs">
