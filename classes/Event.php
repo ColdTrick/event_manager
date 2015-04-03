@@ -50,7 +50,7 @@ class Event extends ElggObject {
 	 * @return void
 	 */
 	public function setAccessToProgramEntities($access_id = null) {
-		if ($access_id == null) {
+		if ($access_id === null) {
 			$access_id = $this->access_id;
 		}
 
@@ -89,7 +89,7 @@ class Event extends ElggObject {
 	 * @return void
 	 */
 	public function setAccessToRegistrationForm($access_id = null) {
-		if ($access_id == null) {
+		if ($access_id === null) {
 			$access_id = $this->access_id;
 		}
 
@@ -279,7 +279,7 @@ class Event extends ElggObject {
 	 * @return void
 	 */
 	public function clearRegistrations($user_guid = null) {
-		if ($user_guid == null) {
+		if ($user_guid === null) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
 
@@ -306,7 +306,7 @@ class Event extends ElggObject {
 	 * @return array|boolean
 	 */
 	public function getRegistrationsByUser($count = false, $user_guid = null) {
-		if ($user_guid == null) {
+		if ($user_guid === null) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
 
@@ -331,7 +331,7 @@ class Event extends ElggObject {
 	 * @return boolean|string
 	 */
 	public function getRegistrationData($guid = null, $view = false) {
-		if ($guid == null) {
+		if ($guid === null) {
 			$guid = elgg_get_logged_in_user_guid();
 		}
 
@@ -373,13 +373,13 @@ class Event extends ElggObject {
 	 * Returns the program data for a user
 	 *
 	 * @param string $user_guid     guid of the entity
-	 * @param string $participate   show the participation
+	 * @param bool   $participate   show the participation
 	 * @param string $register_type type of the registration
 	 *
 	 * @return boolean|string
 	 */
 	public function getProgramData($user_guid = null, $participate = false, $register_type = "register") {
-		if ($user_guid == null) {
+		if ($user_guid === null) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
 
@@ -545,7 +545,7 @@ class Event extends ElggObject {
 	 * @return void
 	 */
 	public function relateToAllSlots($relate = true, $guid = null) {
-		if ($guid == null) {
+		if ($guid === null) {
 			$guid = elgg_get_logged_in_user_guid();
 		}
 
@@ -640,7 +640,7 @@ class Event extends ElggObject {
 	/**
 	 * Returns the location
 	 *
-	 * @param boolean $type should it be formatted
+	 * @param bool $type should it be formatted
 	 *
 	 * @return string
 	 */
@@ -681,7 +681,7 @@ class Event extends ElggObject {
 	/**
 	 * Returns all relationships with their count
 	 *
-	 * @param string $count return count or array
+	 * @param bool $count return count or array
 	 *
 	 * @return boolean|array
 	 */
@@ -825,7 +825,7 @@ class Event extends ElggObject {
 
 		if ($this->with_program) {
 			$waiting_for_slots = $this->getRegisteredSlotsForEntity($waiting_user->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
-			if ($waiting_for_slots) {
+			if (!empty($waiting_for_slots)) {
 				foreach ($waiting_for_slots as $slot) {
 					if ($slot->hasSpotsLeft()) {
 						$rsvp = true;
@@ -943,7 +943,7 @@ class Event extends ElggObject {
 	 * @return boolean|ElggEntity
 	 */
 	public function isUserRegistered($userid = null, $count = true) {
-		if ($userid == null) {
+		if ($userid === null) {
 			$userid = elgg_get_logged_in_user_guid();
 		}
 
