@@ -656,7 +656,7 @@
 		
 		// send confirmation mail
 		if (elgg_instanceof($object, "user")) {
-			notify_user($object->getGUID(), $site->getGUID(), $subject, $message, null, "email");
+			notify_user($object->getGUID(), $event->getOwnerGUID(), $subject, $message, null, "email");
 		} else {
 				
 			$from = $site->email;
