@@ -578,7 +578,7 @@ elgg.event_manager.init = function() {
 		elgg.event_manager.add_new_slot_set_name($("#event-manager-new-slot-set-name").val());
 	});
 
-	$("#event-manager-forms-event-edit li").on("click", function(event, elem) {
+	$("#event-manager-forms-event-edit li").live("click", function(event, elem) {
 		var href = $(this).find("> a").attr("href");
 		$("#event_manager_event_edit table").not("#event-manager-forms-event-edit-general").hide();
 		$(href).show();
