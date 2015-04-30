@@ -199,7 +199,7 @@ function event_manager_widget_events_url($hook, $entity_type, $returnvalue, $par
  *
  * @param string $hook        hook name
  * @param string $entity_type hook type
- * @param array  $returnvalue current return value
+ * @param bool   $returnvalue current return value
  * @param array  $params      parameters
  * 
  * @return bool

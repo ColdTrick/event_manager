@@ -58,7 +58,7 @@ if ($user = elgg_get_logged_in_user_entity()) {
 		}
 	}
 	
-	if ($add_link) {
+	if ($add_link !== false) {
 		$content .= "<span class='elgg-widget-more'>" . elgg_view("output/url", array("text" => elgg_echo("event_manager:menu:new_event"), "href" => $add_link)) . "</span>";
 	}
 }

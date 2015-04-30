@@ -12,11 +12,11 @@ $(function() {
 			'onComplete': function() {
 				initMaps('map_canvas');
 				event_manager_geocoder.geocode( { 'address': $elem.html() }, function(results, status) {
-			      	if (status == google.maps.GeocoderStatus.OK) {
-			        	event_manager_gmap.setCenter(results[0].geometry.location);
-			        	new google.maps.Marker({ map: event_manager_gmap, position: results[0].geometry.location });
-			      	}
-			    });
+					if (status == google.maps.GeocoderStatus.OK) {
+						event_manager_gmap.setCenter(results[0].geometry.location);
+						new google.maps.Marker({ map: event_manager_gmap, position: results[0].geometry.location });
+					}
+				});
 			}});
 		e.preventDefault();
 	});
@@ -39,7 +39,7 @@ $(function() {
 							event_manager_gmap.setCenter(results[0].geometry.location);
 							new google.maps.Marker({ map: event_manager_gmap, position: results[0].geometry.location });
 						}
-				    });
+					});
 				}
 			}
 	});
@@ -59,11 +59,11 @@ $(function() {
 					$('#event_latitude').val(results[0].geometry.location.lat());
 					$('#event_longitude').val(results[0].geometry.location.lng());
 				}
-		    });
+			});
 		} else {
 			$('#event_latitude').val("");
-	   		$('#event_longitude').val("");
-	   	}
+			$('#event_longitude').val("");
+		}
 		
 		$.colorbox.close();
 	});
@@ -72,7 +72,7 @@ $(function() {
 		frmAddress = $('#address_from').val();
 		dstAddress = $('#address_to').html();
 		
-		if(frmAddress == '') {
+		if(frmAddress === '') {
 			alert(elgg.echo('event_manager:action:event:edit:error_fields'));
 		} else {
 			window.open( '//maps.google.com/maps?f=d&source=s_d&saddr=' + frmAddress + '&daddr=' + dstAddress );
@@ -90,18 +90,16 @@ function initMaps(element, bindSearchEvents){
 	event_manager_geocoder = new google.maps.Geocoder();
 	
 	var myOptions = {
-    	zoom: EVENT_MANAGER_BASE_ZOOM,
-    	mapTypeId: google.maps.MapTypeId.ROADMAP
-  	}
+		zoom: EVENT_MANAGER_BASE_ZOOM,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	
 	event_manager_gmap = new google.maps.Map(document.getElementById(element), myOptions);
 
 	if(bindSearchEvents){
 		google.maps.event.addListener(event_manager_gmap, 'idle', function() {
-		    // execute search
-		    event_manager_execute_search();
-		  });
-				
-		
+			event_manager_execute_search();
+		});
 	}
 	
 	event_manager_geocoder.geocode( { 'address': EVENT_MANAGER_BASE_LOCATION}, function(results, status) {
@@ -154,17 +152,17 @@ function getMarkersJson() {
 }
 
 function searchAddress(address) {
-	if (event_manager_geocoder == null)	{
+	if (event_manager_geocoder === null)	{
 		event_manager_geocoder = new google.maps.Geocoder();
 	}
 	
 	event_manager_geocoder.geocode( { 'address': address }, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
-        	event_manager_gmap.setCenter(results[0].geometry.location);
-        	new google.maps.Marker({ map: event_manager_gmap, position: results[0].geometry.location });
-        	$('#address_search').val(results[0].formatted_address);
-      	}
-    });
+			event_manager_gmap.setCenter(results[0].geometry.location);
+			new google.maps.Marker({ map: event_manager_gmap, position: results[0].geometry.location });
+			$('#address_search').val(results[0].formatted_address);
+		}
+	});
 }
 
 function setLatLngFields(point) {
@@ -174,18 +172,14 @@ function setLatLngFields(point) {
 
 function getAdressFromCoords(coords, fields) {
 	var address = null;
-	if(coords == null)
-	{
+	if(coords === null) {
 		coords = event_manager_gmap.getCenter();
 	}
-	if (event_manager_geocoder == null)
-	{
+	if (event_manager_geocoder === null) {
 		event_manager_geocoder = new GClientGeocoder();
 	}
-	event_manager_geocoder.getLocations(coords, function(response)
-	{
-		if(response)
-		{
+	event_manager_geocoder.getLocations(coords, function(response) {
+		if(response) {
 			address = response.Placemark[0].address;
 			setAddressFields(address);
 		}
