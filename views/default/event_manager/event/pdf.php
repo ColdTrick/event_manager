@@ -23,7 +23,7 @@ if ($location = $event->getEventLocation()) {
 	$event_details .= '</td></tr>';
 }
 
-$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:start_day') . '</b></td><td>: ' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . '</td></tr>';
+$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:start_day') . '</b></td><td>: ' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_time) . '</td></tr>';
 
 if ($organizer = $event->organizer) {
 	$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:organizer') . '</b></td><td>: ' . $organizer . '</td></tr>';

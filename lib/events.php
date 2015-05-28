@@ -29,3 +29,25 @@ function event_manager_update_object_handler($event, $type, $object) {
 		}
 	}
 }
+
+/**
+ * Run upgrades
+ *
+ * TODO Once there are more upgrades, mark successful ones to
+ * database to prevent running them more than once.
+ */
+function event_manager_run_upgrades() {
+	$upgrade_path = elgg_get_plugins_path() . 'event_calendar/lib/upgrades/';
+
+	$handle = opendir($upgrade_path);
+
+	while ($upgrade_file = readdir($handle)) {
+		$file_path = $upgrade_path . $upgrade_file;
+
+		if (is_dir($file_path)) {
+			continue;
+		}
+
+		include $file_path;
+	}
+}

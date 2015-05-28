@@ -12,14 +12,14 @@ if (empty($location)) {
 	$location = $event->venue;
 }
 
-$start = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . " " . date('H', $event->start_time) . ":" . date('i', $event->start_time) . ":00";
+$start = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_time) . " " . date('H', $event->start_time) . ":" . date('i', $event->start_time) . ":00";
 
-if ($event->end_ts) {
-	$end = date('Y-m-d H:i:00', $event->end_ts);
+if ($event->end_time) {
+	$end = date('Y-m-d H:i:00', $event->end_time);
 } else {
-	$end_ts = mktime(date('H', $event->start_time), date('i', $event->start_time), 0,date('m', $event->start_day), date('d', $event->start_day), date('Y', $event->start_day));
-	$end_ts = $end_ts + 3600;
-	$end = date('Y-m-d H:i:00', $end_ts);
+	// If no end time defined, default to one hour later
+	$end_time = $event->end_time + 3600;
+	$end = date('Y-m-d H:i:00', $end_time);
 }
 
 $title = $event->title;

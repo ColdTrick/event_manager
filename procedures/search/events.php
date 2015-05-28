@@ -12,8 +12,8 @@ $owning = get_input('owning');
 $friendsattending = get_input('friendsattending');
 $region = get_input('region');
 $event_type = get_input('event_type');
-$start_day = get_input('start_day');
-$end_day = get_input('end_day');
+$start_time = get_input('start_time');
+$end_time = get_input('end_time');
 $latitude = get_input("latitude");
 $longitude = get_input("longitude");
 $distance = array("latitude" => get_input("distance_latitude"),"longitude" => get_input("distance_longitude"));
@@ -44,19 +44,15 @@ if ($advanced_search) {
 		$options['event_type'] = $event_type;
 	}
 
-	if (!empty($start_day)) {
-		$start_day = explode('-', $start_day);
-		$start_day_ts = mktime(0, 0, 1, $start_day[1], $start_day[2], $start_day[0]);
-		$options['start_day'] = $start_day_ts;
+	if ($start_time) {
+		$options['start_time'] = $start_time;
 	}
 
-	if (!empty($end_day)) {
-		$end_day = explode('-',$end_day);
-		$end_day_ts = mktime(23,59,	59,	$end_day[1], $end_day[2], $end_day[0]);
-		$options['end_day'] = $end_day_ts;
+	if ($end_time) {
+		$options['end_time'] = $end_time;
 	}
 
-	if (empty($end_day) && empty($start_day) && empty($search)) {
+	if (empty($end_time) && empty($start_time) && empty($search)) {
 		$options['past_events'] = false;
 	} else {
 		$options['past_events'] = true;

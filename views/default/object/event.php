@@ -7,7 +7,7 @@ if ($vars["full"]) {
 
 	$output = '<div class="gmaps_infowindow">';
 	$output .= '<div class="gmaps_infowindow_text">';
-	$output .= '<div class="event_manager_event_view_owner"><a href="' . $event->getURL() . '">' . $event->title . '</a> (' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . ')</div>';
+	$output .= '<div class="event_manager_event_view_owner"><a href="' . $event->getURL() . '">' . $event->title . '</a> (' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_time) . ')</div>';
 	$output .= $event->getEventLocation(true) . '<br /><br />' . $event->shortdescription . '<br /><br />';
 	$output .= elgg_view("event_manager/event/actions", $vars) . '</div>';
 	if ($event->icontime) {

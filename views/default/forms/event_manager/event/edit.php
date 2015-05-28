@@ -20,10 +20,8 @@ $fields = array(
 	"twitter_hash" => ELGG_ENTITIES_ANY_VALUE,
 	"organizer" => ELGG_ENTITIES_ANY_VALUE,
 	"organizer_rsvp" => 0,
-	"start_day" => date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, time()),
-	"end_day" => ELGG_ENTITIES_ANY_VALUE,
 	"start_time" => time(),
-	"end_ts" => time() + 3600,
+	"end_time" => time() + 3600,
 	"registration_ended" => ELGG_ENTITIES_ANY_VALUE,
 	"endregistration_day" => ELGG_ENTITIES_ANY_VALUE,
 	"with_program" => ELGG_ENTITIES_ANY_VALUE,
@@ -58,17 +56,6 @@ if ($event) {
 			$fields[$field] = $event->$field;
 		}
 	}
-
-	// convert timestamp to date notation for correct display
-	if (!empty($fields["start_day"])) {
-		$fields["start_day"] = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $fields["start_day"]);
-	}
-	if (empty($fields["end_ts"])) {
-		$start_date = explode('-', $fields["start_day"]);
-		$fields["end_ts"] = mktime($fields["start_time_hours"], $fields["start_time_minutes"], 1, $start_date[1],$start_date[2],$start_date[0]) + 3600;
-	}
-
-	$fields["end_day"] = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $fields["end_ts"]);
 }
 
 if (elgg_is_sticky_form('event')) {

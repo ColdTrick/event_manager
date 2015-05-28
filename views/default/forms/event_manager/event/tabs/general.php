@@ -12,10 +12,10 @@ $title_input = elgg_view('input/text', array(
 // Starting time
 $start_time_label = elgg_echo('event_manager:edit:form:start');
 $start_day_input = elgg_view('input/date', array(
-	'name' => 'start_day',
-	'id' => 'start_day',
-	'value' => $vars["start_day"],
-	"class" => "event_manager_event_edit_date"
+	'name' => 'start_time',
+	'value' => $vars["start_time"],
+	'class' => 'event_manager_event_edit_date',
+	'timestamp' => true,
 ));
 $start_time_input = elgg_view('input/time', array(
 	'name' => 'start_time',
@@ -25,14 +25,14 @@ $start_time_input = elgg_view('input/time', array(
 // Ending time
 $end_time_label = elgg_echo('event_manager:edit:form:end');
 $end_day_input = elgg_view('input/date', array(
-	'name' => 'end_day',
-	'id' => 'end_day',
-	'value' => $vars["end_day"],
-	"class" => "event_manager_event_edit_date"
+	'name' => 'end_time',
+	'value' => $vars["end_time"],
+	'class' => 'event_manager_event_edit_date',
+	'timestamp' => true,
 ));
 $end_time_input = elgg_view('input/time', array(
 	'name' => 'end_time',
-	'value' => $vars["end_ts"],
+	'value' => $vars["end_time"],
 ));
 
 echo <<<HTML
