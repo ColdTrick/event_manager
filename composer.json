@@ -1,0 +1,18 @@
+{
+	"name": "coldtrick/event_manager",
+	"description": "Manage events, from a simple appointment to a multi day event with day programs and subscriptions",
+	"type": "elgg-plugin",
+	"keywords": ["elgg", "plugin", "events"],
+	"license": "GPL-2.0",
+	"support": {
+		"source": "https://github.com/ColdTrick/event_manager",
+		"issues": "https://github.com/ColdTrick/event_manager/issues"
+	},
+	"require": {
+		"composer/installers": "^1.0.8",
+		"ext-json": "*"
+	},
+	"require-dev": {
+		"coldtrick/sniffs": "dev-master"
+	}
+}
