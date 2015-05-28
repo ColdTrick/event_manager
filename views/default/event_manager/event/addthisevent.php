@@ -15,11 +15,11 @@ if (empty($location)) {
 $start = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . " " . date('H', $event->start_time) . ":" . date('i', $event->start_time) . ":00";
 
 if ($event->end_ts) {
-	$end = date('Y-m-d H:i:00', $event->end_ts);
+	$end = date('d/m/Y H:i:00', $event->end_ts);
 } else {
 	$end_ts = mktime(date('H', $event->start_time), date('i', $event->start_time), 0,date('m', $event->start_day), date('d', $event->start_day), date('Y', $event->start_day));
 	$end_ts = $end_ts + 3600;
-	$end = date('Y-m-d H:i:00', $end_ts);
+	$end = date('d/m/Y H:i:00', $end_ts);
 }
 
 $title = $event->title;
@@ -29,15 +29,14 @@ $organizer = $event->organizer;
 ?>
 <span class="addthisevent">
 	<?php echo $link; ?>
-	<div>
-		<span class="_start"><?php echo $start; ?></span>
-		<span class="_end"><?php echo $end; ?></span>
-		<span class="_summary"><?php echo $title; ?></span>
-		<span class="_description"><?php echo $description; ?></span>
-		<span class="_location"><?php echo $location; ?></span>
-		<span class="_organizer"><?php echo $organizer;?></span>
-		<span class="_organizer_email">noreply</span>
-		<span class="_date_format">YYYY-MM-DD</span>
+	<div class='hidden'>
+		<span class="start"><?php echo $start; ?></span>
+		<span class="end"><?php echo $end; ?></span>
+		<span class="title"><?php echo $title; ?></span>
+		<span class="description"><?php echo $description; ?></span>
+		<span class="location"><?php echo $location; ?></span>
+		<span class="organizer"><?php echo $organizer;?></span>
+		<span class="date_format">DD/MM/YYYY</span>
 	</div>
 </span>
 
