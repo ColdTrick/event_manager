@@ -207,29 +207,28 @@ $location_body .= elgg_view('input/text', array(
 ));
 $location_body .= "</td></tr>";
 
-$location_body .= "<tr><td class='event_manager_event_edit_label'>";
-$location_body .= elgg_echo('event_manager:edit:form:fee');
-$location_body .= "</td><td>";
-$location_body .= elgg_view('input/text', array(
-		'name' => 'fee',
-		'value' => $fields["fee"]
-));
-$location_body .= "</td></tr>";
-
-$location_body .= "<tr><td class='event_manager_event_edit_label'>";
-$location_body .= elgg_echo('event_manager:edit:form:max_attendees');
-$location_body .= "</td><td>";
-$location_body .= elgg_view('input/text', array(
-		'name' => 'max_attendees',
-		'value' => $fields["max_attendees"]
-));
-$location_body .= "</td></tr>";
-
-
 $location_body .= "</table>";
 
 // Registration
 $registration_body = "<table id='event-manager-forms-event-edit-registration' class='hidden'>";
+
+$registration_body .= "<tr><td class='event_manager_event_edit_label'>";
+$registration_body .= elgg_echo('event_manager:edit:form:fee');
+$registration_body .= "</td><td>";
+$registration_body .= elgg_view('input/text', array(
+	'name' => 'fee',
+	'value' => $fields["fee"]
+));
+$registration_body .= "</td></tr>";
+
+$registration_body .= "<tr><td class='event_manager_event_edit_label'>";
+$registration_body .= elgg_echo('event_manager:edit:form:max_attendees');
+$registration_body .= "</td><td>";
+$registration_body .= elgg_view('input/text', array(
+	'name' => 'max_attendees',
+	'value' => $fields["max_attendees"]
+));
+$registration_body .= "</td></tr>";
 
 $registration_body .= "<tr><td class='event_manager_event_edit_label'>" . elgg_echo('event_manager:edit:form:organizer') . "</td><td>" . elgg_view('input/text', array('name' => 'organizer', 'value' => $fields["organizer"]));
 if (!$event) {
