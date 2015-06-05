@@ -245,7 +245,7 @@ if (!$event) {
 
 $registration_body .= "</td></tr>";
 
-$registration_body .= "<tr><td>" . elgg_echo('event_manager:edit:form:options') . "</td><td>";
+$registration_body .= "<tr><td>" . elgg_echo('event_manager:edit:form:registration_options') . "</td><td>";
 
 $registration_body .= elgg_view('input/checkboxes', array(
 		'name' => 'with_program',

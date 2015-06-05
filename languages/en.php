@@ -72,6 +72,7 @@
 		'event_manager:edit:form:twitter_hash' => 'Twitter Hash',
 		'event_manager:edit:form:fee' => 'Fee',
 		'event_manager:edit:form:options' => 'Options',
+		'event_manager:edit:form:registration_options' => 'Registration options',
 		'event_manager:edit:form:rsvp_options' => 'RSVP options',
 		'event_manager:edit:form:shortdescription' => 'Short Description',
 		'event_manager:edit:form:organizer' => 'Organizer',
