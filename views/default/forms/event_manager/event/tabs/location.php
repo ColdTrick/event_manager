@@ -48,18 +48,6 @@ $twitter_hash_input = elgg_view('input/text', array(
 	'value' => $vars["twitter_hash"]
 ));
 
-$fee_label = elgg_echo('event_manager:edit:form:fee');
-$fee_input = elgg_view('input/text', array(
-	'name' => 'fee',
-	'value' => $vars["fee"]
-));
-
-$max_attendees_label = elgg_echo('event_manager:edit:form:max_attendees');
-$max_attendees_input = elgg_view('input/text', array(
-	'name' => 'max_attendees',
-	'value' => $vars["max_attendees"]
-));
-
 echo <<<HTML
 	<div>
 		<label>$venue_label</label>
@@ -84,13 +72,5 @@ echo <<<HTML
 	<div>
 		<label>$twitter_hash_label</label>
 		$twitter_hash_input
-	</div>
-	<div>
-		<label>$fee_label</label>
-		$fee_input
-	</div>
-	<div>
-		<label>$max_attendees_label</label>
-		$max_attendees_input
 	</div>
 HTML;
