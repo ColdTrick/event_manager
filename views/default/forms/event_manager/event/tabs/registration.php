@@ -11,7 +11,7 @@ $organizer_input = elgg_view('input/text', array(
 	'value' => $vars["organizer"],
 ));
 
-$organizer_rsvp_label = elgg_echo('event_manager:edit:form:options');
+$organizer_rsvp_label = elgg_echo('event_manager:edit:form:registration_options');
 
 $organizer_rsvp_input = '';
 if (!$event) {

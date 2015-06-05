@@ -163,6 +163,7 @@ Iemand heeft zich afgemeld van het \'%s\' evenement. Je bent van de wachtlijst n
   'event_manager:event:edit:maps_address' => 'Adres',
   'event_manager:edit:form:region' => 'Regio',
   'event_manager:edit:form:options' => 'Opties',
+  'event_manager:edit:form:registration_options' => 'Registratie opties',
   'event_manager:edit:form:rsvp_options' => 'RSVP opties',
   'event_manager:edit:form:shortdescription' => 'Korte Omschrijving',
   'event_manager:edit:form:organizer' => 'Organisator',
