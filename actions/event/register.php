@@ -28,7 +28,7 @@ if (!empty($guid) && !empty($relation) && ($event = get_entity($guid))) {
 
 		if ($questions = $event->getRegistrationFormQuestions()) {
 			foreach ($questions as $question) {
-				if ($question->required && empty($answers[$question->getGUID()])) {
+				if ($question->required && empty($answers[$question->getGUID()]) && ($answers[$question->getGUID()] !== "0")) {
 					$required_error = true;
 				}
 
