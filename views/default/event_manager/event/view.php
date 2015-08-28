@@ -17,11 +17,12 @@ $subtitle = "$author_text $date";
 
 // event details
 if ($event->icontime) {
-	$image = elgg_view("output/img", array(
-		"src" => $event->getIconURL(),
-	));
+	$image = elgg_view('output/img', [
+		'src' => $event->getIconURL(),
+		'alt' => $event->title
+	]);
 
-	$event_details .= "<div class='event_manager_event_view_image'>";
+	$event_details .= "<div class='float-alt pam elgg-border-plain'>";
 	$event_details .= elgg_view("output/url", array(
 		"href" => $event->getIconURL('master'),
 		"text" => $image,

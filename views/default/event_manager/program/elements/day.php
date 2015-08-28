@@ -24,13 +24,14 @@ if (!empty($day) && ($day instanceof EventDay)) {
 	if ($vars["details_only"]) {
 		$result = $details;
 	} else {
-		$result = '<div class="event_manager_program_day"';
-		if ($vars["selected"]) {
-			$result .= ' style="display: block;"';
+		$class = 'event_manager_program_day';
+		if (!$vars["selected"]) {
+			$class .= ' hidden';
 		}
-		$result .= ' id="day_' . $day->getGUID() . '">';
+		
+		$result = '<div class="' . $class . '" id="day_' . $day->getGUID() . '">';
 
-		$result .= '<div class="event_manager_program_day_details" rel="' . $day->getGUID() . '">';
+		$result .= '<div class="event_manager_program_day_details pbs mbs mll elgg-divide-bottom" rel="' . $day->getGUID() . '">';
 
 		$result .= $details;
 
@@ -42,7 +43,7 @@ if (!empty($day) && ($day instanceof EventDay)) {
 			}
 		}
 		if ($can_edit && !elgg_in_context('programmailview') && ($participate == false)) {
-			$result .= "<a href='#' class='elgg-button elgg-button-action event_manager_program_slot_add' rel='" . $day->getGUID() . "'>" . elgg_echo("event_manager:program:slot:add") . "</a>";
+			$result .= "<a href='#' class='elgg-button elgg-button-action event_manager_program_slot_add mll' rel='" . $day->getGUID() . "'>" . elgg_echo("event_manager:program:slot:add") . "</a>";
 		}
 		$result .= '</div>';
 	}

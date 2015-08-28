@@ -469,18 +469,6 @@ elgg.event_manager.init = function() {
 		}
 	});
 
-	$('.event_manager_registration_approve').click(function() {
-		regElmnt = $(this);
-		regId = regElmnt.attr('rel');
-
-		$.getJSON(elgg.get_site_url() + 'events/proc/registration/approve', {guid: regId}, function(response) {
-			if(response.valid) {
-				regElmnt.unbind('click');
-				regElmnt.replaceWith('<img border="0" src="' + elgg.get_site_url() + 'mod/event_manager/_graphics/icons/check_icon.png" />');
-			}
-		});
-	});
-
 	$('.event_manager_program_day_add').live('click', function() {
 		eventGuid = $(this).attr("rel");
 		$.colorbox({

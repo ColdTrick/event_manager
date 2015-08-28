@@ -5,14 +5,18 @@ if (!$event) {
 	return;
 }
 
-$link = "<a class='elgg-button elgg-button-action' href='" . $event->getURL() . "'>" . elgg_view_icon("calendar", "float mrs") . elgg_echo("event_manager:event:menu:title:add_to_calendar") . "</a>";
+$link = elgg_view('output/url', [
+	'class' => 'elgg-button elgg-button-action',
+	'href' => $event->getURL(),
+	'text' => elgg_view_icon("calendar", "float mrs") . elgg_echo("event_manager:event:menu:title:add_to_calendar")
+]);
 
 $location = $event->getEventLocation();
 if (empty($location)) {
 	$location = $event->venue;
 }
 
-$start = event_manager_format_date($event->start_day) . " " . date('H', $event->start_time) . ":" . date('i', $event->start_time) . ":00";
+$start = date('d/m/Y', $event->start_day) . " " . date('H', $event->start_time) . ":" . date('i', $event->start_time) . ":00";
 
 if ($event->end_ts) {
 	$end = date('d/m/Y H:i:00', $event->end_ts);
@@ -39,21 +43,3 @@ $organizer = $event->organizer;
 		<span class="date_format">DD/MM/YYYY</span>
 	</div>
 </span>
-
-<?php
-
-/*
-
-<span class="_start">10-05-2012 11:38:46</span>
-<span class="_end">11-05-2012 11:38:46</span>
-<span class="_zonecode">35</span>
-<span class="_summary">Summary of the event</span>
-<span class="_description">Description of the event</span>
-<span class="_location">Location of the event</span>
-<span class="_organizer">Organizer</span>
-<span class="_organizer_email">Organizer e-mail</span>
-<span class="_facebook_event">http://www.facebook.com/events/160427380695693</span>
-<span class="_all_day_event">true</span>
-<span class="_date_format">DD/MM/YYYY</span>
-
- */

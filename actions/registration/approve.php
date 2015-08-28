@@ -1,4 +1,5 @@
 <?php
+// @todo is this action still in use?
 
 $registrationId = get_input("guid");
 $approve = get_input("approve", 0);

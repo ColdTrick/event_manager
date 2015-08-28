@@ -14,7 +14,7 @@ if (!empty($guid) && $registration = get_entity($guid)) {
 		}
 
 		$event = $registration->getEntitiesFromRelationship(array(
-			'relationship' => EVENT_MANAGER_RELATION_USER_REGISTERED,
+			'relationship' => 'event_user_registered',
 			'inverse_relationship' => true,
 		));
 

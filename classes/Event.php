@@ -752,6 +752,10 @@ class Event extends ElggObject {
 		if (empty($user_guid)) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
+		
+		if (empty($user_guid)) {
+			return false;
+		}
 
 		return check_entity_relationship($this->getGUID(), EVENT_MANAGER_RELATION_ATTENDING, $user_guid);
 	}

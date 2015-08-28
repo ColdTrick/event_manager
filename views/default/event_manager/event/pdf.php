@@ -6,7 +6,7 @@ $owner = $event->getOwnerEntity();
 $output = "";
 
 if ($event->icontime) {
-	$output .= '<div class="event_manager_event_view_image"><img src="' . $event->getIconURL() . '" border="0" /></div>';
+	$output .= '<div><img src="' . $event->getIconURL() . '" border="0" /></div>';
 }
 
 $output .= '<div class="event_manager_event_view_owner">';

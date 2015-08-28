@@ -1,12 +1,27 @@
-<?php ?>
-<div id="event_manager_result_navigation">
-	<div id="event_manager_result_refreshing"><?php echo elgg_echo("event_manager:list:navigation:refreshing"); ?></div>	
-	<ul class="elgg-tabs elgg-htabs">
-		<li class="elgg-state-selected">	
-			<a href="javascript:void(0);" rel="list"><?php echo elgg_echo('event_manager:list:navigation:list'); ?></a>
-		</li>
-		<li>
-			<a href="javascript:void(0);" rel="onthemap"><?php echo elgg_echo('event_manager:list:navigation:onthemap'); ?></a>
-		</li>
-	</ul>
-</div>
+<?php 
+
+$tabs = [
+	[
+		'text' => elgg_echo('event_manager:list:navigation:list'),
+		'href' => 'javascript:void(0);',
+		'rel' => 'list',
+		'selected' => true
+	],
+	[
+		'text' => elgg_echo('event_manager:list:navigation:onthemap'),
+		'href' => 'javascript:void(0);',
+		'rel' => 'onthemap'
+	]
+];
+
+$refreshing = elgg_format_element('div', [
+	'id' => 'event_manager_result_refreshing',
+	'class' => 'hidden float-alt elgg-quiet'
+], elgg_echo("event_manager:list:navigation:refreshing"));
+
+$tabs = elgg_view('navigation/tabs', [
+	'tabs' => $tabs,
+	'type' => 'horizontal'
+]);
+
+echo elgg_format_element('div', ['id' => 'event_manager_result_navigation'], $refreshing . $tabs);

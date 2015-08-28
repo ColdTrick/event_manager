@@ -18,17 +18,17 @@ if (elgg_is_logged_in()) {
 				}
 				
 				if ($rel == $user_relation) {
-					$rsvp_options .= "<li class='selected'>" . elgg_echo('event_manager:event:relationship:' . $rel) . "</li>";
+					$rsvp_options .= "<li class='selected'>" . elgg_view_icon('checkmark', 'float-alt') . elgg_echo('event_manager:event:relationship:' . $rel) . "</li>";
 				} else {
 					if ($rel != EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST) {
-						$rsvp_options .= "<li>" . elgg_view("output/url", array("is_action" => true, "href" => "action/event_manager/event/rsvp?guid=" . $event->getGUID() . "&type=" . $rel, "text" => elgg_echo('event_manager:event:relationship:' . $rel))) . "</li>";
+						$rsvp_options .= "<li class='elgg-discover'>" . elgg_view_icon('checkmark-hover', 'float-alt elgg-discoverable') . elgg_view("output/url", array("is_action" => true, "href" => "action/event_manager/event/rsvp?guid=" . $event->getGUID() . "&type=" . $rel, "text" => elgg_echo('event_manager:event:relationship:' . $rel))) . "</li>";
 					}
 				}
 			}
 		}
 		
 		if ($user_relation) {
-			$rsvp_options .= "<li>" . elgg_view("output/url", array("is_action" => true, "href" => "action/event_manager/event/rsvp?guid=" . $event->getGUID() . "&type=" . EVENT_MANAGER_RELATION_UNDO, "text" => elgg_echo('event_manager:event:relationship:undo'))) . "</li>";
+			$rsvp_options .= "<li class='elgg-discover'>" . elgg_view_icon('checkmark-hover', 'float-alt elgg-discoverable') . elgg_view("output/url", array("is_action" => true, "href" => "action/event_manager/event/rsvp?guid=" . $event->getGUID() . "&type=" . EVENT_MANAGER_RELATION_UNDO, "text" => elgg_echo('event_manager:event:relationship:undo'))) . "</li>";
 		}
 		
 		if (!empty($rsvp_options)) {
@@ -40,7 +40,7 @@ if (elgg_is_logged_in()) {
 			}
 			echo "</span>";
 			
-			echo "<ul class='event_manager_event_actions_drop_down event_manager_event_select_relationship'>";
+			echo "<ul class='event_manager_event_actions_drop_down'>";
 			echo $rsvp_options;
 			echo "</ul>";
 		}

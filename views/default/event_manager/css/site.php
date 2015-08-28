@@ -44,11 +44,6 @@
 	padding: 0 0 2px;
 }
 
-.event_manager_event_list_actions {
-	float: right;
-	text-align: right;
-}
-
 .event_manager_event_list_icon {
 	text-align: center;
 	width: 40px;
@@ -75,24 +70,12 @@
     border: 1px solid #4690D6;
 }
 
-.event_manager_event_list_count {
-	color: #666666;
-    font-weight: bold;
-    margin: 0 0 5px 4px;
-}
-
 #event_manager_event_listing div.pagination {
 	margin: 0;
 }
 
 #event_manager_event_listing .elgg-list {
 	border-top: none;
-}
-
-#event_manager_result_refreshing {
-	display: none;
-	float: right;
-	color: #AAAAAA;
 }
 
 #event_manager_event_list_search_more {
@@ -122,30 +105,15 @@
 	display: inline-block;
 }
 
-#event_manager_event_search_advanced_container .elgg-input-dropdown {
-	width: 100px;
-}
-
+#event_manager_event_search_advanced_container .elgg-input-dropdown,
 #event_manager_event_search_advanced_container .elgg-input-date {
 	width: 100px;
 }
 
 /* Event view */
 
-.event_manager_event_view_image {
-	float: right;
-	padding: 10px;
-	background: #FFFFFF;
-	border: 1px solid #CCCCCC;
-}
-
 .event-manager-event-view-attendees .elgg-head h3 a {
 	font-size: 1em;
-}
-
-.event-manager-event-view-attendees .elgg-avatar {
-	float: left;
-	margin-right: 5px;
 }
 
 .event-manager-event-view-search-attendees .elgg-icon {
@@ -193,6 +161,9 @@
 	padding: 0 18px 0 10px;
 	line-height: 18px;
 }
+.event_manager_event_actions_drop_down li:hover {
+	padding-right: 2px;
+}
 
 /* Event Program Edit */
 #event_manager_program_edit {
@@ -211,20 +182,6 @@
 
 #event-manager-program-day-lightbox .datepick-popup {
 	z-index: 20000;
-}
-
-.event_manager_program_day_details{
-	margin: 0 0 2px 21px;
-	padding: 0 0 2px 0;
-	border-bottom: 1px solid #CCCCCC;
-}
-
-.event_manager_program_day > table {
-	margin-bottom: 5px;
-}
-
-.event_manager_program_day {
-	display: none;
 }
 
 /* Event Program Slot */
@@ -263,78 +220,9 @@
 	width: 20px;
 }
 
-.event_manager_program_slot_attending_user,
-.event_manager_program_slot_attending_user_pdf {
-	width: 16px;
-	height: 16px ;
-	background: url(<?php echo $graphics_folder; ?>vink.png) right top no-repeat;
-}
-
-.event_manager_program_slot_attending_user_pdf {
-	width: 16px;
-	height: 16px ;
-	background: url(<?php echo $graphics_folder; ?>icons/check.jpg) right top no-repeat;
-}
-
 .event_manager_program_slot_description{
 	word-wrap: break-word;
 	width: 500px;
-}
-
-.event_manager_program_slot_add {
-	margin-left: 21px;
-}
-
-/* Select relation links */
-
-.event_manager_event_select_relationship li:hover {
-	background: url(<?php echo $graphics_folder; ?>vink.png) right top no-repeat;
-}
-
-.event_manager_event_select_relationship li.selected {
-	background: url(<?php echo $graphics_folder; ?>vink.png) right bottom no-repeat;
-}
-
-/* Registration */
-.event_manager_registration_icon {
-	width: 40px;
-	height: 40px;
-}
-.event_manager_registration_info {
-	float: left;
-}
-.event_manager_registration_links {
-	float: right;
-}
-
-/* Editable fields */
-.changeSlotFieldText,
-.changeSlotFieldLongText,
-.changeSlotFieldInteger {
-	margin-left: 20px;
-	font-weight: normal;
-	display: block;
-	height: 16px;
-	background-color: #ffffff;
-	width: 350px;
-	word-wrap: break-word;
-}
-
-.changeSlotFieldText,
-.changeDayFieldText,
-.changeSlotFieldLongText,
-.changeSlotFieldInteger {
-	cursor: url(<?php echo $graphics_folder; ?>icons/edit_cursor2.png), auto ;
-}
-
-.slotFieldTextarea {
-	width: 320px;
-	height: 200px;
-}
-
-/* river events */
-.river_object_event_event_relationship {
-	background: url("<?php echo $graphics_folder; ?>icons/river_icon_event.gif") no-repeat scroll left -1px transparent;
 }
 
 /* google maps */
