@@ -98,7 +98,7 @@ function initMaps(element, bindSearchEvents){
 
 	if(bindSearchEvents){
 		google.maps.event.addListener(event_manager_gmap, 'idle', function() {
-			event_manager_execute_search();
+			elgg.event_manager.execute_search();
 		});
 	}
 	

@@ -1,5 +1,9 @@
 <?php
 
+elgg_require_js('event_manager/list_events');
+elgg_load_js("event_manager.maps.base");
+elgg_require_js("event_manager/googlemaps");
+
 $title_text = elgg_echo("event_manager:list:title");
 
 $event_options = array();

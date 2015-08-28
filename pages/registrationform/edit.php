@@ -1,9 +1,11 @@
 <?php
 gatekeeper();
 
-$title_text = elgg_echo("event_manager:editregistration:title");
+elgg_require_js('event_manager/edit_questions');
 
-$guid = get_input("guid");
+$title_text = elgg_echo('event_manager:editregistration:title');
+
+$guid = get_input('guid');
 
 if ($entity = get_entity($guid)) {
 	if ($entity->getSubtype() == Event::SUBTYPE) {
@@ -11,38 +13,47 @@ if ($entity = get_entity($guid)) {
 	}
 }
 
-if (!empty($event)) {
-	if ($event->canEdit()) {
-		elgg_push_breadcrumb($entity->title, $event->getURL());
-		elgg_push_breadcrumb($title_text);
-
-		// Have to do this for private events
-		$ia = elgg_set_ignore_access(true);
-		
-		$output = '<ul id="event_manager_registrationform_fields">';
-
-		if ($registration_form = $event->getRegistrationFormQuestions()) {
-			foreach ($registration_form as $question) {
-				$output .= elgg_view('event_manager/registration/question', array('entity' => $question));
-			}
-		}
-
-		$output .= '</ul>';
-		$output .= '<br /><a rel="' . $guid . '" id="event_manager_questions_add" href="javascript:void(0);" class="elgg-button elgg-button-action">' . elgg_echo('event_manager:editregistration:addfield') . '</a>';
-
-		$body = elgg_view_layout('content', array(
-			'filter' => '',
-			'content' => $output,
-			'title' => $title_text,
-		));
-
-		elgg_set_ignore_access($ia);
-		
-		echo elgg_view_page($title_text, $body);
-	} else {
-		forward($event->getURL());
-	}
-} else {
-	register_error(elgg_echo("InvalidParameterException:GUIDNotFound", array($guid)));
+if (empty($event)) {
+	register_error(elgg_echo('InvalidParameterException:GUIDNotFound', array($guid)));
 	forward(REFERER);
 }
+
+if (!$event->canEdit()) {
+	forward($event->getURL());
+}
+
+elgg_push_breadcrumb($entity->title, $event->getURL());
+elgg_push_breadcrumb($title_text);
+
+// Have to do this for private events
+$ia = elgg_set_ignore_access(true);
+
+$output = '<ul id="event_manager_registrationform_fields">';
+
+$registration_form = $event->getRegistrationFormQuestions();
+if ($registration_form) {
+	foreach ($registration_form as $question) {
+		$output .= elgg_view('event_manager/registration/question', array('entity' => $question));
+	}
+}
+
+$output .= '</ul><br />';
+
+$output .= elgg_view('output/url', [
+	'href' => 'javascript:void(0);',
+	'data-colorbox-opts' => json_encode([
+		'href' => elgg_normalize_url('events/registrationform/question?event_guid=' . $guid)
+	]),
+	'class' => 'elgg-button elgg-button-action elgg-lightbox',
+	'text' => elgg_echo('event_manager:editregistration:addfield')
+]);
+
+$body = elgg_view_layout('content', [
+	'filter' => '',
+	'content' => $output,
+	'title' => $title_text,
+]);
+
+elgg_set_ignore_access($ia);
+
+echo elgg_view_page($title_text, $body);

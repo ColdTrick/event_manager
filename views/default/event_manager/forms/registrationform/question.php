@@ -88,7 +88,7 @@ if ($entity && $entity->canEdit()) {
 	$body = elgg_view('input/form', array(
 		'id' => 'event_manager_registrationform_question',
 		'name' => 'event_manager_registrationform_question', 
-		'action' => 'javascript:event_manager_registrationform_add_field($(\'#event_manager_registrationform_question\'))',
+		'action' => 'javascript:elgg.event_manager.edit_questions_add_field($(\'#event_manager_registrationform_question\'))',
 		'body' => $form_body
 	));
 	

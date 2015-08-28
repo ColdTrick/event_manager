@@ -2,6 +2,9 @@
 
 gatekeeper();
 
+elgg_load_js("event_manager.maps.base");
+elgg_require_js("event_manager/googlemaps");
+
 $title_text = elgg_echo("event_manager:edit:title");
 
 $guid = get_input("guid");

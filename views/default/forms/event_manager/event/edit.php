@@ -1,5 +1,7 @@
 <?php
 
+elgg_require_js('event_manager/edit_event');
+
 // defaults
 $fields = array(
 	"guid" => ELGG_ENTITIES_ANY_VALUE,

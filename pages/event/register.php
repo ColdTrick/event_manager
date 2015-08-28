@@ -1,4 +1,8 @@
 <?php
+
+elgg_load_js("event_manager.maps.base");
+elgg_require_js("event_manager/googlemaps");
+
 $guid = get_input("guid");
 $relation = get_input("relation");
 

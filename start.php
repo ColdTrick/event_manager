@@ -32,7 +32,7 @@ function event_manager_init() {
 	elgg_register_entity_type('object', Event::SUBTYPE);
 
 	elgg_extend_view('css/elgg', 'event_manager/css/site');
-	elgg_extend_view('js/elgg', 'js/event_manager/site');
+	elgg_extend_view('js/elgg', 'js/event_manager/site.js');
 	elgg_extend_view('page/elements/head', 'event_manager/metatags');
 
 	// notifications

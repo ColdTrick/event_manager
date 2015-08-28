@@ -6,6 +6,9 @@ $tabcontent = '';
 
 if (!empty($event) && ($event instanceof Event)) {
 	if ($event->with_program) {
+		if ($event->canEdit()) {
+			elgg_require_js('event_manager/edit_program');
+		}
 		if ($eventDays = $event->getEventDays()) {
 			foreach ($eventDays as $key => $day) {
 					
