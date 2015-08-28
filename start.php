@@ -39,6 +39,10 @@ function event_manager_init() {
 	elgg_register_notification_event('object', Event::SUBTYPE, array('create'));
 	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:' . Event::SUBTYPE, 'event_manager_prepare_notification');
 
+	// register ajax views
+	elgg_register_ajax_view('event_manager/event/maps/route');
+	elgg_register_ajax_view('event_manager/event/maps/select_location');
+	
 	// add site menu item
 	elgg_register_menu_item('site', [
 		'name' => 'event_manager',

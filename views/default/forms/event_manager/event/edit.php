@@ -106,12 +106,13 @@ $tabs_body = elgg_view("navigation/tabs", array(
 
 $vars = array_merge($vars, $fields);
 
-$hidden = elgg_view('output/url', array(
-	'href' => "events/event/googlemaps/{$fields["guid"]}",
+$hidden = elgg_view('output/url', [
+	'href' => "ajax/view/event_manager/event/maps/select_location?guid={$fields["guid"]}",
 	'text' => "google maps",
 	'id' => "openGoogleMaps",
 	'class' => 'hidden',
-));
+]);
+
 $hidden .= elgg_view('input/hidden', array('name' => 'latitude', 'id' => 'event_latitude', 'value' => $fields["latitude"]));
 $hidden .= elgg_view('input/hidden', array('name' => 'longitude', 'id' => 'event_longitude', 'value' => $fields["longitude"]));
 $hidden .= elgg_view('input/hidden', array('name' => 'guid', 'value' => $fields["guid"]));
