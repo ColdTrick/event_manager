@@ -50,7 +50,7 @@ if (!empty($parent_guid) && $event = get_entity($parent_guid)) {
 				if ($description = $day->description) {
 					$content_title = $description;
 				} else {
-					$content_title = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date);
+					$content_title = event_manager_format_date($day->date);
 				}
 
 				if ($edit) {

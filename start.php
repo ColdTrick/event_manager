@@ -1,7 +1,5 @@
 <?php
 
-define("EVENT_MANAGER_FORMAT_DATE_EVENTDAY", "Y-m-d");
-
 define("EVENT_MANAGER_RELATION_ATTENDING", "event_attending");
 define("EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST", "event_waitinglist");
 define("EVENT_MANAGER_RELATION_ATTENDING_PENDING", "event_pending");

@@ -13,6 +13,8 @@ return array(
 	'item:object:eventregistrationquestion' => 'Event Registration Questions',
 	'item:object:eventquestions' => 'Event Questions',
 
+	'event_manager:date:format' => 'Y-m-d',
+
 	'event_manager:menu:title' => 'Events',
 	'event_manager:menu:events' => 'All events',
 	'event_manager:menu:group_events' => 'Group events',

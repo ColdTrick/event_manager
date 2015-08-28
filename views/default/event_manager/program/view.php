@@ -16,7 +16,7 @@ if (!empty($event) && ($event instanceof Event)) {
 					$selected = false;
 					$tabtitles .= "<li>";
 				}
-				$day_title = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date);
+				$day_title = event_manager_format_date($day->date);
 				if ($description = $day->description) {
 					$day_title = $description;
 				}

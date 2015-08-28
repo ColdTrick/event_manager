@@ -169,7 +169,7 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
 	if ($event->with_program) {
 		if ($eventDays = $event->getEventDays()) {
 			foreach ($eventDays as $eventDay) {
-				$date = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $eventDay->date);
+				$date = event_manager_format_date($eventDay->date);
 				if ($eventSlots = $eventDay->getEventSlots()) {
 					foreach ($eventSlots as $eventSlot) {
 						$start_time = $eventSlot->start_time;
@@ -501,4 +501,15 @@ function event_manager_groups_enabled() {
 	}
 
 	return $result;
+}
+
+/**
+ * Returns a formatted date
+ * 
+ * @param int $timestamp
+ * 
+ * @return string
+ */
+function event_manager_format_date($timestamp) {
+	return date(elgg_echo('event_manager:date:format'), $timestamp);
 }

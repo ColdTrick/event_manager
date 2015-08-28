@@ -29,7 +29,7 @@ if ($entity && $entity->canEdit()) {
 		$description = $entity->description;
 		$date = $entity->date;
 		if (!empty($date)) {
-			$date = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $date);
+			$date = event_manager_format_date($date);
 		}
 	} else {
 		// entity is a event
@@ -44,7 +44,7 @@ if ($entity && $entity->canEdit()) {
 			$date = ($last_day->date + (3600 * 24));
 		}
 
-		$date = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $date);
+		$date = event_manager_format_date($date);
 	}
 
 	$form_body .= '<div>';

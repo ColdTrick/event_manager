@@ -12,7 +12,7 @@ if (empty($location)) {
 	$location = $event->venue;
 }
 
-$start = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . " " . date('H', $event->start_time) . ":" . date('i', $event->start_time) . ":00";
+$start = event_manager_format_date($event->start_day) . " " . date('H', $event->start_time) . ":" . date('i', $event->start_time) . ":00";
 
 if ($event->end_ts) {
 	$end = date('d/m/Y H:i:00', $event->end_ts);

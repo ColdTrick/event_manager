@@ -9,7 +9,7 @@ if (!empty($day) && ($day instanceof EventDay)) {
 
 	$details = "";
 	if ($description = $day->description) {
-		$details .= "<div><b>" . elgg_echo("event_manager:edit:form:start_day") . ":</b> " . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date) . "</div>";
+		$details .= "<div><b>" . elgg_echo("event_manager:edit:form:start_day") . ":</b> " . event_manager_format_date($day->date) . "</div>";
 	}
 
 	$details .= $day->title;

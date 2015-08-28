@@ -21,7 +21,7 @@ if (!empty($day) && ($day instanceof EventDay)) {
 	
 	if (!empty($slots)) {
 		
-		$title = date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $day->date);
+		$title = event_manager_format_date($day->date);
 		
 		if ($description = $day->description) {
 			$title = $description . " (" . $title . ")";

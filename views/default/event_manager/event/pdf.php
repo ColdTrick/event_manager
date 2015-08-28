@@ -12,7 +12,7 @@ if ($event->icontime) {
 $output .= '<div class="event_manager_event_view_owner">';
 $output .= elgg_echo('event_manager:event:view:createdby');
 $output .= '</span> <a class="user" href="' . $owner->getURL() . '">' . $owner->name . '</a> ';
-$output .= date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->time_created);
+$output .= event_manager_format_date($event->time_created);
 $output .= '</div>';
 
 // event details
@@ -23,7 +23,7 @@ if ($location = $event->getEventLocation()) {
 	$event_details .= '</td></tr>';
 }
 
-$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:start_day') . '</b></td><td>: ' . date(EVENT_MANAGER_FORMAT_DATE_EVENTDAY, $event->start_day) . '</td></tr>';
+$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:start_day') . '</b></td><td>: ' . event_manager_format_date($event->start_day) . '</td></tr>';
 
 if ($organizer = $event->organizer) {
 	$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:organizer') . '</b></td><td>: ' . $organizer . '</td></tr>';
