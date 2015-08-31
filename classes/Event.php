@@ -942,40 +942,6 @@ class Event extends ElggObject {
 	}
 
 	/**
-	 * Checks if a user is registered
-	 *
-	 * @param string $userid guid of the owning entity
-	 * @param string $count  check based on count
-	 *
-	 * @return boolean|ElggEntity
-	 */
-	public function isUserRegistered($userid = null, $count = true) {
-		if ($userid === null) {
-			$userid = elgg_get_logged_in_user_guid();
-		}
-
-		$entities_options = [
-			"type" => "object",
-			"subtype" => EventRegistration::SUBTYPE,
-			"joins" => ["JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_r ON e.guid = e_r.guid_two"],
-			"wheres" => ["e_r.guid_one = " . $this->getGUID()],
-			"count" => $count,
-			"owner_guids" => [$userid]
-		];
-
-		$entities = elgg_get_entities_from_relationship($entities_options);
-
-		if ($count) {
-			if ($entities > 0) {
-				return true;
-			}
-			return false;
-		} else {
-			return $entities[0];
-		}
-	}
-
-	/**
 	 * Counts the attendees
 	 *
 	 * @return boolean|int
