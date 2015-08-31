@@ -61,14 +61,10 @@ function event_manager_init() {
 	elgg_register_widget_type('events', elgg_echo('event_manager:widgets:events:title'), elgg_echo('event_manager:widgets:events:description'), array('index', 'dashboard', 'profile', 'groups'));
 
 	// register js libraries
-	//@todo check if we can offload this plugin settings check to and AMD module so there is no plugin settings query here
-	$maps_key = elgg_get_plugin_setting('google_api_key', 'event_manager');
-	elgg_register_js('event_manager.maps.base', '//maps.googleapis.com/maps/api/js?key=' . $maps_key . '&sensor=true');
-
-	elgg_register_js('addthisevent', 'mod/event_manager/vendors/addthisevent/atemay.js');
-
 	elgg_register_simplecache_view('js/event_manager/googlemaps.js');
 	
+	elgg_register_js('addthisevent', 'mod/event_manager/vendors/addthisevent/atemay.js');
+
 	// page handlers
 	elgg_register_page_handler('events', 'event_manager_page_handler');
 
@@ -121,6 +117,9 @@ function event_manager_pagesetup() {
 	elgg_load_js('lightbox');
 	elgg_load_css('lightbox');
 
+	$maps_key = elgg_get_plugin_setting('google_api_key', 'event_manager');
+	elgg_register_js('event_manager.maps.base', '//maps.googleapis.com/maps/api/js?key=' . $maps_key . '&sensor=true');
+	
 	$page_owner = elgg_get_page_owner_entity();
 	if ($page_owner instanceof ElggGroup) {
 		if ($page_owner->event_manager_enable == 'no') {
