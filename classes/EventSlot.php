@@ -76,19 +76,4 @@ class EventSlot extends ElggObject {
 
 		return $result;
 	}
-
-	/**
-	 * Checks if a given user is waiting for this slot
-	 *
-	 * @param string $user_guid guid of the user
-	 *
-	 * @return ElggRelationship|false
-	 */
-	public function isUserWaiting($user_guid = null) {
-		if (empty($user_guid)) {
-			$user_guid = elgg_get_logged_in_user_guid();
-		}
-
-		return check_entity_relationship($user_guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST, $this->getGUID());
-	}
 }
