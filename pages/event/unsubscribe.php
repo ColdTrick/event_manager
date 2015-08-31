@@ -24,14 +24,10 @@ if ($entity && $entity->register_nologin) {
 	$title_text = elgg_echo("event_manager:unsubscribe:title", array($entity->title));
 
 	$body = elgg_view_form("event_manager/event/unsubscribe", array(), array("entity" => $entity));
-
+	
+	$page_vars = [];
 	if ($entity->hide_owner_block) {
-		$body .= "
-			<style type='text/css'>
-				.elgg-sidebar .elgg-owner-block {
-					display: none;
-				}
-			</style>";
+		$page_vars['body_attrs'] = ['class' => 'event-manager-hide-owner-block'];
 	}
 
 	$page_data = elgg_view_layout("content", array(
@@ -40,7 +36,7 @@ if ($entity && $entity->register_nologin) {
 		"filter" => ""
 	));
 
-	echo elgg_view_page($title_text, $page_data);
+	echo elgg_view_page($title_text, $page_data, 'default', $page_vars);
 } else {
 	forward(REFERER);
 }

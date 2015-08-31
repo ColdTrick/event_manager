@@ -7,6 +7,10 @@
 	color: #AAAAAA;
 }
 
+.event-manager-hide-owner-block .elgg-sidebar .elgg-owner-block {
+	display: none;
+}
+
 /* Event Edit */
 #event_manager_event_edit > fieldset > table {
 	width: 100%;

@@ -50,16 +50,13 @@ if (!empty($guid) && ($entity = get_entity($guid))) {
 			'content' => $form,
 			'title' => $title,
 		));
+		
+		$page_vars = [];
 		if ($event->hide_owner_block) {
-			$body .= "
-					<style type='text/css'>
-						.elgg-sidebar .elgg-owner-block {
-							display: none;
-						}
-					</style>";
+			$page_vars['body_attrs'] = ['class' => 'event-manager-hide-owner-block'];
 		}
 
-		echo elgg_view_page($title, $body);
+		echo elgg_view_page($title, $body, 'default', $page_vars);
 
 		// TODO: replace with sticky form functionality
 		$_SESSION['registerevent_values'] = null;

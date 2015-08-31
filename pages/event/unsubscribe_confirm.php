@@ -30,15 +30,12 @@ if (!empty($guid) && !empty($code)) {
 				"code" => $code
 			);
 			$body = elgg_view_form("event_manager/event/unsubscribe_confirm", array(), $body_vars);
+			
+			$page_vars = [];
 			if ($event->hide_owner_block) {
-				$body .= "
-					<style type='text/css'>
-						.elgg-sidebar .elgg-owner-block {
-							display: none;
-						}
-					</style>";
+				$page_vars['body_attrs'] = ['class' => 'event-manager-hide-owner-block'];
 			}
-
+			
 			// make page
 			$page_data = elgg_view_layout("content", array(
 				"title" => $title_text,
@@ -47,7 +44,7 @@ if (!empty($guid) && !empty($code)) {
 			));
 
 			// draw page
-			echo elgg_view_page($title_text, $page_data);
+			echo elgg_view_page($title_text, $page_data, 'default', $page_vars);
 		} else {
 			register_error(elgg_echo("event_manager:unsubscribe_confirm:error:code"));
 		}

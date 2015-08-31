@@ -44,6 +44,11 @@ if ($event) {
 
 	$sidebar = elgg_view("event_manager/event/sidebar", array("entity" => $event));
 
+	$page_vars = [];
+	if ($event->hide_owner_block) {
+		$page_vars['body_attrs'] = ['class' => 'event-manager-hide-owner-block'];
+	}
+	
 	$body = elgg_view_layout('content', array(
 		'filter' => '',
 		'content' => $output,
@@ -51,7 +56,7 @@ if ($event) {
 		'sidebar' => $sidebar
 	));
 
-	echo elgg_view_page($title_text, $body);
+	echo elgg_view_page($title_text, $body, 'default', $page_vars);
 
 } else {
 	register_error(elgg_echo("InvalidParameterException:GUIDNotFound", array($guid)));
