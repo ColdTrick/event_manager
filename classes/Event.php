@@ -767,41 +767,6 @@ class Event extends ElggObject {
 	}
 
 	/**
-	 * Returns if a user is on the waitinglist
-	 *
-	 * @param string $user_guid guid of the user
-	 *
-	 * @return ElggRelationship|boolean
-	 */
-	public function isWaiting($user_guid = null) {
-		if (empty($user_guid)) {
-			$user_guid = elgg_get_logged_in_user_guid();
-		}
-
-		return check_entity_relationship($this->getGUID(), EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST, $user_guid);
-	}
-
-	/**
-	 * Returns the waiting users
-	 *
-	 * @return array|boolean
-	 */
-	public function getWaitingUsers() {
-		$result = false;
-
-		$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one= '" . $this->getGUID() . "' AND relationship = '" . EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST . "' ORDER BY time_created ASC";
-
-		if ($waiting_users = get_data($query)) {
-			$result = array();
-			foreach ($waiting_users as $user) {
-				$result[] = get_entity($user->guid_two);
-			}
-		}
-
-		return $result;
-	}
-
-	/**
 	 * Returns the first waiting entity
 	 *
 	 * @return boolean|entity
