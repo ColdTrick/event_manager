@@ -13,16 +13,13 @@ if ($guid && ($entity = get_entity($guid))) {
 $output = "";
 
 if ($event) {
-	// @todo move to menu hook
-	$save_to_pdf_options = array(
+	elgg_register_menu_item("title", ElggMenuItem::factory([
 		"name" => "save_to_pdf",
 		"text" => elgg_echo('event_manager:registration:view:savetopdf'),
 		"link_class" => "elgg-button elgg-button-action",
 		"href" => "action/event_manager/registration/pdf?k=" . elgg_build_hmac([$event->time_created, $user_guid])->getToken() . "&guid=" . $guid . "&u_g=" . $user_guid,
 		"is_action" => true
-	);
-
-	elgg_register_menu_item("title", ElggMenuItem::factory($save_to_pdf_options));
+	]));
 }
 
 if ($event && !empty($key)) {
