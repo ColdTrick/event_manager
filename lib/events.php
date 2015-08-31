@@ -13,19 +13,22 @@
  * @return void
  */
 function event_manager_update_object_handler($event, $type, $object) {
-	if (!empty($object) && ($object instanceof Event)) {
-		$fillup = false;
+	if (empty($object) || !($object instanceof Event)) {
+		return;
+	}
+	
+	$fillup = false;
+	if ($object->with_program && $object->hasSlotSpotsLeft()) {
+		$fillup = true;
+	} elseif (!$object->with_program && $object->hasEventSpotsLeft()) {
+		$fillup = true;
+	}
 
-		if ($object->with_program && $object->hasSlotSpotsLeft()) {
-			$fillup = true;
-		} elseif (!$object->with_program && $object->hasEventSpotsLeft()) {
-			$fillup = true;
-		}
+	if (!$fillup) {
+		return;
+	}
 
-		if ($fillup) {
-			while ($object->generateNewAttendee()) {
-				continue;
-			}
-		}
+	while ($object->generateNewAttendee()) {
+		continue;
 	}
 }

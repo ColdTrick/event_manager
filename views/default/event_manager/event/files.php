@@ -30,4 +30,4 @@ foreach ($files as $file) {
 
 $content = elgg_format_element('table', ['class' => 'elgg-table'], $rows);
 	
-echo elgg_view_module('info', elgg_echo('event_manager:edit:form:files'), $content);
+echo elgg_view_module('info', elgg_echo('event_manager:edit:form:files'), $content, ['class' => 'mtm']);

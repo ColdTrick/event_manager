@@ -11,8 +11,6 @@
  * @return boolean
  */
 function event_manager_page_handler($page) {
-	
-
 	elgg_push_breadcrumb(elgg_echo("event_manager:menu:events"), "/events");
 
 	$base_dir = elgg_get_plugins_path() . "event_manager";

@@ -27,8 +27,10 @@ function event_manager_event_get_relationship_options() {
  * 
  * @return array
  */
-function event_manager_search_events($options = array()) {
-	$defaults = array(
+function event_manager_search_events($options = []) {
+	$dbprefix = elgg_get_config('dbprefix');
+	
+	$defaults = [
 		'past_events' => false,
 		'count' => false,
 		'container_guid' => null,
@@ -44,100 +46,121 @@ function event_manager_search_events($options = array()) {
 		'past_events' => false,
 		'search_type' => "list",
 		'user_guid' => elgg_get_logged_in_user_guid()
-	);
+	];
 
 	$options = array_merge($defaults, $options);
 
-	$entities_options = array(
+	$entities_options = [
 		'type' => 'object',
 		'subtype' => 'event',
 		'offset' => $options['offset'],
 		'limit' => $options['limit'],
-		'joins' => array(),
-		'wheres' => array(),
-		'order_by_metadata' => array("name" => 'start_day', "direction" => 'ASC', "as" => "integer")
-	);
+		'joins' => [],
+		'wheres' => [],
+		'order_by_metadata' => [
+			'name' => 'start_day', 
+			'direction' => 'ASC', 
+			'as' => 'integer'
+		]
+	];
 
-	if ($options["container_guid"]) {
+	if ($options['container_guid']) {
 		// limit for a group
 		$entities_options['container_guid'] = $options['container_guid'];
 	}
 
 	if ($options['query']) {
-		$entities_options["joins"][] = "JOIN " . elgg_get_config("dbprefix") . "objects_entity oe ON e.guid = oe.guid";
-		$entities_options['wheres'][] = event_manager_search_get_where_sql('oe', array('title', 'description'), $options);
+		$entities_options['joins'][] = "JOIN {$dbprefix}objects_entity oe ON e.guid = oe.guid";
+		$entities_options['wheres'][] = event_manager_search_get_where_sql('oe', ['title', 'description'], $options);
 	}
 
 	if (!empty($options['start_day'])) {
-		$entities_options['metadata_name_value_pairs'][] = array('name' => 'start_day', 'value' => $options['start_day'], 'operand' => '>=');
+		$entities_options['metadata_name_value_pairs'][] = [
+			'name' => 'start_day', 
+			'value' => $options['start_day'], 
+			'operand' => '>='
+		];
 	}
 
 	if (!empty($options['end_day'])) {
-		$entities_options['metadata_name_value_pairs'][] = array('name' => 'end_ts', 'value' => $options['end_day'], 'operand' => '<=');
+		$entities_options['metadata_name_value_pairs'][] = [
+			'name' => 'end_ts', 
+			'value' => $options['end_day'], 
+			'operand' => '<='
+		];
 	}
 
 	if (!$options['past_events']) {
 		// only show from current day or newer
-		$entities_options['metadata_name_value_pairs'][] = array('name' => 'start_day', 'value' => mktime(0, 0, 1), 'operand' => '>=');
+		$entities_options['metadata_name_value_pairs'][] = [
+			'name' => 'start_day', 
+			'value' => mktime(0, 0, 1), 
+			'operand' => '>='
+		];
 	}
 
-	if ($options['meattending'] && !empty($options["user_guid"])) {
-		$entities_options['joins'][] = "JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_r ON e.guid = e_r.guid_one";
+	if ($options['meattending'] && !empty($options['user_guid'])) {
+		$entities_options['joins'][] = "JOIN {$dbprefix}entity_relationships e_r ON e.guid = e_r.guid_one";
 
-		$entities_options['wheres'][] = "e_r.guid_two = " . $options["user_guid"];
-		$entities_options['wheres'][] = "e_r.relationship = '" . EVENT_MANAGER_RELATION_ATTENDING . "'";
+		$entities_options['wheres'][] = 'e_r.guid_two = ' . $options['user_guid'];
+		$entities_options['wheres'][] = 'e_r.relationship = "' . EVENT_MANAGER_RELATION_ATTENDING . '"';
 	}
 
-	if ($options['owning'] && !empty($options["user_guid"])) {
-		$entities_options['owner_guids'] = array($options["user_guid"]);
+	if ($options['owning'] && !empty($options['user_guid'])) {
+		$entities_options['owner_guids'] = [$options['user_guid']];
 	}
 
-	if ($options["region"]) {
-		$entities_options['metadata_name_value_pairs'][] = array('name' => 'region', 'value' => $options["region"]);
+	if ($options['region']) {
+		$entities_options['metadata_name_value_pairs'][] = [
+			'name' => 'region', 
+			'value' => $options['region']
+		];
 	}
 
-	if ($options["event_type"]) {
-		$entities_options['metadata_name_value_pairs'][] = array('name' => 'event_type', 'value' => $options["event_type"]);
+	if ($options['event_type']) {
+		$entities_options['metadata_name_value_pairs'][] = [
+			'name' => 'event_type', 
+			'value' => $options['event_type']
+		];
 	}
 
-	if ($options['friendsattending'] && !empty($options["user_guid"])) {
-		$friends_guids = array();
-		$user = get_entity($options["user_guid"]);
+	if ($options['friendsattending'] && !empty($options['user_guid'])) {
+		$friends_guids = [];
+		$user = get_entity($options['user_guid']);
 
-		if ($friends = $user->getFriends("", false)) {
+		if ($friends = $user->getFriends('', false)) {
 			foreach ($friends as $friend) {
 				$friends_guids[] = $friend->getGUID();
 			}
-			$entities_options['joins'][] = "JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_ra ON e.guid = e_ra.guid_one";
-			$entities_options['wheres'][] = "(e_ra.guid_two IN (" . implode(", ", $friends_guids) . "))";
+			$entities_options['joins'][] = "JOIN {$dbprefix}entity_relationships e_ra ON e.guid = e_ra.guid_one";
+			$entities_options['wheres'][] = '(e_ra.guid_two IN (' . implode(', ', $friends_guids) . '))';
 		} else {
 			// return no result
-			$entities_options['joins'] = array();
-			$entities_options['wheres'] = array("(1=0)");
+			$entities_options['joins'] = [];
+			$entities_options['wheres'] = ['(1=0)'];
 		}
 	}
 
-	if (($options["search_type"] == "onthemap") && !empty($options['latitude']) && !empty($options['longitude']) && !empty($options['distance'])) {
-		$entities_options["latitude"] = $options['latitude'];
-		$entities_options["longitude"] = $options['longitude'];
-		$entities_options["distance"] = $options['distance'];
+	if (($options['search_type'] == 'onthemap') && !empty($options['latitude']) && !empty($options['longitude']) && !empty($options['distance'])) {
+		$entities_options['latitude'] = $options['latitude'];
+		$entities_options['longitude'] = $options['longitude'];
+		$entities_options['distance'] = $options['distance'];
 		$entities = elgg_get_entities_from_location($entities_options);
 
 		$entities_options['count'] = true;
 		$count_entities = elgg_get_entities_from_location($entities_options);
 
 	} else {
-
 		$entities = elgg_get_entities_from_metadata($entities_options);
 
 		$entities_options['count'] = true;
 		$count_entities = elgg_get_entities_from_metadata($entities_options);
 	}
 
-	$result = array(
-		"entities" => $entities,
-		"count" => $count_entities
-	);
+	$result = [
+		'entities' => $entities,
+		'count' => $count_entities
+	];
 
 	return $result;
 }
@@ -153,8 +176,8 @@ function event_manager_search_events($options = array()) {
 function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_ATTENDING) {
 	$old_ia = elgg_set_ignore_access(true);
 
-	$headerString = "";
-	$dataString = "";
+	$headerString = '';
+	$dataString = '';
 
 	$headerString .= '"' . elgg_echo('guid') . '";"' . elgg_echo('name') . '";"' . elgg_echo('email') . '";"' . elgg_echo('username') . '";"' . elgg_echo('registration date') . '"';
 
@@ -297,21 +320,19 @@ function event_manager_search_get_where_sql($table, $fields, $params) {
  * @return bool|array
  */
 function event_manager_event_region_options() {
-	$result = false;
-
 	$region_settings = trim(elgg_get_plugin_setting('region_list', 'event_manager'));
 
-	if (!empty($region_settings)) {
-		$region_options = array('-');
-		$region_list = explode(',', $region_settings);
-		$region_options = array_merge($region_options, $region_list);
-
-		array_walk($region_options, create_function('&$val', '$val = trim($val);'));
-
-		$result = $region_options;
+	if (empty($region_settings)) {
+		return false;	
 	}
+	
+	$region_options = ['-'];
+	$region_list = explode(',', $region_settings);
+	$region_options = array_merge($region_options, $region_list);
 
-	return $result;
+	array_walk($region_options, create_function('&$val', '$val = trim($val);'));
+
+	return $region_options;
 }
 
 /**
@@ -320,21 +341,18 @@ function event_manager_event_region_options() {
  * @return bool|array
  */
 function event_manager_event_type_options() {
-	$result = false;
-
 	$type_settings = trim(elgg_get_plugin_setting('type_list', 'event_manager'));
 
-	if (!empty($type_settings)) {
-		$type_options = array('-');
-		$type_list = explode(',', $type_settings);
-		$type_options = array_merge($type_options, $type_list);
-
-		array_walk($type_options, create_function('&$val', '$val = trim($val);'));
-
-		$result = $type_options;
+	if (empty($type_settings)) {
+		return false;	
 	}
+	$type_options = array('-');
+	$type_list = explode(',', $type_settings);
+	$type_options = array_merge($type_options, $type_list);
 
-	return $result;
+	array_walk($type_options, create_function('&$val', '$val = trim($val);'));
+
+	return $type_options;
 }
 
 /**
@@ -345,7 +363,7 @@ function event_manager_event_type_options() {
  * @return void
  */
 function event_manager_time_pad(&$value) {
-	$value = str_pad($value, 2, "0", STR_PAD_LEFT);
+	$value = str_pad($value, 2, '0', STR_PAD_LEFT);
 }
 
 /**
@@ -357,19 +375,17 @@ function event_manager_time_pad(&$value) {
  * @return false|string
  */
 function event_manager_create_unsubscribe_code(EventRegistration $registration, Event $event = null) {
-	$result = false;
-
-	if (!empty($registration) && elgg_instanceof($registration, "object", EventRegistration::SUBTYPE)) {
-		if (empty($event) || !elgg_instanceof($event, "object", Event::SUBTYPE)) {
-			$event = $registration->getOwnerEntity();
-		}
-
-		$site_secret = get_site_secret();
-
-		$result = md5($registration->getGUID() . $site_secret . $event->time_created);
+	if (empty($registration) || !elgg_instanceof($registration, 'object', EventRegistration::SUBTYPE)) {
+		return false;
+	}
+	
+	if (empty($event) || !elgg_instanceof($event, 'object', Event::SUBTYPE)) {
+		$event = $registration->getOwnerEntity();
 	}
 
-	return $result;
+	$site_secret = get_site_secret();
+	// @todo replace with new Elgg core encrypting feature
+	return md5($registration->getGUID() . $site_secret . $event->time_created);
 }
 
 /**
@@ -381,18 +397,18 @@ function event_manager_create_unsubscribe_code(EventRegistration $registration, 
  * @return false|string
  */
 function event_manager_get_registration_validation_url($event_guid, $user_guid) {
-	$result = false;
-
-	if (!empty($event_guid) && !empty($user_guid)) {
-		$code = event_manager_generate_registration_validation_code($event_guid, $user_guid);
-
-		if (!empty($code)) {
-			$result = "events/registration/confirm/" . $event_guid . "?user_guid=" . $user_guid . "&code=" . $code;
-			$result = elgg_normalize_url($result);
-		}
+	if (empty($event_guid) || empty($user_guid)) {
+		return false;
 	}
+	
+	$code = event_manager_generate_registration_validation_code($event_guid, $user_guid);
 
-	return $result;
+	if (empty($code)) {
+		return false;
+	}
+	
+	$result = 'events/registration/confirm/' . $event_guid . '?user_guid=' . $user_guid . '&code=' . $code;
+	return elgg_normalize_url($result);
 }
 
 /**
@@ -404,18 +420,19 @@ function event_manager_get_registration_validation_url($event_guid, $user_guid) 
  * @return false|string
  */
 function event_manager_generate_registration_validation_code($event_guid, $user_guid) {
+	if (empty($event_guid) || empty($user_guid)) {
+		return false;
+	}
+	
+	$event = get_entity($event_guid);
+	$user = get_entity($user_guid);
+
 	$result = false;
+	if (!empty($event) && elgg_instanceof($event, 'object', Event::SUBTYPE) && !empty($user) && (elgg_instanceof($user, 'user') || elgg_instanceof($user, 'object', EventRegistration::SUBTYPE))) {
+		$site_secret = elgg_get_config('site_secret');
+		$time_created = $event->time_created;
 
-	if (!empty($event_guid) && !empty($user_guid)) {
-		$event = get_entity($event_guid);
-		$user = get_entity($user_guid);
-
-		if (!empty($event) && elgg_instanceof($event, "object", Event::SUBTYPE) && !empty($user) && (elgg_instanceof($user, "user") || elgg_instanceof($user, "object", EventRegistration::SUBTYPE))) {
-			$site_secret = elgg_get_config("site_secret");
-			$time_created = $event->time_created;
-
-			$result = md5($event_guid . $site_secret . $user_guid . $time_created);
-		}
+		$result = md5($event_guid . $site_secret . $user_guid . $time_created);
 	}
 
 	return $result;
@@ -431,19 +448,21 @@ function event_manager_generate_registration_validation_code($event_guid, $user_
  * @return bool
  */
 function event_manager_validate_registration_validation_code($event_guid, $user_guid, $code) {
-	$result = false;
-
-	if (!empty($event_guid) && !empty($user_guid) && !empty($code)) {
-		$valid_code = event_manager_generate_registration_validation_code($event_guid, $user_guid);
-
-		if (!empty($valid_code)) {
-			if ($code == $valid_code) {
-				$result = true;
-			}
-		}
+	if (empty($event_guid) || empty($user_guid) || empty($code)) {
+		return false;
 	}
+	
+	$valid_code = event_manager_generate_registration_validation_code($event_guid, $user_guid);
 
-	return $result;
+	if (empty($valid_code)) {
+		return false;
+	}
+	
+	if ($code !== $valid_code) {
+		return false;
+	}
+	
+	return true;
 }
 
 /**
@@ -455,19 +474,23 @@ function event_manager_validate_registration_validation_code($event_guid, $user_
  * @return void
  */
 function event_manager_send_registration_validation_email(Event $event, ElggEntity $entity) {
-	$subject = elgg_echo("event_manager:registration:confirm:subject", array($event->title));
-	$message = elgg_echo("event_manager:registration:confirm:message", array($entity->name, $event->title, event_manager_get_registration_validation_url($event->getGUID(), $entity->getGUID())));
+	$subject = elgg_echo('event_manager:registration:confirm:subject', [$event->title]);
+	$message = elgg_echo('event_manager:registration:confirm:message', [
+			$entity->name, 
+			$event->title, 
+			event_manager_get_registration_validation_url($event->getGUID(), $entity->getGUID())
+	]);
 
 	$site = elgg_get_site_entity();
 
 	// send confirmation mail
-	if (elgg_instanceof($entity, "user")) {
-		notify_user($entity->getGUID(), $event->getOwnerGUID(), $subject, $message, null, "email");
+	if (elgg_instanceof($entity, 'user')) {
+		notify_user($entity->getGUID(), $event->getOwnerGUID(), $subject, $message, null, 'email');
 	} else {
 
 		$from = $site->email;
 		if (empty($from)) {
-			$from = "noreply@" . $site->getDomain();
+			$from = 'noreply@' . $site->getDomain();
 		}
 
 		if (!empty($site->name)) {
@@ -492,12 +515,14 @@ function event_manager_send_registration_validation_email(Event $event, ElggEnti
 function event_manager_groups_enabled() {
 	static $result;
 
-	if (!isset($result)) {
-		$result = true;
+	if (isset($result)) {
+		return $result;
+	}
+	
+	$result = true;
 
-		if (!elgg_get_plugin_setting("who_create_group_events", "event_manager")) {
-			$result = false;
-		}
+	if (!elgg_get_plugin_setting('who_create_group_events', 'event_manager')) {
+		$result = false;
 	}
 
 	return $result;
