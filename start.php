@@ -33,7 +33,6 @@ function event_manager_init() {
 
 	elgg_extend_view('css/elgg', 'event_manager/css/site');
 	elgg_extend_view('js/elgg', 'js/event_manager/site.js');
-	elgg_extend_view('page/elements/head', 'event_manager/metatags');
 
 	// notifications
 	elgg_register_notification_event('object', Event::SUBTYPE, array('create'));
@@ -68,6 +67,8 @@ function event_manager_init() {
 
 	elgg_register_js('addthisevent', 'mod/event_manager/vendors/addthisevent/atemay.js');
 
+	elgg_register_simplecache_view('js/event_manager/googlemaps.js');
+	
 	// page handlers
 	elgg_register_page_handler('events', 'event_manager_page_handler');
 
@@ -82,6 +83,8 @@ function event_manager_init() {
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'event_manager_permissions_check_handler');
 	elgg_register_plugin_hook_handler('entity:url', 'object', 'event_manager_widget_events_url');
 
+	elgg_register_plugin_hook_handler('setting', 'plugin', 'event_manager_invalidate_cache');
+	
 	// actions
 	elgg_register_action('event_manager/event/edit', $base_dir . '/actions/event/edit.php');
 	elgg_register_action('event_manager/event/delete', $base_dir . '/actions/event/delete.php');

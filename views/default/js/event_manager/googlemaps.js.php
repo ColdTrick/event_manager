@@ -1,3 +1,17 @@
+<?php
+$location = elgg_get_plugin_setting('google_maps_default_location', 'event_manager');
+if (empty($location)) {
+	$location = 'Netherlands';
+}
+
+$zoom_level = elgg_get_plugin_setting('google_maps_default_zoom', 'event_manager');
+if ($zoom_level == '') {
+	$zoom_level = 10;
+}
+$zoom_level = sanitise_int($zoom_level);
+
+?>
+//<script>
 var event_manager_gmap;
 var event_manager_geocoder;
 var event_manager_gmarkers = [];
@@ -90,7 +104,7 @@ function initMaps(element, bindSearchEvents){
 	event_manager_geocoder = new google.maps.Geocoder();
 	
 	var myOptions = {
-		zoom: EVENT_MANAGER_BASE_ZOOM,
+		zoom: <?php echo $zoom_level; ?>,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	
@@ -102,7 +116,7 @@ function initMaps(element, bindSearchEvents){
 		});
 	}
 	
-	event_manager_geocoder.geocode( { 'address': EVENT_MANAGER_BASE_LOCATION}, function(results, status) {
+	event_manager_geocoder.geocode( { 'address': "<?php echo $location; ?>"}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         event_manager_gmap.setCenter(results[0].geometry.location);
       }
