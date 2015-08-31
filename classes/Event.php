@@ -292,31 +292,6 @@ class Event extends ElggObject {
 	}
 
 	/**
-	 * Returns the registrations for a given user
-	 *
-	 * @param boolean $count     return count
-	 * @param string  $user_guid guid of the user
-	 *
-	 * @return array|boolean
-	 */
-	public function getRegistrationsByUser($count = false, $user_guid = null) {
-		if ($user_guid === null) {
-			$user_guid = elgg_get_logged_in_user_guid();
-		}
-
-		$entities_options = [
-			"type" => "object",
-			"subtype" => EventRegistration::SUBTYPE,
-			"joins" => ["JOIN " . elgg_get_config("dbprefix") . "entity_relationships e_r ON e.guid = e_r.guid_two"],
-			"wheres" => ["e_r.guid_one = " . $this->getGUID()],
-			"owner_guids" => [$user_guid],
-			"count" => $count
-		];
-
-		return elgg_get_entities($entities_options);
-	}
-
-	/**
 	 * Returns registration data
 	 *
 	 * @param string  $guid guid of the user or registration object
