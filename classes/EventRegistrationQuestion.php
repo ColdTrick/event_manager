@@ -6,7 +6,7 @@
  *
  */
 class EventRegistrationQuestion extends ElggObject {
-	const SUBTYPE = "eventregistrationquestion";
+	const SUBTYPE = 'eventregistrationquestion';
 
 	/**
 	 * initializes the default class attributes
@@ -16,7 +16,7 @@ class EventRegistrationQuestion extends ElggObject {
 	protected function initializeAttributes() {
 		parent::initializeAttributes();
 
-		$this->attributes["subtype"] = self::SUBTYPE;
+		$this->attributes['subtype'] = self::SUBTYPE;
 	}
 
 	/**
@@ -27,25 +27,23 @@ class EventRegistrationQuestion extends ElggObject {
 	 * @return boolean|ElggAnnotation
 	 */
 	public function getAnswerFromUser($user_guid = null) {
-		$result = false;
-
 		if (empty($user_guid)) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
 
-		$params = array(
-			"guid" => $this->getGUID(),
-			"annotation_name" => "answer_to_event_registration",
-			"annotation_owner_guid" => $user_guid,
-			"limit" => 1
-		);
+		$params = [
+			'guid' => $this->getGUID(),
+			'annotation_name' => 'answer_to_event_registration',
+			'annotation_owner_guid' => $user_guid,
+			'limit' => 1
+		];
 
 		$annotations = elgg_get_annotations($params);
-		if ($annotations) {
-			$result = $annotations[0];
+		if (empty($annotations)) {
+			return false;
 		}
-
-		return $result;
+		
+		return $annotations[0];
 	}
 
 	/**
@@ -83,12 +81,12 @@ class EventRegistrationQuestion extends ElggObject {
 		$old_answer = $this->getAnswerFromUser($user_guid);
 		if ($old_answer && get_user($user_guid)) {
 			if (!empty($new_answer)) {
-				update_annotation($old_answer->id, "answer_to_event_registration", $new_answer, "", $user_guid, $event->access_id);
+				update_annotation($old_answer->id, 'answer_to_event_registration', $new_answer, '', $user_guid, $event->access_id);
 			} else {
 				elgg_delete_annotation_by_id($old_answer->id);
 			}
 		} else {
-			$this->annotate("answer_to_event_registration", $new_answer, $event->access_id, $user_guid);
+			$this->annotate('answer_to_event_registration', $new_answer, $event->access_id, $user_guid);
 		}
 	}
 
@@ -98,7 +96,7 @@ class EventRegistrationQuestion extends ElggObject {
 	 * @return array
 	 */
 	public function getOptions() {
-		$field_options = array();
+		$field_options = [];
 
 		if (!empty($this->fieldoptions)) {
 			$field_options = string_to_tag_array($this->fieldoptions);

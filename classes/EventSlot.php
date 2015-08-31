@@ -6,7 +6,7 @@
  *
  */
 class EventSlot extends ElggObject {
-	const SUBTYPE = "eventslot";
+	const SUBTYPE = 'eventslot';
 
 	/**
 	 * initializes the default class attributes
@@ -16,7 +16,7 @@ class EventSlot extends ElggObject {
 	protected function initializeAttributes() {
 		parent::initializeAttributes();
 
-		$this->attributes["subtype"] = self::SUBTYPE;
+		$this->attributes['subtype'] = self::SUBTYPE;
 	}
 
 	/**
@@ -27,13 +27,13 @@ class EventSlot extends ElggObject {
 	public function countRegistrations() {
 		$old_ia = elgg_set_ignore_access(true);
 
-		$result = elgg_get_entities_from_relationship(array(
-			"relationship" => EVENT_MANAGER_RELATION_SLOT_REGISTRATION,
-			"relationship_guid" => $this->getGUID(),
-			"inverse_relationship" => true,
-			"count" => true,
-			"site_guids" => false
-		));
+		$result = elgg_get_entities_from_relationship([
+			'relationship' => EVENT_MANAGER_RELATION_SLOT_REGISTRATION,
+			'relationship_guid' => $this->getGUID(),
+			'inverse_relationship' => true,
+			'count' => true,
+			'site_guids' => false
+		]);
 
 		elgg_set_ignore_access($old_ia);
 
@@ -46,13 +46,11 @@ class EventSlot extends ElggObject {
 	 * @return boolean
 	 */
 	public function hasSpotsLeft() {
-		$result = false;
-
 		if (empty($this->max_attendees) || (($this->max_attendees - $this->countRegistrations()) > 0)) {
-			$result = true;
+			return true;
 		}
 
-		return $result;
+		return false;
 	}
 
 	/**
@@ -68,10 +66,10 @@ class EventSlot extends ElggObject {
 		if ($count) {
 			$result = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST, true);
 		} else {
-			$result = $this->getEntitiesFromRelationship(array(
+			$result = $this->getEntitiesFromRelationship([
 				'relationship' => EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST,
 				'inverse_relationship' => true,
-			));
+			]);
 		}
 
 		elgg_set_ignore_access($old_ia);
