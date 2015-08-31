@@ -18,7 +18,7 @@ if ($event) {
 		"name" => "save_to_pdf",
 		"text" => elgg_echo('event_manager:registration:view:savetopdf'),
 		"link_class" => "elgg-button elgg-button-action",
-		"href" => "action/event_manager/registration/pdf?k=" . md5($event->time_created . get_site_secret() . $user_guid) . "&guid=" . $guid . "&u_g=" . $user_guid,
+		"href" => "action/event_manager/registration/pdf?k=" . elgg_build_hmac([$event->time_created, $user_guid])->getToken() . "&guid=" . $guid . "&u_g=" . $user_guid,
 		"is_action" => true
 	);
 
@@ -26,8 +26,8 @@ if ($event) {
 }
 
 if ($event && !empty($key)) {
-	$tempKey = md5($event->time_created . get_site_secret() . $user_guid);
-
+	$tempKey = elgg_build_hmac([$event->time_created, $user_guid])->getToken();
+	
 	if (($tempKey == $key) && get_entity($user_guid)) {
 
 		$title_text = elgg_echo('event_manager:registration:registrationto') . " '" . $event->title . "'";

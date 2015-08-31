@@ -155,6 +155,3 @@ $form = elgg_view('input/form', array(
 ));
 
 echo elgg_view_module("main", "", $form);
-
-// unset sticky data TODO: replace with sticky forms functionality
-// 	$_SESSION['createevent_values'] = null;

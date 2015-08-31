@@ -382,10 +382,8 @@ function event_manager_create_unsubscribe_code(EventRegistration $registration, 
 	if (empty($event) || !elgg_instanceof($event, 'object', Event::SUBTYPE)) {
 		$event = $registration->getOwnerEntity();
 	}
-
-	$site_secret = get_site_secret();
-	// @todo replace with new Elgg core encrypting feature
-	return md5($registration->getGUID() . $site_secret . $event->time_created);
+	
+	return elgg_build_hmac([$registration->getGUID(), $event->time_created])->getToken();
 }
 
 /**
@@ -429,10 +427,7 @@ function event_manager_generate_registration_validation_code($event_guid, $user_
 
 	$result = false;
 	if (!empty($event) && elgg_instanceof($event, 'object', Event::SUBTYPE) && !empty($user) && (elgg_instanceof($user, 'user') || elgg_instanceof($user, 'object', EventRegistration::SUBTYPE))) {
-		$site_secret = elgg_get_config('site_secret');
-		$time_created = $event->time_created;
-
-		$result = md5($event_guid . $site_secret . $user_guid . $time_created);
+		$result = elgg_build_hmac([$event_guid, $user_guid, $event->time_created])->getToken();
 	}
 
 	return $result;

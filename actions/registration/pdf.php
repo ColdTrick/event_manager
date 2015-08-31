@@ -16,8 +16,8 @@ if ($guid && ($entity = get_entity($guid))) {
 if (!$event || empty($key)) {
 	forward("events");
 } else {
-	$tempKey = md5($event->time_created . get_site_secret() . $user_guid);
-
+	$tempKey = elgg_build_hmac([$event->time_created, $user_guid])->getToken());
+	
 	if (($tempKey == $key) && get_entity($user_guid)) {
 		$html = elgg_view_title(elgg_echo("event_manager:registration:yourregistration"));
 
