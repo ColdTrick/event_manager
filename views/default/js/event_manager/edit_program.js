@@ -1,12 +1,12 @@
 elgg.provide('elgg.event_manager');
 
-function event_manager_program_add_slot(event){
+elgg.event_manager.program_add_slot = function(event) {
 	event.preventDefault();
 
-	var button = $(this).find("input[type='submit']");
+	var $button = $(this).find("input[type='submit']");
 
 	// Prevent accidental double click
-	button.hide();
+	$button.hide();
 
 	var url = $(this).attr('action');
 	var data = $(this).serialize();
@@ -26,13 +26,13 @@ function event_manager_program_add_slot(event){
 					$("#day_" + parent_guid).find("a.event_manager_program_slot_add").before(json.output.content);
 				}
 			} else {
-				button.show();
+				$button.show();
 			}
 		}
 	});
 };
 
-function event_manager_program_add_day(form){
+elgg.event_manager.program_add_day = function(form) {
 	$(form).find("input[type='submit']").hide();
 
 	$.post(elgg.get_site_url() + 'events/proc/day/edit', $(form).serialize(), function(response) {
@@ -161,7 +161,7 @@ elgg.event_manager.init_edit_program = function() {
 		elgg.event_manager.add_new_slot_set_name($("#event-manager-new-slot-set-name").val());
 	});
 	
-	$('#event_manager_form_program_slot').live('submit', event_manager_program_add_slot);
+	$('#event_manager_form_program_slot').live('submit', elgg.event_manager.program_add_slot);
 };
 
 elgg.register_hook_handler('init', 'system', elgg.event_manager.init_edit_program);
