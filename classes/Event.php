@@ -49,7 +49,7 @@ class Event extends ElggObject {
 	 *
 	 * @return void
 	 */
-	public function setAccessToProgramEntities($access_id = null) {
+	protected function setAccessToProgramEntities($access_id = null) {
 		if ($access_id === null) {
 			$access_id = $this->access_id;
 		}
@@ -88,7 +88,7 @@ class Event extends ElggObject {
 	 *
 	 * @return void
 	 */
-	public function setAccessToRegistrationForm($access_id = null) {
+	protected function setAccessToRegistrationForm($access_id = null) {
 		if ($access_id === null) {
 			$access_id = $this->access_id;
 		}
@@ -135,8 +135,7 @@ class Event extends ElggObject {
 	 * @return boolean
 	 */
 	public function rsvp($type = EVENT_MANAGER_RELATION_UNDO, $user_guid = 0, $reset_program = true, $add_to_river = true) {
-		global $EVENT_MANAGER_UNDO_REGISTRATION;
-
+		
 		$user_guid = sanitise_int($user_guid, false);
 
 		if (empty($user_guid)) {
@@ -154,22 +153,7 @@ class Event extends ElggObject {
 
 		// remove registrations
 		if ($type == EVENT_MANAGER_RELATION_UNDO) {
-			if (empty($user_entity)) {
-				// make sure we can remove the registration object
-				$EVENT_MANAGER_UNDO_REGISTRATION = true;
-				$registration_object = get_entity($user_guid);
-				$registration_object->delete();
-
-				// undo overrides
-				$EVENT_MANAGER_UNDO_REGISTRATION = false;
-			} else {
-				if ($reset_program) {
-					if ($this->with_program) {
-						$this->relateToAllSlots(false, $user_guid);
-					}
-					$this->clearRegistrations($user_guid);
-				}
-			}
+			$this->undoRegistration($user_guid, $reset_program);
 		}
 
 		// remove current relationships
@@ -177,12 +161,11 @@ class Event extends ElggObject {
 
 		// remove river events
 		if ($user_entity) {
-			$params = array(
-				"subject_guid" => $user_guid,
-				"object_guid" => $event_guid,
-				"action_type" => "event_relationship"
-			);
-			elgg_delete_river($params);
+			elgg_delete_river([
+				'subject_guid' => $user_guid,
+				'object_guid' => $event_guid,
+				'action_type' => 'event_relationship'
+			]);
 		}
 
 		// add the new relationship
@@ -192,13 +175,13 @@ class Event extends ElggObject {
 			if ($result && $add_to_river) {
 				if ($user_entity) {
 					// add river events
-					if (($type != "event_waitinglist") && ($type != "event_pending")) {
-						elgg_create_river_item(array(
+					if (($type != 'event_waitinglist') && ($type != 'event_pending')) {
+						elgg_create_river_item([
 							'view' => 'river/event_relationship/create',
 							'action_type' => 'event_relationship',
 							'subject_guid' => $user_guid,
 							'object_guid' => $event_guid,
-						));
+						]);
 					}
 				}
 			}
@@ -211,11 +194,32 @@ class Event extends ElggObject {
 			$result = true;
 		}
 
-		if ($this->notify_onsignup && ($type !== EVENT_MANAGER_RELATION_ATTENDING_PENDING)) {
-			$this->notifyOnRsvp($type, $user_guid);
-		}
-
+		$this->notifyOnRsvp($type, $user_guid);
+		
 		return $result;
+	}
+	
+	protected function undoRegistration($user_guid, $reset_program) {
+		global $EVENT_MANAGER_UNDO_REGISTRATION;
+		
+		$user_entity = get_user($user_guid);
+		
+		if (empty($user_entity)) {
+			// make sure we can remove the registration object
+			$EVENT_MANAGER_UNDO_REGISTRATION = true;
+			$registration_object = get_entity($user_guid);
+			$registration_object->delete();
+		
+			// undo overrides
+			$EVENT_MANAGER_UNDO_REGISTRATION = false;
+		} else {
+			if ($reset_program) {
+				if ($this->with_program) {
+					$this->relateToAllSlots(false, $user_guid);
+				}
+				$this->clearRegistrations($user_guid);
+			}
+		}
 	}
 
 	/**
@@ -384,8 +388,12 @@ class Event extends ElggObject {
 	 *
 	 * @return void
 	 */
-	public function notifyOnRsvp($type, $to = null) {
+	protected function notifyOnRsvp($type, $to = null) {
 
+		if (!$this->notify_onsignup || ($type == EVENT_MANAGER_RELATION_ATTENDING_PENDING)) {
+			return;		
+		}
+		
 		$ia = elgg_set_ignore_access(true);
 
 		if ($to === null) {
@@ -496,7 +504,7 @@ class Event extends ElggObject {
 	 *
 	 * @return void
 	 */
-	public function notifyOwnerOnRSVP($type, ElggEntity $to, $event_title_link, $registration_link = "") {
+	protected function notifyOwnerOnRSVP($type, ElggEntity $to, $event_title_link, $registration_link = "") {
 		$owner_subject = elgg_echo('event_manager:event:registration:notification:owner:subject');
 
 		$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, array(
@@ -556,12 +564,12 @@ class Event extends ElggObject {
 	 *
 	 * @return array
 	 */
-	public function countEventSlotSpots() {
-		$spots = array();
+	protected function countEventSlotSpots() {
+		$spots = [];
 
 		$eventDays = $this->getEventDays();
 		if (empty($eventDays)) {
-			return array();
+			return [];
 		}
 
 		foreach ($eventDays as $eventDay) {
@@ -584,7 +592,7 @@ class Event extends ElggObject {
 	 *
 	 * @return boolean
 	 */
-	public function hasUnlimitedSpotSlots() {
+	protected function hasUnlimitedSpotSlots() {
 		$result = false;
 
 		$eventDays = $this->getEventDays();
