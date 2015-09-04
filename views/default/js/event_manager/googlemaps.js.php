@@ -17,7 +17,7 @@ var event_manager_geocoder;
 var event_manager_gmarkers = [];
 
 $(function() {
-	$('.openRouteToEvent').live('click', function(e) {
+	$(document).on('click', '.openRouteToEvent', function(e) {
 		var $elem = $(this);
 		
 		$.colorbox({
@@ -58,12 +58,12 @@ $(function() {
 			}
 	});
 			
-	$('#event_manager_address_search').live("submit", function(e) {
+	$(document).on('submit', '#event_manager_address_search', function(e) {
 		searchAddress($('#address_search').val());
 		e.preventDefault();
 	});
 
-	$('#address_search_save').live("click", function() {
+	$(document).on('click', '#address_search_save', function() {
 		var address = $('#address_search').val();
 		
 		$('#event_manager_event_edit input[name="location"]').val(address);
@@ -82,7 +82,7 @@ $(function() {
 		$.colorbox.close();
 	});
 	
-	$('#event_manager_address_route_search').live("submit", function(e)	{
+	$(document).on('submit', '#event_manager_address_route_search', function(e)	{
 		frmAddress = $('#address_from').val();
 		dstAddress = $('#address_to').html();
 		

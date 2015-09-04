@@ -101,7 +101,7 @@ elgg.event_manager.list_events_init = function() {
 		}
 	});
 
-	$('#event_manager_event_list_search_more').live('click', function()	{
+	$(document).on('click', '#event_manager_event_list_search_more', function()	{
 		clickedElement = $(this);
 		clickedElement.html('<div class="elgg-ajax-loader"></div>');
 		offset = parseInt($(this).attr('rel'), 10);

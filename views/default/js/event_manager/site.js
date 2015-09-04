@@ -13,7 +13,8 @@ elgg.event_manager.slot_set_init = function() {
 			}
 		});
 
-		$form.find(".event_manager_program_participatetoslot[rel]").live("change", function(){
+		$(document).on('change', '#event_manager_event_register .event_manager_program_participatetoslot[rel]', function() {
+			$form = $("#event_manager_event_register");
 			rel = $(this).attr("rel");
 			selected_id = $form.find(".event_manager_program_participatetoslot[rel='" + rel + "']:checked:first").attr("id");
 			if(selected_id){
