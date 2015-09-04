@@ -208,6 +208,7 @@
 .event-manager-program-slot-set {
 	padding: 2px 4px;
 	color: white;
+	margin-left: 5px;
 	
 	border-radius: 4px;
 	-webkit-border-radius: 4px;

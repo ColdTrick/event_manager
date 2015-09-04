@@ -1,64 +1,68 @@
 <?php 
 
-$event = $vars["entity"];
+$event = elgg_extract('entity', $vars);
+
+if (empty($event) || !($event instanceof Event)) {
+	return;
+}
+
+if (!$event->with_program) {
+	return;
+}
+
+if ($event->canEdit()) {
+	elgg_require_js('event_manager/edit_program');
+}
+elgg_require_js('event_manager/view_event');
+
 $tabtitles = '';
 $tabcontent = '';
 
-if (!empty($event) && ($event instanceof Event)) {
-	if ($event->with_program) {
-		if ($event->canEdit()) {
-			elgg_require_js('event_manager/edit_program');
-		}
-		if ($eventDays = $event->getEventDays()) {
-			foreach ($eventDays as $key => $day) {
-					
-				if ($key == 0) {
-					$selected = true;
-					$tabtitles .= "<li class='elgg-state-selected'>";
-				} else {
-					$selected = false;
-					$tabtitles .= "<li>";
-				}
-				$day_title = event_manager_format_date($day->date);
-				if ($description = $day->description) {
-					$day_title = $description;
-				}
-				
-				$tabtitles .= "<a href='javascript:void(0);' rel='day_" . $day->getGUID() . "'>" . $day_title . "</a>";
-				$tabtitles .= "</li>";
-				
-				$tabcontent .= elgg_view("event_manager/program/elements/day", array("entity" => $day, "selected" => $selected, "member" => $vars["member"]));
-			}
+if ($eventDays = $event->getEventDays()) {
+	foreach ($eventDays as $key => $day) {
+		$day_title = event_manager_format_date($day->date);
+		if ($description = $day->description) {
+			$day_title = $description;
 		}
 		
-		// make program
-		$program = '<div id="event_manager_event_view_program">';
-		$program .= '<ul class="elgg-tabs elgg-htabs">';
+		$link = elgg_view('output/url', [
+			'href' => 'javascript:void(0);',
+			'rel' => 'day_' . $day->getGUID(),
+			'text' => $day_title
+		]);
 		
-		$program .= $tabtitles;
-		
-		if ($event->canEdit() && !elgg_in_context('programmailview')) {
-			$program .= '<li><a href="javascript:void(0);" rel="' . $event->getGUID() . '" class="event_manager_program_day_add">' . elgg_echo("event_manager:program:day:add") . "</a></li>";
+		$li_attrs = [];
+		if ($key == 0) {
+			$li_attrs['class'] = 'elgg-state-selected';
 		}
+		$tabtitles .= elgg_format_element('li', $li_attrs, $link);
 		
-		$program .= '</ul>';
-		$program .= '</div>';
-		
-		$program .= $tabcontent;
-		
-		echo elgg_view_module("info", elgg_echo('event_manager:event:program'), $program);
-		?>
-			<script type='text/javascript'>
-				$(document).ready(function() {
-					$("#event_manager_event_view_program a").live("click", function() {
-						$(".event_manager_program_day").hide();
-						$("#event_manager_event_view_program li").removeClass("elgg-state-selected");
-						var selected = $(this).attr("rel");
-						$(this).parent().addClass("elgg-state-selected");
-						$("#" + selected).show();
-					});
-				});
-			</script>
-		<?php 
+		$tabcontent .= elgg_view('event_manager/program/elements/day', [
+			'entity' => $day,
+			'selected' => ($key === 0), 
+			'member' => $vars['member']
+		]);
 	}
 }
+
+if ($event->canEdit() && !elgg_in_context('programmailview')) {
+	$add_day = elgg_view('output/url', [
+		'href' => 'javascript:void(0);',
+		'rel' => $event->getGUID(),
+		'data-colorbox-opts' => json_encode([
+			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/day?event_guid=' . $event->getGUID())
+		]),		
+		'class' => 'event_manager_program_day_add elgg-lightbox',
+		'text' => elgg_echo('event_manager:program:day:add')
+	]);
+	
+	$tabtitles .= elgg_format_element('li', [], $add_day);
+}
+
+// make program
+$tabs = elgg_format_element('ul', ['class' => 'elgg-tabs elgg-htabs'], $tabtitles);
+
+$program = elgg_format_element('div', ['id' => 'event_manager_event_view_program'], $tabs);
+$program .= $tabcontent;
+
+echo elgg_view_module('info', elgg_echo('event_manager:event:program'), $program);

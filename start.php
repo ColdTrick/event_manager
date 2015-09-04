@@ -41,6 +41,8 @@ function event_manager_init() {
 	// register ajax views
 	elgg_register_ajax_view('event_manager/event/maps/route');
 	elgg_register_ajax_view('event_manager/event/maps/select_location');
+	elgg_register_ajax_view('event_manager/forms/program/day');
+	elgg_register_ajax_view('event_manager/forms/program/slot');
 	
 	// add site menu item
 	elgg_register_menu_item('site', [

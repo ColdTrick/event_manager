@@ -1,7 +1,7 @@
 <?php
 
-$day_guid = elgg_extract('day_guid', $vars);
-$slot_guid = elgg_extract('slot_guid', $vars);
+$day_guid = get_input('day_guid');
+$slot_guid = get_input('slot_guid');
 
 if ($day_guid && ($entity = get_entity($day_guid))) {
 	// assume new slot mode

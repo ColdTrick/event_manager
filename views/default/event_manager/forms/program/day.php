@@ -1,7 +1,7 @@
 <?php
 
-$event_guid = elgg_extract('event_guid', $vars);
-$day_guid = elgg_extract('day_guid', $vars);
+$event_guid = get_input('event_guid');
+$day_guid = get_input('day_guid');
 
 if ($event_guid && ($entity = get_entity($event_guid))) {
 	// assume new day mode
