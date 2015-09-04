@@ -18,14 +18,6 @@ function event_manager_page_handler($page) {
 	$include = "/pages/event/list.php";
 	if (!empty($page)) {
 		switch ($page[0]) {
-			case "proc":
-				if (file_exists($base_dir . "/procedures/" . $page[1] . "/" . $page[2] . ".php")) {
-					$include = "/procedures/" . $page[1] . "/" . $page[2] . ".php";
-				} else {
-					echo json_encode(array("valid" => 0));
-					exit();
-				}
-				break;
 			case "unsubscribe":
 				if (isset($page[1])) {
 					if ($page[1] == "confirm") {

@@ -33,28 +33,36 @@ elgg.event_manager.program_add_slot = function(event) {
 };
 
 elgg.event_manager.program_add_day = function(form) {
-	$(form).find("input[type='submit']").hide();
+	var $button = $(form).find("input[type='submit']");
+	$button.hide();
 
-	$.post(elgg.get_site_url() + 'events/proc/day/edit', $(form).serialize(), function(response) {
-		if(response.valid) {
-			$.colorbox.close();
-			guid = response.guid;
-			if(response.edit){
-				$("#day_" + guid + " .event_manager_program_day_details").html(response.content_body);
-				$("#event_manager_event_view_program a[rel='day_" + guid + "']").html(response.content_title).click();
+	elgg.action('event_manager/day/edit', {
+		data: $(form).serialize(),
+		success: function(json) {
+			guid = json.output.guid;
+			if (guid) {
+				$.colorbox.close();
+
+				if(json.output.edit){
+					$("#day_" + guid + " .event_manager_program_day_details").html(json.output.content_body);
+					$("#event_manager_event_view_program a[rel='day_" + guid + "']").html(json.output.content_title).click();
+				} else {
+					$("#event_manager_event_view_program").after(json.output.content_body);
+					$("#event_manager_event_view_program li:last").before(json.output.content_title);
+					$("#event_manager_event_view_program a[rel='day_" + guid + "']").click();
+				}
 			} else {
-				$("#event_manager_event_view_program").after(response.content_body);
-				$("#event_manager_event_view_program li:last").before(response.content_title);
-				$("#event_manager_event_view_program a[rel='day_" + guid + "']").click();
+				$button.show();
 			}
-		} else {
-			$(form).find("input[type='submit']").show();
+		},
+		error: function() {
+			$button.show();
 		}
-	}, 'json');
+	});
 };
 
 elgg.event_manager.add_new_slot_set_name = function(set_name) {
-	if(set_name !== ""){
+	if (set_name !== "") {
 		$("#event_manager_form_program_slot input[name='slot_set']").removeAttr("checked");
 		$options = $("#event_manager_form_program_slot input[name='slot_set']:first").parent().parent().parent();
 		$options.append("<li><label><input type='radio' checked='checked' value='" + set_name + "' name='slot_set'/>" + set_name + "</label></li>");

@@ -22,74 +22,68 @@ elgg.event_manager.execute_search = function() {
 		$("#distance_longitude").val(distance_longitude);
 	}
 
-	var formData = $("#event_manager_search_form").serialize();
+	elgg.action('event_manager/event/search', {
+		data: $('#event_manager_search_form').serialize(),
+		success: function(data) {
+			var response = data.output;
+			if (map_data_only) {
 
-	$.post(elgg.get_site_url() + 'events/proc/search/events', formData, function(response) {
-		if (!response.valid) {
-			$("#event_manager_result_refreshing").hide();
-			return;
-		}
+				if (response.markers) {
 
-		if (map_data_only) {
+					infowindow = new google.maps.InfoWindow();
 
-			if (response.markers) {
+					var shadowIcon = new google.maps.MarkerImage("//chart.apis.google.com/chart?chst=d_map_pin_shadow",
+						new google.maps.Size(40, 37),
+						new google.maps.Point(0, 0),
+						new google.maps.Point(12, 35));
+					var ownIcon = "//maps.google.com/mapfiles/ms/icons/yellow-dot.png";
+					var attendingIcon = "//maps.google.com/mapfiles/ms/icons/blue-dot.png";
 
-				infowindow = new google.maps.InfoWindow();
-
-				var shadowIcon = new google.maps.MarkerImage("//chart.apis.google.com/chart?chst=d_map_pin_shadow",
-					new google.maps.Size(40, 37),
-					new google.maps.Point(0, 0),
-					new google.maps.Point(12, 35));
-				var ownIcon = "//maps.google.com/mapfiles/ms/icons/yellow-dot.png";
-				var attendingIcon = "//maps.google.com/mapfiles/ms/icons/blue-dot.png";
-
-				$.each(response.markers, function(i, event) {
-					existing = false;
-					if (event_manager_gmarkers) {
-						if(event_manager_gmarkers[event.guid]){
-							existing = true;
-						}
-					}
-					
-					if( !existing) {
-						var myLatlng = new google.maps.LatLng(event.lat, event.lng);
-
-						markerOptions = {
-								map: event_manager_gmap,
-								position: myLatlng,
-								animation: google.maps.Animation.DROP,
-								title: event.title,
-								shadow: shadowIcon
-							};
-						if (event.iscreator) {
-							markerOptions.icon = ownIcon;
-						} else {
-							if(event.has_relation){
-								markerOptions.icon = attendingIcon;
+					$.each(response.markers, function(i, event) {
+						existing = false;
+						if (event_manager_gmarkers) {
+							if(event_manager_gmarkers[event.guid]){
+								existing = true;
 							}
 						}
-						var marker = new google.maps.Marker(markerOptions);
+						
+						if( !existing) {
+							var myLatlng = new google.maps.LatLng(event.lat, event.lng);
 
-						google.maps.event.addListener(marker, 'click', function() {
-							infowindow.setContent(event.html);
-							infowindow.open(event_manager_gmap,marker);
-						});
+							markerOptions = {
+									map: event_manager_gmap,
+									position: myLatlng,
+									animation: google.maps.Animation.DROP,
+									title: event.title,
+									shadow: shadowIcon
+								};
+							if (event.iscreator) {
+								markerOptions.icon = ownIcon;
+							} else {
+								if(event.has_relation){
+									markerOptions.icon = attendingIcon;
+								}
+							}
+							var marker = new google.maps.Marker(markerOptions);
 
-						event_manager_gmarkers[event.guid] = marker;
-					}
-				});
+							google.maps.event.addListener(marker, 'click', function() {
+								infowindow.setContent(event.html);
+								infowindow.open(event_manager_gmap,marker);
+							});
+
+							event_manager_gmarkers[event.guid] = marker;
+						}
+					});
+				}
+			} else {
+				$('#event_manager_event_list_search_more').remove();
+				$('#event_manager_event_listing').html(response.content);
+				$('#event_manager_result_refreshing').hide();
 			}
 
-			// make sidebar
-			//getMarkersJson();
-		} else {
-			$('#event_manager_event_list_search_more').remove();
-			$('#event_manager_event_listing').html(response.content);
 			$('#event_manager_result_refreshing').hide();
 		}
-
-		$('#event_manager_result_refreshing').hide();
-	}, 'json');
+	});
 };
 
 elgg.event_manager.list_events_init = function() {
@@ -117,13 +111,16 @@ elgg.event_manager.list_events_init = function() {
 			formData = $($("#event_manager_search_form")[0].elements).not($("#event_manager_event_search_advanced_container")[0].children).serialize();
 		}
 
-		$.post(elgg.get_site_url() + 'events/proc/search/events?offset=' + offset, formData, function(response) {
-			if (response.valid) {
-				$('#event_manager_event_list_search_more').remove();
-				$('#event_manager_event_listing').append(response.content);
+		elgg.action('event_manager/event/search?offset=' + offset, {
+			data: $('#event_manager_search_form').serialize(),
+			success: function(data) {
+				if (data.output) {
+					$('#event_manager_event_list_search_more').remove();
+					$('#event_manager_event_listing').append(data.output.content);
+				}
+				$("#event_manager_result_refreshing").hide();	
 			}
-			$("#event_manager_result_refreshing").hide();
-		}, 'json');
+		});
 	});
 
 	$('#event_manager_search_form').submit(function(e) {

@@ -94,9 +94,14 @@ function event_manager_init() {
 	elgg_register_action('event_manager/event/unsubscribe_confirm', $base_dir . '/actions/event/unsubscribe_confirm.php', 'public');
 	elgg_register_action('event_manager/event/resend_confirmation', $base_dir . '/actions/event/resend_confirmation.php');
 	elgg_register_action('event_manager/event/register', $base_dir . '/actions/event/register.php', 'public');
+	elgg_register_action('event_manager/event/search', $base_dir . '/actions/event/search.php', 'public');
 
 	elgg_register_action('event_manager/attendees/export', $base_dir . '/actions/attendees/export.php');
 	elgg_register_action('event_manager/attendees/move_to_attendees', $base_dir . '/actions/attendees/move_to_attendees.php');
+
+	elgg_register_action('event_manager/question/save_order', $base_dir . '/actions/question/save_order.php');
+	elgg_register_action('event_manager/question/delete', $base_dir . '/actions/question/delete.php');
+	elgg_register_action('event_manager/question/edit', $base_dir . '/actions/question/edit.php');
 
 	elgg_register_action('event_manager/registration/edit', $base_dir . '/actions/registration/edit.php');
 	elgg_register_action('event_manager/registration/approve', $base_dir . '/actions/registration/approve.php');
@@ -106,6 +111,7 @@ function event_manager_init() {
 	elgg_register_action('event_manager/slot/save', $base_dir . '/actions/slot/save.php');
 	elgg_register_action('event_manager/slot/delete', $base_dir . '/actions/slot/delete.php');
 
+	elgg_register_action('event_manager/day/edit', $base_dir . '/actions/day/edit.php');
 	elgg_register_action('event_manager/day/delete', $base_dir . '/actions/day/delete.php');
 }
 

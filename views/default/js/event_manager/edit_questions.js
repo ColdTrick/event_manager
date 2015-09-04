@@ -2,33 +2,30 @@ elgg.provide('elgg.event_manager');
 
 elgg.event_manager.edit_questions_add_field = function(form) {
 	$(form).find("input[type='submit']").hide();
-
-	$.post(elgg.get_site_url() + 'events/proc/question/edit', $(form).serialize(), function(response){
-		if(response.valid) {
+	var guid = $(form).find('input[name="question_guid"]').val();
+	
+	elgg.action('event_manager/question/edit', {
+		data: $(form).serialize(), 
+		success: function(data) {
 			$.colorbox.close();
-			guid = response.guid;
-
-			if(response.edit) {
-				$('#question_' + guid).replaceWith(response.content);
+			
+			if(guid) {
+				$('#question_' + guid).replaceWith(data.output);
 			} else {
-				$("#event_manager_registrationform_fields").append(response.content);
+				$('#event_manager_registrationform_fields').append(data.output);
 
 				elgg.event_manager.edit_questions_save_order();
 			}
-		} else {
+		},
+		error: function() {
 			$(form).find("input[type='submit']").show();
 		}
-	}, 'json');
+	});
 };
 
 elgg.event_manager.edit_questions_save_order = function() {
-	var $sortableRegistrationForm = $('#event_manager_registrationform_fields');
-	order = $sortableRegistrationForm.sortable('serialize');
-	$.getJSON(elgg.get_site_url() + 'events/proc/question/saveorder', order, function(response){
-		if(!response.valid)	{
-			alert(elgg.echo('event_manager:registrationform:fieldorder:error'));
-		}
-	});
+	var order = $('#event_manager_registrationform_fields').sortable('serialize');
+	elgg.action('event_manager/question/save_order?' + order);
 };
 
 elgg.event_manager.edit_questions_init = function() {
@@ -44,28 +41,35 @@ elgg.event_manager.edit_questions_init = function() {
 		}
 	});
 	
-	$('.event_manager_questions_delete').live('click', function(e) {
-		if(confirm(elgg.echo('deleteconfirm'))) {
-			questionGuid = $(this).attr("rel");
-			if(questionGuid) {
-				$questionElement = $(this);
-				$questionElement.parent().hide();
-				$.getJSON(elgg.get_site_url() + 'events/proc/question/delete', {guid: questionGuid}, function(response) {
-					if(response.valid) {
-						// remove from DOM
-						$questionElement.parent().remove();
-					} else {
-						// revert
-						$questionElement.parent().show();
-					}
-				});
-			}
+	$(document).on('click', '.event_manager_questions_delete', function(e) {
+		if (!confirm(elgg.echo('deleteconfirm'))) {
+			return false;
 		}
-
-		return false;
+		
+		var questionGuid = $(this).attr("rel");
+		if (!questionGuid) {
+			return false;
+		}
+		
+		$questionElement = $(this);
+		$questionElement.parent().hide();
+		
+		elgg.action('event_manager/question/delete', {
+			data: {
+				guid: questionGuid
+			}, 
+			success: function(data) {
+				// remove from DOM
+				$questionElement.parent().remove();
+			},
+			error: function() {
+				// revert
+				$questionElement.parent().show();
+			}
+		});
 	});
 
-	$('#event_manager_registrationform_question_fieldtype').live('change', function() {
+	$(document).on('change', '#event_manager_registrationform_question_fieldtype', function() {
 		var type = $(this).val();
 		if (type == 'Radiobutton' || type == 'Dropdown') {
 			$('#event_manager_registrationform_select_options').show();
