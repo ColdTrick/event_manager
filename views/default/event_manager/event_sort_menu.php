@@ -14,11 +14,6 @@ $tabs = [
 	]
 ];
 
-$refreshing = elgg_format_element('div', [
-	'id' => 'event_manager_result_refreshing',
-	'class' => 'hidden float-alt elgg-quiet'
-], elgg_echo("event_manager:list:navigation:refreshing"));
-
 $tabs = elgg_view('navigation/tabs', [
 	'tabs' => $tabs,
 	'type' => 'horizontal'
