@@ -462,8 +462,7 @@ class Event extends ElggObject {
 			$event_title_link
 		));
 
-		$user_message .= $registrationLink;
-		$user_message .= $unsubscribeLink;
+		$user_message .= $registrationLink . $unsubscribeLink;
 
 		if ($to_entity instanceof ElggUser) {
 			// use notification system for real users
@@ -473,27 +472,42 @@ class Event extends ElggObject {
 			$to_email = $to_entity->name . "<" . $to_entity->email . ">";
 
 			$site = elgg_get_site_entity($this->site_guid);
-			if ($site->email) {
-				if ($site->name) {
-					$site_from = $site->name . " <" . $site->email . ">";
-				} else {
-					$site_from = $site->email;
-				}
-			} else {
-				// no site email, so make one up
-				if ($site->name) {
-					$site_from = $site->name . " <noreply@" . $site->getDomain() . ">";
-				} else {
-					$site_from = "noreply@" . $site->getDomain();
-				}
-			}
+			$site_from = $this->getSiteEmailAddress($site);
 
 			elgg_send_email($site_from, $to_email, $user_subject, $user_message);
 		}
 
 		elgg_set_ignore_access($ia);
 	}
-
+	
+	/**
+	 * Returns a formatted site emailaddress
+	 * 
+	 * @param ElggSite $site the site to get the emailaddress from
+	 * 
+	 * @return string
+	 */
+	protected function getSiteEmailAddress(ElggSite $site) {
+		$site_from = '';
+		
+		if ($site->email) {
+			if ($site->name) {
+				$site_from = $site->name . " <" . $site->email . ">";
+			} else {
+				$site_from = $site->email;
+			}
+		} else {
+			// no site email, so make one up
+			if ($site->name) {
+				$site_from = $site->name . " <noreply@" . $site->getDomain() . ">";
+			} else {
+				$site_from = "noreply@" . $site->getDomain();
+			}
+		}
+		
+		return $site_from;
+	}
+	
 	/**
 	 * Notifies an owner of the event
 	 *
@@ -527,10 +541,6 @@ class Event extends ElggObject {
 	public function relateToAllSlots($relate = true, $guid = null) {
 		if ($guid === null) {
 			$guid = elgg_get_logged_in_user_guid();
-		}
-
-		if (empty($guid)) {
-			return;
 		}
 
 		$entity = get_entity($guid);
@@ -755,16 +765,14 @@ class Event extends ElggObject {
 	 * @return boolean|entity
 	 */
 	public function getFirstWaitingUser() {
-		$result = false;
-
 		$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one= '" . $this->getGUID() . "' AND relationship = '" . EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST . "' ORDER BY time_created ASC LIMIT 1";
 
 		$waiting_users = get_data($query);
-		if (!empty($waiting_users)) {
-			$result = get_entity($waiting_users[0]->guid_two);
+		if (empty($waiting_users)) {
+			return false;
 		}
 
-		return $result;
+		return get_entity($waiting_users[0]->guid_two);
 	}
 
 	/**
@@ -783,12 +791,13 @@ class Event extends ElggObject {
 			$waiting_for_slots = $this->getRegisteredSlotsForEntity($waiting_user->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
 			if (!empty($waiting_for_slots)) {
 				foreach ($waiting_for_slots as $slot) {
-					if ($slot->hasSpotsLeft()) {
-						$rsvp = true;
-
-						$waiting_user->removeRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
-						$waiting_user->addRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION);
+					if (!$slot->hasSpotsLeft()) {
+						continue;	
 					}
+					$rsvp = true;
+
+					$waiting_user->removeRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
+					$waiting_user->addRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION);
 				}
 			} elseif ($this->hasEventSpotsLeft()) {
 				// not waiting for slots and event has room
@@ -898,11 +907,11 @@ class Event extends ElggObject {
 		$old_ia = elgg_set_ignore_access(true);
 
 		$entities = elgg_get_entities_from_relationship([
-			"relationship" => EVENT_MANAGER_RELATION_ATTENDING,
-			"relationship_guid" => $this->getGUID(),
-			"inverse_relationship" => false,
-			"count" => true,
-			"site_guids" => false
+			'relationship' => EVENT_MANAGER_RELATION_ATTENDING,
+			'relationship_guid' => $this->getGUID(),
+			'inverse_relationship' => false,
+			'count' => true,
+			'site_guids' => false
 		]);
 
 		elgg_set_ignore_access($old_ia);
@@ -919,11 +928,11 @@ class Event extends ElggObject {
 		$old_ia = elgg_set_ignore_access(true);
 
 		$entities = elgg_get_entities_from_relationship([
-			"relationship" => EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
-			"relationship_guid" => $this->getGUID(),
-			"inverse_relationship" => false,
-			"count" => true,
-			"site_guids" => false
+			'relationship' => EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
+			'relationship_guid' => $this->getGUID(),
+			'inverse_relationship' => false,
+			'count' => true,
+			'site_guids' => false
 		]);
 
 		elgg_set_ignore_access($old_ia);
@@ -943,11 +952,11 @@ class Event extends ElggObject {
 		$old_ia = elgg_set_ignore_access(true);
 
 		$entities = elgg_get_entities_from_relationship([
-			"relationship" => $rel,
-			"relationship_guid" => $this->getGUID(),
-			"inverse_relationship" => false,
-			"site_guids" => false,
-			"limit" => false
+			'relationship' => $rel,
+			'relationship_guid' => $this->getGUID(),
+			'inverse_relationship' => false,
+			'site_guids' => false,
+			'limit' => false
 		]);
 
 		elgg_set_ignore_access($old_ia);
