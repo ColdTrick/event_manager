@@ -127,14 +127,15 @@ class Event extends ElggObject {
 	/**
 	 * RSVP to the event
 	 *
-	 * @param string  $type          type of the rsvp
-	 * @param number  $user_guid     guid of the user for whom the rsvp is changed
-	 * @param boolean $reset_program does the program need a reset with this rsvp
-	 * @param boolean $add_to_river  add an event to the river
+	 * @param string  $type           type of the rsvp
+	 * @param number  $user_guid      guid of the user for whom the rsvp is changed
+	 * @param boolean $reset_program  does the program need a reset with this rsvp
+	 * @param boolean $add_to_river   add an event to the river
+	 * @param boolean $notify_on_rsvp control if a (potential)notification is send
 	 *
 	 * @return boolean
 	 */
-	public function rsvp($type = EVENT_MANAGER_RELATION_UNDO, $user_guid = 0, $reset_program = true, $add_to_river = true) {
+	public function rsvp($type = EVENT_MANAGER_RELATION_UNDO, $user_guid = 0, $reset_program = true, $add_to_river = true, $notify_on_rsvp = true) {
 		
 		$user_guid = sanitise_int($user_guid, false);
 
@@ -194,7 +195,9 @@ class Event extends ElggObject {
 			$result = true;
 		}
 
-		$this->notifyOnRsvp($type, $user_guid);
+		if ($notify_on_rsvp) {
+			$this->notifyOnRsvp($type, $user_guid);
+		}
 		
 		return $result;
 	}
@@ -811,15 +814,15 @@ class Event extends ElggObject {
 			return false;
 		}
 		
-		$this->rsvp(EVENT_MANAGER_RELATION_ATTENDING, $waiting_user->getGUID(), false);
+		$this->rsvp(EVENT_MANAGER_RELATION_ATTENDING, $waiting_user->getGUID(), false, false);
 
-		notify_user(elgg_get_logged_in_user_guid(),
+		notify_user($waiting_user->getGUID(),
 					$this->getOwnerGUID(),
 					elgg_echo("event_manager:event:registration:notification:user:subject"),
 					elgg_echo("event_manager:event:registration:notification:user:text:event_spotfree", [
 						$waiting_user->name,
+						$this->title,
 						$this->getURL(),
-						$this->title
 					]));
 
 		return true;

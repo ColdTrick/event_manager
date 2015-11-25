@@ -106,7 +106,7 @@ Indien u deze aanvraag niet heeft gedaan, kunt u deze mail negeren.',
 je staat op de wachtlijst van het \'%s\' evenement.',
   'event_manager:event:registration:notification:user:text:event_spotfree' => 'Beste %s,
 
-Iemand heeft zich afgemeld van het \'%s\' evenement. Je bent van de wachtlijst naar de deelnemers verplaatst.',
+Iemand heeft zich afgemeld van het \'%s\' evenement (%s). Je bent van de wachtlijst naar de deelnemers verplaatst.',
   'event_manager:event:viewregistration' => 'Bekijk registratie',
   'event_manager:event:preview' => 'Voorbeeld icoon',
   'event_manager:event:createicon' => 'Maak icoon',

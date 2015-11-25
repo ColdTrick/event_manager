@@ -204,7 +204,7 @@ You signed off succesfully from the '%s' event.",
 
 	'event_manager:event:registration:notification:user:text:event_spotfree' => "Hello %s,
 
-Someone signed off from the '%s' event. You are moved from the waiting list to attending.",
+Someone signed off from the '%s' event (%s). You are moved from the waiting list to attending.",
 
 	'event_manager:event:registration:notification:program:linktext' => 'To view the program click on this link',
 	'event_manager:event:registration:notification:unsubscribe:linktext' => 'If you no longer wish to attend the event use this link',
