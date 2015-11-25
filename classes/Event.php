@@ -314,7 +314,7 @@ class Event extends ElggObject {
 		}
 
 		return elgg_view("event_manager/registration/user_data", array(
-			"event" => $this, 
+			"event" => $this,
 			"entity" => $entity,
 			"show_title" => $view,
 			"questions" => $this->getRegistrationFormQuestions()
@@ -364,15 +364,15 @@ class Event extends ElggObject {
 			elgg_push_context('programmailview');
 
 			$result = elgg_view('event_manager/program/view', [
-				'entity' => $this, 
+				'entity' => $this,
 				'member' => $user_guid
 			]);
 
 			elgg_pop_context();
 		} else {
 			$result = elgg_view('event_manager/program/edit', [
-				'entity' => $this, 
-				'register_type' => $register_type, 
+				'entity' => $this,
+				'register_type' => $register_type,
 				'member' => $user_guid
 			]);
 		}
@@ -391,7 +391,7 @@ class Event extends ElggObject {
 	protected function notifyOnRsvp($type, $to = null) {
 
 		if (!$this->notify_onsignup || ($type == EVENT_MANAGER_RELATION_ATTENDING_PENDING)) {
-			return;		
+			return;
 		}
 		
 		$ia = elgg_set_ignore_access(true);
@@ -444,7 +444,7 @@ class Event extends ElggObject {
 		// make the event title for in the e-mail
 		if ($html_email_handler_enabled) {
 			$event_title_link = elgg_view("output/url", array(
-				"text" => $this->title, 
+				"text" => $this->title,
 				"href" => $this->getURL()
 			));
 		} else {
@@ -482,9 +482,9 @@ class Event extends ElggObject {
 	
 	/**
 	 * Returns a formatted site emailaddress
-	 * 
+	 *
 	 * @param ElggSite $site the site to get the emailaddress from
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getSiteEmailAddress(ElggSite $site) {
@@ -725,12 +725,12 @@ class Event extends ElggObject {
 				"JOIN {$dbprefix}entity_relationships r on r.guid_one = e.guid"
 			],
 			'wheres' => [
-				'r.guid_two = ' . $this->getGUID(), 
+				'r.guid_two = ' . $this->getGUID(),
 				'r.relationship = "event_registrationquestion_relation"'
 			],
 			'order_by_metadata' => [
-				'name' => 'order', 
-				'direction' => 'ASC', 
+				'name' => 'order',
+				'direction' => 'ASC',
 				'as' => 'integer'
 			],
 			'count' => $count,
@@ -792,7 +792,7 @@ class Event extends ElggObject {
 			if (!empty($waiting_for_slots)) {
 				foreach ($waiting_for_slots as $slot) {
 					if (!$slot->hasSpotsLeft()) {
-						continue;	
+						continue;
 					}
 					$rsvp = true;
 
@@ -945,22 +945,15 @@ class Event extends ElggObject {
 	 *
 	 * @param string $rel relationship
 	 *
-	 * @return boolean|array
+	 * @return ElggBatch
 	 */
 	public function exportAttendees($rel = EVENT_MANAGER_RELATION_ATTENDING) {
-
-		$old_ia = elgg_set_ignore_access(true);
-
-		$entities = elgg_get_entities_from_relationship([
+		return new ElggBatch('elgg_get_entities_from_relationship', [
 			'relationship' => $rel,
 			'relationship_guid' => $this->getGUID(),
 			'inverse_relationship' => false,
 			'site_guids' => false,
 			'limit' => false
 		]);
-
-		elgg_set_ignore_access($old_ia);
-
-		return $entities;
 	}
 }

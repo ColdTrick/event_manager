@@ -5,7 +5,7 @@
 
 /**
  * Returns all relationship options
- * 
+ *
  * @return array
  */
 function event_manager_event_get_relationship_options() {
@@ -22,9 +22,9 @@ function event_manager_event_get_relationship_options() {
 
 /**
  * Search for events
- * 
+ *
  * @param array $options search options
- * 
+ *
  * @return array
  */
 function event_manager_search_events($options = []) {
@@ -58,8 +58,8 @@ function event_manager_search_events($options = []) {
 		'joins' => [],
 		'wheres' => [],
 		'order_by_metadata' => [
-			'name' => 'start_day', 
-			'direction' => 'ASC', 
+			'name' => 'start_day',
+			'direction' => 'ASC',
 			'as' => 'integer'
 		]
 	];
@@ -76,16 +76,16 @@ function event_manager_search_events($options = []) {
 
 	if (!empty($options['start_day'])) {
 		$entities_options['metadata_name_value_pairs'][] = [
-			'name' => 'start_day', 
-			'value' => $options['start_day'], 
+			'name' => 'start_day',
+			'value' => $options['start_day'],
 			'operand' => '>='
 		];
 	}
 
 	if (!empty($options['end_day'])) {
 		$entities_options['metadata_name_value_pairs'][] = [
-			'name' => 'end_ts', 
-			'value' => $options['end_day'], 
+			'name' => 'end_ts',
+			'value' => $options['end_day'],
 			'operand' => '<='
 		];
 	}
@@ -93,8 +93,8 @@ function event_manager_search_events($options = []) {
 	if (!$options['past_events']) {
 		// only show from current day or newer
 		$entities_options['metadata_name_value_pairs'][] = [
-			'name' => 'start_day', 
-			'value' => mktime(0, 0, 1), 
+			'name' => 'start_day',
+			'value' => mktime(0, 0, 1),
 			'operand' => '>='
 		];
 	}
@@ -112,14 +112,14 @@ function event_manager_search_events($options = []) {
 
 	if ($options['region']) {
 		$entities_options['metadata_name_value_pairs'][] = [
-			'name' => 'region', 
+			'name' => 'region',
 			'value' => $options['region']
 		];
 	}
 
 	if ($options['event_type']) {
 		$entities_options['metadata_name_value_pairs'][] = [
-			'name' => 'event_type', 
+			'name' => 'event_type',
 			'value' => $options['event_type']
 		];
 	}
@@ -167,10 +167,10 @@ function event_manager_search_events($options = []) {
 
 /**
  * Export the event attendees. Returns csv body
- * 
+ *
  * @param ElggObject $event the event
  * @param string     $rel   relationship type
- * 
+ *
  * @return string
  */
 function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_ATTENDING) {
@@ -212,44 +212,42 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
 	}
 
 	$attendees = $event->exportAttendees($rel);
-	if ($attendees) {
-		foreach ($attendees as $attendee) {
-			$answerString = '';
+	foreach ($attendees as $attendee) {
+		$answerString = '';
 
-			$dataString .= '"' . $attendee->guid . '";"' . $attendee->name . '";"' . $attendee->email . '";"' . $attendee->username . '"';
+		$dataString .= '"' . $attendee->guid . '";"' . $attendee->name . '";"' . $attendee->email . '";"' . $attendee->username . '"';
 
-			$relation = check_entity_relationship($event->guid, $rel, $attendee->guid);
-			$dataString .= ';"' . date("d-m-Y H:i:s", $relation->time_created) . '"';
+		$relation = check_entity_relationship($event->guid, $rel, $attendee->guid);
+		$dataString .= ';"' . date("d-m-Y H:i:s", $relation->time_created) . '"';
 
-			if ($event->registration_needed) {
-				if ($registration_form = $event->getRegistrationFormQuestions()) {
-					foreach ($registration_form as $question) {
-						$answer = $question->getAnswerFromUser($attendee->getGUID());
+		if ($event->registration_needed) {
+			if ($registration_form = $event->getRegistrationFormQuestions()) {
+				foreach ($registration_form as $question) {
+					$answer = $question->getAnswerFromUser($attendee->getGUID());
 
-						$answerString .= '"' . addslashes($answer->value) . '";';
-					}
+					$answerString .= '"' . addslashes($answer->value) . '";';
 				}
-				$dataString .= ';' . substr($answerString, 0, (strlen($answerString) - 1));
 			}
+			$dataString .= ';' . substr($answerString, 0, (strlen($answerString) - 1));
+		}
 
-			if ($event->with_program) {
-				if ($eventDays = $event->getEventDays()) {
-					foreach ($eventDays as $eventDay) {
-						if ($eventSlots = $eventDay->getEventSlots()) {
-							foreach ($eventSlots as $eventSlot) {
-								if (check_entity_relationship($attendee->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $eventSlot->getGUID())) {
-									$dataString .= ';"V"';
-								} else {
-									$dataString .= ';""';
-								}
+		if ($event->with_program) {
+			if ($eventDays = $event->getEventDays()) {
+				foreach ($eventDays as $eventDay) {
+					if ($eventSlots = $eventDay->getEventSlots()) {
+						foreach ($eventSlots as $eventSlot) {
+							if (check_entity_relationship($attendee->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $eventSlot->getGUID())) {
+								$dataString .= ';"V"';
+							} else {
+								$dataString .= ';""';
 							}
 						}
 					}
 				}
 			}
-
-			$dataString .= PHP_EOL;
 		}
+
+		$dataString .= PHP_EOL;
 	}
 
 	elgg_set_ignore_access($old_ia);
@@ -259,11 +257,11 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
 
 /**
  * Sanitizes file name
- * 
+ *
  * @param string $string          file name
  * @param bool   $force_lowercase forces file name to lower case
  * @param bool   $anal            only return alfanumeric characters
- * 
+ *
  * @return string
  */
 function event_manager_sanitize_filename($string, $force_lowercase = true, $anal = false) {
@@ -285,11 +283,11 @@ function event_manager_sanitize_filename($string, $force_lowercase = true, $anal
 
 /**
  * Returns the where part for a event search sql query
- * 
+ *
  * @param string $table  table prefix
  * @param array  $fields fields to search
  * @param array  $params parameters to search
- * 
+ *
  * @return string
  */
 function event_manager_search_get_where_sql($table, $fields, $params) {
@@ -316,14 +314,14 @@ function event_manager_search_get_where_sql($table, $fields, $params) {
 
 /**
  * Returns event region options
- * 
+ *
  * @return bool|array
  */
 function event_manager_event_region_options() {
 	$region_settings = trim(elgg_get_plugin_setting('region_list', 'event_manager'));
 
 	if (empty($region_settings)) {
-		return false;	
+		return false;
 	}
 	
 	$region_options = ['-'];
@@ -344,7 +342,7 @@ function event_manager_event_type_options() {
 	$type_settings = trim(elgg_get_plugin_setting('type_list', 'event_manager'));
 
 	if (empty($type_settings)) {
-		return false;	
+		return false;
 	}
 	$type_options = array('-');
 	$type_list = explode(',', $type_settings);
@@ -356,10 +354,10 @@ function event_manager_event_type_options() {
 }
 
 /**
- * Pad time 
- * 
+ * Pad time
+ *
  * @param string &$value current value to be padded
- * 
+ *
  * @return void
  */
 function event_manager_time_pad(&$value) {
@@ -368,10 +366,10 @@ function event_manager_time_pad(&$value) {
 
 /**
  * Creates an unsubscribe code
- * 
+ *
  * @param EventRegistration $registration registration object
  * @param Event             $event        event
- * 
+ *
  * @return false|string
  */
 function event_manager_create_unsubscribe_code(EventRegistration $registration, Event $event = null) {
@@ -388,10 +386,10 @@ function event_manager_create_unsubscribe_code(EventRegistration $registration, 
 
 /**
  * Returns registration validation url
- * 
+ *
  * @param string $event_guid guid of event
  * @param string $user_guid  guid of user
- * 
+ *
  * @return false|string
  */
 function event_manager_get_registration_validation_url($event_guid, $user_guid) {
@@ -411,10 +409,10 @@ function event_manager_get_registration_validation_url($event_guid, $user_guid) 
 
 /**
  * Returns registration validation code
- * 
+ *
  * @param string $event_guid guid of event
  * @param string $user_guid  guid of user
- * 
+ *
  * @return false|string
  */
 function event_manager_generate_registration_validation_code($event_guid, $user_guid) {
@@ -462,17 +460,17 @@ function event_manager_validate_registration_validation_code($event_guid, $user_
 
 /**
  * Send registration validation email
- * 
+ *
  * @param Event      $event  event
  * @param ElggEntity $entity object or user to send mail to
- * 
+ *
  * @return void
  */
 function event_manager_send_registration_validation_email(Event $event, ElggEntity $entity) {
 	$subject = elgg_echo('event_manager:registration:confirm:subject', [$event->title]);
 	$message = elgg_echo('event_manager:registration:confirm:message', [
-			$entity->name, 
-			$event->title, 
+			$entity->name,
+			$event->title,
 			event_manager_get_registration_validation_url($event->getGUID(), $entity->getGUID())
 	]);
 
@@ -504,7 +502,7 @@ function event_manager_send_registration_validation_email(Event $event, ElggEnti
 
 /**
  * Checks if it is allowed to create events in groups
- * 
+ *
  * @return bool
  */
 function event_manager_groups_enabled() {
@@ -525,9 +523,9 @@ function event_manager_groups_enabled() {
 
 /**
  * Returns a formatted date
- * 
+ *
  * @param int $timestamp
- * 
+ *
  * @return string
  */
 function event_manager_format_date($timestamp) {
