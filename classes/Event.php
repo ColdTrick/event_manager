@@ -850,7 +850,8 @@ class Event extends ElggObject {
 	 * @return boolean|array
 	 */
 	public function getEventDays($order = 'ASC') {
-		$entities_options = [
+
+		return elgg_get_entities_from_relationship([
 			'type' => 'object',
 			'subtype' => EventDay::SUBTYPE,
 			'relationship_guid' => $this->getGUID(),
@@ -861,9 +862,7 @@ class Event extends ElggObject {
 				'direction' => $order
 			],
 			'limit' => false
-		];
-
-		return elgg_get_entities_from_relationship($entities_options);
+		]);
 	}
 
 	/**
@@ -906,22 +905,5 @@ class Event extends ElggObject {
 		elgg_set_ignore_access($old_ia);
 
 		return $entities;
-	}
-
-	/**
-	 * Returns the attendees based on a relationship
-	 *
-	 * @param string $rel relationship
-	 *
-	 * @return ElggBatch
-	 */
-	public function exportAttendees($rel = EVENT_MANAGER_RELATION_ATTENDING) {
-		return new ElggBatch('elgg_get_entities_from_relationship', [
-			'relationship' => $rel,
-			'relationship_guid' => $this->getGUID(),
-			'inverse_relationship' => false,
-			'site_guids' => false,
-			'limit' => false
-		]);
 	}
 }

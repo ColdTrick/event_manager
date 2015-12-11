@@ -211,7 +211,14 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
 		}
 	}
 
-	$attendees = $event->exportAttendees($rel);
+	$attendees = new ElggBatch('elgg_get_entities_from_relationship', [
+		'relationship' => $rel,
+		'relationship_guid' => $event->getGUID(),
+		'inverse_relationship' => false,
+		'site_guids' => false,
+		'limit' => false
+	]);
+	
 	foreach ($attendees as $attendee) {
 		$answerString = '';
 
