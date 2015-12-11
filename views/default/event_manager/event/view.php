@@ -36,9 +36,9 @@ $event_details .= "<table class='event-manager-event-details'>";
 if ($venue = $event->venue) {
 	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:venue') . ':</label></td><td>' . $venue . '</td></tr>';
 }
-if ($location = $event->getEventLocation()) {
+if ($location = $event->location) {
 	$event_details .= '<tr><td><label>' . elgg_echo('event_manager:edit:form:location') . ':</label></td><td>';
-	$event_details .= '<a href="' . elgg_get_site_url() . 'ajax/view/event_manager/event/maps/route?from=' . urlencode($event->getEventLocation()) . '" class="openRouteToEvent">' . $event->getEventLocation() . '</a>';
+	$event_details .= '<a href="' . elgg_get_site_url() . 'ajax/view/event_manager/event/maps/route?from=' . urlencode($location) . '" class="openRouteToEvent">' . $location . '</a>';
 	$event_details .= '</td></tr>';
 }
 

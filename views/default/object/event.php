@@ -11,7 +11,7 @@ if ($vars["full"]) {
 	$output = '<div class="gmaps_infowindow">';
 	$output .= '<div class="gmaps_infowindow_text">';
 	$output .= '<div class="event_manager_event_view_owner"><a href="' . $event->getURL() . '">' . $event->title . '</a> (' . event_manager_format_date($event->start_day) . ')</div>';
-	$output .= $event->getEventLocation(true) . '<br /><br />' . $event->shortdescription . '<br /><br />';
+	$output .= str_replace(',', '<br />', $event->location) . '<br /><br />' . $event->shortdescription . '<br /><br />';
 	$output .= elgg_view("event_manager/event/actions", $vars) . '</div>';
 	if ($event->icontime) {
 		$output .= '<div class="gmaps_infowindow_icon"><img src="' . $event->getIconURL() . '" /></div>';
@@ -42,7 +42,7 @@ if ($vars["full"]) {
 	if (!elgg_in_context("widgets")) {
 		$subtitle = "<p>$author_text $date</p>";
 
-		if ($location = $event->getEventLocation()) {
+		if ($location = $event->location) {
 			$content .= '<div>' . elgg_echo('event_manager:edit:form:location') . ': ';
 			$content .= '<a href="' . elgg_get_site_url() . 'ajax/view/event_manager/event/maps/route?from=' . urlencode($location) . '" class="openRouteToEvent">' . $location . '</a>';
 			$content .= '</div>';

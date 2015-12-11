@@ -631,22 +631,6 @@ class Event extends ElggObject {
 	}
 
 	/**
-	 * Returns the location
-	 *
-	 * @param bool $type should it be formatted
-	 *
-	 * @return string
-	 */
-	public function getEventLocation($type = false) {
-		$location = $this->location;
-		if ($type) {
-			$location = str_replace(',', '<br />', $this->location);
-		}
-
-		return $location;
-	}
-
-	/**
 	 * Returns the relationships between a user and the event
 	 *
 	 * @param string $user_guid guid of the user

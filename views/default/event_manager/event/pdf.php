@@ -17,9 +17,9 @@ $output .= '</div>';
 
 // event details
 $event_details = "<table>";
-if ($location = $event->getEventLocation()) {
+if ($location = $event->location) {
 	$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:location') . '</b></td><td>: ';
-	$event_details .= $event->getEventLocation();
+	$event_details .= $location;
 	$event_details .= '</td></tr>';
 }
 

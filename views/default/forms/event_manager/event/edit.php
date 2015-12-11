@@ -50,7 +50,7 @@ $event = elgg_extract('entity', $vars);
 if ($event) {
 	// edit mode
 	$fields["guid"] = $event->getGUID();
-	$fields["location"] = $event->getEventLocation();
+	$fields["location"] = $event->location;
 	$fields["latitude"] = $event->getLatitude();
 	$fields["longitude"] = $event->getLongitude();
 	$fields["tags"] = string_to_tag_array($event->tags);

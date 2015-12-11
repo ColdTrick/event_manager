@@ -11,7 +11,7 @@ $link = elgg_view('output/url', [
 	'text' => elgg_view_icon("calendar", "float mrs") . elgg_echo("event_manager:event:menu:title:add_to_calendar")
 ]);
 
-$location = $event->getEventLocation();
+$location = $event->location;
 if (empty($location)) {
 	$location = $event->venue;
 }
