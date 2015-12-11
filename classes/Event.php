@@ -732,7 +732,7 @@ class Event extends ElggObject {
 	 *
 	 * @return boolean|entity
 	 */
-	public function getFirstWaitingUser() {
+	protected function getFirstWaitingUser() {
 		$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one= '" . $this->getGUID() . "' AND relationship = '" . EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST . "' ORDER BY time_created ASC LIMIT 1";
 
 		$waiting_users = get_data($query);
