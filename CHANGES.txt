@@ -1,6 +1,76 @@
 Version history
 ===============
 
+4.0 (2015-12-14):
+
+- added: function documentation
+- added: composer support
+- added: updated addthisevent to v1.6.0
+- added: Adds .gitignore that ignores all files beginning with a dot
+- added: Adds Finnish translations file
+- added: Adds Spanish translations file
+
+- changed: change sender of notifications to owner of event
+- changed: changed how the googlemaps.js file is loaded
+- changed: Event->getFirstWaitingUser is now a protected function
+- changed: moved a few pages to ajax views
+- changed: moved fee and attendee fields to registration tab
+- changed: moved maps setting queries to js file
+- changed: moved out html output to view instead of class function
+- changed: moved registration of js to page setup to save db call in init
+- changed: namespaced javascript functions
+- changed: reduced complexity of notifyOnRSVP function
+- changed: refactored and cleaned up a lot of code
+- changed: refactored js into multiple modules that get loaded on demand
+- changed: registration options now has its own language key
+- changed: replaced custom js and pages with ajaxed views
+- changed: replaced custom loading indicator with elgg/spinner
+- changed: replaced date format define with a language key
+- changed: replaced day/delete procedure with action
+- changed: replaced inline css with a global page class
+- changed: replaced md5 + sitesecret code generation with elgg_build_hmac
+- changed: replaced the deprecated jquery live function usage with .on()
+- changed: rewrote procedures into actions and ajax views
+- changed: updated to newest DOMPDF library
+- changed: Format English and Finnish translation files to the Elgg 1.9 syntax
+- changed: moved Event edit form under views/default/forms
+- changed: moved page handler to own lib file
+- changed: moved slot/delete procedure to regular action
+- changed: replaced event_manager_get_form_pulldown_* functions with input/time view
+- changed: refactoring for the event editing form
+- changed: got rid of the HTML tables
+- changed: refactored the slot saving procedure
+- changed: replaced the slot edit file with an action file
+- changed: separated javascript from the form HTML
+- changed: register object classes on plugin activation and unregister them on deactivation
+
+- fixed: current icon label was showing even if there was no icon
+- fixed: do not show attendee count if not open for registration and count is 0
+- fixed: location selection on edit form no longer working
+- fixed: replaced deprecated class parameter in ElggMenu::factory
+- fixed: replaced deprecated functions with alternatives
+- fixed: set correct enctype in event edit form to allow icon upload
+- fixed: update thumbnail page to new Entity DirLocator
+- fixed: correctly set ignore access for handling private events
+- fixed: deprecation notices for output/confirmlink
+- fixed: 0 values were mistaken for empty values on registration form
+- fixed: export attendees now uses ElggBatch to prevent OOM issues
+- fixed: send correct notifications when moving pending users to attendee
+- fixed: deprecated use of getEntitiesFromRelationship() method
+- fixed: missing values from the event editing form
+- fixed: replace deprecated add_to_river() with elgg_create_river_item()
+
+- removed: unused procedure and function
+- removed: unused views
+- removed: event class function getEventLocation
+- removed: Event->exportAttendees function
+- removed: Event->getRegistrationData function
+- removed: Event->isAttending function
+- removed: unused Event->isUserRegistered function
+- removed: unused EventSlot->isUserWaiting function
+- removed: unused function getRegistrationsByUser
+- removed: unused isWaiting and getWaitingUsers functions
+
 3.0 (2014-11-17):
 
 - added: direct unsubscribe link in notifications
