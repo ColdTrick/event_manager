@@ -264,32 +264,6 @@ class Event extends ElggObject {
 	}
 
 	/**
-	 * Returns registration data
-	 *
-	 * @param string  $guid guid of the user or registration object
-	 * @param boolean $view adds a title to the output
-	 *
-	 * @return boolean|string
-	 */
-	public function getRegistrationData($guid = null, $view = false) {
-		if ($guid === null) {
-			$guid = elgg_get_logged_in_user_guid();
-		}
-
-		$entity = get_entity($guid);
-		if (empty($entity)) {
-			return false;
-		}
-
-		return elgg_view("event_manager/registration/user_data", array(
-			"event" => $this,
-			"entity" => $entity,
-			"show_title" => $view,
-			"questions" => $this->getRegistrationFormQuestions()
-		));
-	}
-
-	/**
 	 * Checks if the event has a registration form
 	 *
 	 * @return boolean

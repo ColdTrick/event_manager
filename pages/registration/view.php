@@ -1,7 +1,7 @@
 <?php
 $key = get_input('k');
-$guid = get_input("guid");
-$user_guid = get_input('u_g', elgg_get_logged_in_user_guid());
+$guid = (int) get_input("guid");
+$user_guid = (int) get_input('u_g', elgg_get_logged_in_user_guid());
 $event = null;
 
 if ($guid && ($entity = get_entity($guid))) {
@@ -11,7 +11,6 @@ if ($guid && ($entity = get_entity($guid))) {
 }
 
 $output = "";
-
 if ($event) {
 	elgg_register_menu_item("title", ElggMenuItem::factory([
 		"name" => "save_to_pdf",
@@ -24,15 +23,18 @@ if ($event) {
 
 if ($event && !empty($key)) {
 	$tempKey = elgg_build_hmac([$event->time_created, $user_guid])->getToken();
-	
-	if (($tempKey == $key) && get_entity($user_guid)) {
+	$entity = get_entity($user_guid);
+	if (($tempKey == $key) && $entity) {
 
 		$title_text = elgg_echo('event_manager:registration:registrationto') . " '" . $event->title . "'";
 
 		$old_ia = elgg_set_ignore_access(true);
 
-		$output .= elgg_view('event_manager/event/pdf', array('entity' => $event));
-		$output .= $event->getRegistrationData($user_guid);
+		$output .= elgg_view('event_manager/event/pdf', ['entity' => $event]);
+		$output .= elgg_view('event_manager/registration/user_data', [
+			'event' => $event,
+			'entity' => $entity,
+		]);
 
 		if ($event->with_program) {
 			$output .= $event->getProgramData($user_guid);
@@ -61,9 +63,11 @@ if ($event && !empty($key)) {
 		if ($event->canEdit() || ($user_guid == elgg_get_logged_in_user_guid())) {
 			$title_text = elgg_echo('event_manager:registration:registrationto') . " '" . $event->title . "'";
 
-			$output .= elgg_view('event_manager/event/pdf', array('entity' => $event));
-
-			$output .= $event->getRegistrationData($user_guid);
+			$output .= elgg_view('event_manager/event/pdf', ['entity' => $event]);
+			$output .= elgg_view('event_manager/registration/user_data', [
+				'event' => $event,
+				'entity' => elgg_get_logged_in_user_entity(),
+			]);
 
 			if ($event->with_program) {
 				$output .= $event->getProgramData($user_guid);

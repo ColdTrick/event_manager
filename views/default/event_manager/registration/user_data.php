@@ -1,19 +1,25 @@
 <?php
 
-$entity = elgg_extract("entity", $vars);
-$questions = elgg_extract("questions", $vars);
-$show_title = elgg_extract("show_title", $vars, false);
+$event = elgg_extract('event', $vars);
+$entity = elgg_extract('entity', $vars);
+
+if (empty($event) || empty($entity)) {
+	return;
+}
+
+$questions = $event->getRegistrationFormQuestions();
+$show_title = elgg_extract('show_title', $vars, false);
 
 if (empty($questions)) {
 	return;
 }
 
-$output = "";
+$output = '';
 if ($show_title) {
-	$output .= "<h3>" . elgg_echo("event_manager:registration:view:information") . "</h3>";
+	$output .= elgg_format_element('h3', [], elgg_echo('event_manager:registration:view:information'));
 }
 
-$output .= "<table>";
+$output .= '<table>';
 
 if (($entity->guid != elgg_get_logged_in_user_guid()) && !($entity instanceof ElggUser)) {
 	$output .= "<tr><td><label>" . elgg_echo("user:name:label") . ":</label>&nbsp;</td><td>{$entity->name}</td></tr>";
@@ -26,6 +32,6 @@ foreach ($questions as $question) {
 	$output .= "<tr><td><label>{$question->title}:</label>&nbsp;</td><td>{$answer->value}</td></tr>";
 }
 
-$output .= "</table>";
+$output .= '</table>';
 
-echo elgg_view_module("main", "", $output);
+echo elgg_view_module('main', '', $output);
