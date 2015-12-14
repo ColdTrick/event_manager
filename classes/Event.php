@@ -38,73 +38,38 @@ class Event extends ElggObject {
 	 * @return void
 	 */
 	public function setAccessToOwningObjects($access_id = null) {
-		$this->setAccessToProgramEntities($access_id);
-		$this->setAccessToRegistrationForm($access_id);
-	}
-
-	/**
-	 * Updates access of Program Entities
-	 *
-	 * @param string $access_id new access id
-	 *
-	 * @return void
-	 */
-	protected function setAccessToProgramEntities($access_id = null) {
+		
 		if ($access_id === null) {
 			$access_id = $this->access_id;
 		}
-
+		
 		// Have to do this for private events
 		$ia = elgg_set_ignore_access(true);
 		
 		$eventDays = $this->getEventDays();
-		if (empty($eventDays)) {
-			elgg_set_ignore_access($ia);
-			return;
-		}
-
-		foreach ($eventDays as $day) {
-			$day->access_id = $access_id;
-			$day->save();
-
-			$eventSlots = $day->getEventSlots();
-			if (empty($eventSlots)) {
-				continue;
-			}
-
-			foreach ($eventSlots as $slot) {
-				$slot->access_id = $access_id;
-				$slot->save();
+		if (!empty($eventDays)) {
+			foreach ($eventDays as $day) {
+				$day->access_id = $access_id;
+				$day->save();
+			
+				$eventSlots = $day->getEventSlots();
+				if (empty($eventSlots)) {
+					continue;
+				}
+			
+				foreach ($eventSlots as $slot) {
+					$slot->access_id = $access_id;
+					$slot->save();
+				}
 			}
 		}
-		
-		elgg_set_ignore_access($ia);
-	}
-
-	/**
-	 * Updates access of Registration Form Entities
-	 *
-	 * @param string $access_id new access id
-	 *
-	 * @return void
-	 */
-	protected function setAccessToRegistrationForm($access_id = null) {
-		if ($access_id === null) {
-			$access_id = $this->access_id;
-		}
-
-		// Have to do this for private events
-		$ia = elgg_set_ignore_access(true);
 		
 		$questions = $this->getRegistrationFormQuestions();
-		if (empty($questions)) {
-			elgg_set_ignore_access($ia);
-			return;
-		}
-
-		foreach ($questions as $question) {
-			$question->access_id = $access_id;
-			$question->save();
+		if (!empty($questions)) {
+			foreach ($questions as $question) {
+				$question->access_id = $access_id;
+				$question->save();
+			}
 		}
 		
 		elgg_set_ignore_access($ia);
