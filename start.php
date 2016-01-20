@@ -1,5 +1,9 @@
 <?php
 
+define('DOMPDF_ENABLE_AUTOLOAD', false);
+
+@include_once(dirname(__FILE__) . '/vendor/autoload.php');
+
 define('EVENT_MANAGER_RELATION_ATTENDING', 'event_attending');
 define('EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST', 'event_waitinglist');
 define('EVENT_MANAGER_RELATION_ATTENDING_PENDING', 'event_pending');
@@ -26,7 +30,7 @@ require_once(dirname(__FILE__) . '/lib/page_handlers.php');
 function event_manager_init() {
 	$base_dir = dirname(__FILE__);
 	
-	elgg_register_library('dompdf', $base_dir . '/vendors/dompdf/dompdf_config.inc.php');
+	elgg_register_library('dompdf', $base_dir . '/vendor/dompdf/dompdf/dompdf_config.inc.php');
 	
 	// Register entity_type for search
 	elgg_register_entity_type('object', Event::SUBTYPE);
