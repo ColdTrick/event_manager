@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $event = elgg_extract('entity', $vars);
 if (empty($event)) {
@@ -48,8 +48,8 @@ foreach ($event_relationship_options as $rel) {
 if ($user_relation) {
 	$icon = elgg_view_icon('checkmark-hover', 'float-alt elgg-discoverable');
 	$link = elgg_view('output/url', [
-		'is_action' => true, 
-		'href' => 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO, 
+		'is_action' => true,
+		'href' => 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO,
 		'text' => elgg_echo('event_manager:event:relationship:undo')
 	]);
 	$rsvp_options .= elgg_format_element('li', ['class' => 'elgg-discover'], $icon . $link);
@@ -64,6 +64,7 @@ if ($user_relation) {
 	$button_text = "<b>$button_text</b>";
 }
 
+$button_text .= elgg_view_icon('caret-square-o-down', ['class' => 'mls']);
+
 echo elgg_format_element('span', ['class' => 'event_manager_event_actions'], $button_text);
 echo elgg_format_element('ul', ['class' => 'event_manager_event_actions_drop_down'], $rsvp_options);
-

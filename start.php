@@ -31,11 +31,11 @@ function event_manager_init() {
 	// Register entity_type for search
 	elgg_register_entity_type('object', Event::SUBTYPE);
 
-	elgg_extend_view('css/elgg', 'event_manager/css/site');
+	elgg_extend_view('css/elgg', 'css/event_manager.css');
 	elgg_extend_view('js/elgg', 'js/event_manager/site.js');
 
 	// notifications
-	elgg_register_notification_event('object', Event::SUBTYPE, array('create'));
+	elgg_register_notification_event('object', Event::SUBTYPE, ['create']);
 	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:' . Event::SUBTYPE, 'event_manager_prepare_notification');
 
 	// register ajax views
