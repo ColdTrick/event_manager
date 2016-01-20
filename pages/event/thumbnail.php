@@ -24,17 +24,14 @@ if (isset($_SERVER["HTTP_IF_NONE_MATCH"])) {
 	}
 }
 
-$base_dir = dirname(dirname(dirname(dirname(dirname(__FILE__)))));
-
-// Get DB settings
-require_once $base_dir . '/engine/settings.php';
-require_once $base_dir . '/vendor/autoload.php';
-
 global $CONFIG;
 
-if (isset($CONFIG->dataroot)) {
-	$data_root = $CONFIG->dataroot;
+$autoload_root = dirname(dirname(dirname(dirname(__DIR__))));
+if (!is_file("$autoload_root/vendor/autoload.php")) {
+	$autoload_root = dirname(dirname(dirname(dirname($autoload_root))));
 }
+require_once "$autoload_root/vendor/autoload.php";
+$data_root = \Elgg\Application::getDataPath();
 
 if (!isset($data_root)) {
 	$db_config = new \Elgg\Database\Config($CONFIG);
