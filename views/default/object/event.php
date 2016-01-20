@@ -3,7 +3,7 @@
 elgg_load_js("event_manager.maps.base");
 elgg_require_js("event_manager/googlemaps");
 
-if ($vars["full"]) {
+if (elgg_extract('full_view', $vars)) {
 	echo elgg_view("event_manager/event/view", $vars);
 } elseif (elgg_in_context("maps")) {
 	$event = $vars["entity"];
