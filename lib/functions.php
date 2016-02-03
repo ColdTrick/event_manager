@@ -33,6 +33,7 @@ function event_manager_search_events($options = []) {
 	$defaults = [
 		'past_events' => false,
 		'count' => false,
+		'limit' => get_input('limit', 10),
 		'container_guid' => null,
 		'query' => false,
 		'meattending' => false,
