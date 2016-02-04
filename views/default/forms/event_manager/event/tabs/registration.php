@@ -65,7 +65,7 @@ $end_registration_day_label = elgg_echo('event_manager:edit:form:endregistration
 $end_registration_day_input = elgg_view('input/date', array(
 	'name' => 'endregistration_day',
 	'id' => 'endregistration_day',
-	'value' => (($vars["endregistration_day"] != 0) ? event_manager_format_date($vars["endregistration_day"]) : ''),
+	'value' => (($vars["endregistration_day"] != 0) ? date('Y-m-d', $vars["endregistration_day"]) : ''),
 ));
 
 $rsvp_options_label = elgg_echo('event_manager:edit:form:rsvp_options');
