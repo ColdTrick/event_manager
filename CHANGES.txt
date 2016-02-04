@@ -1,6 +1,11 @@
 Version history
 ===============
 
+4.1.1 (2016-02-04):
+
+- fixed: correctly set default limit for listing upcomming events
+- fixed: don't use translatable date format for registration enddate input
+
 4.1 (2016-01-20):
 
 - changed: dompdf now is a composer dependency
