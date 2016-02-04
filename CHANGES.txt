@@ -1,6 +1,11 @@
 Version history
 ===============
 
+4.0.1 (2016-02-04):
+
+- fixed: correctly set default limit for listing upcomming events
+- fixed: don't use translatable date format for registration enddate input
+
 4.0 (2015-12-14):
 
 - added: function documentation
