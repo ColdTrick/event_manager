@@ -48,25 +48,13 @@ $content = elgg_view_entity_list($events['entities'], [
 
 echo $content;
 
-$user = elgg_get_logged_in_user_entity();
-if (empty($user)) {
+if (empty($events['count'])) {
 	return;
 }
 
-$add_link = false;
-
+$more_link = '/events';
 if ($owner instanceof ElggGroup) {
-	$who_create_group_events = elgg_get_plugin_setting('who_create_group_events', 'event_manager'); // group_admin, members
-	if ((($who_create_group_events == 'group_admin') && $owner->canEdit()) || (($who_create_group_events == 'members') && $owner->isMember($user))) {
-		$add_link = '/events/event/new/' . $owner->getGUID();
-	}
-} else {
-	$who_create_site_events = elgg_get_plugin_setting('who_create_site_events', 'event_manager');
-	if ($who_create_site_events !== 'admin_only' || elgg_is_admin_logged_in()) {
-		$add_link = '/events/event/new';
-	}
+	$more_link = '/events/event/list/' . $widget->getOwnerGUID();
 }
 
-if ($add_link !== false) {
-	echo elgg_format_element('div', ['class' => 'elgg-widget-more'], elgg_view('output/url', ['text' => elgg_echo('event_manager:menu:new_event'), 'href' => $add_link]));
-}
+echo elgg_format_element('div', ['class' => 'elgg-widget-more'], elgg_view('output/url', ['text' => elgg_echo('event_manager:group:more'), 'href' => $more_link]));
