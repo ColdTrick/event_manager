@@ -87,6 +87,8 @@ function event_manager_init() {
 
 	elgg_register_plugin_hook_handler('setting', 'plugin', 'event_manager_invalidate_cache');
 	
+	elgg_register_plugin_hook_handler('likes:is_likable', 'object:' . \Event::SUBTYPE, '\Elgg\Values::getTrue');
+	
 	// actions
 	elgg_register_action('event_manager/event/edit', $base_dir . '/actions/event/edit.php');
 	elgg_register_action('event_manager/event/delete', $base_dir . '/actions/event/delete.php');
