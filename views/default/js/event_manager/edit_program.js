@@ -63,7 +63,7 @@ elgg.event_manager.program_add_day = function(form) {
 
 elgg.event_manager.add_new_slot_set_name = function(set_name) {
 	if (set_name !== "") {
-		$("#event_manager_form_program_slot input[name='slot_set']").removeAttr("checked");
+		$("#event_manager_form_program_slot input[name='slot_set']").prop("checked", false);
 		$options = $("#event_manager_form_program_slot input[name='slot_set']:first").parent().parent().parent();
 		$options.append("<li><label><input type='radio' checked='checked' value='" + set_name + "' name='slot_set'/>" + set_name + "</label></li>");
 	}
