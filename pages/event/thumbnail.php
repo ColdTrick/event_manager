@@ -33,37 +33,6 @@ if (!is_file("$autoload_root/vendor/autoload.php")) {
 require_once "$autoload_root/vendor/autoload.php";
 $data_root = \Elgg\Application::getDataPath();
 
-if (!isset($data_root)) {
-	$db_config = new \Elgg\Database\Config($CONFIG);
-	if ($db_config->isDatabaseSplit()) {
-		$read_settings = $db_config->getConnectionConfig(\Elgg\Database\Config::READ);
-	} else {
-		$read_settings = $db_config->getConnectionConfig(\Elgg\Database\Config::READ_WRITE);
-	}
-	
-	$mysql_dblink = @mysql_connect($read_settings["host"], $read_settings["user"], $read_settings["password"], true);
-	if ($mysql_dblink) {
-		if (@mysql_select_db($read_settings["database"], $mysql_dblink)) {
-			$q = "SELECT name, value FROM {$db_config->getTablePrefix()}datalists WHERE name = 'dataroot'";
-			
-			$result = mysql_query($q, $mysql_dblink);
-			if ($result) {
-				$row = mysql_fetch_object($result);
-				while ($row) {
-					if ($row->name == 'dataroot') {
-						$data_root = $row->value;
-					}
-	
-					$row = mysql_fetch_object($result);
-				}
-			}
-	
-			@mysql_close($mysql_dblink);
-		}
-	}
-}
-
-
 if (isset($data_root)) {
 
 	$locator = new \Elgg\EntityDirLocator($guid);
