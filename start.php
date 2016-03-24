@@ -30,8 +30,13 @@ require_once(dirname(__FILE__) . '/lib/page_handlers.php');
 function event_manager_init() {
 	$base_dir = dirname(__FILE__);
 	
-	elgg_register_library('dompdf', $base_dir . '/vendor/dompdf/dompdf/dompdf_config.inc.php');
-	
+	if (file_exists($base_dir . '/vendor/dompdf/dompdf/dompdf_config.inc.php')) {
+		// normal plugin install
+		elgg_register_library('dompdf', $base_dir . '/vendor/dompdf/dompdf/dompdf_config.inc.php');
+	} elseif (file_exists(dirname(dirname($base_dir)) . '/vendor/dompdf/dompdf/dompdf_config.inc.php')) {
+		// plugin installed via composer
+		elgg_register_library('dompdf', dirname(dirname($base_dir)) . '/vendor/dompdf/dompdf/dompdf_config.inc.php');
+	}
 	// Register entity_type for search
 	elgg_register_entity_type('object', Event::SUBTYPE);
 
