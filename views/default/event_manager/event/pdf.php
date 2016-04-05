@@ -6,7 +6,13 @@ $owner = $event->getOwnerEntity();
 $output = "";
 
 if ($event->icontime) {
-	$output .= '<div><img src="' . $event->getIconURL() . '" border="0" /></div>';
+	$locator = new \Elgg\EntityDirLocator($event->getOwnerGUID());
+	$entity_path = elgg_get_data_path() . $locator->getPath();
+	
+	$filename = $entity_path . "events/{$event->guid}/medium.jpg";
+	$filecontents = file_get_contents($filename);
+
+	$output .= '<div><img src="data:image/jpeg;base64,' . base64_encode($filecontents) . '" border="0" /></div>';
 }
 
 $output .= '<div class="event_manager_event_view_owner">';
