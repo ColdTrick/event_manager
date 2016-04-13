@@ -1,6 +1,16 @@
 Version history
 ===============
 
+5.0.1 (2016-04-13):
+
+- added: german translation
+- changed: replaced the add link with a more link in the widget footer
+- fixed: changed widget more span into div
+- fixed: correct path to dompdf lib
+- fixed: events aren't likeable
+- fixed: inline image to prevent dompdf complaining about remote embed
+- fixed: using correct jquery function
+
 5.0 (2016-02-09):
 
 - changed: dompdf now is a composer dependency
