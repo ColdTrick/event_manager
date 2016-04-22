@@ -32,13 +32,13 @@ $guid = null;
 if ($entity instanceof EventRegistrationQuestion) {
 	// assume day edit mode
 	$guid = $entity->getGUID();
-	$event_guid = $entity->owner_guid;	
-	$title = $entity->title;	
+	$event_guid = $entity->owner_guid;
+	$title = $entity->title;
 	$fieldtype = $entity->fieldtype;
 	$required = $entity->required;
 	$fieldoptions = $entity->fieldoptions;
 } else {
-	$event_guid	= $entity->getGUID();			
+	$event_guid	= $entity->getGUID();
 }
 
 if ($entity && $entity->canEdit()) {
@@ -56,9 +56,9 @@ if ($entity && $entity->canEdit()) {
 	$form_body .= '<label>' . elgg_echo('event_manager:editregistration:fieldtype') . '</label>';
 	$form_body .= "</td><td>";
 	$form_body .= elgg_view('input/dropdown', array(
-		'id' => 'event_manager_registrationform_question_fieldtype', 
-		'value' => $fieldtype, 
-		'name' => 'fieldtype', 
+		'id' => 'event_manager_registrationform_question_fieldtype',
+		'value' => $fieldtype,
+		'name' => 'fieldtype',
 		'options' => array('Textfield', 'Textarea', 'Dropdown', 'Radiobutton')
 	));
 	$form_body .= "</td></tr>";
@@ -72,13 +72,13 @@ if ($entity && $entity->canEdit()) {
 	$form_body .= '<label>' . elgg_echo('event_manager:editregistration:fieldoptions') . '</label> (' . elgg_echo('event_manager:editregistration:commasepetared') . ')';
 	$form_body .= "</td><td>";
 	$form_body .= elgg_view('input/text', array(
-		'name' => 'fieldoptions', 
+		'name' => 'fieldoptions',
 		'value' => $fieldoptions
 	));
 	$form_body .= "</td></tr><tr><td>&nbsp;</td><td>";
 	$form_body .= elgg_view('input/checkboxes', array(
-		'name' => 'required', 
-		'value' => $required, 
+		'name' => 'required',
+		'value' => $required,
 		'options' => array(elgg_echo('event_manager:registrationform:editquestion:required') => '1')
 	));
 	$form_body .= "</td></tr></table>";
@@ -87,10 +87,13 @@ if ($entity && $entity->canEdit()) {
 		
 	$body = elgg_view('input/form', array(
 		'id' => 'event_manager_registrationform_question',
-		'name' => 'event_manager_registrationform_question', 
+		'name' => 'event_manager_registrationform_question',
 		'action' => 'javascript:elgg.event_manager.edit_questions_add_field($(\'#event_manager_registrationform_question\'))',
 		'body' => $form_body
 	));
+
+	elgg_load_js('lightbox');
+	elgg_load_css('lightbox');
 	
 	echo elgg_view_module("main",$title, $body, array('id' 	=> 'event_manager_registrationform_lightbox'));
 	

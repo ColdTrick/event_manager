@@ -69,12 +69,14 @@ function event_manager_init() {
 	elgg_extend_view('groups/tool_latest', 'event_manager/group_module');
 
 	// add widgets
-	elgg_register_widget_type('events', elgg_echo('event_manager:widgets:events:title'), elgg_echo('event_manager:widgets:events:description'), array('index', 'dashboard', 'profile', 'groups'));
+	elgg_register_widget_type('events', elgg_echo('event_manager:widgets:events:title'), elgg_echo('event_manager:widgets:events:description'), ['index', 'dashboard', 'profile', 'groups']);
 
 	// register js libraries
-	elgg_register_simplecache_view('js/event_manager/googlemaps.js');
 	
 	elgg_register_js('addthisevent', 'mod/event_manager/vendors/addthisevent/atemay.js');
+
+	elgg_define_js('async', ['src' => elgg_get_simplecache_url('js/requirejs/async/async.js')]);
+	elgg_define_js('gmaps', ['src' => elgg_get_simplecache_url('js/hpneo/gmaps/gmaps.js')]);
 
 	// page handlers
 	elgg_register_page_handler('events', 'event_manager_page_handler');
@@ -86,6 +88,7 @@ function event_manager_init() {
 	elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'event_manager_user_hover_menu');
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'event_manager_entity_menu', 600);
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'event_manager_owner_block_menu');
+	elgg_register_plugin_hook_handler('register', 'menu:event_files', 'event_manager_event_files_menu');
 
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'event_manager_permissions_check_handler');
 	elgg_register_plugin_hook_handler('entity:url', 'object', 'event_manager_widget_events_url');
@@ -132,12 +135,6 @@ function event_manager_init() {
  * @return void
  */
 function event_manager_pagesetup() {
-	// @todo check if this can be better
-	elgg_load_js('lightbox');
-	elgg_load_css('lightbox');
-
-	$maps_key = elgg_get_plugin_setting('google_api_key', 'event_manager');
-	elgg_register_js('event_manager.maps.base', '//maps.googleapis.com/maps/api/js?key=' . $maps_key . '&sensor=true');
 	
 	$page_owner = elgg_get_page_owner_entity();
 	if ($page_owner instanceof ElggGroup) {

@@ -90,7 +90,6 @@ return array(
 	'event_manager:edit:form:registration_ended' => 'Anmeldung zur Veranstaltung deaktivieren',
 	'event_manager:edit:form:registration_needed' => 'Anmeldung zur teilnahme erforderlich?',
 	'event_manager:edit:form:show_attendees' => 'Teilnehmer anzeigen?',
-	'event_manager:edit:form:hide_owner_block' => 'verberge Eigent&uuml;mer in der sidebar',
 	'event_manager:edit:form:notify_onsignup' => 'Benachrichtigung wenn sich jemand anmeldet',
 	'event_manager:edit:form:start' => 'Start',
 	'event_manager:edit:form:end' => 'Ende',
@@ -395,8 +394,6 @@ Falls du dich nicht f&uuml;r diese Veranstaltung angemeldet hast, kannst du dies
 	'event_manager:river:event_relationship:create:event_organizing' => '%s organisiert %s',
 
 	'river:create:object:event' => '%s hat eine Veranstaltung erstellt %s',
-
-	'calculate_route' => 'berechne Route',
 
 	'from' => 'Von',
 	'to' => 'An',

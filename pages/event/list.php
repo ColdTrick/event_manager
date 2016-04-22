@@ -1,8 +1,6 @@
 <?php
 
 elgg_require_js('event_manager/list_events');
-elgg_load_js('event_manager.maps.base');
-elgg_require_js('event_manager/googlemaps');
 
 $title_text = elgg_echo('event_manager:list:title');
 
@@ -42,7 +40,7 @@ $events = event_manager_search_events($event_options);
 $content = elgg_view('event_manager/forms/event/search');
 
 $content .= elgg_view('event_manager/list', [
-	'entities' => $events['entities'], 
+	'entities' => $events['entities'],
 	'count' => $events['count']
 ]);
 

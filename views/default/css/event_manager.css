@@ -47,27 +47,31 @@
 .event_manager_event_list_icon {
 	text-align: center;
 	width: 40px;
-	border-right: 1px solid #CECECE;
-	border-bottom: 1px solid #CECECE;
+	padding: 1px;
+	
+	background: #4787b8;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    
+    border-radius: 3px;
+	box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.6);
+
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .event_manager_event_list_icon_day {
 	font-size: 15px;
     font-weight: bold;
     line-height: 23px;
-    background: #FFFFFF;
-    border-bottom: 1px solid #4690D6;
-    border-left: 1px solid #4690D6;
-    border-right: 1px solid #4690D6;
-    
+    background: #FFFFFF;    
+	border-radius: 0 0 2px 2px;
 }
 .event_manager_event_list_icon_month {
-	background: #4690D6;
 	color: #FFFFFF;
 	font-size: 11px;
     line-height: 11px;
-    padding: 2px;
-    border: 1px solid #4690D6;
+    padding: 2px 0;
 }
 
 #event_manager_event_listing div.pagination {
@@ -116,36 +120,62 @@
 	font-size: 1em;
 }
 
+.event-manager-event-view-search-attendees {
+	position: relative;
+}
 .event-manager-event-view-search-attendees .elgg-icon {
 	vertical-align: top;
 }
 
 .event-manager-event-view-search-attendees .elgg-input-text {
-	height: 16px;
-	padding: 0 5px;
+	font-size: 12px;
+	height: 25px;
+	padding: 5px;
+	position: absolute;
+	right: 20px;
+	top: -3px;
 	width: 150px;
 }
 
-.event-manager-event-details label {
-	white-space: nowrap;
-	padding-right: 20px;
+.event-manager-event-view-search-attendees .elgg-input-text:focus {
+	background: white;
+}
+
+.event-manager-event-when {
+	margin-bottom: 15px;
+}
+
+.event-manager-event-when .elgg-icon-calendar {
+	font-size: 3em;
+	margin: 0 10px;
+}
+
+.event-manager-event-when-title {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.event-manager-event-when-subtitle {
+	color: #CCC;
+	font-size: 18px;
+	margin-top: 10px;
+}
+
+.elgg-module-event {
+	border-top: 1px solid #ebebeb;
+	padding-top: 20px;
+}
+
+.elgg-module-event label {
 	font-size: 100%;
 }
 
-.event-manager-event-details .elgg-output {
-	margin: 0px;
+.event-manager-gmaps-location {
+	width: 100%;
+	height: 400px;
 }
 
 /* Event tool links */
-
-.event_manager_event_actions {
-	cursor: pointer;
-}
-
-.event_manager_event_actions > .elgg-icon {
-	vertical-align: text-bottom;
-}
-
 .event_manager_event_actions_drop_down {
     background: #FFFFFF;
     padding: 5px 2px 5px 0;
@@ -167,23 +197,12 @@
 	padding-right: 2px;
 }
 
-/* Event Program Edit */
-#event_manager_program_edit {
-	float: right;
-	font-size: 12px;
-	font-weight: normal;
-}
-
 /* Event Program Day */
 
 #event-manager-program-day-lightbox {
 	width: 300px;
 	height: 270px;
 	margin-bottom: 0px;
-}
-
-#event-manager-program-day-lightbox .datepick-popup {
-	z-index: 20000;
 }
 
 /* Event Program Slot */

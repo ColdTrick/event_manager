@@ -5,12 +5,12 @@
 
 /**
  * Adds menu items to the user hover menu
- * 
+ *
  * @param string $hook        hook name
  * @param string $entity_type hook type
  * @param array  $returnvalue current return value
  * @param array  $params      parameters
- * 
+ *
  * @return array
  */
 function event_manager_user_hover_menu($hook, $entity_type, $returnvalue, $params) {
@@ -35,8 +35,8 @@ function event_manager_user_hover_menu($hook, $entity_type, $returnvalue, $param
 	$href = 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&user=' . $user->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO;
 
 	$item = ElggMenuItem::factory([
-		'name' => 'event_manager_kick', 
-		'text' => elgg_echo("event_manager:event:relationship:kick"), 
+		'name' => 'event_manager_kick',
+		'text' => elgg_echo("event_manager:event:relationship:kick"),
 		'href' => $href,
 		'is_action' => true,
 		'section' => 'action'
@@ -81,12 +81,12 @@ function event_manager_user_hover_menu($hook, $entity_type, $returnvalue, $param
 
 /**
  * Adds menu items to the entity menu
- * 
+ *
  * @param string $hook        hook name
  * @param string $entity_type hook type
  * @param array  $returnvalue current return value
  * @param array  $params      parameters
- * 
+ *
  * @return array
  */
 function event_manager_entity_menu($hook, $entity_type, $returnvalue, $params) {
@@ -149,7 +149,7 @@ function event_manager_entity_menu($hook, $entity_type, $returnvalue, $params) {
  * @param string $entity_type hook type
  * @param array  $returnvalue current return value
  * @param array  $params      parameters
- * 
+ *
  * @return array
  */
 function event_manager_owner_block_menu($hook, $entity_type, $returnvalue, $params) {
@@ -177,13 +177,45 @@ function event_manager_owner_block_menu($hook, $entity_type, $returnvalue, $para
 }
 
 /**
+ * Add menu items listing of event files
+ *
+ * @param string $hook        hook name
+ * @param string $entity_type hook type
+ * @param array  $returnvalue current return value
+ * @param array  $params      parameters
+ *
+ * @return array
+ */
+function event_manager_event_files_menu($hook, $entity_type, $returnvalue, $params) {
+	$event = elgg_extract('entity', $params);
+	if (!($event instanceof Event)) {
+		return;
+	}
+	
+	$files = $event->hasFiles();
+	if (empty($files)) {
+		return;
+	}
+	
+	foreach ($files as $file) {
+		$returnvalue[] = ElggMenuItem::factory([
+			'name' => $file->title,
+			'text' => elgg_view_icon('download', 'mrs') . $file->title,
+			'href' => "events/event/file/{$event->getGUID()}/{$file->file}",
+		]);
+	}
+	
+	return $returnvalue;
+}
+
+/**
  * Generates correct title link for widgets depending on the context
  *
  * @param string $hook        hook name
  * @param string $entity_type hook type
  * @param array  $returnvalue current return value
  * @param array  $params      parameters
- * 
+ *
  * @return string
  */
 function event_manager_widget_events_url($hook, $entity_type, $returnvalue, $params) {
@@ -191,7 +223,7 @@ function event_manager_widget_events_url($hook, $entity_type, $returnvalue, $par
 	$widget = elgg_extract('entity', $params);
 
 	if (empty($result) || !($widget instanceof ElggWidget) || $widget->handler !== 'events') {
-		return;	
+		return;
 	}
 		
 	switch ($widget->context) {
@@ -209,7 +241,7 @@ function event_manager_widget_events_url($hook, $entity_type, $returnvalue, $par
  * @param string $entity_type hook type
  * @param bool   $returnvalue current return value
  * @param array  $params      parameters
- * 
+ *
  * @return bool
  */
 function event_manager_permissions_check_handler($hook, $entity_type, $returnvalue, $params) {
@@ -237,7 +269,7 @@ function event_manager_permissions_check_handler($hook, $entity_type, $returnval
  * @param string $entity_type hook type
  * @param bool   $returnvalue current return value
  * @param array  $params      parameters
- * 
+ *
  * @return bool
  */
 function event_manager_invalidate_cache($hook, $entity_type, $returnvalue, $params) {
@@ -260,7 +292,7 @@ function event_manager_invalidate_cache($hook, $entity_type, $returnvalue, $para
  * @param string                          $type         Hook type
  * @param Elgg_Notifications_Notification $notification The notification to prepare
  * @param array                           $params       Hook parameters
- * 
+ *
  * @return Elgg_Notifications_Notification
  */
 function event_manager_prepare_notification($hook, $type, $notification, $params) {

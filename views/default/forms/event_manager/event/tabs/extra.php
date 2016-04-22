@@ -29,14 +29,6 @@ $show_attendees = elgg_view('input/checkboxes', array(
 	)
 ));
 
-$hide_owner_block = elgg_view('input/checkboxes', array(
-	'name' => 'hide_owner_block',
-	'value' => $vars["hide_owner_block"],
-	'options' => array(
-		elgg_echo('event_manager:edit:form:hide_owner_block') => '1',
-	)
-));
-
 $registration_completed_label = elgg_echo('event_manager:edit:form:registration_completed');
 $registration_completed_input = elgg_view('input/longtext', array(
 	'name' => 'registration_completed',
@@ -50,7 +42,6 @@ echo <<<HTML
 		$comments_on
 		$notify_onsignup
 		$show_attendees
-		$hide_owner_block
 	</div>
 	<div>
 		<label>$registration_completed_label</label>

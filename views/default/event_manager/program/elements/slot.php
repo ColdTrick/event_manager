@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $slot = elgg_extract('entity', $vars);
 $participate = elgg_extract('participate', $vars);
@@ -16,7 +16,7 @@ $slot_set = $slot->slot_set;
 
 $checkbox_options = [
 	'rel' => $slot_set,
-	'name' => 'slotguid_'  . $slot->getGUID(), 
+	'name' => 'slotguid_'  . $slot->getGUID(),
 	'id' => 'slotguid_' . $slot->getGUID(),
 	'value' => '1',
 	'class' => 'event_manager_program_participatetoslot'
@@ -64,6 +64,9 @@ if (!empty($slot_set)) {
 }
 
 if ($slot->canEdit() && !elgg_in_context('programmailview') && ($participate == false)) {
+	elgg_load_js('lightbox');
+	elgg_load_css('lightbox');
+	
 	$edit_slot = elgg_view('output/url', [
 		'href' => 'javascript:void(0);',
 		'rel' => $slot->getGUID(),
@@ -97,7 +100,7 @@ if (!empty($slot->max_attendees)) {
 		$event = $slot->getOwnerEntity();
 		if ($event->waiting_list_enabled && ($slot->getWaitingUsers(true) > 0)) {
 			$subtitle_data[] = $slot->getWaitingUsers(true) . elgg_echo('event_manager:edit:form:spots_left:waiting_list');
-		} 
+		}
 	}
 }
 

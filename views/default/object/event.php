@@ -1,11 +1,11 @@
 <?php
 
-elgg_load_js("event_manager.maps.base");
-elgg_require_js("event_manager/googlemaps");
+
 
 if (elgg_extract('full_view', $vars)) {
 	echo elgg_view("event_manager/event/view", $vars);
 } elseif (elgg_in_context("maps")) {
+
 	$event = $vars["entity"];
 
 	$output = '<div class="gmaps_infowindow">';
@@ -20,6 +20,7 @@ if (elgg_extract('full_view', $vars)) {
 
 	echo $output;
 } else {
+	
 	$event = $vars["entity"];
 	$owner = $event->getOwnerEntity();
 	$container = $event->getContainerEntity();

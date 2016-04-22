@@ -39,6 +39,9 @@ if ($registration_form) {
 
 $output .= '</ul><br />';
 
+elgg_load_js('lightbox');
+elgg_load_css('lightbox');
+
 $output .= elgg_view('output/url', [
 	'href' => 'javascript:void(0);',
 	'data-colorbox-opts' => json_encode([

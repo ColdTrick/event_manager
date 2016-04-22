@@ -17,7 +17,7 @@ $event_relationship_options = event_manager_event_get_relationship_options();
 
 $user_relation = $event->getRelationshipByUser();
 	
-$rsvp_options = "";
+$rsvp_options = [];
 
 foreach ($event_relationship_options as $rel) {
 	if (($rel == EVENT_MANAGER_RELATION_ATTENDING) || $event->$rel) {
@@ -30,29 +30,41 @@ foreach ($event_relationship_options as $rel) {
 		if ($rel == $user_relation) {
 			$icon = elgg_view_icon('checkmark', 'float-alt');
 			$link = elgg_echo('event_manager:event:relationship:' . $rel);
-			$rsvp_options .= elgg_format_element('li', ['class' => 'selected'], $icon . $link);
+			$rsvp_options[] = [
+				'attributes' => ['class' => 'selected'],
+				'icon' => $icon,
+				'text' => $link,
+			];
 		} else {
 			if ($rel != EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST) {
 				$icon = elgg_view_icon('checkmark-hover', 'float-alt elgg-discoverable');
-				$link = elgg_view('output/url', [
+				$link = [
 					'is_action' => true,
 					'href' => 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&type=' . $rel,
 					'text' => elgg_echo('event_manager:event:relationship:' . $rel)
-				]);
-				$rsvp_options .= elgg_format_element('li', ['class' => 'elgg-discover'], $icon . $link);
+				];
+				
+				$rsvp_options[] = [
+					'attributes' => ['class' => 'elgg-discover'],
+					'icon' => $icon,
+					'link_attributes' => $link,
+				];
 			}
 		}
 	}
 }
 
 if ($user_relation) {
-	$icon = elgg_view_icon('checkmark-hover', 'float-alt elgg-discoverable');
-	$link = elgg_view('output/url', [
-		'is_action' => true,
-		'href' => 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO,
-		'text' => elgg_echo('event_manager:event:relationship:undo')
-	]);
-	$rsvp_options .= elgg_format_element('li', ['class' => 'elgg-discover'], $icon . $link);
+	$rsvp_options[] = [
+		'attributes' => ['class' => 'elgg-discover'],
+		'icon' => elgg_view_icon('checkmark-hover', 'float-alt elgg-discoverable'),
+		'link_attributes' => [
+			'is_action' => true,
+			'href' => 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO,
+			'text' => elgg_echo('event_manager:event:relationship:undo'),
+			'confirm' => true,
+		],
+	];
 }
 
 if (empty($rsvp_options)) {
@@ -60,11 +72,47 @@ if (empty($rsvp_options)) {
 }
 
 $button_text = elgg_echo('event_manager:event:rsvp');
-if ($user_relation) {
-	$button_text = "<b>$button_text</b>";
+
+if (elgg_extract('full_view', $vars)) {
+	echo '<div class="clearfix">';
+	echo '<div class="elgg-col elgg-col-1of5"><label>' . $button_text . ':</label></div>';
+	echo '<div class="elgg-col elgg-col-4of5">';;
+	
+	foreach ($rsvp_options as $option) {
+		$attributes = (array) $option['link_attributes'];
+		$attributes['class'] = ['elgg-button', 'mrs'];
+		$text = elgg_extract('text', $option);
+		if ($text) {
+			$attributes['class'][] = 'elgg-button-submit';
+			$attributes['text'] = $text;
+		} else {
+			$attributes['class'][] = 'elgg-button-action';
+		}
+		echo elgg_view('output/url', $attributes);
+	}
+	
+	$registration = elgg_view('event_manager/event/registration', $vars);
+	if ($registration) {
+		echo '<div>' . $registration . '</div>';
+	}
+	
+	echo '</div></div>';
+} else {
+	if ($user_relation) {
+		$button_text = "<b>$button_text</b>";
+	}
+	
+	$button_text .= elgg_view_icon('caret-square-o-down', ['class' => 'mls']);
+	
+	echo elgg_format_element('span', ['class' => 'event_manager_event_actions link'], $button_text);
+	
+	$list_items = '';
+	foreach ($rsvp_options as $option) {
+		$text = elgg_extract('text', $option);
+		if (empty($text)) {
+			$text = elgg_view('output/url', elgg_extract('link_attributes', $option));
+		}
+		$list_items .= elgg_format_element('li', $option['attributes'], elgg_extract('icon', $option) . $text);
+	}
+	echo elgg_format_element('ul', ['class' => 'event_manager_event_actions_drop_down'], $list_items);
 }
-
-$button_text .= elgg_view_icon('caret-square-o-down', ['class' => 'mls']);
-
-echo elgg_format_element('span', ['class' => 'event_manager_event_actions'], $button_text);
-echo elgg_format_element('ul', ['class' => 'event_manager_event_actions_drop_down'], $rsvp_options);

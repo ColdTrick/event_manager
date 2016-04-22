@@ -32,7 +32,6 @@ $fields = array(
 	"registration_needed" => ELGG_ENTITIES_ANY_VALUE,
 	"register_nologin" => ELGG_ENTITIES_ANY_VALUE,
 	"show_attendees" => 1,
-	"hide_owner_block" => ELGG_ENTITIES_ANY_VALUE,
 	"notify_onsignup" => ELGG_ENTITIES_ANY_VALUE,
 	"max_attendees" => ELGG_ENTITIES_ANY_VALUE,
 	"waiting_list_enabled" => ELGG_ENTITIES_ANY_VALUE,

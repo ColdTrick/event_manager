@@ -87,7 +87,6 @@ return array(
 	'event_manager:edit:form:registration_ended' => 'Deshabilitar el registro a este evento',
 	'event_manager:edit:form:registration_needed' => '¿Se necesita registro para asistir?',
 	'event_manager:edit:form:show_attendees' => '¿Mostrar asistentes?',
-	'event_manager:edit:form:hide_owner_block' => 'Ocultar la información del propietario en la barra lateral',
 	'event_manager:edit:form:notify_onsignup' => 'Notificarme cuando alguien se inscribe',
 	'event_manager:edit:form:start' => 'Inicio',
 	'event_manager:edit:form:end' => 'Final',
@@ -392,8 +391,6 @@ Si no te inscribiste en este evento, puedes ignorar este e-mail o hacer click en
 	'event_manager:river:event_relationship:create:event_organizing' => '%s está organizando %s',
 
 	'river:create:object:event' => '%s creó el evento %s',
-
-	'calculate_route' => 'Calcular ruta',
 
 	'from' => 'Desde',
 	'to' => 'Hasta',

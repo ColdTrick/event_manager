@@ -1,8 +1,5 @@
 <?php
 
-elgg_load_js("event_manager.maps.base");
-elgg_require_js("event_manager/googlemaps");
-
 $guid = get_input("guid");
 $event = null;
 
@@ -43,11 +40,6 @@ if ($event) {
 	$output = elgg_view_entity($event, array("full_view" => true));
 
 	$sidebar = elgg_view("event_manager/event/sidebar", array("entity" => $event));
-
-	$page_vars = [];
-	if ($event->hide_owner_block) {
-		$page_vars['body_attrs'] = ['class' => 'event-manager-hide-owner-block'];
-	}
 	
 	$body = elgg_view_layout('content', array(
 		'filter' => '',
@@ -56,7 +48,7 @@ if ($event) {
 		'sidebar' => $sidebar
 	));
 
-	echo elgg_view_page($title_text, $body, 'default', $page_vars);
+	echo elgg_view_page($title_text, $body, 'default');
 
 } else {
 	register_error(elgg_echo("InvalidParameterException:GUIDNotFound", array($guid)));

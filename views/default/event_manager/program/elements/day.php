@@ -19,6 +19,10 @@ if ($description = $day->description) {
 $details .= $day->title;
 
 if ($can_edit && !elgg_in_context('programmailview') && ($participate == false)) {
+	
+	elgg_load_js('lightbox');
+	elgg_load_css('lightbox');
+	
 	$edit_day = elgg_view('output/url', [
 		'href' => 'javascript:void(0);',
 		'rel' => $day->getGUID(),
@@ -52,15 +56,19 @@ $slots = '';
 if ($daySlots = $day->getEventSlots()) {
 	foreach ($daySlots as $slot) {
 		$slots .= elgg_view('event_manager/program/elements/slot', [
-			'entity' => $slot, 
-			'participate' => $participate, 
-			'register_type' => $register_type, 
+			'entity' => $slot,
+			'participate' => $participate,
+			'register_type' => $register_type,
 			'member' => $vars['member']
 		]);
 	}
 }
 
-if ($can_edit && !elgg_in_context('programmailview') && ($participate == false)) {	
+if ($can_edit && !elgg_in_context('programmailview') && ($participate == false)) {
+
+	elgg_load_js('lightbox');
+	elgg_load_css('lightbox');
+	
 	$slots .= elgg_view('output/url', [
 		'href' => 'javascript:void(0);',
 		'class' => 'elgg-button elgg-button-action event_manager_program_slot_add mll elgg-lightbox',

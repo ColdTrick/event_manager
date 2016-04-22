@@ -87,7 +87,6 @@ return array(
 	'event_manager:edit:form:registration_ended' => 'Ota ilmoittautuminen pois käytöstä',
 	'event_manager:edit:form:registration_needed' => 'Osallistujien vaatii ilmoittautumisen',
 	'event_manager:edit:form:show_attendees' => 'Näytä osallistujat',
-	'event_manager:edit:form:hide_owner_block' => 'Älä näytä listaa järjestäjistä',
 	'event_manager:edit:form:notify_onsignup' => 'Ilmoita, kun uusi käyttäjä ilmoittautuu',
 	'event_manager:edit:form:start' => 'Alkamisaika',
 	'event_manager:edit:form:end' => 'Päättymisaika',
@@ -387,9 +386,6 @@ If you didn't register for this event, you can ignore this email or click on the
 	'event_manager:river:event_relationship:create:event_organizing' => '%s on järjestäjänä tapahtumassa %s',
 
 	'river:create:object:event' => '%s lisäsi tapahtuman %s',
-
-	'calculate_route' => 'Calculate route',
-
 	'from' => 'From',
 	'to' => 'To',
 	'approve' => 'Approve',

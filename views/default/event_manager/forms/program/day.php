@@ -55,11 +55,11 @@ if ($entity instanceof EventDay) {
 $form_body .= '<div>';
 
 $form_body .= elgg_view('input/hidden', [
-	'name' => 'guid', 
+	'name' => 'guid',
 	'value' => $guid
 ]);
 $form_body .= elgg_view('input/hidden', [
-	'name' => 'parent_guid', 
+	'name' => 'parent_guid',
 	'value' => $parent_guid
 ]);
 
@@ -94,5 +94,8 @@ $body = elgg_view('input/form', [
 	'action' => 'javascript:elgg.event_manager.program_add_day($(\'#event_manager_form_program_day\'))',
 	'body' => $form_body
 ]);
+
+elgg_load_js('lightbox');
+elgg_load_css('lightbox');
 
 echo elgg_view_module('info', elgg_echo('event_manager:form:program:day'), $body, ['id' => 'event-manager-program-day-lightbox']);

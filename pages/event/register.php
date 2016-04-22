@@ -1,8 +1,5 @@
 <?php
 
-elgg_load_js("event_manager.maps.base");
-elgg_require_js("event_manager/googlemaps");
-
 $guid = get_input("guid");
 $relation = get_input("relation");
 
@@ -50,11 +47,6 @@ if (!empty($guid) && ($entity = get_entity($guid))) {
 			'content' => $form,
 			'title' => $title,
 		));
-		
-		$page_vars = [];
-		if ($event->hide_owner_block) {
-			$page_vars['body_attrs'] = ['class' => 'event-manager-hide-owner-block'];
-		}
 
 		echo elgg_view_page($title, $body, 'default', $page_vars);
 

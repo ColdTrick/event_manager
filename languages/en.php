@@ -74,7 +74,7 @@ return array(
 	'event_manager:edit:form:location' => 'Location',
 	'event_manager:event:edit:maps_address' => 'Address',
 	'event_manager:edit:form:region' => 'Region',
-	'event_manager:edit:form:contact_details' => 'Contact Details',
+	'event_manager:edit:form:contact_details' => 'Contact details',
 	'event_manager:edit:form:website' => 'Website',
 	'event_manager:edit:form:twitter_hash' => 'Twitter Hash',
 	'event_manager:edit:form:fee' => 'Fee',
@@ -90,7 +90,6 @@ return array(
 	'event_manager:edit:form:registration_ended' => 'Disable registration to this event',
 	'event_manager:edit:form:registration_needed' => 'Registration needed to attend?',
 	'event_manager:edit:form:show_attendees' => 'Display attendees?',
-	'event_manager:edit:form:hide_owner_block' => 'Hide owner information in sidebar',
 	'event_manager:edit:form:notify_onsignup' => 'Notify me when someone signs up',
 	'event_manager:edit:form:start' => 'Start',
 	'event_manager:edit:form:end' => 'End',
@@ -212,7 +211,9 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:event:rsvp' => 'RSVP',
 	'event_manager:event:editevent' => 'Edit event',
 	'event_manager:event:deleteevent' => 'Delete event',
+	'event_manager:event:location:plan_route' => 'Plan my route',
 	'event_manager:event:uploadfiles' => 'Upload files',
+	'event_manager:event:uploadfiles:no_files' => 'Use the plus link to upload files for this event',
 	'event_manager:event:attendees' => 'Attendees',
 	'event_manager:event:program' => 'Program',
 	'event_manager:event:editprogram' => 'Edit program',
@@ -395,8 +396,6 @@ If you didn't register for this event, you can ignore this email or click on the
 	'event_manager:river:event_relationship:create:event_organizing' => '%s is organizing %s',
 
 	'river:create:object:event' => '%s created event %s',
-
-	'calculate_route' => 'Calculate route',
 
 	'from' => 'From',
 	'to' => 'To',

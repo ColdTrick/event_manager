@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $event = elgg_extract('entity', $vars);
 
@@ -39,19 +39,23 @@ if ($eventDays = $event->getEventDays()) {
 		
 		$tabcontent .= elgg_view('event_manager/program/elements/day', [
 			'entity' => $day,
-			'selected' => ($key === 0), 
+			'selected' => ($key === 0),
 			'member' => $vars['member']
 		]);
 	}
 }
 
 if ($event->canEdit() && !elgg_in_context('programmailview')) {
+
+	elgg_load_js('lightbox');
+	elgg_load_css('lightbox');
+	
 	$add_day = elgg_view('output/url', [
 		'href' => 'javascript:void(0);',
 		'rel' => $event->getGUID(),
 		'data-colorbox-opts' => json_encode([
 			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/day?event_guid=' . $event->getGUID())
-		]),		
+		]),
 		'class' => 'event_manager_program_day_add elgg-lightbox',
 		'text' => elgg_echo('event_manager:program:day:add')
 	]);

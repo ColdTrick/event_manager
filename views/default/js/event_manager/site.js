@@ -100,7 +100,7 @@ elgg.event_manager.init = function() {
 		$('#event_manager_program_guids').val(guids.join(','));
 	});
 
-	$(document).on('keyup', '#event-manager-event-view-search-attendees', function(){
+	$(document).on('keyup', '.event-manager-event-view-search-attendees .elgg-input-text', function(){
 		elgg.event_manager.search_attendees($(this).val());
 	});
 };

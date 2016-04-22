@@ -1,8 +1,5 @@
 <?php
 
-elgg_load_js("event_manager.maps.base");
-elgg_require_js("event_manager/googlemaps");
-
 $guid = get_input("guid");
 
 if (!empty($guid) && ($entity = get_entity($guid))) {

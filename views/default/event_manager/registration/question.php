@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $question = elgg_extract('entity', $vars);
 $value = elgg_extract('value', $vars);
@@ -10,6 +10,10 @@ if (empty($question) || !($question instanceof EventRegistrationQuestion)) {
 }
 
 if ($question->canEdit() && !$register) {
+
+	elgg_load_js('lightbox');
+	elgg_load_css('lightbox');
+	
 	$edit_question = elgg_view('output/url', [
 		'href' => 'javascript:void(0);',
 		'text' => elgg_view_icon('settings-alt'),
@@ -56,9 +60,9 @@ if (!$register) {
 }
 $result .= '<label>' . $question->title . $required . '</label>' . $actions . '<br />';
 $result .= elgg_view('input/' . $fieldtypes[$question->fieldtype], [
-	'name' => 'question_' . $question->getGUID(), 
-	'value' => $value, 
-	'options' => $question->getOptions(), 
+	'name' => 'question_' . $question->getGUID(),
+	'value' => $value,
+	'options' => $question->getOptions(),
 	'class' => $required_class
 ]);
 

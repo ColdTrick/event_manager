@@ -62,11 +62,11 @@ if (!isset($slot_set)) {
 }
 
 $form_body .= elgg_view('input/hidden', [
-	'name' => 'guid', 
+	'name' => 'guid',
 	'value' => $guid
 ]);
 $form_body .= elgg_view('input/hidden', [
-	'name' => 'parent_guid', 
+	'name' => 'parent_guid',
 	'value' => $parent_guid
 ]);
 
@@ -74,7 +74,7 @@ $form_body .= '<table><tr>';
 
 $form_body .= '<td><label>' . elgg_echo('title') . ' *</label></td>';
 $form_body .= '<td>' . elgg_view('input/text', [
-	'name' => 'title', 
+	'name' => 'title',
 	'value' => $title
 ]) . '</td>';
 
@@ -83,7 +83,7 @@ $form_body .= '</tr><tr>';
 $form_body .= '<td><label>' . elgg_echo('event_manager:edit:form:start_time') . ' *</label></td>';
 $form_body .= '<td>';
 $form_body .= elgg_view('input/time', [
-	'name' => 'start_time',	
+	'name' => 'start_time',
 	'value' => $start_time
 ]);
 $form_body .= '</td>';
@@ -93,7 +93,7 @@ $form_body .= '</tr><tr>';
 $form_body .= '<td><label>' . elgg_echo('event_manager:edit:form:end_time') . ' *</label></td>';
 $form_body .= '<td>';
 $form_body .= elgg_view('input/time', [
-	'name' => 'end_time', 
+	'name' => 'end_time',
 	'value' => $end_time
 ]);
 $form_body .= '</td>';
@@ -118,7 +118,7 @@ $form_body .= '</tr><tr>';
 
 $form_body .= '<td><label>' . elgg_echo('description') . '</label></td>';
 $form_body .= '<td>' .  elgg_view('input/plaintext', [
-	'name' => 'description', 
+	'name' => 'description',
 	'value' => $description
 ]) . '</td>';
 
@@ -128,10 +128,10 @@ $form_body .= '<td><label>' . elgg_echo('event_manager:edit:form:slot_set') . '<
 $form_body .= '<td>';
 
 $form_body .= elgg_view('input/radio', [
-	'name' => 'slot_set', 
+	'name' => 'slot_set',
 	'options' => [
 		elgg_echo('event_manager:edit:form:slot_set:empty') => 0
-	], 
+	],
 	'value' => $slot_set
 ]);
 
@@ -150,8 +150,8 @@ if (!empty($metadata_values)) {
 	$metadata_values = array_unique($metadata_values);
 	foreach ($metadata_values as $value) {
 		$form_body .= elgg_view('input/radio', [
-			'name' => 'slot_set', 
-			'options' => [$value => $value], 
+			'name' => 'slot_set',
+			'options' => [$value => $value],
 			'value' => $slot_set
 		]);
 	}
@@ -160,8 +160,8 @@ if (!empty($metadata_values)) {
 // optionally add a new set
 $form_body .= elgg_view('input/text', ['id' => 'event-manager-new-slot-set-name']);
 $form_body .= elgg_view('input/button', [
-	'id' => 'event-manager-new-slot-set-name-button', 
-	'value' => elgg_echo('event_manager:edit:form:slot_set:add'), 
+	'id' => 'event-manager-new-slot-set-name-button',
+	'value' => elgg_echo('event_manager:edit:form:slot_set:add'),
 	'class' => 'elgg-button-action'
 ]);
 
@@ -178,5 +178,8 @@ $form = elgg_view('input/form', [
 	'action' => 'action/event_manager/slot/save',
 	'body' => $form_body
 ]);
+
+elgg_load_js('lightbox');
+elgg_load_css('lightbox');
 
 echo elgg_view_module('info', elgg_echo('event_manager:form:program:slot'), $form, ['id' => 'event-manager-program-slot-lightbox']);
