@@ -5,100 +5,67 @@
 
 $entity = elgg_extract('entity', $vars);
 
-$short_description_label = elgg_echo('event_manager:edit:form:shortdescription');
-$short_description_input = elgg_view('input/text', array(
+echo elgg_view_input('text', [
+	'label' => elgg_echo('event_manager:edit:form:shortdescription'),
 	'name' => 'shortdescription',
-	'value' => $vars["shortdescription"]
-));
+	'value' => $vars['shortdescription'],
+]);
 
-$description_label = elgg_echo('description');
-$description_input = elgg_view('input/longtext', array(
+echo elgg_view_input('longtext', [
+	'label' => elgg_echo('description'),
 	'name' => 'description',
-	'value' => $vars["description"],
-));
+	'value' => $vars['description'],
+]);
 
-$tags_label = elgg_echo('tags');
-$tags_input = elgg_view('input/tags', array(
+echo elgg_view_input('tags', [
+	'label' => elgg_echo('tags'),
 	'name' => 'tags',
-	'value' => $vars["tags"],
-));
+	'value' => $vars['tags'],
+]);
 
-$icon_label = elgg_echo('event_manager:edit:form:icon');
-$icon_input = elgg_view('input/file', array('name' => 'icon'));
+echo elgg_view_input('file', [
+	'label' => elgg_echo('event_manager:edit:form:icon'),
+	'name' => 'icon',
+]);
 
 $current_icon_content = '';
 
 if ($entity && $entity->icontime) {
-
-	$current_icon_label = elgg_echo('event_manager:edit:form:currenticon');
-	
-	$current_icon = elgg_view('output/img', array(
+	$current_icon = elgg_view('output/img', [
 		'src' => $entity->getIconURL(),
 		'alt' => $entity->title,
-	));
+	]);
 
-	$remove_icon_input = elgg_view('input/checkboxes', array(
+	$remove_icon_input = elgg_view('input/checkboxes', [
 		'name' => 'delete_current_icon',
 		'id' => 'delete_current_icon',
 		'value' => 0,
-		'options' => array(
+		'options' => [
 			elgg_echo('event_manager:edit:form:delete_current_icon') => '1'
-		)
-	));
-
-	$current_icon_content = <<<CURRENT
-<div>
-	<label>$current_icon_label</label>
-	<div>$current_icon</div>
-	$remove_icon_input
-</div>
-CURRENT;
+		],
+	]);
+	
+	echo elgg_view('elements/forms/field', [
+		'label' => elgg_view('elements/forms/label', [
+			'label' => elgg_echo('event_manager:edit:form:currenticon'),
+			'id' => 'delete_current_icon',
+		]),
+		'input' => $current_icon . $remove_icon_input,
+	]);
 }
 
-
-$type_label = '';
-$type_input = '';
 $type_options = event_manager_event_type_options();
 if ($type_options) {
-	$type_label = elgg_echo('event_manager:edit:form:type');
-	$type_input = elgg_view('input/dropdown', array(
+	echo elgg_view_input('select', [
+		'label' => elgg_echo('event_manager:edit:form:type'),
 		'name' => 'event_type',
-		'value' => $fields["event_type"],
-		'options' => $type_options
-	));
+		'value' => $vars['event_type'],
+		'options' => $type_options,
+	]);
 }
 
-$access_label = elgg_echo('access');
-$access_input = elgg_view('input/access', array(
+echo elgg_view_input('access', [
+	'label' => elgg_echo('access'),
 	'name' => 'access_id',
-	'value' => $vars["access_id"]
-));
-
-
-echo <<<HTML
-	<div>
-		<label>$short_description_label</label>
-		$short_description_input
-	</div>
-	<div>
-		<label>$description_label</label>
-		$description_input
-	</div>
-	<div>
-		<label>$tags_label</label>
-		$tags_input
-	</div>
-	<div>
-		<label>$icon_label</label>
-		$icon_input
-	</div>
-	$current_icon_content
-	<div>
-		<label>$type_label</label>
-		$type_input
-	</div>
-	<div>
-		<label>$access_label</label>
-		$access_input
-	</div>
-HTML;
+	'value' => $vars['access_id'],
+]);
