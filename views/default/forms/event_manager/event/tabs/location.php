@@ -3,74 +3,44 @@
  * Form fields for event location data
  */
 
-$region_options = event_manager_event_region_options();
-
-$venue_label = elgg_echo('event_manager:edit:form:venue');
-$venue_input = elgg_view('input/text', array(
+echo elgg_view_input('text', [
+	'label' => elgg_echo('event_manager:edit:form:venue'),
 	'name' => 'venue',
-	'value' => $vars["venue"],
-));
+	'value' => $vars['venue'],
+]);
 
-$location_label = elgg_echo('event_manager:edit:form:location');
-$location_input = elgg_view('input/text', array(
+echo elgg_view_input('text', [
+	'label' => elgg_echo('event_manager:edit:form:location'),
 	'name' => 'location',
 	'id' => 'openmaps',
-	'value' => $vars["location"],
-	'readonly' => true
-));
+	'value' => $vars['location'],
+	'readonly' => true,
+]);
 
-$region_label = '';
-$region_input = '';
+$region_options = event_manager_event_region_options();
 if ($region_options) {
-	$region_label = elgg_echo('event_manager:edit:form:region');
-	$region_input = elgg_view('input/dropdown', array(
+	echo elgg_view_input('select', [
+		'label' => elgg_echo('event_manager:edit:form:region'),
 		'name' => 'region',
-		'value' => $vars["region"],
+		'value' => $vars['region'],
 		'options' => $region_options,
-	));
+	]);
 }
 
-$contact_details_label = elgg_echo('event_manager:edit:form:contact_details');
-$contact_details_input = elgg_view('input/text', array(
+echo elgg_view_input('text', [
+	'label' => elgg_echo('event_manager:edit:form:contact_details'),
 	'name' => 'contact_details',
-	'value' => $vars["contact_details"]
-));
+	'value' => $vars['contact_details'],
+]);
 
-$website_label = elgg_echo('event_manager:edit:form:website');
-$website_input = elgg_view('input/url', array(
+echo elgg_view_input('url', [
+	'label' => elgg_echo('event_manager:edit:form:website'),
 	'name' => 'website',
-	'value' => $vars["website"]
-));
+	'value' => $vars['website'],
+]);
 
-$twitter_hash_label = elgg_echo('event_manager:edit:form:twitter_hash');
-$twitter_hash_input = elgg_view('input/text', array(
+echo elgg_view_input('text', [
+	'label' => elgg_echo('event_manager:edit:form:twitter_hash'),
 	'name' => 'twitter_hash',
-	'value' => $vars["twitter_hash"]
-));
-
-echo <<<HTML
-	<div>
-		<label>$venue_label</label>
-		$venue_input
-	</div>
-	<div>
-		<label>$location_label</label>
-		$location_input
-	</div>
-	<div>
-		<label>$region_label</label>
-		$region_input
-	</div>
-	<div>
-		<label>$contact_details_label</label>
-		$contact_details_input
-	</div>
-	<div>
-		<label>$website_label</label>
-		$website_input
-	</div>
-	<div>
-		<label>$twitter_hash_label</label>
-		$twitter_hash_input
-	</div>
-HTML;
+	'value' => $vars['twitter_hash'],
+]);
