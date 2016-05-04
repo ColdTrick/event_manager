@@ -41,6 +41,7 @@ function event_manager_init() {
 	elgg_register_entity_type('object', Event::SUBTYPE);
 
 	elgg_extend_view('css/elgg', 'css/event_manager.css');
+	elgg_extend_view('css/elgg', 'css/addthisevent.css');
 	elgg_extend_view('js/elgg', 'js/event_manager/site.js');
 
 	// notifications

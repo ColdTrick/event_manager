@@ -1,0 +1,26 @@
+.addthisevent {
+	display: none;
+}
+
+.addthisevent_dropdown {
+	display: none;
+	right: 0px;
+	left: inherit !important;
+	position: absolute;
+	padding: 10px 0;
+	background: white;
+	border: 1px solid #CCC;
+}
+
+.addthisevent_dropdown span {
+	display: block;
+	white-space: nowrap;
+	color: #4690D6;
+	padding: 5px 15px;
+}
+
+.addthisevent_dropdown span:hover {
+	color: white;
+	background: #4690D6;
+	cursor: pointer;
+}
