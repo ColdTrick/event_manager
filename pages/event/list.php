@@ -37,7 +37,10 @@ if (($page_owner = elgg_get_page_owner_entity()) && ($page_owner instanceof Elgg
 
 $events = event_manager_search_events($event_options);
 
-$content = elgg_view('event_manager/forms/event/search');
+$content = elgg_view_form('event_manager/event/search', [
+	'id' => 'event_manager_search_form',
+	'name' => 'event_manager_search_form',
+]);
 
 $content .= elgg_view('event_manager/list', [
 	'entities' => $events['entities'],

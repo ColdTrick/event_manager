@@ -58,11 +58,4 @@ $form_body .= "<span id='past_events'>";
 $form_body .= elgg_view('input/checkboxes', array('name' => 'past_events', 'value' => 0, 'options' => array(elgg_echo('event_manager:list:includepastevents') => '1')));
 $form_body .= "</span>";
 
-$form = elgg_view('input/form', array(
-	'id' => 'event_manager_search_form',
-	'name' => 'event_manager_search_form',
-	'action' => '/action/event_manager/event/search',
-	'body' => $form_body
-));
-
-echo elgg_view_module("main", "", $form);
+echo $form_body;
