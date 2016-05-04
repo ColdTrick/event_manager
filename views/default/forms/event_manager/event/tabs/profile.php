@@ -100,6 +100,5 @@ echo <<<HTML
 	<div>
 		<label>$access_label</label>
 		$access_input
-		$required_fields_info
 	</div>
 HTML;
