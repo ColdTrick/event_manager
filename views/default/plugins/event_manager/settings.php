@@ -1,17 +1,17 @@
-<?php 
+<?php
 	
-$plugin = $vars["entity"];
+$plugin = elgg_extract('entity', $vars);
 
-$site_create_options = array(
-	"everyone" => elgg_echo('event_manager:settings:migration:site:whocancreate:everyone'),
-	"admin_only" => elgg_echo('event_manager:settings:migration:site:whocancreate:admin_only')
-);
+$site_create_options = [
+	'everyone' => elgg_echo('event_manager:settings:migration:site:whocancreate:everyone'),
+	'admin_only' => elgg_echo('event_manager:settings:migration:site:whocancreate:admin_only'),
+];
 
-$group_create_options = array(
-	"members" => elgg_echo('event_manager:settings:migration:group:whocancreate:members'), 
-	"group_admin" => elgg_echo('event_manager:settings:migration:group:whocancreate:group_admin'), 
-	"" => elgg_echo('event_manager:settings:migration:group:whocancreate:no_one')
-);
+$group_create_options = [
+	'members' => elgg_echo('event_manager:settings:migration:group:whocancreate:members'),
+	'group_admin' => elgg_echo('event_manager:settings:migration:group:whocancreate:group_admin'),
+	'' => elgg_echo('event_manager:settings:migration:group:whocancreate:no_one'),
+];
 
 $google_maps_default_location = $plugin->google_maps_default_location;
 
@@ -24,52 +24,60 @@ if ($plugin->google_maps_default_zoom == "") {
 	$google_maps_default_zoom = 10;
 }
 
-// Google API
-$google = elgg_view('input/text', array('name' => 'params[google_api_key]', 'value' => $plugin->google_api_key));
-$google .= "<div class='elgg-subtext'>" . elgg_echo('event_manager:settings:google_api_key:clickhere') . "</div>";
-
-echo elgg_view_module("inline", elgg_echo('event_manager:settings:google_api_key'), $google);
-
 // Google MAPS
-$maps = "<div>";
-$maps .= elgg_echo('event_manager:settings:google_maps:enterdefaultlocation');
-$maps .= "<br />";
-$maps .= elgg_view('input/text', array('name' => 'params[google_maps_default_location]', 'value' => $google_maps_default_location));
-$maps .= "</div>";
+$maps = elgg_view_input('text', [
+	'label' => elgg_echo('event_manager:settings:google_api_key'),
+	'name' => 'params[google_api_key]',
+	'value' => $plugin->google_api_key,
+	'help' => elgg_echo('event_manager:settings:google_api_key:clickhere')
+]);
 
-$maps .= "<div>";
-$maps .= elgg_echo('event_manager:settings:google_maps:enterdefaultzoom');
-$maps .= "<br />";
-$maps .= elgg_view('input/dropdown', array('name' => 'params[google_maps_default_zoom]', 'value' => $google_maps_default_zoom, 'options' => range(0, 19)));
-$maps .= "</div>";
+$maps .= elgg_view_input('text', [
+	'label' => elgg_echo('event_manager:settings:google_maps:enterdefaultlocation'),
+	'name' => 'params[google_maps_default_location]',
+	'value' => $google_maps_default_location
+]);
 
-echo elgg_view_module("inline", elgg_echo("event_manager:settings:google_maps"), $maps);
+$maps .= elgg_view_input('select', [
+	'label' => elgg_echo('event_manager:settings:google_maps:enterdefaultzoom'),
+	'name' => 'params[google_maps_default_zoom]',
+	'value' => $google_maps_default_zoom,
+	'options' => range(0, 19),
+]);
+
+echo elgg_view_module('inline', elgg_echo('event_manager:settings:google_maps'), $maps);
 
 // Other settings
-$other = "<div>";
-$other .= elgg_echo('event_manager:settings:region_list');
-$other .= elgg_view('input/plaintext', array('name' => 'params[region_list]', 'value' => $plugin->region_list));
-$other .= "</div>";
+$other = elgg_view_input('text', [
+	'label' => elgg_echo('event_manager:settings:region_list'),
+	'name' => 'params[region_list]',
+	'value' => $plugin->region_list,
+]);
 
-$other .= "<div>";
-$other .= elgg_echo('event_manager:settings:type_list');
-$other .= elgg_view('input/plaintext', array('name' => 'params[type_list]', 'value' => $plugin->type_list));
-$other .= "</div>";
+$other .= elgg_view_input('text', [
+	'label' => elgg_echo('event_manager:settings:type_list'),
+	'name' => 'params[type_list]',
+	'value' => $plugin->type_list,
+]);
 
-$other .= "<div>";
-$other .= elgg_echo('event_manager:settings:migration:site:whocancreate');
-$other .= "&nbsp;" . elgg_view('input/dropdown', array('name' => 'params[who_create_site_events]', 'value' => $plugin->who_create_site_events, 'options_values' => $site_create_options));
-$other .= "</div>";
+$other .= elgg_view_input('select', [
+	'label' => elgg_echo('event_manager:settings:migration:site:whocancreate'),
+	'name' => 'params[who_create_site_events]',
+	'value' => $plugin->who_create_site_events,
+	'options_values' => $site_create_options,
+]);
 
-$other .= "<div>";
-$other .= elgg_echo('event_manager:settings:migration:group:whocancreate');
-$other .= "&nbsp;" . elgg_view('input/dropdown', array('name' => 'params[who_create_group_events]', 'value' => $plugin->who_create_group_events, 'options_values' => $group_create_options));
-$other .= "</div>";
+$other .= elgg_view_input('select', [
+	'label' => elgg_echo('event_manager:settings:migration:group:whocancreate'),
+	'name' => 'params[who_create_group_events]',
+	'value' => $plugin->who_create_group_events,
+	'options_values' => $group_create_options,
+]);
 
-$other .= "<div>";
-$other .= elgg_echo('event_manager:settings:notification_sender');
-$other .= "<br />";
-$other .= elgg_view('input/text', array('name' => 'params[notification_sender]', 'value' => $plugin->notification_sender));
-$other .= "</div>";
+$other .= elgg_view_input('text', [
+	'label' => elgg_echo('event_manager:settings:notification_sender'),
+	'name' => 'params[notification_sender]',
+	'value' => $plugin->notification_sender,
+]);
 
-echo elgg_view_module("inline", elgg_echo("event_manager:settings:other"), $other);
+echo elgg_view_module('inline', elgg_echo('event_manager:settings:other'), $other);
