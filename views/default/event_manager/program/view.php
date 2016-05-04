@@ -2,7 +2,7 @@
 
 $event = elgg_extract('entity', $vars);
 
-if (empty($event) || !($event instanceof Event)) {
+if (!($event instanceof Event)) {
 	return;
 }
 
@@ -17,8 +17,9 @@ elgg_require_js('event_manager/view_event');
 
 $tabtitles = '';
 $tabcontent = '';
-
-if ($eventDays = $event->getEventDays()) {
+$eventDays = $event->getEventDays();
+if ($eventDays) {
+	$member = elgg_extract('member', $vars);
 	foreach ($eventDays as $key => $day) {
 		$day_title = event_manager_format_date($day->date);
 		if ($description = $day->description) {
@@ -40,7 +41,7 @@ if ($eventDays = $event->getEventDays()) {
 		$tabcontent .= elgg_view('event_manager/program/elements/day', [
 			'entity' => $day,
 			'selected' => ($key === 0),
-			'member' => $vars['member']
+			'member' => $member,
 		]);
 	}
 }

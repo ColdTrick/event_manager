@@ -1,39 +1,43 @@
 <?php
 
-$day = $vars["entity"];
-$participate = $vars['participate'];
-$register_type = $vars['register_type'];
+$day = elgg_extract('entity', $vars);
+$participate = elgg_extract('participate', $vars);
+$register_type = elgg_extract('register_type', $vars);
 
-if (!empty($day) && ($day instanceof EventDay)) {
-	
-	$slots = "";
-	
-	if ($daySlots = $day->getEventSlots()) {
-		foreach ($daySlots as $slot) {
-			$slots .= elgg_view("event_manager/program/pdf/slot", array(
-				'entity' => $slot, 
-				'participate' => $participate, 
-				'register_type' => $register_type, 
-				'user_guid' => $vars['user_guid']
-			));
-		}
-	}
-	
-	if (!empty($slots)) {
-		
-		$title = event_manager_format_date($day->date);
-		
-		if ($description = $day->description) {
-			$title = $description . " (" . $title . ")";
-		}
-		
-		$result = "<div>{$title}</div>";
-		if ($day->title) {
-			$result .= "<div>{$day->title}</div>";
-		}
-		
-		$result .= "<br /><br />{$slots}<br /><br />";
-		
-		echo $result;
+if (!($day instanceof EventDay)) {
+	return;
+}
+
+$slots = '';
+$daySlots = $day->getEventSlots();
+
+if ($daySlots) {
+	foreach ($daySlots as $slot) {
+		$slots .= elgg_view('event_manager/program/pdf/slot', [
+			'entity' => $slot,
+			'participate' => $participate,
+			'register_type' => $register_type,
+			'user_guid' => $vars['user_guid'],
+		]);
 	}
 }
+
+if (empty($slots)) {
+	return;
+}
+	
+$title = event_manager_format_date($day->date);
+$description = $day->description;
+
+if ($description) {
+	$title = "{$description} ({$title})";
+}
+
+$result = "<div>{$title}</div>";
+if ($day->title) {
+	$result .= "<div>{$day->title}</div>";
+}
+
+$result .= "<br /><br />{$slots}<br /><br />";
+
+echo $result;

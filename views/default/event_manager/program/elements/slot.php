@@ -4,7 +4,7 @@ $slot = elgg_extract('entity', $vars);
 $participate = elgg_extract('participate', $vars);
 $register_type = elgg_extract('register_type', $vars);
 
-if (empty($slot) || !($slot instanceof EventSlot)) {
+if (!($slot instanceof EventSlot)) {
 	return;
 }
 
@@ -51,7 +51,7 @@ $start_time = $slot->start_time;
 $end_time = $slot->end_time;
 
 $result .= "</td><td class='event_manager_program_slot_time'>";
-$result .= date('H', $start_time) . ":" . date('i', $start_time) . " - " . date('H', $end_time) . ":" . date('i', $end_time);
+$result .= date('H:i', $start_time) . " - " . date('H:i', $end_time);
 $result .= "</td><td class='event_manager_program_slot_details' rel='" . $slot->getGUID() . "'>";
 $result .= "<span><b>" . $slot->title . "</b></span>";
 

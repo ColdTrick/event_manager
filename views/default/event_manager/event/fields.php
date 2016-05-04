@@ -176,7 +176,7 @@ if ($type) {
 $registration_details .= elgg_view('event_manager/event/actions', $vars);
 
 if (!empty($registration_details)) {
-	$registration_title .= elgg_echo('event_manager:registration:register:title');
+	$registration_title = elgg_echo('event_manager:registration:register:title');
 	
 	$event_details .= elgg_view_module('info', $registration_title, $registration_details);
 }

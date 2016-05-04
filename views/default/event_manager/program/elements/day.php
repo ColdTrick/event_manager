@@ -5,7 +5,7 @@ $participate = elgg_extract('participate', $vars);
 $register_type = elgg_extract('register_type', $vars);
 $details_only = elgg_extract('details_only', $vars);
 
-if (empty($day) || !($day instanceof EventDay)) {
+if (!($day instanceof EventDay)) {
 	return;
 }
 
@@ -53,13 +53,16 @@ $day_info = elgg_format_element('div', [
 ], $details);
 
 $slots = '';
-if ($daySlots = $day->getEventSlots()) {
+$daySlots = $day->getEventSlots();
+if ($daySlots) {
+	$member = elgg_extract('member', $vars);
+	
 	foreach ($daySlots as $slot) {
 		$slots .= elgg_view('event_manager/program/elements/slot', [
 			'entity' => $slot,
 			'participate' => $participate,
 			'register_type' => $register_type,
-			'member' => $vars['member']
+			'member' => $member,
 		]);
 	}
 }

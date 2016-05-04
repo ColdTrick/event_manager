@@ -58,7 +58,7 @@ function event_manager_init() {
 	elgg_register_menu_item('site', [
 		'name' => 'event_manager',
 		'text' => elgg_echo('event_manager:menu:title'),
-		'href' => '/events'
+		'href' => 'events',
 	]);
 
 	// add group tool option

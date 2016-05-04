@@ -79,7 +79,7 @@ if (elgg_extract('full_view', $vars)) {
 	echo '<div class="elgg-col elgg-col-4of5">';;
 	
 	foreach ($rsvp_options as $option) {
-		$attributes = (array) $option['link_attributes'];
+		$attributes = (array) elgg_extract('link_attributes', $option, []);
 		$attributes['class'] = ['elgg-button', 'mrs'];
 		$text = elgg_extract('text', $option);
 		if ($text) {

@@ -52,8 +52,30 @@ if ($entity instanceof EventDay) {
 	$date = event_manager_format_date($date);
 }
 
-$form_body .= '<div>';
+$form_body = elgg_view_input('date', [
+	'label' => elgg_echo('event_manager:edit:form:start_day'),
+	'name' => 'date',
+	'id' => 'date',
+	'value' => $date,
+	'required' => true,
+]);
 
+$form_body .= elgg_view_input('text', [
+	'label' => elgg_echo('title'),
+	'name' => 'description',
+	'value' => $description
+]);
+
+$form_body .= elgg_view_input('text', [
+	'label' => elgg_echo('description'),
+	'name' => 'title',
+	'value' => $title,
+]);
+
+$form_body .= elgg_view_input('submit', [
+	'value' => elgg_echo('submit'),
+	'class' => 'mtm',
+]);
 $form_body .= elgg_view('input/hidden', [
 	'name' => 'guid',
 	'value' => $guid
@@ -63,36 +85,11 @@ $form_body .= elgg_view('input/hidden', [
 	'value' => $parent_guid
 ]);
 
-$form_body .= '<label>' . elgg_echo('event_manager:edit:form:start_day') . ' *</label><br />';
-$form_body .= elgg_view('input/date', [
-	'name' => 'date',
-	'id' => 'date',
-	'value' => $date
-]) . '<br />';
-
-$form_body .= '<label>' . elgg_echo('title') . '</label><br />';
-$form_body .= elgg_view('input/text', [
-	'name' => 'description',
-	'value' => $description
-]);
-
-$form_body .= '<label>' . elgg_echo('description') . '</label><br />';
-$form_body .= elgg_view('input/text', [
-	'name' => 'title',
-	'value' => $title
-]);
-
-$form_body .= elgg_view('input/submit', [
-	'value' => elgg_echo('submit'),
-	'class' => 'elgg-button-submit mtm'
-]);
-$form_body .= '</div>';
-
 $body = elgg_view('input/form', [
 	'id' => 'event_manager_form_program_day',
 	'name' => 'event_manager_form_program_day',
 	'action' => 'javascript:elgg.event_manager.program_add_day($(\'#event_manager_form_program_day\'))',
-	'body' => $form_body
+	'body' => $form_body,
 ]);
 
 elgg_load_js('lightbox');
