@@ -186,18 +186,18 @@ if ($with_program && !$eventDays) {
 	$eventSlot->save();
 
 	$eventSlot->location = $event->location;
-	$eventSlot->start_time = '08:00';
-	$eventSlot->end_time = '09:00';
+	$eventSlot->start_time = mktime('08', '00', 1, 0, 0, 0);
+	$eventSlot->end_time = mktime('09', '00', 1, 0, 0, 0);
 	$eventSlot->addRelationship($eventDay->getGUID(), 'event_day_slot_relation');
 }
 
 $event->setAccessToOwningObjects($access_id);
 
-$prefix = "events/" . $event->guid . "/";
+$prefix = "events/{$event->guid}/";
 
-$icon_sizes = elgg_get_config("icon_sizes");
+$icon_sizes = elgg_get_config('icon_sizes');
 
-$icon_file = get_resized_image_from_uploaded_file("icon", 100, 100);
+$icon_file = get_resized_image_from_uploaded_file('icon', 100, 100);
 
 if ($icon_file) {
 	// create icons
