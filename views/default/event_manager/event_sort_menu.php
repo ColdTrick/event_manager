@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $tabs = [
 	[
@@ -19,4 +19,4 @@ $tabs = elgg_view('navigation/tabs', [
 	'type' => 'horizontal'
 ]);
 
-echo elgg_format_element('div', ['id' => 'event_manager_result_navigation'], $refreshing . $tabs);
+echo elgg_format_element('div', ['id' => 'event_manager_result_navigation'], $tabs);
