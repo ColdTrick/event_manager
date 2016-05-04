@@ -363,17 +363,6 @@ function event_manager_event_type_options() {
 }
 
 /**
- * Pad time
- *
- * @param string &$value current value to be padded
- *
- * @return void
- */
-function event_manager_time_pad(&$value) {
-	$value = str_pad($value, 2, '0', STR_PAD_LEFT);
-}
-
-/**
  * Creates an unsubscribe code
  *
  * @param EventRegistration $registration registration object

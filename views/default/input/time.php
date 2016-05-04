@@ -9,8 +9,8 @@
  * @uses $vars['value'] Unix timestamp
  */
 
-$name = $vars['name'];
-$time = $vars['value'];
+$name = elgg_extract('name', $vars);
+$time = elgg_extract('value', $vars);
 
 $hour = 0;
 $minute = 0;
@@ -22,20 +22,24 @@ if ($time) {
 
 // Generate hour options
 $hour_options = range(0, 23);
-array_walk($hour_options, 'event_manager_time_pad');
+array_walk($hour_options, function(&$value) {
+	$value = str_pad($value, 2, '0', STR_PAD_LEFT);
+});
 
 // Generate minute options
 $minute_options = range(0, 59, 5);
-array_walk($minute_options, 'event_manager_time_pad');
+array_walk($minute_options, function(&$value) {
+	$value = str_pad($value, 2, '0', STR_PAD_LEFT);
+});
 
-echo elgg_view('input/dropdown', array(
+echo elgg_view('input/select', [
 	'name' => "{$name}_hours",
 	'value' => $hour,
 	'options' => $hour_options,
-));
+]);
 
-echo elgg_view('input/dropdown', array(
+echo elgg_view('input/select', [
 	'name' => "{$name}_minutes",
 	'value' => $minute,
 	'options' => $minute_options,
-));
+]);
