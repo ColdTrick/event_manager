@@ -5,7 +5,7 @@ elgg_require_js('event_manager/edit_questions');
 
 $title_text = elgg_echo('event_manager:editregistration:title');
 
-$guid = get_input('guid');
+$guid = (int) elgg_extract('guid', $vars);
 
 if ($entity = get_entity($guid)) {
 	if ($entity->getSubtype() == Event::SUBTYPE) {
@@ -33,7 +33,7 @@ $output = '<ul id="event_manager_registrationform_fields">';
 $registration_form = $event->getRegistrationFormQuestions();
 if ($registration_form) {
 	foreach ($registration_form as $question) {
-		$output .= elgg_view('event_manager/registration/question', array('entity' => $question));
+		$output .= elgg_view('event_manager/registration/question', ['entity' => $question]);
 	}
 }
 
@@ -48,7 +48,7 @@ $output .= elgg_view('output/url', [
 		'href' => elgg_normalize_url('events/registrationform/question?event_guid=' . $guid)
 	]),
 	'class' => 'elgg-button elgg-button-action elgg-lightbox',
-	'text' => elgg_echo('event_manager:editregistration:addfield')
+	'text' => elgg_echo('event_manager:editregistration:addfield'),
 ]);
 
 $body = elgg_view_layout('content', [

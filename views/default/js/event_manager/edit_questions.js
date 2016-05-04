@@ -72,10 +72,12 @@ elgg.event_manager.edit_questions_init = function() {
 	$(document).on('change', '#event_manager_registrationform_question_fieldtype', function() {
 		var type = $(this).val();
 		if (type == 'Radiobutton' || type == 'Dropdown') {
-			$('#event_manager_registrationform_select_options').show();
+			$('.event_manager_registrationform_select_options').show();
 		} else {
-			$('#event_manager_registrationform_select_options').hide();
+			$('.event_manager_registrationform_select_options').hide();
 		}
+		
+		$.colorbox.resize();
 	});
 };
 

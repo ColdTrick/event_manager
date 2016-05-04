@@ -18,6 +18,11 @@ function event_manager_page_handler($page) {
 	$include = "/pages/event/list.php";
 	if (!empty($page)) {
 		switch ($page[0]) {
+			case "registrationform":
+				echo elgg_view_resource('events/registrationform/' . $page[1], [
+					'guid' => elgg_extract(2, $page),
+				]);
+				return true;
 			case "unsubscribe":
 				if (isset($page[1])) {
 					if ($page[1] == "confirm") {
