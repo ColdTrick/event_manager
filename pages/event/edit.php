@@ -25,7 +25,7 @@ if (!$event) {
 		$who_create_group_events = elgg_get_plugin_setting('who_create_group_events', 'event_manager'); // group_admin, members
 
 		if (!empty($who_create_group_events)) {
-			if ((($who_create_group_events == "group_admin") && $page_owner->canEdit()) || (($who_create_group_events == "members") && $page_owner->isMember($user))) {
+			if ((($who_create_group_events == 'group_admin') && $page_owner->canEdit()) || (($who_create_group_events == 'members') && $page_owner->isMember($user))) {
 				$forward = false;
 			}
 		}
@@ -39,23 +39,24 @@ if (!$event) {
 	}
 
 	if ($forward) {
-		forward("/events");
+		forward('events');
 	}
 }
 
 elgg_push_breadcrumb($title_text);
 
-$form_vars = array(
-	"id" => "event_manager_event_edit",
-	"enctype" => "multipart/form-data"
-);
+$form_vars = [
+	'id' => 'event_manager_event_edit',
+	'name' 	=> 'event_manager_event_edit',
+	'enctype' => 'multipart/form-data'
+];
 
-$form = elgg_view_form("event_manager/event/edit", $form_vars, array("entity" => $event));
+$form = elgg_view_form('event_manager/event/edit', $form_vars, ['entity' => $event]);
 
-$body = elgg_view_layout('content', array(
+$body = elgg_view_layout('content', [
 	'filter' => '',
 	'content' => $form,
 	'title' => $title_text,
-));
+]);
 
 echo elgg_view_page($title_text, $body);

@@ -3,49 +3,42 @@
  * Form fields for event settings
  */
 
-$options_label = elgg_echo('event_manager:edit:form:options');
-
-$comments_on = elgg_view('input/checkboxes', array(
+$comments_on = elgg_view('input/checkboxes', [
 	'name' => 'comments_on',
-	'value' => $vars["comments_on"],
-	'options' => array(
+	'value' => $vars['comments_on'],
+	'options' => [
 		elgg_echo('event_manager:edit:form:comments_on') => '1',
-	)
-));
+	],
+]);
 
-$notify_onsignup = elgg_view('input/checkboxes', array(
+$notify_onsignup = elgg_view('input/checkboxes', [
 	'name' => 'notify_onsignup',
-	'value' => $vars["notify_onsignup"],
-	'options' => array(
+	'value' => $vars['notify_onsignup'],
+	'options' => [
 		elgg_echo('event_manager:edit:form:notify_onsignup') => '1',
-	)
-));
+	],
+]);
 
-$show_attendees = elgg_view('input/checkboxes', array(
+$show_attendees = elgg_view('input/checkboxes', [
 	'name' => 'show_attendees',
-	'value' => $vars["show_attendees"],
-	'options' => array(
+	'value' => $vars['show_attendees'],
+	'options' => [
 		elgg_echo('event_manager:edit:form:show_attendees') => '1',
-	)
-));
+	],
+]);
 
-$registration_completed_label = elgg_echo('event_manager:edit:form:registration_completed');
-$registration_completed_input = elgg_view('input/longtext', array(
+echo elgg_view('elements/forms/field', [
+	'label' => elgg_view('elements/forms/label', [
+		'label' => elgg_echo('event_manager:edit:form:options'),
+	]),
+	'input' => $comments_on . $notify_onsignup . $show_attendees,
+	'class' => 'event-manager-forms-label-normal',
+]);
+
+echo elgg_view_input('longtext', [
+	'label' => elgg_echo('event_manager:edit:form:registration_completed'),
 	'name' => 'registration_completed',
-	'value' => $vars["registration_completed"],
-));
-$registration_completed_desc = elgg_echo("event_manager:edit:form:registration_completed:description");
-
-echo <<<HTML
-	<div>
-		<label>$options_label</label>
-		$comments_on
-		$notify_onsignup
-		$show_attendees
-	</div>
-	<div>
-		<label>$registration_completed_label</label>
-		$registration_completed_input
-		<span class="elgg-text-help">$registration_completed_desc</span>
-	</div>
-HTML;
+	'value' => $vars['registration_completed'],
+	'help' => elgg_echo('event_manager:edit:form:registration_completed:description'),
+	'field_class' => 'event-manager-forms-label-inline',
+]);

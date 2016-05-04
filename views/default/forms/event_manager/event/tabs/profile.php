@@ -15,6 +15,7 @@ echo elgg_view_input('longtext', [
 	'label' => elgg_echo('description'),
 	'name' => 'description',
 	'value' => $vars['description'],
+	'field_class' => 'event-manager-forms-label-inline',
 ]);
 
 echo elgg_view_input('tags', [
