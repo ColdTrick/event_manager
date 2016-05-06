@@ -14,6 +14,7 @@ define(['jquery', 'elgg', 'gmaps'], function($, elgg, GMaps) {
 	function EventMap(options) {
 		var map_attrs = {
 			mapTypeControl: true,
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
 			zoomControl: true,
 			zoom: <?php echo $zoom_level; ?>,
 			streetViewControl: true,

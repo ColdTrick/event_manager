@@ -173,7 +173,6 @@ elgg.event_manager.list_events_init = function() {
 				elgg.event_manager.map.gmap.addListener('idle', elgg.event_manager.execute_search_map);
 			});
 		} else {
-			$('#event_manager_onthemap_sidebar').remove();
 			elgg.event_manager.execute_search_list();
 		}
 	});
