@@ -3,10 +3,6 @@
 	color: #AAAAAA;
 }
 
-.event-manager-hide-owner-block .elgg-sidebar .elgg-owner-block {
-	display: none;
-}
-
 .event-manager-forms-label-normal label:not(.elgg-field-label) {
 	font-size: 100%;
 	font-weight: normal;
