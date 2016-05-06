@@ -1,12 +1,15 @@
 <?php
 
-
-
 if (elgg_extract('full_view', $vars)) {
 	echo elgg_view("event_manager/event/view", $vars);
-} elseif (elgg_in_context("maps")) {
+	return;
+}
 
-	$event = $vars["entity"];
+$event = elgg_extract('entity', $vars);
+
+if (elgg_in_context("maps")) {
+
+	
 
 	$output = '<div class="gmaps_infowindow">';
 	$output .= '<div class="gmaps_infowindow_text">';
@@ -19,62 +22,51 @@ if (elgg_extract('full_view', $vars)) {
 	$output .= '</div>';
 
 	echo $output;
-} else {
-	
-	$event = $vars["entity"];
-	$owner = $event->getOwnerEntity();
-	$container = $event->getContainerEntity();
-
-	$owner_link = elgg_view('output/url', array(
-		'href' => $owner->getURL(),
-		'text' => $owner->name,
-	));
-
-	$author_text = elgg_echo('byline', array($owner_link));
-	if (($container instanceof ElggGroup) && (elgg_get_page_owner_guid() !== $container->getGUID())) {
-		$author_text .= ' ' . elgg_echo('in') . ' <a href="' . elgg_get_site_url() . 'events/event/list/' . $container->getGUID() . '">' . $container->name . '</a>';
-	}
-
-	$date = elgg_view_friendly_time($event->time_created);
-
-	$content = "";
-	$subtitle = "";
-
-	if (!elgg_in_context("widgets")) {
-		$subtitle = "<p>$author_text $date</p>";
-
-		if ($location = $event->location) {
-			$content .= '<div>' . elgg_echo('event_manager:edit:form:location') . ': ';
-			$content .= '<a href="' . elgg_get_site_url() . 'ajax/view/event_manager/event/maps/route?from=' . urlencode($location) . '" class="openRouteToEvent">' . $location . '</a>';
-			$content .= '</div>';
-		}
-
-		if ($shortdescription = $event->shortdescription) {
-			$content .= "<div>" . $shortdescription . "</div>";
-		}
-	}
-
-	$content .= elgg_view("event_manager/event/actions", $vars);
-
-	$icon = elgg_view_entity_icon($event, "date");
-
-	$menu = elgg_view_menu('entity', array(
-		'entity' => $vars['entity'],
-		'handler' => 'event',
-		'sort_by' => 'priority',
-		'class' => 'elgg-menu-hz',
-	));
-
-	$params = array(
-		'entity' => $event,
-		'metadata' => $menu,
-		'subtitle' => $subtitle,
-		'tags' => false,
-		'content' => $content,
-	);
-	$params = $params + $vars;
-
-	$list_body = elgg_view('object/elements/summary', $params);
-
-	echo elgg_view_image_block($icon, $list_body);
+	return;
 }
+
+$content = '';
+$subtitle = '';
+
+if (!elgg_in_context('widgets')) {
+	$subtitle = elgg_view('page/elements/by_line', $vars);
+	
+	$location = $event->location;
+	if ($location) {
+		$content .= '<div>' . elgg_echo('event_manager:edit:form:location') . ': ';
+		$content .= elgg_view('output/url', [
+			'href' => $event->getURL() . '#location',
+			'text' => $location,
+		]);
+		$content .= '</div>';
+	}
+
+	$shortdescription = $event->shortdescription;
+	if ($shortdescription) {
+		$content .= '<div>' . $shortdescription . '</div>';
+	}
+}
+
+$content .= elgg_view('event_manager/event/actions', $vars);
+
+$icon = elgg_view_entity_icon($event, 'date');
+
+$menu = elgg_view_menu('entity', [
+	'entity' => $vars['entity'],
+	'handler' => 'event',
+	'sort_by' => 'priority',
+	'class' => 'elgg-menu-hz',
+]);
+
+$params = [
+	'entity' => $event,
+	'metadata' => $menu,
+	'subtitle' => $subtitle,
+	'tags' => false,
+	'content' => $content,
+];
+$params = $params + $vars;
+
+$list_body = elgg_view('object/elements/summary', $params);
+
+echo elgg_view_image_block($icon, $list_body);

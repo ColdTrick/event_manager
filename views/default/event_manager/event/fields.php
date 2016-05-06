@@ -96,7 +96,7 @@ if ($event_location) {
 	$location_details .= elgg_view('event_manager/event/maps/location', $vars);
 }
 if (!empty($location_details)) {
-	$event_details .= elgg_view_module('event', '', $location_details);
+	$event_details .= elgg_view_module('event', '', $location_details, ['id' => 'location']);
 }
 
 // files

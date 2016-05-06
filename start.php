@@ -78,6 +78,7 @@ function event_manager_init() {
 
 	elgg_define_js('async', ['src' => elgg_get_simplecache_url('js/requirejs/async/async.js')]);
 	elgg_define_js('gmaps', ['src' => elgg_get_simplecache_url('js/hpneo/gmaps/gmaps.js')]);
+	elgg_define_js('event_manager/maps', ['src' => elgg_get_simplecache_url('js/event_manager/maps.js')]);
 
 	// page handlers
 	elgg_register_page_handler('events', 'event_manager_page_handler');

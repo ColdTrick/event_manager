@@ -40,6 +40,7 @@ $events = event_manager_search_events($event_options);
 $content = elgg_view_form('event_manager/event/search', [
 	'id' => 'event_manager_search_form',
 	'name' => 'event_manager_search_form',
+	'class' => 'mbl',
 ]);
 
 $content .= elgg_view('event_manager/list', [
