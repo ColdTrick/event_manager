@@ -5,8 +5,8 @@
 
 $classes = array(
 	'Event',
-	'EventDay',
-	'EventSlot',
+	'\ColdTrick\EventManager\Event\Day',
+	'\ColdTrick\EventManager\Event\Slot',
 	'EventRegistrationQuestion',
 	'EventRegistration',
 );

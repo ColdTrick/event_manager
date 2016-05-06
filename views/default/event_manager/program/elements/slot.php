@@ -4,7 +4,7 @@ $slot = elgg_extract('entity', $vars);
 $participate = elgg_extract('participate', $vars);
 $register_type = elgg_extract('register_type', $vars);
 
-if (!($slot instanceof EventSlot)) {
+if (!($slot instanceof \ColdTrick\EventManager\Event\Slot)) {
 	return;
 }
 

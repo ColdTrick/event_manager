@@ -4,7 +4,7 @@ $parent_guid = (int) get_input('parent_guid');
 
 $day = get_entity($parent_guid);
 
-if (!$day instanceof EventDay) {
+if (!$day instanceof \ColdTrick\EventManager\Event\Day) {
 	register_error(elgg_echo('event_manager:action:slot:day_not_found'));
 	forward(REFERER);
 }
@@ -42,7 +42,7 @@ if ($guid) {
 	// edit existing
 	$slot = get_entity($guid);
 
-	if (!$slot instanceof EventSlot) {
+	if (!$slot instanceof \ColdTrick\EventManager\Event\Slot) {
 		register_error(elgg_echo('event_manager:action:slot:not_found'));
 		forward(REFERER);
 	}
@@ -50,7 +50,7 @@ if ($guid) {
 	$edit = true;
 } else {
 	// create new
-	$slot = new EventSlot();
+	$slot = new \ColdTrick\EventManager\Event\Slot();
 }
 
 $slot->title = $title;

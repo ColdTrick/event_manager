@@ -5,7 +5,7 @@ $participate = elgg_extract('participate', $vars);
 $register_type = elgg_extract('register_type', $vars);
 $details_only = elgg_extract('details_only', $vars);
 
-if (!($day instanceof EventDay)) {
+if (!($day instanceof \ColdTrick\EventManager\Event\Day)) {
 	return;
 }
 

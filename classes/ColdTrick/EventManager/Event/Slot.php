@@ -1,11 +1,8 @@
 <?php
-/**
- * EventRegistrationQuestion
- *
- * @package EventManager
- *
- */
-class EventSlot extends ElggObject {
+
+namespace ColdTrick\EventManager\Event;
+
+class Slot extends \ElggObject {
 	const SUBTYPE = 'eventslot';
 
 	/**

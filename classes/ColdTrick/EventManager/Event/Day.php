@@ -1,11 +1,8 @@
 <?php
-/**
- * EventDay
- *
- * @package EventManager
- *
- */
-class EventDay extends ElggObject {
+
+namespace ColdTrick\EventManager\Event;
+
+class Day extends \ElggObject {
 	const SUBTYPE = 'eventday';
 
 	/**
@@ -27,13 +24,13 @@ class EventDay extends ElggObject {
 	public function getEventSlots() {
 		$entities_options = [
 			'type' => 'object',
-			'subtype' => EventSlot::SUBTYPE,
+			'subtype' => Slot::SUBTYPE,
 			'relationship_guid' => $this->getGUID(),
 			'relationship' => 'event_day_slot_relation',
 			'inverse_relationship' => true,
 			'order_by_metadata' => [
-				'name' => 'start_time', 
-				'as' => 'interger'
+				'name' => 'start_time',
+				'as' => 'integer'
 			],
 			'limit' => false
 		];

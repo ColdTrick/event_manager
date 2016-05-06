@@ -85,6 +85,7 @@ function event_manager_init() {
 
 	// events
 	elgg_register_event_handler('update', 'object', 'event_manager_update_object_handler');
+	elgg_register_event_handler('upgrade', 'system', '\ColdTrick\EventManager\Upgrade::fixClasses');
 
 	// hooks
 	elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'event_manager_user_hover_menu');

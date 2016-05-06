@@ -57,7 +57,7 @@ if (!empty($guid) && !empty($relation) && ($event = get_entity($guid))) {
 				// validate slot sets
 				$slot_options = array(
 					"type" => "object",
-					"subtype" => EventSlot::SUBTYPE,
+					"subtype" => \ColdTrick\EventManager\Event\Slot::SUBTYPE,
 					"limit" => false,
 					"metadata_names" => "slot_set",
 					"guids" => explode(',', $program_guids)

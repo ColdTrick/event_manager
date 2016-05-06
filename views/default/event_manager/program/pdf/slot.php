@@ -1,7 +1,7 @@
 <?php
 
 $slot = elgg_extract('entity', $vars);
-if (!($slot instanceof EventSlot)) {
+if (!($slot instanceof \ColdTrick\EventManager\Event\Slot)) {
 	return;
 }
 

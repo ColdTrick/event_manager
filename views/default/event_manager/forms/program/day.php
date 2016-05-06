@@ -11,7 +11,7 @@ if ($event_guid && ($entity = get_entity($event_guid))) {
 
 } elseif ($day_guid && ($entity = get_entity($day_guid))) {
 	// assume day edit mode
-	if (!($entity instanceof EventDay)) {
+	if (!($entity instanceof \ColdTrick\EventManager\Event\Day)) {
 		unset($entity);
 	}
 }
@@ -26,7 +26,7 @@ $guid = null;
 $description = null;
 $title = null;
 
-if ($entity instanceof EventDay) {
+if ($entity instanceof \ColdTrick\EventManager\Event\Day) {
 	// assume day edit mode
 	$guid = $entity->getGUID();
 	$parent_guid = $entity->owner_guid;

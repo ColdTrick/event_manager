@@ -5,7 +5,7 @@ $slot_guid = get_input('slot_guid');
 
 if ($day_guid && ($entity = get_entity($day_guid))) {
 	// assume new slot mode
-	if (!($entity instanceof EventDay)) {
+	if (!($entity instanceof \ColdTrick\EventManager\Event\Day)) {
 		unset($entity);
 	}
 
@@ -13,7 +13,7 @@ if ($day_guid && ($entity = get_entity($day_guid))) {
 	$end_time = null;
 } elseif ($slot_guid && ($entity = get_entity($slot_guid))) {
 	// assume slot edit mode
-	if (!($entity instanceof EventSlot)) {
+	if (!($entity instanceof \ColdTrick\EventManager\Event\Slot)) {
 		unset($entity);
 	}
 }
@@ -32,7 +32,7 @@ $end_time = null;
 $location = null;
 $max_attendees = null;
 
-if ($entity instanceof EventSlot) {
+if ($entity instanceof \ColdTrick\EventManager\Event\Slot) {
 	// assume slot edit mode
 	$guid = $entity->getGUID();
 	$title = $entity->title;
@@ -138,7 +138,7 @@ $form_body .= elgg_view('input/radio', [
 // unique set names for this event
 $metadata = elgg_get_metadata([
 	'type' => 'object',
-	'subtype' => EventSlot::SUBTYPE,
+	'subtype' => \ColdTrick\EventManager\Event\Slot::SUBTYPE,
 	'container_guids' => [$entity->container_guid],
 	'metadata_names' => ['slot_set'],
 	'limit' => false

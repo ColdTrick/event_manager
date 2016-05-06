@@ -168,7 +168,7 @@ $event->registration_completed = $registration_completed;
 
 $eventDays = $event->getEventDays();
 if ($with_program && !$eventDays) {
-	$eventDay = new EventDay();
+	$eventDay = new \ColdTrick\EventManager\Event\Day();
 	$eventDay->title = 'Event day 1';
 	$eventDay->container_guid = $event->getGUID();
 	$eventDay->owner_guid = $event->getGUID();
@@ -177,7 +177,7 @@ if ($with_program && !$eventDays) {
 	$eventDay->date = $event->start_day;
 	$eventDay->addRelationship($event->getGUID(), 'event_day_relation');
 
-	$eventSlot = new EventSlot();
+	$eventSlot = new \ColdTrick\EventManager\Event\Slot();
 	$eventSlot->title = 'Activity title';
 	$eventSlot->description = 'Activity description';
 	$eventSlot->container_guid = $event->container_guid;

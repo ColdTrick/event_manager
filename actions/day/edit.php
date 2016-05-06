@@ -22,13 +22,13 @@ if (!empty($date)) {
 
 if ($guid && $day = get_entity($guid)) {
 	// edit existing
-	if (!($day instanceof EventDay)) {
+	if (!($day instanceof \ColdTrick\EventManager\Event\Day)) {
 		unset($day);
 	}
 	$edit = true;
 } else {
 	// create new
-	$day = new EventDay();
+	$day = new \ColdTrick\EventManager\Event\Day();
 }
 
 if (empty($day) || empty($date)) {

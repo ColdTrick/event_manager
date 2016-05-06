@@ -792,7 +792,7 @@ class Event extends ElggObject {
 
 		return elgg_get_entities_from_relationship([
 			'type' => 'object',
-			'subtype' => EventDay::SUBTYPE,
+			'subtype' => \ColdTrick\EventManager\Event\Day::SUBTYPE,
 			'relationship_guid' => $this->getGUID(),
 			'relationship' => 'event_day_relation',
 			'inverse_relationship' => true,

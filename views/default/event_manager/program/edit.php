@@ -1,4 +1,4 @@
-<?php 
+<?php
 // @todo merge this view with the event_manager/program/view view
 
 $event = elgg_extract('entity', $vars);
@@ -37,9 +37,9 @@ if ($eventDays = $event->getEventDays()) {
 		$tabtitles .= "</li>";
 		
 		$tabcontent .= elgg_view('event_manager/program/elements/day', [
-			'entity' => $day, 
-			'selected' => $selected, 
-			'participate' => true, 
+			'entity' => $day,
+			'selected' => $selected,
+			'participate' => true,
 			'register_type' => $register_type
 		]);
 	}
@@ -54,7 +54,7 @@ $program .= '</ul>';
 
 $program .= '</div>';
 $program .= elgg_view('input/hidden', [
-	'id' => 'event_manager_program_guids', 
+	'id' => 'event_manager_program_guids',
 	'name' => 'program_guids'
 ]);
 
@@ -62,7 +62,7 @@ $program .= $tabcontent;
 
 $slot_sets = elgg_get_metadata([
 	'type' => 'object',
-	'subtype' => EventSlot::SUBTYPE,
+	'subtype' => \ColdTrick\EventManager\Event\Slot::SUBTYPE,
 	'container_guids' => array($event->getGUID()),
 	'metadata_names' => ['slot_set'],
 	'count' => true

@@ -4,7 +4,7 @@ $guid = (int) get_input("guid");
 $success = false;
 
 if (!empty($guid) && ($eventDay = get_entity($guid))) {
-	if ($eventDay->getSubtype() == EventDay::SUBTYPE) {
+	if ($eventDay->getSubtype() == \ColdTrick\EventManager\Event\Day::SUBTYPE) {
 		if ($eventDay->delete()) {
 			$success = true;
 		}
