@@ -35,7 +35,7 @@ class Event extends ElggObject {
 		}
 		
 		if ($fillup) {
-			while ($object->generateNewAttendee()) {
+			while ($this->generateNewAttendee()) {
 				continue;
 			}
 		}
