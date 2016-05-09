@@ -1,19 +1,19 @@
 <?php
 
+$entities = elgg_extract('entities', $vars);
+
 $result = elgg_view('event_manager/event_sort_menu');
 
 $options = [
 	'count' => elgg_extract('count', $vars),
 	'offset' => elgg_extract('offset', $vars),
 	'full_view' => false,
-	'pagination' => false
+	'pagination' => false,
+	'no_results' => elgg_echo('event_manager:list:noresults'),
 ];
 
-$list = elgg_view_entity_list($vars['entities'], $options);
+$list = elgg_view_entity_list($entities, $options);
 
-if (empty($list)) {
-	$list = elgg_echo('event_manager:list:noresults');
-}
 $result .= elgg_format_element('div', ['id' => 'event_manager_event_listing'], $list);
 
 $result .= elgg_view('event_manager/onthemap', $vars);

@@ -7,10 +7,7 @@ if (elgg_extract('full_view', $vars)) {
 
 $event = elgg_extract('entity', $vars);
 
-if (elgg_in_context("maps")) {
-
-	
-
+if (elgg_in_context('maps')) {
 	$output = '<div class="gmaps_infowindow">';
 	$output .= '<div class="gmaps_infowindow_text">';
 	$output .= '<div class="event_manager_event_view_owner"><a href="' . $event->getURL() . '">' . $event->title . '</a> (' . event_manager_format_date($event->start_day) . ')</div>';
