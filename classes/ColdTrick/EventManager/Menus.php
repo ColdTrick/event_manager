@@ -210,4 +210,33 @@ class Menus {
 		
 		return $returnvalue;
 	}
+	
+	/**
+	 * Add filter tabs for event lists
+	 *
+	 * @param string $hook        hook name
+	 * @param string $entity_type hook type
+	 * @param array  $returnvalue current return value
+	 * @param array  $params      parameters
+	 *
+	 * @return array
+	 */
+	public static function registerEventsList($hook, $entity_type, $returnvalue, $params) {
+	
+		$returnvalue[] = \ElggMenuItem::factory([
+			'name' => 'events_list',
+			'text' => elgg_echo('event_manager:list:navigation:list'),
+			'href' => 'javascript:void(0);',
+			'rel' => 'list',
+			'selected' => true,
+		]);
+		$returnvalue[] = \ElggMenuItem::factory([
+			'name' => 'events_map',
+			'text' => elgg_echo('event_manager:list:navigation:onthemap'),
+			'href' => 'javascript:void(0);',
+			'rel' => 'onthemap',
+		]);
+		
+		return $returnvalue;
+	}
 }

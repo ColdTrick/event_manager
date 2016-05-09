@@ -4,7 +4,7 @@ elgg.event_manager.execute_search = function(event) {
 	
 	event.preventDefault();
 	
-	if ($("#event_manager_result_navigation li.elgg-state-selected a").attr("rel") == "onthemap") {
+	if ($(".elgg-menu-events-list li.elgg-state-selected a").attr("rel") == "onthemap") {
 		elgg.event_manager.execute_search_map();
 	} else {
 		elgg.event_manager.execute_search_list();
@@ -153,7 +153,7 @@ elgg.event_manager.list_events_init = function() {
 
 	$(document).on('submit', '#event_manager_search_form', elgg.event_manager.execute_search);
 
-	$('#event_manager_result_navigation li a').click(function(e) {
+	$('.elgg-menu-events-list li a').click(function(e) {
 		e.preventDefault();
 		
 		if ($(this).parent().hasClass('elgg-state-selected')) {
@@ -162,7 +162,7 @@ elgg.event_manager.list_events_init = function() {
 		
 		var selected = $(this).attr('rel');
 
-		$('#event_manager_result_navigation li').toggleClass('elgg-state-selected');
+		$('.elgg-menu-events-list li').toggleClass('elgg-state-selected');
 		$('#event_manager_event_map, #event_manager_event_listing').toggle();
 
 		$('#search_type').val(selected);
