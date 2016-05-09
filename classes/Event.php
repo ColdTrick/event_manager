@@ -18,6 +18,30 @@ class Event extends ElggObject {
 
 		$this->attributes["subtype"] = self::SUBTYPE;
 	}
+	
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function update() {
+		if (!parent::update()) {
+			return false;
+		}
+		
+		$fillup = false;
+		if ($this->with_program && $this->hasSlotSpotsLeft()) {
+			$fillup = true;
+		} elseif (!$this->with_program && $this->hasEventSpotsLeft()) {
+			$fillup = true;
+		}
+		
+		if ($fillup) {
+			while ($object->generateNewAttendee()) {
+				continue;
+			}
+		}
+		
+		return true;
+	}
 
 	/**
 	 * Returns URL to the entity

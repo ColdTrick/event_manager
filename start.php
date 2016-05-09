@@ -19,7 +19,6 @@ define('EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING', 'event_slot_registrat
 
 require_once(dirname(__FILE__) . '/lib/functions.php');
 require_once(dirname(__FILE__) . '/lib/hooks.php');
-require_once(dirname(__FILE__) . '/lib/events.php');
 
 /**
  * Init function for this plugin
@@ -83,7 +82,6 @@ function event_manager_init() {
 	elgg_register_page_handler('events', '\ColdTrick\EventManager\PageHandler::events');
 
 	// events
-	elgg_register_event_handler('update', 'object', 'event_manager_update_object_handler');
 	elgg_register_event_handler('upgrade', 'system', '\ColdTrick\EventManager\Upgrade::fixClasses');
 
 	// hooks
