@@ -1,4 +1,4 @@
-<?php 
+<?php
 	
 $event = elgg_extract('entity', $vars);
 
@@ -13,9 +13,16 @@ if (empty($files)) {
 }
 
 $rows = '';
+$elggfile = new \ElggFile();
+$elggfile->owner_guid = $event->owner_guid;
+
+$use_cookie = ($event->access_id !== ACCESS_PUBLIC);
+
 foreach ($files as $file) {
+	$elggfile->setFilename("events/{$event->guid}/files/{$file->file}");
+		
 	$link = elgg_view('output/url', [
-		'href' => "/events/event/file/{$event->getGUID()}/{$file->file}",
+		'href' => elgg_get_inline_url($elggfile, $use_cookie),
 		'text' => $file->title
 	]);
 	
