@@ -1,12 +1,15 @@
-<?php ?>
-<ul>
-	<li>
-		<label><?php echo elgg_echo('user:name:label'); ?> *</label><br />
-		<input type="text" name="question_name" value="<?php echo $_SESSION['registerevent_values']['question_name']; ?>" class="input-text" />
-	</li>
-	
-	<li>
-		<label><?php echo elgg_echo('email'); ?> *</label><br />
-		<input type="text" name="question_email" value="<?php echo $_SESSION['registerevent_values']['question_email']; ?>" class="input-text" />
-	</li>
-</ul>
+<?php
+
+echo elgg_view_input('text', [
+	'label' => elgg_echo('user:name:label'),
+	'name' => 'question_name',
+	'value' => $_SESSION['registerevent_values']['question_name'],
+	'required' => true,
+]);
+
+echo elgg_view_input('text', [
+	'label' => elgg_echo('email'),
+	'name' => 'question_email',
+	'value' => $_SESSION['registerevent_values']['question_email'],
+	'required' => true,
+]);
