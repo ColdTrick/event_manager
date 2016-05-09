@@ -18,7 +18,6 @@ define('EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST', 'event_slot_regis
 define('EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING', 'event_slot_registration_pending');
 
 require_once(dirname(__FILE__) . '/lib/functions.php');
-require_once(dirname(__FILE__) . '/lib/hooks.php');
 
 /**
  * Init function for this plugin
@@ -92,7 +91,7 @@ function event_manager_init() {
 
 	elgg_register_plugin_hook_handler('entity:url', 'object', '\ColdTrick\EventManager\Widgets::getEventsUrl');
 
-	elgg_register_plugin_hook_handler('setting', 'plugin', 'event_manager_invalidate_cache');
+	elgg_register_plugin_hook_handler('setting', 'plugin', '\ColdTrick\EventManager\Settings::clearCache');
 	
 	elgg_register_plugin_hook_handler('likes:is_likable', 'object:' . \Event::SUBTYPE, '\Elgg\Values::getTrue');
 	
