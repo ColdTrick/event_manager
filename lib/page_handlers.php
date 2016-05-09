@@ -11,34 +11,31 @@
  * @return boolean
  */
 function event_manager_page_handler($page) {
-	elgg_push_breadcrumb(elgg_echo("event_manager:menu:events"), "/events");
+	elgg_push_breadcrumb(elgg_echo('event_manager:menu:events'), 'events');
 
-	$base_dir = elgg_get_plugins_path() . "event_manager";
+	$base_dir = elgg_get_plugins_path() . 'event_manager';
 	
-	$include = "/pages/event/list.php";
+	$include = '/pages/event/list.php';
 	if (!empty($page)) {
 		switch ($page[0]) {
-			case "registrationform":
+			case 'registrationform':
 				echo elgg_view_resource('events/registrationform/' . $page[1], [
 					'guid' => elgg_extract(2, $page),
 				]);
 				return true;
-			case "unsubscribe":
+			case 'unsubscribe':
 				if (isset($page[1])) {
-					if ($page[1] == "confirm") {
-						if (isset($page[2])) {
-							set_input("guid", $page[2]);
-						}
-
-						if (isset($page[3])) {
-							set_input("code", $page[3]);
-						}
-
-						$include = "/pages/event/unsubscribe_confirm.php";
+					if ($page[1] == 'confirm') {
+						echo elgg_view_resource('events/unsubscribe/confirm', [
+							'guid' => (int) elgg_extract(2, $page),
+							'code' => elgg_extract(3, $page),
+						]);
+						return true;
 					} else {
-						set_input("guid", $page[1]);
-
-						$include = "/pages/event/unsubscribe.php";
+						echo elgg_view_resource('events/unsubscribe/request', [
+							'guid' => (int) elgg_extract(1, $page),
+						]);
+						return true;
 					}
 				}
 				break;

@@ -344,7 +344,7 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 
 	'event_manager:action:unsubscribe:error:no_registration' => "No registration could be found for the supplied e-mail address",
 	'event_manager:action:unsubscribe:error:mail' => "An error occured while sending the confirmation e-mail, please try again",
-	'event_manager:action:unsubscribe:success' => "An e-mail has been sent to confirm you wish to unsubscribe from this event. Please check your inbox and follow the instructions in the e-mail",
+	'event_manager:action:unsubscribe:success' => "An e-mail has been sent to confirm your wish to unsubscribe from this event. Please check your inbox and follow the instructions in the e-mail",
 
 	'event_manager:unsubscribe:confirm:subject' => "Confirm you wish to unsubscribe from %s",
 	'event_manager:unsubscribe:confirm:message' => "Hi %s,
