@@ -90,7 +90,6 @@ function event_manager_init() {
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', '\ColdTrick\EventManager\Menus::registerOwnerBlock');
 	elgg_register_plugin_hook_handler('register', 'menu:event_files', '\ColdTrick\EventManager\Menus::registerEventFiles');
 
-	elgg_register_plugin_hook_handler('permissions_check', 'object', 'event_manager_permissions_check_handler');
 	elgg_register_plugin_hook_handler('entity:url', 'object', '\ColdTrick\EventManager\Widgets::getEventsUrl');
 
 	elgg_register_plugin_hook_handler('setting', 'plugin', 'event_manager_invalidate_cache');
