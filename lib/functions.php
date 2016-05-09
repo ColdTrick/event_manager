@@ -490,7 +490,6 @@ function event_manager_send_registration_validation_email(Event $event, ElggEnti
 				$site_name = '"' . $site_name . '"'; // Protect the name with quotations if it contains a comma
 			}
 
-			$site_name = '=?UTF-8?B?' . base64_encode($site_name) . '?='; // Encode the name. If may content nos ASCII chars.
 			$from = $site_name . " <" . $from . ">";
 		}
 
