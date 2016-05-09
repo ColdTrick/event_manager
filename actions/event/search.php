@@ -64,6 +64,8 @@ if ($advanced_search) {
 
 if (!empty($container_guid)) {
 	$options['container_guid'] = $container_guid;
+	
+	elgg_set_page_owner_guid($container_guid);
 }
 
 if ($search_type == 'list') {
@@ -73,9 +75,9 @@ if ($search_type == 'list') {
 
 	$result['content'] = elgg_view_entity_list($entities['entities'], [
 		'count' => $entities['count'],
-		'offset' => $offset, 
-		'limit' => $limit, 
-		'full_view' => false, 
+		'offset' => $offset,
+		'limit' => $limit,
+		'full_view' => false,
 		'pagination' => false
 	]);
 
