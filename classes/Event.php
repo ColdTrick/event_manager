@@ -776,9 +776,15 @@ class Event extends ElggObject {
 		}
 
 		$icontime = $this->icontime;
-		if ($icontime) {
-			return elgg_normalize_url('mod/event_manager/pages/event/thumbnail.php?icontime=' . $icontime . '&guid=' . $this->getOwnerGUID() . '&event_guid=' . $this->getGUID() . '&size=' . $size);
+		if (!$icontime) {
+			return;
 		}
+		
+		$file = new \ElggFile();
+		$file->owner_guid = $this->getOwnerGUID();
+		$file->setFilename("events/{$this->guid}/{$size}.jpg");
+		
+		return elgg_get_inline_url($file);
 	}
 
 	/**
