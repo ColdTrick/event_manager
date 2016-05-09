@@ -46,23 +46,25 @@ function event_manager_page_handler($page) {
 				if (isset($page[1])) {
 					switch ($page[1]) {
 						case "confirm":
-							if (isset($page[2])) {
-								set_input("event_guid", $page[2]);
-							}
-
-							$include = "/pages/registration/confirm.php";
-							break(2);
+							echo elgg_view_resource('events/registration/confirm', [
+								'event_guid' => elgg_extract(2, $page),
+								'user_guid' => (int) get_input('user_guid'),
+								'code' => get_input('code'),
+							]);
+							return true;
 						case "completed":
-							if (isset($page[2])) {
-								set_input("event_guid", $page[2]);
-							}
-
-							if (isset($page[3])) {
-								set_input("object_guid", $page[3]);
-							}
-
-							$include = "/pages/registration/completed.php";
-							break(2);
+							echo elgg_view_resource('events/registration/completed', [
+								'event_guid' => elgg_extract(2, $page),
+								'object_guid' => elgg_extract(3, $page),
+							]);
+							return true;
+						case "view":
+							echo elgg_view_resource('events/registration/view', [
+								'guid' => elgg_extract(2, $page),
+								'k' => get_input('k'),
+								'u_g' => (int) get_input('u_g', elgg_get_logged_in_user_guid()),
+							]);
+							return true;
 					}
 				}
 			case "event":
