@@ -44,7 +44,7 @@ function event_manager_init() {
 
 	// notifications
 	elgg_register_notification_event('object', Event::SUBTYPE, ['create']);
-	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:' . Event::SUBTYPE, 'event_manager_prepare_notification');
+	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:' . Event::SUBTYPE, '\ColdTrick\EventManager\Notifications::prepareCreateEventNotification');
 
 	// register ajax views
 	elgg_register_ajax_view('event_manager/event/maps/route');
@@ -91,7 +91,7 @@ function event_manager_init() {
 	elgg_register_plugin_hook_handler('register', 'menu:event_files', '\ColdTrick\EventManager\Menus::registerEventFiles');
 
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'event_manager_permissions_check_handler');
-	elgg_register_plugin_hook_handler('entity:url', 'object', 'event_manager_widget_events_url');
+	elgg_register_plugin_hook_handler('entity:url', 'object', '\ColdTrick\EventManager\Widgets::getEventsUrl');
 
 	elgg_register_plugin_hook_handler('setting', 'plugin', 'event_manager_invalidate_cache');
 	
