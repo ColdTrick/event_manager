@@ -1,6 +1,6 @@
 <?php
 
-$guid = get_input("guid");
+$guid = (int) elgg_extract('guid', $vars);
 
 if (!empty($guid) && ($entity = get_entity($guid))) {
 	if ($entity instanceof Event) {

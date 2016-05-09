@@ -1,7 +1,7 @@
 <?php
 
-$guid = get_input("guid");
-$relation = get_input("relation");
+$guid = (int) elgg_extract('guid', $vars);
+$relation = elgg_extract('relation', $vars);
 
 if (!empty($guid) && ($entity = get_entity($guid))) {
 	if ($entity->getSubtype() == Event::SUBTYPE) {

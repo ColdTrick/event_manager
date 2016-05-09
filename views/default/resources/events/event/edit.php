@@ -4,7 +4,7 @@ gatekeeper();
 
 $title_text = elgg_echo("event_manager:edit:title");
 
-$guid = get_input("guid");
+$guid = (int) elgg_extract('guid', $vars);
 $event = false;
 
 if (!empty($guid) && ($entity = get_entity($guid))) {

@@ -1,13 +1,13 @@
 <?php
 gatekeeper();
 
-$guid = (int) get_input('guid');
+$guid = (int) elgg_extract('guid', $vars);
 
 $title_text = elgg_echo('event_manager:edit:upload:title');
 
 $event = get_entity($guid);
-if (empty($event) || ($event->getSubtype() !== Event::SUBTYPE)) {
-	register_error(elgg_echo('InvalidParameterException:GUIDNotFound', array($guid)));
+if (!($event instanceof \Event)) {
+	register_error(elgg_echo('InvalidParameterException:GUIDNotFound', [$guid]));
 	forward(REFERER);
 }
 
@@ -16,7 +16,6 @@ if (!$event->canEdit()) {
 }
 
 elgg_push_breadcrumb($event->title, $event->getURL());
-elgg_push_breadcrumb($title_text);
 
 $form_vars = [
 	'id' => 'event_manager_event_upload',
