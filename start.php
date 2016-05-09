@@ -85,10 +85,10 @@ function event_manager_init() {
 	elgg_register_event_handler('upgrade', 'system', '\ColdTrick\EventManager\Upgrade::fixClasses');
 
 	// hooks
-	elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'event_manager_user_hover_menu');
-	elgg_register_plugin_hook_handler('register', 'menu:entity', 'event_manager_entity_menu', 600);
-	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'event_manager_owner_block_menu');
-	elgg_register_plugin_hook_handler('register', 'menu:event_files', 'event_manager_event_files_menu');
+	elgg_register_plugin_hook_handler('register', 'menu:user_hover', '\ColdTrick\EventManager\Menus::registerUserHover');
+	elgg_register_plugin_hook_handler('register', 'menu:entity', '\ColdTrick\EventManager\Menus::registerEntity', 600);
+	elgg_register_plugin_hook_handler('register', 'menu:owner_block', '\ColdTrick\EventManager\Menus::registerOwnerBlock');
+	elgg_register_plugin_hook_handler('register', 'menu:event_files', '\ColdTrick\EventManager\Menus::registerEventFiles');
 
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'event_manager_permissions_check_handler');
 	elgg_register_plugin_hook_handler('entity:url', 'object', 'event_manager_widget_events_url');
