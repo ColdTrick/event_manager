@@ -205,8 +205,6 @@ Iemand heeft zich afgemeld van het \'%s\' evenement (%s). Je bent van de wachtli
   'event_manager:registration:edityourregistration' => 'Wijzig je registratie',
   'event_manager:registration:viewyourregistration' => 'Bekijk je registratie',
   'event_manager:registration:yourregistration' => 'Jouw registratie',
-  'event_manager:registration:programparticipation' => 'Programma deelname',
-  'event_manager:registration:editprogramparticipation' => 'Wijzig je programma deelname',
   'event_manager:registration:required_fields' => 'Vul eerst de verplichte velden in',
   'event_manager:registration:required_fields:info' => 'Velden met een * zijn verplicht',
   'event_manager:event:registration:notification:owner:subject' => 'Evenement registratie',

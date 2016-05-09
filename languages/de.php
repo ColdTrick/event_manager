@@ -137,8 +137,6 @@ return array(
 	'event_manager:registration:viewyourregistration' => 'deine Anmeldung anzeigen',
 	'event_manager:registration:view:information' => 'Info',
 	'event_manager:registration:yourregistration' => 'Deine Anmeldung',
-	'event_manager:registration:programparticipation' => 'Programmteilnahme',
-	'event_manager:registration:editprogramparticipation' => 'Deine Programmteilnahme bearbeiten',
 	'event_manager:registration:required_fields' => 'Bitte die ben&ouml;tigten Felder ausf&uuml;llen',
 	'event_manager:registration:required_fields:info' => 'Felder mit einem * sind Pflichtfelder ',
 

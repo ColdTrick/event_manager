@@ -133,8 +133,6 @@ return array(
 	'event_manager:registration:edityourregistration' => 'Edit your registration',
 	'event_manager:registration:viewyourregistration' => 'View your registration',
 	'event_manager:registration:yourregistration' => 'Your registration',
-	'event_manager:registration:programparticipation' => 'Program participation',
-	'event_manager:registration:editprogramparticipation' => 'Edit your program participation',
 	'event_manager:registration:required_fields' => 'Please fill in the required fields',
 	'event_manager:registration:required_fields:info' => '*Pakollinen kenttä',
 
