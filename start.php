@@ -40,7 +40,8 @@ function event_manager_init() {
 	elgg_extend_view('css/elgg', 'css/event_manager.css');
 	elgg_extend_view('css/elgg', 'css/addthisevent.css');
 	elgg_extend_view('js/elgg', 'js/event_manager/site.js');
-
+	elgg_extend_view('js/addthisevent.js', 'js/event_manager/addthisevent.settings.js');
+	
 	// notifications
 	elgg_register_notification_event('object', Event::SUBTYPE, ['create']);
 	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:' . Event::SUBTYPE, '\ColdTrick\EventManager\Notifications::prepareCreateEventNotification');
@@ -71,8 +72,6 @@ function event_manager_init() {
 
 	// register js libraries
 	
-	elgg_register_js('addthisevent', 'mod/event_manager/vendors/addthisevent/atemay.js');
-
 	elgg_define_js('async', ['src' => elgg_get_simplecache_url('js/requirejs/async/async.js')]);
 	elgg_define_js('gmaps', ['src' => elgg_get_simplecache_url('js/hpneo/gmaps/gmaps.js')]);
 	elgg_define_js('event_manager/maps', ['src' => elgg_get_simplecache_url('js/event_manager/maps.js')]);

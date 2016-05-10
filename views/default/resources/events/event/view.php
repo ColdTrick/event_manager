@@ -21,7 +21,7 @@ if ($event) {
 	}
 
 	// add export button
-	elgg_load_js("addthisevent");
+	elgg_require_js("addthisevent");
 	elgg_register_menu_item("title", ElggMenuItem::factory(array(
 		"name" => "addthisevent",
 		"href" => false,
