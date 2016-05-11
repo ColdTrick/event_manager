@@ -37,15 +37,14 @@ foreach ($event_relationship_options as $rel) {
 			];
 		} else {
 			if ($rel != EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST) {
-				$icon = elgg_view_icon('checkmark-hover', 'float-alt elgg-discoverable');
+				$icon = elgg_view_icon('checkmark-hover', 'float-alt');
 				$link = [
 					'is_action' => true,
 					'href' => 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&type=' . $rel,
-					'text' => elgg_echo('event_manager:event:relationship:' . $rel)
+					'text' => elgg_echo('event_manager:event:relationship:' . $rel),
 				];
 				
 				$rsvp_options[] = [
-					'attributes' => ['class' => 'elgg-discover'],
 					'icon' => $icon,
 					'link_attributes' => $link,
 				];
@@ -56,8 +55,7 @@ foreach ($event_relationship_options as $rel) {
 
 if ($user_relation) {
 	$rsvp_options[] = [
-		'attributes' => ['class' => 'elgg-discover'],
-		'icon' => elgg_view_icon('checkmark-hover', 'float-alt elgg-discoverable'),
+		'icon' => elgg_view_icon('checkmark-hover', 'float-alt'),
 		'link_attributes' => [
 			'is_action' => true,
 			'href' => 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO,
@@ -112,7 +110,7 @@ if (elgg_extract('full_view', $vars)) {
 		if (empty($text)) {
 			$text = elgg_view('output/url', elgg_extract('link_attributes', $option));
 		}
-		$list_items .= elgg_format_element('li', $option['attributes'], elgg_extract('icon', $option) . $text);
+		$list_items .= elgg_format_element('li', elgg_extract('attributes', $option, []), elgg_extract('icon', $option) . $text);
 	}
 	echo elgg_format_element('ul', ['class' => 'event_manager_event_actions_drop_down'], $list_items);
 }

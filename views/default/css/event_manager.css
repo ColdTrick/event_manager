@@ -183,11 +183,13 @@
 }
 
 .event_manager_event_actions_drop_down li {
-	padding: 0 18px 0 10px;
-	line-height: 18px;
+	padding: 0 0 0 10px;
 }
-.event_manager_event_actions_drop_down li:hover {
-	padding-right: 2px;
+.event_manager_event_actions_drop_down li .elgg-icon-checkmark-hover {
+	visibility: hidden;
+}
+.event_manager_event_actions_drop_down li:hover .elgg-icon-checkmark-hover {
+	visibility: visible;
 }
 
 /* Event Program Day */
