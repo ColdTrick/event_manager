@@ -3,20 +3,13 @@
 $guid = (int) elgg_extract('guid', $vars);
 $code = elgg_extract('code', $vars);
 
-if (empty($guid) || empty($code)) {
-	forward(REFERER);
-}
-
+elgg_entity_gatekeeper($guid, 'object', EventRegistration::SUBTYPE);
 $registration = get_entity($guid);
-if (!($registration instanceof EventRegistration)) {
-	register_error(elgg_echo('ClassException:ClassnameNotClass', [$guid, elgg_echo('item:object:' . EventRegistration::SUBTYPE)]));
-	forward(REFERER);
-}
 
 $event = $registration->getOwnerEntity();
 $verify_code = event_manager_create_unsubscribe_code($registration, $event);
 
-if ($code !== $verify_code) {
+if (empty($code) || ($code !== $verify_code)) {
 	register_error(elgg_echo('event_manager:unsubscribe_confirm:error:code'));
 	forward(REFERER);
 }

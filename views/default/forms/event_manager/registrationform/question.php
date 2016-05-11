@@ -46,7 +46,7 @@ if (empty($entity) || !$entity->canEdit()) {
 		elgg_set_ignore_access($ia);
 	}
 	
-	echo elgg_echo('InvalidParameterException:GUIDNotFound', [$guid]);
+	echo elgg_echo('unknown_error');
 	return;
 }
 

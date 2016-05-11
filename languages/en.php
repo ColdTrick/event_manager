@@ -372,7 +372,6 @@ If you didn't register for this event, you can ignore this email or click on the
 
 	'river:create:object:event' => '%s created event %s',
 
-	'from' => 'From',
 	'to' => 'To',
 	'requiredfields' => 'Required fields',
 	'confirm' => 'Confirm',

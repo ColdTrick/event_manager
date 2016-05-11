@@ -1,22 +1,15 @@
 <?php
 
 $event_guid = (int) elgg_extract('event_guid', $vars);
-$object_guid = (int) elgg_extract('object_guid', $vars);
+$object_guid = (int) elgg_extract('object_guid', $vars); // user or registration object
 
-if (empty($event_guid) || empty($object_guid)) {
-	register_error(elgg_echo('InvalidParameterException:NoEntityFound'));
-	forward('events');
-}
-
+elgg_entity_gatekeeper($event_guid, 'object', Event::SUBTYPE);
 $event = get_entity($event_guid);
+
+elgg_entity_gatekeeper($object_guid);
 $object = get_entity($object_guid);
 
-if (!($event instanceof Event)) {
-	register_error(elgg_echo('ClassException:ClassnameNotClass', [$event_guid, elgg_echo('item:object:' . Event::SUBTYPE)]));
-	forward('events');
-}
-
-if (!($object instanceof ElggUser) && !($object instanceof EventRegistration)) {
+if (!($object instanceof \ElggUser) && !($object instanceof \EventRegistration)) {
 	forward('events');
 }
 

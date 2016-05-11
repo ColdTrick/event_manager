@@ -2,22 +2,14 @@
 $key = elgg_extract('k', $vars);
 $guid = (int) elgg_extract('guid', $vars);
 $user_guid = (int) elgg_extract('u_g', $vars);
-$event = null;
 
 if (empty($key)) {
 	gatekeeper();
 }
 
-if ($guid && ($entity = get_entity($guid))) {
-	if ($entity instanceof Event) {
-		$event = $entity;
-	}
-}
+elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 
-if (empty($event)) {
-	register_error(elgg_echo('InvalidParameterException:GUIDNotFound', [$guid]));
-	forward(REFERER);
-}
+$event = get_entity($guid);
 
 $output = '';
 $title_text = elgg_echo('event_manager:registration:registrationto') . " '{$event->title}'";

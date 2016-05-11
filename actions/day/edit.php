@@ -32,7 +32,7 @@ if ($guid && $day = get_entity($guid)) {
 }
 
 if (empty($day) || empty($date)) {
-	register_error(elgg_echo('Missing input'));
+	register_error(elgg_echo('save:fail'));
 	forward(REFERER);
 }
 
@@ -43,7 +43,7 @@ $day->owner_guid = $event->getGUID();
 $day->access_id = $event->access_id;
 
 if (!$day->save()) {
-	register_error(elgg_echo('Could not save day'));
+	register_error(elgg_echo('save:fail'));
 	forward(REFERER);
 }
 

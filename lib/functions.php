@@ -181,7 +181,7 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
 	$headerString = '';
 	$dataString = '';
 
-	$headerString .= '"' . elgg_echo('guid') . '";"' . elgg_echo('name') . '";"' . elgg_echo('email') . '";"' . elgg_echo('username') . '";"' . elgg_echo('registration date') . '"';
+	$headerString .= '"guid";"' . elgg_echo('name') . '";"' . elgg_echo('email') . '";"' . elgg_echo('username') . '";"registration date"';
 
 	if ($event->registration_needed) {
 		if ($registration_form = $event->getRegistrationFormQuestions()) {
@@ -218,7 +218,7 @@ function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_AT
 		'relationship_guid' => $event->getGUID(),
 		'inverse_relationship' => false,
 		'site_guids' => false,
-		'limit' => false
+		'limit' => false,
 	]);
 	
 	foreach ($attendees as $attendee) {

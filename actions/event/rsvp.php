@@ -1,23 +1,21 @@
 <?php
 
-$guid = (int) get_input("guid");
-$user_guid = (int) get_input("user", elgg_get_logged_in_user_guid());
-$rel = get_input("type");
+$guid = (int) get_input('guid');
+$user_guid = (int) get_input('user', elgg_get_logged_in_user_guid());
+$rel = get_input('type');
 
-$forward_url = get_input("forward_url", REFERER);
+$forward_url = get_input('forward_url', REFERER);
 $notice = true;
 $rsvp = null;
 
-if (empty($guid) || empty($rel)) {
-	register_error(elgg_echo("IOException:FailedToLoadGUID", array("Event", $guid)));
-	forward(REFERER);
-}
-
+elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 $event = get_entity($guid);
+
+elgg_entity_gatekeeper($user_guid);
 $user = get_entity($user_guid);
 
-if (!$event instanceof Event) {
-	register_error(elgg_echo("InvalidClassException:NotValidElggStar", array($guid, "Event")));
+if (empty($rel)) {
+	register_error(elgg_echo('error:missing_data'));
 	forward(REFERER);
 }
 

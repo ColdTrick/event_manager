@@ -7,18 +7,12 @@ $title_text = elgg_echo('event_manager:editregistration:title');
 
 $guid = (int) elgg_extract('guid', $vars);
 
-if ($entity = get_entity($guid)) {
-	if ($entity->getSubtype() == Event::SUBTYPE) {
-		$event = $entity;
-	}
-}
+elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 
-if (empty($event)) {
-	register_error(elgg_echo('InvalidParameterException:GUIDNotFound', array($guid)));
-	forward(REFERER);
-}
+$event = get_entity($guid);
 
 if (!$event->canEdit()) {
+	register_error(elgg_echo('actionunauthorized'));
 	forward($event->getURL());
 }
 

@@ -5,13 +5,12 @@ $guid = (int) elgg_extract('guid', $vars);
 
 $title_text = elgg_echo('event_manager:edit:upload:title');
 
+elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
+
 $event = get_entity($guid);
-if (!($event instanceof \Event)) {
-	register_error(elgg_echo('InvalidParameterException:GUIDNotFound', [$guid]));
-	forward(REFERER);
-}
 
 if (!$event->canEdit()) {
+	register_error(elgg_echo('actionunauthorized'));
 	forward($event->getURL());
 }
 

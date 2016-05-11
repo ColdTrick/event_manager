@@ -1,15 +1,14 @@
 <?php
-$guid = (int) get_input("guid");
+$guid = (int) get_input('guid');
 
-if (!empty($guid) && $entity = get_entity($guid)) {
-	if ($entity->getSubtype() == Event::SUBTYPE) {
-		$event = $entity;
-		if ($event->delete()) {
-			system_message(elgg_echo("event_manager:action:event:delete:ok"));
-		}
-		forward("/events");
-	}
+elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
+$entity = get_entity($guid);
+
+if ($entity->delete()) {
+	system_message(elgg_echo('entity:delete:success'));
+	forward('events');
+} else {
+	register_error(elgg_echo('entity:delete:fail', [$entity->title]));
 }
 
-system_message(elgg_echo("InvalidParameterException:GUIDNotFound", array($guid)));
 forward(REFERER);

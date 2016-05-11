@@ -4,20 +4,17 @@ $event_guid = (int) elgg_extract('event_guid', $vars);
 $user_guid = (int) elgg_extract('user_guid', $vars);
 $code = elgg_extract('code', $vars);
 
-// do we have all the correct inputs
-if (empty($event_guid) || empty($user_guid) || empty($code)) {
-	register_error(elgg_echo('InvalidParameterException:MissingParameter'));
-	forward();
-}
+elgg_entity_gatekeeper($event_guid, 'object', Event::SUBTYPE);
+$event = get_entity($event_guid);
+
+elgg_entity_gatekeeper($user_guid);
+$user = get_entity($user_guid);
 
 // is the code valid
 if (!event_manager_validate_registration_validation_code($event_guid, $user_guid, $code)) {
 	register_error(elgg_echo('event_manager:registration:confirm:error:code'));
 	forward();
 }
-
-$event = get_entity($event_guid);
-$user = get_entity($user_guid);
 
 // do we have a pending registration
 if ($event->getRelationshipByUser($user_guid) != EVENT_MANAGER_RELATION_ATTENDING_PENDING) {

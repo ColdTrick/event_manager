@@ -1,23 +1,18 @@
 <?php
-$guid = (int) get_input("guid");
-$rel = get_input("rel", EVENT_MANAGER_RELATION_ATTENDING);
+$guid = (int) get_input('guid');
+$rel = get_input('rel', EVENT_MANAGER_RELATION_ATTENDING);
 
-$event = false;
+elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
+$event = get_entity($guid);
 
-if ($entity = get_entity($guid)) {
-	if ($entity->getSubtype() == Event::SUBTYPE) {
-		$event = $entity;
-	}
-}
-
-if ($event && $event->canEdit()) {
-	header("Content-Type: text/csv");
-	header("Content-Disposition: Attachment; filename=export.csv");
-	header('Pragma: public');
-
-	echo event_manager_export_attendees($event, $rel);
-	exit;
-} else {
-	register_error(elgg_echo("InvalidParameterException:GUIDNotFound", array($guid)));
+if (!$event->canEdit()) {
+	register_error(elgg_echo('actionunauthorized'));
 	forward(REFERER);
 }
+
+header('Content-Type: text/csv');
+header('Content-Disposition: Attachment; filename=export.csv');
+header('Pragma: public');
+
+echo event_manager_export_attendees($event, $rel);
+exit;

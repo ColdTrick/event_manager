@@ -2,11 +2,8 @@
 
 $guid = (int) elgg_extract('guid', $vars);
 
+elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 $entity = get_entity($guid);
-if (!($entity instanceof Event)) {
-	register_error(elgg_echo('ClassException:ClassnameNotClass', [$guid, elgg_echo('item:object:' . Event::SUBTYPE)]));
-	forward(REFERER);
-}
 
 if (!$entity->register_nologin) {
 	forward(REFERER);
