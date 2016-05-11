@@ -16,7 +16,7 @@ if (!$event->canEdit()) {
 	forward($event->getURL());
 }
 
-elgg_push_breadcrumb($entity->title, $event->getURL());
+elgg_push_breadcrumb($event->title, $event->getURL());
 elgg_push_breadcrumb($title_text);
 
 // Have to do this for private events
