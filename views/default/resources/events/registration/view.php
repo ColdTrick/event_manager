@@ -3,12 +3,7 @@ $key = elgg_extract('k', $vars);
 $guid = (int) elgg_extract('guid', $vars);
 $user_guid = (int) elgg_extract('u_g', $vars);
 
-if (empty($key)) {
-	gatekeeper();
-}
-
 elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
-
 $event = get_entity($guid);
 
 $output = '';
@@ -42,6 +37,7 @@ if (!empty($key)) {
 	elgg_set_ignore_access($old_ia);
 
 } else {
+	gatekeeper();
 	
 	if (!$event->canEdit() && ($user_guid !== elgg_get_logged_in_user_guid())) {
 		forward($event->getURL());
@@ -58,7 +54,7 @@ if (!empty($key)) {
 	}
 
 	if ($user_guid == elgg_get_logged_in_user_guid()) {
-		elgg_register_menu_item('title', ElggMenuItem::factory([
+		elgg_register_menu_item('title', \ElggMenuItem::factory([
 			'name' => 'edityourregistration',
 			'text' => elgg_echo('event_manager:registration:edityourregistration'),
 			'link_class' => 'elgg-button elgg-button-action',
@@ -67,7 +63,7 @@ if (!empty($key)) {
 	}
 }
 
-elgg_register_menu_item('title', ElggMenuItem::factory([
+elgg_register_menu_item('title', \ElggMenuItem::factory([
 	'name' => 'save_to_pdf',
 	'text' => elgg_echo('event_manager:registration:view:savetopdf'),
 	'link_class' => 'elgg-button elgg-button-action',

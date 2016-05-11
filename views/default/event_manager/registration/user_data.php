@@ -14,24 +14,21 @@ if (empty($questions)) {
 	return;
 }
 
-$output = '';
 if ($show_title) {
-	$output .= elgg_format_element('h3', [], elgg_echo('event_manager:registration:view:information'));
+	echo elgg_format_element('h3', [], elgg_echo('event_manager:registration:view:information'));
 }
 
-$output .= '<table>';
-
-if (($entity->guid != elgg_get_logged_in_user_guid()) && !($entity instanceof ElggUser)) {
-	$output .= "<tr><td><label>" . elgg_echo("user:name:label") . ":</label>&nbsp;</td><td>{$entity->name}</td></tr>";
-	$output .= "<tr><td><label>" . elgg_echo("email") . ":</label>&nbsp;</td><td>{$entity->email}</td></tr>";
+if (($entity->guid != elgg_get_logged_in_user_guid()) && !($entity instanceof \ElggUser)) {
+	echo '<label>' . elgg_echo('user:name:label') . '</label>';
+	echo '<div class="mbm">' . $entity->name . '</div>';
+	
+	echo '<label>' . elgg_echo('email') . '</label>';
+	echo '<div class="mbm">' . $entity->email . '</div>';
 }
 
 foreach ($questions as $question) {
 	$answer = $question->getAnswerFromUser($entity->guid);
 
-	$output .= "<tr><td><label>{$question->title}:</label>&nbsp;</td><td>{$answer->value}</td></tr>";
+	echo '<label>' . $question->title . '</label>';
+	echo '<div class="mbm">' . $answer->value . '</div>';
 }
-
-$output .= '</table>';
-
-echo elgg_view_module('main', '', $output);

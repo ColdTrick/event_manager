@@ -1,54 +1,79 @@
 <?php
 
-$event = $vars["entity"];
+$event = elgg_extract('entity', $vars);
 $owner = $event->getOwnerEntity();
-
-$output = "";
 
 if ($event->icontime) {
 	$locator = new \Elgg\EntityDirLocator($event->getOwnerGUID());
 	$entity_path = elgg_get_data_path() . $locator->getPath();
 	
-	$filename = $entity_path . "events/{$event->guid}/medium.jpg";
+	$filename = $entity_path . "events/{$event->guid}/master.jpg";
 	$filecontents = file_get_contents($filename);
 
-	$output .= '<div><img src="data:image/jpeg;base64,' . base64_encode($filecontents) . '" border="0" /></div>';
+	echo '<div class="mbm elgg-border-plain center"><img src="data:image/jpeg;base64,' . base64_encode($filecontents) . '" border="0" /></div>';
 }
 
-$output .= '<div class="event_manager_event_view_owner">';
-$output .= elgg_echo('event_manager:event:view:createdby');
-$output .= '</span> <a class="user" href="' . $owner->getURL() . '">' . $owner->name . '</a> ';
-$output .= event_manager_format_date($event->time_created);
-$output .= '</div>';
+$start_day = $event->start_day;
+$start_time = $event->start_time;
+$end_ts = $event->end_ts;
+
+$when_title = elgg_echo('date:weekday:' . date('w', $start_day)) . ', ';
+$when_title .= elgg_echo('date:month:' . date('m', $start_day), [date('j', $start_day)]) . ' ';
+$when_title .= date('Y', $start_day);
+
+$when_subtitle = '';
+
+if (!$end_ts) {
+	$when_title .= ' ' . date('H:i', $start_time);
+} else {
+	if (date('d-m-Y', $end_ts) === date('d-m-Y', $start_day)) {
+		// same day event
+		$when_subtitle .= date('H:i', $start_time) . ' ' . strtolower(elgg_echo('to')) . ' ' . date('H:i', $end_ts);
+	} else {
+		$when_title .= ' ' . date('H:i', $start_time);
+		$when_subtitle .= strtolower(elgg_echo('to')) . ' ';
+
+		$when_subtitle .= elgg_echo('date:weekday:' . date('w', $end_ts)) . ', ';
+		$when_subtitle .= elgg_echo('date:month:' . date('m', $end_ts), [date('j', $end_ts)]) . ' ';
+		$when_subtitle .= date('Y', $end_ts) . ' ';
+		$when_subtitle .= date('H:i', $end_ts);
+	}
+}
+
+$when = "<div class='event-manager-event-when-title'>{$when_title}</div>";
+if (!empty($when_subtitle)) {
+	$when .= "<div class='event-manager-event-when-subtitle'>{$when_subtitle}</div>";
+}
+
+echo elgg_view_image_block(elgg_view_icon('calendar', ['class' => 'elgg-icon-hover']), $when, ['class' => 'event-manager-event-when']);
 
 // event details
-$event_details = "<table>";
-if ($location = $event->location) {
-	$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:location') . '</b></td><td>: ';
-	$event_details .= $location;
-	$event_details .= '</td></tr>';
+$location = $event->location;
+if ($location) {
+	echo '<label>' . elgg_echo('event_manager:edit:form:location') . '</label>';
+	echo '<div class="mbm">' . $location . '</div>';
 }
 
-$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:start_day') . '</b></td><td>: ' . event_manager_format_date($event->start_day) . '</td></tr>';
-
-if ($organizer = $event->organizer) {
-	$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:organizer') . '</b></td><td>: ' . $organizer . '</td></tr>';
+$organizer = $event->organizer;
+if ($organizer) {
+	echo '<label>' . elgg_echo('event_manager:edit:form:organizer') . '</label>';
+	echo '<div class="mbm">' . $organizer . '</div>';
 }
 
-if ($description = $event->description) {
-	$event_details .= '<tr><td><b>' . elgg_echo('description') . '</b></td><td>: ' . $description . '</td></tr>';
+$description = $event->description;
+if ($description) {
+	echo '<label>' . elgg_echo('description') . '</label>';
+	echo '<div class="mbm">' . $description . '</div>';
 }
 
-if ($region = $event->region) {
-	$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:region') . '</b></td><td>: ' . $region . '</td></tr>';
+$region = $event->region;
+if ($region) {
+	echo '<label>' . elgg_echo('event_manager:edit:form:region') . '</label>';
+	echo '<div class="mbm">' . $region . '</div>';
 }
 
-if ($type = $event->event_type) {
-	$event_details .= '<tr><td><b>' . elgg_echo('event_manager:edit:form:type') . '</b></td><td>: ' . $type . '</td></tr>';
+$type = $event->event_type;
+if ($type) {
+	echo '<label>' . elgg_echo('event_manager:edit:form:type') . '</label>';
+	echo '<div class="mbm">' . $type . '</div>';
 }
-
-$event_details .= "</table>";
-
-$output .= $event_details;
-
-echo $output;
