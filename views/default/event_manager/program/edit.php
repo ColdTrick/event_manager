@@ -69,7 +69,7 @@ $slot_sets = elgg_get_metadata([
 ]);
 
 if ($slot_sets > 0) {
-	$program .= '<span class="elgg-subtext">' . elgg_echo('This program contains slot sets. You can only select one slot for each set.') .  '</span>';
+	$program .= '<span class="elgg-subtext">' . elgg_echo('event_manager:registration:slot_set:info') .  '</span>';
 }
 
 echo elgg_view_module('info', elgg_echo('event_manager:event:program'), $program);

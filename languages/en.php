@@ -43,15 +43,10 @@ return array(
 	'event_manager:list:friendsattending' => 'Show events my friends are attending',
 
 	'event_manager:list:navigation:list' => 'List',
-	'event_manager:list:navigation:all' => 'All events',
 	'event_manager:list:navigation:other' => 'Other events',
-	'event_manager:list:navigation:owned' => 'My events',
 	'event_manager:list:navigation:your' => 'Your events',
-	'event_manager:list:navigation:friends' => 'Friends events',
 	'event_manager:list:navigation:attending' => 'Attending events',
 	'event_manager:list:navigation:onthemap' => 'On the map',
-	'event_manager:list:navigation:refreshing' => 'refreshing events',
-	'event_manager:list:count' => ' events found',
 	'event_manager:full' => 'full',
 	'event_manager:personwaitinglist' => 'person on the waiting list',
 	'event_manager:peoplewaitinglist' => 'people on the waiting list',
@@ -97,7 +92,6 @@ return array(
 	'event_manager:edit:form:start_day:from' => 'Date from',
 	'event_manager:edit:form:start_day:to' => 'Date to',
 	'event_manager:edit:form:endregistration_day' => 'End date of registration',
-	'event_manager:edit:form:multiple_days' => 'Multiple days?',
 	'event_manager:edit:form:start_time' => 'Start time',
 	'event_manager:edit:form:end_time' => 'End time',
 	'event_manager:edit:form:max_attendees' => 'Maximum attendees',
@@ -139,6 +133,7 @@ return array(
 	'event_manager:registration:yourregistration' => 'Your registration',
 	'event_manager:registration:required_fields' => 'Please fill in the required fields',
 	'event_manager:registration:required_fields:info' => 'Fields marked with a * are mandatory',
+	'event_manager:registration:slot_set:info' => 'This program contains slot sets. You can only select one slot for each set.',
 
 	'event_manager:event:registration:notification:owner:subject' => 'Event registration',
 	'event_manager:event:registration:notification:user:subject' => 'Event registration',
@@ -207,31 +202,19 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:event:registration:notification:unsubscribe:linktext' => 'If you no longer wish to attend the event use this link',
 
 	'event_manager:event:rsvp' => 'RSVP',
-	'event_manager:event:editevent' => 'Edit event',
-	'event_manager:event:deleteevent' => 'Delete event',
 	'event_manager:event:location:plan_route' => 'Plan my route',
 	'event_manager:event:uploadfiles' => 'Upload files',
 	'event_manager:event:uploadfiles:no_files' => 'Use the plus link to upload files for this event',
 	'event_manager:event:attendees' => 'Attendees',
 	'event_manager:event:program' => 'Program',
-	'event_manager:event:editprogram' => 'Edit program',
 	'event_manager:event:editquestions' => 'Edit registration questions',
 	'event_manager:event:waitinglist:empty' => 'Waiting list is empty',
-	'event_manager:event:viewregistrations' => 'View registrations',
-	'event_manager:event:viewregistration' => 'View registration',
-	'event_manager:event:noregistrations' => 'No registrations yet',
 	'event_manager:event:exportattendees' => 'Export attendees',
-	'event_manager:event:exportwaitinglist' => 'Export waitinglist',
-	'event_manager:event:currentavatar' => 'Current event icon',
-	'event_manager:event:editicon' => 'Edit icon',
-	'event_manager:event:preview' => 'Preview icon',
-	'event_manager:event:createicon' => 'Create icon',
 	'event_manager:event:search_attendees' => 'Search attendees',
 
 	'event_manager:registrationform:editquestion:required' => 'Required?',
 	'event_manager:registrationform:fieldorder:error' => 'Error changing field order',
 
-	'event_manager:event:file:notfound:title' => 'File not found',
 	'event_manager:event:file:notfound:text' => 'The file you are looking for couldn\'t be found',
 
 	'event_manager:event:register:register_link' => 'Register to this event',
@@ -246,10 +229,7 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:event:view:createdby' => 'Created by',
 
 	//Error
-	'event_manager:login_needed' => 'You need to be logged in.',
 	'event_manager:event_not_found' => 'Event not found.',
-	'event_manager:relationship_type_not_found' => 'Relationship type not found.',
-	'event_manager:error:max_attendees:not_numeric' => 'Value for \'Max Attendees\' must be a numeric value.',
 
 	// relationships
 	'event_manager:event:relationship:event_attending' => 'Attending',
@@ -270,7 +250,6 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:event:relationship:kick' => 'Kick from event',
 
 	'event_manager:event:rsvp:registration_ended' => 'Registration to this event has been ended.',
-	'event_manager:event:rsvp:event_full' => 'This event reached maximum attendees.',
 	'event_manager:event:rsvp:waiting_list' => 'Waiting list',
 	'event_manager:event:rsvp:nospotsleft' => 'This event has no spots left for it\'s activities.',
 	'event_manager:event:rsvp:waiting_list:message' => 'The event you want to attend to is full. Fill in the form below to get on the waiting list.',
@@ -306,7 +285,6 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:action:register:email:account_exists:attending' => 'There is already an account with the provided emailaddress that is already registered as an attendee for this event.',
 	'event_manager:action:register:email:account_exists:waiting' => 'There is already an account with the provided emailaddress on the waitinglist for this event.',
 	'event_manager:action:register:email:account_exists:pending' => 'There is already a registration with the provided emailaddress that is waiting for you to confirm it. We have send you the confirmation mail again.',
-	'event_manager:action:register:email:registration_exists' => 'A registration for this event with the provided emailaddress already exists. You can only register once per emailaddress.',
 	'event_manager:action:register:pending' => "Your registration is almost completed. To confirm your registration please follow the instructions the email we just sent you.",
 	'event_manager:action:resend_confirmation:success' => "Confirmation mail has been resend",
 	'event_manager:action:move_to_attendees:success' => "User has been moved to the attendees",
@@ -369,7 +347,6 @@ If you didn't request to unsubscribe from the event, please disregard this e-mai
 
 	// registration confirm
 	'event_manager:registration:confirm:error:code' => "Invalid validation code, please check your e-mail for the correct code",
-	'event_manager:registration:confirm:breadbrumb' => "Confirm your registration",
 	'event_manager:registration:confirm:title' => "Confirm registration for %s",
 	'event_manager:registration:confirm:description' => "Hi %s,
 
@@ -397,8 +374,6 @@ If you didn't register for this event, you can ignore this email or click on the
 
 	'from' => 'From',
 	'to' => 'To',
-	'approve' => 'Approve',
-	'disapprove' => 'Disapprove',
 	'requiredfields' => 'Required fields',
 	'confirm' => 'Confirm',
 );
