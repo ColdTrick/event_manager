@@ -275,6 +275,7 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	// actions
 	'event_manager:action:event:edit:ok' => 'Event saved',
 	'event_manager:action:event:edit:error_fields' => 'Fill in the required fields',
+	'event_manager:action:event:edit:end_before_start' => 'End time has to be after start time',
 	'event_manager:action:registration:edit:error_fields_with_program' => 'Fill in the required fields and select at least 1 activity slot to attend to',
 	'event_manager:action:registration:edit:error_fields_program_only' => 'Select at least 1 activity slot to attend to',
 	'event_manager:action:registration:edit:error_slots' => 'You can only select one slot for each set. More than one are detected for the set %s.',
@@ -290,7 +291,6 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:action:slot:cannot_save' => 'Something went wrong when attempting to save the slot',
 	'event_manager:action:slot:saved' => 'Slot saved',
 	'event_manager:action:slot:delete:error' => 'Can not delete the slot',
-	'event_manager:action:day:delete:error' => 'Can not delete the day',
 
 	// settings
 	'event_manager:settings:google_maps' => 'Google Maps settings',

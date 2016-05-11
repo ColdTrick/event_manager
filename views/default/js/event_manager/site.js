@@ -72,7 +72,7 @@ elgg.event_manager.init = function() {
 
 		var error_found = false;
 
-		$("#event_manager_registration_form_fields .required").each(function(index, elem){
+		$("#event_manager_registration_form_fields .elgg-field-required [required]").each(function(index, elem){
 			if ($(this).hasClass("elgg-input-radios")) {
 				if ($(this).find("input[type='radio']:checked").length === 0) {
 					error_found = true;

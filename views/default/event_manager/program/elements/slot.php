@@ -50,9 +50,9 @@ $result .= $registered_for_slot;
 $start_time = $slot->start_time;
 $end_time = $slot->end_time;
 
-$result .= "</td><td class='event_manager_program_slot_time'>";
-$result .= date('H:i', $start_time) . " - " . date('H:i', $end_time);
-$result .= "</td><td class='event_manager_program_slot_details' rel='" . $slot->getGUID() . "'>";
+$result .= "</td>";
+$result .= "<td class='event_manager_program_slot_time'>" . date('H:i', $start_time) . " - " . date('H:i', $end_time) . "</td>";
+$result .= "<td class='event_manager_program_slot_details' rel='" . $slot->getGUID() . "'>";
 $result .= "<span><b>" . $slot->title . "</b></span>";
 
 if (!empty($slot_set)) {
@@ -110,12 +110,15 @@ if (!empty($subtitle_data)) {
 
 $result .= '</td></tr>';
 
-$result .= '<tr><td>&nbsp;</td><td>';
-$result .= elgg_format_element('div', ['class' => 'event_manager_program_slot_description'], elgg_view('output/text', [
-	'value' => $slot->description
-]));
-$result .= '</td></tr>';
-
+$description = $slot->description;
+if (!empty($description)) {
+	$result .= '<tr><td>&nbsp;</td><td>';
+	$result .= elgg_format_element('div', ['class' => 'event_manager_program_slot_description'], elgg_view('output/text', [
+		'value' => $description,
+	]));
+	$result .= '</td></tr>';
+}
+	
 $result .= '</table>';
 
 echo $result;

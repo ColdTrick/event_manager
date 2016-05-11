@@ -1,8 +1,4 @@
 /* Event global */
-.event_manager_required {
-	color: #AAAAAA;
-}
-
 .event-manager-forms-label-normal label:not(.elgg-field-label) {
 	font-size: 100%;
 	font-weight: normal;
@@ -238,7 +234,7 @@
 
 .event_manager_program_slot_description{
 	word-wrap: break-word;
-	width: 500px;
+	width: 100%;
 }
 
 /* google maps */

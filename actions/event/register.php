@@ -8,8 +8,8 @@ $program_guids = get_input('program_guids');
 elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 $event = get_entity($guid);
 
-if (!empty($relation)) {
-	register_error('error:missing_data');
+if (empty($relation)) {
+	register_error(elgg_echo('error:missing_data'));
 	forward(REFERER);
 }
 

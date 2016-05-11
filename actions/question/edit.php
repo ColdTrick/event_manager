@@ -8,23 +8,21 @@ $fieldoptions = get_input('fieldoptions');
 $questiontext = get_input('questiontext');
 $required = get_input('required');
 
+elgg_entity_gatekeeper($event_guid, 'object', Event::SUBTYPE);
 $event = get_entity($event_guid);
 
 // Have to do this for private events
 $ia = elgg_set_ignore_access(true);
 
-if (!($event instanceof Event) || !($event->canEdit())) {
+if (!($event->canEdit())) {
 	elgg_set_ignore_access($ia);
 	return;
 }
 
-$question = get_entity($question_guid);
-if ($question_guid && !($question instanceof EventRegistrationQuestion)) {
-	register_error('not a question');
-	return;
-}
-
-if (empty($question)) {
+if ($question_guid) {
+	elgg_entity_gatekeeper($question_guid, 'object', EventRegistrationQuestion::SUBTYPE);
+	$question = get_entity($question_guid);
+} else {
 	$question = new EventRegistrationQuestion();
 }
 

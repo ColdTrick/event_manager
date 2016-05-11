@@ -51,8 +51,8 @@ elgg.event_manager.edit_questions_init = function() {
 			return false;
 		}
 		
-		$questionElement = $(this);
-		$questionElement.parent().hide();
+		$questionElement = $(this).parents('.elgg-module-popup').eq(0);
+		$questionElement.hide();
 		
 		elgg.action('event_manager/question/delete', {
 			data: {
@@ -60,11 +60,11 @@ elgg.event_manager.edit_questions_init = function() {
 			}, 
 			success: function(data) {
 				// remove from DOM
-				$questionElement.parent().remove();
+				$questionElement.remove();
 			},
 			error: function() {
 				// revert
-				$questionElement.parent().show();
+				$questionElement.show();
 			}
 		});
 	});

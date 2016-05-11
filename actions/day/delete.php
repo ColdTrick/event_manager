@@ -1,16 +1,10 @@
 <?php
 
-$guid = (int) get_input("guid");
-$success = false;
+$guid = (int) get_input('guid');
 
-if (!empty($guid) && ($eventDay = get_entity($guid))) {
-	if ($eventDay->getSubtype() == \ColdTrick\EventManager\Event\Day::SUBTYPE) {
-		if ($eventDay->delete()) {
-			$success = true;
-		}
-	}
-}
+elgg_entity_gatekeeper($guid, 'object', \ColdTrick\EventManager\Event\Day::SUBTYPE);
+$entity = get_entity($entity);
 
-if (!$success) {
-	register_error(elgg_echo("event_manager:action:day:delete:error"));
+if (!$entity->delete()) {
+	system_message(elgg_echo('entity:delete:success'));
 }

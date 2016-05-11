@@ -48,7 +48,7 @@ if ($details_only) {
 }
 
 $day_info = elgg_format_element('div', [
-	'class' => 'event_manager_program_day_details pbs mbs mll elgg-divide-bottom',
+	'class' => 'event_manager_program_day_details pbs mbs elgg-divide-bottom',
 	'rel' => $day->getGUID()
 ], $details);
 

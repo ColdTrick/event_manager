@@ -2,9 +2,11 @@
 
 $parent_guid = (int) get_input('parent_guid');
 
+elgg_entity_gatekeeper($parent_guid, 'object', Event::SUBTYPE);
 $event = get_entity($parent_guid);
-if (!($event instanceof Event) || !$event->canEdit()) {
-	register_error(elgg_echo('%s is not an Event', [$parent_guid]));
+
+if (!$event->canEdit()) {
+	register_error(elgg_echo('actionunauthorized'));
 	forward(REFERER);
 }
 

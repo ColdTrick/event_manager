@@ -5,34 +5,8 @@ $value = elgg_extract('value', $vars);
 $register = elgg_extract('register', $vars, false);
 $actions = '';
 
-if (empty($question) || !($question instanceof EventRegistrationQuestion)) {
+if (!($question instanceof EventRegistrationQuestion)) {
 	return;
-}
-
-if ($question->canEdit() && !$register) {
-
-	elgg_load_js('lightbox');
-	elgg_load_css('lightbox');
-	
-	$edit_question = elgg_view('output/url', [
-		'href' => 'javascript:void(0);',
-		'text' => elgg_view_icon('settings-alt'),
-		'class' => 'mlm elgg-lightbox',
-		'data-colorbox-opts' => json_encode([
-			'href' => elgg_normalize_url('events/registrationform/question?question_guid=' . $question->getGUID())
-		]),
-		'title' => elgg_echo('edit'),
-	]);
-	
-	$delete_question = elgg_view('output/url', [
-		'href' => 'javascript:void(0);',
-		'text' => elgg_view_icon('delete'),
-		'class' => 'event_manager_questions_delete',
-		'title' => elgg_echo('delete'),
-		'rel' => $question->getGUID(),
-	]);
-	
-	$actions = $edit_question . ' ' . $delete_question;
 }
 
 $fieldtypes = [
@@ -46,28 +20,55 @@ if (!array_key_exists($question->fieldtype, $fieldtypes)) {
 	return;
 }
 
-$required = '';
-$required_class = '';
+$input_type = $fieldtypes[$question->fieldtype];
 
-if ($question->required) {
-	$required = ' *';
-	$required_class = 'required';
-}
-
-$result = '';
-if (!$register) {
-	$result = elgg_view_icon('cursor-drag-arrow', 'mrm');
-}
-$result .= '<label>' . $question->title . $required . '</label>' . $actions . '<br />';
-$result .= elgg_view('input/' . $fieldtypes[$question->fieldtype], [
+$field_options = [
+	'label' => $question->title,
 	'name' => 'question_' . $question->getGUID(),
 	'value' => $value,
+	'required' => (bool) $question->required,
 	'options' => $question->getOptions(),
-	'class' => $required_class
+];
+
+if ($register) {
+	echo elgg_view_input($input_type, $field_options);
+	return;
+}
+
+if (!$question->canEdit()) {
+	return;
+}
+
+elgg_load_js('lightbox');
+elgg_load_css('lightbox');
+
+$edit_question = elgg_view('output/url', [
+	'href' => 'javascript:void(0);',
+	'text' => elgg_view_icon('settings-alt'),
+	'class' => 'mlm elgg-lightbox',
+	'data-colorbox-opts' => json_encode([
+		'href' => elgg_normalize_url('events/registrationform/question?question_guid=' . $question->getGUID())
+	]),
+	'title' => elgg_echo('edit'),
 ]);
 
-$options = ['id' => 'question_' . $question->getGUID()];
-if (!$register) {
-	$options['class'] = 'elgg-module-popup';
-}
-echo elgg_format_element('li', $options, $result);
+$delete_question = elgg_view('output/url', [
+	'href' => 'javascript:void(0);',
+	'text' => elgg_view_icon('delete'),
+	'class' => 'event_manager_questions_delete',
+	'title' => elgg_echo('delete'),
+	'rel' => $question->getGUID(),
+]);
+
+$label = elgg_view_icon('cursor-drag-arrow', 'mrm');
+$label .= $field_options['label'];
+$label .= $edit_question . ' ' . $delete_question;
+
+$field_options['label'] = $label;
+
+$options = [
+	'id' => 'question_' . $question->getGUID(),
+	'class' => 'elgg-module-popup',
+];
+
+echo elgg_format_element('li', $options, elgg_view_input($input_type, $field_options));

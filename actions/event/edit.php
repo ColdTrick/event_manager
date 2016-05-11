@@ -63,7 +63,7 @@ if (!empty($start_day)) {
 	$start_ts = mktime($start_time_hours, $start_time_minutes, 1, $date[1], $date[2], $date[0]);
 
 	if (!empty($end_ts) && ($end_ts < $start_ts)) {
-		register_error("End time has to be after start time");
+		register_error(elgg_echo('event_manager:action:event:edit:end_before_start'));
 		forward(REFERER);
 	}
 }
@@ -118,12 +118,12 @@ $event->tags = $tags;
 
 if ($newEvent) {
 	// add event create river event
-	elgg_create_river_item(array(
+	elgg_create_river_item([
 		'view' => 'river/object/event/create',
 		'action_type' => 'create',
 		'subject_guid' => elgg_get_logged_in_user_guid(),
 		'object_guid' => $event->getGUID(),
-	));
+	]);
 
 	// add optional organizer relationship
 	if ($organizer_rsvp) {
