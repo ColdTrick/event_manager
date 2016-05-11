@@ -228,9 +228,6 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:event:view:date' => 'Date',
 	'event_manager:event:view:createdby' => 'Created by',
 
-	//Error
-	'event_manager:event_not_found' => 'Event not found.',
-
 	// relationships
 	'event_manager:event:relationship:event_attending' => 'Attending',
 	'event_manager:event:relationship:event_attending:entity_menu' => '%s attendees',
@@ -281,7 +278,6 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:action:registration:edit:error_fields_with_program' => 'Fill in the required fields and select at least 1 activity slot to attend to',
 	'event_manager:action:registration:edit:error_fields_program_only' => 'Select at least 1 activity slot to attend to',
 	'event_manager:action:registration:edit:error_slots' => 'You can only select one slot for each set. More than one are detected for the set %s.',
-	'event_manager:action:event:delete:ok' => 'Event deleted',
 	'event_manager:action:register:email:account_exists:attending' => 'There is already an account with the provided emailaddress that is already registered as an attendee for this event.',
 	'event_manager:action:register:email:account_exists:waiting' => 'There is already an account with the provided emailaddress on the waitinglist for this event.',
 	'event_manager:action:register:email:account_exists:pending' => 'There is already a registration with the provided emailaddress that is waiting for you to confirm it. We have send you the confirmation mail again.',
