@@ -116,7 +116,6 @@ function event_manager_init() {
 	elgg_register_action('event_manager/question/edit', $base_dir . '/actions/question/edit.php');
 
 	elgg_register_action('event_manager/registration/edit', $base_dir . '/actions/registration/edit.php');
-	elgg_register_action('event_manager/registration/approve', $base_dir . '/actions/registration/approve.php');
 	elgg_register_action('event_manager/registration/pdf', $base_dir . '/actions/registration/pdf.php', 'public');
 	elgg_register_action('event_manager/registration/confirm', $base_dir . '/actions/registration/confirm.php', 'public');
 
