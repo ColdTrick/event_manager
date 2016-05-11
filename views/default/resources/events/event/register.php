@@ -48,7 +48,7 @@ if (!empty($guid) && ($entity = get_entity($guid))) {
 			'title' => $title,
 		));
 
-		echo elgg_view_page($title, $body, 'default', $page_vars);
+		echo elgg_view_page($title, $body, 'default');
 
 		// TODO: replace with sticky form functionality
 		$_SESSION['registerevent_values'] = null;
