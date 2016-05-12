@@ -541,7 +541,10 @@ class Event extends ElggObject {
 	 * @return array
 	 */
 	protected function countEventSlotSpots() {
-		$spots = [];
+		$spots = [
+			'total' => 0,
+			'left' => 0,
+		];
 
 		$eventDays = $this->getEventDays();
 		if (empty($eventDays)) {
