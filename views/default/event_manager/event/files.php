@@ -22,7 +22,7 @@ foreach ($files as $file) {
 	$elggfile->setFilename("events/{$event->guid}/files/{$file->file}");
 		
 	$link = elgg_view('output/url', [
-		'href' => elgg_get_inline_url($elggfile, $use_cookie),
+		'href' => elgg_get_download_url($elggfile, $use_cookie),
 		'text' => $file->title
 	]);
 	
