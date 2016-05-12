@@ -1,13 +1,15 @@
 <?php
 
 $event = elgg_extract('entity', $vars);
-if (empty($event)) {
+if (!($event instanceof Event)) {
 	return;
 }
 
 if (!$event->openForRegistration()) {
 	return;
 }
+
+$full_view = elgg_extract('full_view', $vars);
 
 if (elgg_is_logged_in()) {
 	$event_relationship_options = event_manager_event_get_relationship_options();
@@ -62,13 +64,22 @@ if (elgg_is_logged_in()) {
 		];
 	}
 		
-} elseif ($event->register_nologin) {
-	$rsvp_options[] = [
-		'link_attributes' => [
-			'href' => '/events/event/register/' . $event->getGUID(),
-		],
-		'text' => elgg_echo('event_manager:event:register:register_link'),
-	];
+} else {
+	if ($event->register_nologin) {
+		$rsvp_options[] = [
+			'link_attributes' => [
+				'href' => '/events/event/register/' . $event->getGUID(),
+			],
+			'text' => elgg_echo('event_manager:event:register:register_link'),
+		];
+	} else {
+		if ($full_view) {
+			$rsvp_options[] = [
+				'text' => elgg_echo('event_manager:event:register:log_in_first'),
+				'textonly' => true,
+			];
+		}
+	}
 }
 
 if (empty($rsvp_options)) {
@@ -77,7 +88,7 @@ if (empty($rsvp_options)) {
 
 $button_text = elgg_echo('event_manager:event:rsvp');
 
-if (elgg_extract('full_view', $vars)) {
+if ($full_view) {
 	echo '<div class="clearfix">';
 	echo '<div class="elgg-col elgg-col-1of5"><label>' . $button_text . ':</label></div>';
 	echo '<div class="elgg-col elgg-col-4of5">';
@@ -86,6 +97,12 @@ if (elgg_extract('full_view', $vars)) {
 		$attributes = (array) elgg_extract('link_attributes', $option, []);
 		$attributes['class'] = ['elgg-button', 'mrs'];
 		$text = elgg_extract('text', $option);
+		$textonly = elgg_extract('textonly', $option, false);
+		if ($textonly) {
+			echo $text;
+			continue;
+		}
+		
 		if ($text) {
 			$attributes['class'][] = 'elgg-button-submit';
 			$attributes['text'] = $text;
