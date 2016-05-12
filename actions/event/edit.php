@@ -197,6 +197,8 @@ $prefix = "events/{$event->guid}/";
 
 $icon_sizes = elgg_get_config('icon_sizes');
 
+$icon_sizes['event_banner'] = ['w' => 1920, 'h' => 1080, 'square' => false, 'upscale' => false];
+
 $icon_file = get_resized_image_from_uploaded_file('icon', 100, 100);
 
 if ($icon_file) {

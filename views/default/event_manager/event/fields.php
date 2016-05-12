@@ -7,9 +7,9 @@ $event_details = '';
 
 // event details
 if ($event->icontime) {
-	$event_details .= "<div class='mbm elgg-border-plain center'>";
+	$event_details .= "<div class='mbm elgg-border-plain event-manager-event-banner'>";
 	$event_details .= elgg_view('output/img', [
-		'src' => $event->getIconURL('master'),
+		'src' => $event->getIconURL('event_banner'),
 		'alt' => $event->title,
 	]);
 

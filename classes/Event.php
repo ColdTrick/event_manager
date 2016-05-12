@@ -798,6 +798,7 @@ class Event extends ElggObject {
 		$size = strtolower($size);
 
 		$iconsizes = (array) elgg_get_config('icon_sizes');
+		$iconsizes['event_banner'] = '';
 		if (!array_key_exists($size, $iconsizes)) {
 			$size = 'medium';
 		}
@@ -810,6 +811,10 @@ class Event extends ElggObject {
 		$file = new \ElggFile();
 		$file->owner_guid = $this->getOwnerGUID();
 		$file->setFilename("events/{$this->guid}/{$size}.jpg");
+		
+		if (($size === 'event_banner') && !$file->exists()) {
+			$file->setFilename("events/{$this->guid}/master.jpg");
+		}
 		
 		return elgg_get_inline_url($file);
 	}
