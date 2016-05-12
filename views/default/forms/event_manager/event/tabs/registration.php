@@ -73,7 +73,7 @@ echo elgg_view_input('date', [
 	'label' => elgg_echo('event_manager:edit:form:endregistration_day'),
 	'name' => 'endregistration_day',
 	'id' => 'endregistration_day',
-	'value' => (($vars['endregistration_day'] != 0) ? date('Y-m-d', $vars['endregistration_day']) : ''),
+	'value' => $vars['endregistration_day'],
 ]);
 
 $registration_ended = elgg_view('input/checkboxes', [

@@ -70,6 +70,10 @@ if ($event) {
 	}
 
 	$fields['end_day'] = date('Y-m-d', $fields['end_ts']);
+	
+	if (!empty($fields['endregistration_day'])) {
+		$fields['endregistration_day'] = date('Y-m-d', $fields['endregistration_day']);
+	}
 }
 
 if (elgg_is_sticky_form('event')) {
