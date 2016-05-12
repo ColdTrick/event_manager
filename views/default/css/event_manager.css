@@ -1,4 +1,7 @@
 /* Event global */
+.event-manager-forms-label-100 label:not(.elgg-field-label) {
+	font-size: 100%;
+}
 .event-manager-forms-label-normal label:not(.elgg-field-label) {
 	font-size: 100%;
 	font-weight: normal;
