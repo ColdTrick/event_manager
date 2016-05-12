@@ -168,10 +168,18 @@ elgg.event_manager.list_events_init = function() {
 		$('#search_type').val(selected);
 
 		if (selected == 'onthemap') {
-			require(['event_manager/maps'], function (EventMap) {
-				elgg.event_manager.map = EventMap.setup('#event_manager_onthemap_canvas');
-				elgg.event_manager.map.gmap.addListener('idle', elgg.event_manager.execute_search_map);
-			});
+			if (typeof elgg.event_manager.map === 'undefined') {
+				require(['elgg/spinner'], function(spinner) {
+					spinner.start();
+					
+					require(['event_manager/maps'], function (EventMap) {
+						elgg.event_manager.map = EventMap.setup('#event_manager_onthemap_canvas');
+						elgg.event_manager.map.gmap.addListener('idle', elgg.event_manager.execute_search_map);
+					});
+				});
+			} else {
+				elgg.event_manager.execute_search_map();
+			}
 		} else {
 			elgg.event_manager.execute_search_list();
 		}
