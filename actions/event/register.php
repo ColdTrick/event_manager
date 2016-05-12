@@ -1,5 +1,7 @@
 <?php
 
+elgg_make_sticky_form('event_register');
+
 $guid = (int) get_input('event_guid');
 $relation = get_input('relation');
 $register_type = get_input('register_type');
@@ -39,17 +41,7 @@ if ($questions = $event->getRegistrationFormQuestions()) {
 				$required_error = true;
 			}
 		}
-
-		$_SESSION['registerevent_values']['question_' . $question->getGUID()] = $answers[$question->getGUID()];
 	}
-}
-
-// @todo: replace with sticky form functions
-// @todo: make program also sticky
-
-if (empty($user)) {
-	$_SESSION['registerevent_values']['question_name'] = $answers['name'];
-	$_SESSION['registerevent_values']['question_email']	= $answers['email'];
 }
 
 if ($event->with_program && !$required_error) {
@@ -92,8 +84,6 @@ if ($required_error) {
 	}
 
 	forward(REFERER);
-} else {
-	$_SESSION['registerevent_values'] = null;
 }
 
 if (elgg_is_logged_in()) {
@@ -228,6 +218,8 @@ if (!$event->rsvp($relation, $object->getGUID())) {
 	register_error(elgg_echo('event_manager:event:relationship:message:error'));
 	forward(REFERER);
 }
+
+elgg_clear_sticky_form('event_register');
 
 if (elgg_is_logged_in()) {
 	forward("events/registration/completed/{$event->getGUID()}/{$object->getGUID()}/" . elgg_get_friendly_title($event->title));

@@ -19,10 +19,8 @@ if ($registration_form) {
 	}
 
 	foreach ($registration_form as $question) {
-		$value = null;
-		if (array_key_exists('registerevent_values', $_SESSION) && is_array($_SESSION['registerevent_values'])) {
-			$value = elgg_extract('question_' . $question->getGUID(), $_SESSION['registerevent_values']);
-		}
+
+		$value = elgg_get_sticky_value('event_register', 'question_' . $question->getGUID());
 
 		if ($value == null) {
 			if (elgg_is_logged_in()) {

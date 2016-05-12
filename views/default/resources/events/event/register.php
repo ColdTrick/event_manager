@@ -50,5 +50,4 @@ $body = elgg_view_layout('content', [
 
 echo elgg_view_page($title, $body, 'default');
 
-// TODO: replace with sticky form functionality
-$_SESSION['registerevent_values'] = null;
+elgg_clear_sticky_form('event_register');
