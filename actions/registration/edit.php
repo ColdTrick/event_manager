@@ -28,5 +28,5 @@ foreach ($registrationFields as $answer) {
 	$registration->annotate('answer', $answer, $event[0]->access_id);
 }
 
-system_message(elgg_echo('event_manager:action:event:edit:ok''));
+system_message(elgg_echo('event_manager:action:event:edit:ok'));
 forward($event[0]->getURL());
