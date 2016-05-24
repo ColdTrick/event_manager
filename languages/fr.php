@@ -1,10 +1,115 @@
 <?php
-$language = array (
-  'groups:enableevents' => 'Activer évènements de groupe',
-  'event_manager' => 'Event Manager',
-  'event_manager:group' => 'Evènements de groupe',
+/**
+ * This file was created by Translation Editor v4.0
+ * On 2016-05-18 13:38
+ * @author Translation by Florian DANIEL aka Facyla
+ */
+
+return array (
+  'event_manager:date:format' => 'Y-m-d',
+  'event_manager:menu:unsubscribe' => 'Désinscription',
+  'event_manager:menu:unsubscribe_confirm' => 'Confirmer la désinscription',
+  'event_manager:menu:registration:completed' => 'Inscription à l\'évènement effectuée',
+  'event_manager:notification:subject' => 'Un évènement a été créé',
+  'event_manager:notification:summary' => 'Un évènement a été créé',
+  'event_manager:notification:body' => '%s a créé un nouvel évènement %s',
+  'event_manager:list:group:title' => 'Évènements du groupe',
+  'event_manager:edit:form:tabs:profile' => 'Profil',
+  'event_manager:edit:form:tabs:location' => 'Localisation',
+  'event_manager:edit:form:tabs:registration' => 'Inscription',
+  'event_manager:edit:form:tabs:extra' => 'Extra',
+  'event_manager:edit:form:registration_options' => 'Options d\'inscription',
+  'event_manager:edit:form:hide_owner_block' => 'Masquer les informations de l\'auteur dans la barre latérale',
+  'event_manager:edit:form:start' => 'Début',
+  'event_manager:edit:form:end' => 'Fin',
+  'event_manager:registration:view:information' => 'Information',
+  'event_manager:event:relationship:event_interested:label' => 'Intéressés',
+  'event_manager:event:relationship:event_organizing:label' => 'Organisateurs',
+  'event_manager:action:resend_confirmation:success' => 'Un email de confirmation a été renvoyé',
+  'event_manager:action:slot:missing_fields' => 'Veuillez compléter les champs requis',
+  'event_manager:action:slot:not_found' => 'La plage horaire n\'a pas été trouvée',
+  'event_manager:action:slot:saved' => 'Plage horaire enregistrée',
+  'event_manager:action:slot:delete:error' => 'Impossible de supprimer la plage horaire',
+  'event_manager:unsubscribe:title' => 'Désinscription de : %s',
+  'event_manager:unsubscribe:confirm:subject' => 'Veuillez confirmer que vous désirez vous désinscrire de %s',
+  'event_manager:unsubscribe_confirm:title' => 'Veuillez confirmer la désinscription de : %s',
+  'event_manager:registration:completed:title' => 'Merci de votre inscription à %s',
+  'event_manager:registration:continue' => 'Poursuivre vers l\'évènement',
+  'event_manager:registration:confirm:breadbrumb' => 'Veuillez confirmer votre inscription',
+  'event_manager:registration:confirm:title' => 'Confirmation d\'inscription pour %s',
+  'river:create:object:event' => '%s a créé l\'évènement %s',
+  'confirm' => 'Confirmer',
+  'event_manager:registration:confirm:subject' => 'Veuillez confirmer votre inscription pour %s',
+  'event_manager:edit:form:slot_set' => 'Ensemble',
+  'event_manager:edit:form:slot_set:add' => 'Ajouter un ensemble',
+  'event_manager:edit:form:slot_set:empty' => 'Aucun ensemble spécifié',
+  'event_manager:registration:required_fields:info' => 'Les champs marqués avec un * sont requis',
+  'event_manager:event:registration:notification:unsubscribe:linktext' => 'Si vous ne souhaitez plus participer à cet évènement veuillez utiliser ce lien',
+  'event_manager:event:exportwaitinglist' => 'Exporter la liste d\'attente',
+  'event_manager:event:search_attendees' => 'Rechercher des participants',
+  'event_manager:event:menu:user_hover:resend_confirmation' => 'Renvoyer l\'email de confirmation',
+  'event_manager:event:menu:title:add_to_calendar' => 'Ajouter au calendrier',
+  'event_manager:event:menu:user_hover:move_to_attendees' => 'Déplacer vers les participants',
+  'event_manager:event:relationship:event_attending:entity_menu' => 'participants à %s',
+  'event_manager:event:relationship:event_attending:label' => 'Participants',
+  'event_manager:event:relationship:event_waitinglist:label' => 'Sur la liste d\'attente',
+  'event_manager:event:relationship:event_pending:label' => 'Email de validation en attente',
+  'event_manager:event:relationship:event_exhibiting:label' => 'Exposants',
+  'event_manager:event:relationship:event_presenting:label' => 'Présentateurs',
+  'event_manager:widgets:events:group' => 'Saisissez un nom de groupe pour limiter les résultats (optionnel)',
+  'event_manager:widgets:events:group_guid' => 'Saisissez un GUID de groupe pour limiter les résultats (optionnel)',
+  'event_manager:action:registration:edit:error_slots' => 'Vous ne pouvez sélectionner qu\'une seule plage horaire pour chaque ensemble. Plusieurs plage ont été détectées pour l\'ensemble %s.',
+  'event_manager:action:move_to_attendees:success' => 'L\'utilisateur a été déplacé vers les participants',
+  'event_manager:action:slot:day_not_found' => 'Le jour indiqué n\'a pas été trouvé',
+  'event_manager:action:day:delete:error' => 'Impossible de supprimer le jour',
+  'event_manager:action:unsubscribe:error:no_registration' => 'Aucune inscription trouvée pour l\'adresse email indiquée',
+  'event_manager:action:unsubscribe:error:mail' => 'Une erreur s\'est produite lors de l\'envoi de l\'email de confirmation, veuillez réessayer',
+  'event_manager:unsubscribe_confirm:error:code' => 'Le code fourni est incorrect, veuillez vérifier vos emails',
+  'event_manager:edit:form:slot_set:description' => 'L\'ajout de plages horaires aux ensembles va limiter l\'utilisateur pour s\'inscrire à seulement 1 plage horaire par ensemble',
+  'event_manager:edit:form:registration_completed' => 'Envoyer un message lorsque l\'inscription est effectuée',
+  'event_manager:edit:form:registration_completed:description' => 'Si vous ajoutez [NAME] le nom de l\'utilisateur enregistré est affiché. Si vous ajoutez [EVENT] le nom de l\'évènement est affiché.',
+  'event_manager:action:register:email:account_exists:pending' => 'Une inscription avec cette adresse email est déjà en attente de confirmation de votre part. Un email de confirmation vous a été renvoyé.',
+  'event_manager:action:register:email:registration_exists' => 'Une inscription avec cette adresse email existe déjà pour cet évènement. Vous ne pouvez vous inscrire qu\'une seule fois par adresse email.',
+  'event_manager:action:register:pending' => 'Votre inscription est quasiment terminée. Pour la confirmer, veuillez suivre les instructions dans l\'email qui vient de vous être envoyé.',
+  'event_manager:action:slot:cannot_save' => 'Une erreur est survenue lors de l\'enregistrement de la plage horaire',
+  'event_manager:action:unsubscribe:success' => 'Un email vous a été envoyé pour confirmer que vous souhaitez vous désinscrire de cet évènement. Veuillez vérifier votre boîte mail et suivre les instructions contenues dans l\'email.',
+  'event_manager:action:unsubscribe_confirm:error' => 'Une erreur inconnue est survenue lors de votre désinscription de cet évènement, veuillez réessayer.',
+  'event_manager:action:unsubscribe_confirm:success' => 'Vous avez bien été désinscrit de cet évènement',
+  'event_manager:registration:confirm:error:code' => 'Code de validation incorrect, veuillez vérifier l\'email reçu pour le bon code',
+  'event_manager:registration:confirm:delete' => 'Confirmez-vous que vous voulez supprimer cette inscription ?',
+  'event_manager:action:register:email:account_exists:attending' => 'Il existe déjà un compte avec cette adresse email enregistré comme participant à cet évènement.',
+  'event_manager:action:register:email:account_exists:waiting' => 'Il existe déjà un compte avec cette adresse email sur la liste d\'attente pour cet évènement.',
+  'event_manager:unsubscribe:description' => 'Si vous souhaitez vous désinscrire de l\'évènement %s vous pouvez saisir votre adresse email ci-dessous. Si une inscription est trouvée pour cette adresse email, vous recevrez un email de vérification avec les instructions pour terminer votre désinscription.',
+  'event_manager:unsubscribe_confirm:description' => '%s vous avez demandé à vous désinscrire de %s. Pour confirmer votre désinscription veuillez cliquer sur le bouton de confirmation ci-dessous.',
+  'event_manager:registration:completed' => '%s votre inscription a bien été effectuée pour %s. Nous espérons que vous apprécierez cet évènement.',
+  'event_manager:registration:confirm:description' => 'Bonjour %s,
+
+Pour confirmer votre inscription à l\'évènement "%s", veuillez cliquer sur le bouton Confirmer ci-dessous.
+
+Si vous ne vous êtes pas inscrit(e) à cet évènement, ou si vous souhaitez vous en désinscrire, cliquez sur le bouton Supprimer.',
+  'event_manager:registration:confirm:message' => 'Bonjour %s,
+
+Afin de terminer votre inscription à l\'évènement "%s", veuillez cliquer sur le lien suivant
+%s
+
+Si vous ne vous êtes pas inscrit(e) à cet évènement, vous pouvez ignorer cet email ou cliquer sur le lien et vous désinscrire.',
+  'event_manager:unsubscribe:confirm:message' => 'Bonjour %s,
+
+Vous avez demandé à vous désinscrire de l\'évènement %s (%s). Si cela est exact, veuillez cliquer sur le lien ci-dessous pour confirmer votre désinscription.
+
+%s
+
+Si vous n\'avez pas demandé à vous désinscrire de cet évènement, veuillez ne pas tenir compte de cet email.',
+  'event_manager:event:registration:notification:user:text:event_spotfree' => 'Bonjour %s,
+
+Une personne s\'est désinscrite de l\'évènement \'%s\' (%s). Vous n\'êtes plus sur la liste d\'attente.',
+  'event_manager:edit:form:registration_ended' => 'Désactiver les inscriptions à cet évènement',
+  'groups:enableevents' => 'Activer les évènements',
+  'event_manager' => 'Gestionnaire d\'évènements',
+  'event_manager:group' => 'Evènements du groupe',
+  'item:object:event' => '<i class="fa fa-calendar-o fa-fw"></i> Evènements',
+  'event_manager:menu:group_events' => '<i class="fa fa-calendar fa-fw"></i> Evénements',
   'event_manager:group:more' => 'Plus d\'évènements',
-  'item:object:event' => 'Evènements',
   'item:object:eventslot' => 'Evènement emplacements',
   'item:object:eventday' => 'Evènement jour',
   'item:object:eventregistration' => 'Evènement enregistrements',
@@ -12,12 +117,10 @@ $language = array (
   'item:object:eventquestions' => 'Questions évènement',
   'event_manager:menu:title' => 'Evènements',
   'event_manager:menu:events' => 'Tous les évènements',
-  'event_manager:menu:group_events' => 'Evènements de groupe',
   'event_manager:menu:new_event' => 'Créer évènement',
   'event_manager:sidebar:title' => 'Actuellement affiché',
   'river:comment:object:event' => '%s a commenté %s',
   'event_manager:list:title' => 'Evènements',
-  'event_manager:list:searchevents' => 'Rechercher des évènements',
   'event_manager:list:advancedsearch' => 'Recherche avancée',
   'event_manager:list:simplesearch' => 'Recherche simple',
   'event_manager:list:noresults' => 'Aucuns évènements trouvé',
@@ -63,7 +166,6 @@ $language = array (
   'event_manager:edit:form:with_program' => 'Spécifier un programme journalier ?',
   'event_manager:edit:form:delete_current_icon' => 'Supprimer l\'icone actuelle ?',
   'event_manager:edit:form:comments_on' => 'Commentaires activés ?',
-  'event_manager:edit:form:registration_ended' => 'Désactiver les inscriptions à cet événement',
   'event_manager:edit:form:registration_needed' => 'Inscription obligatoire pour participer ?',
   'event_manager:edit:form:show_attendees' => 'afficher les participants ?',
   'event_manager:edit:form:notify_onsignup' => 'Prévenez-moi lorsque quelqu\'un s\'inscrit',
@@ -147,9 +249,6 @@ Vous êtes maintenant inscrit(e) comme \'intéressé(e)\' à l\'évènement \'%s
   'event_manager:event:registration:notification:user:text:event_undo' => 'Bonjour %s,
 
 Vous êtes maintenant désinscrit(e) de l\'évènement \'%s\' .',
-  'event_manager:event:registration:notification:user:text:event_spotfree' => 'Bonjour %s,
-
-une personne s\'est désinscrite de l\'évènement \'%s\' . Vous n\'êtes plus sur la liste d\'attente.',
   'event_manager:event:registration:notification:program:linktext' => 'Pour voir le programme cliquez sur ce lien',
   'event_manager:event:rsvp' => 'Je souhaite',
   'event_manager:event:editevent' => 'Modifier l\'évènements',
@@ -241,4 +340,4 @@ une personne s\'est désinscrite de l\'évènement \'%s\' . Vous n\'êtes plus s
   'disapprove' => 'Refuser',
   'requiredfields' => 'Champs obligatoires',
 );
-add_translation("fr", $language);
+
