@@ -26,6 +26,11 @@
 	padding: 0 5px;
 }
 
+#event-manager-gmaps-location-search {
+	height: 400px;
+	width: 600px;
+}
+
 /* Event listing  */
 #event_manager_event_search_advanced_enable {
 	float: right;

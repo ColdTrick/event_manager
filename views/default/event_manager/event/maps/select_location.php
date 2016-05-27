@@ -1,35 +1,24 @@
 <?php
 
-$guid = get_input('guid');
+echo '<div id="event-manager-gmaps-location-search"></div>';
 
-echo '<div id="google_maps" style="width: 800px; height: 700px;">';
-echo '<div id="map_canvas" style="width: 800px; height: 600px;"></div>';
-
-$location = $event->location;
-$form_body .= '<label>' . elgg_echo('event_manager:event:edit:maps_address') . '</label>';
-$form_body .= elgg_view('input/text', [
+$form_body = elgg_view_input('text', [
+	'label' => elgg_echo('event_manager:event:edit:maps_address'),
 	'name' => 'address_search',
 	'id' => 'address_search',
-	'value' => $location
 ]);
 
-$form_body .= elgg_view('input/submit', [
-	'class' => 'elgg-button-action',
+$form_body .= elgg_view('input/button', [
+	'class' => 'elgg-button-submit elgg-button-action mrm',
 	'name' => 'address_search_submit',
-	'value' => elgg_echo('search')
-]) . '&nbsp';
+	'value' => elgg_echo('search'),
+]);
 
 $form_body .= elgg_view('input/button', [
 	'class' => 'elgg-button-submit',
 	'name' => 'address_search_save',
 	'id' => 'address_search_save',
-	'value' => elgg_echo('save')
+	'value' => elgg_echo('save'),
 ]);
 
-echo elgg_view('input/form', [
-	'id' => 'event_manager_address_search',
-	'name' => 'event_manager_address_search',
-	'body' => $form_body
-]);
-
-echo '</div>';
+echo $form_body;

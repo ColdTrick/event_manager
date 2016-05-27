@@ -61,6 +61,12 @@ define(['jquery', 'elgg', 'gmaps'], function($, elgg, GMaps) {
 				}
 			});
 		},
+		getGeocode : function(address, callback) {
+			GMaps.geocode({
+				address: address,
+				callback: callback
+			});
+		},
 	};
 
 	EventMap.setup = function(element, address, options = {}) {

@@ -132,15 +132,8 @@ echo elgg_format_element('div', [
 	'id' => 'event-manager-forms-event-edit-extra',
 ], elgg_view('forms/event_manager/event/tabs/extra', $vars));
 
-$hidden = elgg_view('output/url', [
-	'href' => "ajax/view/event_manager/event/maps/select_location?guid={$fields["guid"]}",
-	'text' => 'google maps',
-	'id' => 'openGoogleMaps',
-	'class' => 'hidden',
-]);
-
-$hidden .= elgg_view_input('hidden', ['name' => 'latitude', 'id' => 'event_latitude', 'value' => $fields['latitude']]);
-$hidden .= elgg_view_input('hidden', ['name' => 'longitude', 'id' => 'event_longitude', 'value' => $fields['longitude']]);
+$hidden = elgg_view_input('hidden', ['name' => 'latitude', 'value' => $fields['latitude']]);
+$hidden .= elgg_view_input('hidden', ['name' => 'longitude', 'value' => $fields['longitude']]);
 $hidden .= elgg_view_input('hidden', ['name' => 'guid', 'value' => $fields['guid']]);
 $hidden .= elgg_view_input('hidden', ['name' => 'container_guid', 'value' => $fields['container_guid']]);
 
