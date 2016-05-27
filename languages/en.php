@@ -71,7 +71,7 @@ return array(
 	'event_manager:edit:form:region' => 'Region',
 	'event_manager:edit:form:contact_details' => 'Contact details',
 	'event_manager:edit:form:website' => 'Website',
-	'event_manager:edit:form:twitter_hash' => 'Twitter Hash',
+	'event_manager:edit:form:twitter_hash' => 'Twitter Search',
 	'event_manager:edit:form:fee' => 'Fee',
 	'event_manager:edit:form:options' => 'Options',
 	'event_manager:edit:form:registration_options' => 'Registration options',
