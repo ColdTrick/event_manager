@@ -29,9 +29,9 @@ if (!$event) {
 }
 
 // Try and get the icon
-$filehandler = new ElggFile();
-$filehandler->owner_guid = $event->getOwnerGUID();
-$filehandler->setFilename("events/" . $event->getGUID() . '/' . $size . ".jpg");
+$filehandler = new \ElggFile();
+$filehandler->owner_guid = $event->guid;
+$filehandler->setFilename("{$size}.jpg");
 
 $success = false;
 $contents = "";

@@ -23,13 +23,11 @@ if (empty($event->files)) {
 	$filesArray = json_decode($event->files, true);
 }
 
-$prefix = "events/{$event->getGUID()}/files/";
-
 $newFilename = event_manager_sanitize_filename($_FILES['file']['name']);
 
 $fileHandler = new \ElggFile();
-$fileHandler->setFilename($prefix . $newFilename);
-$fileHandler->owner_guid = $event->owner_guid;
+$fileHandler->setFilename('files/' . $newFilename);
+$fileHandler->owner_guid = $event->guid;
 $fileHandler->open('write');
 $fileHandler->write(get_uploaded_file('file'));
 $fileHandler->close();

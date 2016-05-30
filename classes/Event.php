@@ -809,11 +809,11 @@ class Event extends ElggObject {
 		}
 		
 		$file = new \ElggFile();
-		$file->owner_guid = $this->getOwnerGUID();
-		$file->setFilename("events/{$this->guid}/{$size}.jpg");
+		$file->owner_guid = $this->guid;
+		$file->setFilename("{$size}.jpg");
 		
 		if (($size === 'event_banner') && !$file->exists()) {
-			$file->setFilename("events/{$this->guid}/master.jpg");
+			$file->setFilename("master.jpg");
 		}
 		
 		return elgg_get_inline_url($file);

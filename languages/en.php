@@ -5,6 +5,9 @@ return array(
 	'groups:enableevents' => 'Enable group events',
 	'event_manager:group' => 'Group events',
 	'event_manager:group:more' => 'More events',
+	
+	'admin:upgrades:migrate_files_to_event' => 'Event Manager files migration',
+	'admin:upgrades:migrate_files_to_event:description' => 'All event related files need to be migrated to be stored with the event, instead of in the data folder of the owner of the event.',
 
 	'item:object:event' => 'Events',
 	'item:object:eventslot' => 'Eventslots',

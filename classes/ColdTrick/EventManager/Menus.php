@@ -194,12 +194,12 @@ class Menus {
 		}
 		
 		$elggfile = new \ElggFile();
-		$elggfile->owner_guid = $event->owner_guid;
+		$elggfile->owner_guid = $event->guid;
 		
 		$use_cookie = ($event->access_id !== ACCESS_PUBLIC);
 		
 		foreach ($files as $file) {
-			$elggfile->setFilename("events/{$event->guid}/files/{$file->file}");
+			$elggfile->setFilename("files/{$file->file}");
 	
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => $file->title,

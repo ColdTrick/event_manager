@@ -17,11 +17,9 @@ if (!empty($guid) && !empty($filename)) {
 
 		foreach ($files as $index => $file) {
 			if (strtolower($file["file"]) == strtolower($filename)) {
-				$prefix = "events/" . $event->getGUID() . "/files/";
-
-				$fileHandler = new ElggFile();
-				$fileHandler->owner_guid = $event->owner_guid;
-				$fileHandler->setFilename($prefix . $file['file']);
+				$fileHandler = new \ElggFile();
+				$fileHandler->owner_guid = $event->guid;
+				$fileHandler->setFilename("files/" . $file['file']);
 
 				$fileHandler->delete();
 				unset($files[$index]);

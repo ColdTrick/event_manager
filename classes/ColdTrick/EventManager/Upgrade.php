@@ -17,4 +17,16 @@ class Upgrade {
 			}
 		}
 	}
+	
+	public static function migrateFilesFromUserToEvent($event, $type, $object) {
+		$path = 'admin/upgrades/migrate_files_to_event';
+		$upgrade = new \ElggUpgrade();
+		if (!$upgrade->getUpgradeFromPath($path)) {
+			$upgrade->setPath($path);
+			$upgrade->title = elgg_echo('admin:upgrades:migrate_files_to_event');
+			$upgrade->description = elgg_echo('admin:upgrades:migrate_files_to_event:description');
+				
+			$upgrade->save();
+		}
+	}
 }
