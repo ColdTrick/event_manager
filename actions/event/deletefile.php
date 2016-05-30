@@ -21,7 +21,7 @@ if (!empty($guid) && !empty($filename)) {
 
 				$fileHandler = new ElggFile();
 				$fileHandler->owner_guid = $event->owner_guid;
-				$fileHandler->setFilename($prefix . $file->file);
+				$fileHandler->setFilename($prefix . $file['file']);
 
 				$fileHandler->delete();
 				unset($files[$index]);
