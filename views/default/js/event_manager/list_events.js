@@ -153,7 +153,7 @@ elgg.event_manager.list_events_init = function() {
 
 	$(document).on('submit', '#event_manager_search_form', elgg.event_manager.execute_search);
 
-	$('.elgg-menu-events-list li a').click(function(e) {
+	$('.elgg-menu-events-list li a[rel]').click(function(e) {
 		e.preventDefault();
 		
 		if ($(this).parent().hasClass('elgg-state-selected')) {

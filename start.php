@@ -83,9 +83,11 @@ function event_manager_init() {
 	elgg_register_event_handler('upgrade', 'system', '\ColdTrick\EventManager\Upgrade::migrateFilesFromUserToEvent');
 
 	// hooks
+	elgg_register_plugin_hook_handler('register', 'menu:filter', '\ColdTrick\EventManager\Menus::registerFilter');
 	elgg_register_plugin_hook_handler('register', 'menu:user_hover', '\ColdTrick\EventManager\Menus::registerUserHover');
 	elgg_register_plugin_hook_handler('register', 'menu:entity', '\ColdTrick\EventManager\Menus::registerEntity', 600);
-	elgg_register_plugin_hook_handler('register', 'menu:owner_block', '\ColdTrick\EventManager\Menus::registerOwnerBlock');
+	elgg_register_plugin_hook_handler('register', 'menu:owner_block', '\ColdTrick\EventManager\Menus::registerGroupOwnerBlock');
+	elgg_register_plugin_hook_handler('register', 'menu:owner_block', '\ColdTrick\EventManager\Menus::registerUserOwnerBlock');
 	elgg_register_plugin_hook_handler('register', 'menu:event_files', '\ColdTrick\EventManager\Menus::registerEventFiles');
 	elgg_register_plugin_hook_handler('register', 'menu:events_list', '\ColdTrick\EventManager\Menus::registerEventsList');
 

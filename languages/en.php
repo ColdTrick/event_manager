@@ -25,6 +25,7 @@ return array(
 	'event_manager:menu:unsubscribe' => "Unsubscribe",
 	'event_manager:menu:unsubscribe_confirm' => "Confirm unsubscription",
 	'event_manager:menu:registration:completed' => "Event registration completed",
+	'event_manager:menu:attending' => "Attending",
 
 	'event_manager:notification:subject' => "An event has been created",
 	'event_manager:notification:summary' => "An event has been created",
@@ -50,6 +51,10 @@ return array(
 	'event_manager:list:navigation:your' => 'Your events',
 	'event_manager:list:navigation:attending' => 'Attending events',
 	'event_manager:list:navigation:onthemap' => 'On the map',
+	
+	'event_manager:owner:title' => '%s\'s events',
+	'event_manager:attending:title' => 'Events %s is attending',
+	
 	'event_manager:full' => 'full',
 	'event_manager:personwaitinglist' => 'person on the waiting list',
 	'event_manager:peoplewaitinglist' => 'people on the waiting list',

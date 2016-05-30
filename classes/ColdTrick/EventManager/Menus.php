@@ -143,7 +143,7 @@ class Menus {
 	}
 	
 	/**
-	 * add menu item to owner block
+	 * add menu item for groups to owner block
 	 *
 	 * @param string $hook        hook name
 	 * @param string $entity_type hook type
@@ -152,7 +152,7 @@ class Menus {
 	 *
 	 * @return array
 	 */
-	public static function registerOwnerBlock($hook, $entity_type, $returnvalue, $params) {
+	public static function registerGroupOwnerBlock($hook, $entity_type, $returnvalue, $params) {
 	
 		$group = elgg_extract('entity', $params);
 		if (!($group instanceof \ElggGroup)) {
@@ -167,6 +167,32 @@ class Menus {
 			'name' => 'events',
 			'text' => elgg_echo('event_manager:menu:group_events'),
 			'href' => 'events/event/list/' . $group->getGUID(),
+		]);
+	
+		return $returnvalue;
+	}
+	
+	/**
+	 * add menu item to user owner block
+	 *
+	 * @param string $hook        hook name
+	 * @param string $entity_type hook type
+	 * @param array  $returnvalue current return value
+	 * @param array  $params      parameters
+	 *
+	 * @return array
+	 */
+	public static function registerUserOwnerBlock($hook, $entity_type, $returnvalue, $params) {
+	
+		$user = elgg_extract('entity', $params);
+		if (!($user instanceof \ElggUser)) {
+			return;
+		}
+	
+		$returnvalue[] = \ElggMenuItem::factory([
+			'name' => 'events',
+			'text' => elgg_echo('item:object:event'),
+			'href' => 'events/owner/' . $user->username,
 		]);
 	
 		return $returnvalue;
@@ -235,6 +261,46 @@ class Menus {
 			'text' => elgg_echo('event_manager:list:navigation:onthemap'),
 			'href' => 'javascript:void(0);',
 			'rel' => 'onthemap',
+		]);
+		if (elgg_is_logged_in()) {
+			$returnvalue[] = \ElggMenuItem::factory([
+				'name' => 'attending',
+				'text' => elgg_echo('event_manager:menu:attending'),
+				'href' => 'events/attending/' . elgg_get_logged_in_user_entity()->username,
+			]);
+		}
+		
+		return $returnvalue;
+	}
+	
+	/**
+	 * Add filter tabs for user filter menu
+	 *
+	 * @param string $hook        hook name
+	 * @param string $entity_type hook type
+	 * @param array  $returnvalue current return value
+	 * @param array  $params      parameters
+	 *
+	 * @return array
+	 */
+	public static function registerFilter($hook, $entity_type, $returnvalue, $params) {
+		$returnvalue = [];
+		
+		$returnvalue[] = \ElggMenuItem::factory([
+			'name' => 'all',
+			'text' => elgg_echo('all'),
+			'href' => 'events',
+		]);
+		$returnvalue[] = \ElggMenuItem::factory([
+			'name' => 'mine',
+			'text' => elgg_echo('mine'),
+			'href' => 'events/owner/' . elgg_get_logged_in_user_entity()->username,
+		]);
+		
+		$returnvalue[] = \ElggMenuItem::factory([
+			'name' => 'attending',
+			'text' => elgg_echo('event_manager:menu:attending'),
+			'href' => 'events/attending/' . elgg_get_logged_in_user_entity()->username,
 		]);
 		
 		return $returnvalue;

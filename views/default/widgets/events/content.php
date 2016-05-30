@@ -10,18 +10,23 @@ $event_options = ['limit' => $num_display];
 
 $owner = $widget->getOwnerEntity();
 
+$more_link = '/events';
+
 switch ($owner->getType()) {
 	case 'group':
 		$event_options['container_guid'] = $owner->getGUID();
+		$more_link = '/events/event/list/' . $widget->getOwnerGUID();
 		break;
 	case 'user':
 		$event_options['user_guid'] = $owner->getGUID();
 		switch ($widget->type_to_show) {
 			case 'owning':
 				$event_options['owning'] = true;
+				$more_link = '/events/owner/' . $owner->username;
 				break;
 			case 'attending':
 				$event_options['meattending'] = true;
+				$more_link = '/events/attending/' . $owner->username;
 				break;
 		}
 		break;
@@ -50,11 +55,6 @@ echo $content;
 
 if (empty($events['count'])) {
 	return;
-}
-
-$more_link = '/events';
-if ($owner instanceof ElggGroup) {
-	$more_link = '/events/event/list/' . $widget->getOwnerGUID();
 }
 
 echo elgg_format_element('div', ['class' => 'elgg-widget-more'], elgg_view('output/url', ['text' => elgg_echo('event_manager:group:more'), 'href' => $more_link]));

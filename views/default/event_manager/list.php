@@ -2,7 +2,7 @@
 
 $entities = elgg_extract('entities', $vars);
 
-$result = elgg_view_menu('events_list', ['class' => 'elgg-tabs']);
+$result = elgg_view_menu('events_list', ['class' => 'elgg-tabs', 'sort_by' => 'register']);
 
 $options = [
 	'count' => elgg_extract('count', $vars),

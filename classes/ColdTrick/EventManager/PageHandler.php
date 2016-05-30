@@ -16,6 +16,22 @@ class PageHandler {
 		
 		if (!empty($page)) {
 			switch ($page[0]) {
+				case 'owner':
+					$username = elgg_extract(1, $page);
+					$user = get_user_by_username($username);
+					if ($user) {
+						elgg_set_page_owner_guid($user->guid);
+						echo elgg_view_resource('events/event/owner');
+						return true;
+					}
+				case 'attending':
+					$username = elgg_extract(1, $page);
+					$user = get_user_by_username($username);
+					if ($user) {
+						elgg_set_page_owner_guid($user->guid);
+						echo elgg_view_resource('events/event/attending');
+						return true;
+					}
 				case 'registrationform':
 					echo elgg_view_resource('events/registrationform/' . $page[1], [
 						'guid' => elgg_extract(2, $page),
