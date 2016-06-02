@@ -411,7 +411,7 @@ class Event extends ElggObject {
 		if ($html_email_handler_enabled) {
 			$event_title_link = elgg_view("output/url", array(
 				"text" => $this->title,
-				"href" => $this->getURL()
+				"href" => $this->getURL(),
 			));
 		} else {
 			$event_title_link = $this->title;
@@ -423,16 +423,17 @@ class Event extends ElggObject {
 		// notify the attending user
 		$user_subject = elgg_echo('event_manager:event:registration:notification:user:subject');
 
-		$user_message = elgg_echo('event_manager:event:registration:notification:user:text:' . $type, array(
+		$user_message = elgg_echo('event_manager:event:registration:notification:user:text:' . $type, [
 			$to_entity->name,
-			$event_title_link
-		));
+			$event_title_link,
+		]);
 
 		$user_message .= $registrationLink . $unsubscribeLink;
 
 		if ($to_entity instanceof ElggUser) {
 			// use notification system for real users
-			notify_user($to, $this->getOwnerGUID(), $user_subject, $user_message);
+			$summary = elgg_echo('event_manager:event:registration:notification:user:summary:' . $type, [$event_title_link]);
+			notify_user($to, $this->getOwnerGUID(), $user_subject, $user_message, ['summary' => $summary]);
 		} else {
 			// send e-mail for non users
 			$to_email = $to_entity->name . "<" . $to_entity->email . ">";
@@ -484,16 +485,20 @@ class Event extends ElggObject {
 	 *
 	 * @return void
 	 */
-	protected function notifyOwnerOnRSVP($type, ElggEntity $to, $event_title_link, $registration_link = "") {
+	protected function notifyOwnerOnRSVP($type, ElggEntity $to, $event_title_link, $registration_link = '') {
 		$owner_subject = elgg_echo('event_manager:event:registration:notification:owner:subject');
 
-		$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, array(
+		$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, [
 			$this->getOwnerEntity()->name,
 			$to->name,
-			$event_title_link
-		)) . $registration_link;
-
-		notify_user($this->getOwnerGUID(), $this->getOwnerGUID(), $owner_subject, $owner_message);
+			$event_title_link,
+		]) . $registration_link;
+		
+		$summary = elgg_echo('event_manager:event:registration:notification:owner:summary:' . $type, [
+			$to->name,
+			$event_title_link,
+		]);
+		notify_user($this->getOwnerGUID(), $this->getOwnerGUID(), $owner_subject, $owner_message, ['summary' => $summary]);
 	}
 
 	/**
