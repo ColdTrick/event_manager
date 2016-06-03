@@ -284,6 +284,10 @@ class Menus {
 	 * @return array
 	 */
 	public static function registerFilter($hook, $entity_type, $returnvalue, $params) {
+		if (!elgg_in_context('events')) {
+			return;
+		}
+		
 		$returnvalue = [];
 		
 		$returnvalue[] = \ElggMenuItem::factory([
