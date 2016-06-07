@@ -28,10 +28,10 @@ if (!$end_ts) {
 } else {
 	if (date('d-m-Y', $end_ts) === date('d-m-Y', $start_day)) {
 		// same day event
-		$when_subtitle .= date('H:i', $start_time) . ' ' . strtolower(elgg_echo('to')) . ' ' . date('H:i', $end_ts);
+		$when_subtitle .= date('H:i', $start_time) . ' ' . strtolower(elgg_echo('event_manager:date:to')) . ' ' . date('H:i', $end_ts);
 	} else {
 		$when_title .= ' ' . date('H:i', $start_time);
-		$when_subtitle .= strtolower(elgg_echo('to')) . ' ';
+		$when_subtitle .= strtolower(elgg_echo('event_manager:date:to')) . ' ';
 
 		$when_subtitle .= elgg_echo('date:weekday:' . date('w', $end_ts)) . ', ';
 		$when_subtitle .= elgg_echo('date:month:' . date('m', $end_ts), [date('j', $end_ts)]) . ' ';

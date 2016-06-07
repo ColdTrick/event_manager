@@ -23,7 +23,7 @@ return array (
   'event_manager:edit:form:tabs:extra' => 'Extra',
   'event_manager:event:registration:notification:unsubscribe:linktext' => 'Als je je wilt uitschrijven van dit evenement gebruik dan deze link',
   'event_manager:event:menu:title:add_to_calendar' => 'Toevoegen aan de kalender',
-  'to' => 'Tonga',
+  'event_manager:date:to' => 'Tot',
   'event_manager:event:menu:user_hover:resend_confirmation' => 'Herzend bevestigings email',
   'event_manager:event:menu:user_hover:move_to_attendees' => 'Verplaats naar deelnemers',
   'event_manager:event:relationship:event_pending:label' => 'In afwachting van email validatie',

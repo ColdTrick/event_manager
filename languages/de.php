@@ -302,7 +302,7 @@ Falls du dich nicht f&uuml;r diese Veranstaltung angemeldet hast, kannst du dies
   'event_manager:river:event_relationship:create:event_exhibiting' => '%s stellt aus an %s',
   'event_manager:river:event_relationship:create:event_organizing' => '%s organisiert %s',
   'river:create:object:event' => '%s hat eine Veranstaltung erstellt %s',
-  'to' => 'An',
+  'event_manager:date:to' => 'An',
   'requiredfields' => 'Ben&ouml;tigte Felder',
   'confirm' => 'Best&auml;tigen',
 );

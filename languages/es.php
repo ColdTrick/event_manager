@@ -300,7 +300,7 @@ Si no te inscribiste en este evento, puedes ignorar este e-mail o hacer click en
   'event_manager:river:event_relationship:create:event_exhibiting' => '%s está exponiendo %s',
   'event_manager:river:event_relationship:create:event_organizing' => '%s está organizando %s',
   'river:create:object:event' => '%s creó el evento %s',
-  'to' => 'Hasta',
+  'event_manager:date:to' => 'Hasta',
   'requiredfields' => 'Campos obligatorios',
   'confirm' => 'Confirmar',
 );

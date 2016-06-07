@@ -213,6 +213,6 @@ une personne s\'est désinscrite de l\'évènement \'%s\' . Vous n\'êtes plus s
   'event_manager:river:event_relationship:create:event_presenting' => '%s anime à %s',
   'event_manager:river:event_relationship:create:event_exhibiting' => '%s expose à %s',
   'event_manager:river:event_relationship:create:event_organizing' => '%s organise l\'évènement %s',
-  'to' => 'Vers',
+  'event_manager:date:to' => 'Vers',
   'requiredfields' => 'Champs obligatoires',
 );
