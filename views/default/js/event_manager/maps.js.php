@@ -10,11 +10,10 @@ $zoom_level = (int) elgg_get_plugin_setting('google_maps_default_zoom', 'event_m
 ?>
 //<script>
 define(['jquery', 'elgg', 'gmaps'], function($, elgg, GMaps) {
-	
 	function EventMap(options) {
 		var map_attrs = {
 			mapTypeControl: true,
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			mapType: 'roadmap',
 			zoomControl: true,
 			zoom: <?php echo $zoom_level; ?>,
 			streetViewControl: true,

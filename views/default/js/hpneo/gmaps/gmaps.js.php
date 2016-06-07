@@ -8,7 +8,7 @@ $maps_key = elgg_get_plugin_setting('google_api_key', 'event_manager');
     module.exports = factory();
   }
   else if(typeof define === 'function' && define.amd) {
-    define(['jquery', 'async!//maps.googleapis.com/maps/api/js?key=<?php echo $maps_key; ?>'], factory);
+    define('gmaps', ['jquery', 'requirejs/async/async!//maps.googleapis.com/maps/api/js?key=<?php echo $maps_key; ?>'], factory);
   }
   else {
     root.GMaps = factory();

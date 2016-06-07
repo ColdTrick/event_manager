@@ -70,9 +70,9 @@ function event_manager_init() {
 	elgg_register_widget_type('events', elgg_echo('event_manager:widgets:events:title'), elgg_echo('event_manager:widgets:events:description'), ['index', 'dashboard', 'profile', 'groups']);
 
 	// register js libraries
-	
-	elgg_define_js('async', ['src' => elgg_get_simplecache_url('js/requirejs/async/async.js')]);
-	elgg_define_js('gmaps', ['src' => elgg_get_simplecache_url('js/hpneo/gmaps/gmaps.js')]);
+	elgg_define_js('gmaps', [
+		'src' => elgg_get_simplecache_url('js/hpneo/gmaps/gmaps.js'),
+	]);
 	elgg_define_js('event_manager/maps', ['src' => elgg_get_simplecache_url('js/event_manager/maps.js')]);
 
 	// page handlers
