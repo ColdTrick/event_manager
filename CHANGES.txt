@@ -4,7 +4,6 @@ Version history
 x.x:
 
 - added: map is now showing on the detail page of an event
-- removed: no longer showing by line on events
 - removed: no longer support a setting to hide the owner block in the sidebar
 - changed: restructured the event view page
 - changed: now using the google maps API as an AMD module

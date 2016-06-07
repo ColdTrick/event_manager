@@ -28,7 +28,7 @@ $params = [
 	'title' => false,
 	'tags' => false,
 	'metadata' => $entity_menu,
-	'subtitle' => false,
+	'subtitle' => elgg_view('page/elements/by_line', $vars),
 ];
 $params = $params + $vars;
 $summary = elgg_view('object/elements/summary', $params);
