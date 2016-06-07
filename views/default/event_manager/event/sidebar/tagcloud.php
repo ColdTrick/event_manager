@@ -10,6 +10,10 @@ if (empty($tags)) {
 	return;
 }
 
+if (!is_array($tags)) {
+	$tags = (array) $tags;
+}
+
 if (elgg_view_exists('output/tagcloud')) {
 	$tag_data = [];
 	foreach ($tags as $tag) {
