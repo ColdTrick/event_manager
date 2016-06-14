@@ -19,6 +19,8 @@ class Upgrade {
 	}
 	
 	public static function migrateFilesFromUserToEvent($event, $type, $object) {
+		$ia = elgg_set_ignore_access(true);
+		
 		$path = 'admin/upgrades/migrate_files_to_event';
 		$upgrade = new \ElggUpgrade();
 		if (!$upgrade->getUpgradeFromPath($path)) {
@@ -28,5 +30,7 @@ class Upgrade {
 				
 			$upgrade->save();
 		}
+		
+		elgg_set_ignore_access($ia);
 	}
 }
