@@ -87,10 +87,6 @@ if ($region == '-') {
 	$region = '';
 }
 
-if (!empty($tags)) {
-	$tags = string_to_tag_array($tags);
-}
-
 if (!empty($max_attendees) && !is_numeric($max_attendees)) {
 	$max_attendees = "";
 }
@@ -114,7 +110,7 @@ $event->save();
 
 $event->setLocation($location);
 $event->setLatLong($latitude, $longitude);
-$event->tags = $tags;
+$event->tags = string_to_tag_array($tags);
 
 if ($newEvent) {
 	// add event create river event
