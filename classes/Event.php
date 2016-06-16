@@ -432,8 +432,16 @@ class Event extends ElggObject {
 
 		if ($to_entity instanceof ElggUser) {
 			// use notification system for real users
-			$summary = elgg_echo('event_manager:event:registration:notification:user:summary:' . $type, [$event_title_link]);
-			notify_user($to, $this->getOwnerGUID(), $user_subject, $user_message, ['summary' => $summary]);
+			$summary = elgg_echo('event_manager:event:registration:notification:user:summary:' . $type, [$this->title]);
+			
+			// set params for site notifications
+			$params = [
+				'summary' => $summary,
+				'object' => $this,
+				'action' => 'rsvp',
+			];
+			
+			notify_user($to, $this->getOwnerGUID(), $user_subject, $user_message, $params);
 		} else {
 			// send e-mail for non users
 			$to_email = $to_entity->name . "<" . $to_entity->email . ">";
@@ -496,9 +504,17 @@ class Event extends ElggObject {
 		
 		$summary = elgg_echo('event_manager:event:registration:notification:owner:summary:' . $type, [
 			$to->name,
-			$event_title_link,
+			$this->title,
 		]);
-		notify_user($this->getOwnerGUID(), $this->getOwnerGUID(), $owner_subject, $owner_message, ['summary' => $summary]);
+		
+		// set params for site notifications
+		$params = [
+			'summary' => $summary,
+			'object' => $this,
+			'action' => 'rsvp_owner',
+		];
+		
+		notify_user($this->getOwnerGUID(), $this->getOwnerGUID(), $owner_subject, $owner_message, $params);
 	}
 
 	/**
