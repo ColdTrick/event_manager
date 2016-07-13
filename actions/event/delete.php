@@ -9,12 +9,12 @@ $container = $entity->getContainerEntity();
 if ($container instanceof \ElggGroup) {
 	$forward = 'events/event/list/' . $container->getGUID();
 }
-
+$title = $entity->title;
 if ($entity->delete()) {
-	system_message(elgg_echo('entity:delete:success'));
+	system_message(elgg_echo('entity:delete:success', [$title]));
 	forward($forward);
 } else {
-	register_error(elgg_echo('entity:delete:fail', [$entity->title]));
+	register_error(elgg_echo('entity:delete:fail', [$title]));
 }
 
 forward(REFERER);
