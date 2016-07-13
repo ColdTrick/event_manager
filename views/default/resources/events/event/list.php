@@ -6,7 +6,8 @@ $title_text = elgg_echo('event_manager:list:title');
 
 $event_options = [];
 
-if (($page_owner = elgg_get_page_owner_entity()) && ($page_owner instanceof ElggGroup)) {
+$page_owner = elgg_get_page_owner_entity();
+if ($page_owner instanceof \ElggGroup) {
 	group_gatekeeper();
 	$title_text = elgg_echo('event_manager:list:group:title');
 
@@ -15,7 +16,7 @@ if (($page_owner = elgg_get_page_owner_entity()) && ($page_owner instanceof Elgg
 	$event_options['container_guid'] = $page_owner->getGUID();
 
 	$who_create_group_events = elgg_get_plugin_setting('who_create_group_events', 'event_manager'); // group_admin, members
-	if ((($who_create_group_events == 'group_admin') && $page_owner->canEdit()) || (($who_create_group_events == 'members') && $page_owner->isMember($user))) {
+	if ((($who_create_group_events == 'group_admin') && $page_owner->canEdit()) || ((($who_create_group_events == 'members') && $page_owner->isMember($user)) || $page_owner->canEdit())) {
 		elgg_register_menu_item('title', [
 			'name' => 'new',
 			'href' => 'events/event/new/' . $page_owner->getGUID(),

@@ -21,11 +21,11 @@ if (!$event) {
 	$forward = true;
 	$page_owner = elgg_get_page_owner_entity();
 
-	if ($page_owner && ($page_owner instanceof ElggGroup)) {
+	if ($page_owner instanceof \ElggGroup) {
 		$who_create_group_events = elgg_get_plugin_setting('who_create_group_events', 'event_manager'); // group_admin, members
 
 		if (!empty($who_create_group_events)) {
-			if ((($who_create_group_events == 'group_admin') && $page_owner->canEdit()) || (($who_create_group_events == 'members') && $page_owner->isMember())) {
+			if ((($who_create_group_events == 'group_admin') && $page_owner->canEdit()) || ((($who_create_group_events == 'members') && $page_owner->isMember()) || $page_owner->canEdit())) {
 				$forward = false;
 			}
 		}
