@@ -295,7 +295,6 @@ If you didn\'t register for this event, you can ignore this email or click on th
   'event_manager:river:event_relationship:create:event_exhibiting' => '%s toimii näytteillepanijana tapahtumassa %s',
   'event_manager:river:event_relationship:create:event_organizing' => '%s on järjestäjänä tapahtumassa %s',
   'river:create:object:event' => '%s lisäsi tapahtuman %s',
-  'event_manager:date:to' => 'event_manager:date:to',
   'requiredfields' => 'Pakolliset kentät',
   'confirm' => 'Confirm',
 );

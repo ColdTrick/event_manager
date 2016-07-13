@@ -392,7 +392,7 @@ If you didn't register for this event, you can ignore this email or click on the
 
 	'river:create:object:event' => '%s created event %s',
 
-	'event_manager:date:to' => 'event_manager:date:to',
+	'event_manager:date:to' => 'to',
 	'requiredfields' => 'Required fields',
 	'confirm' => 'Confirm',
 );
