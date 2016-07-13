@@ -28,7 +28,6 @@ if ($event->end_ts) {
 
 $title = $event->title;
 $description = elgg_get_excerpt($event->description, 500);
-$organizer = $event->organizer;
 
 ?>
 <span class="addthisevent">
@@ -39,7 +38,6 @@ $organizer = $event->organizer;
 		<span class="title"><?php echo $title; ?></span>
 		<span class="description"><?php echo $description; ?></span>
 		<span class="location"><?php echo $location; ?></span>
-		<span class="organizer"><?php echo $organizer;?></span>
 		<span class="date_format">DD/MM/YYYY</span>
 	</div>
 </span>
