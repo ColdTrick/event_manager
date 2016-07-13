@@ -309,4 +309,33 @@ class Menus {
 		
 		return $returnvalue;
 	}
+	
+	/**
+	 * Removes unwanted menu items from activity items if it is an event RSVP
+	 *
+	 * @param string $hook        hook name
+	 * @param string $entity_type hook type
+	 * @param array  $returnvalue current return value
+	 * @param array  $params      parameters
+	 *
+	 * @return array
+	 */
+	public static function stripEventRelationshipRiverMenuItems($hook, $entity_type, $returnvalue, $params) {
+		$item = elgg_extract('item', $params);
+		if (!($item instanceof \ElggRiverItem)) {
+			return;
+		}
+		if ($item->view !== 'river/event_relationship/create') {
+			return;
+		}
+		
+		foreach ($returnvalue as $key => $menu_item) {
+			if ($menu_item->getName() === 'delete') {
+				continue;
+			}
+			unset($returnvalue[$key]);
+		}
+		
+		return $returnvalue;
+	}
 }

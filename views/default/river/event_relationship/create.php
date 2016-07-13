@@ -1,16 +1,27 @@
 <?php
 
-$user = get_entity($vars['item']->subject_guid);
-$event = get_entity($vars['item']->object_guid);
+$item = elgg_extract('item', $vars);
 
-$subject_url = "<a href='" . $user->getURL() . "'>" . $user->name . "</a>";
-$event_url = "<a href='" . $event->getURL() . "'>" . $event->title . "</a>";
+$user = $item->getSubjectEntity();
+$event = $item->getObjectEntity();
 
-$relationtype = $event->getRelationshipByUser($user->getGUID()); 
+$subject_url = elgg_view('output/url', [
+	'href' => $user->getURL(),
+	'text' => $user->name,
+]);
+$event_url = elgg_view('output/url', [
+	'href' => $event->getURL(),
+	'text' => $event->title,
+]);
 
-$string = elgg_echo("event_manager:river:event_relationship:create:" . $relationtype, array($subject_url, $event_url));
+$relationtype = $event->getRelationshipByUser($user->getGUID());
 
-echo elgg_view("river/item", array(
-	"item" => $vars['item'],
-	"summary" => $string
-));
+$string = elgg_echo("event_manager:river:event_relationship:create:{$relationtype}", [$subject_url, $event_url]);
+
+echo elgg_view('river/elements/layout', [
+	'item' => $item,
+	'summary' => $string,
+
+	// truthy value to bypass responses rendering
+	'responses' => ' ',
+]);
