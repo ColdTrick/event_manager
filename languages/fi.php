@@ -34,7 +34,7 @@ return array (
   'event_manager:list:noresults' => 'Ei tapahtumia',
   'event_manager:list:showmorevents' => 'Näytä lisää',
   'event_manager:list:includepastevents' => 'Näytä menneet tapahtumat',
-  'event_manager:list:meattending' => 'Näytä tapahtumat, joihin osallistun',
+  'event_manager:list:attending' => 'Näytä tapahtumat, joihin osallistun',
   'event_manager:list:owning' => 'Näytä omat tapahtumani',
   'event_manager:list:friendsattending' => 'Näytä tapahtumat, joihin ystäväni osallistuvat',
   'event_manager:list:navigation:list' => 'Lista',

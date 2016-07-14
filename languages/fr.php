@@ -27,7 +27,7 @@ return array (
   'event_manager:list:noresults' => 'Aucuns évènements trouvé',
   'event_manager:list:showmorevents' => 'Afficher plus d\'évènements',
   'event_manager:list:includepastevents' => 'Inclure les évènements passés',
-  'event_manager:list:meattending' => 'Montrer les évènements auquels je participe',
+  'event_manager:list:attending' => 'Montrer les évènements auquels je participe',
   'event_manager:list:owning' => 'Montrer les évènements que j\'ai créé',
   'event_manager:list:friendsattending' => 'Montrer les évènements auquels mes contacts participent',
   'event_manager:list:navigation:list' => 'Liste',

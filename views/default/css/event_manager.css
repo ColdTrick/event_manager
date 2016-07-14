@@ -32,12 +32,6 @@
 }
 
 /* Event listing  */
-#event_manager_event_search_advanced_enable {
-	float: right;
-	font-size: 12px;
-	font-weight: normal;
-}
-
 .event_manager_event_list_search_input {
 	width: 300px;
 }
@@ -109,14 +103,18 @@
 	font-weight: normal;
 	font-size: 100%;
 }
+#event_manager_search_form .elgg-field {
+	margin: 0;
+}
 
-#past_events {
+#event-manager-search-form-past-events  {
 	display: inline-block;
+	margin-left: 10px;
 }
 
 #event_manager_event_search_advanced_container .elgg-input-dropdown,
 #event_manager_event_search_advanced_container .elgg-input-date {
-	width: 100px;
+	width: 200px;
 }
 
 /* Event view */

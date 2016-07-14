@@ -42,7 +42,7 @@ return array(
 	'event_manager:list:noresults' => 'No events found',
 	'event_manager:list:showmorevents' => 'Show more events',
 	'event_manager:list:includepastevents' => 'Include past events',
-	'event_manager:list:meattending' => 'Show events I\'m  attending',
+	'event_manager:list:attending' => 'Show events I\'m  attending',
 	'event_manager:list:owning' => 'Show events I created',
 	'event_manager:list:friendsattending' => 'Show events my friends are attending',
 

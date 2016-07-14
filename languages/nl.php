@@ -141,7 +141,7 @@ Iemand heeft zich afgemeld van het \'%s\' evenement (%s). Je bent van de wachtli
   'event_manager:list:noresults' => 'Geen evenementen gevonden',
   'event_manager:list:showmorevents' => 'Geef meer evenementen weer',
   'event_manager:list:includepastevents' => 'Inclusief evenementen in het verleden',
-  'event_manager:list:meattending' => 'Laat evenementen zien waar ik aan deelneem',
+  'event_manager:list:attending' => 'Laat evenementen zien waar ik aan deelneem',
   'event_manager:list:owning' => 'Laat evenementen zien die ik aangemaakt heb',
   'event_manager:list:friendsattending' => 'Laat evenementen zien waar mijn vrienden aan deelnemen',
   'event_manager:list:navigation:list' => 'Lijst',

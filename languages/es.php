@@ -34,7 +34,7 @@ return array (
   'event_manager:list:noresults' => 'No se econtraron eventos',
   'event_manager:list:showmorevents' => 'Mostrar más eventos',
   'event_manager:list:includepastevents' => 'Incluir eventos pasados',
-  'event_manager:list:meattending' => 'Mostrar los eventos a los que estoy asistiendo',
+  'event_manager:list:attending' => 'Mostrar los eventos a los que estoy asistiendo',
   'event_manager:list:owning' => 'Mostrar los eventos que he creado',
   'event_manager:list:friendsattending' => 'Mostrar los eventos a los que mis amigos están asistiendo',
   'event_manager:list:navigation:list' => 'Lista',

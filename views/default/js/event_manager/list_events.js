@@ -111,9 +111,8 @@ elgg.event_manager.list_events_init = function() {
 	require(['elgg/spinner']);
 	
 	$('#event_manager_event_search_advanced_enable').click(function() {
-		$('#event_manager_event_search_advanced_container, #past_events, #event_manager_event_search_advanced_enable span').toggle();
 
-		if($('#past_events').is(":hidden")) {
+		if($('#event-manager-search-form-past-events').is(":hidden")) {
 			$('#advanced_search').val('1');
 		} else {
 			$('#advanced_search').val('0');
@@ -130,7 +129,7 @@ elgg.event_manager.list_events_init = function() {
 			
 			var formData = '';
 			
-			if ($('#past_events').is(":hidden") === true) {
+			if ($('#event-manager-search-form-past-events').is(":hidden") === true) {
 				formData = $("#event_manager_search_form").serialize();
 			} else {
 				formData = $($("#event_manager_search_form")[0].elements).not($("#event_manager_event_search_advanced_container")[0].children).serialize();
