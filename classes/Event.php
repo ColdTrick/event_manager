@@ -100,6 +100,51 @@ class Event extends ElggObject {
 	}
 
 	/**
+	 * Correctly sets the max attendees
+	 *
+	 * @param string $max the max attendees
+	 *
+	 * @return void
+	 */
+	public function setMaxAttendees($max) {
+		if (!empty($max) && !is_numeric($max)) {
+			$max = '';
+		}
+		
+		$this->maxattendees = $max;
+	}
+
+	/**
+	 * Correctly sets the region
+	 *
+	 * @param string $max the region
+	 *
+	 * @return void
+	 */
+	public function setRegion($region) {
+		if ($region == '-') {
+			$region = '';
+		}
+		
+		$this->region = $region;
+	}
+
+	/**
+	 * Correctly sets the region
+	 *
+	 * @param string $max the region
+	 *
+	 * @return void
+	 */
+	public function setEventType($event_type) {
+		if ($event_type == '-') {
+			$event_type = '';
+		}
+			
+		$this->event_type = $event_type;
+	}
+
+	/**
 	 * Returns files for the event
 	 *
 	 * @return mixed|boolean
@@ -306,6 +351,44 @@ class Event extends ElggObject {
 		}
 
 		return false;
+	}
+	
+	/**
+	 * Generates a day and a slot if there is none
+	 *
+	 * @return void
+	 */
+	public function generateInitialProgramData() {
+	
+		if (empty($event->with_program)) {
+			return;
+		}
+		
+		if ($event->getEventDays()) {
+			return;
+		}
+		
+		$day = new \ColdTrick\EventManager\Event\Day();
+		$day->title = 'Event day 1';
+		$day->container_guid = $this->getGUID();
+		$day->owner_guid = $this->getGUID();
+		$day->access_id = $this->access_id;
+		$day->save();
+		$day->date = $this->start_day;
+		$day->addRelationship($this->getGUID(), 'event_day_relation');
+	
+		$slot = new \ColdTrick\EventManager\Event\Slot();
+		$slot->title = 'Activity title';
+		$slot->description = 'Activity description';
+		$slot->container_guid = $this->container_guid;
+		$slot->owner_guid = $this->owner_guid;
+		$slot->access_id = $this->access_id;
+		$slot->save();
+	
+		$slot->location = $this->location;
+		$slot->start_time = mktime('08', '00', 1, 0, 0, 0);
+		$slot->end_time = mktime('09', '00', 1, 0, 0, 0);
+		$slot->addRelationship($day->getGUID(), 'event_day_slot_relation');
 	}
 
 	/**
@@ -838,6 +921,29 @@ class Event extends ElggObject {
 		}
 		
 		return elgg_get_inline_url($file);
+	}
+
+	/**
+	 * Deletes the previous uploaded icon
+	 *
+	 * @return void
+	 */
+	public function deleteIcon() {
+		$fh = new \ElggFile();
+		$fh->owner_guid = $this->guid;
+	
+		$icon_sizes = elgg_get_config('icon_sizes');
+		$icon_sizes['event_banner'] = ['w' => 1920, 'h' => 1080, 'square' => false, 'upscale' => false];
+
+		foreach ($icon_sizes as $name => $info) {
+			$fh->setFilename("{$name}.jpg");
+	
+			if ($fh->exists()) {
+				$fh->delete();
+			}
+		}
+	
+		unset($this->icontime);
 	}
 
 	/**
