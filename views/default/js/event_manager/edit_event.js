@@ -1,19 +1,6 @@
 elgg.provide('elgg.event_manager');
 
 elgg.event_manager.edit_event_init = function() {
-	$('#event-manager-forms-event-edit li').on('click', function(event, elem) {
-		var href = $(this).find('> a').attr('href');
-
-		// First make sure all tabs are hidden
-		$('.event-tab').hide();
-
-		// Now show the selected tab
-		$(href).show();
-
-		$(this).parent().find('.elgg-state-selected').removeClass('elgg-state-selected');
-		$(this).addClass('elgg-state-selected');
-		return false;
-	});
 	
 	$('#event_manager_event_edit input[name="location"]').on('click', function(event, elem) {
 		
@@ -25,10 +12,7 @@ elgg.event_manager.edit_event_init = function() {
 		require(['event_manager/maps'], function (EventMap) {
 			if (!elgg.event_manager.map) {
 				elgg.event_manager.map = EventMap.setup('#event-manager-gmaps-location-search');
-				
-				
 				elgg.event_manager.map.setLocation(current_location);
-				
 			}
 		});
 	});
@@ -65,6 +49,15 @@ elgg.event_manager.edit_event_init = function() {
 		}
 		
 		$.colorbox.close();
+	});
+	
+	$(document).on('change', 'input[name="fee"], input[name="max_attendees"]', function() {
+		$toggle_field = $(this).parent().parent().next().find('.elgg-field'); 
+		$toggle_field.addClass('hidden');
+		var entered_value = $(this).val().trim();
+		if (entered_value && (entered_value !== '0')) {
+			$toggle_field.removeClass('hidden');
+		}
 	});
 };
 

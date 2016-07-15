@@ -20,6 +20,7 @@ $latitude = get_input("latitude");
 $longitude = get_input("longitude");
 $venue = get_input("venue");
 $fee = get_input("fee");
+$fee_details = get_input("fee_details");
 $start_day = get_input("start_day");
 $end_day = get_input("end_day");
 $end_time_hours = get_input("end_time_hours");
@@ -135,6 +136,7 @@ $event->website = $website;
 $event->event_type = $event_type;
 $event->organizer = $organizer;
 $event->fee = $fee;
+$event->fee_details = $fee_details;
 $event->start_day = $start_day;
 $event->start_time = $start_time;
 

@@ -162,7 +162,7 @@ if ($max_attendees) {
 if ($fee) {
 	$registration_details .= '<div class="clearfix">';
 	$registration_details .= '<label class="elgg-col elgg-col-1of5">' . elgg_echo('event_manager:edit:form:fee') . ':</label>';
-	$registration_details .= '<span class="elgg-col elgg-col-4of5">' . elgg_view('output/text', ['value' => $fee]) . '</span>';
+	$registration_details .= '<span class="elgg-col elgg-col-4of5">' . elgg_view('output/text', ['value' => $fee]) . elgg_view('output/longtext', ['value' => $event->fee_details]) . '</span>';
 	$registration_details .= '</div>';
 }
 

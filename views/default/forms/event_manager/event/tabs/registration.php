@@ -5,17 +5,47 @@
 
 $event = elgg_extract('entity', $vars);
 
+echo '<div class="clearfix"><div class="elgg-col elgg-col-1of4">';
 echo elgg_view_input('text', [
 	'label' => elgg_echo('event_manager:edit:form:fee'),
 	'name' => 'fee',
 	'value' => $vars['fee'],
 ]);
+echo '</div>';
+echo '<div class="elgg-col elgg-col-3of4">';
+$field_class = 'pll';
+if (empty($vars['fee'])) {
+	$field_class .= ' hidden';
+}
+echo elgg_view_input('text', [
+	'label' => elgg_echo('event_manager:edit:form:fee_details'),
+	'name' => 'fee_details',
+	'value' => $vars['fee_details'],
+	'field_class' => $field_class,
+]);
+echo '</div></div>';
 
+echo '<div class="clearfix"><div class="elgg-col elgg-col-1of4">';
 echo elgg_view_input('text', [
 	'label' => elgg_echo('event_manager:edit:form:max_attendees'),
 	'name' => 'max_attendees',
 	'value' => $vars['max_attendees'],
 ]);
+echo '</div>';
+echo '<div class="elgg-col elgg-col-3of4">';
+$field_class = 'pll';
+if (empty($vars['max_attendees']) && empty($vars['waiting_list_enabled'])) {
+	$field_class .= ' hidden';
+}
+echo elgg_view_input('checkboxes', [
+	'name' => 'waiting_list_enabled',
+	'value' => $vars['waiting_list_enabled'],
+	'options' => [elgg_echo('event_manager:edit:form:waiting_list') => '1'],
+	'field_class' => $field_class,
+	'class' => 'mts',
+	'label' => '&nbsp;',
+]);
+echo '</div></div>';
 
 $with_program = elgg_view('input/checkboxes', [
 	'name' => 'with_program',
@@ -28,12 +58,6 @@ $registration_needed = elgg_view('input/checkboxes', [
 	'name' => 'registration_needed',
 	'value' => $vars['registration_needed'],
 	'options' => [elgg_echo('event_manager:edit:form:registration_needed') => '1'],
-]);
-
-$waiting_list_enabled = elgg_view('input/checkboxes', [
-	'name' => 'waiting_list_enabled',
-	'value' => $vars['waiting_list_enabled'],
-	'options' => [elgg_echo('event_manager:edit:form:waiting_list') => '1'],
 ]);
 
 $register_nologin = '';
@@ -49,7 +73,7 @@ echo elgg_view('elements/forms/field', [
 	'label' => elgg_view('elements/forms/label', [
 		'label' => elgg_echo('event_manager:edit:form:registration_options'),
 	]),
-	'input' => $with_program . $registration_needed . $waiting_list_enabled . $register_nologin,
+	'input' => $with_program . $registration_needed  . $register_nologin,
 	'class' => 'event-manager-forms-label-normal',
 ]);
 
