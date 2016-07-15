@@ -65,6 +65,14 @@ if ($type_options) {
 	]);
 }
 
+echo elgg_view_input('checkboxes', [
+	'name' => 'comments_on',
+	'value' => $vars['comments_on'],
+	'options' => [
+		elgg_echo('event_manager:edit:form:comments_on') => '1',
+	],
+]);
+
 echo elgg_view_input('access', [
 	'label' => elgg_echo('access'),
 	'name' => 'access_id',

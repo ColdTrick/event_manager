@@ -3,14 +3,6 @@
  * Form fields for event settings
  */
 
-$comments_on = elgg_view('input/checkboxes', [
-	'name' => 'comments_on',
-	'value' => $vars['comments_on'],
-	'options' => [
-		elgg_echo('event_manager:edit:form:comments_on') => '1',
-	],
-]);
-
 $notify_onsignup = elgg_view('input/checkboxes', [
 	'name' => 'notify_onsignup',
 	'value' => $vars['notify_onsignup'],
