@@ -68,7 +68,6 @@ return array (
   'event_manager:edit:form:rsvp_options' => 'RSVP vaihtoehdot',
   'event_manager:edit:form:shortdescription' => 'Lyhyt kuvaus',
   'event_manager:edit:form:organizer' => 'Järjestäjä',
-  'event_manager:edit:form:organizer_rsvp' => 'Lisää minut järjestäjäksi',
   'event_manager:edit:form:with_program' => 'Määritä päivittäinen ohjelma',
   'event_manager:edit:form:delete_current_icon' => 'Poista nykyinen kuva',
   'event_manager:edit:form:comments_on' => 'Salli kommentointi',

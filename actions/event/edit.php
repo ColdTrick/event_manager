@@ -9,7 +9,6 @@ $title = get_input("title");
 $shortdescription = get_input("shortdescription");
 $tags = get_input("tags");
 $organizer = get_input("organizer");
-$organizer_rsvp = get_input("organizer_rsvp");
 $description = get_input("description");
 $comments_on = get_input("comments_on");
 $location = get_input("location");
@@ -119,11 +118,6 @@ if ($newEvent) {
 		'subject_guid' => elgg_get_logged_in_user_guid(),
 		'object_guid' => $event->getGUID(),
 	]);
-
-	// add optional organizer relationship
-	if ($organizer_rsvp) {
-		$event->rsvp(EVENT_MANAGER_RELATION_ORGANIZING, null, true, false);
-	}
 }
 
 $event->shortdescription = $shortdescription;

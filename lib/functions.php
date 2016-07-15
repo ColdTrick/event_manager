@@ -556,7 +556,6 @@ function event_manager_prepare_form_vars($event = null) {
 		'contact_details' => ELGG_ENTITIES_ANY_VALUE,
 		'fee' => ELGG_ENTITIES_ANY_VALUE,
 		'organizer' => ELGG_ENTITIES_ANY_VALUE,
-		'organizer_rsvp' => 0,
 		'start_day' => date('Y-m-d', time()),
 		'end_day' => ELGG_ENTITIES_ANY_VALUE,
 		'start_time' => time(),

@@ -17,16 +17,6 @@ echo elgg_view_input('text', [
 	'value' => $vars['max_attendees'],
 ]);
 
-$organizer_rsvp_input = '';
-if (!$event) {
-	$organizer_rsvp_input = elgg_view('input/checkboxes', [
-		'name' => 'organizer_rsvp',
-		'id' => 'organizer_rsvp',
-		'value' => $vars['organizer_rsvp'],
-		'options' => [elgg_echo('event_manager:edit:form:organizer_rsvp') => '1'],
-	]);
-}
-
 $with_program = elgg_view('input/checkboxes', [
 	'name' => 'with_program',
 	'id' => 'with_program',
@@ -59,7 +49,7 @@ echo elgg_view('elements/forms/field', [
 	'label' => elgg_view('elements/forms/label', [
 		'label' => elgg_echo('event_manager:edit:form:registration_options'),
 	]),
-	'input' => $organizer_rsvp_input . $with_program . $registration_needed . $waiting_list_enabled . $register_nologin,
+	'input' => $with_program . $registration_needed . $waiting_list_enabled . $register_nologin,
 	'class' => 'event-manager-forms-label-normal',
 ]);
 

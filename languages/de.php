@@ -70,7 +70,6 @@ return array (
   'event_manager:edit:form:rsvp_options' => 'Anmelde-Optionen',
   'event_manager:edit:form:shortdescription' => 'Kurzbeschreibung',
   'event_manager:edit:form:organizer' => 'Veranstalter',
-  'event_manager:edit:form:organizer_rsvp' => 'F&uuml;ge mich als Veranstalter hinzu',
   'event_manager:edit:form:with_program' => 'spezielles Tagesprogramm?',
   'event_manager:edit:form:delete_current_icon' => 'L&ouml;sche aktuelles Bild?',
   'event_manager:edit:form:comments_on' => ' kommentiert am?',

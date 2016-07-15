@@ -68,7 +68,6 @@ return array (
   'event_manager:edit:form:rsvp_options' => 'Opciones RSVP',
   'event_manager:edit:form:shortdescription' => 'Descripción breve',
   'event_manager:edit:form:organizer' => 'Organizador',
-  'event_manager:edit:form:organizer_rsvp' => 'Añádeme como organizador a este evento',
   'event_manager:edit:form:with_program' => '¿Especificar programa diario?',
   'event_manager:edit:form:delete_current_icon' => '¿Borrar icono actual?',
   'event_manager:edit:form:comments_on' => '¿Comentarios activos?',

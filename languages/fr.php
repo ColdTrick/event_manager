@@ -57,7 +57,6 @@ return array (
   'event_manager:edit:form:rsvp_options' => 'RSVP options',
   'event_manager:edit:form:shortdescription' => 'Courte Description',
   'event_manager:edit:form:organizer' => 'Organisateur',
-  'event_manager:edit:form:organizer_rsvp' => 'M\'ajouter comme organisateur de cet évènement',
   'event_manager:edit:form:with_program' => 'Spécifier un programme journalier ?',
   'event_manager:edit:form:delete_current_icon' => 'Supprimer l\'icone actuelle ?',
   'event_manager:edit:form:comments_on' => 'Commentaires activés ?',
