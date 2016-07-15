@@ -48,10 +48,3 @@ echo elgg_view_input('url', [
 	'name' => 'website',
 	'value' => $vars['website'],
 ]);
-
-echo elgg_view_input('text', [
-	'label' => elgg_echo('event_manager:edit:form:twitter_hash'),
-	'name' => 'twitter_hash',
-	'value' => $vars['twitter_hash'],
-]);
-

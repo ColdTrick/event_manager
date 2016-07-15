@@ -19,7 +19,6 @@ $fields = [
 	'website' => ELGG_ENTITIES_ANY_VALUE,
 	'contact_details' => ELGG_ENTITIES_ANY_VALUE,
 	'fee' => ELGG_ENTITIES_ANY_VALUE,
-	'twitter_hash' => ELGG_ENTITIES_ANY_VALUE,
 	'organizer' => ELGG_ENTITIES_ANY_VALUE,
 	'organizer_rsvp' => 0,
 	'start_day' => date('Y-m-d', time()),

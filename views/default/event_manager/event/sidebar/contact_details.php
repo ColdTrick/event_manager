@@ -9,7 +9,6 @@ $contact_information = '';
 
 $website = $event->website;
 $contact_details = $event->contact_details;
-$twitter_hash = $event->twitter_hash;
 $organizer = $event->organizer;
 
 if ($organizer) {
@@ -34,16 +33,6 @@ if ($website) {
 	$contact_information .= '<tr>';
 	$contact_information .= '<td class="prs">' . elgg_view_icon('globe', ['title' => elgg_echo('event_manager:edit:form:website')]) . '</td>';
 	$contact_information .= '<td>' . elgg_view('output/url', ['href' => $website]) . '</td>';
-	$contact_information .= '</tr>';
-}
-
-if ($twitter_hash) {
-	$contact_information .= '<tr>';
-	$contact_information .= '<td class="prs">' . elgg_view_icon('twitter', ['title' => elgg_echo('event_manager:edit:form:twitter_hash')]) . '</td>';
-	$contact_information .= '<td>' . elgg_view('output/url', [
-		'value' => 'http://twitter.com/search?q=' . urlencode($twitter_hash),
-		'text' => elgg_view('output/text', ['value' => $twitter_hash]),
-	]) . '</td>';
 	$contact_information .= '</tr>';
 }
 

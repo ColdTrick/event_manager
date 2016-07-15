@@ -52,7 +52,6 @@ return array (
   'event_manager:edit:form:region' => 'Région',
   'event_manager:edit:form:contact_details' => 'Contact',
   'event_manager:edit:form:website' => 'site Web',
-  'event_manager:edit:form:twitter_hash' => 'Twitter Hash',
   'event_manager:edit:form:fee' => 'Prix',
   'event_manager:edit:form:options' => 'Options',
   'event_manager:edit:form:rsvp_options' => 'RSVP options',

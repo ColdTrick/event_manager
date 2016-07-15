@@ -63,7 +63,6 @@ return array (
   'event_manager:edit:form:region' => 'Alue',
   'event_manager:edit:form:contact_details' => 'Yhteystiedot',
   'event_manager:edit:form:website' => 'Nettisivu',
-  'event_manager:edit:form:twitter_hash' => 'Twitter-avainsana',
   'event_manager:edit:form:fee' => 'Hinta',
   'event_manager:edit:form:options' => 'Asetukset',
   'event_manager:edit:form:rsvp_options' => 'RSVP vaihtoehdot',
