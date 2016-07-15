@@ -40,7 +40,6 @@ $register_nologin = get_input("register_nologin");
 $event_interested = get_input("event_interested");
 $event_presenting = get_input("event_presenting");
 $event_exhibiting = get_input("event_exhibiting");
-$event_organizing = get_input("event_organizing");
 
 $registration_completed = get_input("registration_completed");
 
@@ -151,7 +150,6 @@ $event->register_nologin = $register_nologin;
 $event->event_interested = $event_interested;
 $event->event_presenting = $event_presenting;
 $event->event_exhibiting = $event_exhibiting;
-$event->event_organizing = $event_organizing;
 
 $event->waiting_list_enabled = $waiting_list_enabled;
 $event->registration_completed = $registration_completed;

@@ -111,17 +111,10 @@ $event_exhibiting = elgg_view('input/checkboxes', [
 	'options' => [elgg_echo('event_manager:event:relationship:event_exhibiting') => '1'],
 ]);
 
-$event_organizing = elgg_view('input/checkboxes', [
-	'name' => 'event_organizing',
-	'id' => 'event_organizing',
-	'value' => $vars['event_organizing'],
-	'options' => [elgg_echo('event_manager:event:relationship:event_organizing') => '1'],
-]);
-
 echo elgg_view('elements/forms/field', [
 	'label' => elgg_view('elements/forms/label', [
 		'label' => elgg_echo('event_manager:edit:form:rsvp_options'),
 	]),
-	'input' => $registration_ended . $event_interested . $event_presenting . $event_exhibiting . $event_organizing,
+	'input' => $registration_ended . $event_interested . $event_presenting . $event_exhibiting,
 	'class' => 'event-manager-forms-label-normal',
 ]);

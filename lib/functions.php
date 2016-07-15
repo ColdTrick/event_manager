@@ -14,7 +14,6 @@ function event_manager_event_get_relationship_options() {
 		EVENT_MANAGER_RELATION_INTERESTED,
 		EVENT_MANAGER_RELATION_PRESENTING,
 		EVENT_MANAGER_RELATION_EXHIBITING,
-		EVENT_MANAGER_RELATION_ORGANIZING,
 		EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
 		EVENT_MANAGER_RELATION_ATTENDING_PENDING
 	);
@@ -575,7 +574,6 @@ function event_manager_prepare_form_vars($event = null) {
 		'event_interested' => 0,
 		'event_presenting' => 0,
 		'event_exhibiting' => 0,
-		'event_organizing' => 0,
 		'registration_completed' => ELGG_ENTITIES_ANY_VALUE,
 	];
 	
