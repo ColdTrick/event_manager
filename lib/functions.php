@@ -528,3 +528,91 @@ function event_manager_groups_enabled() {
 function event_manager_format_date($timestamp) {
 	return date(elgg_echo('event_manager:date:format'), $timestamp);
 }
+
+/**
+ * Prepares the vars for the event edit form
+ *
+ * @param \Event $event the event to prepare the vars for
+ *
+ * @return array
+ */
+function event_manager_prepare_form_vars($event = null) {
+	
+	// defaults
+	$values = [
+		'guid' => ELGG_ENTITIES_ANY_VALUE,
+		'title' => ELGG_ENTITIES_ANY_VALUE,
+		'shortdescription' => ELGG_ENTITIES_ANY_VALUE,
+		'tags' => ELGG_ENTITIES_ANY_VALUE,
+		'description' => ELGG_ENTITIES_ANY_VALUE,
+		'comments_on' => 1,
+		'venue' => ELGG_ENTITIES_ANY_VALUE,
+		'location' => ELGG_ENTITIES_ANY_VALUE,
+		'latitude' => ELGG_ENTITIES_ANY_VALUE,
+		'longitude' => ELGG_ENTITIES_ANY_VALUE,
+		'region' => ELGG_ENTITIES_ANY_VALUE,
+		'event_type' => ELGG_ENTITIES_ANY_VALUE,
+		'website' => ELGG_ENTITIES_ANY_VALUE,
+		'contact_details' => ELGG_ENTITIES_ANY_VALUE,
+		'fee' => ELGG_ENTITIES_ANY_VALUE,
+		'organizer' => ELGG_ENTITIES_ANY_VALUE,
+		'organizer_rsvp' => 0,
+		'start_day' => date('Y-m-d', time()),
+		'end_day' => ELGG_ENTITIES_ANY_VALUE,
+		'start_time' => time(),
+		'end_ts' => time() + 3600,
+		'registration_ended' => ELGG_ENTITIES_ANY_VALUE,
+		'endregistration_day' => ELGG_ENTITIES_ANY_VALUE,
+		'with_program' => ELGG_ENTITIES_ANY_VALUE,
+		'registration_needed' => ELGG_ENTITIES_ANY_VALUE,
+		'register_nologin' => ELGG_ENTITIES_ANY_VALUE,
+		'show_attendees' => 1,
+		'notify_onsignup' => ELGG_ENTITIES_ANY_VALUE,
+		'max_attendees' => ELGG_ENTITIES_ANY_VALUE,
+		'waiting_list_enabled' => ELGG_ENTITIES_ANY_VALUE,
+		'access_id' => get_default_access(),
+		'container_guid' => elgg_get_page_owner_entity()->getGUID(),
+		'event_interested' => 0,
+		'event_presenting' => 0,
+		'event_exhibiting' => 0,
+		'event_organizing' => 0,
+		'registration_completed' => ELGG_ENTITIES_ANY_VALUE,
+	];
+	
+	if ($event instanceof \Event) {
+		// edit mode
+		$values['latitude'] = $event->getLatitude();
+		$values['longitude'] = $event->getLongitude();
+		$values['tags'] = string_to_tag_array($event->tags);
+	
+		foreach ($values as $field => $value) {
+			if (!in_array($field, ['latitude', 'longitude', 'tags'])) {
+				$values[$field] = $event->$field;
+			}
+		}
+	
+		// convert timestamp to date notation for correct display
+		if (!empty($values['start_day'])) {
+			$values['start_day'] = date('Y-m-d', $values['start_day']);
+		}
+		if (empty($values['end_ts'])) {
+			$start_date = explode('-', $values['start_day']);
+			$values['end_ts'] = mktime($values['start_time_hours'], $values['start_time_minutes'], 1, $start_date[1], $start_date[2], $start_date[0]) + 3600;
+		}
+	
+		$values['end_day'] = date('Y-m-d', $values['end_ts']);
+		
+		if (!empty($values['endregistration_day'])) {
+			$values['endregistration_day'] = date('Y-m-d', $values['endregistration_day']);
+		}
+	}
+	
+	if (elgg_is_sticky_form('event')) {
+		// merge defaults with sticky data
+		$values = array_merge($values, elgg_get_sticky_values('event'));
+	}
+	
+	elgg_clear_sticky_form('event');
+	
+	return $values;
+}
