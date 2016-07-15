@@ -22,14 +22,14 @@ $start_time_input = elgg_view('input/time', [
 	'value' => $vars['start_time'],
 ]);
 
-echo elgg_view('elements/forms/field', [
+$start = elgg_view('elements/forms/field', [
 	'label' => elgg_view('elements/forms/label', [
 		'label' => elgg_echo('event_manager:edit:form:start'),
 		'id' => 'start_day',
 		'required' => true,
 	]),
 	'input' => $start_day_input . $start_time_input,
-	'class' => 'event-manager-forms-label-inline',
+	'class' => 'event-manager-forms-label-inline man',
 ]);
 
 // Ending time
@@ -44,12 +44,15 @@ $end_time_input = elgg_view('input/time', [
 	'value' => $vars['end_ts'],
 ]);
 
-echo elgg_view('elements/forms/field', [
+$end = elgg_view('elements/forms/field', [
 	'label' => elgg_view('elements/forms/label', [
 		'label' => elgg_echo('event_manager:edit:form:end'),
 		'id' => 'end_day',
 		'required' => true,
 	]),
 	'input' => $end_day_input . $end_time_input,
-	'class' => 'event-manager-forms-label-inline',
+	'class' => 'event-manager-forms-label-inline man',
 ]);
+
+echo "<div class='elgg-col elgg-col-1of2'>{$start}</div>";
+echo "<div class='elgg-col elgg-col-1of2'>{$end}</div>";

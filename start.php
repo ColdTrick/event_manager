@@ -88,6 +88,7 @@ function event_manager_init() {
 	elgg_register_plugin_hook_handler('register', 'menu:entity', '\ColdTrick\EventManager\Menus::registerEntity', 600);
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', '\ColdTrick\EventManager\Menus::registerGroupOwnerBlock');
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', '\ColdTrick\EventManager\Menus::registerUserOwnerBlock');
+	elgg_register_plugin_hook_handler('register', 'menu:event_edit', '\ColdTrick\EventManager\Menus::registerEventEdit');
 	elgg_register_plugin_hook_handler('register', 'menu:event_files', '\ColdTrick\EventManager\Menus::registerEventFiles');
 	elgg_register_plugin_hook_handler('register', 'menu:events_list', '\ColdTrick\EventManager\Menus::registerEventsList');
 	elgg_register_plugin_hook_handler('register', 'menu:river', '\ColdTrick\EventManager\Menus::stripEventRelationshipRiverMenuItems', 99999);

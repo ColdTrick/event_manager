@@ -23,7 +23,7 @@ echo elgg_view('elements/forms/field', [
 	'label' => elgg_view('elements/forms/label', [
 		'label' => elgg_echo('event_manager:edit:form:options'),
 	]),
-	'input' => $comments_on . $notify_onsignup . $show_attendees,
+	'input' => $notify_onsignup . $show_attendees,
 	'class' => 'event-manager-forms-label-normal',
 ]);
 

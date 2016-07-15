@@ -199,6 +199,29 @@ class Menus {
 	}
 	
 	/**
+	 * Sidebar menu items on the event edit form
+	 *
+	 * @param string $hook        hook name
+	 * @param string $entity_type hook type
+	 * @param array  $returnvalue current return value
+	 * @param array  $params      parameters
+	 *
+	 * @return array
+	 */
+	public static function registerEventEdit($hook, $entity_type, $returnvalue, $params) {
+		$sections = ['profile', 'location', 'registration', 'extra'];
+		foreach ($sections as $section) {
+			$returnvalue[] = \ElggMenuItem::factory([
+				'name' => "event_edit_{$section}",
+				'text' => elgg_echo("event_manager:edit:form:tabs:{$section}"),
+				'href' => "#event-manager-forms-event-edit-{$section}",
+			]);
+		}
+		
+		return $returnvalue;
+	}
+	
+	/**
 	 * Add menu items listing of event files
 	 *
 	 * @param string $hook        hook name

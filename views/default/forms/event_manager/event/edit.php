@@ -83,54 +83,22 @@ if (elgg_is_sticky_form('event')) {
 
 elgg_clear_sticky_form('event');
 
-$tabs = [
-	[
-		'text' => elgg_echo('event_manager:edit:form:tabs:profile'),
-		'href' => '#event-manager-forms-event-edit-profile',
-		'selected' => true,
-	],
-	[
-		'text' => elgg_echo('event_manager:edit:form:tabs:location'),
-		'href' => '#event-manager-forms-event-edit-location',
-	],
-	[
-		'text' => elgg_echo('event_manager:edit:form:tabs:registration'),
-		'href' => '#event-manager-forms-event-edit-registration',
-	],
-	[
-		'text' => elgg_echo('event_manager:edit:form:tabs:extra'),
-		'href' => '#event-manager-forms-event-edit-extra',
-	],
-];
-
 $vars = array_merge($vars, $fields);
 
-echo elgg_view('forms/event_manager/event/tabs/general', $vars);
-echo elgg_view('navigation/tabs', [
-	'id' => 'event-manager-forms-event-edit',
-	'tabs' => $tabs,
-	'class' => 'mtl',
+echo elgg_view('forms/event_manager/event/module', [
+	'title' => '',
+	'body' => elgg_view('forms/event_manager/event/tabs/general', $vars),
 ]);
 
-echo elgg_format_element('div', [
-	'class' => 'event-tab',
-	'id' => 'event-manager-forms-event-edit-profile',
-], elgg_view('forms/event_manager/event/tabs/profile', $vars));
-
-echo elgg_format_element('div', [
-	'class' => 'event-tab hidden',
-	'id' => 'event-manager-forms-event-edit-location',
-], elgg_view('forms/event_manager/event/tabs/location', $vars));
-
-echo elgg_format_element('div', [
-	'class' => 'event-tab hidden',
-	'id' => 'event-manager-forms-event-edit-registration',
-], elgg_view('forms/event_manager/event/tabs/registration', $vars));
-
-echo elgg_format_element('div', [
-	'class' => 'event-tab hidden',
-	'id' => 'event-manager-forms-event-edit-extra',
-], elgg_view('forms/event_manager/event/tabs/extra', $vars));
+$sections = ['profile', 'location', 'registration', 'extra'];
+foreach ($sections as $section) {
+	echo elgg_view('forms/event_manager/event/module', [
+		'title' => elgg_echo("event_manager:edit:form:tabs:{$section}"),
+		'class' => 'event-tab',
+		'id' => "event-manager-forms-event-edit-{$section}",
+		'body' => elgg_view("forms/event_manager/event/tabs/{$section}", $vars),
+	]);
+}
 
 $hidden = elgg_view_input('hidden', ['name' => 'latitude', 'value' => $fields['latitude']]);
 $hidden .= elgg_view_input('hidden', ['name' => 'longitude', 'value' => $fields['longitude']]);
