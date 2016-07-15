@@ -68,6 +68,7 @@ return array(
 	'event_manager:edit:upload:title' => 'Add files to your event',
 	'event_manager:edit:form:tabs:profile' => 'Profile',
 	'event_manager:edit:form:tabs:location' => 'Location',
+	'event_manager:edit:form:tabs:contact' => 'Contact Details',
 	'event_manager:edit:form:tabs:registration' => 'Registration',
 	'event_manager:edit:form:tabs:extra' => 'Extra',
 	'event_manager:edit:form:file' => 'Choose file',

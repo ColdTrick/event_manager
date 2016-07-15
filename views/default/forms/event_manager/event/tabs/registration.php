@@ -17,12 +17,6 @@ echo elgg_view_input('text', [
 	'value' => $vars['max_attendees'],
 ]);
 
-echo elgg_view_input('text', [
-	'label' => elgg_echo('event_manager:edit:form:organizer'),
-	'name' => 'organizer',
-	'value' => $vars['organizer'],
-]);
-
 $organizer_rsvp_input = '';
 if (!$event) {
 	$organizer_rsvp_input = elgg_view('input/checkboxes', [
