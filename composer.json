@@ -11,7 +11,8 @@
 	"require": {
 		"composer/installers": "^1.0.8",
 		"ext-json": "*",
-		"dompdf/dompdf" : "0.6.*"
+		"dompdf/dompdf" : "0.6.*",
+		"bower-asset/fullcalendar": "^2.9.0"
 	},
 	"require-dev": {
 		"coldtrick/sniffs": "dev-master",

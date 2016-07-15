@@ -47,6 +47,7 @@ return array(
 	'event_manager:list:friendsattending' => 'Show events my friends are attending',
 
 	'event_manager:list:navigation:list' => 'List',
+	'event_manager:list:navigation:calendar' => 'Calendar',
 	'event_manager:list:navigation:other' => 'Other events',
 	'event_manager:list:navigation:your' => 'Your events',
 	'event_manager:list:navigation:attending' => 'Attending events',

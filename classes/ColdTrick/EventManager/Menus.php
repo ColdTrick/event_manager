@@ -280,6 +280,12 @@ class Menus {
 			'selected' => true,
 		]);
 		$returnvalue[] = \ElggMenuItem::factory([
+			'name' => 'events_calendar',
+			'text' => elgg_echo('event_manager:list:navigation:calendar'),
+			'href' => 'events/calendar',
+			'rel' => 'calendar',
+		]);
+		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'events_map',
 			'text' => elgg_echo('event_manager:list:navigation:onthemap'),
 			'href' => 'javascript:void(0);',
