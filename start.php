@@ -42,6 +42,8 @@ function event_manager_init() {
 	elgg_extend_view('js/elgg', 'js/event_manager/site.js');
 	elgg_extend_view('js/addthisevent.js', 'js/event_manager/addthisevent.settings.js');
 	
+	elgg_register_css('fullcalendar', elgg_get_simplecache_url('css/event_manager/fullcalendar'));
+	
 	// notifications
 	elgg_register_notification_event('object', Event::SUBTYPE, ['create']);
 	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:' . Event::SUBTYPE, '\ColdTrick\EventManager\Notifications::prepareCreateEventNotification');
@@ -50,6 +52,7 @@ function event_manager_init() {
 	elgg_register_ajax_view('event_manager/event/maps/route');
 	elgg_register_ajax_view('event_manager/forms/program/day');
 	elgg_register_ajax_view('event_manager/forms/program/slot');
+	elgg_register_ajax_view('event_manager/calendar');
 	
 	// add site menu item
 	elgg_register_menu_item('site', [

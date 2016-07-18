@@ -12,46 +12,28 @@ if ($page_owner instanceof \ElggGroup) {
 	$title_text = elgg_echo('event_manager:list:group:title');
 
 	elgg_push_breadcrumb($page_owner->name, $page_owner->getURL());
-
 	$event_options['container_guid'] = $page_owner->getGUID();
-
-	$who_create_group_events = elgg_get_plugin_setting('who_create_group_events', 'event_manager'); // group_admin, members
-	if ((($who_create_group_events == 'group_admin') && $page_owner->canEdit()) || ((($who_create_group_events == 'members') && $page_owner->isMember($user)) || $page_owner->canEdit())) {
-		elgg_register_menu_item('title', [
-			'name' => 'new',
-			'href' => 'events/event/new/' . $page_owner->getGUID(),
-			'text' => elgg_echo('event_manager:menu:new_event'),
-			'link_class' => 'elgg-button elgg-button-action',
-		]);
-	}
-} elseif (elgg_is_logged_in()) {
-	$who_create_site_events = elgg_get_plugin_setting('who_create_site_events', 'event_manager');
-	if ($who_create_site_events != 'admin_only' || elgg_is_admin_logged_in()) {
-		elgg_register_menu_item('title', [
-			'name' => 'new',
-			'href' => 'events/event/new',
-			'text' => elgg_echo('event_manager:menu:new_event'),
-			'link_class' => 'elgg-button elgg-button-action',
-		]);
-	}
 }
 
-$events = event_manager_search_events($event_options);
+event_manager_register_title_menu();
 
-$content = elgg_view_form('event_manager/event/search', [
+$events = event_manager_search_events($event_options);
+$content = elgg_view('event_manager/list', [
+	'entities' => $events['entities'],
+	'count' => $events['count'],
+]);
+
+$form = elgg_view_form('event_manager/event/search', [
 	'id' => 'event_manager_search_form',
 	'name' => 'event_manager_search_form',
 	'class' => 'mbl',
 ]);
 
-$content .= elgg_view('event_manager/list', [
-	'entities' => $events['entities'],
-	'count' => $events['count']
-]);
+$menu = elgg_view_menu('events_list', ['class' => 'elgg-tabs', 'sort_by' => 'register']);
 
 $body = elgg_view_layout('content', [
 	'filter' => '',
-	'content' => $content,
+	'content' => $form . $menu . $content,
 	'title' => $title_text,
 ]);
 

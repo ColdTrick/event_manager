@@ -1,5 +1,5 @@
 <?php ?>
-<div id="event_manager_event_map" class="hidden">
+<div id="event_manager_event_map" class="hidden event-manager-results">
 	<div id="event_manager_onthemap_canvas"></div>
 	<div id="event_manager_onthemap_legend">
 		<img src="//maps.google.com/mapfiles/ms/icons/yellow-dot.png" /><?php echo elgg_echo("event_manager:list:navigation:your"); ?>

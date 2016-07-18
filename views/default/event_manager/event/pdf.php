@@ -13,9 +13,8 @@ if ($event->icontime) {
 	echo '<div class="mbm elgg-border-plain center"><img src="data:image/jpeg;base64,' . base64_encode($filecontents) . '" border="0" /></div>';
 }
 
-$start_day = $event->start_day;
-$start_time = $event->start_time;
-$end_ts = $event->end_ts;
+$start_day = $event->getStartTimestamp();
+$end_ts = $event->getEndTimestamp();
 
 $when_title = elgg_echo('date:weekday:' . date('w', $start_day)) . ', ';
 $when_title .= elgg_echo('date:month:' . date('m', $start_day), [date('j', $start_day)]) . ' ';
@@ -24,13 +23,13 @@ $when_title .= date('Y', $start_day);
 $when_subtitle = '';
 
 if (!$end_ts) {
-	$when_title .= ' ' . date('H:i', $start_time);
+	$when_title .= ' ' . date('H:i', $start_day);
 } else {
 	if (date('d-m-Y', $end_ts) === date('d-m-Y', $start_day)) {
 		// same day event
-		$when_subtitle .= date('H:i', $start_time) . ' ' . strtolower(elgg_echo('event_manager:date:to')) . ' ' . date('H:i', $end_ts);
+		$when_subtitle .= date('H:i', $start_day) . ' ' . strtolower(elgg_echo('event_manager:date:to')) . ' ' . date('H:i', $end_ts);
 	} else {
-		$when_title .= ' ' . date('H:i', $start_time);
+		$when_title .= ' ' . date('H:i', $start_day);
 		$when_subtitle .= strtolower(elgg_echo('event_manager:date:to')) . ' ';
 
 		$when_subtitle .= elgg_echo('date:weekday:' . date('w', $end_ts)) . ', ';

@@ -24,9 +24,6 @@ class PageHandler {
 						echo elgg_view_resource('events/event/owner');
 						return true;
 					}
-				case 'calendar':
-					echo elgg_view_resource('events/calendar');
-					return true;
 				case 'attending':
 					$username = elgg_extract(1, $page);
 					$user = get_user_by_username($username);

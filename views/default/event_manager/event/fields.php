@@ -15,25 +15,23 @@ if ($event->icontime) {
 
 	$event_details .= "</div>";
 }
+$start_ts = $event->getStartTimestamp();
+$end_ts = $event->getEndTimestamp();
 
-$start_day = $event->start_day;
-$start_time = $event->start_time;
-$end_ts = $event->end_ts;
-
-$when_title = elgg_echo('date:weekday:' . date('w', $start_day)) . ', ';
-$when_title .= elgg_echo('date:month:' . date('m', $start_day), [date('j', $start_day)]) . ' ';
-$when_title .= date('Y', $start_day);
+$when_title = elgg_echo('date:weekday:' . date('w', $start_ts)) . ', ';
+$when_title .= elgg_echo('date:month:' . date('m', $start_ts), [date('j', $start_ts)]) . ' ';
+$when_title .= date('Y', $start_ts);
 
 $when_subtitle = '';
 
 if (!$end_ts) {
-	$when_title .= ' ' . date('H:i', $start_time);
+	$when_title .= ' ' . date('H:i', $start_ts);
 } else {
-	if (date('d-m-Y', $end_ts) === date('d-m-Y', $start_day)) {
+	if (date('d-m-Y', $end_ts) === date('d-m-Y', $start_ts)) {
 		// same day event
-		$when_subtitle .= date('H:i', $start_time) . ' ' . strtolower(elgg_echo('event_manager:date:to')) . ' ' . date('H:i', $end_ts);
+		$when_subtitle .= date('H:i', $start_ts) . ' ' . strtolower(elgg_echo('event_manager:date:to')) . ' ' . date('H:i', $end_ts);
 	} else {
-		$when_title .= ' ' . date('H:i', $start_time);
+		$when_title .= ' ' . date('H:i', $start_ts);
 		$when_subtitle .= strtolower(elgg_echo('event_manager:date:to')) . ' ';
 
 		$when_subtitle .= elgg_echo('date:weekday:' . date('w', $end_ts)) . ', ';

@@ -155,18 +155,26 @@ elgg.event_manager.list_events_init = function() {
 	$('.elgg-menu-events-list li a[rel]').click(function(e) {
 		e.preventDefault();
 		
-		if ($(this).parent().hasClass('elgg-state-selected')) {
+		var $clicked_item = $(this).parent();
+		var $menu_items = $('.elgg-menu-events-list li');
+		var selected = $(this).attr('rel');
+		
+		if ($clicked_item.hasClass('elgg-state-selected')) {
 			return;
 		}
 		
-		var selected = $(this).attr('rel');
+		$menu_items.removeClass('elgg-state-selected');
+		$clicked_item.addClass('elgg-state-selected');
 
-		$('.elgg-menu-events-list li').toggleClass('elgg-state-selected');
-		$('#event_manager_event_map, #event_manager_event_listing').toggle();
+		$('.event-manager-results, #event_manager_search_form').hide();
+		if (selected !== 'calendar') {
+			$('#event_manager_search_form').show();
+		}
 
 		$('#search_type').val(selected);
 
 		if (selected == 'onthemap') {
+			$('#event_manager_event_map').show();
 			if (typeof elgg.event_manager.map === 'undefined') {
 				require(['elgg/spinner'], function(spinner) {
 					spinner.start();
@@ -179,8 +187,21 @@ elgg.event_manager.list_events_init = function() {
 			} else {
 				elgg.event_manager.execute_search_map();
 			}
-		} else {
+		} else if (selected == 'list') {
+			$('#event_manager_event_listing').show();
 			elgg.event_manager.execute_search_list();
+		} else if (selected == 'calendar') {
+			$('#event-manager-event-calendar').show();
+			if (false) {
+				return;
+			}
+			require(['elgg/spinner'], function(spinner) {
+				spinner.start();
+				
+				require(['event_manager/calendar'], function () {
+					spinner.stop();
+				});
+			});
 		}
 	});
 };

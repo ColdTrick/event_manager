@@ -35,6 +35,11 @@ return array(
 
 	'river:comment:object:event' => '%s commented on %s',
 
+	'event_manager:calendar:today' => 'Today',
+	'event_manager:calendar:month' => 'Month',
+	'event_manager:calendar:week' => 'Week',
+	'event_manager:calendar:day' => 'Day',
+	
 	'event_manager:list:title' => 'Events',
 	'event_manager:list:group:title' => 'Group events',
 	'event_manager:list:advancedsearch' => 'Advanced search',

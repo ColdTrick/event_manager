@@ -1,8 +1,8 @@
 <?php
 
-$entities = elgg_extract('entities', $vars);
+elgg_load_css('fullcalendar');
 
-$result = elgg_view_menu('events_list', ['class' => 'elgg-tabs', 'sort_by' => 'register']);
+$entities = elgg_extract('entities', $vars);
 
 $options = [
 	'count' => elgg_extract('count', $vars),
@@ -14,16 +14,25 @@ $options = [
 
 $list = elgg_view_entity_list($entities, $options);
 
-$result .= elgg_format_element('div', ['id' => 'event_manager_event_listing'], $list);
+$result = elgg_format_element('div', [
+	'id' => 'event_manager_event_listing',
+	'class' => 'event-manager-results',
+], $list);
+
+$result .= elgg_format_element('div', [
+	'id' => 'event-manager-event-calendar',
+	'class' => 'event-manager-results hidden',
+]);
 
 $result .= elgg_view('event_manager/onthemap', $vars);
 
 $limit = elgg_extract('limit', $vars, 10);
 
 if ($options['count'] > $limit) {
-	$result .= '<div id="event_manager_event_list_search_more" rel="' . ((isset($options['offset'])) ? $options['offset'] : $limit) . '">';
-	$result .= elgg_echo('event_manager:list:showmorevents');
-	$result .= ' (' . ($options['count'] - ($offset + $limit)) . ')</div>';
+	$result .= elgg_format_element('div', [
+		'id' => 'event_manager_event_list_search_more',
+		'rel' => $options['offset'] ?: $limit
+	], elgg_echo('event_manager:list:showmorevents') . ' (' . ($options['count'] - ($options['offset'] + $limit)) . ')');
 }
 
 echo elgg_view_module('main', '', $result);

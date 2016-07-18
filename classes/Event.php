@@ -53,6 +53,77 @@ class Event extends ElggObject {
 	public function getURL() {
 		return elgg_get_site_url() . "events/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
 	}
+	
+	/**
+	 * Returns the timestamp for the start of the event
+	 *
+	 * @return int the timestamp
+	 */
+	public function getStartTimestamp() {
+		$time = $this->start_day;
+		if ($this->start_time) {
+			$hours = date('H', $this->start_time);
+			$minutes = date('i', $this->start_time);
+			
+			$time += $minutes * 60;
+			$time += $hours * 3600;
+		}
+		
+		return $time;
+	}
+	
+	/**
+	 * Returns the timestamp for the end of the event
+	 *
+	 * @return int the timestamp
+	 */
+	public function getEndTimestamp() {
+		return $this->end_ts;
+	}
+	
+	/**
+	 * Returns the startdate and time for the event formatted as ISO-8601
+	 *
+	 * @see https://en.wikipedia.org/wiki/ISO_8601
+	 *
+	 * @return string a formatted date string
+	 */
+	public function getStartDate() {
+		$time = $this->getStartTimestamp();
+		
+		return date('c', $time);
+	}
+	
+	/**
+	 * Returns the startdate and time for the event formatted as ISO-8601
+	 *
+	 * @see https://en.wikipedia.org/wiki/ISO_8601
+	 *
+	 * @return string a formatted date string
+	 */
+	public function getEndDate() {
+		$time = $this->getEndTimestamp();
+		
+		return date('c', $time);
+	}
+	
+	/**
+	 * Returns if the event is spanning multiple days
+	 *
+	 * @return bool is it a multiday event
+	 */
+	public function isMultiDayEvent() {
+		$start = $this->getStartTimestamp();
+		$end = $this->getEndTimestamp();
+		
+		$diff = $end - $start;
+		
+		if ($diff > (60 * 60 * 24)) {
+			return true;
+		}
+		
+		return false;
+	}
 
 	/**
 	 * Updates access of objects owned
