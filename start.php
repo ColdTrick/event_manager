@@ -84,6 +84,7 @@ function event_manager_init() {
 	// events
 	elgg_register_event_handler('upgrade', 'system', '\ColdTrick\EventManager\Upgrade::fixClasses');
 	elgg_register_event_handler('upgrade', 'system', '\ColdTrick\EventManager\Upgrade::migrateFilesFromUserToEvent');
+	elgg_register_event_handler('upgrade', 'system', '\ColdTrick\EventManager\Upgrade::convertTimestamps');
 
 	// hooks
 	elgg_register_plugin_hook_handler('register', 'menu:filter', '\ColdTrick\EventManager\Menus::registerFilter');
@@ -133,6 +134,7 @@ function event_manager_init() {
 	elgg_register_action('event_manager/day/delete', $base_dir . '/actions/day/delete.php');
 	
 	elgg_register_action('event_manager/upgrades/files_migration', $base_dir . '/actions/upgrades/files_migration.php', 'admin');
+	elgg_register_action('event_manager/upgrades/convert_timestamps', $base_dir . '/actions/upgrades/convert_timestamps.php', 'admin');
 }
 
 /**

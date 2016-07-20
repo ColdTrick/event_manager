@@ -33,4 +33,22 @@ class Upgrade {
 		
 		elgg_set_ignore_access($ia);
 	}
+	
+	public static function convertTimestamps($event, $type, $object) {
+		$ia = elgg_set_ignore_access(true);
+		
+		$path = 'admin/upgrades/convert_timestamps';
+		$upgrade = new \ElggUpgrade();
+		if (!$upgrade->getUpgradeFromPath($path)) {
+			$upgrade->setPath($path);
+			$upgrade->title = elgg_echo('admin:upgrades:convert_timestamps');
+			$upgrade->description = elgg_echo('admin:upgrades:convert_timestamps:description');
+				
+			$upgrade->save();
+		}
+		
+		elgg_set_ignore_access($ia);
+	}
+	
+	
 }

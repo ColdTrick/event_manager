@@ -43,13 +43,15 @@ if ($col_count > 1) {
 $form_body .= "<div class='{$col_class}'>";
 
 $form_body .= elgg_view_input('date', [
-	'name' => 'start_day',
-	'id' => 'start_day',
+	'name' => 'event_start',
+	'timestamp' => true,
+	'id' => 'event_start',
 	'label' => elgg_echo('event_manager:edit:form:start_day:from'),
 ]);
 $form_body .= elgg_view_input('date', [
-	'name' => 'end_day',
-	'id' => 'end_day',
+	'name' => 'event_end',
+	'timestamp' => true,
+	'id' => 'event_end',
 	'label' => elgg_echo('event_manager:edit:form:start_day:to'),
 ]);
 

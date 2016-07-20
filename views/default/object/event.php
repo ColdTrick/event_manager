@@ -10,7 +10,7 @@ $event = elgg_extract('entity', $vars);
 if (elgg_in_context('maps')) {
 	$output = '<div class="gmaps_infowindow">';
 	$output .= '<div class="gmaps_infowindow_text">';
-	$output .= '<div class="event_manager_event_view_owner"><a href="' . $event->getURL() . '">' . $event->title . '</a> (' . event_manager_format_date($event->start_day) . ')</div>';
+	$output .= '<div class="event_manager_event_view_owner"><a href="' . $event->getURL() . '">' . $event->title . '</a> (' . event_manager_format_date($event->getStartTimestamp()) . ')</div>';
 	$output .= str_replace(',', '<br />', $event->location) . '<br /><br />' . $event->shortdescription . '<br /><br />';
 	$output .= elgg_view("event_manager/event/actions", $vars) . '</div>';
 	if ($event->icontime) {

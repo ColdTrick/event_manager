@@ -9,11 +9,11 @@ $start = get_input('start');
 $end = get_input('end');
 
 if ($start) {
-	$events_options['start_day'] = strtotime($start);
+	$events_options['event_start'] = strtotime($start);
 }
 
 if ($end) {
-	$events_options['end_day'] = strtotime($end);
+	$events_options['event_end'] = strtotime($end);
 }
 
 $container_guid = (int) get_input('container_guid');

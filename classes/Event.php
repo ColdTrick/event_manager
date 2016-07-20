@@ -60,16 +60,7 @@ class Event extends ElggObject {
 	 * @return int the timestamp
 	 */
 	public function getStartTimestamp() {
-		$time = $this->start_day;
-		if ($this->start_time) {
-			$hours = date('H', $this->start_time);
-			$minutes = date('i', $this->start_time);
-			
-			$time += $minutes * 60;
-			$time += $hours * 3600;
-		}
-		
-		return $time;
+		return $this->event_start;
 	}
 	
 	/**
@@ -78,33 +69,33 @@ class Event extends ElggObject {
 	 * @return int the timestamp
 	 */
 	public function getEndTimestamp() {
-		return $this->end_ts;
+		return $this->event_end;
 	}
 	
 	/**
 	 * Returns the startdate and time for the event formatted as ISO-8601
 	 *
+	 * @param $format provide a format for the date
+	 *
 	 * @see https://en.wikipedia.org/wiki/ISO_8601
 	 *
 	 * @return string a formatted date string
 	 */
-	public function getStartDate() {
-		$time = $this->getStartTimestamp();
-		
-		return date('c', $time);
+	public function getStartDate($format = 'c') {
+		return gmdate($format, $this->getStartTimestamp());
 	}
 	
 	/**
 	 * Returns the startdate and time for the event formatted as ISO-8601
 	 *
+	 * @param $format provide a format for the date
+	 *
 	 * @see https://en.wikipedia.org/wiki/ISO_8601
 	 *
 	 * @return string a formatted date string
 	 */
-	public function getEndDate() {
-		$time = $this->getEndTimestamp();
-		
-		return date('c', $time);
+	public function getEndDate($format = 'c') {
+		return gmdate($format, $this->getEndTimestamp());
 	}
 	
 	/**
@@ -445,7 +436,7 @@ class Event extends ElggObject {
 		$day->owner_guid = $this->getGUID();
 		$day->access_id = $this->access_id;
 		$day->save();
-		$day->date = $this->start_day;
+		$day->date = $this->getStartTimestamp();
 		$day->addRelationship($this->getGUID(), 'event_day_relation');
 	
 		$slot = new \ColdTrick\EventManager\Event\Slot();

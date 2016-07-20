@@ -3,6 +3,12 @@ elgg.provide('elgg.event_manager');
 elgg.event_manager.execute_search = function(event) {
 	
 	event.preventDefault();
+
+	if($('#event-manager-search-form-past-events').is(':hidden')) {
+		$('#advanced_search').val('1');
+	} else {
+		$('#advanced_search').val('0');
+	}
 	
 	if ($(".elgg-menu-events-list li.elgg-state-selected a").attr("rel") == "onthemap") {
 		elgg.event_manager.execute_search_map();
@@ -109,15 +115,6 @@ elgg.event_manager.execute_search_list = function(event) {
 
 elgg.event_manager.list_events_init = function() {
 	require(['elgg/spinner']);
-	
-	$('#event_manager_event_search_advanced_enable').click(function() {
-
-		if($('#event-manager-search-form-past-events').is(":hidden")) {
-			$('#advanced_search').val('1');
-		} else {
-			$('#advanced_search').val('0');
-		}
-	});
 
 	$(document).on('click', '#event_manager_event_list_search_more', function()	{
 		var clickedElement = $(this);

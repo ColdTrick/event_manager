@@ -13,29 +13,29 @@ if ($event->icontime) {
 	echo '<div class="mbm elgg-border-plain center"><img src="data:image/jpeg;base64,' . base64_encode($filecontents) . '" border="0" /></div>';
 }
 
-$start_day = $event->getStartTimestamp();
-$end_ts = $event->getEndTimestamp();
+$event_start = $event->getStartTimestamp();
+$event_end = $event->getEndTimestamp();
 
-$when_title = elgg_echo('date:weekday:' . date('w', $start_day)) . ', ';
-$when_title .= elgg_echo('date:month:' . date('m', $start_day), [date('j', $start_day)]) . ' ';
-$when_title .= date('Y', $start_day);
+$when_title = elgg_echo('date:weekday:' . gmdate('w', $event_start)) . ', ';
+$when_title .= elgg_echo('date:month:' . gmdate('m', $event_start), [gmdate('j', $event_start)]) . ' ';
+$when_title .= gmdate('Y', $event_start);
 
 $when_subtitle = '';
 
-if (!$end_ts) {
-	$when_title .= ' ' . date('H:i', $start_day);
+if (!$event_end) {
+	$when_title .= ' ' . gmdate('H:i', $event_start);
 } else {
-	if (date('d-m-Y', $end_ts) === date('d-m-Y', $start_day)) {
+	if (gmdate('d-m-Y', $event_end) === gmdate('d-m-Y', $event_start)) {
 		// same day event
-		$when_subtitle .= date('H:i', $start_day) . ' ' . strtolower(elgg_echo('event_manager:date:to')) . ' ' . date('H:i', $end_ts);
+		$when_subtitle .= gmdate('H:i', $event_start) . ' ' . strtolower(elgg_echo('event_manager:date:to')) . ' ' . gmdate('H:i', $event_end);
 	} else {
-		$when_title .= ' ' . date('H:i', $start_day);
+		$when_title .= ' ' . gmdate('H:i', $event_start);
 		$when_subtitle .= strtolower(elgg_echo('event_manager:date:to')) . ' ';
 
-		$when_subtitle .= elgg_echo('date:weekday:' . date('w', $end_ts)) . ', ';
-		$when_subtitle .= elgg_echo('date:month:' . date('m', $end_ts), [date('j', $end_ts)]) . ' ';
-		$when_subtitle .= date('Y', $end_ts) . ' ';
-		$when_subtitle .= date('H:i', $end_ts);
+		$when_subtitle .= elgg_echo('date:weekday:' . gmdate('w', $event_end)) . ', ';
+		$when_subtitle .= elgg_echo('date:month:' . gmdate('m', $event_end), [gmdate('j', $event_end)]) . ' ';
+		$when_subtitle .= gmdate('Y', $event_end) . ' ';
+		$when_subtitle .= gmdate('H:i', $event_end);
 	}
 }
 

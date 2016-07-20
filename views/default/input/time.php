@@ -16,8 +16,8 @@ $hour = 0;
 $minute = 0;
 
 if ($time) {
-	$hour = date('H', $time);
-	$minute = date('i', $time);
+	$hour = gmdate('H', $time);
+	$minute = gmdate('i', $time);
 }
 
 // Generate hour options

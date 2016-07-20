@@ -59,7 +59,7 @@ function event_manager_search_events($options = []) {
 		'joins' => [],
 		'wheres' => [],
 		'order_by_metadata' => [
-			'name' => 'start_day',
+			'name' => 'event_start',
 			'direction' => 'ASC',
 			'as' => 'integer'
 		]
@@ -75,18 +75,19 @@ function event_manager_search_events($options = []) {
 		$entities_options['wheres'][] = event_manager_search_get_where_sql('oe', ['title', 'description'], $options);
 	}
 
-	if (!empty($options['start_day'])) {
+	if (!empty($options['event_start'])) {
 		$entities_options['metadata_name_value_pairs'][] = [
-			'name' => 'start_day',
-			'value' => $options['start_day'],
+			'name' => 'event_start',
+			'value' => $options['event_start'],
 			'operand' => '>='
 		];
 	}
 
-	if (!empty($options['end_day'])) {
+	if (!empty($options['event_end'])) {
+		$options['event_end'] += 86400; // add one day
 		$entities_options['metadata_name_value_pairs'][] = [
-			'name' => 'end_ts',
-			'value' => $options['end_day'],
+			'name' => 'event_end',
+			'value' => $options['event_end'],
 			'operand' => '<='
 		];
 	}
@@ -94,7 +95,7 @@ function event_manager_search_events($options = []) {
 	if (!$options['past_events']) {
 		// only show from current day or newer
 		$entities_options['metadata_name_value_pairs'][] = [
-			'name' => 'start_day',
+			'name' => 'event_start',
 			'value' => mktime(0, 0, 1),
 			'operand' => '>='
 		];
@@ -141,7 +142,7 @@ function event_manager_search_events($options = []) {
 			$entities_options['wheres'] = ['(1=0)'];
 		}
 	}
-
+	
 	if (($options['search_type'] == 'onthemap') && !empty($options['latitude']) && !empty($options['longitude']) && !empty($options['distance'])) {
 		$entities_options['latitude'] = $options['latitude'];
 		$entities_options['longitude'] = $options['longitude'];
@@ -525,7 +526,7 @@ function event_manager_groups_enabled() {
  * @return string
  */
 function event_manager_format_date($timestamp) {
-	return date(elgg_echo('event_manager:date:format'), $timestamp);
+	return gmdate(elgg_echo('event_manager:date:format'), $timestamp);
 }
 
 /**
@@ -638,10 +639,8 @@ function event_manager_prepare_form_vars($event = null) {
 		'fee' => ELGG_ENTITIES_ANY_VALUE,
 		'fee_details' => ELGG_ENTITIES_ANY_VALUE,
 		'organizer' => ELGG_ENTITIES_ANY_VALUE,
-		'start_day' => date('Y-m-d', time()),
-		'end_day' => ELGG_ENTITIES_ANY_VALUE,
-		'start_time' => time(),
-		'end_ts' => time() + 3600,
+		'event_start' => time(),
+		'event_end' => time() + 3600,
 		'registration_ended' => ELGG_ENTITIES_ANY_VALUE,
 		'endregistration_day' => ELGG_ENTITIES_ANY_VALUE,
 		'with_program' => ELGG_ENTITIES_ANY_VALUE,
@@ -670,17 +669,6 @@ function event_manager_prepare_form_vars($event = null) {
 				$values[$field] = $event->$field;
 			}
 		}
-	
-		// convert timestamp to date notation for correct display
-		if (!empty($values['start_day'])) {
-			$values['start_day'] = date('Y-m-d', $values['start_day']);
-		}
-		if (empty($values['end_ts'])) {
-			$start_date = explode('-', $values['start_day']);
-			$values['end_ts'] = mktime($values['start_time_hours'], $values['start_time_minutes'], 1, $start_date[1], $start_date[2], $start_date[0]) + 3600;
-		}
-	
-		$values['end_day'] = date('Y-m-d', $values['end_ts']);
 		
 		if (!empty($values['endregistration_day'])) {
 			$values['endregistration_day'] = date('Y-m-d', $values['endregistration_day']);

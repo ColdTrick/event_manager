@@ -5,34 +5,33 @@ elgg_make_sticky_form('event');
 
 $title = get_input('title');
 
-$start_day = get_input('start_day');
-$end_day = get_input('end_day');
-$end_time_hours = get_input('end_time_hours');
-$end_time_minutes = get_input('end_time_minutes');
+$event_start = (int) get_input('event_start');
+$start_time_hours = (int) get_input('start_time_hours');
+$start_time_minutes = (int) get_input('start_time_minutes');
+
+$event_end = (int) get_input('event_end');
+$end_time_hours = (int) get_input('end_time_hours');
+$end_time_minutes = (int) get_input('end_time_minutes');
 
 $endregistration_day = get_input('endregistration_day');
 
 $access_id = (int) get_input('access_id');
 
-$start_time_hours = get_input('start_time_hours');
-$start_time_minutes = get_input('start_time_minutes');
-$start_time = mktime($start_time_hours, $start_time_minutes, 1, 0, 0, 0);
-
-if (!empty($end_day)) {
-	$end_date = explode('-', $end_day);
-	$end_ts = mktime($end_time_hours, $end_time_minutes, 1, $end_date[1], $end_date[2], $end_date[0]);
+if (empty($title) || empty($event_start) || empty($event_end)) {
+	register_error(elgg_echo('event_manager:action:event:edit:error_fields'));
+	forward(REFERER);
 }
 
-if (!empty($start_day)) {
-	$date = explode('-', $start_day);
-	$start_day = mktime(0, 0, 1, $date[1], $date[2], $date[0]);
+$event_end += $end_time_minutes * 60;
+$event_end += $end_time_hours * 3600;
 
-	$start_ts = mktime($start_time_hours, $start_time_minutes, 1, $date[1], $date[2], $date[0]);
 
-	if (!empty($end_ts) && ($end_ts < $start_ts)) {
-		register_error(elgg_echo('event_manager:action:event:edit:end_before_start'));
-		forward(REFERER);
-	}
+$event_start += $start_time_minutes * 60;
+$event_start += $start_time_hours * 3600;
+
+if ($event_end < $start_ts) {
+	register_error(elgg_echo('event_manager:action:event:edit:end_before_start'));
+	forward(REFERER);
 }
 
 if (!empty($endregistration_day)) {
@@ -41,17 +40,10 @@ if (!empty($endregistration_day)) {
 }
 
 $entity = get_entity(get_input('guid'));
+$event_created = false;
 if ($entity instanceof \Event) {
 	$event = $entity;
-}
-
-if (empty($title) || empty($start_day) || empty($end_ts)) {
-	register_error(elgg_echo('event_manager:action:event:edit:error_fields'));
-	forward(REFERER);
-}
-
-$event_created = false;
-if (!isset($event)) {
+} else {
 	$event_created = true;
 	$event = new \Event();
 }
@@ -80,12 +72,8 @@ $event->setMaxAttendees(get_input('max_attendees'));
 $event->setRegion(get_input('region'));
 $event->setEventType(get_input('event_type'));
 
-$event->start_day = $start_day;
-$event->start_time = $start_time;
-
-if (!empty($end_ts)) {
-	$event->end_ts = $end_ts;
-}
+$event->event_start = $event_start;
+$event->event_end = $event_end;
 
 $event->with_program = get_input('with_program');
 $event->endregistration_day = $endregistration_day;
