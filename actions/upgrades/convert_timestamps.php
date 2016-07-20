@@ -28,13 +28,14 @@ $batch = new \ElggBatch('elgg_get_entities', [
 
 foreach ($batch as $event) {
 	$success_count++;
-	
+
 	if ($event->event_start) {
 		// already converted
 		continue;
 	}
 	
-	$event_start = $event->start_day;
+	$event_start = gmmktime(0, 0, 0, date('m', $event->start_day), date('d', $event->start_day), date('Y', $event->start_day));
+	
 	if ($event->start_time) {
 		$hours = date('H', $event->start_time);
 		$minutes = date('i', $event->start_time);
@@ -46,6 +47,8 @@ foreach ($batch as $event) {
 	$event_end = $event->end_ts;
 	if (empty($event_end)) {
 		$event_end = $event_start + 3600;
+	} else {
+		$event_end = gmmktime(date('H', $event_end), date('i', $event_end), 0, date('m', $event_end), date('d', $event_end), date('Y', $event_end));
 	}
 		
 	$event->event_start = $event_start;
