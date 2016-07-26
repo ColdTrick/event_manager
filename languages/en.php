@@ -303,6 +303,11 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:widgets:events:showevents:attendingto' => 'I\'m attending',
 	'event_manager:widgets:events:group' => "Enter a group name to limit the results (optional)",
 	'event_manager:widgets:events:group_guid' => "Enter a group guid to limit the results (optional)",
+	
+	'event_manager:widgets:highlighted_events:title' => 'Highlighted Events',
+	'event_manager:widgets:highlighted_events:description' => 'Select your events you wish to highlight in this widget',
+	'event_manager:widgets:highlighted_events:edit:event_guids' => 'Select events',
+	
 
 	// actions
 	'event_manager:action:event:edit:ok' => 'Event saved',

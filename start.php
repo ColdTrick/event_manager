@@ -71,6 +71,9 @@ function event_manager_init() {
 
 	// add widgets
 	elgg_register_widget_type('events', elgg_echo('event_manager:widgets:events:title'), elgg_echo('event_manager:widgets:events:description'), ['index', 'dashboard', 'profile', 'groups']);
+	if (elgg_view_exists('input/objectpicker')) {
+		elgg_register_widget_type('highlighted_events', elgg_echo('event_manager:widgets:highlighted_events:title'), elgg_echo('event_manager:widgets:highlighted_events:description'), ['index', 'groups']);
+	}
 
 	// register js libraries
 	elgg_define_js('gmaps', [
