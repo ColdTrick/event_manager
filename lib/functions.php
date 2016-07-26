@@ -44,7 +44,6 @@ function event_manager_search_events($options = []) {
 		'longitude' => null,
 		'distance' => null,
 		'event_type' => false,
-		'past_events' => false,
 		'search_type' => "list",
 		'user_guid' => elgg_get_logged_in_user_guid()
 	];
@@ -93,12 +92,35 @@ function event_manager_search_events($options = []) {
 	}
 
 	if (!$options['past_events']) {
-		// only show from current day or newer
-		$entities_options['metadata_name_value_pairs'][] = [
-			'name' => 'event_start',
-			'value' => mktime(0, 0, 1),
-			'operand' => '>='
-		];
+		// only show from current day or newer (or where event is still running)
+		$current_time = mktime(0, 0, 1);
+		if ($options['event_end']) {
+			$entities_options['metadata_name_value_pairs'][] = [
+				'name' => 'event_start',
+				'value' => $current_time,
+				'operand' => '>='
+			];
+		} else {
+			// start date
+			$event_start_id = elgg_get_metastring_id('event_start');
+			$entities_options['joins'][] = "JOIN {$dbprefix}metadata md_start ON e.guid = md_start.entity_guid";
+			$entities_options['joins'][] = "JOIN {$dbprefix}metastrings msv_start ON md_start.value_id = msv_start.id";
+			$entities_options['wheres'][] = "md_start.name_id = {$event_start_id}";
+			
+			// end date
+			$event_end_id = elgg_get_metastring_id('event_end');
+			$entities_options['joins'][] = "JOIN {$dbprefix}metadata md_end ON e.guid = md_end.entity_guid";
+			$entities_options['joins'][] = "JOIN {$dbprefix}metastrings msv_end ON md_end.value_id = msv_end.id";
+			$entities_options['wheres'][] = "md_end.name_id = {$event_end_id}";
+			
+			// event start > now
+			$time_start = "(msv_start.string >= {$current_time})";
+			
+			// or event start before end and end after now
+			$time_end = "((msv_start.string < {$current_time}) AND (msv_end.string > {$current_time}))";
+			
+			$entities_options['wheres'][] = "({$time_start} OR {$time_end})";
+		}
 	}
 
 	if ($options['meattending'] && !empty($options['user_guid'])) {
@@ -158,7 +180,7 @@ function event_manager_search_events($options = []) {
 		$entities_options['count'] = true;
 		$count_entities = elgg_get_entities_from_metadata($entities_options);
 	}
-
+	
 	$result = [
 		'entities' => $entities,
 		'count' => $count_entities
