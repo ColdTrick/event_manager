@@ -39,8 +39,11 @@ if (!elgg_in_context('widgets')) {
 	}
 
 	$shortdescription = $event->shortdescription;
+	if (empty($shortdescription)) {
+		$shortdescription = $event->description;
+	}
 	if ($shortdescription) {
-		$content .= '<div>' . $shortdescription . '</div>';
+		$content .= '<div>' . elgg_get_excerpt($shortdescription) . '</div>';
 	}
 }
 
