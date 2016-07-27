@@ -307,7 +307,7 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:widgets:highlighted_events:title' => 'Highlighted Events',
 	'event_manager:widgets:highlighted_events:description' => 'Select your events you wish to highlight in this widget',
 	'event_manager:widgets:highlighted_events:edit:event_guids' => 'Select events',
-	
+	'event_manager:widgets:highlighted_events:edit:show_past_events' => 'Show past events',	
 
 	// actions
 	'event_manager:action:event:edit:ok' => 'Event saved',
