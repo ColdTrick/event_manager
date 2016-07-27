@@ -6,6 +6,10 @@ $relation = elgg_extract('relation', $vars);
 elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 
 $event = get_entity($guid);
+elgg_set_page_owner_guid($event->getContainerGUID());
+if (elgg_get_page_owner_entity() instanceof \ElggGroup) {
+	elgg_group_gatekeeper();
+}
 
 if ((!$event->registration_needed && elgg_is_logged_in()) || (!elgg_is_logged_in() && !$event->register_nologin)) {
 	system_message(elgg_echo('event_manager:registration:message:registrationnotneeded'));
@@ -34,8 +38,6 @@ $body_vars = ['entity' => $event];
 $form = elgg_view_form('event_manager/event/register', $form_vars, $body_vars);
 
 $title_text = elgg_echo('event_manager:registration:register:title');
-
-elgg_set_page_owner_guid($event->getContainerGUID());
 
 elgg_push_breadcrumb($event->title, $event->getURL());
 elgg_push_breadcrumb($title_text);

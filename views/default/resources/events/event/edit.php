@@ -5,35 +5,37 @@ gatekeeper();
 $title_text = elgg_echo('event_manager:edit:title');
 
 $guid = (int) elgg_extract('guid', $vars);
-$event = false;
+$event = null;
 
-if (!empty($guid) && ($entity = get_entity($guid))) {
-	if (($entity instanceof \Event) && $entity->canEdit()) {
-		$event = $entity;
-
-		elgg_push_breadcrumb($entity->title, $event->getURL());
-
-		elgg_set_page_owner_guid($event->container_guid);
+if (!empty($guid)) {
+	// existing event
+	elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
+	$event = get_entity($guid);
+	if (!$event->canEdit()) {
+		register_error(elgg_echo('actionunauthorized'));
+		forward(REFERER);
 	}
-}
-
-if (!$event) {
+	
+	elgg_push_breadcrumb($entity->title, $event->getURL());
+	elgg_set_page_owner_guid($event->container_guid);
+} else {
+	// new event
 	$page_owner = elgg_get_page_owner_entity();
 
 	if ($page_owner instanceof \ElggGroup) {
 		if (!event_manager_can_create_group_events($page_owner)) {
+			register_error(elgg_echo('actionunauthorized'));
 			forward('events');
 		}
 
 	} else {
 		if (!event_manager_can_create_site_events()) {
+			register_error(elgg_echo('actionunauthorized'));
 			forward('events');
 		}
 		elgg_set_page_owner_guid(elgg_get_logged_in_user_guid());
 	}
 }
-
-elgg_push_breadcrumb($title_text);
 
 $form_vars = [
 	'id' => 'event_manager_event_edit',

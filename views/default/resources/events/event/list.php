@@ -8,7 +8,7 @@ $event_options = [];
 
 $page_owner = elgg_get_page_owner_entity();
 if ($page_owner instanceof \ElggGroup) {
-	group_gatekeeper();
+	elgg_group_gatekeeper();
 	$title_text = elgg_echo('event_manager:list:group:title');
 
 	elgg_push_breadcrumb($page_owner->name, $page_owner->getURL());

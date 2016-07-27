@@ -10,7 +10,7 @@ if (!$entity->register_nologin) {
 }
 
 // set page owner
-elgg_set_page_owner_guid($entity->getContainerGuid());
+elgg_set_page_owner_guid($entity->getContainerGUID());
 
 // make breadcrumb
 elgg_push_breadcrumb($entity->title, $entity->getURL());

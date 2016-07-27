@@ -27,6 +27,8 @@ elgg_register_menu_item('title', ElggMenuItem::factory([
 elgg_set_page_owner_guid($event->getContainerGUID());
 $page_owner = elgg_get_page_owner_entity();
 if ($page_owner instanceof ElggGroup) {
+	elgg_group_gatekeeper();
+	
 	elgg_push_breadcrumb($page_owner->name, '/events/event/list/' . $page_owner->getGUID());
 }
 
