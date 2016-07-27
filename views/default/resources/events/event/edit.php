@@ -18,6 +18,15 @@ if (!empty($guid)) {
 	
 	elgg_push_breadcrumb($event->title, $event->getURL());
 	elgg_set_page_owner_guid($event->container_guid);
+	
+	// add copy menu item
+	elgg_register_menu_item('title', \ElggMenuItem::factory([
+		'name' => 'copy',
+		'href' => 'action/event_manager/event/copy?guid=' . $event->getGUID(),
+		'confirm' => true,
+		'text' => elgg_echo('event_manager:menu:copy'),
+		'link_class' => 'elgg-button elgg-button-action',
+	]));
 } else {
 	// new event
 	$page_owner = elgg_get_page_owner_entity();

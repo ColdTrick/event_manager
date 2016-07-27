@@ -109,6 +109,7 @@ function event_manager_init() {
 	// actions
 	elgg_register_action('event_manager/event/edit', $base_dir . '/actions/event/edit.php');
 	elgg_register_action('event_manager/event/delete', $base_dir . '/actions/event/delete.php');
+	elgg_register_action('event_manager/event/copy', $base_dir . '/actions/event/copy.php');
 	elgg_register_action('event_manager/event/rsvp', $base_dir . '/actions/event/rsvp.php');
 	elgg_register_action('event_manager/event/upload', $base_dir . '/actions/event/upload.php');
 	elgg_register_action('event_manager/event/deletefile', $base_dir . '/actions/event/deletefile.php');

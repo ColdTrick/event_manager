@@ -19,11 +19,13 @@ return array(
 	'item:object:eventquestions' => 'Event Questions',
 
 	'event_manager:date:format' => 'Y-m-d',
+	'event_manager:enity:copy' => 'Copy of: %s',
 
 	'event_manager:menu:title' => 'Events',
 	'event_manager:menu:events' => 'All events',
 	'event_manager:menu:group_events' => 'Group events',
 	'event_manager:menu:new_event' => 'New event',
+	'event_manager:menu:copy' => 'Copy event',
 	'event_manager:menu:unsubscribe' => "Unsubscribe",
 	'event_manager:menu:unsubscribe_confirm' => "Confirm unsubscription",
 	'event_manager:menu:registration:completed' => "Event registration completed",
