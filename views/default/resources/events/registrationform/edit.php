@@ -17,7 +17,6 @@ if (!$event->canEdit()) {
 }
 
 elgg_push_breadcrumb($event->title, $event->getURL());
-elgg_push_breadcrumb($title_text);
 
 // Have to do this for private events
 $ia = elgg_set_ignore_access(true);

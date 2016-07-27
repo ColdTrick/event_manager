@@ -33,7 +33,6 @@ if ($page_owner instanceof ElggGroup) {
 }
 
 $title_text = $event->title;
-elgg_push_breadcrumb($title_text);
 
 $output = elgg_view_entity($event, ['full_view' => true]);
 

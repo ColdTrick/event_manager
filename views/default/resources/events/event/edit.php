@@ -16,7 +16,7 @@ if (!empty($guid)) {
 		forward(REFERER);
 	}
 	
-	elgg_push_breadcrumb($entity->title, $event->getURL());
+	elgg_push_breadcrumb($event->title, $event->getURL());
 	elgg_set_page_owner_guid($event->container_guid);
 } else {
 	// new event
