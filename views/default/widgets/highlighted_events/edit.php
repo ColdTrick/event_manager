@@ -10,6 +10,7 @@ echo elgg_view_input('objectpicker',[
 	'subtype' => 'event',
 	'label' => elgg_echo('event_manager:widgets:highlighted_events:edit:event_guids'),
 	'help' => elgg_echo('event_manager:widgets:highlighted_events:description'),
+	'sortable' => true,
 ]);
 
 echo elgg_view('input/checkbox', [
