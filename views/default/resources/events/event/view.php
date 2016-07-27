@@ -6,16 +6,6 @@ elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 
 $event = get_entity($guid);
 
-if ($event->canEdit() && $event->registration_needed) {
-	// add title button to edit registration questions
-	elgg_register_menu_item('title', ElggMenuItem::factory([
-		'name' => 'editquestions',
-		'href' => 'events/registrationform/edit/' . $event->getGUID(),
-		'text' => elgg_echo('event_manager:event:editquestions'),
-		'link_class' => 'elgg-button elgg-button-action',
-	]));
-}
-
 // add export button
 elgg_require_js('addthisevent');
 elgg_register_menu_item('title', ElggMenuItem::factory([

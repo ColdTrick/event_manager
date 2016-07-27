@@ -122,6 +122,47 @@ if ($icon_file) {
 	$event->deleteIcon();
 }
 
+$ia = elgg_set_ignore_access(true);
+
+$order = 0;
+
+$questions = get_input('questions');
+foreach ($questions as $question) {
+	$question_guid = (int) elgg_extract('guid', $question);
+	$fieldtype = elgg_extract('fieldtype', $question);
+	$fieldoptions = elgg_extract('fieldoptions', $question);
+	$questiontext = elgg_extract('questiontext', $question);
+	$required = elgg_extract('required', $question);
+	$required = !empty($required) ? 1 : 0;
+	
+	if ($question_guid) {
+		$question = get_entity($question_guid);
+		if (!($question instanceof \EventRegistrationQuestion)) {
+			continue;
+		}
+	} else {
+		$question = new \EventRegistrationQuestion();
+		$question->container_guid = $event->guid;
+		$question->owner_guid = $event->guid;
+	}
+	
+	$question->title = $questiontext;
+	$question->access_id = $event->access_id;
+	
+	if ($question->save()) {
+		$question->fieldtype = $fieldtype;
+		$question->required = $required;
+		$question->fieldoptions = $fieldoptions;
+		$question->order = $order;
+	
+		$question->addRelationship($event->getGUID(), 'event_registrationquestion_relation');
+		
+		$order++;
+	}
+}
+
+elgg_set_ignore_access($ia);
+
 // added because we need an update event
 $event->save();
 

@@ -33,7 +33,6 @@ if ($registration_form) {
 
 		$form_body .= elgg_view('event_manager/registration/question', [
 			'entity' => $question,
-			'register' => true,
 			'value' => $value,
 		]);
 

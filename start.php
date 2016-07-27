@@ -123,10 +123,6 @@ function event_manager_init() {
 	elgg_register_action('event_manager/attendees/export', $base_dir . '/actions/attendees/export.php');
 	elgg_register_action('event_manager/attendees/move_to_attendees', $base_dir . '/actions/attendees/move_to_attendees.php');
 
-	elgg_register_action('event_manager/question/save_order', $base_dir . '/actions/question/save_order.php');
-	elgg_register_action('event_manager/question/delete', $base_dir . '/actions/question/delete.php');
-	elgg_register_action('event_manager/question/edit', $base_dir . '/actions/question/edit.php');
-
 	elgg_register_action('event_manager/registration/edit', $base_dir . '/actions/registration/edit.php');
 	elgg_register_action('event_manager/registration/pdf', $base_dir . '/actions/registration/pdf.php', 'public');
 	elgg_register_action('event_manager/registration/confirm', $base_dir . '/actions/registration/confirm.php', 'public');

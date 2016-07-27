@@ -59,6 +59,42 @@ elgg.event_manager.edit_event_init = function() {
 			$toggle_field.removeClass('hidden');
 		}
 	});
+	
+	// Registration Questions
+	$('.event_manager_registrationform_fields').sortable({
+		axis: 'y',
+		tolerance: 'pointer',
+		opacity: 0.8,
+		forcePlaceholderSize: true,
+		forceHelperSize: true,
+	});
+	
+	$(document).on('click', '.event_manager_questions_delete', function(e) {
+		if (e.isDefaultPrevented()) {
+			return;
+		}
+		$(this).parents('.elgg-item-object-eventregistrationquestion').eq(0).remove();
+	});
+	
+	$(document).on('change', '.event_manager_registrationform_question_fieldtype', function() {
+		var type = $(this).val();
+		var $parent = $(this).parents('.elgg-item-object-eventregistrationquestion').eq(0);
+		if (type == 'Radiobutton' || type == 'Dropdown') {
+			$parent.find('.event_manager_registrationform_select_options').show();
+		} else {
+			$parent.find('.event_manager_registrationform_select_options').hide();
+		}
+	});
+	
+	$(document).on('click', '.event-manager-registration-add-field', function() {
+		var $clone = $('#event-manager-registration-field-template').clone();
+		$clone.appendTo('.event_manager_registrationform_fields').removeClass('hidden').removeAttr('id');
+		$clone.find(':disabled').removeAttr('disabled');
+		
+		var d = new Date();
+		var temp_id = 't_' + d.getTime();
+		$($clone).html($clone.html().replace(/questions\[\]\[/g, 'questions[' + temp_id + ']['));	
+	});
 };
 
 elgg.register_hook_handler('init', 'system', elgg.event_manager.edit_event_init);

@@ -284,23 +284,3 @@
 #event_manager_onthemap_legend img {
 	vertical-align: middle;
 }
-
-#event_manager_registrationform_lightbox {
-	width: 400px;
-}
-
-#event_manager_registration_form_fields ul,
-#event_manager_registrationform_fields {
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
-}
-
-#event_manager_registration_form_fields ul li,
-#event_manager_registrationform_fields li {
-	margin-bottom: 10px;
-}
-
-#event_manager_registrationform_fields li {
-	background: #FFFFFF;
-}

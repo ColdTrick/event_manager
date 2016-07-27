@@ -150,14 +150,6 @@ class Event extends ElggObject {
 			}
 		}
 		
-		$questions = $this->getRegistrationFormQuestions();
-		if (!empty($questions)) {
-			foreach ($questions as $question) {
-				$question->access_id = $access_id;
-				$question->save();
-			}
-		}
-		
 		elgg_set_ignore_access($ia);
 	}
 

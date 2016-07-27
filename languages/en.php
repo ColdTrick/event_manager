@@ -80,6 +80,7 @@ return array(
 	'event_manager:edit:form:tabs:location' => 'Location',
 	'event_manager:edit:form:tabs:contact' => 'Contact Details',
 	'event_manager:edit:form:tabs:registration' => 'Registration',
+	'event_manager:edit:form:tabs:questions' => 'Registration Questions',
 	'event_manager:edit:form:tabs:extra' => 'Extra',
 	'event_manager:edit:form:file' => 'Choose file',
 	'event_manager:edit:form:files' => 'Files',
@@ -138,7 +139,7 @@ return array(
 	'event_manager:editregistration:addfield:title' => 'Add registrationform field',
 	'event_manager:editregistration:fieldtype' => 'Field type',
 	'event_manager:editregistration:fieldoptions' => 'Field options',
-	'event_manager:editregistration:commasepetared' => 'comma separated',
+	'event_manager:editregistration:commasepatared' => 'comma separated',
 	'event_manager:editregistration:question' => 'Question',
 
 	'event_manager:registration:message:registrationnotneeded' => 'Registration to this event is not needed.',
@@ -246,8 +247,8 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:event:search_attendees' => 'Search attendees',
 
 	'event_manager:registrationform:editquestion:required' => 'Required?',
-	'event_manager:registrationform:fieldorder:error' => 'Error changing field order',
-
+	'event_manager:registrationform:editquestion:text:placeholder' => 'Enter a question you wish to ask',
+	
 	'event_manager:event:file:notfound:text' => 'The file you are looking for couldn\'t be found',
 
 	'event_manager:event:register:register_link' => 'Register to this event',

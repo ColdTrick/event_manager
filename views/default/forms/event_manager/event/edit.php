@@ -18,7 +18,7 @@ echo elgg_view('forms/event_manager/event/module', [
 	'body' => elgg_view('forms/event_manager/event/tabs/general', $vars),
 ]);
 
-$sections = ['profile', 'location', 'contact', 'registration', 'extra'];
+$sections = ['profile', 'location', 'contact', 'registration', 'questions', 'extra'];
 foreach ($sections as $section) {
 	echo elgg_view('forms/event_manager/event/module', [
 		'title' => elgg_echo("event_manager:edit:form:tabs:{$section}"),
