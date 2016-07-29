@@ -980,24 +980,29 @@ class Event extends ElggObject {
 	/**
 	 * Deletes the previous uploaded icon
 	 *
-	 * @return void
+	 * @param string $type Icon type
+	 * @return bool
 	 */
-	public function deleteIcon() {
-		$fh = new \ElggFile();
-		$fh->owner_guid = $this->guid;
-	
-		$icon_sizes = elgg_get_config('icon_sizes');
-		$icon_sizes['event_banner'] = ['w' => 1920, 'h' => 1080, 'square' => false, 'upscale' => false];
+	public function deleteIcon($type = 'icon') {
+		if ($type == 'icon') {
+			$fh = new \ElggFile();
+			$fh->owner_guid = $this->guid;
 
-		foreach ($icon_sizes as $name => $info) {
-			$fh->setFilename("{$name}.jpg");
-	
-			if ($fh->exists()) {
-				$fh->delete();
+			$icon_sizes = elgg_get_config('icon_sizes');
+			$icon_sizes['event_banner'] = ['w' => 1920, 'h' => 1080, 'square' => false, 'upscale' => false];
+
+			foreach ($icon_sizes as $name => $info) {
+				$fh->setFilename("{$name}.jpg");
+
+				if ($fh->exists()) {
+					$fh->delete();
+				}
 			}
+
+			unset($this->icontime);
 		}
-	
-		unset($this->icontime);
+
+		return parent::deleteIcon($type);
 	}
 
 	/**
