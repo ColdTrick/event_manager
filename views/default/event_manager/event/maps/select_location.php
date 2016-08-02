@@ -15,7 +15,7 @@ $form_body .= elgg_view('input/button', [
 ]);
 
 $form_body .= elgg_view('input/button', [
-	'class' => 'elgg-button-submit',
+	'class' => 'elgg-button-submit hidden',
 	'name' => 'address_search_save',
 	'id' => 'address_search_save',
 	'value' => elgg_echo('save'),
