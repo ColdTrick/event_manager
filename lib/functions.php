@@ -44,8 +44,10 @@ function event_manager_search_events($options = []) {
 		'longitude' => null,
 		'distance' => null,
 		'event_type' => false,
+		'event_start' => null,
+		'event_end' => null,
 		'search_type' => "list",
-		'user_guid' => elgg_get_logged_in_user_guid()
+		'user_guid' => elgg_get_logged_in_user_guid(),
 	];
 
 	$options = array_merge($defaults, $options);
