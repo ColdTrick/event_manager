@@ -77,12 +77,12 @@ $event->event_end = $event_end;
 
 $event->with_program = get_input('with_program');
 $event->endregistration_day = $endregistration_day;
+$event->event_interested = 1;
 
 $metadata_fields = [
 	'shortdescription', 'comments_on', 'registration_ended', 'registration_needed', 'show_attendees',
 	'notify_onsignup', 'waiting_list', 'venue', 'contact_details', 'website',
 	'organizer', 'fee', 'fee_details', 'register_nologin', 'waiting_list_enabled', 'registration_completed',
-	'event_interested', 'event_presenting', 'event_exhibiting',
 ];
 
 foreach ($metadata_fields as $field) {

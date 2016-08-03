@@ -84,37 +84,8 @@ echo elgg_view_input('date', [
 	'value' => $vars['endregistration_day'],
 ]);
 
-$registration_ended = elgg_view('input/checkboxes', [
+echo elgg_view('input/checkboxes', [
 	'name' => 'registration_ended',
 	'value' => $vars['registration_ended'],
 	'options' => [elgg_echo('event_manager:edit:form:registration_ended') => '1'],
-]);
-
-$event_interested = elgg_view('input/checkboxes', [
-	'name' => 'event_interested',
-	'id' => 'event_interested',
-	'value' => $vars['event_interested'],
-	'options' => [elgg_echo('event_manager:event:relationship:event_interested') => '1'],
-]);
-
-$event_presenting = elgg_view('input/checkboxes', [
-	'name' => 'event_presenting',
-	'id' => 'event_presenting',
-	'value' => $vars['event_presenting'],
-	'options' => [elgg_echo('event_manager:event:relationship:event_presenting') => '1'],
-]);
-
-$event_exhibiting = elgg_view('input/checkboxes', [
-	'name' => 'event_exhibiting',
-	'id' => 'event_exhibiting',
-	'value' => $vars['event_exhibiting'],
-	'options' => [elgg_echo('event_manager:event:relationship:event_exhibiting') => '1'],
-]);
-
-echo elgg_view('elements/forms/field', [
-	'label' => elgg_view('elements/forms/label', [
-		'label' => elgg_echo('event_manager:edit:form:rsvp_options'),
-	]),
-	'input' => $registration_ended . $event_interested . $event_presenting . $event_exhibiting,
-	'class' => 'event-manager-forms-label-normal',
 ]);
