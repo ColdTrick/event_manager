@@ -5,26 +5,37 @@
 
 $entity = elgg_extract('entity', $vars);
 
-echo elgg_view_input('text', [
+$shortdescription = elgg_extract('shortdescription', $vars);
+$description = elgg_extract('description', $vars);
+$tags = elgg_extract('tags', $vars);
+
+$collapsed = true;
+if (!empty($shortdescription) || !empty($description)) {
+	$collapsed = false;
+}
+
+$output = '';
+
+$output .= elgg_view_input('text', [
 	'label' => elgg_echo('event_manager:edit:form:shortdescription'),
 	'name' => 'shortdescription',
-	'value' => $vars['shortdescription'],
+	'value' => $shortdescription,
 ]);
 
-echo elgg_view_input('longtext', [
+$output .= elgg_view_input('longtext', [
 	'label' => elgg_echo('description'),
 	'name' => 'description',
-	'value' => $vars['description'],
+	'value' => $description,
 	'field_class' => 'event-manager-forms-label-inline',
 ]);
 
-echo elgg_view_input('tags', [
+$output .= elgg_view_input('tags', [
 	'label' => elgg_echo('tags'),
 	'name' => 'tags',
-	'value' => $vars['tags'],
+	'value' => $tags,
 ]);
 
-echo elgg_view_input('file', [
+$output .= elgg_view_input('file', [
 	'label' => elgg_echo('event_manager:edit:form:icon'),
 	'name' => 'icon',
 ]);
@@ -46,7 +57,7 @@ if ($entity && $entity->icontime) {
 		],
 	]);
 	
-	echo elgg_view('elements/forms/field', [
+	$output .= elgg_view('elements/forms/field', [
 		'label' => elgg_view('elements/forms/label', [
 			'label' => elgg_echo('event_manager:edit:form:currenticon'),
 			'id' => 'delete_current_icon',
@@ -57,7 +68,7 @@ if ($entity && $entity->icontime) {
 
 $type_options = event_manager_event_type_options();
 if ($type_options) {
-	echo elgg_view_input('select', [
+	$output .= elgg_view_input('select', [
 		'label' => elgg_echo('event_manager:edit:form:type'),
 		'name' => 'event_type',
 		'value' => $vars['event_type'],
@@ -65,7 +76,7 @@ if ($type_options) {
 	]);
 }
 
-echo elgg_view_input('checkboxes', [
+$output .= elgg_view_input('checkboxes', [
 	'name' => 'comments_on',
 	'value' => $vars['comments_on'],
 	'options' => [
@@ -73,8 +84,30 @@ echo elgg_view_input('checkboxes', [
 	],
 ]);
 
-echo elgg_view_input('access', [
+$output .= elgg_view_input('access', [
 	'label' => elgg_echo('access'),
 	'name' => 'access_id',
 	'value' => $vars['access_id'],
 ]);
+
+if (!$collapsed) {
+	echo $output;
+	return;
+}
+
+$toggle_button = elgg_view('input/button', [
+	'class' => 'elgg-button-action',
+	'value' => elgg_echo('event_manager:edit:form:tabs:profile:toggle'),
+	'rel' => 'toggle',
+	'data-toggle-selector' => '.event-manager-edit-profile-toggle',
+]);
+
+echo elgg_format_element('div', [
+	'class' => 'event-manager-edit-profile-toggle center',
+	'data-toggle-slide' => 0,
+], $toggle_button);
+
+echo elgg_format_element('div', [
+	'class' => 'hidden event-manager-edit-profile-toggle',
+	'data-toggle-slide' => 0,
+], $output);

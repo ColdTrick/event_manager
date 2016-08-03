@@ -4,11 +4,16 @@ $event = elgg_extract('entity', $vars);
 // Have to do this for private events
 $ia = elgg_set_ignore_access(true);
 
+$list = '';
 if ($event instanceof \Event) {
-	echo elgg_view_entity_list($event->getRegistrationFormQuestions(), [
+	$list = elgg_view_entity_list($event->getRegistrationFormQuestions(), [
 		'list_class' => 'event_manager_registrationform_fields',
 		'item_view' => 'forms/event_manager/registrationform/question',
 	]);
+}
+
+if (!empty($list)) {
+	echo $list;
 } else {
 	// add empty ul for fields to be added
 	echo elgg_format_element('ul', [

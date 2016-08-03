@@ -18,9 +18,9 @@ if ($question instanceof \EventRegistrationQuestion) {
 }
 
 $disabled = empty($guid);
-
+$form_body = '';
 $form_body .= elgg_view('input/hidden', [
-	'name' => "questions[{$guid}][guid]", 
+	'name' => "questions[{$guid}][guid]",
 	'value' => $guid,
 	'disabled' => $disabled,
 ]);

@@ -209,7 +209,7 @@ class Menus {
 	 * @return array
 	 */
 	public static function registerEventEdit($hook, $entity_type, $returnvalue, $params) {
-		$sections = ['profile', 'location', 'contact', 'registration', 'questions', 'extra'];
+		$sections = ['profile', 'location', 'contact', 'registration', 'questions'];
 		foreach ($sections as $section) {
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => "event_edit_{$section}",

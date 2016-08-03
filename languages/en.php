@@ -77,10 +77,11 @@ return array(
 	'event_manager:edit:title' => 'Create / Edit Event',
 	'event_manager:edit:upload:title' => 'Add files to your event',
 	'event_manager:edit:form:tabs:profile' => 'Profile',
+	'event_manager:edit:form:tabs:profile:toggle' => 'Click to configure profile details',
 	'event_manager:edit:form:tabs:location' => 'Location',
 	'event_manager:edit:form:tabs:location:toggle' => 'Click to configure location details',
 	'event_manager:edit:form:tabs:contact' => 'Contact Details',
-	'event_manager:edit:form:tabs:contact:toggle' => 'Click to configure contact Details',
+	'event_manager:edit:form:tabs:contact:toggle' => 'Click to configure contact details',
 	'event_manager:edit:form:tabs:registration' => 'Registration',
 	'event_manager:edit:form:tabs:questions' => 'Registration Questions',
 	'event_manager:edit:form:tabs:extra' => 'Extra',
@@ -312,7 +313,7 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:widgets:highlighted_events:title' => 'Highlighted Events',
 	'event_manager:widgets:highlighted_events:description' => 'Select your events you wish to highlight in this widget',
 	'event_manager:widgets:highlighted_events:edit:event_guids' => 'Select events',
-	'event_manager:widgets:highlighted_events:edit:show_past_events' => 'Show past events',	
+	'event_manager:widgets:highlighted_events:edit:show_past_events' => 'Show past events',
 
 	// actions
 	'event_manager:action:event:edit:ok' => 'Event saved',
