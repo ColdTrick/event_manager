@@ -40,3 +40,22 @@ if (!empty($contact_information)) {
 	$contact_information = elgg_format_element('table', [], $contact_information);
 	echo elgg_view_module('aside', 'Contact details', $contact_information);
 }
+
+$contact_guids = $event->contact_guids;
+if (!empty($contact_guids)) {
+	if (!is_array($contact_guids)) {
+		$contact_guids = [$contact_guids];
+	}
+	$contact_content = '';
+	foreach ($contact_guids as $contact_guid) {
+		$member_entity = get_entity($contact_guid);
+		if (empty($member_entity)) {
+			continue;
+		}
+		$member_icon = elgg_view_entity_icon($member_entity, 'tiny', ['event' => $event]);
+		$member_name = $member_entity->name;
+		$contact_content .= elgg_view_image_block($member_icon, $member_name, ['class' => 'pan']);
+	}
+	
+	echo elgg_view_module('aside', elgg_echo('event_manager:event:view:contact_persons'), $contact_content);
+}

@@ -83,6 +83,7 @@ $metadata_fields = [
 	'shortdescription', 'comments_on', 'registration_ended', 'registration_needed', 'show_attendees',
 	'notify_onsignup', 'waiting_list', 'venue', 'contact_details', 'website',
 	'organizer', 'fee', 'fee_details', 'register_nologin', 'waiting_list_enabled', 'registration_completed',
+	'organizer_guids', 'contact_guids',
 ];
 
 foreach ($metadata_fields as $field) {

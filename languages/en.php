@@ -90,6 +90,10 @@ return array(
 	'event_manager:edit:form:venue' => 'Venue',
 	'event_manager:edit:form:type' => 'Type',
 	'event_manager:edit:form:location' => 'Location',
+	'event_manager:edit:form:users:or' => 'or',
+	'event_manager:edit:form:users:add' => 'add user',
+	'event_manager:edit:form:organizer_guids' => 'Select organizing users',
+	'event_manager:edit:form:contact_guids' => 'Select contactpersons',
 	'event_manager:event:edit:maps_address' => 'Address',
 	'event_manager:edit:form:region' => 'Region',
 	'event_manager:edit:form:contact_details' => 'Contact details',
@@ -265,6 +269,7 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:event:view:event' => 'Event',
 	'event_manager:event:view:date' => 'Date',
 	'event_manager:event:view:createdby' => 'Created by',
+	'event_manager:event:view:contact_persons' => 'Contact persons',
 
 	// relationships
 	'event_manager:event:relationship:event_attending' => 'Attending',
