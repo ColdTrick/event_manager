@@ -493,7 +493,7 @@ class Event extends ElggObject {
 	 */
 	protected function notifyOnRsvp($type, $to = null) {
 
-		if (!$this->notify_onsignup || ($type == EVENT_MANAGER_RELATION_ATTENDING_PENDING)) {
+		if ($type == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
 			return;
 		}
 		
@@ -631,6 +631,11 @@ class Event extends ElggObject {
 	 * @return void
 	 */
 	protected function notifyOwnerOnRSVP($type, ElggEntity $to, $event_title_link, $registration_link = '') {
+		
+		if (!$this->notify_onsignup) {
+			return;
+		}
+		
 		$owner_subject = elgg_echo('event_manager:event:registration:notification:owner:subject');
 
 		$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, [
