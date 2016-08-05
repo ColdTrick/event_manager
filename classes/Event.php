@@ -414,11 +414,11 @@ class Event extends ElggObject {
 	 */
 	public function generateInitialProgramData() {
 	
-		if (empty($event->with_program)) {
+		if (empty($this->with_program)) {
 			return;
 		}
 		
-		if ($event->hasEventDays()) {
+		if ($this->hasEventDays()) {
 			return;
 		}
 		

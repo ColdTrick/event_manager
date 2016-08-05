@@ -114,6 +114,11 @@ class PageHandler {
 							'guid' => (int) elgg_extract(2, $page),
 						]);
 						return true;
+					case 'edit_program':
+						echo elgg_view_resource('events/event/edit_program', [
+							'guid' => (int) elgg_extract(2, $page),
+						]);
+						return true;
 					case 'upload':
 						echo elgg_view_resource('events/event/upload', [
 							'guid' => (int) elgg_extract(2, $page),
