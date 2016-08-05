@@ -150,6 +150,9 @@ return array(
 	'event_manager:editregistration:commasepatared' => 'comma separated',
 	'event_manager:editregistration:question' => 'Question',
 
+	'event_manager:edit_program:title' => "Edit the program of the event",
+	'event_manager:edit_program:description' => "Here you can edit/configure the program of the event.",
+	
 	'event_manager:registration:message:registrationnotneeded' => 'Registration to this event is not needed.',
 	'event_manager:registration:register:title' => 'Register to event',
 	'event_manager:registration:registrationto' => 'Registration to ',

@@ -400,7 +400,7 @@ class Event extends ElggObject {
 			return true;
 		}
 
-		if ($this->with_program && $this->getEventDays()) {
+		if ($this->with_program && $this->hasEventDays()) {
 			return true;
 		}
 
@@ -414,11 +414,11 @@ class Event extends ElggObject {
 	 */
 	public function generateInitialProgramData() {
 	
-		if (empty($event->with_program)) {
+		if (empty($this->with_program)) {
 			return;
 		}
 		
-		if ($event->getEventDays()) {
+		if ($this->hasEventDays()) {
 			return;
 		}
 		
@@ -459,7 +459,7 @@ class Event extends ElggObject {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
 
-		if (!$this->getEventDays()) {
+		if (!$this->hasEventDays()) {
 			return false;
 		}
 
@@ -493,7 +493,7 @@ class Event extends ElggObject {
 	 */
 	protected function notifyOnRsvp($type, $to = null) {
 
-		if (!$this->notify_onsignup || ($type == EVENT_MANAGER_RELATION_ATTENDING_PENDING)) {
+		if ($type == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
 			return;
 		}
 		
@@ -631,6 +631,11 @@ class Event extends ElggObject {
 	 * @return void
 	 */
 	protected function notifyOwnerOnRSVP($type, ElggEntity $to, $event_title_link, $registration_link = '') {
+		
+		if (!$this->notify_onsignup) {
+			return;
+		}
+		
 		$owner_subject = elgg_echo('event_manager:event:registration:notification:owner:subject');
 
 		$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, [
@@ -1008,12 +1013,15 @@ class Event extends ElggObject {
 	/**
 	 * Returns the days of this event
 	 *
-	 * @param string $order order
+	 * @param string $order the order in which to return the days
+	 * @param bool   $count (optional) return the count of the days
 	 *
-	 * @return boolean|array
+	 * @return false|int|\ColdTrick\EventManager\Event\Day[]
 	 */
-	public function getEventDays($order = 'ASC') {
-
+	public function getEventDays($order = 'ASC', $count = false) {
+		
+		$count = (bool) $count;
+		
 		return elgg_get_entities_from_relationship([
 			'type' => 'object',
 			'subtype' => \ColdTrick\EventManager\Event\Day::SUBTYPE,
@@ -1024,8 +1032,18 @@ class Event extends ElggObject {
 				'name' => 'date',
 				'direction' => $order
 			],
-			'limit' => false
+			'limit' => false,
+			'count' => $count,
 		]);
+	}
+	
+	/**
+	 * Checj if the event has days
+	 *
+	 * @return bool
+	 */
+	public function hasEventDays() {
+		return (bool) $this->getEventDays(null, true);
 	}
 
 	/**

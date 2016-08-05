@@ -90,6 +90,7 @@ foreach ($metadata_fields as $field) {
 	$event->{$field} = get_input($field);
 }
 
+$has_days = $event->hasEventDays();
 $event->generateInitialProgramData();
 
 $event->setAccessToOwningObjects($access_id);
@@ -171,5 +172,10 @@ $event->save();
 elgg_clear_sticky_form('event');
 
 system_message(elgg_echo('event_manager:action:event:edit:ok'));
+
+if (!$has_days && $event->with_program) {
+	// need to create a program
+	forward("events/event/edit_program/{$event->getGUID()}");
+}
 
 forward($event->getURL());
