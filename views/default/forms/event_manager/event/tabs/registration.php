@@ -100,16 +100,23 @@ echo elgg_view_input('date', [
 	'value' => $vars['endregistration_day'],
 ]);
 
-echo elgg_view('input/checkboxes', [
+echo elgg_view_input('checkboxes', [
 	'name' => 'registration_ended',
 	'value' => $vars['registration_ended'],
 	'options' => [elgg_echo('event_manager:edit:form:registration_ended') => '1'],
 ]);
 
+echo elgg_view('input/button', [
+	'value' => elgg_echo('event_manager:edit:form:registration_completed:toggle'),
+	'class' => 'elgg-button-action event-manager-edit-registration-completed',
+	'rel' => 'toggle',
+	'data-toggle-slide' => '0',
+	'data-toggle-selector' => '.event-manager-edit-registration-completed',
+]);
 echo elgg_view_input('longtext', [
 	'label' => elgg_echo('event_manager:edit:form:registration_completed'),
 	'name' => 'registration_completed',
 	'value' => $vars['registration_completed'],
 	'help' => elgg_echo('event_manager:edit:form:registration_completed:description'),
-	'field_class' => 'event-manager-forms-label-inline',
+	'field_class' => 'event-manager-edit-registration-completed event-manager-forms-label-inline hidden',
 ]);

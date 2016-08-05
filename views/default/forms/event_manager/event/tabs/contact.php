@@ -6,11 +6,6 @@ $website = elgg_extract('website', $vars);
 $organizer_guids = elgg_extract('organizer_guids', $vars);
 $contact_guids = elgg_extract('contact_guids', $vars);
 
-$collapsed = true;
-if (!empty($organizer) || !empty($organizer_guids) || !empty($contact_guids) || !empty($contact_details) || !empty($website)) {
-	$collapsed = false;
-}
-
 $output = '';
 
 $output .= '<div class="clearfix">';
@@ -81,24 +76,4 @@ $output .= elgg_view_input('url', [
 	'value' => $website,
 ]);
 
-if (!$collapsed) {
-	echo $output;
-	return;
-}
-
-$toggle_button = elgg_view('input/button', [
-	'class' => 'elgg-button-action',
-	'value' => elgg_echo('event_manager:edit:form:tabs:contact:toggle'),
-	'rel' => 'toggle',
-	'data-toggle-selector' => '.event-manager-edit-contact-toggle',
-]);
-
-echo elgg_format_element('div', [
-	'class' => 'event-manager-edit-contact-toggle center',
-	'data-toggle-slide' => 0,
-], $toggle_button);
-
-echo elgg_format_element('div', [
-	'class' => 'hidden event-manager-edit-contact-toggle',
-	'data-toggle-slide' => 0,
-], $output);
+echo $output;

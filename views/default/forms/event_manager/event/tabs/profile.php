@@ -9,11 +9,6 @@ $shortdescription = elgg_extract('shortdescription', $vars);
 $description = elgg_extract('description', $vars);
 $tags = elgg_extract('tags', $vars);
 
-$collapsed = true;
-if (!empty($shortdescription) || !empty($description)) {
-	$collapsed = false;
-}
-
 $output = '';
 
 $output .= elgg_view_input('text', [
@@ -90,24 +85,4 @@ $output .= elgg_view_input('access', [
 	'value' => $vars['access_id'],
 ]);
 
-if (!$collapsed) {
-	echo $output;
-	return;
-}
-
-$toggle_button = elgg_view('input/button', [
-	'class' => 'elgg-button-action',
-	'value' => elgg_echo('event_manager:edit:form:tabs:profile:toggle'),
-	'rel' => 'toggle',
-	'data-toggle-selector' => '.event-manager-edit-profile-toggle',
-]);
-
-echo elgg_format_element('div', [
-	'class' => 'event-manager-edit-profile-toggle center',
-	'data-toggle-slide' => 0,
-], $toggle_button);
-
-echo elgg_format_element('div', [
-	'class' => 'hidden event-manager-edit-profile-toggle',
-	'data-toggle-slide' => 0,
-], $output);
+echo $output;
