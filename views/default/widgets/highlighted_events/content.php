@@ -9,7 +9,7 @@ if (empty($event_guids)) {
 	return;
 }
 
-$result = '';
+$events = [];
 foreach ($event_guids as $event_guid) {
 	$event = get_entity($event_guid);
 	if (!($event instanceof \Event)) {
@@ -21,11 +21,14 @@ foreach ($event_guids as $event_guid) {
 		}
 	}
 	
-	$result .= elgg_view_entity($event, ['full_view' => false]);
+	$events[] = $event;
 }
 
-if (empty($result)) {
+if (empty($events)) {
 	echo elgg_echo('notfound');
 } else {
-	echo $result;
+	echo elgg_view_entity_list($events, [
+		'full_view' => false,
+		'no_results' => elgg_echo('notfound'),
+	]);
 }
