@@ -68,7 +68,10 @@ define(['jquery', 'elgg', 'gmaps'], function($, elgg, GMaps) {
 		},
 	};
 
-	EventMap.setup = function(element, address, options = {}) {
+	EventMap.setup = function(element, address, options) {
+		if (!options) {
+			options = {};
+		}
 		options['div'] = element;
 		var map = new EventMap(options);
 
