@@ -256,6 +256,9 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:event:waitinglist:empty' => 'Waiting list is empty',
 	'event_manager:event:exportattendees' => 'Export attendees',
 	'event_manager:event:search_attendees' => 'Search attendees',
+	'event_manager:event:initial:day:title' => 'Event day 1',
+	'event_manager:event:initial:slot:title' => 'Activity title',
+	'event_manager:event:initial:slot:description' => 'Activity description',
 
 	'event_manager:registrationform:editquestion:required' => 'Required?',
 	'event_manager:registrationform:editquestion:text:placeholder' => 'Enter a question you wish to ask',

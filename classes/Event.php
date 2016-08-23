@@ -423,7 +423,7 @@ class Event extends ElggObject {
 		}
 		
 		$day = new \ColdTrick\EventManager\Event\Day();
-		$day->title = 'Event day 1';
+		$day->title = elgg_echo('event_manager:event:initial:day:title');
 		$day->container_guid = $this->getGUID();
 		$day->owner_guid = $this->getGUID();
 		$day->access_id = $this->access_id;
@@ -432,8 +432,8 @@ class Event extends ElggObject {
 		$day->addRelationship($this->getGUID(), 'event_day_relation');
 	
 		$slot = new \ColdTrick\EventManager\Event\Slot();
-		$slot->title = 'Activity title';
-		$slot->description = 'Activity description';
+		$slot->title = elgg_echo('event_manager:event:initial:slot:title');
+		$slot->description = elgg_echo('event_manager:event:initial:slot:description');
 		$slot->container_guid = $this->container_guid;
 		$slot->owner_guid = $this->owner_guid;
 		$slot->access_id = $this->access_id;
