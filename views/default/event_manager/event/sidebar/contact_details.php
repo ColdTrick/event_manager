@@ -38,7 +38,7 @@ if ($website) {
 
 if (!empty($contact_information)) {
 	$contact_information = elgg_format_element('table', [], $contact_information);
-	echo elgg_view_module('aside', 'Contact details', $contact_information);
+	echo elgg_view_module('aside', elgg_echo('event_manager:edit:form:tabs:contact'), $contact_information);
 }
 
 $contact_guids = $event->contact_guids;
