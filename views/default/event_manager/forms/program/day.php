@@ -44,7 +44,7 @@ if ($entity instanceof \ColdTrick\EventManager\Event\Day) {
 	$days = $entity->getEventDays();
 	$last_day = end($days);
 	if (!$last_day) {
-		$date = ($entity->getStartTimestamp + (3600 * 24));
+		$date = ($entity->getStartTimestamp() + (3600 * 24));
 	} else {
 		$date = ($last_day->date + (3600 * 24));
 	}
