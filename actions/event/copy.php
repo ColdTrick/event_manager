@@ -63,5 +63,23 @@ foreach ($old_event->getRegistrationFormQuestions() as $question) {
 	$new_question->addRelationship($new_event->guid, 'event_registrationquestion_relation');
 }
 
+// copy all event files
+$dir = new \Elgg\EntityDirLocator($old_event->guid);
+$source = elgg_get_data_path() . $dir;
+
+$dir = new \Elgg\EntityDirLocator($new_event->guid);
+$dest = elgg_get_data_path() . $dir;
+
+mkdir($dest);
+
+$iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST);
+foreach ($iterator as $item) {
+	if ($item->isDir()) {
+		mkdir($dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+	} else {
+		copy($item, $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+	}
+}
+
 system_message(elgg_echo('event_manager:action:event:edit:ok'));
 forward($new_event->getURL());
