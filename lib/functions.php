@@ -599,12 +599,12 @@ function event_manager_can_create_group_events(\ElggGroup $group, $user = null) 
 	$who_create_group_events = elgg_get_plugin_setting('who_create_group_events', 'event_manager'); // group_admin, members
 	switch ($who_create_group_events) {
 		case 'group_admin':
-			return $group->canEdit($user);
+			return $group->canEdit($user->guid);
 		case 'members':
 			if ($group->isMember($user)) {
 				return true;
 			} else {
-				return $group->canEdit($user);
+				return $group->canEdit($user->guid);
 			}
 	}
 		
