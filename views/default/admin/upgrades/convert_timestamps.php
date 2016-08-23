@@ -5,10 +5,11 @@
 $access_status = access_get_show_hidden_status();
 access_show_hidden_entities(true);
 
-$count = elgg_get_entities([
+$count = elgg_get_entities_from_metadata([
 	'type' => 'object',
 	'subtype' => \Event::SUBTYPE,
 	'count' => true,
+	'metadata_names' => ['start_day'],
 ]);
 
 echo elgg_view('output/longtext', ['value' => elgg_echo('admin:upgrades:convert_timestamps:description')]);

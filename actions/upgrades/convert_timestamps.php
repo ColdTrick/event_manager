@@ -19,12 +19,14 @@ if (get_input('upgrade_completed')) {
 $access_status = access_get_show_hidden_status();
 access_show_hidden_entities(true);
 
-$batch = new \ElggBatch('elgg_get_entities', [
+$batch = new \ElggBatch('elgg_get_entities_from_metadata', [
 	'type' => 'object',
 	'subtype' => \Event::SUBTYPE,
-	'offset' => (int) get_input('offset', 0),
 	'limit' => 25,
+	'metadata_names' => ['start_day'],
 ]);
+
+$batch->setIncrementOffset(false);
 
 foreach ($batch as $event) {
 	$success_count++;
