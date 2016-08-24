@@ -13,14 +13,9 @@ if (!$event->canEdit()) {
 $guid = (int) get_input('guid');
 $title = get_input('title');
 $description = get_input('description');
-$date = get_input('date');
+$date = (int) get_input('date');
 
 $edit = false;
-
-if (!empty($date)) {
-	$date_parts = explode('-',$date);
-	$date = gmmktime(0,0,1,$date_parts[1],$date_parts[2],$date_parts[0]);
-}
 
 if ($guid && $day = get_entity($guid)) {
 	// edit existing

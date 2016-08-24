@@ -33,9 +33,6 @@ if ($entity instanceof \ColdTrick\EventManager\Event\Day) {
 	$title = $entity->title;
 	$description = $entity->description;
 	$date = $entity->date;
-	if (!empty($date)) {
-		$date = event_manager_format_date($date);
-	}
 } else {
 	// entity is a event
 	$parent_guid = $entity->getGUID();
@@ -44,18 +41,17 @@ if ($entity instanceof \ColdTrick\EventManager\Event\Day) {
 	$days = $entity->getEventDays();
 	$last_day = end($days);
 	if (!$last_day) {
-		$date = ($entity->getStartTimestamp() + (3600 * 24));
+		$date = $entity->getStartTimestamp() + (3600 * 24);
 	} else {
-		$date = ($last_day->date + (3600 * 24));
+		$date = $last_day->date + (3600 * 24);
 	}
-
-	$date = event_manager_format_date($date);
 }
 
 $form_body = elgg_view_input('date', [
 	'label' => elgg_echo('event_manager:edit:form:start_day'),
 	'name' => 'date',
 	'id' => 'date',
+	'timestamp' => true,
 	'value' => $date,
 	'required' => true,
 ]);
