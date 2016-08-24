@@ -129,6 +129,7 @@ $ia = elgg_set_ignore_access(true);
 $order = 0;
 
 $questions = get_input('questions');
+$saved_questions = [];
 foreach ($questions as $question) {
 	$question_guid = (int) elgg_extract('guid', $question);
 	$fieldtype = elgg_extract('fieldtype', $question);
@@ -160,7 +161,18 @@ foreach ($questions as $question) {
 		$question->addRelationship($event->getGUID(), 'event_registrationquestion_relation');
 		
 		$order++;
+		
+		$saved_questions[] = $question->guid;
 	}
+}
+
+$current_questions = $event->getRegistrationFormQuestions();
+foreach ($current_questions as $current_question) {
+	if (in_array($current_question->guid, $saved_questions)) {
+		continue;
+	}
+	
+	$current_question->delete();
 }
 
 elgg_set_ignore_access($ia);
