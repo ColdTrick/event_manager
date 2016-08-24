@@ -165,7 +165,7 @@ class Event extends ElggObject {
 			$max = '';
 		}
 		
-		$this->maxattendees = $max;
+		$this->max_attendees = $max;
 	}
 
 	/**
