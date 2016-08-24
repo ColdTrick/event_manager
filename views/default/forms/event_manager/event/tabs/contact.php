@@ -9,14 +9,15 @@ $contact_guids = elgg_extract('contact_guids', $vars);
 $output = '';
 
 $output .= '<div class="clearfix">';
-$output .= '<div class="elgg-col elgg-col-4of5">';
+$output .= '<div class="elgg-col elgg-col-3of5">';
 $output .= elgg_view_input('text', [
 	'label' => elgg_echo('event_manager:edit:form:organizer'),
+	'help' => elgg_echo('event_manager:edit:form:organizer:help'),
 	'name' => 'organizer',
 	'value' => $organizer,
 ]);
 $output .= '</div>';
-$output .= '<div class="elgg-col elgg-col-1of5"><div class="mlm mtl float-alt">';
+$output .= '<div class="elgg-col elgg-col-2of5"><div class="mlm mtl float-alt">';
 $output .= elgg_format_element('span', ['class' => 'phm'], elgg_echo('event_manager:edit:form:users:or'));
 $output .= elgg_view('input/button', [
 	'value' => elgg_echo('event_manager:edit:form:users:add'),
@@ -40,14 +41,15 @@ $output .= elgg_view_input('userpicker', [
 ]);
 
 $output .= '<div class="clearfix">';
-$output .= '<div class="elgg-col elgg-col-4of5">';
+$output .= '<div class="elgg-col elgg-col-3of5">';
 $output .= elgg_view_input('text', [
 	'label' => elgg_echo('event_manager:edit:form:contact_details'),
+	'help' => elgg_echo('event_manager:edit:form:contact_details:help'),
 	'name' => 'contact_details',
 	'value' => $contact_details,
 ]);
 $output .= '</div>';
-$output .= '<div class="elgg-col elgg-col-1of5"><div class="mlm mtl float-alt">';
+$output .= '<div class="elgg-col elgg-col-2of5"><div class="mlm mtl float-alt">';
 $output .= elgg_format_element('span', ['class' => 'phm'], elgg_echo('event_manager:edit:form:users:or'));
 $output .= elgg_view('input/button', [
 	'value' => elgg_echo('event_manager:edit:form:users:add'),
@@ -72,6 +74,7 @@ $output .= elgg_view_input('userpicker', [
 
 $output .= elgg_view_input('url', [
 	'label' => elgg_echo('event_manager:edit:form:website'),
+	'help' => elgg_echo('event_manager:edit:form:website:help'),
 	'name' => 'website',
 	'value' => $website,
 ]);
