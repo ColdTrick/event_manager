@@ -227,7 +227,7 @@ Iemand heeft zich afgemeld van het \'%s\' evenement (%s). Je bent van de wachtli
   'event_manager:edit:form:endregistration_day' => 'Datum einde registratie',
   'event_manager:edit:form:start_time' => 'Start tijd',
   'event_manager:edit:form:end_time' => 'Eind tijd',
-  'event_manager:edit:form:max_attendees' => 'Maximum aantal deelnemers',
+  'event_manager:edit:form:max_attendees' => 'Max aantal deelnemers',
   'event_manager:edit:form:waiting_list' => 'Wachtlijst gebruiken?',
   'event_manager:edit:form:register_nologin' => 'Niet ingelogde gebruikers laten registreren?',
   'event_manager:edit:form:spots_left' => 'Plekken vrij',

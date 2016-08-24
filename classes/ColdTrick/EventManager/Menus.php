@@ -210,12 +210,24 @@ class Menus {
 	 */
 	public static function registerEventEdit($hook, $entity_type, $returnvalue, $params) {
 		$sections = ['profile', 'location', 'contact', 'registration', 'questions'];
+		$entity = elgg_extract('entity', $params);
+		
 		foreach ($sections as $section) {
-			$returnvalue[] = \ElggMenuItem::factory([
+			$options = [
 				'name' => "event_edit_{$section}",
 				'text' => elgg_echo("event_manager:edit:form:tabs:{$section}"),
 				'href' => "#event-manager-forms-event-edit-{$section}",
-			]);
+			];
+			
+			if ($section == 'questions') {
+				if (!($entity instanceof \Event)) {
+					$options['item_class'][] = 'hidden';
+				} elseif (!$entity->getRegistrationFormQuestions(true) && !$entity->registration_needed) {
+					$options['item_class'][] = 'hidden';
+				}
+			}
+			
+			$returnvalue[] = \ElggMenuItem::factory($options);
 		}
 		
 		return $returnvalue;

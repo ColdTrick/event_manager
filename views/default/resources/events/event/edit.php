@@ -54,7 +54,7 @@ $form_vars = [
 
 $form = elgg_view_form('event_manager/event/edit', $form_vars, ['entity' => $event]);
 
-$sidebar = elgg_view_menu('event_edit', ['sort_by' => 'register']);
+$sidebar = elgg_view_menu('event_edit', ['sort_by' => 'register', 'entity' => $event]);
 
 $body = elgg_view_layout('content', [
 	'filter' => '',

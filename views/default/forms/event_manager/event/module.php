@@ -7,7 +7,8 @@ $collapsed = elgg_extract('collapsed', $vars, true);
 
 $title = elgg_extract('title', $vars);
 $body = elgg_extract('body', $vars);
-$body_vars = elgg_extract('body_vars', $vars);
+$body_vars = elgg_extract('body_vars', $vars, []);
+$entity = elgg_extract('entity', $body_vars);
 
 if ($collapsed) {
 	// check (for supported sections) if they need to show expanded
@@ -39,6 +40,14 @@ if ($collapsed) {
 			$description = elgg_extract('description', $body_vars);
 			
 			if (!empty($shortdescription) || !empty($description)) {
+				$collapsed = false;
+			}
+			break;
+		case 'registration':
+			$fee = elgg_extract('fee', $body_vars);
+			$max_attendees = elgg_extract('max_attendees', $body_vars);
+			
+			if (!empty($fee) || !empty($max_attendees)) {
 				$collapsed = false;
 			}
 			break;
@@ -79,8 +88,16 @@ if (empty($header)) {
 
 $module_vars = [
 	'id' => elgg_extract('id', $vars),
-	'class' => 'event_tab',
+	'class' => ['event_tab'],
 	'header' => $header,
 ];
+
+if ($section == 'questions') {
+	if (!($entity instanceof \Event)) {
+		$module_vars['class'][] = 'hidden';
+	} elseif (!$entity->getRegistrationFormQuestions(true) && !$entity->registration_needed) {
+		$module_vars['class'][] = 'hidden';
+	}
+}
 
 echo elgg_view_module('info', null, $body, $module_vars);

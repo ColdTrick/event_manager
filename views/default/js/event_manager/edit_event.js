@@ -26,6 +26,12 @@ elgg.event_manager.edit_event_init = function() {
 		});
 	});
 	
+	$('#event_manager_event_edit input[name="registration_needed[]"]').on('change', function(event, elem) {
+		if ($(this).val()) {
+			$('#event-manager-forms-event-edit-questions, .elgg-menu-item-event-edit-questions').removeClass('hidden');
+		}		
+	});
+	
 	$(document).on('keyup', '#event-manager-edit-maps-search-container input[name="address_search"]', function(event) {
 		if (event.keyCode == 13) {
 			elgg.event_manager.edit_event_map_search();

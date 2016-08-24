@@ -8,6 +8,7 @@ $event = elgg_extract('entity', $vars);
 echo '<div class="clearfix"><div class="elgg-col elgg-col-1of4">';
 echo elgg_view_input('text', [
 	'label' => elgg_echo('event_manager:edit:form:fee'),
+	'help' => elgg_echo('event_manager:edit:form:fee:help'),
 	'name' => 'fee',
 	'value' => $vars['fee'],
 ]);
@@ -19,6 +20,7 @@ if (empty($vars['fee'])) {
 }
 echo elgg_view_input('text', [
 	'label' => elgg_echo('event_manager:edit:form:fee_details'),
+	'help' => elgg_echo('event_manager:edit:form:fee_details:help'),
 	'name' => 'fee_details',
 	'value' => $vars['fee_details'],
 	'field_class' => $field_class,
@@ -28,6 +30,7 @@ echo '</div></div>';
 echo '<div class="clearfix"><div class="elgg-col elgg-col-1of4">';
 echo elgg_view_input('text', [
 	'label' => elgg_echo('event_manager:edit:form:max_attendees'),
+	'help' => elgg_echo('event_manager:edit:form:max_attendees:help'),
 	'name' => 'max_attendees',
 	'value' => $vars['max_attendees'],
 ]);
@@ -93,18 +96,25 @@ echo elgg_view('elements/forms/field', [
 	'class' => 'event-manager-forms-label-normal',
 ]);
 
+echo '<div class="clearfix"><div class="elgg-col elgg-col-1of4">';
 echo elgg_view_input('date', [
 	'label' => elgg_echo('event_manager:edit:form:endregistration_day'),
+	'help' => elgg_echo('event_manager:edit:form:endregistration_day:help'),
 	'name' => 'endregistration_day',
 	'id' => 'endregistration_day',
 	'value' => $vars['endregistration_day'],
 ]);
-
+echo '</div>';
+echo '<div class="elgg-col elgg-col-3of4">';
 echo elgg_view_input('checkboxes', [
 	'name' => 'registration_ended',
 	'value' => $vars['registration_ended'],
 	'options' => [elgg_echo('event_manager:edit:form:registration_ended') => '1'],
+	'field_class' => 'pll',
+	'class' => 'mts',
+	'label' => '&nbsp;',
 ]);
+echo '</div></div>';
 
 echo elgg_view('input/button', [
 	'value' => elgg_echo('event_manager:edit:form:registration_completed:toggle'),
