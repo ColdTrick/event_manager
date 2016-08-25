@@ -9,7 +9,7 @@ define(['jquery', 'elgg', 'fullcalendar'], function($, elgg) {
 				right: 'month,agendaWeek,agendaDay'
 			},
 			allDayDefault: true,
-			timeFormat: 'H(:mm)',
+			timeFormat: 'H:mm',
 			lang: elgg.get_language(),
 			buttonText: {
 				today: elgg.echo('event_manager:calendar:today'),
