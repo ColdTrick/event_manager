@@ -55,7 +55,6 @@ elgg.event_manager.execute_search_map = function(event) {
 				var attendingIcon = "//maps.google.com/mapfiles/ms/icons/blue-dot.png";
 
 				$.each(response.markers, function(i, event) {
-					existing = false;
 					if (!elgg.event_manager.markers) {
 						elgg.event_manager.markers = [];
 					}
@@ -65,7 +64,7 @@ elgg.event_manager.execute_search_map = function(event) {
 						return;
 					}
 
-					markerOptions = {
+					var markerOptions = {
 						lat: event.lat, 
 						lng: event.lng,
 						animation: google.maps.Animation.DROP,
@@ -94,7 +93,7 @@ elgg.event_manager.execute_search_map = function(event) {
 	});
 };
 
-elgg.event_manager.execute_search_list = function(event) {
+elgg.event_manager.execute_search_list = function() {
 	require(['elgg/spinner'], function(spinner) {
 		spinner.start();
 

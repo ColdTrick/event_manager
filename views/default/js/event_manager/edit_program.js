@@ -17,13 +17,10 @@ elgg.event_manager.program_add_slot = function(event) {
 			if (json.status === 0) {
 				$.colorbox.close();
 
-				guid = json.output.guid;
-				parent_guid = json.output.parent_guid;
-
 				if (json.output.edit) {
-					$("#" + guid).replaceWith(json.output.content);
+					$("#" + json.output.guid).replaceWith(json.output.content);
 				} else {
-					$("#day_" + parent_guid).find(".event_manager_program_slot_add").before(json.output.content);
+					$("#day_" + json.output.parent_guid).find(".event_manager_program_slot_add").before(json.output.content);
 				}
 			} else {
 				$button.show();
@@ -39,7 +36,7 @@ elgg.event_manager.program_add_day = function(form) {
 	elgg.action('event_manager/day/edit', {
 		data: $(form).serialize(),
 		success: function(json) {
-			guid = json.output.guid;
+			var guid = json.output.guid;
 			if (guid) {
 				$.colorbox.close();
 
@@ -64,23 +61,23 @@ elgg.event_manager.program_add_day = function(form) {
 elgg.event_manager.add_new_slot_set_name = function(set_name) {
 	if (set_name !== "") {
 		$("#event_manager_form_program_slot input[name='slot_set']").prop("checked", false);
-		$options = $("#event_manager_form_program_slot input[name='slot_set']:first").parent().parent().parent();
+		var $options = $("#event_manager_form_program_slot input[name='slot_set']:first").parent().parent().parent();
 		$options.append("<li><label><input type='radio' checked='checked' value='" + set_name + "' name='slot_set'/>" + set_name + "</label></li>");
 	}
 };
 
 elgg.event_manager.init_edit_program = function() {
-	$(document).on('click', '.event_manager_program_day_delete', function(e) {
+	$(document).on('click', '.event_manager_program_day_delete', function() {
 		if (!confirm(elgg.echo('deleteconfirm'))) {
 			return false;
 		}
 		
-		dayGuid = $(this).parent().attr("rel");
+		var dayGuid = $(this).parent().attr("rel");
 		if (!dayGuid) {
 			return false;
 		}
 		
-		$dayElements = $("#day_" + dayGuid + ", #event_manager_event_view_program li.elgg-state-selected");
+		var $dayElements = $("#day_" + dayGuid + ", #event_manager_event_view_program li.elgg-state-selected");
 		$dayElements.hide();
 
 		elgg.action('event_manager/day/delete', {
@@ -105,12 +102,12 @@ elgg.event_manager.init_edit_program = function() {
 			return false;
 		}
 		
-		slotGuid = $(this).parent().attr("rel");
+		var slotGuid = $(this).parent().attr("rel");
 		if (!slotGuid) {
 			return false;
 		}
 		
-		$slotElement = $("#" + slotGuid);
+		var $slotElement = $("#" + slotGuid);
 		$slotElement.hide();
 
 		elgg.action('event_manager/slot/delete', {

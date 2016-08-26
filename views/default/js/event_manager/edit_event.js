@@ -9,7 +9,7 @@ elgg.event_manager.edit_event_map_search = function() {
 
 elgg.event_manager.edit_event_init = function() {
 	
-	$('#event_manager_event_edit input[name="location"]').on('click', function(event, elem) {
+	$('#event_manager_event_edit input[name="location"]').on('click', function() {
 		
 		var $elem = $(this);
 		var current_location = $elem.val();
@@ -26,7 +26,7 @@ elgg.event_manager.edit_event_init = function() {
 		});
 	});
 	
-	$('#event_manager_event_edit input[name="registration_needed[]"]').on('change', function(event, elem) {
+	$('#event_manager_event_edit input[name="registration_needed[]"]').on('change', function() {
 		if ($(this).val()) {
 			$('#event-manager-forms-event-edit-questions, .elgg-menu-item-event-edit-questions').removeClass('hidden');
 		}		
@@ -69,7 +69,7 @@ elgg.event_manager.edit_event_init = function() {
 	});
 	
 	$(document).on('change', 'input[name="fee"], input[name="max_attendees"]', function() {
-		$toggle_field = $(this).parent().parent().next().find('.elgg-field'); 
+		var $toggle_field = $(this).parent().parent().next().find('.elgg-field'); 
 		$toggle_field.addClass('hidden');
 		var entered_value = $(this).val().trim();
 		if (entered_value && (entered_value !== '0')) {

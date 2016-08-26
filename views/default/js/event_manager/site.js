@@ -1,12 +1,12 @@
 elgg.provide("elgg.event_manager");
 
 elgg.event_manager.slot_set_init = function() {
-	$form = $("#event_manager_event_register");
+	var $form = $("#event_manager_event_register");
 	if ($form.length > 0) {
-		set_names = []; // store processed set names
+		var set_names = []; // store processed set names
 
 		$form.find(".event_manager_program_participatetoslot[rel]:checked").each(function(){
-			rel = $(this).attr("rel");
+			var rel = $(this).attr("rel");
 			if ($.inArray(rel, set_names) < 0) {
 				set_names.push[rel];
 				$form.find(".event_manager_program_participatetoslot[rel='" + rel + "'][id!='" + $(this).attr("id") + "']").removeAttr("checked").attr("disabled", "disabled");
@@ -14,9 +14,9 @@ elgg.event_manager.slot_set_init = function() {
 		});
 
 		$(document).on('change', '#event_manager_event_register .event_manager_program_participatetoslot[rel]', function() {
-			$form = $("#event_manager_event_register");
-			rel = $(this).attr("rel");
-			selected_id = $form.find(".event_manager_program_participatetoslot[rel='" + rel + "']:checked:first").attr("id");
+			var $form = $("#event_manager_event_register");
+			var rel = $(this).attr("rel");
+			var selected_id = $form.find(".event_manager_program_participatetoslot[rel='" + rel + "']:checked:first").attr("id");
 			if(selected_id){
 				// disabled others
 				$form.find(".event_manager_program_participatetoslot[rel='" + rel + "'][id!='" + selected_id + "']").removeAttr("checked").attr("disabled", "disabled");
@@ -51,8 +51,8 @@ elgg.event_manager.init = function() {
 			// only needed if the current menu is already dropped down
 			$('body > .event_manager_event_actions_drop_down').remove();
 			$('body').append($(this).next().clone());
-			css_top = $(this).offset().top + $(this).height();
-			css_left = $(this).offset().left;
+			var css_top = $(this).offset().top + $(this).height();
+			var css_left = $(this).offset().left;
 			$('body > .event_manager_event_actions_drop_down').css({top: css_top, left: css_left}).show();
 		}
 
@@ -91,7 +91,7 @@ elgg.event_manager.init = function() {
 
 		var guids = [];
 		$.each($('.event_manager_program_participatetoslot'), function(i, value) {
-			elementId = $(value).attr('id');
+			var elementId = $(value).attr('id');
 			if ($(value).is(':checked')) {
 				guids.push(elementId.substring(9, elementId.length));
 			}
