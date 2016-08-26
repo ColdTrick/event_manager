@@ -443,4 +443,11 @@ If you didn't register for this event, you can ignore this email or click on the
 	'event_manager:date:to' => 'to',
 	'requiredfields' => 'Required fields',
 	'confirm' => 'Confirm',
+	
+	'event_manager:addevent:mail:title' => 'Add to calendar',
+	'event_manager:addevent:mail:service:appleical' => 'Apple',
+	'event_manager:addevent:mail:service:google' => 'Google',
+	'event_manager:addevent:mail:service:outlook' => 'Outlook',
+	'event_manager:addevent:mail:service:outlookcom' => 'Outlook.com',
+	'event_manager:addevent:mail:service:yahoo' => 'Yahoo',
 );

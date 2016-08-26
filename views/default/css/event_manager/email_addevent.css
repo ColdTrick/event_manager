@@ -1,0 +1,13 @@
+.event-manager-email-addevent-title {
+	font-weight: bold;
+}
+
+.event-manager-email-addevent {
+	background: #EFEFEF;
+	border-radius: 4px;
+	padding: 5px 10px;
+	margin-right: 10px;
+	text-decoration: none;
+	color: black;
+	border: 1px solid #CCC;
+}

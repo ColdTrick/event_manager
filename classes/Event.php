@@ -542,6 +542,11 @@ class Event extends ElggObject {
 					$unsubscribeLink .= $link;
 				}
 			}
+			
+			if ($html_email_handler_enabled) {
+				// add addthisevent banners in footer
+				$registrationLink .= elgg_view('event_manager/email/addevent', ['entity' => $this]);
+			}
 		}
 
 		// make the event title for in the e-mail

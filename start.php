@@ -39,6 +39,7 @@ function event_manager_init() {
 
 	elgg_extend_view('css/elgg', 'css/event_manager.css');
 	elgg_extend_view('css/elgg', 'css/addthisevent.css');
+	elgg_extend_view('css/html_email_handler/notification', 'css/event_manager/email_addevent.css');
 	elgg_extend_view('js/elgg', 'js/event_manager/site.js');
 	elgg_extend_view('js/addthisevent.js', 'js/event_manager/addthisevent.settings.js');
 	
