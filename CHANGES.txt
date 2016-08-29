@@ -1,6 +1,104 @@
 Version history
 ===============
 
+6.0-beta (2016-08-29):
+
+- added: addevent links to registration confirmation mail body
+- added: after event create/edit if program is needed go to special page
+- added: calendar views for event listings
+- added: configure contact persons and organizers directly from event edit
+- added: event_banner icon size for display on full view
+- added: fee details field
+- added: new widget to highlight events (requires objectpicker plugin)
+- added: notice for logged out users to log in to be able to register
+- added: optional help texts on event edit form
+- added: parts of event edit form now show collapsed if no values set
+- added: started working on calendar features
+- added: upgrade to migrate event files to event folder in dataroot
+- added: user owner and attending page is now available
+- added: you now have the ability to copy an event
+- changed: actions and resource views now use generic entity gatekeeper
+- changed: better described some questions on the event edit form
+- changed: default listing of events now include running events
+- changed: event day edit form uses timestamp in datepicker
+- changed: event edit form is now a vertical form instead of tabbed
+- changed: event edit form now has a special section for contact info
+- changed: event file downloads use serve-file api
+- changed: event location selection now also uses new maps js
+- changed: event timestamp metadata has been moved to new fields
+- changed: highlighted events can be sorted
+- changed: highlighted events widget has flag to autohide past events
+- changed: map search now works with new gmaps.js library
+- changed: move boilerplate event edit tab code to module
+- changed: moved addthisevent to views
+- changed: moved all registration related pages to resource views
+- changed: moved canEdit hook to EventRegistration object class function
+- changed: moved comments checkbox to general edit section
+- changed: moved event edit form vars preparation to a function
+- changed: moved event related pages to resource views
+- changed: moved event search form to correct elgg forms view location
+- changed: moved Event update event to class function
+- changed: moved event_sort_menu view to a menu hook
+- changed: moved gmaps to AMD modules and improving full view
+- changed: moved logged out rsvp action to rsvp view
+- changed: moved menu hooks to class functions
+- changed: moved pagehandler to class function
+- changed: moved registrationform related resources to new locations
+- changed: moved registration questions config to event edit form
+- changed: moved settings cache reset hook to class function
+- changed: moved unsubscribe pages to resource views
+- changed: moved widgets and notification hooks to class functions
+- changed: move some more fields around on the event edit form
+- changed: namespaced event day and slot classes
+- changed: refactored the event/edit action
+- changed: refactored the event search form to use elgg-cols
+- changed: register form now uses elgg sticky form methods
+- changed: registration part of event edit form streamlined
+- changed: removed organizer data from addtocalendar feature
+- changed: replaced the language key 'to' with 'event_manager:date:to'
+- changed: replaced thumbnail url with elgg_get_inline_url
+- changed: selecting an address forces you to search for a location first
+- changed: started using elgg_view_input for forms
+- changed: twitter hash usage is now meant as general twitter search
+- changed: updated all languages file to only provide original keys
+- changed: updated styling of registration page
+- changed: update version to 6.0-beta in manifest
+- changed: use icons instead of labels for contact details
+- fixed: Event::deleteIcon declaration now matches ElggEntity::deleteIcon
+- fixed: added correct gatekeepers to various resource views
+- fixed: admins should be able to add events to any group
+- fixed: also copy event files when copying an event
+- fixed: autodetect composer installed dependencies or bundled
+- fixed: cannot declare defaults in function parameters
+- fixed: correct event delete system message
+- fixed: correct forward url after delete of group event
+- fixed: correctly delete uploaded file from file system
+- fixed: correctly fetch new date format saving program days
+- fixed: correctly get the event start date for new program days
+- fixed: correctly link views from composer dependencies
+- fixed: default slot for new event with program now has correct times set
+- fixed: do not show event related river menu items on relationship create
+- fixed: highlighted events are listed using elgg_view_entity_list
+- fixed: incorrect translations for event_manager:date:to
+- fixed: initial program day and slot texts are now translatable
+- fixed: no longer encode from address as Elgg does this now
+- fixed: notification on RSVP not sent to registering user
+- fixed: pass int to canEdit function instead of ElggUser
+- fixed: present correct sticky value for endregistration_day
+- fixed: prevent empty string tags to end up in the database
+- fixed: RSVP site notifications now show correct summary
+- fixed: set page owner guid in search action
+- fixed: show excerpt of description in event listings
+- fixed: sidebar contact details are now translatable
+- removed: checkbox to create owner as organizer on edit form is removed
+- removed: no longer show markers in the sidebar when looking at the map
+- removed: replaced event_manager_time_pad with anonymous function
+- removed: special RSVP options can no longer be configured
+- removed: the twitter_hash field has been removed from the event form
+- removed: unused icon.php file
+- removed: unused registration/approve action
+- removed: users can no longer select organizing as an RSVP option
+
 x.x:
 
 - added: map is now showing on the detail page of an event
