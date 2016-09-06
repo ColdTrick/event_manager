@@ -4,10 +4,10 @@ $event = elgg_extract('entity', $vars);
 $owner = $event->getOwnerEntity();
 
 if ($event->icontime) {
-	$locator = new \Elgg\EntityDirLocator($event->getOwnerGUID());
+	$locator = new \Elgg\EntityDirLocator($event->guid);
 	$entity_path = elgg_get_data_path() . $locator->getPath();
 	
-	$filename = $entity_path . "events/{$event->guid}/master.jpg";
+	$filename = $entity_path . "master.jpg";
 	$filecontents = file_get_contents($filename);
 
 	echo '<div class="mbm elgg-border-plain center"><img src="data:image/jpeg;base64,' . base64_encode($filecontents) . '" border="0" /></div>';
