@@ -6,8 +6,11 @@
 	background: #EFEFEF;
 	border-radius: 4px;
 	padding: 5px 10px;
-	margin-right: 10px;
+	border: 1px solid #CCC;
+	text-align: center;
+	vertical-align: top;
+}
+.event-manager-email-addevent a {
 	text-decoration: none;
 	color: black;
-	border: 1px solid #CCC;
 }
