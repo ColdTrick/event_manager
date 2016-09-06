@@ -13,6 +13,14 @@ $options = [
 ];
 
 $list = elgg_view_entity_list($entities, $options);
+$limit = elgg_extract('limit', $vars, 10);
+
+if ($options['count'] > $limit) {
+	$list .= elgg_format_element('div', [
+		'id' => 'event_manager_event_list_search_more',
+		'rel' => $options['offset'] ?: $limit
+	], elgg_echo('event_manager:list:showmorevents') . ' (' . ($options['count'] - ($options['offset'] + $limit)) . ')');
+}
 
 $result = elgg_format_element('div', [
 	'id' => 'event_manager_event_listing',
@@ -25,14 +33,5 @@ $result .= elgg_format_element('div', [
 ]);
 
 $result .= elgg_view('event_manager/onthemap', $vars);
-
-$limit = elgg_extract('limit', $vars, 10);
-
-if ($options['count'] > $limit) {
-	$result .= elgg_format_element('div', [
-		'id' => 'event_manager_event_list_search_more',
-		'rel' => $options['offset'] ?: $limit
-	], elgg_echo('event_manager:list:showmorevents') . ' (' . ($options['count'] - ($options['offset'] + $limit)) . ')');
-}
 
 echo elgg_view_module('main', '', $result);
