@@ -965,8 +965,7 @@ class Event extends ElggObject {
 	public function getIconURL($size = 'medium') {
 		$size = strtolower($size);
 
-		$iconsizes = (array) elgg_get_config('icon_sizes');
-		$iconsizes['event_banner'] = '';
+		$iconsizes = elgg_get_icon_sizes('object', 'event');
 		if (!array_key_exists($size, $iconsizes)) {
 			$size = 'medium';
 		}
@@ -998,8 +997,7 @@ class Event extends ElggObject {
 			$fh = new \ElggFile();
 			$fh->owner_guid = $this->guid;
 
-			$icon_sizes = elgg_get_config('icon_sizes');
-			$icon_sizes['event_banner'] = ['w' => 1920, 'h' => 1080, 'square' => false, 'upscale' => false];
+			$icon_sizes = elgg_get_icon_sizes('object', 'event');
 
 			foreach ($icon_sizes as $name => $info) {
 				$fh->setFilename("{$name}.jpg");

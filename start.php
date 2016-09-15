@@ -102,6 +102,7 @@ function event_manager_init() {
 	elgg_register_plugin_hook_handler('register', 'menu:river', '\ColdTrick\EventManager\Menus::stripEventRelationshipRiverMenuItems', 99999);
 
 	elgg_register_plugin_hook_handler('entity:url', 'object', '\ColdTrick\EventManager\Widgets::getEventsUrl');
+	elgg_register_plugin_hook_handler('entity:icon:sizes', 'object', '\ColdTrick\EventManager\Icons::getIconSizes');
 
 	elgg_register_plugin_hook_handler('setting', 'plugin', '\ColdTrick\EventManager\Settings::clearCache');
 	

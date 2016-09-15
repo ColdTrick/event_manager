@@ -95,8 +95,7 @@ $event->generateInitialProgramData();
 
 $event->setAccessToOwningObjects($access_id);
 
-$icon_sizes = elgg_get_config('icon_sizes');
-$icon_sizes['event_banner'] = ['w' => 1920, 'h' => 1080, 'square' => false, 'upscale' => false];
+$icon_sizes = elgg_get_icon_sizes('object', 'event');
 
 $icon_file = get_resized_image_from_uploaded_file('icon', 100, 100);
 
