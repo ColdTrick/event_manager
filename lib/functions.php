@@ -95,7 +95,7 @@ function event_manager_search_events($options = []) {
 
 	if (!$options['past_events']) {
 		// only show from current day or newer (or where event is still running)
-		$current_time = mktime(0, 0, 1);
+		$current_time = gmmktime(0, 0, 1);
 		if ($options['event_end']) {
 			$entities_options['metadata_name_value_pairs'][] = [
 				'name' => 'event_start',
