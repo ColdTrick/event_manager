@@ -271,6 +271,7 @@ var addthisevent = function() {
                 c = _base_path
             }
             if (c != '') {
+            	c = c + '&client=' + _ate_license;
                 if (a != 'home') {
                     var d = f.getAttribute('data-ref');
                     var g = $d('atedrop' + d);
