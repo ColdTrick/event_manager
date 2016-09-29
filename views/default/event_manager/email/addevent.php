@@ -11,6 +11,11 @@ echo '<br /><br />';
 echo '<span class="event-manager-email-addevent-title">' . elgg_echo('event_manager:addevent:mail:title') . '</span>';
 echo '<br /><br />';
 
+$description = elgg_get_excerpt($event->shortdescription, 100000);
+if (empty($description)) {
+	$description = elgg_get_excerpt($event->description, 100000);
+}
+
 $url_params = [
 	'client' => 'ak1qmrp10zvwxx2cimhv206',
 	'date_format' => 'DD/MM/YYYY',
@@ -19,7 +24,7 @@ $url_params = [
 	'end' => $event->getEndDate('d/m/Y'),
 	'endtime' => $event->getEndDate('H:i:00'),
 	'title' => $event->title,
-	'description' => elgg_get_excerpt($event->description, 500),
+	'description' => $description,
 	'location' => $event->location ?: $event->venue,
 ];
 

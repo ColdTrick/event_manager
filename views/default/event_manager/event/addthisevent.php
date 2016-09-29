@@ -20,7 +20,10 @@ $start = $event->getStartDate('d/m/Y H:i:00');
 $end = $event->getEndDate('d/m/Y H:i:00');
 
 $title = $event->title;
-$description = elgg_get_excerpt($event->description, 500);
+$description = elgg_get_excerpt($event->shortdescription, 100000);
+if (empty($description)) {
+	$description = elgg_get_excerpt($event->description, 100000);
+}
 
 ?>
 <span class="addthisevent">
