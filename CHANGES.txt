@@ -1,6 +1,10 @@
 Version history
 ===============
 
+7.1 (2016-10-27):
+
+- added: event completed message is added to registration emails
+
 7.0 (2016-10-06):
 
 - changed: 'add to calendar' description now is longer
