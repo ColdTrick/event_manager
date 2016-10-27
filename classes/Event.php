@@ -569,6 +569,14 @@ class Event extends ElggObject {
 			$to_entity->name,
 			$event_title_link,
 		]);
+		
+		$completed_text = elgg_strip_tags($this->registration_completed, '<a>');
+		if (!empty($completed_text)) {
+			$completed_text = str_ireplace('[NAME]', $to_entity->name, $completed_text);
+			$completed_text = str_ireplace('[EVENT]', $this->title, $completed_text);
+			
+			$user_message .= PHP_EOL . $completed_text;
+		}
 
 		$user_message .= $registrationLink . $unsubscribeLink;
 
