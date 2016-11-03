@@ -109,6 +109,7 @@ function event_manager_init() {
 	elgg_register_plugin_hook_handler('setting', 'plugin', '\ColdTrick\EventManager\Settings::clearCache');
 	
 	elgg_register_plugin_hook_handler('likes:is_likable', 'object:' . \Event::SUBTYPE, '\Elgg\Values::getTrue');
+	elgg_register_plugin_hook_handler('supported_types', 'entity_tools', '\ColdTrick\EventManager\MigrateEvents::supportedSubtypes');
 	
 	// actions
 	elgg_register_action('event_manager/event/edit', $base_dir . '/actions/event/edit.php');
