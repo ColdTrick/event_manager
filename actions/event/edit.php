@@ -93,8 +93,6 @@ foreach ($metadata_fields as $field) {
 $has_days = $event->hasEventDays();
 $event->generateInitialProgramData();
 
-$event->setAccessToOwningObjects($access_id);
-
 $icon_sizes = elgg_get_icon_sizes('object', 'event');
 
 $icon_file = get_resized_image_from_uploaded_file('icon', 100, 100);
@@ -147,10 +145,10 @@ if (!empty($questions)) {
 			$question = new \EventRegistrationQuestion();
 			$question->container_guid = $event->guid;
 			$question->owner_guid = $event->guid;
+			$question->access_id = $event->access_id;
 		}
 		
 		$question->title = $questiontext;
-		$question->access_id = $event->access_id;
 		
 		if ($question->save()) {
 			$question->fieldtype = $fieldtype;

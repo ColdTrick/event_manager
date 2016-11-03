@@ -117,43 +117,6 @@ class Event extends ElggObject {
 	}
 
 	/**
-	 * Updates access of objects owned
-	 *
-	 * @param string $access_id new access id
-	 *
-	 * @return void
-	 */
-	public function setAccessToOwningObjects($access_id = null) {
-		
-		if ($access_id === null) {
-			$access_id = $this->access_id;
-		}
-		
-		// Have to do this for private events
-		$ia = elgg_set_ignore_access(true);
-		
-		$eventDays = $this->getEventDays();
-		if (!empty($eventDays)) {
-			foreach ($eventDays as $day) {
-				$day->access_id = $access_id;
-				$day->save();
-			
-				$eventSlots = $day->getEventSlots();
-				if (empty($eventSlots)) {
-					continue;
-				}
-			
-				foreach ($eventSlots as $slot) {
-					$slot->access_id = $access_id;
-					$slot->save();
-				}
-			}
-		}
-		
-		elgg_set_ignore_access($ia);
-	}
-
-	/**
 	 * Correctly sets the max attendees
 	 *
 	 * @param string $max the max attendees

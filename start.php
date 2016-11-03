@@ -90,6 +90,8 @@ function event_manager_init() {
 	elgg_register_event_handler('upgrade', 'system', '\ColdTrick\EventManager\Upgrade::migrateFilesFromUserToEvent');
 	elgg_register_event_handler('upgrade', 'system', '\ColdTrick\EventManager\Upgrade::convertTimestamps');
 
+	elgg_register_event_handler('update:after', 'object', '\ColdTrick\EventManager\Access::updateEvent');
+	
 	// hooks
 	elgg_register_plugin_hook_handler('register', 'menu:filter', '\ColdTrick\EventManager\Menus::registerFilter');
 	elgg_register_plugin_hook_handler('register', 'menu:user_hover', '\ColdTrick\EventManager\Menus::registerUserHover');
