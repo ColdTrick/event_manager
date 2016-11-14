@@ -12,9 +12,12 @@ if (empty($relationships)) {
 
 $ordered_relationships = [
 	EVENT_MANAGER_RELATION_ATTENDING,
-	EVENT_MANAGER_RELATION_INTERESTED,
 	EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST
 ];
+
+if (elgg_get_plugin_setting('rsvp_interested', 'event_manager') !== 'no') {
+	$ordered_relationships[] = EVENT_MANAGER_RELATION_INTERESTED;
+}
 
 $can_edit = $event->canEdit();
 if ($can_edit) {

@@ -9,14 +9,25 @@
  * @return array
  */
 function event_manager_event_get_relationship_options() {
-	return [
+	
+	static $result;
+	if (isset($result)) {
+		return $result;
+	}
+	
+	$result = [
 		EVENT_MANAGER_RELATION_ATTENDING,
-		EVENT_MANAGER_RELATION_INTERESTED,
 		EVENT_MANAGER_RELATION_PRESENTING,
 		EVENT_MANAGER_RELATION_EXHIBITING,
 		EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
 		EVENT_MANAGER_RELATION_ATTENDING_PENDING,
 	];
+	
+	if (elgg_get_plugin_setting('rsvp_interested', 'event_manager') !== 'no') {
+		$result[] = EVENT_MANAGER_RELATION_INTERESTED;
+	}
+	
+	return $result;
 }
 
 /**

@@ -373,6 +373,7 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:settings:other' => 'Other',
 	'event_manager:settings:region_list' => 'Enter (comma separated) event regions',
 	'event_manager:settings:type_list' => 'Enter (comma separated) event types',
+	'event_manager:settings:rsvp:interested' => 'RSVP option "interested" is enabled',
 	'event_manager:settings:notification_sender' => 'RSVP notification sender (email)',
 
 	'event_manager:settings:migration:site:whocancreate' => 'Who can create site events',

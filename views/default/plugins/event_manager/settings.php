@@ -13,6 +13,11 @@ $group_create_options = [
 	'' => elgg_echo('event_manager:settings:migration:group:whocancreate:no_one'),
 ];
 
+$yes_no_options = [
+	'yes' => elgg_echo('option:yes'),
+	'no' => elgg_echo('option:no'),
+];
+
 $google_maps_default_location = $plugin->google_maps_default_location;
 
 if (empty($google_maps_default_location)) {
@@ -72,6 +77,13 @@ $other .= elgg_view_input('select', [
 	'name' => 'params[who_create_group_events]',
 	'value' => $plugin->who_create_group_events,
 	'options_values' => $group_create_options,
+]);
+
+$other .= elgg_view_input('select', [
+	'label' => elgg_echo('event_manager:settings:rsvp:interested'),
+	'name' => 'params[rsvp_interested]',
+	'value' => $plugin->rsvp_interested,
+	'options_values' => $yes_no_options,
 ]);
 
 $other .= elgg_view_input('text', [

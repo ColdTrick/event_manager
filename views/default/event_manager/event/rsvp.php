@@ -15,7 +15,10 @@ if (elgg_is_logged_in()) {
 	$event_relationship_options = event_manager_event_get_relationship_options();
 	
 	$user_relation = $event->getRelationshipByUser();
-		
+	if (!in_array($user_relation, $event_relationship_options)) {
+		$event_relationship_options[] = $user_relation;
+	}
+	
 	$rsvp_options = [];
 	
 	foreach ($event_relationship_options as $rel) {
