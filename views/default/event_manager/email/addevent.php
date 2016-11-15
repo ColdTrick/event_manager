@@ -11,9 +11,17 @@ echo '<br /><br />';
 echo '<span class="event-manager-email-addevent-title">' . elgg_echo('event_manager:addevent:mail:title') . '</span>';
 echo '<br /><br />';
 
-$description = elgg_get_excerpt($event->shortdescription, 100000);
-if (empty($description)) {
-	$description = elgg_get_excerpt($event->description, 100000);
+$description = '';
+if (!empty($event->location)) {
+	// add venue to description
+	$description .= $event->venue . PHP_EOL;
+}
+
+$short_description = elgg_get_excerpt($event->shortdescription, 100000);
+if (empty($short_description)) {
+	$description .= elgg_get_excerpt($event->description, 100000);
+} else {
+	$description .= $short_description;
 }
 
 $url_params = [
