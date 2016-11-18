@@ -1,6 +1,13 @@
 Version history
 ===============
 
+7.2 (2016-11-18):
+
+- added: support for EntityTools plugin
+- added: you can configure if 'interested' is an available RSVP option
+- changed: moved event access update actions to object update event hook
+- changed: rsvp actions are 'toggle' buttons, no more special undo button
+
 7.1 (2016-10-27):
 
 - added: event completed message is added to registration emails
