@@ -15,14 +15,21 @@ if (elgg_is_logged_in()) {
 	$event_relationship_options = event_manager_event_get_relationship_options();
 	
 	$user_relation = $event->getRelationshipByUser();
-	if (!in_array($user_relation, $event_relationship_options)) {
-		$event_relationship_options[] = $user_relation;
+	if ($user_relation) {
+		if (!in_array($user_relation, $event_relationship_options)) {
+			$event_relationship_options[] = $user_relation;
+		}
 	}
 	
 	$rsvp_options = [];
 	
+	if (in_array($user_relation, $event_relationship_options)) {
+		$event_relationship_options = [$user_relation];
+	}
+	
 	foreach ($event_relationship_options as $rel) {
-		if (($rel == EVENT_MANAGER_RELATION_ATTENDING) || $event->$rel) {
+		if (($rel == EVENT_MANAGER_RELATION_ATTENDING) || ($rel == EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST) || $event->$rel) {
+			
 			if ($rel == EVENT_MANAGER_RELATION_ATTENDING) {
 				if (!$event->hasEventSpotsLeft() && !$event->waiting_list_enabled) {
 					continue;
@@ -60,7 +67,7 @@ if (elgg_is_logged_in()) {
 				}
 			}
 		}
-	}	
+	}
 } else {
 	if ($event->register_nologin) {
 		$rsvp_options[] = [
@@ -150,7 +157,7 @@ if ($full_view) {
 					$attributes['class'][] = 'elgg-button-action';
 				}
 				echo elgg_view('output/url', $attributes);
-			}	
+			}
 		}
 	} else {
 		foreach ($rsvp_options as $option) {
