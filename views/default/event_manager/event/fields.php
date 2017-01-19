@@ -6,10 +6,16 @@ $can_edit = $event->canEdit();
 $event_details = '';
 
 // event details
-if ($event->icontime) {
+$event_banner_url = '';
+if ($event->hasIcon('event_banner')) {
+	$event_banner_url = $event->getIconURL('event_banner');
+} elseif ($event->hasIcon('master')) {
+	$event_banner_url = $event->getIconURL('master');
+}
+if (!empty($event_banner_url)) {
 	$event_details .= "<div class='mbm elgg-border-plain event-manager-event-banner'>";
 	$event_details .= elgg_view('output/img', [
-		'src' => $event->getIconURL('event_banner'),
+		'src' => $event_banner_url,
 		'alt' => $event->title,
 	]);
 

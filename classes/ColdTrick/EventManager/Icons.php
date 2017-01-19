@@ -30,4 +30,27 @@ class Icons {
 		];
 		return $returnvalue;
 	}
+	
+	/**
+	 * Set correct filename for Event icon
+	 *
+	 * @param string    $hook        hook name
+	 * @param string    $entity_type hook type
+	 * @param \ElggIcon $returnvalue current return value
+	 * @param array     $params      parameters
+	 *
+	 * @return void|\ElggIcon
+	 */
+	public static function getIconFile($hook, $entity_type, $returnvalue, $params) {
+		
+		$entity = elgg_extract('entity', $params);
+		if (!($entity instanceof \Event)) {
+			return;
+		}
+		
+		$size = elgg_extract('size', $params);
+		$returnvalue->setFilename("{$size}.jpg");
+		
+		return $returnvalue;
+	}
 }

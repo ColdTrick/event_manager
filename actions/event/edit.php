@@ -93,32 +93,14 @@ foreach ($metadata_fields as $field) {
 $has_days = $event->hasEventDays();
 $event->generateInitialProgramData();
 
-$icon_sizes = elgg_get_icon_sizes('object', 'event');
-
-$icon_file = get_resized_image_from_uploaded_file('icon', 100, 100);
-
-if ($icon_file) {
-	// create icons
-
-	$fh = new \ElggFile();
-	$fh->owner_guid = $event->guid;
-
-	foreach ($icon_sizes as $icon_name => $icon_info) {
-		$icon_file = get_resized_image_from_uploaded_file('icon', $icon_info['w'], $icon_info['h'], $icon_info['square'], $icon_info['upscale']);
-
-		if ($icon_file) {
-			$fh->setFilename("{$icon_name}.jpg");
-
-			if ($fh->open('write')) {
-				$fh->write($icon_file);
-				$fh->close();
-			}
-		}
+if (get_input('delete_current_icon')) {
+	$entity->deleteIcon();
+} elseif ($uploaded_files = elgg_get_uploaded_files('icon')) {
+	/* @var $uploaded_file \Symfony\Component\HttpFoundation\File\UploadedFile */
+	$uploaded_file = $uploaded_files[0];
+	if (stripos($uploaded_file->getMimeType(), 'image/') !== false) {
+		$entity->saveIconFromUploadedFile('icon');
 	}
-
-	$event->icontime = time();
-} elseif (get_input('delete_current_icon')) {
-	$event->deleteIcon();
 }
 
 $ia = elgg_set_ignore_access(true);

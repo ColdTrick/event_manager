@@ -925,66 +925,6 @@ class Event extends ElggObject {
 	}
 
 	/**
-	 * Return the events icon url
-	 *
-	 * @param string $size size of the icon
-	 *
-	 * @return void|string
-	 *
-	 * @see ElggEntity::getIconURL()
-	 */
-	public function getIconURL($size = 'medium') {
-		$size = strtolower($size);
-
-		$iconsizes = elgg_get_icon_sizes('object', 'event');
-		if (!array_key_exists($size, $iconsizes)) {
-			$size = 'medium';
-		}
-
-		$icontime = $this->icontime;
-		if (!$icontime) {
-			return;
-		}
-		
-		$file = new \ElggFile();
-		$file->owner_guid = $this->guid;
-		$file->setFilename("{$size}.jpg");
-		
-		if (($size === 'event_banner') && !$file->exists()) {
-			$file->setFilename("master.jpg");
-		}
-		
-		return elgg_get_inline_url($file);
-	}
-
-	/**
-	 * Deletes the previous uploaded icon
-	 *
-	 * @param string $type Icon type
-	 * @return bool
-	 */
-	public function deleteIcon($type = 'icon') {
-		if ($type == 'icon') {
-			$fh = new \ElggFile();
-			$fh->owner_guid = $this->guid;
-
-			$icon_sizes = elgg_get_icon_sizes('object', 'event');
-
-			foreach ($icon_sizes as $name => $info) {
-				$fh->setFilename("{$name}.jpg");
-
-				if ($fh->exists()) {
-					$fh->delete();
-				}
-			}
-
-			unset($this->icontime);
-		}
-
-		return parent::deleteIcon($type);
-	}
-
-	/**
 	 * Returns the days of this event
 	 *
 	 * @param string $order the order in which to return the days
