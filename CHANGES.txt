@@ -1,6 +1,12 @@
 Version history
 ===============
 
+7.2.1 (2017-01-26):
+
+- changed: use new Elgg api for icon handling
+- fixed: show undo waitinglist rsvp option
+- updates Spanish translation
+
 7.2 (2016-11-18):
 
 - added: support for EntityTools plugin
