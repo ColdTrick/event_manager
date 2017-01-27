@@ -33,4 +33,8 @@ $params = [
 $params = $params + $vars;
 $summary = elgg_view('object/elements/summary', $params);
 
-echo elgg_view('object/elements/full', ['summary' => $summary, 'body' => $body]);
+echo elgg_view('object/elements/full', [
+	'entity' => $event,
+	'summary' => $summary,
+	'body' => $body,
+]);

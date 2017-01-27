@@ -29,7 +29,7 @@ $event_end += $end_time_hours * 3600;
 $event_start += $start_time_minutes * 60;
 $event_start += $start_time_hours * 3600;
 
-if ($event_end < $start_ts) {
+if ($event_end < $event_start) {
 	register_error(elgg_echo('event_manager:action:event:edit:end_before_start'));
 	forward(REFERER);
 }

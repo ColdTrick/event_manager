@@ -2,8 +2,9 @@
 
 echo '<div id="event-manager-gmaps-location-search"></div>';
 
-$form_body = elgg_view_input('text', [
-	'label' => elgg_echo('event_manager:event:edit:maps_address'),
+$form_body = elgg_view_field([
+	'#type' => 'text',
+	'#label' => elgg_echo('event_manager:event:edit:maps_address'),
 	'name' => 'address_search',
 	'id' => 'address_search',
 ]);

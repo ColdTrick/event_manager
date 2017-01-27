@@ -3,8 +3,9 @@
  * Form fields for general event information
  */
 
-echo elgg_view_input('text', [
-	'label' => elgg_echo('title'),
+echo elgg_view_field([
+	'#type' => 'text',
+	'#label' => elgg_echo('title'),
 	'name' => 'title',
 	'value' => $vars['title'],
 	'required' => true,

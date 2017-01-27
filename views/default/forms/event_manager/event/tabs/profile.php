@@ -11,31 +11,35 @@ $tags = elgg_extract('tags', $vars);
 
 $output = '';
 
-$output .= elgg_view_input('text', [
-	'label' => elgg_echo('event_manager:edit:form:shortdescription'),
-	'help' => elgg_echo('event_manager:edit:form:shortdescription:help'),
+$output .= elgg_view_field([
+	'#type' => 'text',
+	'#label' => elgg_echo('event_manager:edit:form:shortdescription'),
+	'#help' => elgg_echo('event_manager:edit:form:shortdescription:help'),
 	'name' => 'shortdescription',
 	'value' => $shortdescription,
 ]);
 
-$output .= elgg_view_input('longtext', [
-	'label' => elgg_echo('description'),
-	'help' => elgg_echo('event_manager:edit:form:description:help'),
+$output .= elgg_view_field([
+	'#type' => 'longtext',
+	'#label' => elgg_echo('description'),
+	'#help' => elgg_echo('event_manager:edit:form:description:help'),
+	'#class' => 'event-manager-forms-label-inline',
 	'name' => 'description',
 	'value' => $description,
-	'field_class' => 'event-manager-forms-label-inline',
 ]);
 
-$output .= elgg_view_input('tags', [
-	'label' => elgg_echo('tags'),
-	'help' => elgg_echo('event_manager:edit:form:tags:help'),
+$output .= elgg_view_field([
+	'#type' => 'tags',
+	'#label' => elgg_echo('tags'),
+	'#help' => elgg_echo('event_manager:edit:form:tags:help'),
 	'name' => 'tags',
 	'value' => $tags,
 ]);
 
-$output .= elgg_view_input('file', [
-	'label' => elgg_echo('event_manager:edit:form:icon'),
-	'help' => elgg_echo('event_manager:edit:form:icon:help'),
+$output .= elgg_view_field([
+	'#type' => 'file',
+	'#label' => elgg_echo('event_manager:edit:form:icon'),
+	'#help' => elgg_echo('event_manager:edit:form:icon:help'),
 	'name' => 'icon',
 ]);
 
@@ -67,17 +71,19 @@ if ($entity && $entity->icontime) {
 
 $type_options = event_manager_event_type_options();
 if ($type_options) {
-	$output .= elgg_view_input('select', [
-		'label' => elgg_echo('event_manager:edit:form:type'),
-		'help' => elgg_echo('event_manager:edit:form:type:help'),
+	$output .= elgg_view_field([
+		'#type' => 'select',
+		'#label' => elgg_echo('event_manager:edit:form:type'),
+		'#help' => elgg_echo('event_manager:edit:form:type:help'),
 		'name' => 'event_type',
 		'value' => $vars['event_type'],
 		'options' => $type_options,
 	]);
 }
 
-$output .= elgg_view_input('checkboxes', [
-	'help' => elgg_echo('event_manager:edit:form:comments_on:help'),
+$output .= elgg_view_field([
+	'#type' => 'checkboxes',
+	'#help' => elgg_echo('event_manager:edit:form:comments_on:help'),
 	'name' => 'comments_on',
 	'value' => $vars['comments_on'],
 	'options' => [
@@ -85,8 +91,9 @@ $output .= elgg_view_input('checkboxes', [
 	],
 ]);
 
-$output .= elgg_view_input('access', [
-	'label' => elgg_echo('access'),
+$output .= elgg_view_field([
+	'#type' => 'access',
+	'#label' => elgg_echo('access'),
 	'name' => 'access_id',
 	'value' => $vars['access_id'],
 ]);
