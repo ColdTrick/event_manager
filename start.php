@@ -75,6 +75,7 @@ function event_manager_init() {
 	if (elgg_view_exists('input/objectpicker')) {
 		elgg_register_widget_type('highlighted_events', elgg_echo('event_manager:widgets:highlighted_events:title'), elgg_echo('event_manager:widgets:highlighted_events:description'), ['index', 'groups'], true);
 	}
+	elgg_register_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\EventManager\Widgets::registerHandlers');
 
 	// register js libraries
 	elgg_define_js('gmaps', [
@@ -143,21 +144,5 @@ function event_manager_init() {
 	elgg_register_action('event_manager/upgrades/convert_timestamps', $base_dir . '/actions/upgrades/convert_timestamps.php', 'admin');
 }
 
-/**
- * Page setup function
- *
- * @return void
- */
-function event_manager_pagesetup() {
-	
-	$page_owner = elgg_get_page_owner_entity();
-	if ($page_owner instanceof ElggGroup) {
-		if ($page_owner->event_manager_enable == 'no') {
-			elgg_unregister_widget_type('events');
-		}
-	}
-}
-
 // register default elgg events
 elgg_register_event_handler('init', 'system', 'event_manager_init');
-elgg_register_event_handler('pagesetup', 'system', 'event_manager_pagesetup');

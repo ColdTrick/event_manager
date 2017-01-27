@@ -28,4 +28,35 @@ class Widgets {
 				return '/events/event/list/' . $widget->getOwnerGUID();
 		}
 	}
+
+	/**
+	 * Registers the widget handlers for events
+	 *
+	 * @param string $hook        hook name
+	 * @param string $entity_type hook type
+	 * @param array  $returnvalue current return value
+	 * @param array  $params      parameters
+	 *
+	 * @return string
+	 */
+	public static function registerHandlers($hook, $entity_type, $returnvalue, $params) {
+		
+		$container = elgg_extract('container', $params);
+		if (!($container instanceof \ElggGroup)) {
+			return;
+		}
+		
+		if ($container->event_manager_enable !== 'no') {
+			return;
+		}
+		
+		foreach ($returnvalue as $index => $widget) {
+			if ($widget->id === 'events') {
+				unset($returnvalue[$index]);
+				return $returnvalue;
+			}
+		}
+
+		return $returnvalue;
+	}
 }
