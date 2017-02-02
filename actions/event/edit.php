@@ -94,12 +94,12 @@ $has_days = $event->hasEventDays();
 $event->generateInitialProgramData();
 
 if (get_input('delete_current_icon')) {
-	$entity->deleteIcon();
+	$event->deleteIcon();
 } elseif ($uploaded_files = elgg_get_uploaded_files('icon')) {
 	/* @var $uploaded_file \Symfony\Component\HttpFoundation\File\UploadedFile */
 	$uploaded_file = $uploaded_files[0];
 	if (stripos($uploaded_file->getMimeType(), 'image/') !== false) {
-		$entity->saveIconFromUploadedFile('icon');
+		$event->saveIconFromUploadedFile('icon');
 	}
 }
 
