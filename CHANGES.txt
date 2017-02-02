@@ -1,6 +1,10 @@
 Version history
 ===============
 
+7.2.2 (2017-02-02):
+
+- fixed: bug when uploading image to a new event
+
 7.2.1 (2017-01-26):
 
 - changed: use new Elgg api for icon handling

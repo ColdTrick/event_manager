@@ -3,7 +3,7 @@
 	<name>Event Manager</name>
 	<id>event_manager</id>
 	<author>ColdTrick IT Solutions</author>
-	<version>7.2.1</version>
+	<version>7.2.2</version>
 	<description>Manage events</description>
 	<website>http://www.coldtrick.com/</website>
 	<repository>https://github.com/ColdTrick/event_manager</repository>
