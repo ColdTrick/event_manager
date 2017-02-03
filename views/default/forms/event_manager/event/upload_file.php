@@ -5,17 +5,25 @@ if (empty($event)) {
 	return;
 }
 
-echo elgg_view('input/hidden', [
+echo elgg_view_field([
+	'#type' => 'hidden',
 	'name' => 'guid', 
-	'value' => $event->getGUID()
+	'value' => $event->guid,
 ]);
-echo '<div><label>' . elgg_echo('title') . ' *</label>';
-echo elgg_view('input/text', [
+
+echo elgg_view_field([
+	'#type' => 'text',
+	'#label' => elgg_echo('title'),
 	'name' => 'title', 
 	'required' => true
-]) . '</div>';
-echo '<div><label>' . elgg_echo('event_manager:edit:form:file') . ' *</label>';
-echo elgg_view('input/file', ['name' => 'file', 'required' => true]);
-echo '</div>';
-echo elgg_view('input/submit', ['value' => elgg_echo('upload')]);
-echo elgg_format_element('div', ['class' => 'elgg-subtext'], '(* = ' . elgg_echo('requiredfields') . ')');
+]);
+
+echo elgg_view_field([
+	'#type' => 'file',
+	'#label' => elgg_echo('event_manager:edit:form:file'),
+	'name' => 'file', 
+	'required' => true,
+]);
+
+$footer = elgg_view('input/submit', ['value' => elgg_echo('upload')]);
+elgg_set_form_footer($footer);
