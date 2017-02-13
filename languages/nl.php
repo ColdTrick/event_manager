@@ -1,10 +1,21 @@
 <?php
 /**
- * This file was created by Translation Editor v5.1
- * On 2016-08-22 15:05
+ * This file was created by Translation Editor v5.2
+ * On 2017-02-13 12:05
  */
 
 return array (
+  'event_manager:edit:form:tabs:registration:toggle' => 'Configureer hier registratie specifieke details',
+  'event_manager:event:initial:day:title' => 'Dag 1',
+  'event_manager:event:initial:slot:title' => 'Activiteit titel',
+  'event_manager:event:initial:slot:description' => 'Activiteit omschrijving',
+  'event_manager:settings:rsvp:interested' => 'De RSVP optie "geïnteresseerd" is beschikbaar',
+  'event_manager:addevent:mail:title' => 'Aan agenda toevoegen',
+  'event_manager:addevent:mail:service:appleical' => 'Apple',
+  'event_manager:addevent:mail:service:google' => 'Google',
+  'event_manager:addevent:mail:service:outlook' => 'Outlook',
+  'event_manager:addevent:mail:service:outlookcom' => 'Outlook.com',
+  'event_manager:addevent:mail:service:yahoo' => 'Yahoo',
   'admin:upgrades:migrate_files_to_event' => 'Event Manager bestanden migratie',
   'admin:upgrades:migrate_files_to_event:description' => 'Alle event gerelateerde bestanden moeten worden gemigreerd zodat ze opgeslagen worden bij het event ipv in de map van de eigenaar van het event.',
   'admin:upgrades:convert_timestamps' => 'Event Manager timestamp conversie',
