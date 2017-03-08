@@ -363,6 +363,7 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:action:register:pending' => "Your registration is almost completed. To confirm your registration please follow the instructions the email we just sent you.",
 	'event_manager:action:resend_confirmation:success' => "Confirmation mail has been resend",
 	'event_manager:action:move_to_attendees:success' => "User has been moved to the attendees",
+	'event_manager:action:attendees:export:no_data' => "No attendees available for export",
 	'event_manager:action:slot:day_not_found' => "The given day was not found",
 	'event_manager:action:slot:missing_fields' => "Please fill the required fields",
 	'event_manager:action:slot:not_found' => "The slot was not found",
