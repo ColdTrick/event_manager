@@ -3,6 +3,7 @@
 namespace ColdTrick\EventManager;
 
 class Widgets {
+	
 	/**
 	 * Generates correct title link for widgets depending on the context
 	 *
@@ -14,10 +15,9 @@ class Widgets {
 	 * @return string
 	 */
 	public static function getEventsUrl($hook, $entity_type, $returnvalue, $params) {
-		$result = $returnvalue;
+		
 		$widget = elgg_extract('entity', $params);
-	
-		if (empty($result) || !($widget instanceof ElggWidget) || $widget->handler !== 'events') {
+		if (!empty($returnvalue) || !($widget instanceof \ElggWidget) || $widget->handler !== 'events') {
 			return;
 		}
 			
@@ -57,6 +57,28 @@ class Widgets {
 			}
 		}
 
+		return $returnvalue;
+	}
+	
+	/**
+	 * Change the entity_timestamp in the content_by_tag widget to show the start date of the event
+	 *
+	 * @param string $hook        hook name
+	 * @param string $entity_type hook type
+	 * @param array  $returnvalue current return value
+	 * @param array  $params      parameters
+	 *
+	 * @return void|array
+	 */
+	public static function contentByTagEntityTimestamp($hook, $entity_type, $returnvalue, $params) {
+		
+		$entity = elgg_extract('entity', $returnvalue);
+		if (!($entity instanceof \Event)) {
+			return;
+		}
+		
+		$returnvalue['entity_timestamp'] = $entity->getStartTimestamp();
+		
 		return $returnvalue;
 	}
 }
