@@ -3,6 +3,7 @@
 namespace ColdTrick\EventManager;
 
 class Widgets {
+	
 	/**
 	 * Generates correct title link for widgets depending on the context
 	 *
@@ -14,10 +15,9 @@ class Widgets {
 	 * @return string
 	 */
 	public static function getEventsUrl($hook, $entity_type, $returnvalue, $params) {
-		$result = $returnvalue;
+		
 		$widget = elgg_extract('entity', $params);
-	
-		if (empty($result) || !($widget instanceof ElggWidget) || $widget->handler !== 'events') {
+		if (!empty($returnvalue) || !($widget instanceof \ElggWidget) || $widget->handler !== 'events') {
 			return;
 		}
 			
