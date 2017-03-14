@@ -53,6 +53,23 @@ class Event extends ElggObject {
 	public function getURL() {
 		return elgg_get_site_url() . "events/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
 	}
+
+	/**
+	 * Returns excerpt based on shortdescription and falls back to long description
+	 *
+	 * @param $limit (optional) limited amount of characters
+	 *	
+	 * @return string
+	 *
+	 * @see elgg_get_excerpt()
+	 */
+	public function getExcerpt($limit = null) {
+		$result = $this->shortdescription;
+		if (empty($shortdescription)) {
+			$result = $this->description;
+		}
+		return elgg_get_excerpt($result, $limit);
+	}
 	
 	/**
 	 * Returns the timestamp for the start of the event

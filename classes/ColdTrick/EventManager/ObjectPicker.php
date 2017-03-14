@@ -20,9 +20,11 @@ class ObjectPicker {
 		if (!($entity instanceof \Event)) {
 			return;
 		}
-	
-		$returnvalue['text'] = $entity->getDisplayName() . ' (' . event_manager_format_date($entity->getStartTimestamp()) . ')';
 		
+		$text = $entity->getDisplayName() . ' (' . event_manager_format_date($entity->getStartTimestamp()) . ')';
+		$text .= elgg_format_element('div', ['class' => 'elgg-subtext'], $entity->getExcerpt(200));
+		
+		$returnvalue['text'] = $text;
 		return $returnvalue;
 	}
 }

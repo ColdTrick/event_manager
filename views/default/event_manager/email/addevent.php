@@ -17,12 +17,7 @@ if (!empty($event->location)) {
 	$description .= $event->venue . PHP_EOL;
 }
 
-$short_description = elgg_get_excerpt($event->shortdescription, 100000);
-if (empty($short_description)) {
-	$description .= elgg_get_excerpt($event->description, 100000);
-} else {
-	$description .= $short_description;
-}
+$description .= $event->getExcerpt(100000);
 
 $url_params = [
 	'client' => 'ak1qmrp10zvwxx2cimhv206',
