@@ -19,6 +19,7 @@ $event_start_input = elgg_view('input/date', [
 	'name' => 'event_start',
 	'id' => 'event_start',
 	'timestamp' => true,
+	'required' => true,
 	'value' => $gm_event_start,
 	'class' => 'event_manager_event_edit_date',
 ]);
@@ -42,6 +43,7 @@ $event_end_input = elgg_view('input/date', [
 	'name' => 'event_end',
 	'id' => 'event_end',
 	'timestamp' => true,
+	'required' => true,
 	'value' => $gm_event_end,
 	'class' => 'event_manager_event_edit_date'
 ]);
