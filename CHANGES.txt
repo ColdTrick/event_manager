@@ -1,6 +1,19 @@
 Version history
 ===============
 
+8.1 (2017-03-24):
+
+- added: custom text for objectpicker
+- added: event helper function getExcerpt()
+- added: export of attendees is now hookable
+- changed: entity time in content_by_tags widget changed to startdate
+- changed: only show event completed text when attending (site and mail)
+- changed: ordered attendees / waitinglist based on rsvp timestamp
+- fixed: do not show input clear action on date inputs in IE/Edge
+- fixed: event start/end date are now required on the form
+- fixed: events widget title url not working
+- fixed: restored user_hover menu actions
+
 8.0 (2017-02-27):
 
 - changed: removed the need for the pagesetup event
