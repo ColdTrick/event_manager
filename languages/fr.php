@@ -18,7 +18,7 @@ return array(
 	'item:object:eventregistrationquestion' => 'Questions pour s\'inscrire à un évènement',
 	'item:object:eventquestions' => 'Questions évènement',
 	
-		'event_manager:date:format' => 'Y-m-d',
+	'event_manager:date:format' => 'Y-m-d',
 	'event_manager:enity:copy' => 'Copie de: %s',
 	
 	'event_manager:menu:title' => 'Evènements',
@@ -29,7 +29,7 @@ return array(
 	'event_manager:menu:unsubscribe' => "Description",
 	'event_manager:menu:unsubscribe_confirm' => "Confirmé la désinscription",
 	'event_manager:menu:registration:completed' => "Enregistrement de l\'événement réalisé",
-		'event_manager:menu:attending' => "Participants",
+	'event_manager:menu:attending' => "Participants",
 	
 	'event_manager:notification:subject' => "Un événement à été créé",
 	'event_manager:notification:summary' => "Un événement à été créé",
@@ -45,7 +45,7 @@ return array(
 	'event_manager:calendar:day' => 'Jour',
 
 	'event_manager:list:title' => 'Evènements',
-		'event_manager:list:group:title' => 'Événements de groupe',
+	'event_manager:list:group:title' => 'Événements de groupe',
 	'event_manager:list:advancedsearch' => 'Recherche avancée',
 	'event_manager:list:simplesearch' => 'Recherche simple',
 	'event_manager:list:noresults' => 'Aucuns évènements trouvé',
@@ -56,14 +56,14 @@ return array(
 	'event_manager:list:friendsattending' => 'Montrer les évènements auxquels mes contacts participent',
 	
 	'event_manager:list:navigation:list' => 'Liste',
-		'event_manager:list:navigation:calendar' => 'Calendrier',
+	'event_manager:list:navigation:calendar' => 'Calendrier',
 	'event_manager:list:navigation:other' => 'Autres évènements',
 	'event_manager:list:navigation:your' => 'Vos évènements',
 	'event_manager:list:navigation:attending' => 'Participes aux évènements',
 	'event_manager:list:navigation:onthemap' => 'Sur la carte',
 	
 	'event_manager:owner:title' => 'Événements de %s',
-		'event_manager:attending:title' => 'Événement %s est en attente',
+	'event_manager:attending:title' => 'Événement %s est en attente',
 	
 	'event_manager:full' => 'tout',
 	'event_manager:personwaitinglist' => 'personne sur la liste d\'attente',
@@ -122,15 +122,15 @@ return array(
 	'event_manager:edit:form:endregistration_day:help' => '',
 	'event_manager:edit:form:max_attendees:help' => '',
 	'event_manager:edit:form:organizer' => 'Organisateur',
-		'event_manager:edit:form:with_program' => 'Cet événement à défini un programme journalier',
+	'event_manager:edit:form:with_program' => 'Cet événement à défini un programme journalier',
 	'event_manager:edit:form:delete_current_icon' => 'Supprimer l\'icone actuelle ?',
 	'event_manager:edit:form:comments_on' => 'Commentaires activés ?',
 	'event_manager:edit:form:registration_ended' => 'Désactiver les inscriptions à cet événement',
-		'event_manager:edit:form:registration_needed' => 'Les participants doivent spécifier un programme journalier et/ou répondre à des questions supplémentaires',
+	'event_manager:edit:form:registration_needed' => 'Les participants doivent spécifier un programme journalier et/ou répondre à des questions supplémentaires',
 	'event_manager:edit:form:show_attendees' => 'Afficher les participants ?',
 	'event_manager:edit:form:notify_onsignup' => 'Prévenez-moi lorsque quelqu\'un s\'inscrit',
-		'event_manager:edit:form:start' => 'Début',
-		'event_manager:edit:form:end' => 'Fin',
+	'event_manager:edit:form:start' => 'Début',
+	'event_manager:edit:form:end' => 'Fin',
 	'event_manager:edit:form:start_day' => 'Date',
 	'event_manager:edit:form:start_day:from' => 'Date de début',
 	'event_manager:edit:form:start_day:to' => 'Date de fin',
@@ -145,14 +145,14 @@ return array(
 	'event_manager:edit:form:spots_left:waiting_list' => ' Participant(e)s sur la liste d\'attente',
 	'event_manager:edit:form:currenticon' => 'Icone actuelle',
 	'event_manager:edit:form:icon' => 'Icone de l\'évènement (ne rien mettre pour laisser inchangé)',
-		'event_manager:edit:form:registration_completed:toggle' => 'Cliquez ici pour paramétrer le texte de la page préinscription',
-		'event_manager:edit:form:registration_completed' => 'Texte affiché une fois l\'inscription faite',
-		'event_manager:edit:form:registration_completed:description' => 'Si vous ajoutez [NAME] le nom de l\'utilisateur inscrit sera affiché. Si vous ajoutez [EVENT] le nom de l\'événement sera affiché.',
+	'event_manager:edit:form:registration_completed:toggle' => 'Cliquez ici pour paramétrer le texte de la page préinscription',
+	'event_manager:edit:form:registration_completed' => 'Texte affiché une fois l\'inscription faite',
+	'event_manager:edit:form:registration_completed:description' => 'Si vous ajoutez [NAME] le nom de l\'utilisateur inscrit sera affiché. Si vous ajoutez [EVENT] le nom de l\'événement sera affiché.',
 
-		'event_manager:edit:form:slot_set' => 'Ensemble de Créneaux', // check the meaning
-		'event_manager:edit:form:slot_set:add' => 'Ajout en ensemble de créneaux',
-		'event_manager:edit:form:slot_set:empty' => 'Pas d\'ensemble de créneaux défini',
-		'event_manager:edit:form:slot_set:description' => 'Ajouter un ensemble de créneaux permet de limiter les inscriptions pour un utilisateur à un seul créneaux par ensemble',
+	'event_manager:edit:form:slot_set' => 'Ensemble de Créneaux', // check the meaning
+	'event_manager:edit:form:slot_set:add' => 'Ajout en ensemble de créneaux',
+	'event_manager:edit:form:slot_set:empty' => 'Pas d\'ensemble de créneaux défini',
+	'event_manager:edit:form:slot_set:description' => 'Ajouter un ensemble de créneaux permet de limiter les inscriptions pour un utilisateur à un seul créneaux par ensemble',
 
 	'event_manager:form:program:day' => 'Ajouter un événement journalier',
 	'event_manager:program:day:add' => 'Ajouter un jour',
@@ -176,6 +176,7 @@ return array(
 	'event_manager:registration:edit:title' => 'Modifier votre inscription',
 	'event_manager:registration:edityourregistration' => 'Modifier votre inscription',
 	'event_manager:registration:viewyourregistration' => 'Afficher votre inscription',
+	'event_manager:registration:view:information' => 'Information',
 	'event_manager:registration:yourregistration' => 'Votre inscription',
 	'event_manager:registration:required_fields' => 'Veuillez remplir les champs obligatoires',
 	'event_manager:registration:required_fields:info' => 'Les champs marqués avec * sont obligatoires',
@@ -184,87 +185,86 @@ return array(
 	'event_manager:event:registration:notification:owner:subject' => 'inscription évènement',
 	'event_manager:event:registration:notification:user:subject' => 'inscription évènement',
 	
-		'event_manager:event:registration:notification:owner:summary:event_attending' => "%s s'est inscrit en tant que 'participant' à votre événement '%s'.",
+	'event_manager:event:registration:notification:owner:summary:event_attending' => "%s s'est inscrit en tant que 'participant' à votre événement '%s'.",
 	'event_manager:event:registration:notification:owner:text:event_attending' => 'Bonjour %s,
 
-%s c\'est inscrit(e) comme \'participant(e)\' à l\'évènement \'%s\' .',
+%s c\'est inscrit(e) comme \'participant(e)\' à l\'évènement \'%s\'.',
 	
-		'event_manager:event:registration:notification:user:summary:event_attending' => "Vous vous êtes bien inscrits en tant que 'participant' à l'événement '%s'.",
+	'event_manager:event:registration:notification:user:summary:event_attending' => "Vous vous êtes bien inscrits en tant que 'participant' à l'événement '%s'.",
 	'event_manager:event:registration:notification:user:text:event_attending' => 'Bonjour %s,
 
 Vous êtes maintenant inscrit(e) comme \'participant(e)\' l\'évènement \'%s\'.',
 	
-		'event_manager:event:registration:notification:owner:summary:event_waitinglist' => "%s est sur la liste d'attente de votre événement '%s'.",
+	'event_manager:event:registration:notification:owner:summary:event_waitinglist' => "%s est sur la liste d'attente de votre événement '%s'.",
 	'event_manager:event:registration:notification:owner:text:event_waitinglist' => 'Bonjour %s,
 
 %s est sur la liste d\'attente pour votre évènement \'%s\' .',
 	
-		'event_manager:event:registration:notification:user:summary:event_waitinglist' => "Vous être maintenant sur la liste d'attente de l'événement '%s'.",
+	'event_manager:event:registration:notification:user:summary:event_waitinglist' => "Vous être maintenant sur la liste d'attente de l'événement '%s'.",
 	'event_manager:event:registration:notification:user:text:event_waitinglist' => 'Bonjour %s,
 
 Vous êtes en liste d\'attente pour l\'évènement \'%s\'.',
 	
-		'event_manager:event:registration:notification:owner:summary:event_exhibiting' => "%s s'est inscrit en tant que 'exposant' à votre événement '%s'.",
+	'event_manager:event:registration:notification:owner:summary:event_exhibiting' => "%s s'est inscrit en tant que 'exposant' à votre événement '%s'.",
 	'event_manager:event:registration:notification:owner:text:event_exhibiting' => 'Bonjour %s,
 
 %s s\'est inscrit(e) comme \'exposant(e)\' à votre évènement \'%s\' .',
 	
-		'event_manager:event:registration:notification:user:summary:event_exhibiting' => "Vous vous êtes bien inscrits en tant que 'exposant' pour l'événement '%s'.",
+	'event_manager:event:registration:notification:user:summary:event_exhibiting' => "Vous vous êtes bien inscrits en tant que 'exposant' pour l'événement '%s'.",
 	'event_manager:event:registration:notification:user:text:event_exhibiting' => 'Bonjour %s,
 
 Vous êtes maintenant inscrit(e) comme \'exposant(e)\' à l\'évènement \'%s\' .',
 	
-		'event_manager:event:registration:notification:owner:summary:event_organizing' => "%s s'est inscrit comme 'organisateur' à votre événement '%s'.",
+	'event_manager:event:registration:notification:owner:summary:event_organizing' => "%s s'est inscrit comme 'organisateur' à votre événement '%s'.",
 	'event_manager:event:registration:notification:owner:text:event_organizing' => 'Bonjour %s,
 
 %s s\'est inscrit(e) comme \'organisateur/organisatrice\' à votre évènement \'%s\' .',
 	
-		'event_manager:event:registration:notification:user:summary:event_organizing' => "Vous vous êtes bien inscrits en tant que 'Organisateur' pour l'événement '%s'.",
+	'event_manager:event:registration:notification:user:summary:event_organizing' => "Vous vous êtes bien inscrits en tant que 'Organisateur' pour l'événement '%s'.",
 	'event_manager:event:registration:notification:user:text:event_organizing' => 'Bonjour %s,
 
 Vous êtes maintenant inscrit(e) comme \'organisateur/organisatrice\' à l\'évènement \'%s\' .',
 	
-		'event_manager:event:registration:notification:owner:summary:event_presenting' => "%s s'est inscrit en tant que 'orateur' à votre événement '%s'.",
+	'event_manager:event:registration:notification:owner:summary:event_presenting' => "%s s'est inscrit en tant que 'orateur' à votre événement '%s'.",
 	'event_manager:event:registration:notification:owner:text:event_presenting' => 'Bonjour %s,
 
 %s s\'est inscrit(e) comme \'animateur/animatrice\' à votre évènement \'%s\' .',
 	
-		'event_manager:event:registration:notification:user:summary:event_presenting' => "Vous vous êtes bien inscrits en tant que 'orateur' lors de l'événement '%s'.",
+	'event_manager:event:registration:notification:user:summary:event_presenting' => "Vous vous êtes bien inscrits en tant que 'orateur' lors de l'événement '%s'.",
 	'event_manager:event:registration:notification:user:text:event_presenting' => 'Bonjour %s,
 
 Vous êtes maintenant inscrit(e) comme \'animateur/animatrice\' à l\'évènement \'%s\' .',
 	
-		'event_manager:event:registration:notification:owner:summary:event_interested' => "%s s'est inscrit comme 'intéressé' pour votre événement '%s'.",
+	'event_manager:event:registration:notification:owner:summary:event_interested' => "%s s'est inscrit comme 'intéressé' pour votre événement '%s'.",
 	'event_manager:event:registration:notification:owner:text:event_interested' => 'Bonjour %s,
 
 %s s\'est inscrit(e) comme \'intéressé(e)\' à votre évènement \'%s\' .',
 	
-		'event_manager:event:registration:notification:user:summary:event_interested' => "Vous vous êtes bien inscrits en tant que 'intéressé' pour l'événement '%s'.",
+	'event_manager:event:registration:notification:user:summary:event_interested' => "Vous vous êtes bien inscrits en tant que 'intéressé' pour l'événement '%s'.",
 	'event_manager:event:registration:notification:user:text:event_interested' => 'Bonjour %s,
 
 Vous êtes maintenant inscrit(e) comme \'intéressé(e)\' à l\'évènement \'%s\' .',
 	
-		'event_manager:event:registration:notification:owner:summary:event_undo' => "%s s'est désinscrit de votre événement '%s'.",
+	'event_manager:event:registration:notification:owner:summary:event_undo' => "%s s'est désinscrit de votre événement '%s'.",
 	'event_manager:event:registration:notification:owner:text:event_undo' => 'Bonjour %s,
 
 %s s\'est désinscrit(e) de votre évènement \'%s\'.',
 	
-		'event_manager:event:registration:notification:user:summary:event_undo' => "Vous vous êtes bien désinscrits de l'événement '%s'.",
+	'event_manager:event:registration:notification:user:summary:event_undo' => "Vous vous êtes bien désinscrits de l'événement '%s'.",
 	'event_manager:event:registration:notification:user:text:event_undo' => 'Bonjour %s,
 
 Vous êtes maintenant désinscrit(e) de l\'évènement \'%s\' .',
 	
-		'event_manager:event:registration:notification:user:summary:event_spotfree' => "Quelqu'un s'est désinscrit de l'événement '%s' (%s). Vous êtes monté dans la liste d'attente."
-	. ".",
+	'event_manager:event:registration:notification:user:summary:event_spotfree' => "Quelqu'un s'est désinscrit de l'événement '%s' (%s). Vous êtes monté dans la liste d'attente.",
 	'event_manager:event:registration:notification:user:text:event_spotfree' => 'Bonjour %s,
 
 une personne s\'est désinscrite de l\'évènement \'%s\' . Vous n\'êtes plus sur la liste d\'attente.',
 	
 	'event_manager:event:registration:notification:program:linktext' => 'Pour voir le programme cliquez sur ce lien',
-		'event_manager:event:registration:notification:unsubscribe:linktext' => 'Si vous ne voulez plus participé à cet événement, utilisé ce lien',
+	'event_manager:event:registration:notification:unsubscribe:linktext' => 'Si vous ne voulez plus participé à cet événement, utilisé ce lien',
 	
 	'event_manager:event:rsvp' => 'Je souhaite',
-		'event_manager:event:location:plan_route' => 'Planifier mon itinéraire',
+	'event_manager:event:location:plan_route' => 'Planifier mon itinéraire',
 	'event_manager:event:uploadfiles' => 'Upload des fichiers',
 	'event_manager:event:uploadfiles:no_files' => 'Utilisé le bouton plus pour ajouter des fichiers à cet événement',
 	'event_manager:event:attendees' => 'Participant(e)s',
@@ -272,44 +272,44 @@ une personne s\'est désinscrite de l\'évènement \'%s\' . Vous n\'êtes plus s
 	'event_manager:event:editquestions' => 'Modifier les questions pour s\'inscrire',
 	'event_manager:event:waitinglist:empty' => 'La liste d\'attente est vide',
 	'event_manager:event:exportattendees' => 'Exporter les participant(e)s',
-		'event_manager:event:search_attendees' => 'Rechercher des participants',
-		'event_manager:event:initial:day:title' => 'Événement jour 1',
-		'event_manager:event:initial:slot:title' => 'Titre de l\'activité',
-		'event_manager:event:initial:slot:description' => 'Description de l\'activité',
-	
+	'event_manager:event:search_attendees' => 'Rechercher des participants',
+	'event_manager:event:initial:day:title' => 'Événement jour 1',
+	'event_manager:event:initial:slot:title' => 'Titre de l\'activité',
+	'event_manager:event:initial:slot:description' => 'Description de l\'activité',
+
 	'event_manager:registrationform:editquestion:required' => 'Obligatoire ?',
-		'event_manager:registrationform:editquestion:text:placeholder' => 'Entrez une question que vous voulez poser.',
+	'event_manager:registrationform:editquestion:text:placeholder' => 'Entrez une question que vous voulez poser.',
 	
 	'event_manager:event:file:notfound:text' => 'Le fichier que vous cherchez n\'a pas été trouvé',
 	
 	'event_manager:event:register:register_link' => 'S\'inscrire à cet évènement',
-		'event_manager:event:register:log_in_first' => 'Connectez vous pour vous inscrire à cet événement',
-		
-		'event_manager:event:menu:user_hover:resend_confirmation' => 'Renvoyer le courriel de confirmation',
-		'event_manager:event:menu:user_hover:move_to_attendees' => 'Mettre dans les participants',
+	'event_manager:event:register:log_in_first' => 'Connectez vous pour vous inscrire à cet événement',
 
-		'event_manager:event:menu:title:add_to_calendar' => 'Ajouter au calendrier',
+	'event_manager:event:menu:user_hover:resend_confirmation' => 'Renvoyer le courriel de confirmation',
+	'event_manager:event:menu:user_hover:move_to_attendees' => 'Mettre dans les participants',
+
+	'event_manager:event:menu:title:add_to_calendar' => 'Ajouter au calendrier',
 	
 	'event_manager:event:view:event' => 'Evènements',
 	'event_manager:event:view:date' => 'Date',
 	'event_manager:event:view:createdby' => 'Créé par',
-		'event_manager:event:view:contact_persons' => 'Contact',
+	'event_manager:event:view:contact_persons' => 'Contact',
 	
 	// relationships
 	'event_manager:event:relationship:event_attending' => 'Participation',
-		'event_manager:event:relationship:event_attending:entity_menu' => '%s participants',
-		'event_manager:event:relationship:event_attending:label' => 'Participants',
+	'event_manager:event:relationship:event_attending:entity_menu' => '%s participants',
+	'event_manager:event:relationship:event_attending:label' => 'Participants',
 	'event_manager:event:relationship:event_waitinglist' => 'Liste d\'attente',
-		'event_manager:event:relationship:event_waitinglist:label' => 'Sur la liste d\'attente',
-		'event_manager:event:relationship:event_pending:label' => 'En attente du courriel de validation',
+	'event_manager:event:relationship:event_waitinglist:label' => 'Sur la liste d\'attente',
+	'event_manager:event:relationship:event_pending:label' => 'En attente du courriel de validation',
 	'event_manager:event:relationship:event_interested' => 'seulement intéressé(e)',
-		'event_manager:event:relationship:event_interested:label' => 'Intéressé',
+	'event_manager:event:relationship:event_interested:label' => 'Intéressé',
 	'event_manager:event:relationship:event_presenting' => 'Animation',
-		'event_manager:event:relationship:event_presenting:label' => 'Orateurs',
+	'event_manager:event:relationship:event_presenting:label' => 'Orateurs',
 	'event_manager:event:relationship:event_exhibiting' => 'Exposition',
-		'event_manager:event:relationship:event_exhibiting:label' => 'Exposants',
+	'event_manager:event:relationship:event_exhibiting:label' => 'Exposants',
 	'event_manager:event:relationship:event_organizing' => 'Organisation',
-		'event_manager:event:relationship:event_organizing:label' => 'Organisateurs',
+	'event_manager:event:relationship:event_organizing:label' => 'Organisateurs',
 	'event_manager:event:relationship:undo' => 'annuler',
 	'event_manager:event:relationship:kick' => 'Exclure de l\'évènement',
 	
@@ -336,33 +336,33 @@ une personne s\'est désinscrite de l\'évènement \'%s\' . Vous n\'êtes plus s
 	'event_manager:widgets:events:showevents' => 'Afficher les évènements',
 	'event_manager:widgets:events:showevents:icreated' => 'que j\'ai créé',
 	'event_manager:widgets:events:showevents:attendingto' => 'auxquels je participe',
-		'event_manager:widgets:events:group' => "Entrer le nom d'un groupe pour limité le résultat (optionnelle)",
-		'event_manager:widgets:events:group_guid' => "Entrer le guid d'un groupe pour limité le résultat (optionnelle)",
-	
-		'event_manager:widgets:highlighted_events:title' => 'Événements mis en avant',
-		'event_manager:widgets:highlighted_events:description' => 'Sélectionnez l\'événement que vous voulez mettre en avant dans ce widget',
-		'event_manager:widgets:highlighted_events:edit:event_guids' => 'Sélectionnez les événements',
-		'event_manager:widgets:highlighted_events:edit:show_past_events' => 'Montrer les événements passés',
+	'event_manager:widgets:events:group' => "Entrer le nom d'un groupe pour limité le résultat (optionnelle)",
+	'event_manager:widgets:events:group_guid' => "Entrer le guid d'un groupe pour limité le résultat (optionnelle)",
+
+	'event_manager:widgets:highlighted_events:title' => 'Événements mis en avant',
+	'event_manager:widgets:highlighted_events:description' => 'Sélectionnez l\'événement que vous voulez mettre en avant dans ce widget',
+	'event_manager:widgets:highlighted_events:edit:event_guids' => 'Sélectionnez les événements',
+	'event_manager:widgets:highlighted_events:edit:show_past_events' => 'Montrer les événements passés',
 	
 	// actions
 	'event_manager:action:event:edit:ok' => 'évènements enregistré',
 	'event_manager:action:event:edit:error_fields' => 'Veuillez remplir les champs obligatoires',
-		'event_manager:action:event:edit:end_before_start' => "L'heure de fin doit être après l'heure de début.",
+	'event_manager:action:event:edit:end_before_start' => "L'heure de fin doit être après l'heure de début.",
 	'event_manager:action:registration:edit:error_fields_with_program' => 'Remplissez les champs obligatoire et sélectionnez au moins un emplacement d\'activité libre pour y assister',
 	'event_manager:action:registration:edit:error_fields_program_only' => 'Sélectionnez au moins un emplacement d\'activité libre pour y assister',
-		'event_manager:action:registration:edit:error_slots' => "Vous ne pouvez choisir qu'un seul créneau par ensemble. Plus d'un ont été choisit pour l'ensemble %s.", // @FIXME check the meaning
-		'event_manager:action:register:email:account_exists:attending' => "Il y a déjà un compte avec cette adresse courriel qui est enregistré en tant que participant pour cette événement.",
-		'event_manager:action:register:email:account_exists:waiting' => "Il y a déjà un compte avec cette adresse courriel sur la liste d'attente de cet événement.",
-		'event_manager:action:register:email:account_exists:pending' => "Il y a déjà une inscription pour cette adresse courriel dans la liste d'attente en attente de confirmation. Nous vous avons renvoyer le courriel de confirmation.",
-		'event_manager:action:register:pending' => "Votre inscription est presque terminé. Pour confirmer votre inscription dans le courriel que nous vous avons envoyé.",
-		'event_manager:action:resend_confirmation:success' => "Le courriel de confirmation à été renvoyé",
-		'event_manager:action:move_to_attendees:success' => "L'utilisateur à été retirer des participants",
-		'event_manager:action:slot:day_not_found' => "Le jour demandé n'as pas été trouvé",
-		'event_manager:action:slot:missing_fields' => "Veuillez remplir les champs requis",
-		'event_manager:action:slot:not_found' => "Le créneau n'as pas été trouvé",	
-		'event_manager:action:slot:cannot_save' => "Une erreur est survenu pendant l'enregistrement du créneaux",
-		'event_manager:action:slot:saved' => 'Créneau enregistré',
-		'event_manager:action:slot:delete:error' => 'Le créneau ne peut être supprimé',
+	'event_manager:action:registration:edit:error_slots' => "Vous ne pouvez choisir qu'un seul créneau par ensemble. Plus d'un ont été choisit pour l'ensemble %s.", // @FIXME check the meaning
+	'event_manager:action:register:email:account_exists:attending' => "Il y a déjà un compte avec cette adresse courriel qui est enregistré en tant que participant pour cette événement.",
+	'event_manager:action:register:email:account_exists:waiting' => "Il y a déjà un compte avec cette adresse courriel sur la liste d'attente de cet événement.",
+	'event_manager:action:register:email:account_exists:pending' => "Il y a déjà une inscription pour cette adresse courriel dans la liste d'attente en attente de confirmation. Nous vous avons renvoyer le courriel de confirmation.",
+	'event_manager:action:register:pending' => "Votre inscription est presque terminé. Pour confirmer votre inscription dans le courriel que nous vous avons envoyé.",
+	'event_manager:action:resend_confirmation:success' => "Le courriel de confirmation à été renvoyé",
+	'event_manager:action:move_to_attendees:success' => "L'utilisateur à été retirer des participants",
+	'event_manager:action:slot:day_not_found' => "Le jour demandé n'as pas été trouvé",
+	'event_manager:action:slot:missing_fields' => "Veuillez remplir les champs requis",
+	'event_manager:action:slot:not_found' => "Le créneau n'as pas été trouvé",	
+	'event_manager:action:slot:cannot_save' => "Une erreur est survenu pendant l'enregistrement du créneaux",
+	'event_manager:action:slot:saved' => 'Créneau enregistré',
+	'event_manager:action:slot:delete:error' => 'Le créneau ne peut être supprimé',
 	
 	// settings
 	'event_manager:settings:google_maps' => 'Réglages Google Maps',
@@ -383,6 +383,7 @@ une personne s\'est désinscrite de l\'évènement \'%s\' . Vous n\'êtes plus s
 	'event_manager:settings:migration:group:whocancreate:group_admin' => 'propriétaires du groupe et administrateurs seulement',
 	'event_manager:settings:migration:group:whocancreate:members' => 'N\'importe quel membre du groupe',
 	'event_manager:settings:migration:group:whocancreate:no_one' => 'personne',
+	
 	// unsubscribe from event
 	'event_manager:unsubscribe:title' => "Désinscription depuis: %s",
 	'event_manager:unsubscribe:description' => "Si vous voulez vous désinscrire de l'événement %s vous pouvez entrer votre adresse courriel ci-dessous. Si le courriel lié à l'inscription est trouvé, vous recevrez un mail avec des instructions à suivre.",
@@ -441,12 +442,12 @@ Si vous ne vous êtes pas inscrit à cet événement, vous pouvez ignorer ce cou
 	
 	'event_manager:date:to' => 'Vers',
 	'requiredfields' => 'Champs obligatoires',	
-		'confirm' => 'Confirmer',
-	
-		'event_manager:addevent:mail:title' => 'Exporter vers',
-		'event_manager:addevent:mail:service:appleical' => 'Apple',
-		'event_manager:addevent:mail:service:google' => 'Google',
-		'event_manager:addevent:mail:service:outlook' => 'Outlook',
-		'event_manager:addevent:mail:service:outlookcom' => 'Outlook.com',
-		'event_manager:addevent:mail:service:yahoo' => 'Yahoo',
+	'confirm' => 'Confirmer',
+
+	'event_manager:addevent:mail:title' => 'Exporter vers',
+	'event_manager:addevent:mail:service:appleical' => 'Apple',
+	'event_manager:addevent:mail:service:google' => 'Google',
+	'event_manager:addevent:mail:service:outlook' => 'Outlook',
+	'event_manager:addevent:mail:service:outlookcom' => 'Outlook.com',
+	'event_manager:addevent:mail:service:yahoo' => 'Yahoo',
 );
