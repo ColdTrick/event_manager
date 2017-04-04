@@ -579,8 +579,8 @@ function event_manager_prepare_form_vars($event = null) {
 		'fee_details' => ELGG_ENTITIES_ANY_VALUE,
 		'organizer' => ELGG_ENTITIES_ANY_VALUE,
 		'organizer_guids' => ELGG_ENTITIES_ANY_VALUE,
-		'event_start' => time(),
-		'event_end' => time() + 3600,
+		'event_start' => gmmktime(date('H')) + 3600, // 1 hour from now
+		'event_end' => gmmktime(date('H')) + 3600 + 3600, // 2 hours from now
 		'registration_ended' => ELGG_ENTITIES_ANY_VALUE,
 		'endregistration_day' => ELGG_ENTITIES_ANY_VALUE,
 		'with_program' => ELGG_ENTITIES_ANY_VALUE,
@@ -597,7 +597,7 @@ function event_manager_prepare_form_vars($event = null) {
 		'event_exhibiting' => 0,
 		'registration_completed' => ELGG_ENTITIES_ANY_VALUE,
 	];
-	
+
 	if ($event instanceof \Event) {
 		// edit mode
 		$values['latitude'] = $event->getLatitude();
