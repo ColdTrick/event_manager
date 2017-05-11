@@ -1,6 +1,10 @@
 Version history
 ===============
 
+8.1.1 (2017-05-11):
+
+- fixed: correctly set the default starting time of an event in the future
+
 8.1 (2017-03-24):
 
 - added: custom text for objectpicker
