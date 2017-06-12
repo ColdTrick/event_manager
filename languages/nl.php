@@ -1,10 +1,13 @@
 <?php
 /**
  * This file was created by Translation Editor v5.2
- * On 2017-02-13 12:05
+ * On 2017-06-12 16:43
  */
 
 return array (
+  'event_manager:action:attendees:export:no_data' => 'Geen deelnemers beschikbaar voor export',
+  'event_manager:settings:add_event_to_calendar' => 'Toon de "Toevoegen aan kalender" knop op de evenement pagina',
+  'event_manager:settings:add_event_to_calendar:help' => 'Dit heeft ook betrekking op de links in de notificatie e-mails',
   'event_manager:edit:form:tabs:registration:toggle' => 'Configureer hier registratie specifieke details',
   'event_manager:event:initial:day:title' => 'Dag 1',
   'event_manager:event:initial:slot:title' => 'Activiteit titel',

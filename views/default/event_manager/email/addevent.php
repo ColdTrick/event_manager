@@ -1,5 +1,19 @@
 <?php
+/**
+ * Add links to the footer of the e-mail notification to add the event to your calendar
+ *
+ * @uses $vars['entity'] The event to generate links for
+ */
+
+if (elgg_get_plugin_setting('add_event_to_calendar', 'event_manager') === 'no') {
+	// setting set to not show links
+	return;
+}
+
 $event = elgg_extract('entity', $vars);
+if (!($event instanceof Event)) {
+	return;
+}
 
 // "outlook" or "google" or "appleical" or "outlookcom" or "yahoo"
 $services = (array) elgg_extract('services', $vars, ['appleical', 'google', 'outlook', 'outlookcom', 'yahoo']);

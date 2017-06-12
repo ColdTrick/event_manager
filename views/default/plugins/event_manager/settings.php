@@ -101,4 +101,13 @@ $other .= elgg_view_field([
 	'value' => $plugin->notification_sender,
 ]);
 
+$other .= elgg_vieW_field([
+	'#type' => 'select',
+	'#label' => elgg_echo('event_manager:settings:add_event_to_calendar'),
+	'#help' => elgg_echo('event_manager:settings:add_event_to_calendar:help'),
+	'name' => 'params[add_event_to_calendar]',
+	'value' => $plugin->add_event_to_calendar,
+	'options_values' => $yes_no_options,
+]);
+
 echo elgg_view_module('inline', elgg_echo('event_manager:settings:other'), $other);
