@@ -9,6 +9,6 @@ echo elgg_format_element('div', [
 ?>
 <script>
 	require(['event_manager/maps'], function (EventMap) {
-		EventMap.setup('#event-manager-gmaps-location', '<?php echo $event->location?>');
+		EventMap.setup('#event-manager-gmaps-location', '<?php echo json_encode($event->location)?>');
 	});
 </script>
