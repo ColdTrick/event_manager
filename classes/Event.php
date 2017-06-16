@@ -42,6 +42,29 @@ class Event extends ElggObject {
 		
 		return true;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see ElggObject::prepareObject()
+	 */
+	protected function prepareObject($object) {
+		$object = parent::prepareObject($object);
+		
+		$object->starttime = date('c', $this->getStartTimestamp());
+		$object->endtime = date('c', $this->getEndTimestamp());
+		$object->location = $this->getLocation();
+		$object->region = $this->region;
+		$object->event_type = $this->event_type;
+		$object->short_description = $this->short_description;
+		$object->venue = $this->venue;
+		$object->contact_details = $this->contact_details;
+		$object->website = $this->website;
+		$object->organizer = $this->organizer;
+		$object->{'geo:lat'} = $this->getLatitude();
+		$object->{'goe:long'} = $this->getLongitude();
+		
+		return $object;
+	}
 
 	/**
 	 * Returns URL to the entity
