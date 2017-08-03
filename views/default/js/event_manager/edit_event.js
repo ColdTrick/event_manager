@@ -4,25 +4,34 @@ elgg.event_manager.edit_event_map_search = function() {
 	var $search_form = $('#event-manager-edit-maps-search-container');
 	elgg.event_manager.map.setLocation($search_form.find('input[name="address_search"]').val());
 	$search_form.find('[name="address_search_save"]').removeClass('hidden');
-
 };
 
 elgg.event_manager.edit_event_init = function() {
 	
+	
 	$('#event_manager_event_edit input[name="location"]').on('click', function() {
-		
 		var $elem = $(this);
-		var current_location = $elem.val();
-		if (current_location) {
-			$('#event-manager-edit-maps-search-container input[name="address_search"]').val(current_location);
-			$('#event-manager-edit-maps-search-container [name="address_search_save"]').removeClass('hidden');
-		}
-		
-		require(['event_manager/maps'], function (EventMap) {
-			if (!elgg.event_manager.map) {
-				elgg.event_manager.map = EventMap.setup('#event-manager-gmaps-location-search');
-				elgg.event_manager.map.setLocation(current_location);
-			}
+
+		require(['elgg/lightbox'], function(lightbox) {
+			lightbox.open({
+				'inline': true,
+				'href': '#event-manager-edit-maps-search-container',
+				'onComplete': function () {
+					
+					var current_location = $elem.val();
+					if (current_location) {
+						$('#event-manager-edit-maps-search-container input[name="address_search"]').val(current_location);
+						$('#event-manager-edit-maps-search-container [name="address_search_save"]').removeClass('hidden');
+					}
+					
+					require(['event_manager/maps'], function (EventMap) {
+						if (!elgg.event_manager.map) {
+							elgg.event_manager.map = EventMap.setup('#event-manager-gmaps-location-search');
+							elgg.event_manager.map.setLocation(current_location);
+						}
+					});
+				}
+			});
 		});
 	});
 	

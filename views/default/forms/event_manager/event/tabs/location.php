@@ -23,11 +23,6 @@ $output .= elgg_view_field([
 	'#help' => elgg_echo('event_manager:edit:form:location:help'),
 	'name' => 'location',
 	'value' => $location,
-	'class' => 'elgg-lightbox',
-	'data-colorbox-opts' => json_encode([
-		'inline' => true,
-		'href' => '#event-manager-edit-maps-search-container',
-	]),
 	'readonly' => true,
 ]);
 
