@@ -31,7 +31,8 @@ if (!empty($event->location)) {
 	$description .= $event->venue . PHP_EOL;
 }
 
-$description .= $event->getExcerpt(100000);
+// removing HTML and shorter because of URL length limitations
+$description .= $event->getExcerpt(500);
 
 $url_params = [
 	'client' => 'ak1qmrp10zvwxx2cimhv206',
