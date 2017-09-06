@@ -1,6 +1,15 @@
 Version history
 ===============
 
+8.2 (2017-09-06):
+
+- added: more information in Event->toObject()
+- added: option to disable addthis event features
+- added: option to set map location without pin
+- fixed: addthisevent links not working in email
+- fixed: attending events on the map don't have correct pin
+- fixed: solved timing issue where maps not opened on location edit form
+
 8.1.1 (2017-05-11):
 
 - fixed: correctly set the default starting time of an event in the future
