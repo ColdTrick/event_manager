@@ -1,12 +1,24 @@
 <?php
 /**
  * This file was created by Translation Editor v5.2
- * On 2017-04-21 09:10
+ * On 2017-09-22 09:45
  */
 
 return array (
-  'event_manager:event:uploadfiles:no_files' => 'Utiliser le bouton plus pour ajouter des fichiers à cet événement',
-  'event_manager:event:relationship:event_attending' => 'Participer',
+  'event_manager:notification:subject' => 'Un événement a été créé',
+  'event_manager:notification:summary' => 'Un événement a été créé',
+  'event_manager:notification:body' => '%s a créé un nouvel événement %s',
+  'event_manager:list:title' => 'Évènements',
+  'event_manager:list:noresults' => 'Aucun évènement trouvé',
+  'event_manager:edit:form:with_program' => 'Cet événement a défini un programme journalier',
+  'event_manager:edit:form:delete_current_icon' => 'Supprimer l\'icône actuelle ?',
+  'event_manager:event:registration:notification:user:summary:event_waitinglist' => 'Vous êtes maintenant sur la liste d\'attente de l\'événement \'%s\'.',
+  'event_manager:event:registration:notification:unsubscribe:linktext' => 'Si vous ne voulez plus participer à cet événement, utilisé ce lien',
+  'event_manager:action:resend_confirmation:success' => 'Le courriel de confirmation a été renvoyé',
+  'event_manager:action:slot:day_not_found' => 'Le jour demandé n\'a pas été trouvé',
+  'event_manager:action:slot:not_found' => 'Le créneau n\'a pas été trouvé',
+  'event_manager:action:unsubscribe:success' => 'Un courriel vous a été envoyé pour confirmer votre désinscription à cet événement. Vérifiez votre boite et suivez les instructions du courriel',
+  'event_manager:registration:confirm:delete' => 'Etes vous sûr de vouloir supprimer votre inscription ?',
   'event_manager' => 'Event Manager',
   'groups:enableevents' => 'Activer évènements de groupe',
   'event_manager:group' => 'Evènements de groupe',
@@ -32,20 +44,15 @@ return array (
   'event_manager:menu:unsubscribe_confirm' => 'Confirmé la désinscription',
   'event_manager:menu:registration:completed' => 'Enregistrement de l\\\'événement réalisé',
   'event_manager:menu:attending' => 'Participants',
-  'event_manager:notification:subject' => 'Un événement à été créé',
-  'event_manager:notification:summary' => 'Un événement à été créé',
-  'event_manager:notification:body' => '%s a créé à nouvel événement %s',
   'event_manager:sidebar:title' => 'Actuellement affiché',
   'river:comment:object:event' => '%s a commenté %s',
   'event_manager:calendar:today' => 'Aujourd\'hui',
   'event_manager:calendar:month' => 'Mois',
   'event_manager:calendar:week' => 'Semaine',
   'event_manager:calendar:day' => 'Jour',
-  'event_manager:list:title' => 'Evènements',
   'event_manager:list:group:title' => 'Événements de groupe',
   'event_manager:list:advancedsearch' => 'Recherche avancée',
   'event_manager:list:simplesearch' => 'Recherche simple',
-  'event_manager:list:noresults' => 'Aucuns évènements trouvé',
   'event_manager:list:showmorevents' => 'Afficher plus d\'évènements',
   'event_manager:list:includepastevents' => 'Inclure les évènements passés',
   'event_manager:list:attending' => 'Montrer les évènements auxquels je participe',
@@ -113,8 +120,6 @@ return array (
   'event_manager:edit:form:endregistration_day:help' => '',
   'event_manager:edit:form:max_attendees:help' => '',
   'event_manager:edit:form:organizer' => 'Organisateur',
-  'event_manager:edit:form:with_program' => 'Cet événement à défini un programme journalier',
-  'event_manager:edit:form:delete_current_icon' => 'Supprimer l\'icone actuelle ?',
   'event_manager:edit:form:comments_on' => 'Commentaires activés ?',
   'event_manager:edit:form:registration_ended' => 'Désactiver les inscriptions à cet événement',
   'event_manager:edit:form:registration_needed' => 'Les participants doivent spécifier un programme journalier et/ou répondre à des questions supplémentaires',
@@ -181,7 +186,6 @@ Vous êtes maintenant inscrit(e) comme \'participant(e)\' l\'évènement \'%s\'.
   'event_manager:event:registration:notification:owner:text:event_waitinglist' => 'Bonjour %s,
 
 %s est sur la liste d\'attente pour votre évènement \'%s\' .',
-  'event_manager:event:registration:notification:user:summary:event_waitinglist' => 'Vous être maintenant sur la liste d\'attente de l\'événement \'%s\'.',
   'event_manager:event:registration:notification:user:text:event_waitinglist' => 'Bonjour %s,
 
 Vous êtes en liste d\'attente pour l\'évènement \'%s\'.',
@@ -230,10 +234,10 @@ Vous êtes maintenant désinscrit(e) de l\'évènement \'%s\' .',
 
 une personne s\'est désinscrite de l\'évènement \'%s\' . Vous n\'êtes plus sur la liste d\'attente.',
   'event_manager:event:registration:notification:program:linktext' => 'Pour voir le programme cliquez sur ce lien',
-  'event_manager:event:registration:notification:unsubscribe:linktext' => 'Si vous ne voulez plus participé à cet événement, utilisé ce lien',
   'event_manager:event:rsvp' => 'Je souhaite',
   'event_manager:event:location:plan_route' => 'Planifier mon itinéraire',
   'event_manager:event:uploadfiles' => 'Upload des fichiers',
+  'event_manager:event:uploadfiles:no_files' => 'Utilisé le bouton plus pour ajouter des fichiers à cet événement',
   'event_manager:event:attendees' => 'Participant(e)s',
   'event_manager:event:program' => 'Programme',
   'event_manager:event:editquestions' => 'Modifier les questions pour s\'inscrire',
@@ -255,6 +259,7 @@ une personne s\'est désinscrite de l\'évènement \'%s\' . Vous n\'êtes plus s
   'event_manager:event:view:date' => 'Date',
   'event_manager:event:view:createdby' => 'Créé par',
   'event_manager:event:view:contact_persons' => 'Contact',
+  'event_manager:event:relationship:event_attending' => 'Participation',
   'event_manager:event:relationship:event_attending:entity_menu' => '%s participants',
   'event_manager:event:relationship:event_attending:label' => 'Participants',
   'event_manager:event:relationship:event_waitinglist' => 'Liste d\'attente',
@@ -305,11 +310,8 @@ une personne s\'est désinscrite de l\'évènement \'%s\' . Vous n\'êtes plus s
   'event_manager:action:register:email:account_exists:waiting' => 'Il y a déjà un compte avec cette adresse courriel sur la liste d\'attente de cet événement.',
   'event_manager:action:register:email:account_exists:pending' => 'Il y a déjà une inscription pour cette adresse courriel dans la liste d\'attente en attente de confirmation. Nous vous avons renvoyer le courriel de confirmation.',
   'event_manager:action:register:pending' => 'Votre inscription est presque terminé. Pour confirmer votre inscription dans le courriel que nous vous avons envoyé.',
-  'event_manager:action:resend_confirmation:success' => 'Le courriel de confirmation à été renvoyé',
   'event_manager:action:move_to_attendees:success' => 'L\'utilisateur à été retirer des participants',
-  'event_manager:action:slot:day_not_found' => 'Le jour demandé n\'as pas été trouvé',
   'event_manager:action:slot:missing_fields' => 'Veuillez remplir les champs requis',
-  'event_manager:action:slot:not_found' => 'Le créneau n\'as pas été trouvé',
   'event_manager:action:slot:cannot_save' => 'Une erreur est survenu pendant l\'enregistrement du créneaux',
   'event_manager:action:slot:saved' => 'Créneau enregistré',
   'event_manager:action:slot:delete:error' => 'Le créneau ne peut être supprimé',
@@ -333,7 +335,6 @@ une personne s\'est désinscrite de l\'évènement \'%s\' . Vous n\'êtes plus s
   'event_manager:unsubscribe:description' => 'Si vous voulez vous désinscrire de l\'événement %s vous pouvez entrer votre adresse courriel ci-dessous. Si le courriel lié à l\'inscription est trouvé, vous recevrez un mail avec des instructions à suivre.',
   'event_manager:action:unsubscribe:error:no_registration' => 'Pas d\'inscription trouvé pour le courriel fourni',
   'event_manager:action:unsubscribe:error:mail' => 'Une erreur est survenu pendant l\'envoi du courriel de confirmation, veuillez réessayer',
-  'event_manager:action:unsubscribe:success' => 'Un courriel vous à été envoyer pour confirmé votre désinscription à cet événement. Vérifier votre boite et suivez les instructions du courriel',
   'event_manager:unsubscribe:confirm:subject' => 'Confirmer votre désinscription de %s',
   'event_manager:unsubscribe:confirm:message' => 'Bonjour %s,
 
@@ -357,7 +358,6 @@ Sinon ne tenez pas compte de ce courriel.',
 Pour confirmer votre inscription pour l\'événement "%s", veuillez cliquez sure le bouton ci-dessous.
 
 Si vous n\'avez pas demander à vous inscrire ou pour retirer votre participation; cliquez sur le bouton supprimer.',
-  'event_manager:registration:confirm:delete' => 'Est vous sûr de vouloir supprimer votre inscription ?',
   'event_manager:registration:confirm:subject' => 'Veuillez confirmer votre inscription pour %s',
   'event_manager:registration:confirm:message' => 'Bonjour %s,
 
