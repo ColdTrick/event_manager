@@ -29,7 +29,7 @@ $event_end += $end_time_hours * 3600;
 $event_start += $start_time_minutes * 60;
 $event_start += $start_time_hours * 3600;
 
-if ($event_end < $start_ts) {
+if ($event_end < $event_start) {
 	register_error(elgg_echo('event_manager:action:event:edit:end_before_start'));
 	forward(REFERER);
 }
@@ -93,35 +93,14 @@ foreach ($metadata_fields as $field) {
 $has_days = $event->hasEventDays();
 $event->generateInitialProgramData();
 
-$event->setAccessToOwningObjects($access_id);
-
-$icon_sizes = elgg_get_config('icon_sizes');
-$icon_sizes['event_banner'] = ['w' => 1920, 'h' => 1080, 'square' => false, 'upscale' => false];
-
-$icon_file = get_resized_image_from_uploaded_file('icon', 100, 100);
-
-if ($icon_file) {
-	// create icons
-
-	$fh = new \ElggFile();
-	$fh->owner_guid = $event->guid;
-
-	foreach ($icon_sizes as $icon_name => $icon_info) {
-		$icon_file = get_resized_image_from_uploaded_file('icon', $icon_info['w'], $icon_info['h'], $icon_info['square'], $icon_info['upscale']);
-
-		if ($icon_file) {
-			$fh->setFilename("{$icon_name}.jpg");
-
-			if ($fh->open('write')) {
-				$fh->write($icon_file);
-				$fh->close();
-			}
-		}
-	}
-
-	$event->icontime = time();
-} elseif (get_input('delete_current_icon')) {
+if (get_input('delete_current_icon')) {
 	$event->deleteIcon();
+} elseif ($uploaded_files = elgg_get_uploaded_files('icon')) {
+	/* @var $uploaded_file \Symfony\Component\HttpFoundation\File\UploadedFile */
+	$uploaded_file = $uploaded_files[0];
+	if (stripos($uploaded_file->getMimeType(), 'image/') !== false) {
+		$event->saveIconFromUploadedFile('icon');
+	}
 }
 
 $ia = elgg_set_ignore_access(true);
@@ -130,39 +109,41 @@ $order = 0;
 
 $questions = get_input('questions');
 $saved_questions = [];
-foreach ($questions as $question) {
-	$question_guid = (int) elgg_extract('guid', $question);
-	$fieldtype = elgg_extract('fieldtype', $question);
-	$fieldoptions = elgg_extract('fieldoptions', $question);
-	$questiontext = elgg_extract('questiontext', $question);
-	$required = elgg_extract('required', $question);
-	$required = !empty($required) ? 1 : 0;
-	
-	if ($question_guid) {
-		$question = get_entity($question_guid);
-		if (!($question instanceof \EventRegistrationQuestion)) {
-			continue;
+if (!empty($questions)) {
+	foreach ($questions as $question) {
+		$question_guid = (int) elgg_extract('guid', $question);
+		$fieldtype = elgg_extract('fieldtype', $question);
+		$fieldoptions = elgg_extract('fieldoptions', $question);
+		$questiontext = elgg_extract('questiontext', $question);
+		$required = elgg_extract('required', $question);
+		$required = !empty($required) ? 1 : 0;
+		
+		if ($question_guid) {
+			$question = get_entity($question_guid);
+			if (!($question instanceof \EventRegistrationQuestion)) {
+				continue;
+			}
+		} else {
+			$question = new \EventRegistrationQuestion();
+			$question->container_guid = $event->guid;
+			$question->owner_guid = $event->guid;
+			$question->access_id = $event->access_id;
 		}
-	} else {
-		$question = new \EventRegistrationQuestion();
-		$question->container_guid = $event->guid;
-		$question->owner_guid = $event->guid;
-	}
-	
-	$question->title = $questiontext;
-	$question->access_id = $event->access_id;
-	
-	if ($question->save()) {
-		$question->fieldtype = $fieldtype;
-		$question->required = $required;
-		$question->fieldoptions = $fieldoptions;
-		$question->order = $order;
-	
-		$question->addRelationship($event->getGUID(), 'event_registrationquestion_relation');
 		
-		$order++;
+		$question->title = $questiontext;
 		
-		$saved_questions[] = $question->guid;
+		if ($question->save()) {
+			$question->fieldtype = $fieldtype;
+			$question->required = $required;
+			$question->fieldoptions = $fieldoptions;
+			$question->order = $order;
+		
+			$question->addRelationship($event->getGUID(), 'event_registrationquestion_relation');
+			
+			$order++;
+			
+			$saved_questions[] = $question->guid;
+		}
 	}
 }
 

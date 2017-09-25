@@ -3,8 +3,9 @@
  * Form fields for general event information
  */
 
-echo elgg_view_input('text', [
-	'label' => elgg_echo('title'),
+echo elgg_view_field([
+	'#type' => 'text',
+	'#label' => elgg_echo('title'),
 	'name' => 'title',
 	'value' => $vars['title'],
 	'required' => true,
@@ -18,6 +19,7 @@ $event_start_input = elgg_view('input/date', [
 	'name' => 'event_start',
 	'id' => 'event_start',
 	'timestamp' => true,
+	'required' => true,
 	'value' => $gm_event_start,
 	'class' => 'event_manager_event_edit_date',
 ]);
@@ -41,6 +43,7 @@ $event_end_input = elgg_view('input/date', [
 	'name' => 'event_end',
 	'id' => 'event_end',
 	'timestamp' => true,
+	'required' => true,
 	'value' => $gm_event_end,
 	'class' => 'event_manager_event_edit_date'
 ]);

@@ -11,16 +11,20 @@ $link = elgg_view('output/url', [
 	'text' => elgg_view_icon('calendar', 'float mrs') . elgg_echo('event_manager:event:menu:title:add_to_calendar'),
 ]);
 
-$location = $event->location;
-if (empty($location)) {
-	$location = $event->venue;
-}
+$location = $event->location ?: $event->venue;
 
 $start = $event->getStartDate('d/m/Y H:i:00');
 $end = $event->getEndDate('d/m/Y H:i:00');
 
 $title = $event->title;
-$description = elgg_get_excerpt($event->description, 500);
+
+$description = '';
+if (!empty($event->location)) {
+	// add venue to description
+	$description .= $event->venue . PHP_EOL;
+}
+
+$description .= $event->getExcerpt(100000);
 
 ?>
 <span class="addthisevent">

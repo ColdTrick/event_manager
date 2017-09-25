@@ -66,6 +66,7 @@ foreach ($old_event->getRegistrationFormQuestions() as $question) {
 // copy all event files
 $dir = new \Elgg\EntityDirLocator($old_event->guid);
 $source = elgg_get_data_path() . $dir;
+mkdir($source);
 
 $dir = new \Elgg\EntityDirLocator($new_event->guid);
 $dest = elgg_get_data_path() . $dir;

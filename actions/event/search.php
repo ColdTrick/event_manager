@@ -105,7 +105,7 @@ if ($search_type == 'list') {
 			'lng' => $event->getLongitude(),
 			'title' => $event->title,
 			'html' => elgg_view_entity($event, ['full_view' => false]),
-			'hasrelation' => $event->getRelationshipByUser(),
+			'has_relation' => $event->getRelationshipByUser(),
 			'iscreator' => (($event->getOwnerGUID() == elgg_get_logged_in_user_guid()) ? 'owner' : null)
 		);
 		elgg_pop_context();

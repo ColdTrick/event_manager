@@ -297,18 +297,24 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 
 	// relationships
 	'event_manager:event:relationship:event_attending' => 'Attending',
+	'event_manager:event:relationship:event_attending:undo' => 'Undo Attending',
 	'event_manager:event:relationship:event_attending:entity_menu' => '%s attendees',
 	'event_manager:event:relationship:event_attending:label' => 'Attendees',
 	'event_manager:event:relationship:event_waitinglist' => 'Waiting list',
+	'event_manager:event:relationship:event_waitinglist:undo' => 'Remove from waitinglist',
 	'event_manager:event:relationship:event_waitinglist:label' => 'On the waitinglist',
 	'event_manager:event:relationship:event_pending:label' => 'Pending email validation',
 	'event_manager:event:relationship:event_interested' => 'Interested',
+	'event_manager:event:relationship:event_interested:undo' => 'No longer interested',
 	'event_manager:event:relationship:event_interested:label' => 'Interested',
 	'event_manager:event:relationship:event_presenting' => 'Presenting',
+	'event_manager:event:relationship:event_presenting:undo' => 'Undo Presenting',
 	'event_manager:event:relationship:event_presenting:label' => 'Presenters',
 	'event_manager:event:relationship:event_exhibiting' => 'Exhibiting',
+	'event_manager:event:relationship:event_exhibiting:undo' => 'Undo Exhibiting',
 	'event_manager:event:relationship:event_exhibiting:label' => 'Exhibitors',
 	'event_manager:event:relationship:event_organizing' => 'Organizing',
+	'event_manager:event:relationship:event_organizing:undo' => 'Undo Organizing',
 	'event_manager:event:relationship:event_organizing:label' => 'Organizers',
 	'event_manager:event:relationship:undo' => 'Undo',
 	'event_manager:event:relationship:kick' => 'Kick from event',
@@ -357,6 +363,7 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:action:register:pending' => "Your registration is almost completed. To confirm your registration please follow the instructions the email we just sent you.",
 	'event_manager:action:resend_confirmation:success' => "Confirmation mail has been resend",
 	'event_manager:action:move_to_attendees:success' => "User has been moved to the attendees",
+	'event_manager:action:attendees:export:no_data' => "No attendees available for export",
 	'event_manager:action:slot:day_not_found' => "The given day was not found",
 	'event_manager:action:slot:missing_fields' => "Please fill the required fields",
 	'event_manager:action:slot:not_found' => "The slot was not found",
@@ -373,6 +380,7 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:settings:other' => 'Other',
 	'event_manager:settings:region_list' => 'Enter (comma separated) event regions',
 	'event_manager:settings:type_list' => 'Enter (comma separated) event types',
+	'event_manager:settings:rsvp:interested' => 'RSVP option "interested" is enabled',
 	'event_manager:settings:notification_sender' => 'RSVP notification sender (email)',
 
 	'event_manager:settings:migration:site:whocancreate' => 'Who can create site events',
@@ -383,6 +391,9 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:settings:migration:group:whocancreate:group_admin' => 'group owners and admins only',
 	'event_manager:settings:migration:group:whocancreate:members' => 'any group member',
 	'event_manager:settings:migration:group:whocancreate:no_one' => 'no one',
+	
+	'event_manager:settings:add_event_to_calendar' => 'Show "add to calendar" button on event page',
+	'event_manager:settings:add_event_to_calendar:help' => 'This will also include the links in notification e-mails',
 
 	// unsubscribe from event
 	'event_manager:unsubscribe:title' => "Unsubscribe from: %s",

@@ -42,17 +42,19 @@ if ($col_count > 1) {
 
 $form_body .= "<div class='{$col_class}'>";
 
-$form_body .= elgg_view_input('date', [
+$form_body .= elgg_view_field([
+	'#type' => 'date',
+	'#label' => elgg_echo('event_manager:edit:form:start_day:from'),
 	'name' => 'event_start',
 	'timestamp' => true,
 	'id' => 'event_start',
-	'label' => elgg_echo('event_manager:edit:form:start_day:from'),
 ]);
-$form_body .= elgg_view_input('date', [
+$form_body .= elgg_view_field([
+	'#type' => 'date',
+	'#label' => elgg_echo('event_manager:edit:form:start_day:to'),
 	'name' => 'event_end',
 	'timestamp' => true,
 	'id' => 'event_end',
-	'label' => elgg_echo('event_manager:edit:form:start_day:to'),
 ]);
 
 $form_body .= '</div>';
@@ -61,18 +63,20 @@ if ($region_options || $type_options) {
 	$form_body .= "<div class='{$col_class}'>";
 
 	if ($region_options) {
-		$form_body .= elgg_view_input('dropdown', [
+		$form_body .= elgg_view_field([
+			'#type' => 'select',
+			'#label' => elgg_echo('event_manager:edit:form:region'),
 			'name' => 'region',
 			'options' => $region_options,
-			'label' => elgg_echo('event_manager:edit:form:region'),
 		]);
 	}
 
 	if ($type_options) {
-		$form_body .= elgg_view_input('dropdown', [
+		$form_body .= elgg_view_field([
+			'#type' => 'select',
+			'#label' => elgg_echo('event_manager:edit:form:type'),
 			'name' => 'event_type',
 			'options' => $type_options,
-			'label' => elgg_echo('event_manager:edit:form:type'),
 		]);
 	}
 
@@ -82,7 +86,8 @@ if ($region_options || $type_options) {
 if (elgg_is_logged_in()) {
 	$form_body .= "<div class='{$col_class}'>";
 	foreach (['attending', 'owning', 'friendsattending'] as $relationship) {
-		$form_body .= elgg_view_input('checkboxes', [
+		$form_body .= elgg_view_field([
+			'#type' => 'checkboxes',
 			'id' => $relationship,
 			'name' => $relationship,
 			'value' => 0,
@@ -95,7 +100,8 @@ if (elgg_is_logged_in()) {
 
 $form_body .= '</div>';
 
-$form_body .= elgg_format_element('span', ['id' => 'event-manager-search-form-past-events'], elgg_view_input('checkboxes', [
+$form_body .= elgg_format_element('span', ['id' => 'event-manager-search-form-past-events'], elgg_view_field([
+	'#type' => 'checkboxes',
 	'name' => 'past_events',
 	'data-slide-toggle' => 0,
 	'value' => 0,

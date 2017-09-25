@@ -1,6 +1,74 @@
 Version history
 ===============
 
+8.2 (2017-09-06):
+
+- added: more information in Event->toObject()
+- added: option to disable addthis event features
+- added: option to set map location without pin
+- fixed: addthisevent links not working in email
+- fixed: attending events on the map don't have correct pin
+- fixed: solved timing issue where maps not opened on location edit form
+
+8.1.1 (2017-05-11):
+
+- fixed: correctly set the default starting time of an event in the future
+
+8.1 (2017-03-24):
+
+- added: custom text for objectpicker
+- added: event helper function getExcerpt()
+- added: export of attendees is now hookable
+- changed: entity time in content_by_tags widget changed to startdate
+- changed: only show event completed text when attending (site and mail)
+- changed: ordered attendees / waitinglist based on rsvp timestamp
+- fixed: do not show input clear action on date inputs in IE/Edge
+- fixed: event start/end date are now required on the form
+- fixed: events widget title url not working
+- fixed: restored user_hover menu actions
+
+8.0 (2017-02-27):
+
+- changed: removed the need for the pagesetup event
+- changed: updated min Elgg requirent to 2.3
+- fixed: makes sure there is a source directory when copying files
+
+7.2.2 (2017-02-02):
+
+- fixed: bug when uploading image to a new event
+
+7.2.1 (2017-01-26):
+
+- changed: use new Elgg api for icon handling
+- fixed: show undo waitinglist rsvp option
+- updates Spanish translation
+
+7.2 (2016-11-18):
+
+- added: support for EntityTools plugin
+- added: you can configure if 'interested' is an available RSVP option
+- changed: moved event access update actions to object update event hook
+- changed: rsvp actions are 'toggle' buttons, no more special undo button
+
+7.1 (2016-10-27):
+
+- added: event completed message is added to registration emails
+
+7.0 (2016-10-06):
+
+- changed: 'add to calendar' description now is longer
+- changed: replaced icon size retrieval with new elgg_get_icon_sizes func
+- fixed: correctly use license key in addevent js
+- fixed: link to view registration in rsvp mail now points to correct url
+- fixed: use correct gmtime in search queries listing events
+
+6.0.1 (2016-09-15):
+
+- changed: user listing in event sidebar now has name clickable
+- fixed: addevent buttons in mail look better in various emailclients
+- fixed: image in registration view and pdf was not showing
+- fixed: incorrect positioned more link on events list
+
 6.0-beta (2016-08-29):
 
 - added: addevent links to registration confirmation mail body

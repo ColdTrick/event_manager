@@ -75,6 +75,7 @@ function event_manager_init() {
 	if (elgg_view_exists('input/objectpicker')) {
 		elgg_register_widget_type('highlighted_events', elgg_echo('event_manager:widgets:highlighted_events:title'), elgg_echo('event_manager:widgets:highlighted_events:description'), ['index', 'groups'], true);
 	}
+	elgg_register_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\EventManager\Widgets::registerHandlers');
 
 	// register js libraries
 	elgg_define_js('gmaps', [
@@ -90,6 +91,8 @@ function event_manager_init() {
 	elgg_register_event_handler('upgrade', 'system', '\ColdTrick\EventManager\Upgrade::migrateFilesFromUserToEvent');
 	elgg_register_event_handler('upgrade', 'system', '\ColdTrick\EventManager\Upgrade::convertTimestamps');
 
+	elgg_register_event_handler('update:after', 'object', '\ColdTrick\EventManager\Access::updateEvent');
+	
 	// hooks
 	elgg_register_plugin_hook_handler('register', 'menu:filter', '\ColdTrick\EventManager\Menus::registerFilter');
 	elgg_register_plugin_hook_handler('register', 'menu:user_hover', '\ColdTrick\EventManager\Menus::registerUserHover');
@@ -102,10 +105,23 @@ function event_manager_init() {
 	elgg_register_plugin_hook_handler('register', 'menu:river', '\ColdTrick\EventManager\Menus::stripEventRelationshipRiverMenuItems', 99999);
 
 	elgg_register_plugin_hook_handler('entity:url', 'object', '\ColdTrick\EventManager\Widgets::getEventsUrl');
+	elgg_register_plugin_hook_handler('entity:icon:sizes', 'object', '\ColdTrick\EventManager\Icons::getIconSizes');
+	elgg_register_plugin_hook_handler('entity:icon:file', 'object', '\ColdTrick\EventManager\Icons::getIconFile');
 
 	elgg_register_plugin_hook_handler('setting', 'plugin', '\ColdTrick\EventManager\Settings::clearCache');
 	
 	elgg_register_plugin_hook_handler('likes:is_likable', 'object:' . \Event::SUBTYPE, '\Elgg\Values::getTrue');
+	elgg_register_plugin_hook_handler('supported_types', 'entity_tools', '\ColdTrick\EventManager\MigrateEvents::supportedSubtypes');
+	
+	// custom priorities for the following hooks allow others to influence export data order
+	elgg_register_plugin_hook_handler('export_attendee', 'event', '\ColdTrick\EventManager\Attendees::exportBaseAttributes', 100);
+	elgg_register_plugin_hook_handler('export_attendee', 'event', '\ColdTrick\EventManager\Attendees::exportQuestionData', 200);
+	elgg_register_plugin_hook_handler('export_attendee', 'event', '\ColdTrick\EventManager\Attendees::exportProgramData', 300);
+
+	elgg_register_plugin_hook_handler('view_vars', 'widgets/content_by_tag/display/simple', '\ColdTrick\EventManager\Widgets::contentByTagEntityTimestamp');
+	elgg_register_plugin_hook_handler('view_vars', 'widgets/content_by_tag/display/slim', '\ColdTrick\EventManager\Widgets::contentByTagEntityTimestamp');
+	
+	elgg_register_plugin_hook_handler('view_vars', 'input/objectpicker/item', '\ColdTrick\EventManager\ObjectPicker::customText');
 	
 	// actions
 	elgg_register_action('event_manager/event/edit', $base_dir . '/actions/event/edit.php');
@@ -138,21 +154,5 @@ function event_manager_init() {
 	elgg_register_action('event_manager/upgrades/convert_timestamps', $base_dir . '/actions/upgrades/convert_timestamps.php', 'admin');
 }
 
-/**
- * Page setup function
- *
- * @return void
- */
-function event_manager_pagesetup() {
-	
-	$page_owner = elgg_get_page_owner_entity();
-	if ($page_owner instanceof ElggGroup) {
-		if ($page_owner->event_manager_enable == 'no') {
-			elgg_unregister_widget_type('events');
-		}
-	}
-}
-
 // register default elgg events
 elgg_register_event_handler('init', 'system', 'event_manager_init');
-elgg_register_event_handler('pagesetup', 'system', 'event_manager_pagesetup');

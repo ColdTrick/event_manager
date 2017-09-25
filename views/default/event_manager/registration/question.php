@@ -20,11 +20,11 @@ if (!array_key_exists($question->fieldtype, $fieldtypes)) {
 
 $input_type = $fieldtypes[$question->fieldtype];
 
-echo elgg_view_input($input_type, [
-	'label' => $question->title,
+echo elgg_view_field([
+	'#type' => $input_type,
+	'#label' => $question->title,
 	'name' => 'question_' . $question->getGUID(),
 	'value' => $value,
 	'required' => (bool) $question->required,
 	'options' => $question->getOptions(),
-	'field_class' => 'mbn',
 ]);

@@ -87,8 +87,14 @@ class PageHandler {
 						echo elgg_view_resource('events/event/list');
 						return true;
 					case 'view':
+						
+						$guid = (int) elgg_extract(2, $page);
+						
+						// setting input to be used in user_hover menu
+						set_input('guid', $guid);
+						
 						echo elgg_view_resource('events/event/view', [
-							'guid' => (int) elgg_extract(2, $page),
+							'guid' => $guid,
 						]);
 						return true;
 					case 'waitinglist':

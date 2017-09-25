@@ -10,15 +10,17 @@ if ($num_display < 1) {
 	$num_display = 5;
 }
 
-echo elgg_view_input('text', [
-	'label' => elgg_echo('event_manager:widgets:events:numbertodisplay'),
+echo elgg_view_field([
+	'#type' => 'text',
+	'#label' => elgg_echo('event_manager:widgets:events:numbertodisplay'),
 	'name' => 'params[num_display]',
 	'value' => $num_display,
 ]);
 
 if (in_array($widget->context, ['dashboard', 'profile'])) {
-	echo elgg_view_input('dropdown', [
-		'label' => elgg_echo('event_manager:widgets:events:showevents'),
+	echo elgg_view_field([
+		'#type' => 'select',
+		'#label' => elgg_echo('event_manager:widgets:events:showevents'),
 		'name' => 'params[type_to_show]',
 		'value' => $type_to_show,
 		'options_values' => [
@@ -40,16 +42,22 @@ if (elgg_view_exists('input/grouppicker')) {
 		$group_guid = [$group_guid];
 	}
 	
-	echo elgg_view_input('hidden', ['name' => 'params[group_guid]', 'value' => 0]);
-	echo elgg_view_input('grouppicker', [
-		'label' => elgg_echo('event_manager:widgets:events:group'),
+	echo elgg_view_field([
+		'#type' => 'hidden',
+		'name' => 'params[group_guid]',
+		'value' => 0,
+	]);
+	echo elgg_view_field([
+		'#type' => 'grouppicker',
+		'#label' => elgg_echo('event_manager:widgets:events:group'),
 		'name' => 'params[group_guid]',
 		'values' => $group_guid,
 		'limit' => 1,
 	]);
 } else {
-	echo elgg_view_input('text', [
-		'name' => elgg_echo('event_manager:widgets:events:group_guid'),
+	echo elgg_view_field([
+		'#type' => 'text',
+		'#label' => elgg_echo('event_manager:widgets:events:group_guid'),
 		'name' => 'params[group_guid]',
 		'value' => $group_guid,
 	]);

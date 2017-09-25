@@ -31,8 +31,7 @@ foreach ($batch as $event) {
 	$new_file->owner_guid = $event->getGUID();
 	
 	if ($event->icontime) {
-		$icon_sizes = elgg_get_config('icon_sizes');
-		$icon_sizes['event_banner'] = [];
+		$icon_sizes = elgg_get_icon_sizes('object', 'event');
 		
 		foreach ($icon_sizes as $icon_name => $icon_info) {
 			

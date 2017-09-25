@@ -47,8 +47,9 @@ if ($entity instanceof \ColdTrick\EventManager\Event\Day) {
 	}
 }
 
-$form_body = elgg_view_input('date', [
-	'label' => elgg_echo('event_manager:edit:form:start_day'),
+$form_body = elgg_view_field([
+	'#type' => 'date',
+	'#label' => elgg_echo('event_manager:edit:form:start_day'),
 	'name' => 'date',
 	'id' => 'date',
 	'timestamp' => true,
@@ -56,27 +57,32 @@ $form_body = elgg_view_input('date', [
 	'required' => true,
 ]);
 
-$form_body .= elgg_view_input('text', [
-	'label' => elgg_echo('title'),
+$form_body .= elgg_view_field([
+	'#type' => 'text',
+	'#label' => elgg_echo('title'),
 	'name' => 'description',
 	'value' => $description
 ]);
 
-$form_body .= elgg_view_input('text', [
-	'label' => elgg_echo('description'),
+$form_body .= elgg_view_field([
+	'#type' => 'text',
+	'#label' => elgg_echo('description'),
 	'name' => 'title',
 	'value' => $title,
 ]);
 
-$form_body .= elgg_view_input('submit', [
+$form_body .= elgg_view_field([
+	'#type' => 'submit',
 	'value' => elgg_echo('submit'),
 	'class' => 'mtm',
 ]);
-$form_body .= elgg_view('input/hidden', [
+$form_body .= elgg_view_field([
+	'#type' => 'hidden',
 	'name' => 'guid',
 	'value' => $guid
 ]);
-$form_body .= elgg_view('input/hidden', [
+$form_body .= elgg_view_field([
+	'#type' => 'hidden',
 	'name' => 'parent_guid',
 	'value' => $parent_guid
 ]);

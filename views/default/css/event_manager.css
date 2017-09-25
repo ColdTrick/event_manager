@@ -289,3 +289,8 @@
 #event_manager_onthemap_legend img {
 	vertical-align: middle;
 }
+
+/* hack to hide clear button on input/date fields for IE/Edge */
+.elgg-input-date::-ms-clear {
+	display: none;
+}

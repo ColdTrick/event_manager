@@ -11,11 +11,14 @@
 	"require": {
 		"composer/installers": "^1.0.8",
 		"ext-json": "*",
-		"dompdf/dompdf" : "0.6.*",
-		"bower-asset/fullcalendar": "^2.9.0"
+		"dompdf/dompdf" : "~0.6.0",
+		"bower-asset/fullcalendar": "~2.9.0"
 	},
 	"require-dev": {
 		"coldtrick/sniffs": "dev-master",
 		"coldtrick/releases": "dev-master"
+	},
+	"conflict": {
+		"elgg/elgg": "<2.3"
 	}
 }

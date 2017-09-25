@@ -32,7 +32,11 @@ define(['jquery', 'elgg', 'gmaps'], function($, elgg, GMaps) {
 	};
 		
 	EventMap.prototype = {
-		setLocation : function(location) {
+		setLocation : function(location, add_marker) {
+			if (add_marker !== false) {
+				add_marker = true;
+			}
+			
 			var gmap = this.gmap;
 			GMaps.geocode({
 				address: location,
@@ -40,10 +44,13 @@ define(['jquery', 'elgg', 'gmaps'], function($, elgg, GMaps) {
 					if (status == 'OK') {
 						var latlng = results[0].geometry.location;
 						gmap.setCenter(latlng.lat(), latlng.lng());
-						gmap.addMarker({
-							lat: latlng.lat(),
-							lng: latlng.lng()
-						});
+
+						if (add_marker) {
+							gmap.addMarker({
+								lat: latlng.lat(),
+								lng: latlng.lng()
+							});
+						}
 					}
 				}
 			});

@@ -6,13 +6,15 @@ elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 
 $event = get_entity($guid);
 
-// add export button
-elgg_require_js('addthisevent');
-elgg_register_menu_item('title', ElggMenuItem::factory([
-	'name' => 'addthisevent',
-	'href' => false,
-	'text' => elgg_view('event_manager/event/addthisevent', ['entity' => $event]),
-]));
+if (elgg_get_plugin_setting('add_event_to_calendar', 'event_manager') !== 'no') {
+	// add export button
+	elgg_require_js('addthisevent');
+	elgg_register_menu_item('title', ElggMenuItem::factory([
+		'name' => 'addthisevent',
+		'href' => false,
+		'text' => elgg_view('event_manager/event/addthisevent', ['entity' => $event]),
+	]));
+}
 
 elgg_set_page_owner_guid($event->getContainerGUID());
 $page_owner = elgg_get_page_owner_entity();

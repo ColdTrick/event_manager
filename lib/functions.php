@@ -9,14 +9,25 @@
  * @return array
  */
 function event_manager_event_get_relationship_options() {
-	return [
+	
+	static $result;
+	if (isset($result)) {
+		return $result;
+	}
+	
+	$result = [
 		EVENT_MANAGER_RELATION_ATTENDING,
-		EVENT_MANAGER_RELATION_INTERESTED,
 		EVENT_MANAGER_RELATION_PRESENTING,
 		EVENT_MANAGER_RELATION_EXHIBITING,
 		EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
 		EVENT_MANAGER_RELATION_ATTENDING_PENDING,
 	];
+	
+	if (elgg_get_plugin_setting('rsvp_interested', 'event_manager') !== 'no') {
+		$result[] = EVENT_MANAGER_RELATION_INTERESTED;
+	}
+	
+	return $result;
 }
 
 /**
@@ -95,7 +106,7 @@ function event_manager_search_events($options = []) {
 
 	if (!$options['past_events']) {
 		// only show from current day or newer (or where event is still running)
-		$current_time = mktime(0, 0, 1);
+		$current_time = gmmktime(0, 0, 1);
 		if ($options['event_end']) {
 			$entities_options['metadata_name_value_pairs'][] = [
 				'name' => 'event_start',
@@ -189,103 +200,6 @@ function event_manager_search_events($options = []) {
 	];
 
 	return $result;
-}
-
-/**
- * Export the event attendees. Returns csv body
- *
- * @param ElggObject $event the event
- * @param string     $rel   relationship type
- *
- * @return string
- */
-function event_manager_export_attendees($event, $rel = EVENT_MANAGER_RELATION_ATTENDING) {
-	$old_ia = elgg_set_ignore_access(true);
-
-	$headerString = '';
-	$dataString = '';
-
-	$headerString .= '"guid";"' . elgg_echo('name') . '";"' . elgg_echo('email') . '";"' . elgg_echo('username') . '";"registration date"';
-
-	if ($event->registration_needed) {
-		if ($registration_form = $event->getRegistrationFormQuestions()) {
-			foreach ($registration_form as $question) {
-				$headerString .= ';"' . $question->title . '"';
-			}
-		}
-	}
-
-	if ($event->with_program) {
-		if ($eventDays = $event->getEventDays()) {
-			foreach ($eventDays as $eventDay) {
-				$date = event_manager_format_date($eventDay->date);
-				if ($eventSlots = $eventDay->getEventSlots()) {
-					foreach ($eventSlots as $eventSlot) {
-						$start_time = $eventSlot->start_time;
-						$end_time = $eventSlot->end_time;
-
-						$start_time_hour = date('H', $start_time);
-						$start_time_minutes = date('i', $start_time);
-
-						$end_time_hour = date('H', $end_time);
-						$end_time_minutes = date('i', $end_time);
-
-						$headerString .= ';"Event activity: \'' . addslashes($eventSlot->title) . '\' ' . $date . ' (' . $start_time_hour . ':' . $start_time_minutes . ' - ' . $end_time_hour . ':' . $end_time_minutes . ')"';
-					}
-				}
-			}
-		}
-	}
-
-	$attendees = new ElggBatch('elgg_get_entities_from_relationship', [
-		'relationship' => $rel,
-		'relationship_guid' => $event->getGUID(),
-		'inverse_relationship' => false,
-		'site_guids' => false,
-		'limit' => false,
-	]);
-	
-	foreach ($attendees as $attendee) {
-		$answerString = '';
-
-		$dataString .= '"' . $attendee->guid . '";"' . $attendee->name . '";"' . $attendee->email . '";"' . $attendee->username . '"';
-
-		$relation = check_entity_relationship($event->guid, $rel, $attendee->guid);
-		$dataString .= ';"' . date("d-m-Y H:i:s", $relation->time_created) . '"';
-
-		if ($event->registration_needed) {
-			if ($registration_form = $event->getRegistrationFormQuestions()) {
-				foreach ($registration_form as $question) {
-					$answer = $question->getAnswerFromUser($attendee->getGUID());
-
-					$answerString .= '"' . addslashes($answer->value) . '";';
-				}
-			}
-			$dataString .= ';' . substr($answerString, 0, (strlen($answerString) - 1));
-		}
-
-		if ($event->with_program) {
-			if ($eventDays = $event->getEventDays()) {
-				foreach ($eventDays as $eventDay) {
-					if ($eventSlots = $eventDay->getEventSlots()) {
-						foreach ($eventSlots as $eventSlot) {
-							if (check_entity_relationship($attendee->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $eventSlot->getGUID())) {
-								$dataString .= ';"V"';
-							} else {
-								$dataString .= ';""';
-							}
-						}
-					}
-				}
-			}
-		}
-
-		$dataString .= PHP_EOL;
-	}
-
-	elgg_set_ignore_access($old_ia);
-
-	return $headerString . PHP_EOL . $dataString;
 }
 
 /**
@@ -665,8 +579,8 @@ function event_manager_prepare_form_vars($event = null) {
 		'fee_details' => ELGG_ENTITIES_ANY_VALUE,
 		'organizer' => ELGG_ENTITIES_ANY_VALUE,
 		'organizer_guids' => ELGG_ENTITIES_ANY_VALUE,
-		'event_start' => time(),
-		'event_end' => time() + 3600,
+		'event_start' => gmmktime(date('H')) + 3600, // 1 hour from now
+		'event_end' => gmmktime(date('H')) + 3600 + 3600, // 2 hours from now
 		'registration_ended' => ELGG_ENTITIES_ANY_VALUE,
 		'endregistration_day' => ELGG_ENTITIES_ANY_VALUE,
 		'with_program' => ELGG_ENTITIES_ANY_VALUE,
@@ -683,7 +597,7 @@ function event_manager_prepare_form_vars($event = null) {
 		'event_exhibiting' => 0,
 		'registration_completed' => ELGG_ENTITIES_ANY_VALUE,
 	];
-	
+
 	if ($event instanceof \Event) {
 		// edit mode
 		$values['latitude'] = $event->getLatitude();

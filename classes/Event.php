@@ -42,6 +42,29 @@ class Event extends ElggObject {
 		
 		return true;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see ElggObject::prepareObject()
+	 */
+	protected function prepareObject($object) {
+		$object = parent::prepareObject($object);
+		
+		$object->starttime = date('c', $this->getStartTimestamp());
+		$object->endtime = date('c', $this->getEndTimestamp());
+		$object->location = $this->getLocation();
+		$object->region = $this->region;
+		$object->event_type = $this->event_type;
+		$object->short_description = $this->short_description;
+		$object->venue = $this->venue;
+		$object->contact_details = $this->contact_details;
+		$object->website = $this->website;
+		$object->organizer = $this->organizer;
+		$object->{'geo:lat'} = $this->getLatitude();
+		$object->{'goe:long'} = $this->getLongitude();
+		
+		return $object;
+	}
 
 	/**
 	 * Returns URL to the entity
@@ -52,6 +75,23 @@ class Event extends ElggObject {
 	 */
 	public function getURL() {
 		return elgg_get_site_url() . "events/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
+	}
+
+	/**
+	 * Returns excerpt based on shortdescription and falls back to long description
+	 *
+	 * @param $limit (optional) limited amount of characters
+	 *
+	 * @return string
+	 *
+	 * @see elgg_get_excerpt()
+	 */
+	public function getExcerpt($limit = null) {
+		$result = $this->shortdescription;
+		if (empty($shortdescription)) {
+			$result = $this->description;
+		}
+		return elgg_get_excerpt($result, $limit);
 	}
 	
 	/**
@@ -114,43 +154,6 @@ class Event extends ElggObject {
 		}
 		
 		return false;
-	}
-
-	/**
-	 * Updates access of objects owned
-	 *
-	 * @param string $access_id new access id
-	 *
-	 * @return void
-	 */
-	public function setAccessToOwningObjects($access_id = null) {
-		
-		if ($access_id === null) {
-			$access_id = $this->access_id;
-		}
-		
-		// Have to do this for private events
-		$ia = elgg_set_ignore_access(true);
-		
-		$eventDays = $this->getEventDays();
-		if (!empty($eventDays)) {
-			foreach ($eventDays as $day) {
-				$day->access_id = $access_id;
-				$day->save();
-			
-				$eventSlots = $day->getEventSlots();
-				if (empty($eventSlots)) {
-					continue;
-				}
-			
-				foreach ($eventSlots as $slot) {
-					$slot->access_id = $access_id;
-					$slot->save();
-				}
-			}
-		}
-		
-		elgg_set_ignore_access($ia);
 	}
 
 	/**
@@ -518,7 +521,7 @@ class Event extends ElggObject {
 
 		if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
 			if ($this->registration_needed) {
-				$link = elgg_get_site_url() . 'events/registration/view/?guid=' . $this->getGUID() . '&u_g=' . $to . '&k=' . elgg_build_hmac([$this->time_created, $to])->getToken();
+				$link = elgg_get_site_url() . 'events/registration/view/' . $this->getGUID() . '?u_g=' . $to . '&k=' . elgg_build_hmac([$this->time_created, $to])->getToken();
 
 				$registrationLink = PHP_EOL . PHP_EOL;
 				$registrationLink .= elgg_echo('event_manager:event:registration:notification:program:linktext');
@@ -569,7 +572,17 @@ class Event extends ElggObject {
 			$to_entity->name,
 			$event_title_link,
 		]);
-
+		
+		if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
+			$completed_text = elgg_strip_tags($this->registration_completed, '<a>');
+			if (!empty($completed_text)) {
+				$completed_text = str_ireplace('[NAME]', $to_entity->name, $completed_text);
+				$completed_text = str_ireplace('[EVENT]', $this->title, $completed_text);
+				
+				$user_message .= PHP_EOL . PHP_EOL . $completed_text;
+			}
+		}
+		
 		$user_message .= $registrationLink . $unsubscribeLink;
 
 		if ($to_entity instanceof ElggUser) {
@@ -802,7 +815,7 @@ class Event extends ElggObject {
 		if ($count) {
 			$query = "SELECT relationship, count(*) as count FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid GROUP BY relationship ORDER BY relationship ASC";
 		} else {
-			$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid ORDER BY relationship ASC";
+			$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid ORDER BY relationship ASC, time_created ASC";
 		}
 
 		$all_relations = get_data($query);
@@ -913,16 +926,31 @@ class Event extends ElggObject {
 			return false;
 		}
 		
-		$this->rsvp(EVENT_MANAGER_RELATION_ATTENDING, $waiting_user->getGUID(), false, false);
+		$this->rsvp(EVENT_MANAGER_RELATION_ATTENDING, $waiting_user->getGUID(), false, false, false);
 
+		$notification_body = elgg_echo("event_manager:event:registration:notification:user:text:event_spotfree", [
+			$waiting_user->name,
+			$this->title,
+			$this->getURL(),
+		]);
+		
+		$completed_text = elgg_strip_tags($this->registration_completed, '<a>');
+		if (!empty($completed_text)) {
+			$completed_text = str_ireplace('[NAME]', $waiting_user->name, $completed_text);
+			$completed_text = str_ireplace('[EVENT]', $this->title, $completed_text);
+			
+			$notification_body .= PHP_EOL . PHP_EOL . $completed_text;
+		}
+		
+		if (elgg_is_active_plugin('html_email_handler')) {
+			// add addthisevent banners in footer
+			$notification_body .= elgg_view('event_manager/email/addevent', ['entity' => $this]);
+		}
+		
 		notify_user($waiting_user->getGUID(),
 					$this->getOwnerGUID(),
 					elgg_echo("event_manager:event:registration:notification:user:subject"),
-					elgg_echo("event_manager:event:registration:notification:user:text:event_spotfree", [
-						$waiting_user->name,
-						$this->title,
-						$this->getURL(),
-					]));
+					$notification_body);
 
 		return true;
 	}
@@ -951,68 +979,6 @@ class Event extends ElggObject {
 		}
 
 		return $slots;
-	}
-
-	/**
-	 * Return the events icon url
-	 *
-	 * @param string $size size of the icon
-	 *
-	 * @return void|string
-	 *
-	 * @see ElggEntity::getIconURL()
-	 */
-	public function getIconURL($size = 'medium') {
-		$size = strtolower($size);
-
-		$iconsizes = (array) elgg_get_config('icon_sizes');
-		$iconsizes['event_banner'] = '';
-		if (!array_key_exists($size, $iconsizes)) {
-			$size = 'medium';
-		}
-
-		$icontime = $this->icontime;
-		if (!$icontime) {
-			return;
-		}
-		
-		$file = new \ElggFile();
-		$file->owner_guid = $this->guid;
-		$file->setFilename("{$size}.jpg");
-		
-		if (($size === 'event_banner') && !$file->exists()) {
-			$file->setFilename("master.jpg");
-		}
-		
-		return elgg_get_inline_url($file);
-	}
-
-	/**
-	 * Deletes the previous uploaded icon
-	 *
-	 * @param string $type Icon type
-	 * @return bool
-	 */
-	public function deleteIcon($type = 'icon') {
-		if ($type == 'icon') {
-			$fh = new \ElggFile();
-			$fh->owner_guid = $this->guid;
-
-			$icon_sizes = elgg_get_config('icon_sizes');
-			$icon_sizes['event_banner'] = ['w' => 1920, 'h' => 1080, 'square' => false, 'upscale' => false];
-
-			foreach ($icon_sizes as $name => $info) {
-				$fh->setFilename("{$name}.jpg");
-
-				if ($fh->exists()) {
-					$fh->delete();
-				}
-			}
-
-			unset($this->icontime);
-		}
-
-		return parent::deleteIcon($type);
 	}
 
 	/**

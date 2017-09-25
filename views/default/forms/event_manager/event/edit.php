@@ -8,7 +8,8 @@ $vars = array_merge($vars, $fields);
 
 $hidden_inputs = ['latitude', 'longitude', 'guid', 'container_guid'];
 foreach ($hidden_inputs as $hidden) {
-	echo elgg_view_input('hidden', [
+	echo elgg_view_field([
+		'#type' => 'hidden',
 		'name' => $hidden,
 		'value' => $fields[$hidden],
 	]);
@@ -29,5 +30,8 @@ foreach ($sections as $section) {
 	]);
 }
 
-$footer = elgg_view_input('submit', ['value' => elgg_echo('save')]);
-echo elgg_format_element('div', ['class' => 'elgg-foot mtl'], $footer);
+$footer = elgg_view_field([
+	'#type' => 'submit',
+	'value' => elgg_echo('save'),
+]);
+elgg_set_form_footer($footer);
