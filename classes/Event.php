@@ -342,8 +342,8 @@ class Event extends ElggObject {
 	 */
 	public function hasSlotSpotsLeft() {
 		$slotsSpots = $this->countEventSlotSpots();
-
-		if (($slotsSpots['total'] > 0) && ($slotsSpots['left'] < 1) && !$this->hasUnlimitedSpotSlots()) {
+		
+		if ((elgg_extract('total', $slotsSpots) > 0) && (elgg_extract('left', $slotsSpots) < 1) && !$this->hasUnlimitedSpotSlots()) {
 			return false;
 		}
 
