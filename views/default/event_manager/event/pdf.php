@@ -62,7 +62,7 @@ if ($organizer) {
 $description = $event->description;
 if ($description) {
 	echo '<label>' . elgg_echo('description') . '</label>';
-	echo '<div class="mbm">' . $description . '</div>';
+	echo '<div class="mbm">' . elgg_view('output/longtext', ['value' => $description]) . '</div>';
 }
 
 $region = $event->region;
