@@ -5,8 +5,7 @@ elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
 
 $old_event = get_entity($guid);
 if (!$old_event->canEdit()) {
-	register_error(elgg_echo('actionunauthorized'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('actionunauthorized'));
 }
 
 $new_owner_guid = elgg_get_logged_in_user_guid();
@@ -22,11 +21,33 @@ $new_event->last_action = null;
 $new_event->owner_guid = $new_owner_guid;
 $new_event->container_guid = $new_container_guid;
 
-$new_event->title = elgg_echo('event_manager:enity:copy', [$old_event->title]);
+$new_event->title = get_input('title', elgg_echo('event_manager:entity:copy', [$old_event->title]));
+$new_event->access_id = get_input('access_id', $new_event->access_id);
+
+$event_start = (int) get_input('event_start');
+if ($event_start) {
+	$start_time_hours = (int) get_input('start_time_hours');
+	$start_time_minutes = (int) get_input('start_time_minutes');
+
+	$event_start += $start_time_minutes * 60;
+	$event_start += $start_time_hours * 3600;
+
+	$new_event->event_start = $event_start;
+}
+
+$event_end = (int) get_input('event_end');
+if ($event_end) {
+	$end_time_hours = (int) get_input('end_time_hours');
+	$end_time_minutes = (int) get_input('end_time_minutes');
+	
+	$event_end += $end_time_minutes * 60;
+	$event_end += $end_time_hours * 3600;
+	
+	$new_event->event_end = $event_end;
+}
 
 if (!$new_event->save()) {
-	register_error(elgg_echo('unknown_error'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('unknown_error'));
 }
 
 foreach ($old_event->getEventDays() as $day) {
@@ -82,5 +103,4 @@ foreach ($iterator as $item) {
 	}
 }
 
-system_message(elgg_echo('event_manager:action:event:edit:ok'));
-forward($new_event->getURL());
+return elgg_ok_response('', elgg_echo('event_manager:action:event:edit:ok'), $new_event->getURL());

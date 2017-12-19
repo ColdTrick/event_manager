@@ -306,7 +306,7 @@ Si no te inscribiste en este evento, puedes ignorar este e-mail o hacer click en
   'confirm' => 'Confirmar',
 
   'event_manager:date:format' => 'd-m-Y',
-  'event_manager:enity:copy' => 'Copia de: %s',
+  'event_manager:entity:copy' => 'Copia de: %s',
   'event_manager:menu:copy' => 'Copiar Evento',
   'event_manager:menu:attending' => 'Participando',
   'event_manager:calendar:today' => 'Hoy',

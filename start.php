@@ -54,6 +54,7 @@ function event_manager_init() {
 	elgg_register_ajax_view('event_manager/forms/program/day');
 	elgg_register_ajax_view('event_manager/forms/program/slot');
 	elgg_register_ajax_view('event_manager/calendar');
+	elgg_register_ajax_view('forms/event_manager/event/copy');
 	
 	// add site menu item
 	elgg_register_menu_item('site', [

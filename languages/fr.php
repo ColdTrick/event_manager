@@ -19,7 +19,7 @@ return array(
 	'item:object:eventquestions' => 'Questions évènement',
 	
 	'event_manager:date:format' => 'Y-m-d',
-	'event_manager:enity:copy' => 'Copie de: %s',
+	'event_manager:entity:copy' => 'Copie de: %s',
 	
 	'event_manager:menu:title' => 'Evènements',
 	'event_manager:menu:events' => 'Tous les évènements',

@@ -18,20 +18,17 @@ $endregistration_day = get_input('endregistration_day');
 $access_id = (int) get_input('access_id');
 
 if (empty($title) || empty($event_start) || empty($event_end)) {
-	register_error(elgg_echo('event_manager:action:event:edit:error_fields'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('event_manager:action:event:edit:error_fields'));
 }
 
 $event_end += $end_time_minutes * 60;
 $event_end += $end_time_hours * 3600;
 
-
 $event_start += $start_time_minutes * 60;
 $event_start += $start_time_hours * 3600;
 
 if ($event_end < $event_start) {
-	register_error(elgg_echo('event_manager:action:event:edit:end_before_start'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('event_manager:action:event:edit:end_before_start'));
 }
 
 if (!empty($endregistration_day)) {
@@ -164,11 +161,10 @@ $event->save();
 // remove sticky form entries
 elgg_clear_sticky_form('event');
 
-system_message(elgg_echo('event_manager:action:event:edit:ok'));
-
+$forward_url = $event->getURL();
 if (!$has_days && $event->with_program) {
 	// need to create a program
-	forward("events/event/edit_program/{$event->getGUID()}");
+	$forward_url = "events/event/edit_program/{$event->getGUID()}";
 }
 
-forward($event->getURL());
+return elgg_ok_response('', elgg_echo('event_manager:action:event:edit:ok'), $forward_url);

@@ -22,10 +22,9 @@ if (!empty($guid)) {
 	// add copy menu item
 	elgg_register_menu_item('title', \ElggMenuItem::factory([
 		'name' => 'copy',
-		'href' => 'action/event_manager/event/copy?guid=' . $event->getGUID(),
-		'confirm' => true,
+		'href' => 'ajax/form/event_manager/event/copy?guid=' . $event->getGUID(),
 		'text' => elgg_echo('event_manager:menu:copy'),
-		'link_class' => 'elgg-button elgg-button-action',
+		'link_class' => 'elgg-lightbox elgg-button elgg-button-action',
 	]));
 } else {
 	// new event

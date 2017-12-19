@@ -256,6 +256,11 @@
 	width: 100%;
 }
 
+/* event copy form */
+.elgg-form-event-manager-event-copy {
+	width: 600px;
+}
+
 /* google maps */
 .gmaps_infowindow,
 .gmaps_infowindow_text div.event_manager_event_view_owner {

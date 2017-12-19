@@ -23,7 +23,7 @@ return array (
   'admin:upgrades:migrate_files_to_event:description' => 'Alle event gerelateerde bestanden moeten worden gemigreerd zodat ze opgeslagen worden bij het event ipv in de map van de eigenaar van het event.',
   'admin:upgrades:convert_timestamps' => 'Event Manager timestamp conversie',
   'admin:upgrades:convert_timestamps:description' => 'Evenementen slaan hun timestamp metadata op in nieuwe velden',
-  'event_manager:enity:copy' => 'Kopie van: %s',
+  'event_manager:entity:copy' => 'Kopie van: %s',
   'event_manager:menu:copy' => 'Kopieër evenement',
   'event_manager:menu:attending' => 'Deelnemend',
   'event_manager:calendar:today' => 'Vandaag',
