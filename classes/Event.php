@@ -208,7 +208,7 @@ class Event extends ElggObject {
 	 */
 	public function hasFiles() {
 		$files = json_decode($this->files);
-		if (count($files) > 0) {
+		if (!empty($files) && count($files) > 0) {
 			return $files;
 		}
 

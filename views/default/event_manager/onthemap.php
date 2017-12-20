@@ -1,4 +1,11 @@
-<?php ?>
+<?php
+
+$maps_provider = elgg_get_plugin_setting('maps_provider', 'event_manager', 'google');
+if ($maps_provider === 'none') {
+	return;
+}
+
+?>
 <div id="event_manager_event_map" class="hidden event-manager-results">
 	<div id="event_manager_onthemap_canvas"></div>
 	<div id="event_manager_onthemap_legend">

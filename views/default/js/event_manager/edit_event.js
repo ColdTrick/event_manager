@@ -11,6 +11,9 @@ elgg.event_manager.edit_event_init = function() {
 	
 	$('#event_manager_event_edit input[name="location"]').on('click', function() {
 		var $elem = $(this);
+		if (!$elem.data().hasMaps) {
+			return;
+		}
 
 		require(['elgg/lightbox'], function(lightbox) {
 			lightbox.open({

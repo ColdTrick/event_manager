@@ -1,59 +1,64 @@
 <?php
-	
+
 $plugin = elgg_extract('entity', $vars);
+if (!($plugin instanceof \ElggPlugin)) {
+	return;
+}
 
-$site_create_options = [
-	'everyone' => elgg_echo('event_manager:settings:migration:site:whocancreate:everyone'),
-	'admin_only' => elgg_echo('event_manager:settings:migration:site:whocancreate:admin_only'),
-];
-
-$group_create_options = [
-	'members' => elgg_echo('event_manager:settings:migration:group:whocancreate:members'),
-	'group_admin' => elgg_echo('event_manager:settings:migration:group:whocancreate:group_admin'),
-	'' => elgg_echo('event_manager:settings:migration:group:whocancreate:no_one'),
-];
+elgg_require_js('plugins/event_manager/settings');
 
 $yes_no_options = [
 	'yes' => elgg_echo('option:yes'),
 	'no' => elgg_echo('option:no'),
 ];
 
-$google_maps_default_location = $plugin->google_maps_default_location;
+$maps_provider = $plugin->getSetting('maps_provider', 'google');
 
-if (empty($google_maps_default_location)) {
-	$google_maps_default_location = 'Netherlands';
-}
-
-$google_maps_default_zoom = (int) $plugin->google_maps_default_zoom;
-if ($plugin->google_maps_default_zoom == "") {
-	$google_maps_default_zoom = 10;
-}
-
-// Google MAPS
 $maps = elgg_view_field([
-	'#type' => 'text',
-	'#label' => elgg_echo('event_manager:settings:google_api_key'),
-	'name' => 'params[google_api_key]',
-	'value' => $plugin->google_api_key,
-	'help' => elgg_echo('event_manager:settings:google_api_key:clickhere')
-]);
-
-$maps .= elgg_view_field([
-	'#type' => 'text',
-	'#label' => elgg_echo('event_manager:settings:google_maps:enterdefaultlocation'),
-	'name' => 'params[google_maps_default_location]',
-	'value' => $google_maps_default_location
-]);
-
-$maps .= elgg_view_field([
 	'#type' => 'select',
-	'#label' => elgg_echo('event_manager:settings:google_maps:enterdefaultzoom'),
-	'name' => 'params[google_maps_default_zoom]',
-	'value' => $google_maps_default_zoom,
-	'options' => range(0, 19),
+	'#label' => elgg_echo('event_manager:settings:maps:provider'),
+	'#help' => elgg_echo('event_manager:settings:maps:provider:help'),
+	'name' => 'params[maps_provider]',
+	'value' => $maps_provider,
+	'options_values' => [
+		'none' => elgg_echo('event_manager:settings:maps:provider:none'),
+		'google' => elgg_echo('event_manager:settings:maps:provider:google'),
+	],
 ]);
 
-echo elgg_view_module('inline', elgg_echo('event_manager:settings:google_maps'), $maps);
+$maps .= elgg_view_field([
+	'#type' => 'fieldset',
+	'id' => 'event-manager-maps-provider-google',
+	'class' => [
+		'event-manager-maps-provider',
+		($maps_provider == 'google') ? '' : 'hidden',
+	],
+	'legend' => elgg_echo('event_manager:settings:google_maps'),
+	'fields' => [
+		[
+			'#type' => 'text',
+			'#label' => elgg_echo('event_manager:settings:google_api_key'),
+			'name' => 'params[google_api_key]',
+			'value' => $plugin->google_api_key,
+			'help' => elgg_echo('event_manager:settings:google_api_key:clickhere')
+		],
+		[
+			'#type' => 'text',
+			'#label' => elgg_echo('event_manager:settings:google_maps:enterdefaultlocation'),
+			'name' => 'params[google_maps_default_location]',
+			'value' => $plugin->getSetting('google_maps_default_location', 'Netherlands'),
+		],
+		[
+			'#type' => 'select',
+			'#label' => elgg_echo('event_manager:settings:google_maps:enterdefaultzoom'),
+			'name' => 'params[google_maps_default_zoom]',
+			'value' => (int) $plugin->getSetting('google_maps_default_zoom', 10),
+			'options' => range(0, 19),
+		],
+	],
+]);
+
+echo elgg_view_module('inline', elgg_echo('event_manager:settings:maps'), $maps);
 
 // Other settings
 $other = elgg_view_field([
@@ -75,7 +80,10 @@ $other .= elgg_view_field([
 	'#label' => elgg_echo('event_manager:settings:migration:site:whocancreate'),
 	'name' => 'params[who_create_site_events]',
 	'value' => $plugin->who_create_site_events,
-	'options_values' => $site_create_options,
+	'options_values' => [
+		'everyone' => elgg_echo('event_manager:settings:migration:site:whocancreate:everyone'),
+		'admin_only' => elgg_echo('event_manager:settings:migration:site:whocancreate:admin_only'),
+	],
 ]);
 
 $other .= elgg_view_field([
@@ -83,7 +91,11 @@ $other .= elgg_view_field([
 	'#label' => elgg_echo('event_manager:settings:migration:group:whocancreate'),
 	'name' => 'params[who_create_group_events]',
 	'value' => $plugin->who_create_group_events,
-	'options_values' => $group_create_options,
+	'options_values' => [
+		'members' => elgg_echo('event_manager:settings:migration:group:whocancreate:members'),
+		'group_admin' => elgg_echo('event_manager:settings:migration:group:whocancreate:group_admin'),
+		'' => elgg_echo('event_manager:settings:migration:group:whocancreate:no_one'),
+	],
 ]);
 
 $other .= elgg_view_field([

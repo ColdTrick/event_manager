@@ -297,12 +297,14 @@ class Menus {
 			'href' => 'events/calendar',
 			'rel' => 'calendar',
 		]);
-		$returnvalue[] = \ElggMenuItem::factory([
-			'name' => 'events_map',
-			'text' => elgg_echo('event_manager:list:navigation:onthemap'),
-			'href' => 'javascript:void(0);',
-			'rel' => 'onthemap',
-		]);
+		if (elgg_get_plugin_setting('maps_provider', 'event_manager', 'google') !== 'none') {
+			$returnvalue[] = \ElggMenuItem::factory([
+				'name' => 'events_map',
+				'text' => elgg_echo('event_manager:list:navigation:onthemap'),
+				'href' => 'javascript:void(0);',
+				'rel' => 'onthemap',
+			]);
+		}
 		if (elgg_is_logged_in()) {
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'attending',

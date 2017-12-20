@@ -6,7 +6,15 @@ $event = elgg_extract('entity', $vars);
 $fields = event_manager_prepare_form_vars($event);
 $vars = array_merge($vars, $fields);
 
-$hidden_inputs = ['latitude', 'longitude', 'guid', 'container_guid'];
+$maps_provider = elgg_get_plugin_setting('maps_provider', 'event_manager', 'google');
+
+$hidden_inputs = ['guid', 'container_guid'];
+
+if ($maps_provider !== 'none') {
+	$hidden_inputs[] = 'latitude';
+	$hidden_inputs[] = 'longitude';
+}
+
 foreach ($hidden_inputs as $hidden) {
 	echo elgg_view_field([
 		'#type' => 'hidden',

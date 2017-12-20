@@ -275,7 +275,9 @@ function event_manager_event_region_options() {
 	$region_list = explode(',', $region_settings);
 	$region_options = array_merge($region_options, $region_list);
 
-	array_walk($region_options, create_function('&$val', '$val = trim($val);'));
+	array_walk($region_options, function(&$val) {
+		$val = trim($val);
+	});
 
 	return $region_options;
 }
@@ -294,8 +296,10 @@ function event_manager_event_type_options() {
 	$type_options = array('-');
 	$type_list = explode(',', $type_settings);
 	$type_options = array_merge($type_options, $type_list);
-
-	array_walk($type_options, create_function('&$val', '$val = trim($val);'));
+	
+	array_walk($type_options, function(&$val) {
+		$val = trim($val);
+	});
 
 	return $type_options;
 }
