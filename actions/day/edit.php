@@ -6,8 +6,7 @@ elgg_entity_gatekeeper($parent_guid, 'object', Event::SUBTYPE);
 $event = get_entity($parent_guid);
 
 if (!$event->canEdit()) {
-	register_error(elgg_echo('actionunauthorized'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('actionunauthorized'));
 }
 
 $guid = (int) get_input('guid');
@@ -29,8 +28,7 @@ if ($guid && $day = get_entity($guid)) {
 }
 
 if (empty($day) || empty($date)) {
-	register_error(elgg_echo('save:fail'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('save:fail'));
 }
 
 $day->title = $title;
@@ -40,8 +38,7 @@ $day->owner_guid = $event->getGUID();
 $day->access_id = $event->access_id;
 
 if (!$day->save()) {
-	register_error(elgg_echo('save:fail'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('save:fail'));
 }
 
 $day->date = $date;
@@ -64,7 +61,7 @@ $result = [
 	'content_body' => elgg_view('event_manager/program/elements/day', [
 		'entity' => $day,
 		'details_only' => $edit
-	])
+	]),
 ];
 
-echo json_encode($result);
+return elgg_ok_response($result);

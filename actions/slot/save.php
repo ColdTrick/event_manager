@@ -5,13 +5,11 @@ $parent_guid = (int) get_input('parent_guid');
 $day = get_entity($parent_guid);
 
 if (!$day instanceof \ColdTrick\EventManager\Event\Day) {
-	register_error(elgg_echo('event_manager:action:slot:day_not_found'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('event_manager:action:slot:day_not_found'));
 }
 
 if (!$day->canEdit()) {
-	register_error(elgg_echo('actionunauthorized'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('actionunauthorized'));
 }
 
 $edit = false;
@@ -34,8 +32,7 @@ $max_attendees = get_input('max_attendees');
 $slot_set = get_input('slot_set');
 
 if (empty($title) || empty($start_time) || empty($end_time)) {
-	register_error(elgg_echo('event_manager:action:slot:missing_fields'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('event_manager:action:slot:missing_fields'));
 }
 
 if ($guid) {
@@ -43,8 +40,7 @@ if ($guid) {
 	$slot = get_entity($guid);
 
 	if (!$slot instanceof \ColdTrick\EventManager\Event\Slot) {
-		register_error(elgg_echo('event_manager:action:slot:not_found'));
-		forward(REFERER);
+		return elgg_error_response(elgg_echo('event_manager:action:slot:not_found'));
 	}
 
 	$edit = true;
@@ -64,8 +60,7 @@ $slot->location = $location;
 $slot->max_attendees = $max_attendees;
 
 if (!$slot->save()) {
-	register_error(elgg_echo('event_manager:action:slot:cannot_save'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('event_manager:action:slot:cannot_save'));
 }
 
 if (!empty($slot_set)) {
@@ -76,13 +71,11 @@ if (!$edit) {
 	$slot->addRelationship($day->getGUID(), 'event_day_slot_relation');
 }
 
-system_message(elgg_echo('event_manager:action:slot:saved'));
-
-$result = array(
+$result = [
 	'edit' => $edit,
 	'guid' => $slot->guid,
 	'parent_guid' => $parent_guid,
-	'content' => elgg_view('event_manager/program/elements/slot', array('entity' => $slot)),
-);
+	'content' => elgg_view('event_manager/program/elements/slot', ['entity' => $slot]),
+];
 
-echo json_encode($result);
+return elgg_ok_response($result, elgg_echo('event_manager:action:slot:saved'));

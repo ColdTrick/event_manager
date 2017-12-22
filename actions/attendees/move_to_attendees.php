@@ -10,15 +10,14 @@ elgg_entity_gatekeeper($user);
 $object = get_entity($user);
 
 if (!$event->canEdit()) {
-	register_error(elgg_echo('actionunauthorized'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('actionunauthorized'));
 }
 
 // check if object has relation ship that can be moved
 $user_relationship = $event->getRelationshipByUser($object->getGUID());
 
 if (!in_array($user_relationship, [EVENT_MANAGER_RELATION_ATTENDING_PENDING, EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST])) {
-	forward(REFERER);
+	return elgg_error_response();
 }
 
 // update pending slots
@@ -41,6 +40,5 @@ if ($slots) {
 
 // pending / waitinglist
 $event->rsvp(EVENT_MANAGER_RELATION_ATTENDING, $object->getGUID());
-system_message(elgg_echo('event_manager:action:move_to_attendees:success'));
 
-forward(REFERER);
+return elgg_ok_response('', elgg_echo('event_manager:action:move_to_attendees:success'));

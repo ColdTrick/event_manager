@@ -14,14 +14,14 @@ if ($guid && ($entity = get_entity($guid))) {
 }
 
 if (!$event || empty($key)) {
-	forward('events');
+	return elgg_redirect_response('events');
 }
 
 $tempKey = elgg_build_hmac([$event->time_created, $user_guid])->getToken();
 
 $entity = get_entity($user_guid);
 if (empty($entity) || ($tempKey !== $key)) {
-	forward('events');
+	return elgg_redirect_response('events');
 }
 
 $html = elgg_view_title(elgg_echo('event_manager:registration:yourregistration'));

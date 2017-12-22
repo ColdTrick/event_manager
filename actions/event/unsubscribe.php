@@ -9,8 +9,7 @@ elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 $entity = get_entity($guid);
 
 if (!empty($email) && !is_email_address($email)) {
-	register_error(elgg_echo('registration:notemail'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('registration:notemail'));
 }
 			
 // try to find a registration
@@ -27,15 +26,14 @@ $registrations = elgg_get_entities_from_metadata([
 ]);
 
 if (empty($registrations)) {
-	register_error(elgg_echo('event_manager:action:unsubscribe:error:no_registration'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('event_manager:action:unsubscribe:error:no_registration'));
 }
 
 $registration = $registrations[0];
 
 // generate unsubscribe code
 $unsubscribe_code = event_manager_create_unsubscribe_code($registration, $entity);
-$unsubscribe_link = elgg_normalize_url("events/unsubscribe/confirm/{$registration->getGUID()}/" . $unsubscribe_code);
+$unsubscribe_link = elgg_normalize_url("events/unsubscribe/confirm/{$registration->guid}/{$unsubscribe_code}");
 
 // make a message with further instructions
 $subject = elgg_echo('event_manager:unsubscribe:confirm:subject', [$entity->title]);
@@ -57,12 +55,9 @@ if ($site->email) {
 $to = $registration->name . " <{$registration->email}>";
 
 if (!elgg_send_email($from, $to, $subject, $message)) {
-	register_error(elgg_echo('event_manager:action:unsubscribe:error:mail'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('event_manager:action:unsubscribe:error:mail'));
 }
 
 elgg_clear_sticky_form('event_unsubscribe');
 
-system_message(elgg_echo('event_manager:action:unsubscribe:success'));
-
-forward($entity->getURL());
+return elgg_ok_response('', elgg_echo('event_manager:action:unsubscribe:success'), $entity->getURL());

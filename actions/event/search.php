@@ -115,4 +115,4 @@ if ($search_type == 'list') {
 $result['count'] = $entities['count'];
 $result['offset'] = $offset;
 
-echo json_encode($result);
+return elgg_ok_response($result);

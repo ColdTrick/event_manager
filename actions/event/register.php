@@ -11,8 +11,7 @@ elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 $event = get_entity($guid);
 
 if (empty($relation)) {
-	register_error(elgg_echo('error:missing_data'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('error:missing_data'));
 }
 
 $answers = [];
@@ -49,22 +48,21 @@ if ($event->with_program && !$required_error) {
 		$required_error = true;
 	} else {
 		// validate slot sets
-		$slot_options = [
+		$set_metadata = elgg_get_metadata([
 			'type' => 'object',
 			'subtype' => \ColdTrick\EventManager\Event\Slot::SUBTYPE,
 			'limit' => false,
 			'metadata_names' => 'slot_set',
 			'guids' => explode(',', $program_guids),
-		];
+		]);
 
-		if ($set_metadata = elgg_get_metadata($slot_options)) {
+		if ($set_metadata) {
 			$sets_found = [];
 			foreach ($set_metadata as $md) {
 				$set_name = $md->value;
 				if (in_array($set_name, $sets_found)) {
 					// only one programguid per slot is allowed
-					register_error(elgg_echo('event_manager:action:registration:edit:error_slots', [$set_name]));
-					forward(REFERER);
+					return elgg_error_response(elgg_echo('event_manager:action:registration:edit:error_slots', [$set_name]));
 				}
 				$sets_found[] = $set_name;
 			}
@@ -75,15 +73,15 @@ if ($event->with_program && !$required_error) {
 if ($required_error) {
 	if ($event->with_program) {
 		if ($questions) {
-			register_error(elgg_echo('event_manager:action:registration:edit:error_fields_with_program'));
+			$error_message = elgg_echo('event_manager:action:registration:edit:error_fields_with_program');
 		} else {
-			register_error(elgg_echo('event_manager:action:registration:edit:error_fields_program_only'));
+			$error_message = elgg_echo('event_manager:action:registration:edit:error_fields_program_only');
 		}
 	} else {
-		register_error(elgg_echo('event_manager:action:event:edit:error_fields'));
+		$error_message = elgg_echo('event_manager:action:event:edit:error_fields');
 	}
 
-	forward(REFERER);
+	return elgg_error_response($error_message);
 }
 
 if (elgg_is_logged_in()) {
@@ -94,8 +92,7 @@ if (elgg_is_logged_in()) {
 	$object = null;
 	
 	if (!is_email_address($answers['email'])) {
-		register_error(elgg_echo('registration:notemail'));
-		forward(REFERER);
+		return elgg_error_response(elgg_echo('registration:notemail'));
 	} else {
 		// check for user with this emailaddress
 		if ($existing_user = get_user_by_email($answers['email'])) {
@@ -106,18 +103,15 @@ if (elgg_is_logged_in()) {
 				switch ($current_relationship) {
 					case EVENT_MANAGER_RELATION_ATTENDING:
 						// already attendee
-						register_error(elgg_echo('event_manager:action:register:email:account_exists:attending'));
-						forward(REFERER);
+						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:attending'));
 					case EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST:
 						// on the waitinglist
-						register_error(elgg_echo('event_manager:action:register:email:account_exists:waiting'));
-						forward();
+						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:waiting'));
 					case EVENT_MANAGER_RELATION_ATTENDING_PENDING:
 						// pending confirmation resend mail
 						event_manager_send_registration_validation_email($event, $object);
 
-						register_error(elgg_echo('event_manager:action:register:email:account_exists:pending'));
-						forward(REFERER);
+						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:pending'));
 				}
 			}
 		}
@@ -139,19 +133,16 @@ if (elgg_is_logged_in()) {
 				switch ($current_relationship) {
 					case EVENT_MANAGER_RELATION_ATTENDING:
 						// already attendee
-						register_error(elgg_echo("event_manager:action:register:email:account_exists:attending"));
-						forward(REFERER);
+						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:attending'));
 					case EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST:
 						// on the waitinglist
-						register_error(elgg_echo("event_manager:action:register:email:account_exists:waiting"));
-						forward(REFERER);
+						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:waiting'));
 					case EVENT_MANAGER_RELATION_ATTENDING_PENDING:
 					default:
 						// pending confirmation resend mail
 						event_manager_send_registration_validation_email($event, $object);
 
-						register_error(elgg_echo("event_manager:action:register:email:account_exists:pending"));
-						forward(REFERER);
+						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:pending'));
 				}
 			}
 		}
@@ -208,21 +199,23 @@ foreach ($guid_explode as $slot_guid) {
 	}
 }
 
+$success_message = '';
 if (!elgg_is_logged_in()) {
 	event_manager_send_registration_validation_email($event, $object);
-	system_message(elgg_echo('event_manager:action:register:pending'));
+	$success_message = elgg_echo('event_manager:action:register:pending');
 }
 
 // relate to the event
-if (!$event->rsvp($relation, $object->getGUID())) {
-	register_error(elgg_echo('event_manager:event:relationship:message:error'));
-	forward(REFERER);
+if (!$event->rsvp($relation, $object->guid)) {
+	return elgg_error_response(elgg_echo('event_manager:event:relationship:message:error'));
 }
 
 elgg_clear_sticky_form('event_register');
 
+$forward_url = $event->getURL();
 if (elgg_is_logged_in()) {
-	forward("events/registration/completed/{$event->getGUID()}/{$object->getGUID()}/" . elgg_get_friendly_title($event->title));
+	$title = elgg_get_friendly_title($event->getDisplayName());
+	$forward_url = "events/registration/completed/{$event->guid}/{$object->guid}/{$title}";
 }
 
-forward($event->getURL());
+return elgg_ok_response('', $success_message, $forward_url);

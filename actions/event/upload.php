@@ -8,13 +8,11 @@ elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 $event = get_entity($guid);
 
 if (!$event->canEdit()) {
-	register_error(elgg_echo('actionunauthorized'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('actionunauthorized'));
 }
 
 if (empty($title) || (!isset($_FILES['file']['name']) || empty($_FILES['file']['name']))) {
-	register_error(elgg_echo('event_manager:action:event:edit:error_fields'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('event_manager:action:event:edit:error_fields'));
 }
 
 if (empty($event->files)) {
@@ -42,5 +40,4 @@ $filesArray[] = [
 
 $event->files = json_encode($filesArray);
 
-system_message(elgg_echo('event_manager:action:event:edit:ok'));
-forward(REFERER);
+return elgg_ok_response('', elgg_echo('event_manager:action:event:edit:ok'));

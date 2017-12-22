@@ -3,33 +3,25 @@
 $guid = (int) get_input('guid');
 $filename = get_input('file');
 
-if (!empty($guid) && !empty($filename)) {
-	$event = false;
+$event = get_entity($guid);
 
-	if ($entity = get_entity($guid)) {
-		if ($entity->getSubtype() == Event::SUBTYPE) {
-			$event = $entity;
-		}
-	}
-
-	if ($event && $event->canEdit()) {
-		$files = json_decode($event->files, true);
-
-		foreach ($files as $index => $file) {
-			if (strtolower($file["file"]) == strtolower($filename)) {
-				$fileHandler = new \ElggFile();
-				$fileHandler->owner_guid = $event->guid;
-				$fileHandler->setFilename("files/" . $file['file']);
-
-				$fileHandler->delete();
-				unset($files[$index]);
-			}
-		}
-
-		$event->files = json_encode($files);
-	}
-	forward(REFERER);
+if (empty($filename) || !($event instanceof \Event) || !$event->canEdit()) {
+	return elgg_error_response(elgg_echo('event_manager:event:file:notfound:text'));
 }
 
-register_error(elgg_echo('event_manager:event:file:notfound:text'));
-forward(REFERER);
+$files = json_decode($event->files, true);
+
+foreach ($files as $index => $file) {
+	if (strtolower($file["file"]) == strtolower($filename)) {
+		$fileHandler = new \ElggFile();
+		$fileHandler->owner_guid = $event->guid;
+		$fileHandler->setFilename("files/" . $file['file']);
+
+		$fileHandler->delete();
+		unset($files[$index]);
+	}
+}
+
+$event->files = json_encode($files);
+
+return elgg_ok_response();

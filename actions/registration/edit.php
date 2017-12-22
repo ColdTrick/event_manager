@@ -17,16 +17,17 @@ foreach ($post as $key => $value) {
 	$registrationFields[] = $questionId . '|' . $value;
 }
 
-$event = $registration->getEntitiesFromRelationship([
+$events = $registration->getEntitiesFromRelationship([
 	'relationship' => 'event_user_registered',
 	'inverse_relationship' => true,
 ]);
 
+$event = $events[0];
+
 $registration->clearAnnotations('answer');
 
 foreach ($registrationFields as $answer) {
-	$registration->annotate('answer', $answer, $event[0]->access_id);
+	$registration->annotate('answer', $answer, $event->access_id);
 }
 
-system_message(elgg_echo('event_manager:action:event:edit:ok'));
-forward($event[0]->getURL());
+return elgg_ok_response('', elgg_echo('event_manager:action:event:edit:ok'), $event->getURL());

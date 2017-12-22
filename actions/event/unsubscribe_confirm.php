@@ -13,14 +13,11 @@ $registration = get_entity($registration_guid);
 $verify_code = event_manager_create_unsubscribe_code($registration, $event);
 
 if ($code !== $verify_code) {
-	register_error(elgg_echo('event_manager:unsubscribe_confirm:error:code'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('event_manager:unsubscribe_confirm:error:code'));
 }
 
 if (!$event->rsvp(EVENT_MANAGER_RELATION_UNDO, $registration->getGUID())) {
-	register_error(elgg_echo('event_manager:action:unsubscribe_confirm:error'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('event_manager:action:unsubscribe_confirm:error'));
 }
 
-system_message(elgg_echo('event_manager:action:unsubscribe_confirm:success'));
-forward($event->getURL());
+return elgg_ok_response('', elgg_echo('event_manager:action:unsubscribe_confirm:success'), $event->getURL());

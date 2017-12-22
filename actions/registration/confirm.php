@@ -8,17 +8,15 @@ elgg_entity_gatekeeper($event_guid, 'object', Event::SUBTYPE);
 $event = get_entity($event_guid);
 
 elgg_entity_gatekeeper($user_guid);
-$user = get_entity($user_guid);
+$user = get_entity($user_guid); // can also be a registration object
 
 // is the code valid
 if (!event_manager_validate_registration_validation_code($event_guid, $user_guid, $code)) {
-	register_error(elgg_echo('event_manager:registration:confirm:error:code'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('event_manager:registration:confirm:error:code'));
 }
 
 if (!$event->openForRegistration()) {
-	register_error(elgg_echo('event_manager:event:rsvp:registration_ended'));
-	forward($event->getURL());
+	return elgg_error_response(elgg_echo('event_manager:event:rsvp:registration_ended'), $event->getURL());
 }
 
 // check if we can become attending or should be on the waitinglist
@@ -30,8 +28,7 @@ if (!$event->hasEventSpotsLeft() || !$event->hasSlotSpotsLeft()) {
 		$relation = EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST;
 		$slot_relation = EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST;
 	} else {
-		register_error(elgg_echo('event_manager:event:rsvp:nospotsleft'));
-		forward($event->getURL());
+		return elgg_error_response(elgg_echo('event_manager:event:rsvp:nospotsleft'), $event->getURL());
 	}
 }
 
@@ -46,6 +43,5 @@ if ($slots) {
 
 // update event relationsship to attending/waiting
 $event->rsvp($relation, $user->getGUID());
-system_message(elgg_echo('event_manager:event:relationship:message:' . $relation));
 
-forward($event->getURL());
+return elgg_ok_response('', elgg_echo("event_manager:event:relationship:message:{$relation}"), $event->getURL());
