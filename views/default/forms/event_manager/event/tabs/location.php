@@ -19,22 +19,22 @@ $output = elgg_view_field([
 	'value' => $venue,
 ]);
 
-$output .= elgg_view_field([
+$field_options = [
 	'#type' => 'text',
 	'#label' => elgg_echo('event_manager:edit:form:location'),
 	'#help' => elgg_echo('event_manager:edit:form:location:help'),
 	'name' => 'location',
 	'value' => $location,
-	'readonly' => $maps_provider !== 'none',
-	'data-has-maps' => $maps_provider !== 'none',
-]);
+];
 
-if ($maps_provider === 'google') {
-	$output .= '<div class="hidden">';
-	$output .= elgg_format_element('div', [
-		'id' => 'event-manager-edit-maps-search-container',
-	], elgg_view('event_manager/event/maps/select_location'));
-	$output .= '</div>';
+if (elgg_view_exists("event_manager/maps/{$maps_provider}/location_input")) {
+	$field_options['data-has-maps'] = true;
+	
+	$params = $vars;
+	$params['field_options'] = $field_options;
+	$output .= elgg_view("event_manager/maps/{$maps_provider}/location_input", $params);
+} else {
+	$output .= elgg_view_field($field_options);
 }
 
 if ($region_options) {

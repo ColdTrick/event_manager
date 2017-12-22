@@ -23,6 +23,7 @@ $maps = elgg_view_field([
 	'options_values' => [
 		'none' => elgg_echo('event_manager:settings:maps:provider:none'),
 		'google' => elgg_echo('event_manager:settings:maps:provider:google'),
+		'osm' => elgg_echo('event_manager:settings:maps:provider:osm'),
 	],
 ]);
 

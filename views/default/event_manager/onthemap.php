@@ -5,12 +5,17 @@ if ($maps_provider === 'none') {
 	return;
 }
 
-?>
-<div id="event_manager_event_map" class="hidden event-manager-results">
-	<div id="event_manager_onthemap_canvas"></div>
-	<div id="event_manager_onthemap_legend">
-		<img src="//maps.google.com/mapfiles/ms/icons/yellow-dot.png" /><?php echo elgg_echo("event_manager:list:navigation:your"); ?>
-		<img src="//maps.google.com/mapfiles/ms/icons/blue-dot.png" /><?php echo elgg_echo("event_manager:list:navigation:attending"); ?>
-		<img src="//maps.google.com/mapfiles/ms/icons/red-dot.png" /> <?php echo elgg_echo("event_manager:list:navigation:other"); ?>
-	</div>
-</div>
+$body = '<div id="event_manager_onthemap_canvas"></div>';
+
+$legend = elgg_view("event_manager/maps/{$maps_provider}/legend");
+if (!empty($legend)) {
+	$body .= elgg_format_element('div', ['id' => 'event_manager_onthemap_legend'], $legend);
+}
+
+echo elgg_format_element('div', [
+	'id' => 'event_manager_event_map',
+	'class' => [
+		'hidden',
+		'event-manager-results',
+	],
+], $body);

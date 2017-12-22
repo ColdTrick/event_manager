@@ -377,6 +377,7 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:settings:maps:provider:help' => 'This setting determines which maps provider will be used when showing events on the map or when selecting / search an address for an event.',
 	'event_manager:settings:maps:provider:none' => 'None',
 	'event_manager:settings:maps:provider:google' => 'Google Maps',
+	'event_manager:settings:maps:provider:osm' => 'OpenStreetMaps',
 	'event_manager:settings:google_maps' => 'Google Maps',
 	'event_manager:settings:google_api_key' => 'Enter your Google API key',
 	'event_manager:settings:google_maps:enterdefaultlocation' => 'Enter a default location google maps needs to center on',

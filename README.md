@@ -13,8 +13,10 @@ Features
 
 - Create site and group events
 - Listing of upcomming events
-- Show events on a (Google) map
 - Search events
+- Maps integration
+ - Show events on a map
+ - Use Google Maps or OpenStreetMaps (with Leaflet.js)
 
 - Create simple or advanced events with
  - Registration forms

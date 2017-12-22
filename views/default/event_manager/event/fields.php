@@ -91,21 +91,14 @@ if ($event_venue) {
 
 if ($event_location) {
 	$location_text = $event_location;
-	if ($maps_provider === 'google') {
-		$location_text .= elgg_view('output/url', [
-			'href' => '//maps.google.com/maps?f=d&source=s_d&daddr=' . $event_location . '&hl=' . get_current_language(),
-			'text' => elgg_echo('event_manager:event:location:plan_route'),
-			'target' => '_blank',
-			'class' => 'mlm',
-		]);
-	}
+	$location_text .= elgg_view("event_manager/maps/{$maps_provider}/route", $vars);
 	
 	$location_details .= '<div class="clearfix">';
 	$location_details .= '<label class="elgg-col elgg-col-1of5">' . elgg_echo('event_manager:edit:form:location') . ':</label>';
 	$location_details .= '<span class="elgg-col elgg-col-4of5">' . $location_text . '</span>';
 	$location_details .= '</div>';
 	
-	$location_details .= elgg_view('event_manager/event/maps/location', $vars);
+	$location_details .= elgg_view("event_manager/maps/{$maps_provider}/location", $vars);
 }
 if (!empty($location_details)) {
 	$event_details .= elgg_view_module('event', '', $location_details, ['id' => 'location']);
