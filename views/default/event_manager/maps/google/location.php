@@ -12,7 +12,7 @@ if (empty($location)) {
 
 echo elgg_format_element('div', [
 	'id' => 'event-manager-gmaps-location',
-	'class' => 'event-manager-gmaps-location',
+	'class' => 'event-manager-event-view-maps',
 ]);
 
 ?>

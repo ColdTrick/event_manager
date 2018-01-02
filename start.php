@@ -84,6 +84,13 @@ function event_manager_init() {
 	]);
 	elgg_define_js('event_manager/maps', ['src' => elgg_get_simplecache_url('js/event_manager/maps.js')]);
 
+	// leafletjs
+	elgg_define_js('leafletjs', [
+		'src' => '//unpkg.com/leaflet@1.2.0/dist/leaflet.js',
+	]);
+	elgg_register_css('leafletjs', '//unpkg.com/leaflet@1.2.0/dist/leaflet.css');
+	elgg_define_js('event_manager/osm', ['src' => elgg_get_simplecache_url('js/event_manager/osm.js')]);
+	
 	// page handlers
 	elgg_register_page_handler('events', '\ColdTrick\EventManager\PageHandler::events');
 

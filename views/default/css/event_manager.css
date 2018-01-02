@@ -31,7 +31,7 @@
 	padding: 0 5px;
 }
 
-#event-manager-gmaps-location-search {
+#event-manager-maps-location-search {
 	height: 400px;
 	width: 600px;
 }
@@ -178,7 +178,7 @@
 	font-size: 100%;
 }
 
-.event-manager-gmaps-location {
+.event-manager-event-view-maps {
 	width: 100%;
 	height: 400px;
 }

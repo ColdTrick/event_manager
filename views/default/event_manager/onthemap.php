@@ -5,6 +5,10 @@ if ($maps_provider === 'none') {
 	return;
 }
 
+if (elgg_view_exists("event_manager/maps/{$maps_provider}/onthemap.js")) {
+	elgg_require_js("event_manager/maps/{$maps_provider}/onthemap");
+}
+
 $body = '<div id="event_manager_onthemap_canvas"></div>';
 
 $legend = elgg_view("event_manager/maps/{$maps_provider}/legend");

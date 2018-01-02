@@ -1,11 +1,41 @@
-define(['jquery'], function($) {
+define(['jquery', 'event_manager/osm'], function($, EventMap) {
 	
+	var event_map;
+	var location_data;
+	
+	var createAddress = function(addressData) {
+		
+		var address = addressData.road;
+		if (addressData.house_number) {
+			address += ' ' + addressData.house_number;
+		}
+		
+		if (addressData.city) {
+			address += ', ' + addressData.city;
+		} else if (addressData.town) {
+			address += ', ' + addressData.town;
+		} else if (addressData.suburb) {
+			address += ', ' + addressData.suburb;
+		}
+				
+		address += ', ' + addressData.country;
+		
+		return address;		
+	};
+
 	var executeSearch = function() {
 		var $search_form = $('#event-manager-edit-maps-search-container');
-		elgg.event_manager.map.setLocation($search_form.find('input[name="address_search"]').val());
-		$search_form.find('[name="address_search_save"]').removeClass('hidden');
+		
+		event_map.getGeocode($search_form.find('input[name="address_search"]').val(), function(result) {
+			location_data = result;
+			
+			
+			$('#event-manager-edit-maps-search-container input[name="address_search"]').val(createAddress(location_data.address));
+						
+			$search_form.find('[name="address_search_save"]').removeClass('hidden');	
+		});
 	};
-	
+
 	$('#event_manager_event_edit input[name="location"]').on('click', function() {
 		var $elem = $(this);
 
@@ -21,10 +51,15 @@ define(['jquery'], function($) {
 						$('#event-manager-edit-maps-search-container [name="address_search_save"]').removeClass('hidden');
 					}
 					
-					require(['event_manager/maps'], function (EventMap) {
-						if (!elgg.event_manager.map) {
-							elgg.event_manager.map = EventMap.setup('#event-manager-maps-location-search');
-							elgg.event_manager.map.setLocation(current_location);
+					require(['leafletjs'], function (leaflet) {
+						if (!event_map) {
+							var lat = $('#event_manager_event_edit input[name="latitude"]').val();
+							var lng = $('#event_manager_event_edit input[name="longitude"]').val();
+							event_map = EventMap.setup({
+								element: 'event-manager-maps-location-search',
+								lat: lat, 
+								lng: lng
+							});
 						}
 					});
 				}
@@ -50,15 +85,12 @@ define(['jquery'], function($) {
 		var $latitude = $('#event_manager_event_edit input[name="latitude"]');
 		var $longitude = $('#event_manager_event_edit input[name="longitude"]');
 
-		if (address) {
-			elgg.event_manager.map.getGeocode(address, function(results, status) {
-				if (status == 'OK') {
-					$location_field.val(results[0].formatted_address);
+		if (location_data) {
+			
+			$location_field.val(createAddress(location_data.address));
 
-					$latitude.val(results[0].geometry.location.lat());
-					$longitude.val(results[0].geometry.location.lng());
-				}
-			});
+			$latitude.val(location_data.lat);
+			$longitude.val(location_data.lon);
 		} else {
 			$location_field.val('');
 			$latitude.val('');

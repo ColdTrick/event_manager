@@ -33,6 +33,7 @@ if (elgg_view_exists("event_manager/maps/{$maps_provider}/location_input")) {
 	$params = $vars;
 	$params['field_options'] = $field_options;
 	$output .= elgg_view("event_manager/maps/{$maps_provider}/location_input", $params);
+	$output .= elgg_view('forms/event_manager/event/tabs/location_search', $vars);
 } else {
 	$output .= elgg_view_field($field_options);
 }
