@@ -11,6 +11,9 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 		});
 
 		this.event_map.addLayer(osm);
+		
+		// add marker group
+		this.markerGroup = leaflet.layerGroup().addTo(this.event_map);
 	};
 		
 	EventMap.prototype = {
@@ -34,7 +37,10 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 			this.event_map.attributionControl.addAttribution('© <a href="http://nominatim.openstreetmap.org">Nominatim</a>');
 		},
 		addMarker : function(options) {
-			return leaflet.marker(options).addTo(this.event_map);
+			return leaflet.marker(options).addTo(this.markerGroup);
+		},
+		clearMarkers : function() {
+			this.markerGroup.clearLayers();
 		},
 		getMap: function() {
 			return this.event_map;
@@ -53,7 +59,7 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 		}
 		
 		var map = new EventMap(options);
-
+		
 		if (options.lat && options.lng) {
 			map.moveToLatLng(options.lat, options.lng);
 		}

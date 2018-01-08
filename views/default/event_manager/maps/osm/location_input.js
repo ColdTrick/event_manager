@@ -26,13 +26,16 @@ define(['jquery', 'event_manager/osm'], function($, EventMap) {
 	var executeSearch = function() {
 		var $search_form = $('#event-manager-edit-maps-search-container');
 		
+		event_map.clearMarkers();
+		
 		event_map.getGeocode($search_form.find('input[name="address_search"]').val(), function(result) {
 			location_data = result;
 			
-			
 			$('#event-manager-edit-maps-search-container input[name="address_search"]').val(createAddress(location_data.address));
 						
-			$search_form.find('[name="address_search_save"]').removeClass('hidden');	
+			$search_form.find('[name="address_search_save"]').removeClass('hidden');
+			
+			event_map.moveToLatLng(location_data.lat, location_data.lon, true);
 		});
 	};
 
@@ -55,11 +58,16 @@ define(['jquery', 'event_manager/osm'], function($, EventMap) {
 						if (!event_map) {
 							var lat = $('#event_manager_event_edit input[name="latitude"]').val();
 							var lng = $('#event_manager_event_edit input[name="longitude"]').val();
+							
 							event_map = EventMap.setup({
-								element: 'event-manager-maps-location-search',
-								lat: lat, 
-								lng: lng
+								element: 'event-manager-maps-location-search'
 							});
+							if (lat && lng) {
+								event_map.moveToLatLng(lat, lng, true);
+							} else {
+								event_map.moveToDefaultLocation();
+							}
+							
 						}
 					});
 				}
