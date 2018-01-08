@@ -59,6 +59,43 @@ $maps .= elgg_view_field([
 	],
 ]);
 
+$maps .= elgg_view_field([
+	'#type' => 'fieldset',
+	'id' => 'event-manager-maps-provider-osm',
+	'class' => [
+		'event-manager-maps-provider',
+		($maps_provider == 'osm') ? '' : 'hidden',
+	],
+	'legend' => elgg_echo('event_manager:settings:osm'),
+	'fields' => [
+		[
+			'#type' => 'text',
+			'#label' => elgg_echo('event_manager:settings:osm:osm_default_location'),
+			'name' => 'params[osm_default_location]',
+			'value' => $plugin->getSetting('osm_default_location', 'Netherlands'),
+		],
+		[
+			'#type' => 'text',
+			'#label' => elgg_echo('event_manager:settings:osm:osm_default_location_lat'),
+			'name' => 'params[osm_default_location_lat]',
+			'value' => $plugin->getSetting('osm_default_location_lat', 52),
+		],
+		[
+			'#type' => 'text',
+			'#label' => elgg_echo('event_manager:settings:osm:osm_default_location_lng'),
+			'name' => 'params[osm_default_location_lng]',
+			'value' => $plugin->getSetting('osm_default_location_lng', 6),
+		],
+		[
+			'#type' => 'select',
+			'#label' => elgg_echo('event_manager:settings:osm:osm_default_zoom'),
+			'name' => 'params[osm_default_zoom]',
+			'value' => (int) $plugin->getSetting('osm_default_zoom', 7),
+			'options' => range(0, 19),
+		],
+	],
+]);
+
 echo elgg_view_module('inline', elgg_echo('event_manager:settings:maps'), $maps);
 
 // Other settings

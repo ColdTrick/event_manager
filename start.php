@@ -89,7 +89,8 @@ function event_manager_init() {
 		'src' => '//unpkg.com/leaflet@1.2.0/dist/leaflet.js',
 	]);
 	elgg_register_css('leafletjs', '//unpkg.com/leaflet@1.2.0/dist/leaflet.css');
-	elgg_define_js('event_manager/osm', ['src' => elgg_get_simplecache_url('js/event_manager/osm.js')]);
+	
+	elgg_register_plugin_hook_handler('elgg.data', 'site', 'event_manager_get_js_config');
 	
 	// page handlers
 	elgg_register_page_handler('events', '\ColdTrick\EventManager\PageHandler::events');

@@ -31,6 +31,25 @@ function event_manager_event_get_relationship_options() {
 }
 
 /**
+ * Returns elgg.data config
+ *
+ * @param string $hook        hook name
+ * @param string $entity_type hook type
+ * @param array  $returnvalue current return value
+ * @param array  $params      parameters
+ *
+ * @return array
+ */
+function event_manager_get_js_config($hook, $entity_type, $returnvalue, $params) {
+	$plugin = elgg_get_plugin_from_id('event_manager');
+	$returnvalue['event_manager_osm_default_zoom'] = $plugin->getSetting('osm_default_zoom', 7);
+	$returnvalue['event_manager_osm_default_location_lat'] = $plugin->getSetting('osm_default_location_lat', 52);
+	$returnvalue['event_manager_osm_default_location_lng'] = $plugin->getSetting('osm_default_location_lng', 6);
+	
+	return $returnvalue;
+}
+
+/**
  * Search for events
  *
  * @param array $options search options

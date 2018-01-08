@@ -8,8 +8,6 @@ if (!$entity instanceof Event) {
 $lat = $entity->getLatitude();
 $long = $entity->getLongitude();
 
-$zoom_level = elgg_get_plugin_setting('leafletjs_zoom', 'event_manager', 10);
-
 if (empty($lat) || empty($long)) {
 	return;
 }

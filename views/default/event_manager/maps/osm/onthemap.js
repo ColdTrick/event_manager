@@ -34,15 +34,6 @@ define(['jquery', 'elgg'], function($, elgg) {
 						return;
 					}
 					
-//					elgg.event_manager.infowindow = new google.maps.InfoWindow();
-//
-//					var shadowIcon = new google.maps.MarkerImage("//chart.apis.google.com/chart?chst=d_map_pin_shadow",
-//						new google.maps.Size(40, 37),
-//						new google.maps.Point(0, 0),
-//						new google.maps.Point(12, 35));
-//					var ownIcon = "//maps.google.com/mapfiles/ms/icons/yellow-dot.png";
-//					var attendingIcon = "//maps.google.com/mapfiles/ms/icons/blue-dot.png";
-
 					$.each(response.markers, function(i, event) {
 						if (current_markers[event.guid]) {
 							// already added, so return
@@ -53,14 +44,6 @@ define(['jquery', 'elgg'], function($, elgg) {
 							lat: event.lat, 
 							lng: event.lng,
 						};
-						
-//						if (event.iscreator) {
-//							markerOptions.icon = ownIcon;
-//						} else {
-//							if (event.has_relation) {
-//								markerOptions.icon = attendingIcon;
-//							}
-//						}
 						
 						event_map.addMarker(markerOptions).bindPopup(event.html);
 						
@@ -78,10 +61,8 @@ define(['jquery', 'elgg'], function($, elgg) {
 		if (typeof event_map === 'undefined') {
 			require(['event_manager/osm'], function (EventMap) {
 				event_map = EventMap.setup({
-					element: 'event_manager_onthemap_canvas',
-					lat: 12,
-					lng: 12
-				});
+					element: 'event_manager_onthemap_canvas'
+				}).moveToDefaultLocation();
 				
 				event_map.getMap().on('moveend', execute_search_map);
 				execute_search_map();

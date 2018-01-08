@@ -1,9 +1,3 @@
-<?php
-
-$zoom_level = (int) elgg_get_plugin_setting('osm_default_zoom', 'event_manager', 10);
-
-?>
-//<script>
 define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 	function EventMap(options) {
 		this.event_map = leaflet.map(options.element);
@@ -21,12 +15,15 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 		
 	EventMap.prototype = {
 		moveToLatLng : function(lat, lng, add_marker) {
-			this.event_map.setView([lat, lng], <?= $zoom_level ?>);
+			this.event_map.setView([lat, lng], elgg.data.event_manager_osm_default_zoom);
 
 			if (add_marker == true) {
 				this.addMarker([lat, lng]);
 			}
 			
+		},
+		moveToDefaultLocation : function() {
+			this.event_map.setView([elgg.data.event_manager_osm_default_location_lat, elgg.data.event_manager_osm_default_location_lng], elgg.data.event_manager_osm_default_zoom);			
 		},
 		getGeocode : function(address, callback) {
 			var result = elgg.getJSON('http://nominatim.openstreetmap.org/search?q=' + address + '&format=json&limit=1&addressdetails=1', {
