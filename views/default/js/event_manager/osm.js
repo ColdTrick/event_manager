@@ -29,7 +29,7 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 			this.event_map.setView([elgg.data.event_manager_osm_default_location_lat, elgg.data.event_manager_osm_default_location_lng], elgg.data.event_manager_osm_default_zoom);			
 		},
 		getGeocode : function(address, callback) {
-			var result = elgg.getJSON('http://nominatim.openstreetmap.org/search?q=' + address + '&format=json&limit=1&addressdetails=1', {
+			var result = elgg.getJSON('//nominatim.openstreetmap.org/search?q=' + address + '&format=json&limit=1&addressdetails=1', {
 				success: function(data) {
 					callback(data[0]);
 				}
