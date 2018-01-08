@@ -261,23 +261,27 @@
 	width: 600px;
 }
 
-/* google maps */
-.gmaps_infowindow,
-.gmaps_infowindow_text div.event_manager_event_view_owner {
+.maps_infowindow {
+	font-size: 11px;
+	display: flex;
+}
+.maps_infowindow_text div.event_manager_event_view_owner {
 	font-size: 11px;
 }
 
-.gmaps_infowindow_text {
-	float: left;
+.maps_infowindow_text {
 	width: 250px;
 }
 
-.gmaps_infowindow_icon {
-	float: right;
+.maps_infowindow_icon {
 	height: 100px;
 	width: 100px;
 	padding: 10px;
 	border: 1px solid #CCCCCC;
+}
+
+.leaflet-container .elgg-button {
+	color: white; /* fix for leaflet taking over color of links */
 }
 
 #event_manager_onthemap_canvas {
@@ -285,6 +289,7 @@
 	margin-bottom: 20px;
 }
 
+/* google maps */
 #event_manager_onthemap_legend {
 	padding: 5px 0px;
 	text-align: center;
