@@ -52,12 +52,6 @@ define(['jquery', 'elgg'], function($, elgg) {
 						var markerOptions = {
 							lat: event.lat, 
 							lng: event.lng,
-//							animation: google.maps.Animation.DROP,
-//							title: event.title,
-//							shadow: shadowIcon,
-//							infoWindow: {
-//								content: event.html
-//							},
 						};
 						
 //						if (event.iscreator) {
@@ -68,7 +62,7 @@ define(['jquery', 'elgg'], function($, elgg) {
 //							}
 //						}
 						
-						event_map.addMarker(markerOptions);
+						event_map.addMarker(markerOptions).bindPopup(event.html);
 						
 						current_markers[event.guid] = true;
 					});
@@ -88,6 +82,8 @@ define(['jquery', 'elgg'], function($, elgg) {
 					lat: 12,
 					lng: 12
 				});
+				
+				event_map.getMap().on('moveend', execute_search_map);
 				execute_search_map();
 			});
 		} else {
