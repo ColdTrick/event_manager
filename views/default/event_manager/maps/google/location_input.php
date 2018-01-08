@@ -1,10 +1,5 @@
 <?php
 
-$entity = elgg_extract('entity', $vars);
-if (!$entity instanceof Event) {
-	return;
-}
-
 elgg_require_js('event_manager/maps/google/location_input');
 
 $field_options = (array) elgg_extract('field_options', $vars);

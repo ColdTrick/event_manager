@@ -1,10 +1,5 @@
 <?php
 
-$entity = elgg_extract('entity', $vars);
-if (!$entity instanceof Event) {
-	return;
-}
-
 elgg_require_js('event_manager/maps/osm/location_input');
 elgg_load_css('leafletjs');
 
