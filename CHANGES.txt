@@ -1,6 +1,17 @@
 Version history
 ===============
 
+9.0 (2018-01-11):
+
+- added: ability to change some event data during copy action
+- added: ability to set default location of OSM map view
+- added: maps data can now come from OpenStreetMap
+- added: plugin setting to disable maps integration
+- changed: all actions have been updated to return correct http responses
+- changed: moved googlemaps specific code to own views
+- fixed: show correct icon for logged out user registrations
+- fixed: use output/longtext on event registration view page
+
 8.2 (2017-09-06):
 
 - added: more information in Event->toObject()
