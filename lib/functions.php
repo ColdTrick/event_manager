@@ -78,6 +78,7 @@ function event_manager_search_events($options = []) {
 		'event_end' => null,
 		'search_type' => "list",
 		'user_guid' => elgg_get_logged_in_user_guid(),
+		'metadata_name_value_pairs' => [],
 	];
 
 	$options = array_merge($defaults, $options);
@@ -89,6 +90,7 @@ function event_manager_search_events($options = []) {
 		'limit' => $options['limit'],
 		'joins' => [],
 		'wheres' => [],
+		'metadata_name_value_pairs' => $options['metadata_name_value_pairs'],
 		'order_by_metadata' => [
 			'name' => 'event_start',
 			'direction' => 'ASC',

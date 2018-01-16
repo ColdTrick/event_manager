@@ -3,17 +3,26 @@
 $events_options = [
 	'limit' => false,
 	'past_events' => true,
+	'metadata_name_value_pairs' => [],
 ];
 
 $start = get_input('start');
 $end = get_input('end');
 
 if ($start) {
-	$events_options['event_start'] = strtotime($start);
+	$events_options['metadata_name_value_pairs'][] = [
+		'name' => 'event_end',
+		'value' => strtotime($start),
+		'operand' => '>='
+	];
 }
 
 if ($end) {
-	$events_options['event_end'] = strtotime($end);
+	$events_options['metadata_name_value_pairs'][] = [
+		'name' => 'event_start',
+		'value' => strtotime($end),
+		'operand' => '<='
+	];
 }
 
 $container_guid = (int) get_input('container_guid');
