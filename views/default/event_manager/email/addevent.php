@@ -32,7 +32,8 @@ if (!empty($event->location)) {
 }
 
 // removing HTML and shorter because of URL length limitations
-$description .= $event->getExcerpt(500);
+$description .= $event->getExcerpt(500) . PHP_EOL . PHP_EOL;
+$description .= $event->getURL();
 
 $url_params = [
 	'client' => 'ak1qmrp10zvwxx2cimhv206',
@@ -42,8 +43,8 @@ $url_params = [
 	'end' => $event->getEndDate('d/m/Y'),
 	'endtime' => $event->getEndDate('H:i:00'),
 	'title' => $event->title,
-	'description' => $description,
 	'location' => $event->location ?: $event->venue,
+	'description' => $description,
 ];
 
 echo '<table><tr>';

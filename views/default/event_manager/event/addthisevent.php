@@ -24,7 +24,9 @@ if (!empty($event->location)) {
 	$description .= $event->venue . PHP_EOL;
 }
 
-$description .= $event->getExcerpt(100000);
+// removing HTML and shorter because of URL length limitations
+$description .= $event->getExcerpt(500) . PHP_EOL . PHP_EOL;
+$description .= $event->getURL();
 
 ?>
 <span class="addthisevent">
@@ -33,8 +35,8 @@ $description .= $event->getExcerpt(100000);
 		<span class="start"><?php echo $start; ?></span>
 		<span class="end"><?php echo $end; ?></span>
 		<span class="title"><?php echo $title; ?></span>
-		<span class="description"><?php echo $description; ?></span>
 		<span class="location"><?php echo $location; ?></span>
 		<span class="date_format">DD/MM/YYYY</span>
+		<span class="description"><?php echo $description; ?></span>
 	</div>
 </span>
