@@ -37,13 +37,19 @@ $result = [];
 foreach ($events['entities'] as $event) {
 	
 	$start = $event->getStartDate();
-	$end = $event->getEndDate();
+	$end = $event->getEndDate('c');
+	
+	$all_day = $event->isMultiDayEvent();
+	if ($all_day) {
+		// needed for fullcalendar behaviour of allday events
+		$end = date('c', strtotime($end . ' +1 day'));
+	}
 	
 	$event_result = [
 		'title' => $event->title,
 		'start' => $start,
 		'end' => $end,
-		'allDay' => $event->isMultiDayEvent(),
+		'allDay' => $all_day,
 		'url' => $event->getURL(),
 	];
 	
