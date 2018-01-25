@@ -39,7 +39,7 @@ define(['jquery', 'event_manager/osm'], function($, EventMap) {
 		});
 	};
 
-	$('#event_manager_event_edit input[name="location"]').on('click', function() {
+	$('#event_manager_event_edit input[name="location"]').on('focus', function() {
 		var $elem = $(this);
 
 		require(['elgg/lightbox'], function(lightbox) {

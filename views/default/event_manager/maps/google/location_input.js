@@ -6,7 +6,7 @@ define(['jquery'], function($) {
 		$search_form.find('[name="address_search_save"]').removeClass('hidden');
 	};
 	
-	$('#event_manager_event_edit input[name="location"]').on('click', function() {
+	$('#event_manager_event_edit input[name="location"]').on('focus', function() {
 		var $elem = $(this);
 
 		require(['elgg/lightbox'], function(lightbox) {
