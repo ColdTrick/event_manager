@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3bba5bce2e3c03e109468f599c1d3b83",
-    "content-hash": "634e88fa19f004c495bbf907740ce17c",
+    "content-hash": "a6a6ae52faf20beff3e77cbed6c6b848",
     "packages": [
         {
             "name": "bower-asset/fullcalendar",
@@ -237,7 +236,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-08-13 20:53:52"
+            "time": "2016-08-13T20:53:52+00:00"
         },
         {
             "name": "dompdf/dompdf",
@@ -278,7 +277,7 @@
             ],
             "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
             "homepage": "https://github.com/dompdf/dompdf",
-            "time": "2015-12-07 04:07:13"
+            "time": "2015-12-07T04:07:13+00:00"
         },
         {
             "name": "phenx/php-font-lib",
@@ -312,7 +311,7 @@
             ],
             "description": "A library to read, parse, export and make subsets of different types of font files.",
             "homepage": "https://github.com/PhenX/php-font-lib",
-            "time": "2014-02-01 15:22:28"
+            "time": "2014-02-01T15:22:28+00:00"
         }
     ],
     "packages-dev": [
@@ -341,7 +340,7 @@
                 "release",
                 "travis"
             ],
-            "time": "2016-10-05 09:32:34"
+            "time": "2016-10-05T09:32:34+00:00"
         },
         {
             "name": "coldtrick/sniffs",
@@ -368,7 +367,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Elgg coding standards",
-            "time": "2015-02-17 14:47:25"
+            "time": "2015-02-17T14:47:25+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -446,7 +445,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2016-09-01 23:53:02"
+            "time": "2016-09-01T23:53:02+00:00"
         }
     ],
     "aliases": [],
