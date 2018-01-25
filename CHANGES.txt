@@ -1,6 +1,12 @@
 Version history
 ===============
 
+9.0.1 (2018-01-25):
+
+- fixed: correct show end day for allday events on the calendar
+- fixed: event calendar not showing all events
+- fixed: length of description in addthisevent data could cause URL issues
+
 9.0 (2018-01-11):
 
 - added: ability to change some event data during copy action
