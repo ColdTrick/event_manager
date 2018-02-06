@@ -49,10 +49,13 @@ define(['jquery', 'event_manager/osm'], function($, EventMap) {
 				'onComplete': function () {
 					
 					var current_location = $elem.val();
+					var $container = $('#event-manager-edit-maps-search-container');
 					if (current_location) {
-						$('#event-manager-edit-maps-search-container input[name="address_search"]').val(current_location);
-						$('#event-manager-edit-maps-search-container [name="address_search_save"]').removeClass('hidden');
+						$container.find('input[name="address_search"]').val(current_location);
+						$container.find('[name="address_search_save"]').removeClass('hidden');
 					}
+					
+					$container.find('input[name="address_search"]').focus();
 					
 					require(['leafletjs'], function (leaflet) {
 						if (!event_map) {
