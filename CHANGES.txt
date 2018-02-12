@@ -1,6 +1,11 @@
 Version history
 ===============
 
+9.0.2 (2018-02-12):
+
+- added: address search field gets focus on lightbox open
+- fixed: open location input on focus instead of on click
+
 9.0.1 (2018-01-25):
 
 - fixed: correct show end day for allday events on the calendar
