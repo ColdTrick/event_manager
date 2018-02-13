@@ -183,6 +183,10 @@
 	height: 400px;
 }
 
+.event-manager-contact-details .elgg-output {
+	margin: 0;
+}
+
 /* Event tool links */
 .event_manager_event_actions_drop_down {
     background: #FFFFFF;

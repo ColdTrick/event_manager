@@ -14,14 +14,14 @@ $organizer = $event->organizer;
 if ($organizer) {
 	$contact_information .= '<div class="clearfix">';
 	$contact_information .= '<div class="elgg-col elgg-col-1of6">' . elgg_view_icon('user', ['title' => elgg_echo('event_manager:edit:form:organizer')]) . '</div>';
-	$contact_information .= '<div class="elgg-col elgg-col-5of6">' . $organizer . '</div>';
+	$contact_information .= '<div class="elgg-col elgg-col-5of6">' . elgg_view('output/longtext', ['value' => $organizer]) . '</div>';
 	$contact_information .= '</div>';
 }
 
 if ($contact_details) {
 	$contact_information .= '<div class="clearfix">';
 	$contact_information .= '<div class="elgg-col elgg-col-1of6">' . elgg_view_icon('info-circle', ['title' => elgg_echo('event_manager:edit:form:contact_details')]) . '</div>';
-	$contact_information .= '<div class="elgg-col elgg-col-5of6">' . elgg_view('output/text', ['value' => $contact_details]) . '</div>';
+	$contact_information .= '<div class="elgg-col elgg-col-5of6">' . elgg_view('output/longtext', ['value' => $contact_details]) . '</div>';
 	$contact_information .= '</div>';
 }
 
@@ -37,8 +37,7 @@ if ($website) {
 }
 
 if (!empty($contact_information)) {
-// 	$contact_information = elgg_format_element('table', [], $contact_information);
-	echo elgg_view_module('aside', elgg_echo('event_manager:edit:form:tabs:contact'), $contact_information);
+	echo elgg_view_module('aside', elgg_echo('event_manager:edit:form:tabs:contact'), $contact_information, ['class' => 'event-manager-contact-details']);
 }
 
 $contact_guids = $event->contact_guids;
