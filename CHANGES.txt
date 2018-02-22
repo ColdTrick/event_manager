@@ -1,6 +1,10 @@
 Version history
 ===============
 
+9.0.3 (2018-02-22):
+
+- changed: free text contact details now use output/longtext
+
 9.0.2 (2018-02-12):
 
 - added: address search field gets focus on lightbox open
