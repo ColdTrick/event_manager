@@ -19,13 +19,16 @@ echo elgg_format_element('div', [
 	'class' => 'event-manager-event-view-maps',
 ]);
 
+$event_zoom_level = (int) elgg_get_plugin_setting('osm_detail_zoom', 'event_manager', 12);
+
 ?>
 <script>
 	require(['event_manager/osm'], function (EventMap) {
 		EventMap.setup({
 			element: 'event-manager-leafletjs-map',
 			lat: <?= $lat ?>,
-			lng: <?= $long ?>
+			lng: <?= $long ?>,
+			zoom: <?= $event_zoom_level ?>,
 		}).addMarker({
 			lat: <?= $lat ?>,
 			lng: <?= $long ?>

@@ -56,6 +56,13 @@ $maps .= elgg_view_field([
 			'value' => (int) $plugin->getSetting('google_maps_default_zoom', 10),
 			'options' => range(0, 19),
 		],
+		[
+			'#type' => 'select',
+			'#label' => elgg_echo('event_manager:settings:google_maps:google_maps_detail_zoom'),
+			'name' => 'params[google_maps_detail_zoom]',
+			'value' => (int) $plugin->getSetting('google_maps_detail_zoom', 12),
+			'options' => range(0, 19),
+		],
 	],
 ]);
 
@@ -91,6 +98,13 @@ $maps .= elgg_view_field([
 			'#label' => elgg_echo('event_manager:settings:osm:osm_default_zoom'),
 			'name' => 'params[osm_default_zoom]',
 			'value' => (int) $plugin->getSetting('osm_default_zoom', 7),
+			'options' => range(0, 19),
+		],
+		[
+			'#type' => 'select',
+			'#label' => elgg_echo('event_manager:settings:osm:osm_detail_zoom'),
+			'name' => 'params[osm_detail_zoom]',
+			'value' => (int) $plugin->getSetting('osm_detail_zoom', 12),
 			'options' => range(0, 19),
 		],
 	],

@@ -1,6 +1,6 @@
 define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 	function EventMap(options) {
-		this.event_map = leaflet.map(options.element);
+		this.event_map = leaflet.map(options.element, options);
 
 		// create the tile layer with correct attribution
 		var osmUrl = '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -18,7 +18,7 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 		
 	EventMap.prototype = {
 		moveToLatLng : function(lat, lng, add_marker) {
-			this.event_map.setView([lat, lng], elgg.data.event_manager_osm_default_zoom);
+			this.event_map.setView([lat, lng]);
 
 			if (add_marker == true) {
 				this.addMarker([lat, lng]);
@@ -26,7 +26,7 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 			
 		},
 		moveToDefaultLocation : function() {
-			this.event_map.setView([elgg.data.event_manager_osm_default_location_lat, elgg.data.event_manager_osm_default_location_lng], elgg.data.event_manager_osm_default_zoom);			
+			this.event_map.setView([elgg.data.event_manager_osm_default_location_lat, elgg.data.event_manager_osm_default_location_lng]);			
 		},
 		getGeocode : function(address, callback) {
 			var result = elgg.getJSON('//nominatim.openstreetmap.org/search?q=' + address + '&format=json&limit=1&addressdetails=1', {
@@ -53,6 +53,10 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 			options = {};
 		}
 
+		if (!options.zoom) {
+			options.zoom = elgg.data.event_manager_osm_default_zoom;
+		}
+		
 		if (!options.element) {
 			console.log('Missing element to initialize map');
 			return false;
