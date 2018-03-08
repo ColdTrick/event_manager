@@ -1,6 +1,10 @@
 Version history
 ===============
 
+9.1 (2018-03-08):
+
+- added: plugin setting to control different zoom level for event details
+
 9.0.3 (2018-02-22):
 
 - changed: free text contact details now use output/longtext
