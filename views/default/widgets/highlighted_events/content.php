@@ -10,24 +10,39 @@ if (empty($event_guids)) {
 }
 
 $events = [];
-foreach ($event_guids as $event_guid) {
-	$event = get_entity($event_guid);
-	if (!($event instanceof \Event)) {
-		continue;
-	}
+
+$entities = elgg_get_entities([
+	'type' => 'object',
+	'subtype' => 'event',
+	'guids' => $event_guids,
+	'preload_owners' => true,
+	'preload_containers' => true,
+]);
+
+foreach ($entities as $event) {
 	if (!$show_past_events) {
 		if ($event->getEndTimestamp() < time()) {
 			continue;
 		}
 	}
 	
-	$events[] = $event;
+	$events[$event->guid] = $event;
 }
 
-if (empty($events)) {
+$sorted_entities = [];
+foreach ($event_guids as $guid) {
+	$entity = elgg_extract($guid, $events);
+	if (!$entity) {
+		continue;
+	}
+	
+	$sorted_entities[] = $entity;
+}
+
+if (empty($sorted_entities)) {
 	echo elgg_echo('notfound');
 } else {
-	echo elgg_view_entity_list($events, [
+	echo elgg_view_entity_list($sorted_entities, [
 		'full_view' => false,
 		'no_results' => elgg_echo('notfound'),
 	]);
