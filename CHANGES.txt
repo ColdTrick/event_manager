@@ -1,6 +1,10 @@
 Version history
 ===============
 
+9.1.1 (2018-03-22):
+
+- changed: fetch entities in bulk in highlighted events widget
+
 9.1 (2018-03-08):
 
 - added: plugin setting to control different zoom level for event details
