@@ -294,6 +294,7 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:event:view:date' => 'Date',
 	'event_manager:event:view:createdby' => 'Created by',
 	'event_manager:event:view:contact_persons' => 'Contact persons',
+	'event_manager:event:view:attendees:more' => '+ %s more',
 
 	// relationships
 	'event_manager:event:relationship:event_attending' => 'Attending',
