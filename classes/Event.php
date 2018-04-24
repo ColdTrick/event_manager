@@ -846,6 +846,35 @@ class Event extends ElggObject {
 
 		return $result;
 	}
+	
+	/**
+	 * Returns the supported relationships for this event (primarily used for presentations purpose)
+	 *
+	 * @return []
+	 */
+	public function getSupportedRelationships() {
+		$relationships = [
+			EVENT_MANAGER_RELATION_ATTENDING,
+		];
+		
+		if (elgg_get_plugin_setting('rsvp_interested', 'event_manager') !== 'no') {
+			$relationships[] = EVENT_MANAGER_RELATION_INTERESTED;
+		}
+		
+		if ($this->canEdit()) {
+			if ($this->waiting_list_enabled) {
+				$relationships[] = EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST;
+			}
+			$relationships[] = EVENT_MANAGER_RELATION_ATTENDING_PENDING;
+		}
+		
+		$result = [];
+		foreach ($relationships as $rel) {
+			$result[$rel] = elgg_echo("event_manager:event:relationship:{$rel}:label");
+		}
+		
+		return $result;
+	}
 
 	/**
 	 * Returns the registration form questions
