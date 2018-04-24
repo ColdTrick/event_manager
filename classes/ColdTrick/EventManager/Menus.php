@@ -399,12 +399,14 @@ class Menus {
 			return;
 		}
 		
+		$relationship = elgg_extract('relationship', $params);
 		$valid_relationships = $entity->getSupportedRelationships();
 		foreach ($valid_relationships as $rel => $label) {
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => $rel,
 				'text' => $label,
 				'href' => "events/event/attendees/{$entity->guid}/{$rel}",
+				'selected' => $relationship === $rel,
 			]);
 		}
 		

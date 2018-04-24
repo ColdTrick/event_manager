@@ -50,6 +50,7 @@ function event_manager_init() {
 	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:' . Event::SUBTYPE, '\ColdTrick\EventManager\Notifications::prepareCreateEventNotification');
 
 	// register ajax views
+	elgg_register_ajax_view('event_manager/event/attendees_list');
 	elgg_register_ajax_view('event_manager/event/maps/route');
 	elgg_register_ajax_view('event_manager/forms/program/day');
 	elgg_register_ajax_view('event_manager/forms/program/slot');

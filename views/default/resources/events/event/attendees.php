@@ -47,7 +47,18 @@ if ($entity->canEdit()) {
 // build page elements
 $title = elgg_echo('event_manager:event:attendees:title', [$entity->getDisplayName(), $rel_text]);
 
-$content = elgg_view('event_manager/event/attendees_list', [
+// search form
+$content = elgg_view_form('event_manager/event/attendees', [
+	'action' => "events/event/attendees/{$entity->guid}/{$relationship}",
+	'method' => 'GET',
+	'disable_security' => true,
+], [
+	'entity' => $entity,
+	'relationship' => $relationship,
+]);
+
+// attendees listing
+$content .= elgg_view('event_manager/event/attendees_list', [
 	'entity' => $entity,
 	'relationship' => $relationship,
 ]);
@@ -56,6 +67,7 @@ $tabs = elgg_view_menu('event_attendees', [
 	'sort_by' => 'priority',
 	'class' => 'elgg-menu-hz elgg-tabs',
 	'entity' => $entity,
+	'relationship' => $relationship,
 ]);
 
 // build page
