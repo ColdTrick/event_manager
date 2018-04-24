@@ -20,7 +20,7 @@ foreach ($supported_relationships as $rel => $label) {
 	
 	$members = $relationships[$rel];
 	$total = count($members);
-	$member_limit = 3;
+	$member_limit = 10;
 	
 	$rel_title = '';
 	if ($can_edit) {
