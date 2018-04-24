@@ -130,6 +130,20 @@ class PageHandler {
 							'guid' => (int) elgg_extract(2, $page),
 						]);
 						return true;
+					case 'attendees':
+						
+						$guid = (int) elgg_extract(2, $page);
+						$relationship = elgg_extract(3, $page, EVENT_MANAGER_RELATION_ATTENDING);
+						
+						// setting input to be used in user_hover menu
+						set_input('guid', $guid);
+						
+						echo elgg_view_resource('events/event/attendees', [
+							'guid' => $guid,
+							'relationship' => $relationship,
+						]);
+						return true;
+						break;
 				}
 			default:
 				forward('events');

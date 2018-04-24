@@ -4,6 +4,8 @@
  *
  * @package EventManager
  *
+ * @property string name  the name of the user
+ * @property string email the e-mail address of the user
  */
 class EventRegistration extends \ElggObject {
 	const SUBTYPE = 'eventregistration';
@@ -33,5 +35,34 @@ class EventRegistration extends \ElggObject {
 		}
 
 		return parent::canEdit($user_guid);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getDisplayName() {
+		if (isset($this->name)) {
+			return $this->name;
+		}
+		
+		return parent::getDisplayName();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @return Event
+	 */
+	public function getOwnerEntity() {
+		return parent::getOwnerEntity();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @return Event
+	 */
+	public function getContainerEntity() {
+		return parent::getContainerEntity();
 	}
 }

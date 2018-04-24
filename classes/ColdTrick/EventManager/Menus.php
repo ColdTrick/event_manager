@@ -381,4 +381,33 @@ class Menus {
 		
 		return $returnvalue;
 	}
+	
+	/**
+	 * Register tabs for the event attendees page
+	 *
+	 * @param string          $hook        hook name
+	 * @param string          $entity_type hook type
+	 * @param \ElggMenuItem[] $returnvalue current return value
+	 * @param array           $params      parameters
+	 *
+	 * @return void|\ElggMenuItem[]
+	 */
+	public static function registerEventAttendees($hook, $entity_type, $returnvalue, $params) {
+		
+		$entity = elgg_extract('entity', $params);
+		if (!$entity instanceof \Event) {
+			return;
+		}
+		
+		$valid_relationships = $entity->getSupportedRelationships();
+		foreach ($valid_relationships as $rel => $label) {
+			$returnvalue[] = \ElggMenuItem::factory([
+				'name' => $rel,
+				'text' => $label,
+				'href' => "events/event/attendees/{$entity->guid}/{$rel}",
+			]);
+		}
+		
+		return $returnvalue;
+	}
 }
