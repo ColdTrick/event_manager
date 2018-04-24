@@ -1,7 +1,7 @@
 <?php
 
 $event = elgg_extract('entity', $vars);
-if (!$event) {
+if (!$event instanceof \Event) {
 	return;
 }
 
@@ -42,49 +42,13 @@ foreach ($ordered_relationships as $rel) {
 				'text' => elgg_view_icon('download'),
 				'class' => 'float-alt'
 			]);
-			
-			// add attendee search
-			$search_box = elgg_view('input/text', [
-				'name' => 'q',
-				'class' => 'mrs hidden',
-				'autocomplete' => 'off',
-				'data-toggle-slide' => 0,
-			]);
-			$search_box .= elgg_view_icon('search', [
-				'rel' => 'toggle',
-				'data-toggle-selector' => '.event-manager-event-view-search-attendees .elgg-input-text',
-				'class' => 'link',
-			]);
-				
-			$rel_title .= elgg_format_element('span', [
-				'class' => 'event-manager-event-view-search-attendees float-alt',
-				'title' => elgg_echo('event_manager:event:search_attendees'),
-			], $search_box);
-				
 		}
 		$rel_title .= elgg_echo("event_manager:event:relationship:{$rel}:label") . ' (' . count($members) . ')';
 		
 		$rel_content = '';
 		foreach ($members as $member) {
 			$member_entity = get_entity($member);
-			$member_info = elgg_view_entity_icon($member_entity, 'small', ['event' => $event, 'class' => 'float mrs']);
-			
-			if ($can_edit) {
-				$rel = $member_entity->name;
-				
-				if ($member_entity instanceof ElggUser) {
-					$rel .= ' ' . $member_entity->username;
-				} else {
-					$rel .= ' ' . $member_entity->email;
-				}
-				
-				$member_info = elgg_format_element('span',[
-					'class' => 'event-manager-event-view-attendee-info',
-					'rel' => $rel
-				], $member_info);
-			}
-			
-			$rel_content .= $member_info;
+			$rel_content .= elgg_view_entity_icon($member_entity, 'small', ['event' => $event, 'class' => 'float mrs']);
 		}
 			
 		echo elgg_view_module('info', $rel_title, $rel_content, ['class' => 'event-manager-event-view-attendees']);

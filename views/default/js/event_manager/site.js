@@ -28,19 +28,6 @@ elgg.event_manager.slot_set_init = function() {
 	}
 };
 
-elgg.event_manager.search_attendees = function(q) {
-	if(q === ""){
-		$(".event-manager-event-view-attendee-info").show();
-	} else {
-		$(".event-manager-event-view-attendee-info").hide();
-		$(".event-manager-event-view-attendee-info").each(function(){
-			if ($(this).attr("rel").toUpperCase().indexOf(q.toUpperCase()) >= 0) {
-				$(this).show();
-			}
-		});
-	}
-};
-
 elgg.event_manager.init = function() {
 
 	elgg.event_manager.slot_set_init();
@@ -98,10 +85,6 @@ elgg.event_manager.init = function() {
 		});
 
 		$('#event_manager_program_guids').val(guids.join(','));
-	});
-
-	$(document).on('keyup', '.event-manager-event-view-search-attendees .elgg-input-text', function(){
-		elgg.event_manager.search_attendees($(this).val());
 	});
 };
 

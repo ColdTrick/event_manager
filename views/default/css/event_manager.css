@@ -128,27 +128,6 @@
 	font-size: 1em;
 }
 
-.event-manager-event-view-search-attendees {
-	position: relative;
-}
-.event-manager-event-view-search-attendees .elgg-icon {
-	vertical-align: top;
-}
-
-.event-manager-event-view-search-attendees .elgg-input-text {
-	font-size: 12px;
-	height: 25px;
-	padding: 5px;
-	position: absolute;
-	right: 20px;
-	top: -3px;
-	width: 150px;
-}
-
-.event-manager-event-view-search-attendees .elgg-input-text:focus {
-	background: white;
-}
-
 .event-manager-event-when {
 	margin-bottom: 15px;
 }
