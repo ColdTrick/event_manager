@@ -5,7 +5,7 @@ if (!$event instanceof \Event) {
 	return;
 }
 
-$relationships = $event->getRelationships();
+$relationships = $event->getRelationships(false, 'DESC');
 if (empty($relationships)) {
 	return;
 }

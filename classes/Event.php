@@ -805,17 +805,23 @@ class Event extends ElggObject {
 	/**
 	 * Returns all relationships with their count
 	 *
-	 * @param bool $count return count or array
+	 * @param bool   $count return count or array
+	 * @param string $order order of timecreated sorting
 	 *
 	 * @return boolean|array
 	 */
-	public function getRelationships($count = false) {
+	public function getRelationships($count = false, $order = 'ASC') {
 		$event_guid = $this->getGUID();
+		
 
 		if ($count) {
 			$query = "SELECT relationship, count(*) as count FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid GROUP BY relationship ORDER BY relationship ASC";
 		} else {
-			$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid ORDER BY relationship ASC, time_created ASC";
+			if (!in_array($order, ['ASC', 'DESC'])) {
+				$order = 'ASC';
+			}
+			
+			$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid ORDER BY relationship ASC, time_created {$order}";
 		}
 
 		$all_relations = get_data($query);
