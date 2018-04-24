@@ -26,11 +26,11 @@ if (elgg_is_logged_in()) {
 	if (in_array($user_relation, $event_relationship_options)) {
 		$event_relationship_options = [$user_relation];
 	}
-	
+		
 	foreach ($event_relationship_options as $rel) {
 		if (($rel == EVENT_MANAGER_RELATION_ATTENDING) || ($rel == EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST) || $event->$rel) {
 			
-			if ($rel == EVENT_MANAGER_RELATION_ATTENDING) {
+			if ($rel == EVENT_MANAGER_RELATION_ATTENDING && ($user_relation !== EVENT_MANAGER_RELATION_ATTENDING)) {
 				if (!$event->hasEventSpotsLeft() && !$event->waiting_list_enabled) {
 					continue;
 				}
