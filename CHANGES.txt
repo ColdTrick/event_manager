@@ -1,6 +1,16 @@
 Version history
 ===============
 
+9.2 (2018-05-03):
+
+- added: event->getRelationships now supports changing time order
+- added: Event function for getting supported relationships
+- added: search on event attendees page
+- added: seperate page for event attendees
+- changed: limited ordering of members on event detail page
+- changed: removed the attendees search feature from event view page
+- fix: allow users to unsubscribe from full events
+
 9.1.1 (2018-03-22):
 
 - changed: fetch entities in bulk in highlighted events widget
