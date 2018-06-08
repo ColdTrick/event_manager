@@ -17,7 +17,9 @@ if (elgg_get_plugin_setting('add_event_to_calendar', 'event_manager') !== 'no') 
 }
 
 elgg_set_page_owner_guid($event->getContainerGUID());
+$ia = elgg_set_ignore_access(true);
 $page_owner = elgg_get_page_owner_entity();
+elgg_set_ignore_access($ia);
 if ($page_owner instanceof ElggGroup) {
 	elgg_group_gatekeeper();
 	
