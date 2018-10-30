@@ -6,6 +6,8 @@ $title_text = elgg_echo('event_manager:list:title');
 
 $event_options = [];
 
+$event_options["event_start"] = strtotime(date("F d, Y 23:59:59", time()));
+
 $page_owner = elgg_get_page_owner_entity();
 if ($page_owner instanceof \ElggGroup) {
 	elgg_group_gatekeeper();
