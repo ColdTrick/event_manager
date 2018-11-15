@@ -110,7 +110,7 @@ $maps .= elgg_view_field([
 	],
 ]);
 
-echo elgg_view_module('inline', elgg_echo('event_manager:settings:maps'), $maps);
+echo elgg_view_module('info', elgg_echo('event_manager:settings:maps'), $maps);
 
 // Other settings
 $other = elgg_view_field([
@@ -151,11 +151,13 @@ $other .= elgg_view_field([
 ]);
 
 $other .= elgg_view_field([
-	'#type' => 'select',
+	'#type' => 'checkbox',
 	'#label' => elgg_echo('event_manager:settings:rsvp:interested'),
 	'name' => 'params[rsvp_interested]',
-	'value' => $plugin->rsvp_interested,
-	'options_values' => $yes_no_options,
+	'checked' => $plugin->rsvp_interested === 'yes',
+	'switch' => true,
+	'default' => 'no',
+	'value' => 'yes',
 ]);
 
 $other .= elgg_view_field([
@@ -166,12 +168,14 @@ $other .= elgg_view_field([
 ]);
 
 $other .= elgg_vieW_field([
-	'#type' => 'select',
+	'#type' => 'checkbox',
 	'#label' => elgg_echo('event_manager:settings:add_event_to_calendar'),
 	'#help' => elgg_echo('event_manager:settings:add_event_to_calendar:help'),
 	'name' => 'params[add_event_to_calendar]',
-	'value' => $plugin->add_event_to_calendar,
-	'options_values' => $yes_no_options,
+	'checked' => $plugin->add_event_to_calendar === 'yes',
+	'switch' => true,
+	'default' => 'no',
+	'value' => 'yes',
 ]);
 
-echo elgg_view_module('inline', elgg_echo('event_manager:settings:other'), $other);
+echo elgg_view_module('info', elgg_echo('event_manager:settings:other'), $other);
