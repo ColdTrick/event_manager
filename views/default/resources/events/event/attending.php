@@ -12,13 +12,13 @@ if ($user->guid === elgg_get_logged_in_user_guid()) {
 	$filter_context = 'attending';
 }
 
-$content = elgg_list_entities_from_relationship([
+$content = elgg_list_entities([
 	'type' => 'object',
 	'subtype' => \Event::SUBTYPE,
 	'relationship' => EVENT_MANAGER_RELATION_ATTENDING,
 	'relationship_guid' => $user->guid,
 	'inverse_relationship' => true,
-	'no_results' => elgg_echo('notfound'),
+	'no_results' => true,
 ]);
 
 $body = elgg_view_layout('content', [

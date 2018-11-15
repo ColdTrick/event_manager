@@ -13,7 +13,7 @@ if (!empty($email) && !is_email_address($email)) {
 }
 			
 // try to find a registration
-$registrations = elgg_get_entities_from_metadata([
+$registrations = elgg_get_entities([
 	'type' => 'object',
 	'subtype' => EventRegistration::SUBTYPE,
 	'owner_guid' => $entity->getGUID(),

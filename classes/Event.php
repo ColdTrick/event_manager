@@ -885,8 +885,8 @@ class Event extends ElggObject {
 	 */
 	public function getRegistrationFormQuestions($count = false) {
 		$dbprefix = elgg_get_config('dbprefix');
-		
-		$entities_options = [
+
+		return elgg_get_entities([
 			'type' => 'object',
 			'subtype' => 'eventregistrationquestion',
 			'joins' => [
@@ -894,7 +894,7 @@ class Event extends ElggObject {
 				"JOIN {$dbprefix}entity_relationships r on r.guid_one = e.guid"
 			],
 			'wheres' => [
-				'r.guid_two = ' . $this->getGUID(),
+				'r.guid_two = ' . $this->guid,
 				'r.relationship = "event_registrationquestion_relation"'
 			],
 			'order_by_metadata' => [
@@ -903,10 +903,8 @@ class Event extends ElggObject {
 				'as' => 'integer'
 			],
 			'count' => $count,
-			'limit' => false
-		];
-
-		return elgg_get_entities_from_metadata($entities_options);
+			'limit' => false,
+		]);
 	}
 
 	/**
@@ -1025,21 +1023,18 @@ class Event extends ElggObject {
 	 * @return false|int|\ColdTrick\EventManager\Event\Day[]
 	 */
 	public function getEventDays($order = 'ASC', $count = false) {
-		
-		$count = (bool) $count;
-		
-		return elgg_get_entities_from_relationship([
+		return elgg_get_entities([
 			'type' => 'object',
 			'subtype' => \ColdTrick\EventManager\Event\Day::SUBTYPE,
-			'relationship_guid' => $this->getGUID(),
+			'relationship_guid' => $this->guid,
 			'relationship' => 'event_day_relation',
 			'inverse_relationship' => true,
 			'order_by_metadata' => [
 				'name' => 'date',
-				'direction' => $order
+				'direction' => $order,
 			],
 			'limit' => false,
-			'count' => $count,
+			'count' => (bool) $count,
 		]);
 	}
 	
@@ -1060,12 +1055,11 @@ class Event extends ElggObject {
 	public function countAttendees() {
 		$old_ia = elgg_set_ignore_access(true);
 
-		$entities = elgg_get_entities_from_relationship([
+		$entities = elgg_get_entities([
 			'relationship' => EVENT_MANAGER_RELATION_ATTENDING,
-			'relationship_guid' => $this->getGUID(),
+			'relationship_guid' => $this->guid,
 			'inverse_relationship' => false,
 			'count' => true,
-			'site_guids' => false
 		]);
 
 		elgg_set_ignore_access($old_ia);
@@ -1081,12 +1075,11 @@ class Event extends ElggObject {
 	public function countWaiters() {
 		$old_ia = elgg_set_ignore_access(true);
 
-		$entities = elgg_get_entities_from_relationship([
+		$entities = elgg_get_entities([
 			'relationship' => EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
-			'relationship_guid' => $this->getGUID(),
+			'relationship_guid' => $this->guid,
 			'inverse_relationship' => false,
 			'count' => true,
-			'site_guids' => false
 		]);
 
 		elgg_set_ignore_access($old_ia);

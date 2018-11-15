@@ -209,18 +209,16 @@ function event_manager_search_events($options = []) {
 		$count_entities = elgg_get_entities_from_location($entities_options);
 
 	} else {
-		$entities = elgg_get_entities_from_metadata($entities_options);
+		$entities = elgg_get_entities($entities_options);
 
 		$entities_options['count'] = true;
-		$count_entities = elgg_get_entities_from_metadata($entities_options);
+		$count_entities = elgg_get_entities($entities_options);
 	}
 	
-	$result = [
+	return [
 		'entities' => $entities,
-		'count' => $count_entities
+		'count' => $count_entities,
 	];
-
-	return $result;
 }
 
 /**

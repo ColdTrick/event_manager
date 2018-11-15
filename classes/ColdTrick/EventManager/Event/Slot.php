@@ -24,12 +24,11 @@ class Slot extends \ElggObject {
 	public function countRegistrations() {
 		$old_ia = elgg_set_ignore_access(true);
 
-		$result = elgg_get_entities_from_relationship([
+		$result = elgg_get_entities([
 			'relationship' => EVENT_MANAGER_RELATION_SLOT_REGISTRATION,
 			'relationship_guid' => $this->getGUID(),
 			'inverse_relationship' => true,
 			'count' => true,
-			'site_guids' => false
 		]);
 
 		elgg_set_ignore_access($old_ia);

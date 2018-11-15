@@ -57,4 +57,4 @@ if (!empty($q)) {
 	$options['wheres'] = '((' . implode(') OR (', $wheres) . '))';
 }
 
-echo elgg_list_entities_from_relationship($options);
+echo elgg_list_entities($options);

@@ -13,11 +13,10 @@ $old_ia = elgg_set_ignore_access(true);
 
 $rows = [];
 
-$attendees = new \ElggBatch('elgg_get_entities_from_relationship', [
+$attendees = new \ElggBatch('elgg_get_entities', [
 	'relationship' => $rel,
 	'relationship_guid' => $event->getGUID(),
 	'inverse_relationship' => false,
-	'site_guids' => false,
 	'limit' => false,
 ]);
 

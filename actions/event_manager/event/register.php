@@ -117,7 +117,7 @@ if (elgg_is_logged_in()) {
 		}
 
 		// check for existing registration based on this email
-		$existing_entities = elgg_get_entities_from_metadata([
+		$existing_entities = elgg_get_entities([
 			'type' => 'object',
 			'subtype' => EventRegistration::SUBTYPE,
 			'owner_guid' => $event->getGUID(),
