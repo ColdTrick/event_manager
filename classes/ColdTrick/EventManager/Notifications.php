@@ -22,7 +22,7 @@ class Notifications {
 		$subject = elgg_echo('event_manager:notification:subject', [], $language);
 		$summary = elgg_echo('event_manager:notification:summary', [], $language);
 	
-		$body = elgg_echo('event_manager:notification:body', [$owner->name, $entity->title], $language);
+		$body = elgg_echo('event_manager:notification:body', [$owner->getDisplayName(), $entity->getDisplayName()], $language);
 	
 		if ($description = $entity->description) {
 			$body .= PHP_EOL . PHP_EOL . elgg_get_excerpt($description);

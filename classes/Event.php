@@ -74,7 +74,7 @@ class Event extends ElggObject {
 	 * @see ElggEntity::getURL()
 	 */
 	public function getURL() {
-		return elgg_get_site_url() . "events/event/view/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title);
+		return elgg_get_site_url() . "events/event/view/" . $this->guid . "/" . elgg_get_friendly_title($this->getDisplayName());
 	}
 
 	/**
@@ -241,7 +241,7 @@ class Event extends ElggObject {
 		// check if it is a user
 		$user_entity = get_user($user_guid);
 
-		$event_guid = $this->getGUID();
+		$event_guid = $this->guid;
 
 		// remove registrations
 		if ($type == EVENT_MANAGER_RELATION_UNDO) {
@@ -427,12 +427,12 @@ class Event extends ElggObject {
 		
 		$day = new \ColdTrick\EventManager\Event\Day();
 		$day->title = elgg_echo('event_manager:event:initial:day:title');
-		$day->container_guid = $this->getGUID();
-		$day->owner_guid = $this->getGUID();
+		$day->container_guid = $this->guid;
+		$day->owner_guid = $this->guid;
 		$day->access_id = $this->access_id;
 		$day->save();
 		$day->date = $this->getStartTimestamp();
-		$day->addRelationship($this->getGUID(), 'event_day_relation');
+		$day->addRelationship($this->guid, 'event_day_relation');
 	
 		$slot = new \ColdTrick\EventManager\Event\Slot();
 		$slot->title = elgg_echo('event_manager:event:initial:slot:title');
@@ -445,7 +445,7 @@ class Event extends ElggObject {
 		$slot->location = $this->location;
 		$slot->start_time = mktime('08', '00', 1, 0, 0, 0);
 		$slot->end_time = mktime('09', '00', 1, 0, 0, 0);
-		$slot->addRelationship($day->getGUID(), 'event_day_slot_relation');
+		$slot->addRelationship($day->guid, 'event_day_slot_relation');
 	}
 
 	/**
@@ -521,7 +521,7 @@ class Event extends ElggObject {
 
 		if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
 			if ($this->registration_needed) {
-				$link = elgg_get_site_url() . 'events/registration/view/' . $this->getGUID() . '?u_g=' . $to . '&k=' . elgg_build_hmac([$this->time_created, $to])->getToken();
+				$link = elgg_get_site_url() . 'events/registration/view/' . $this->guid . '?u_g=' . $to . '&k=' . elgg_build_hmac([$this->time_created, $to])->getToken();
 
 				$registrationLink = PHP_EOL . PHP_EOL;
 				$registrationLink .= elgg_echo('event_manager:event:registration:notification:program:linktext');
@@ -534,7 +534,7 @@ class Event extends ElggObject {
 			}
 
 			if ($this->register_nologin) {
-				$link = elgg_get_site_url() . "events/unsubscribe/" . $this->getGUID() . "/" . elgg_get_friendly_title($this->title) . "?e=" . $to_entity->email;
+				$link = elgg_get_site_url() . "events/unsubscribe/" . $this->guid . "/" . elgg_get_friendly_title($this->getDisplayName()) . "?e=" . $to_entity->email;
 
 				$unsubscribeLink = PHP_EOL . PHP_EOL;
 				$unsubscribeLink .= elgg_echo('event_manager:event:registration:notification:unsubscribe:linktext');
@@ -555,11 +555,11 @@ class Event extends ElggObject {
 		// make the event title for in the e-mail
 		if ($html_email_handler_enabled) {
 			$event_title_link = elgg_view("output/url", array(
-				"text" => $this->title,
+				"text" => $this->getDisplayName(),
 				"href" => $this->getURL(),
 			));
 		} else {
-			$event_title_link = $this->title;
+			$event_title_link = $this->getDisplayName();
 		}
 
 		// notify the owner of the event
@@ -569,15 +569,15 @@ class Event extends ElggObject {
 		$user_subject = elgg_echo('event_manager:event:registration:notification:user:subject');
 
 		$user_message = elgg_echo('event_manager:event:registration:notification:user:text:' . $type, [
-			$to_entity->name,
+			$to_entity->getDisplayName(),
 			$event_title_link,
 		]);
 		
 		if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
 			$completed_text = elgg_strip_tags($this->registration_completed, '<a>');
 			if (!empty($completed_text)) {
-				$completed_text = str_ireplace('[NAME]', $to_entity->name, $completed_text);
-				$completed_text = str_ireplace('[EVENT]', $this->title, $completed_text);
+				$completed_text = str_ireplace('[NAME]', $to_entity->getDisplayName(), $completed_text);
+				$completed_text = str_ireplace('[EVENT]', $this->getDisplayName(), $completed_text);
 				
 				$user_message .= PHP_EOL . PHP_EOL . $completed_text;
 			}
@@ -587,7 +587,7 @@ class Event extends ElggObject {
 
 		if ($to_entity instanceof ElggUser) {
 			// use notification system for real users
-			$summary = elgg_echo('event_manager:event:registration:notification:user:summary:' . $type, [$this->title]);
+			$summary = elgg_echo('event_manager:event:registration:notification:user:summary:' . $type, [$this->getDisplayName()]);
 			
 			// set params for site notifications
 			$params = [
@@ -599,7 +599,7 @@ class Event extends ElggObject {
 			notify_user($to, $this->getOwnerGUID(), $user_subject, $user_message, $params);
 		} else {
 			// send e-mail for non users
-			$to_email = $to_entity->name . "<" . $to_entity->email . ">";
+			$to_email = $to_entity->getDisplayName() . "<" . $to_entity->email . ">";
 
 			$site = elgg_get_site_entity($this->site_guid);
 			$site_from = $this->getSiteEmailAddress($site);
@@ -621,15 +621,15 @@ class Event extends ElggObject {
 		$site_from = '';
 		
 		if ($site->email) {
-			if ($site->name) {
-				$site_from = $site->name . " <" . $site->email . ">";
+			if ($site->getDisplayName()) {
+				$site_from = $site->getDisplayName() . " <" . $site->email . ">";
 			} else {
 				$site_from = $site->email;
 			}
 		} else {
 			// no site email, so make one up
-			if ($site->name) {
-				$site_from = $site->name . " <noreply@" . $site->getDomain() . ">";
+			if ($site->getDisplayName()) {
+				$site_from = $site->getDisplayName() . " <noreply@" . $site->getDomain() . ">";
 			} else {
 				$site_from = "noreply@" . $site->getDomain();
 			}
@@ -657,14 +657,14 @@ class Event extends ElggObject {
 		$owner_subject = elgg_echo('event_manager:event:registration:notification:owner:subject');
 
 		$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, [
-			$this->getOwnerEntity()->name,
-			$to->name,
+			$this->getOwnerEntity()->getDisplayName(),
+			$to->getDisplayName(),
 			$event_title_link,
 		]) . $registration_link;
 		
 		$summary = elgg_echo('event_manager:event:registration:notification:owner:summary:' . $type, [
-			$to->name,
-			$this->title,
+			$to->getDisplayName(),
+			$this->getDisplayName(),
 		]);
 		
 		// set params for site notifications
@@ -708,9 +708,9 @@ class Event extends ElggObject {
 
 			foreach ($slots as $slot) {
 				if ($relate) {
-					$entity->addRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION);
+					$entity->addRelationship($slot->guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION);
 				} else {
-					delete_data("DELETE FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one='" . $guid . "' AND guid_two='" . $slot->getGUID() . "'");
+					delete_data("DELETE FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one='" . $guid . "' AND guid_two='" . $slot->guid . "'");
 				}
 			}
 		}
@@ -792,7 +792,7 @@ class Event extends ElggObject {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
 
-		$event_guid = $this->getGUID();
+		$event_guid = $this->guid;
 
 		$row = get_data_row("SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid AND guid_two=$user_guid");
 		if ($row) {
@@ -811,7 +811,7 @@ class Event extends ElggObject {
 	 * @return boolean|array
 	 */
 	public function getRelationships($count = false, $order = 'ASC') {
-		$event_guid = $this->getGUID();
+		$event_guid = $this->guid;
 		
 
 		if ($count) {
@@ -913,7 +913,7 @@ class Event extends ElggObject {
 	 * @return boolean|entity
 	 */
 	protected function getFirstWaitingUser() {
-		$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one= '" . $this->getGUID() . "' AND relationship = '" . EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST . "' ORDER BY time_created ASC LIMIT 1";
+		$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one= '" . $this->guid . "' AND relationship = '" . EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST . "' ORDER BY time_created ASC LIMIT 1";
 
 		$waiting_users = get_data($query);
 		if (empty($waiting_users)) {
@@ -936,7 +936,7 @@ class Event extends ElggObject {
 
 		$rsvp = false;
 		if ($this->with_program) {
-			$waiting_for_slots = $this->getRegisteredSlotsForEntity($waiting_user->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
+			$waiting_for_slots = $this->getRegisteredSlotsForEntity($waiting_user->guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
 			if (!empty($waiting_for_slots)) {
 				foreach ($waiting_for_slots as $slot) {
 					if (!$slot->hasSpotsLeft()) {
@@ -944,8 +944,8 @@ class Event extends ElggObject {
 					}
 					$rsvp = true;
 
-					$waiting_user->removeRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
-					$waiting_user->addRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION);
+					$waiting_user->removeRelationship($slot->guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
+					$waiting_user->addRelationship($slot->guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION);
 				}
 			} elseif ($this->hasEventSpotsLeft()) {
 				// not waiting for slots and event has room
@@ -959,18 +959,18 @@ class Event extends ElggObject {
 			return false;
 		}
 		
-		$this->rsvp(EVENT_MANAGER_RELATION_ATTENDING, $waiting_user->getGUID(), false, false, false);
+		$this->rsvp(EVENT_MANAGER_RELATION_ATTENDING, $waiting_user->guid, false, false, false);
 
 		$notification_body = elgg_echo("event_manager:event:registration:notification:user:text:event_spotfree", [
-			$waiting_user->name,
-			$this->title,
+			$waiting_user->getDisplayName(),
+			$this->getDisplayName(),
 			$this->getURL(),
 		]);
 		
 		$completed_text = elgg_strip_tags($this->registration_completed, '<a>');
 		if (!empty($completed_text)) {
-			$completed_text = str_ireplace('[NAME]', $waiting_user->name, $completed_text);
-			$completed_text = str_ireplace('[EVENT]', $this->title, $completed_text);
+			$completed_text = str_ireplace('[NAME]', $waiting_user->getDisplayName(), $completed_text);
+			$completed_text = str_ireplace('[EVENT]', $this->getDisplayName(), $completed_text);
 			
 			$notification_body .= PHP_EOL . PHP_EOL . $completed_text;
 		}
@@ -980,7 +980,7 @@ class Event extends ElggObject {
 			$notification_body .= elgg_view('event_manager/email/addevent', ['entity' => $this]);
 		}
 		
-		notify_user($waiting_user->getGUID(),
+		notify_user($waiting_user->guid,
 					$this->getOwnerGUID(),
 					elgg_echo("event_manager:event:registration:notification:user:subject"),
 					$notification_body);

@@ -61,7 +61,7 @@ if ($event_created) {
 		'view' => 'river/object/event/create',
 		'action_type' => 'create',
 		'subject_guid' => elgg_get_logged_in_user_guid(),
-		'object_guid' => $event->getGUID(),
+		'object_guid' => $event->guid,
 	]);
 }
 
@@ -135,7 +135,7 @@ if (!empty($questions)) {
 			$question->fieldoptions = $fieldoptions;
 			$question->order = $order;
 		
-			$question->addRelationship($event->getGUID(), 'event_registrationquestion_relation');
+			$question->addRelationship($event->guid, 'event_registrationquestion_relation');
 			
 			$order++;
 			
@@ -164,7 +164,7 @@ elgg_clear_sticky_form('event');
 $forward_url = $event->getURL();
 if (!$has_days && $event->with_program) {
 	// need to create a program
-	$forward_url = "events/event/edit_program/{$event->getGUID()}";
+	$forward_url = "events/event/edit_program/{$event->guid}";
 }
 
 return elgg_ok_response('', elgg_echo('event_manager:action:event:edit:ok'), $forward_url);

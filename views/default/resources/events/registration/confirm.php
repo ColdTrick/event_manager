@@ -25,10 +25,10 @@ if ($event->getRelationshipByUser($user_guid) != EVENT_MANAGER_RELATION_ATTENDIN
 elgg_set_page_owner_guid($event->getContainerGUID());
 
 // build breadcrumb
-elgg_push_breadcrumb($event->title, $event->getURL());
+elgg_push_breadcrumb($event->getDisplayName(), $event->getURL());
 
 // let's show the confirm form
-$title_text = elgg_echo('event_manager:registration:confirm:title', [$event->title]);
+$title_text = elgg_echo('event_manager:registration:confirm:title', [$event->getDisplayName()]);
 
 $body_vars = [
 	'event' => $event,

@@ -39,9 +39,9 @@ $form = elgg_view_form('event_manager/event/register', $form_vars, $body_vars);
 
 $title_text = elgg_echo('event_manager:registration:register:title');
 
-elgg_push_breadcrumb($event->title, $event->getURL());
+elgg_push_breadcrumb($event->getDisplayName(), $event->getURL());
 
-$title = $title_text . " '{$event->title}'";
+$title = $title_text . " '{$event->getDisplayName()}'";
 
 $body = elgg_view_layout('content', [
 	'filter' => '',

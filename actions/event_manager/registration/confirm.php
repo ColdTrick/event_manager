@@ -33,15 +33,15 @@ if (!$event->hasEventSpotsLeft() || !$event->hasSlotSpotsLeft()) {
 }
 
 // update all slots from pending to attending/waiting
-$slots = $event->getRegisteredSlotsForEntity($user->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING);
+$slots = $event->getRegisteredSlotsForEntity($user->guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING);
 if ($slots) {
 	foreach ($slots as $slot) {
-		$user->removeRelationship($slot->getGUID(), EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING);
-		$user->addRelationship($slot->getGUID(), $slot_relation);
+		$user->removeRelationship($slot->guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING);
+		$user->addRelationship($slot->guid, $slot_relation);
 	}
 }
 
 // update event relationsship to attending/waiting
-$event->rsvp($relation, $user->getGUID());
+$event->rsvp($relation, $user->guid);
 
 return elgg_ok_response('', elgg_echo("event_manager:event:relationship:message:{$relation}"), $event->getURL());

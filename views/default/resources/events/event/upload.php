@@ -14,7 +14,7 @@ if (!$event->canEdit()) {
 	forward($event->getURL());
 }
 
-elgg_push_breadcrumb($event->title, $event->getURL());
+elgg_push_breadcrumb($event->getDisplayName(), $event->getURL());
 
 $form_vars = [
 	'id' => 'event_manager_event_upload',

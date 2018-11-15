@@ -6,10 +6,10 @@ $email = elgg_get_sticky_value('event_unsubscribe', 'email', get_input('e'));
 echo elgg_view_field([
 	'#type' => 'hidden',
 	'name' => 'guid',
-	'value' => $entity->getGUID(),
+	'value' => $entity->guid,
 ]);
 
-echo elgg_view('output/longtext', ['value' => elgg_echo('event_manager:unsubscribe:description', [$entity->title])]);
+echo elgg_view('output/longtext', ['value' => elgg_echo('event_manager:unsubscribe:description', [$entity->getDisplayName()])]);
 
 echo elgg_view_field([
 	'#type' => 'email',

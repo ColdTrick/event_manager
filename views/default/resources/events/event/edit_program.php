@@ -11,7 +11,7 @@ if (!$event->canEdit()) {
 	forward(REFERER);
 }
 
-elgg_push_breadcrumb($event->title, $event->getURL());
+elgg_push_breadcrumb($event->getDisplayName(), $event->getURL());
 elgg_set_page_owner_guid($event->getContainerGUID());
 
 // build page elements

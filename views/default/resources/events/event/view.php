@@ -21,10 +21,10 @@ $page_owner = elgg_get_page_owner_entity();
 if ($page_owner instanceof ElggGroup) {
 	elgg_group_gatekeeper();
 	
-	elgg_push_breadcrumb($page_owner->name, '/events/event/list/' . $page_owner->getGUID());
+	elgg_push_breadcrumb($page_owner->getDisplayName(), '/events/event/list/' . $page_owner->guid);
 }
 
-$title_text = $event->title;
+$title_text = $event->getDisplayName();
 
 $output = elgg_view_entity($event, ['full_view' => true]);
 

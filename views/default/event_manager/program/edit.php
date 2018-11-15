@@ -33,7 +33,7 @@ if ($eventDays = $event->getEventDays()) {
 			$day_title = $description;
 		}
 		
-		$tabtitles .= "<a href='javascript:void(0);' rel='day_" . $day->getGUID() . "'>" . $day_title . "</a>";
+		$tabtitles .= "<a href='javascript:void(0);' rel='day_" . $day->guid . "'>" . $day_title . "</a>";
 		$tabtitles .= "</li>";
 		
 		$tabcontent .= elgg_view('event_manager/program/elements/day', [
@@ -63,7 +63,7 @@ $program .= $tabcontent;
 $slot_sets = elgg_get_metadata([
 	'type' => 'object',
 	'subtype' => \ColdTrick\EventManager\Event\Slot::SUBTYPE,
-	'container_guids' => array($event->getGUID()),
+	'container_guids' => array($event->guid),
 	'metadata_names' => ['slot_set'],
 	'count' => true
 ]);

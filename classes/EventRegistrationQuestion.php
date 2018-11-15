@@ -32,7 +32,7 @@ class EventRegistrationQuestion extends ElggObject {
 		}
 
 		$params = [
-			'guid' => $this->getGUID(),
+			'guid' => $this->guid,
 			'annotation_name' => 'answer_to_event_registration',
 			'annotation_owner_guid' => $user_guid,
 			'limit' => 1

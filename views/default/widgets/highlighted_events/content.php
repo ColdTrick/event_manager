@@ -39,11 +39,7 @@ foreach ($event_guids as $guid) {
 	$sorted_entities[] = $entity;
 }
 
-if (empty($sorted_entities)) {
-	echo elgg_echo('notfound');
-} else {
-	echo elgg_view_entity_list($sorted_entities, [
-		'full_view' => false,
-		'no_results' => elgg_echo('notfound'),
-	]);
-}
+echo elgg_view_entity_list($sorted_entities, [
+	'full_view' => false,
+	'no_results' => true,
+]);

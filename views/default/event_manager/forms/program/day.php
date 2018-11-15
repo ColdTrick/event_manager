@@ -28,14 +28,14 @@ $title = null;
 
 if ($entity instanceof \ColdTrick\EventManager\Event\Day) {
 	// assume day edit mode
-	$guid = $entity->getGUID();
+	$guid = $entity->guid;
 	$parent_guid = $entity->owner_guid;
 	$title = $entity->title;
 	$description = $entity->description;
 	$date = $entity->date;
 } else {
 	// entity is a event
-	$parent_guid = $entity->getGUID();
+	$parent_guid = $entity->guid;
 
 	// make nice default date
 	$days = $entity->getEventDays();

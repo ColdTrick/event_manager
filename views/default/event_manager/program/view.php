@@ -28,7 +28,7 @@ if ($eventDays) {
 		
 		$link = elgg_view('output/url', [
 			'href' => 'javascript:void(0);',
-			'rel' => 'day_' . $day->getGUID(),
+			'rel' => 'day_' . $day->guid,
 			'text' => $day_title
 		]);
 		
@@ -53,9 +53,9 @@ if ($event->canEdit() && !elgg_in_context('programmailview')) {
 	
 	$add_day = elgg_view('output/url', [
 		'href' => 'javascript:void(0);',
-		'rel' => $event->getGUID(),
+		'rel' => $event->guid,
 		'data-colorbox-opts' => json_encode([
-			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/day?event_guid=' . $event->getGUID())
+			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/day?event_guid=' . $event->guid)
 		]),
 		'class' => 'event_manager_program_day_add elgg-lightbox',
 		'text' => elgg_echo('event_manager:program:day:add')

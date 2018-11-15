@@ -21,7 +21,7 @@ $options = [
 	],
 	'relationship_guid' => $entity->guid,
 	'relationship' => $relationship,
-	'no_results' => elgg_echo('notfound'),
+	'no_results' => true,
 	'order_by' => 'r.time_created DESC',
 ];
 

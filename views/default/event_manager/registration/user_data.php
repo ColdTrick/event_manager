@@ -20,7 +20,7 @@ if ($show_title) {
 
 if (($entity->guid != elgg_get_logged_in_user_guid()) && !($entity instanceof \ElggUser)) {
 	echo '<label>' . elgg_echo('user:name:label') . '</label>';
-	echo '<div class="mbm">' . $entity->name . '</div>';
+	echo '<div class="mbm">' . $entity->getDisplayName() . '</div>';
 	
 	echo '<label>' . elgg_echo('email') . '</label>';
 	echo '<div class="mbm">' . $entity->email . '</div>';
@@ -29,6 +29,6 @@ if (($entity->guid != elgg_get_logged_in_user_guid()) && !($entity instanceof \E
 foreach ($questions as $question) {
 	$answer = $question->getAnswerFromUser($entity->guid);
 
-	echo '<label>' . $question->title . '</label>';
+	echo '<label>' . $question->getDisplayName() . '</label>';
 	echo '<div class="mbm">' . $answer->value . '</div>';
 }

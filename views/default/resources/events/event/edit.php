@@ -16,13 +16,13 @@ if (!empty($guid)) {
 		forward(REFERER);
 	}
 	
-	elgg_push_breadcrumb($event->title, $event->getURL());
+	elgg_push_breadcrumb($event->getDisplayName(), $event->getURL());
 	elgg_set_page_owner_guid($event->container_guid);
 	
 	// add copy menu item
 	elgg_register_menu_item('title', \ElggMenuItem::factory([
 		'name' => 'copy',
-		'href' => 'ajax/form/event_manager/event/copy?guid=' . $event->getGUID(),
+		'href' => 'ajax/form/event_manager/event/copy?guid=' . $event->guid,
 		'text' => elgg_echo('event_manager:menu:copy'),
 		'link_class' => 'elgg-lightbox elgg-button elgg-button-action',
 	]));

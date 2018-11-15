@@ -7,7 +7,7 @@ if (!($user instanceof \ElggUser)) {
 
 $filter_context = '';
 
-$title = elgg_echo('event_manager:attending:title', [$user->name]);
+$title = elgg_echo('event_manager:attending:title', [$user->getDisplayName()]);
 if ($user->guid === elgg_get_logged_in_user_guid()) {
 	$filter_context = 'attending';
 }

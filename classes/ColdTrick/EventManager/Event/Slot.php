@@ -26,7 +26,7 @@ class Slot extends \ElggObject {
 
 		$result = elgg_get_entities([
 			'relationship' => EVENT_MANAGER_RELATION_SLOT_REGISTRATION,
-			'relationship_guid' => $this->getGUID(),
+			'relationship_guid' => $this->guid,
 			'inverse_relationship' => true,
 			'count' => true,
 		]);

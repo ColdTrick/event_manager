@@ -16,7 +16,7 @@ if ($description = $day->description) {
 	$details .= '<div><b>' . elgg_echo('event_manager:edit:form:start_day') . ':</b> ' . event_manager_format_date($day->date) . '</div>';
 }
 
-$details .= $day->title;
+$details .= $day->getDisplayName();
 
 if ($can_edit && !elgg_in_context('programmailview') && ($participate == false)) {
 	
@@ -25,9 +25,9 @@ if ($can_edit && !elgg_in_context('programmailview') && ($participate == false))
 	
 	$edit_day = elgg_view('output/url', [
 		'href' => 'javascript:void(0);',
-		'rel' => $day->getGUID(),
+		'rel' => $day->guid,
 		'data-colorbox-opts' => json_encode([
-			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/day?day_guid=' . $day->getGUID())
+			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/day?day_guid=' . $day->guid)
 		]),
 		'class' => 'event_manager_program_day_edit elgg-lightbox',
 		'text' => elgg_echo('edit')
@@ -49,7 +49,7 @@ if ($details_only) {
 
 $day_info = elgg_format_element('div', [
 	'class' => 'event_manager_program_day_details pbs mbs elgg-divide-bottom',
-	'rel' => $day->getGUID()
+	'rel' => $day->guid
 ], $details);
 
 $slots = '';
@@ -75,9 +75,9 @@ if ($can_edit && !elgg_in_context('programmailview') && ($participate == false))
 	$slots .= elgg_view('output/url', [
 		'href' => 'javascript:void(0);',
 		'class' => 'elgg-button elgg-button-action event_manager_program_slot_add mll elgg-lightbox',
-		'rel' => $day->getGUID(),
+		'rel' => $day->guid,
 		'data-colorbox-opts' => json_encode([
-			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/slot?day_guid=' . $day->getGUID())
+			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/slot?day_guid=' . $day->guid)
 		]),
 		'text' => elgg_echo("event_manager:program:slot:add")
 	]);
@@ -90,5 +90,5 @@ if (!elgg_extract('selected', $vars)) {
 
 echo elgg_format_element('div', [
 	'class' => $classes,
-	'id' => 'day_' . $day->getGUID()
+	'id' => 'day_' . $day->guid
 ], $day_info . $slots);

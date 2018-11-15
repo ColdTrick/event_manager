@@ -7,7 +7,7 @@ $entity = get_entity($guid);
 $forward = 'events';
 $container = $entity->getContainerEntity();
 if ($container instanceof \ElggGroup) {
-	$forward = 'events/event/list/' . $container->getGUID();
+	$forward = 'events/event/list/' . $container->guid;
 }
 
 $title = $entity->getDisplayName();

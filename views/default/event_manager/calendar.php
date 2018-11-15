@@ -46,7 +46,7 @@ foreach ($events['entities'] as $event) {
 	}
 	
 	$event_result = [
-		'title' => $event->title,
+		'title' => $event->getDisplayName(),
 		'start' => $start,
 		'end' => $end,
 		'allDay' => $all_day,

@@ -28,7 +28,7 @@ foreach ($supported_relationships as $rel => $label) {
 		// export action
 		$rel_title .= elgg_view('output/url', [
 			'is_action' => true,
-			'href' => "action/event_manager/attendees/export?guid={$event->getGUID()}&rel={$rel}",
+			'href' => "action/event_manager/attendees/export?guid={$event->guid}&rel={$rel}",
 			'title' => elgg_echo('event_manager:event:exportattendees'),
 			'text' => elgg_view_icon('download'),
 			'class' => 'float-alt'

@@ -68,7 +68,7 @@ if (!empty($slot_set)) {
 }
 
 if (!$edit) {
-	$slot->addRelationship($day->getGUID(), 'event_day_slot_relation');
+	$slot->addRelationship($day->guid, 'event_day_slot_relation');
 }
 
 $result = [

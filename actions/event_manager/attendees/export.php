@@ -15,7 +15,7 @@ $rows = [];
 
 $attendees = new \ElggBatch('elgg_get_entities', [
 	'relationship' => $rel,
-	'relationship_guid' => $event->getGUID(),
+	'relationship_guid' => $event->guid,
 	'inverse_relationship' => false,
 	'limit' => false,
 ]);

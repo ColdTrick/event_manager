@@ -55,8 +55,8 @@ foreach ($old_event->getEventDays() as $day) {
 	$new_day->time_created = null;
 	$new_day->time_updated = null;
 	$new_day->last_action = null;
-	$new_day->container_guid = $new_event->getGUID();
-	$new_day->owner_guid = $new_event->getGUID();
+	$new_day->container_guid = $new_event->guid;
+	$new_day->owner_guid = $new_event->guid;
 	
 	$new_day->save();
 	$new_day->addRelationship($new_event->guid, 'event_day_relation');
@@ -78,8 +78,8 @@ foreach ($old_event->getRegistrationFormQuestions() as $question) {
 	$new_question->time_created = null;
 	$new_question->time_updated = null;
 	$new_question->last_action = null;
-	$new_question->container_guid = $new_event->getGUID();
-	$new_question->owner_guid = $new_event->getGUID();
+	$new_question->container_guid = $new_event->guid;
+	$new_question->owner_guid = $new_event->guid;
 	$new_question->save();
 	$new_question->addRelationship($new_event->guid, 'event_registrationquestion_relation');
 }

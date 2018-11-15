@@ -8,7 +8,7 @@ if (!($slot instanceof \ColdTrick\EventManager\Event\Slot)) {
 	return;
 }
 
-$result = "<table class='mbs' id='" . $slot->getGUID() . "'>";
+$result = "<table class='mbs' id='" . $slot->guid . "'>";
 
 $result .= "<tr><td rowspan='2' class='event_manager_program_slot_attending'>";
 
@@ -16,15 +16,15 @@ $slot_set = $slot->slot_set;
 
 $checkbox_options = [
 	'rel' => $slot_set,
-	'name' => 'slotguid_'  . $slot->getGUID(),
-	'id' => 'slotguid_' . $slot->getGUID(),
+	'name' => 'slotguid_'  . $slot->guid,
+	'id' => 'slotguid_' . $slot->guid,
 	'value' => '1',
 	'class' => 'event_manager_program_participatetoslot'
 ];
 
 $registered_for_slot = '&nbsp;';
 if (elgg_is_logged_in() && ($user_guid = elgg_get_logged_in_user_guid())) {
-	if (check_entity_relationship($user_guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $slot->getGUID())) {
+	if (check_entity_relationship($user_guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $slot->guid)) {
 		if (!$participate) {
 			$registered_for_slot = elgg_view_icon('checkmark-hover', ['title' => elgg_echo('event_manager:event:relationship:event_attending')]);
 			
@@ -40,7 +40,7 @@ if (elgg_is_logged_in() && ($user_guid = elgg_get_logged_in_user_guid())) {
 } else {
 	if ($participate && ($slot->hasSpotsLeft() || $register_type == 'waitinglist')) {
 		$registered_for_slot = elgg_view('input/checkbox', $checkbox_options);
-	} elseif (!empty($vars['member']) && check_entity_relationship($vars['member'], EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $slot->getGUID())) {
+	} elseif (!empty($vars['member']) && check_entity_relationship($vars['member'], EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $slot->guid)) {
 		$registered_for_slot = elgg_view_icon('checkmark-hover', ['title' => elgg_echo('event_manager:event:relationship:event_attending')]);
 	}
 }
@@ -52,8 +52,8 @@ $end_time = $slot->end_time;
 
 $result .= "</td>";
 $result .= "<td class='event_manager_program_slot_time'>" . date('H:i', $start_time) . " - " . date('H:i', $end_time) . "</td>";
-$result .= "<td class='event_manager_program_slot_details' rel='" . $slot->getGUID() . "'>";
-$result .= "<span><b>" . $slot->title . "</b></span>";
+$result .= "<td class='event_manager_program_slot_details' rel='" . $slot->guid . "'>";
+$result .= "<span><b>" . $slot->getDisplayName() . "</b></span>";
 
 if (!empty($slot_set)) {
 	$color = substr(sha1($slot_set, false), 0, 6);
@@ -69,9 +69,9 @@ if ($slot->canEdit() && !elgg_in_context('programmailview') && ($participate == 
 	
 	$edit_slot = elgg_view('output/url', [
 		'href' => 'javascript:void(0);',
-		'rel' => $slot->getGUID(),
+		'rel' => $slot->guid,
 		'data-colorbox-opts' => json_encode([
-			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/slot?slot_guid=' . $slot->getGUID())
+			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/slot?slot_guid=' . $slot->guid)
 		]),
 		'class' => 'event_manager_program_slot_edit elgg-lightbox',
 		'text' => elgg_echo('edit')

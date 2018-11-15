@@ -34,7 +34,7 @@ $max_attendees = null;
 
 if ($entity instanceof \ColdTrick\EventManager\Event\Slot) {
 	// assume slot edit mode
-	$guid = $entity->getGUID();
+	$guid = $entity->guid;
 	$title = $entity->title;
 	$start_time = $entity->start_time;
 	$end_time = $entity->end_time;
@@ -50,11 +50,11 @@ if ($entity instanceof \ColdTrick\EventManager\Event\Slot) {
 	]);
 
 	if ($related_days) {
-		$parent_guid = $related_days[0]->getGUID();
+		$parent_guid = $related_days[0]->guid;
 	}
 } else {
 	// entity is a day
-	$parent_guid = $entity->getGUID();
+	$parent_guid = $entity->guid;
 }
 
 if (!isset($slot_set)) {

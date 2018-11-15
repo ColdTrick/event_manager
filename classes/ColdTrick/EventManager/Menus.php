@@ -32,7 +32,7 @@ class Menus {
 		$result = $returnvalue;
 	
 		// kick from event (assumes users listed on the view page of an event)
-		$href = 'action/event_manager/event/rsvp?guid=' . $event->getGUID() . '&user=' . $user->getGUID() . '&type=' . EVENT_MANAGER_RELATION_UNDO;
+		$href = 'action/event_manager/event/rsvp?guid=' . $event->guid . '&user=' . $user->guid . '&type=' . EVENT_MANAGER_RELATION_UNDO;
 	
 		$item = \ElggMenuItem::factory([
 			'name' => 'event_manager_kick',
@@ -44,11 +44,11 @@ class Menus {
 		
 		$result[] = $item;
 	
-		$user_relationship = $event->getRelationshipByUser($user->getGUID());
+		$user_relationship = $event->getRelationshipByUser($user->guid);
 	
 		if ($user_relationship == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
 			// resend confirmation
-			$href = 'action/event_manager/event/resend_confirmation?guid=' . $event->getGUID() . '&user=' . $user->getGUID();
+			$href = 'action/event_manager/event/resend_confirmation?guid=' . $event->guid . '&user=' . $user->guid;
 	
 			$item = \ElggMenuItem::factory([
 				'name' => 'event_manager_resend_confirmation',
@@ -63,7 +63,7 @@ class Menus {
 	
 		if (in_array($user_relationship, [EVENT_MANAGER_RELATION_ATTENDING_PENDING, EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST])) {
 			// move to attendees
-			$href = 'action/event_manager/attendees/move_to_attendees?guid=' . $event->getGUID() . '&user=' . $user->getGUID();
+			$href = 'action/event_manager/attendees/move_to_attendees?guid=' . $event->guid . '&user=' . $user->guid;
 			
 			$item = \ElggMenuItem::factory([
 				'name' => 'event_manager_move_to_attendees',
@@ -116,10 +116,10 @@ class Menus {
 			foreach ($result as &$item) {
 				switch ($item->getName()) {
 					case 'edit':
-						$item->setHref('events/event/edit/' . $entity->getGUID());
+						$item->setHref('events/event/edit/' . $entity->guid);
 						break;
 					case 'delete':
-						$href = elgg_get_site_url() . 'action/event_manager/event/delete?guid=' . $entity->getGUID();
+						$href = elgg_get_site_url() . 'action/event_manager/event/delete?guid=' . $entity->guid;
 						$href = elgg_add_action_tokens_to_url($href);
 	
 						$item->setHref($href);
@@ -134,7 +134,7 @@ class Menus {
 			$result[] = \ElggMenuItem::factory([
 				'name' => 'unsubscribe',
 				'text' => elgg_echo('event_manager:menu:unsubscribe'),
-				'href' => 'events/unsubscribe/' . $entity->getGUID() . '/' . elgg_get_friendly_title($entity->title),
+				'href' => 'events/unsubscribe/' . $entity->guid . '/' . elgg_get_friendly_title($entity->getDisplayName()),
 				'priority' => 300,
 			]);
 		}
@@ -166,7 +166,7 @@ class Menus {
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'events',
 			'text' => elgg_echo('event_manager:menu:group_events'),
-			'href' => 'events/event/list/' . $group->getGUID(),
+			'href' => 'events/event/list/' . $group->guid,
 		]);
 	
 		return $returnvalue;
@@ -263,8 +263,8 @@ class Menus {
 			$elggfile->setFilename("files/{$file->file}");
 	
 			$returnvalue[] = \ElggMenuItem::factory([
-				'name' => $file->title,
-				'text' => elgg_view_icon('download', 'mrs') . $file->title,
+				'name' => $file->getDisplayName(),
+				'text' => elgg_view_icon('download', 'mrs') . $file->getDisplayName(),
 				'href' => elgg_get_inline_url($elggfile, $use_cookie),
 			]);
 		}

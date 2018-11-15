@@ -18,10 +18,10 @@ if (empty($code) || ($code !== $verify_code)) {
 elgg_set_page_owner_guid($event->getContainerGUID());
 
 // make breadcrumb
-elgg_push_breadcrumb($event->title, $event->getURL());
+elgg_push_breadcrumb($event->getDisplayName(), $event->getURL());
 
 // make page elements
-$title_text = elgg_echo('event_manager:unsubscribe_confirm:title', [$event->title]);
+$title_text = elgg_echo('event_manager:unsubscribe_confirm:title', [$event->getDisplayName()]);
 
 $body_vars = [
 	'entity' => $event,

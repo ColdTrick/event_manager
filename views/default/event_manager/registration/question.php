@@ -22,8 +22,8 @@ $input_type = $fieldtypes[$question->fieldtype];
 
 echo elgg_view_field([
 	'#type' => $input_type,
-	'#label' => $question->title,
-	'name' => 'question_' . $question->getGUID(),
+	'#label' => $question->getDisplayName(),
+	'name' => 'question_' . $question->guid,
 	'value' => $value,
 	'required' => (bool) $question->required,
 	'options' => $question->getOptions(),

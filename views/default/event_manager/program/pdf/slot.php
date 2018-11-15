@@ -10,7 +10,7 @@ if (empty($user_guid)) {
 	return;
 }
 
-if (!check_entity_relationship($user_guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $slot->getGUID())) {
+if (!check_entity_relationship($user_guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $slot->guid)) {
 	return;
 }
 
@@ -20,7 +20,7 @@ $end_time = $slot->end_time;
 $result = "<table><tr><td style='padding-left: 10px; vertical-align: top'>";
 $result .= date('H:i', $start_time) . " - " . date('H:i', $end_time);
 $result .= "</td><td>";
-$result .= "<b>" . $slot->title . "</b>";
+$result .= "<b>" . $slot->getDisplayName() . "</b>";
 
 if ($location = $slot->location) {
 	$result .= "<div>" . $location . "</div>";

@@ -42,7 +42,7 @@ $url_params = [
 	'starttime' => $event->getStartDate('H:i:00'),
 	'end' => $event->getEndDate('d/m/Y'),
 	'endtime' => $event->getEndDate('H:i:00'),
-	'title' => $event->title,
+	'title' => $event->getDisplayName(),
 	'location' => $event->location ?: $event->venue,
 	'description' => $description,
 ];

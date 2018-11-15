@@ -24,7 +24,7 @@ class Attendees {
 		
 		$base_attributes = [
 			'guid' => $attendee->guid,
-			elgg_echo('name') => $attendee->name,
+			elgg_echo('name') => $attendee->getDisplayName(),
 			elgg_echo('email') => $attendee->email,
 			elgg_echo('username') => $attendee->username,
 			'registration date' => date("d-m-Y H:i:s", $relation->time_created),
@@ -60,12 +60,12 @@ class Attendees {
 		$question_data = [];
 		foreach ($questions as $question) {
 			$value = null;
-			$answer = $question->getAnswerFromUser($attendee->getGUID());
+			$answer = $question->getAnswerFromUser($attendee->guid);
 			if ($answer) {
 				$value = $answer->value;
 			}
 			
-			$question_data[$question->title] = $value;
+			$question_data[$question->getDisplayName()] = $value;
 		}
 			
 		return array_merge((array) $returnvalue, $question_data);
@@ -108,7 +108,7 @@ class Attendees {
 				$start = date('H:i', $slot->start_time);
 				$end = date('H:i', $slot->end_time);
 				
-				$key = "Event activity: '{$slot->title}' $date ($start - $end)";
+				$key = "Event activity: '{$slot->getDisplayName()}' $date ($start - $end)";
 				
 				$count = $slot->getEntitiesFromRelationship([
 					'guid' => $attendee->guid,

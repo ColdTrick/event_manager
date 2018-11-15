@@ -5,11 +5,11 @@ $user = elgg_extract('user', $vars);
 $code = elgg_extract('code', $vars);
 
 echo elgg_view('output/longtext', [
-	'value' => elgg_echo('event_manager:registration:confirm:description', [$user->name, $event->title]),
+	'value' => elgg_echo('event_manager:registration:confirm:description', [$user->getDisplayName(), $event->getDisplayName()]),
 ]);
 
-echo elgg_view('input/hidden', ['name' => 'event_guid', 'value' => $event->getGUID()]);
-echo elgg_view('input/hidden', ['name' => 'user_guid', 'value' => $user->getGUID()]);
+echo elgg_view('input/hidden', ['name' => 'event_guid', 'value' => $event->guid]);
+echo elgg_view('input/hidden', ['name' => 'user_guid', 'value' => $user->guid]);
 echo elgg_view('input/hidden', ['name' => 'code', 'value' => $code]);
 
 $footer = elgg_view('input/submit', ['value' => elgg_echo('confirm')]);

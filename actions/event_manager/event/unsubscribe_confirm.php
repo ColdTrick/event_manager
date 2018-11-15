@@ -16,7 +16,7 @@ if ($code !== $verify_code) {
 	return elgg_error_response(elgg_echo('event_manager:unsubscribe_confirm:error:code'));
 }
 
-if (!$event->rsvp(EVENT_MANAGER_RELATION_UNDO, $registration->getGUID())) {
+if (!$event->rsvp(EVENT_MANAGER_RELATION_UNDO, $registration->guid)) {
 	return elgg_error_response(elgg_echo('event_manager:action:unsubscribe_confirm:error'));
 }
 

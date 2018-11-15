@@ -13,10 +13,10 @@ if (!$entity->register_nologin) {
 elgg_set_page_owner_guid($entity->getContainerGUID());
 
 // make breadcrumb
-elgg_push_breadcrumb($entity->title, $entity->getURL());
+elgg_push_breadcrumb($entity->getDisplayName(), $entity->getURL());
 
 // build page elements
-$title_text = elgg_echo('event_manager:unsubscribe:title', [$entity->title]);
+$title_text = elgg_echo('event_manager:unsubscribe:title', [$entity->getDisplayName()]);
 
 $body = elgg_view_form('event_manager/event/unsubscribe', [], ['entity' => $entity]);
 

@@ -23,11 +23,11 @@ foreach ($files as $file) {
 		
 	$link = elgg_view('output/url', [
 		'href' => elgg_get_download_url($elggfile, $use_cookie),
-		'text' => $file->title
+		'text' => $file->getDisplayName()
 	]);
 	
 	$delete = elgg_view('output/url', [
-		'href' => "action/event_manager/event/deletefile?guid={$event->getGUID()}&file={$file->file}",
+		'href' => "action/event_manager/event/deletefile?guid={$event->guid}&file={$file->file}",
 		'text' => elgg_view_icon('delete'),
 		'confirm' => true
 	]);

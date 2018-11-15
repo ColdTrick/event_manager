@@ -16,7 +16,7 @@ if (!empty($email) && !is_email_address($email)) {
 $registrations = elgg_get_entities([
 	'type' => 'object',
 	'subtype' => EventRegistration::SUBTYPE,
-	'owner_guid' => $entity->getGUID(),
+	'owner_guid' => $entity->guid,
 	'limit' => 1,
 	'metadata_name_value_pairs' => [
 		'name' => 'email',
@@ -36,10 +36,10 @@ $unsubscribe_code = event_manager_create_unsubscribe_code($registration, $entity
 $unsubscribe_link = elgg_normalize_url("events/unsubscribe/confirm/{$registration->guid}/{$unsubscribe_code}");
 
 // make a message with further instructions
-$subject = elgg_echo('event_manager:unsubscribe:confirm:subject', [$entity->title]);
+$subject = elgg_echo('event_manager:unsubscribe:confirm:subject', [$entity->getDisplayName()]);
 $message = elgg_echo('event_manager:unsubscribe:confirm:message', [
-	$registration->name,
-	$entity->title,
+	$registration->getDisplayName(),
+	$entity->getDisplayName(),
 	$entity->getURL(),
 	$unsubscribe_link,
 ]);
@@ -47,12 +47,12 @@ $message = elgg_echo('event_manager:unsubscribe:confirm:message', [
 // nice e-mail addresses
 $site = elgg_get_site_entity();
 if ($site->email) {
-	$from = $site->name . " <{$site->email}>";
+	$from = $site->getDisplayName() . " <{$site->email}>";
 } else {
-	$from = $site->name . " <noreply@{$site->getDomain()}>";
+	$from = $site->getDisplayName() . " <noreply@{$site->getDomain()}>";
 }
 
-$to = $registration->name . " <{$registration->email}>";
+$to = $registration->getDisplayName() . " <{$registration->email}>";
 
 if (!elgg_send_email($from, $to, $subject, $message)) {
 	return elgg_error_response(elgg_echo('event_manager:action:unsubscribe:error:mail'));

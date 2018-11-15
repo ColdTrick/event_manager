@@ -33,8 +33,8 @@ if (empty($day) || empty($date)) {
 
 $day->title = $title;
 $day->description = $description;
-$day->container_guid = $event->getGUID();
-$day->owner_guid = $event->getGUID();
+$day->container_guid = $event->guid;
+$day->owner_guid = $event->guid;
 $day->access_id = $event->access_id;
 
 if (!$day->save()) {
@@ -43,7 +43,7 @@ if (!$day->save()) {
 
 $day->date = $date;
 
-$day->addRelationship($event->getGUID(), 'event_day_relation');
+$day->addRelationship($event->guid, 'event_day_relation');
 
 $content_title = $day->description;
 if (empty($content_title)) {
@@ -51,11 +51,11 @@ if (empty($content_title)) {
 }
 
 if (!$edit) {
-	$content_title = '<li><a rel="day_' . $day->getGUID() . '" href="javascript:void(0);">' . $content_title . '</a></li>';
+	$content_title = '<li><a rel="day_' . $day->guid . '" href="javascript:void(0);">' . $content_title . '</a></li>';
 }
 
 $result = [
-	'guid' => $day->getGUID(),
+	'guid' => $day->guid,
 	'edit' => $edit,
 	'content_title' => $content_title,
 	'content_body' => elgg_view('event_manager/program/elements/day', [

@@ -16,7 +16,7 @@ $location = $event->location ?: $event->venue;
 $start = $event->getStartDate('d/m/Y H:i:00');
 $end = $event->getEndDate('d/m/Y H:i:00');
 
-$title = $event->title;
+$title = $event->getDisplayName();
 
 $description = '';
 if (!empty($event->location)) {

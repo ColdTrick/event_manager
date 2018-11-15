@@ -11,8 +11,8 @@ if ($page_owner instanceof \ElggGroup) {
 	elgg_group_gatekeeper();
 	$title_text = elgg_echo('event_manager:list:group:title');
 
-	elgg_push_breadcrumb($page_owner->name, $page_owner->getURL());
-	$event_options['container_guid'] = $page_owner->getGUID();
+	elgg_push_breadcrumb($page_owner->getDisplayName(), $page_owner->getURL());
+	$event_options['container_guid'] = $page_owner->guid;
 }
 
 event_manager_register_title_menu();

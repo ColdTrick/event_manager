@@ -7,8 +7,8 @@ elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 $event = get_entity($guid);
 
 $output = '';
-$title_text = elgg_echo('event_manager:registration:registrationto') . " '{$event->title}'";
-elgg_push_breadcrumb($event->title, $event->getURL());
+$title_text = elgg_echo('event_manager:registration:registrationto') . " '{$event->getDisplayName()}'";
+elgg_push_breadcrumb($event->getDisplayName(), $event->getURL());
 
 if (!empty($key)) {
 	// registration of a non logged in user
@@ -58,7 +58,7 @@ if (!empty($key)) {
 			'name' => 'edityourregistration',
 			'text' => elgg_echo('event_manager:registration:edityourregistration'),
 			'link_class' => 'elgg-button elgg-button-action',
-			'href' => 'events/event/register/' . $event->getGUID() . '/event_attending',
+			'href' => 'events/event/register/' . $event->guid . '/event_attending',
 		]));
 	}
 }

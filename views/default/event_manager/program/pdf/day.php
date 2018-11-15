@@ -34,8 +34,8 @@ if ($description) {
 }
 
 $result = "<div>{$title}</div>";
-if ($day->title) {
-	$result .= "<div>{$day->title}</div>";
+if ($day->getDisplayName()) {
+	$result .= "<div>{$day->getDisplayName()}</div>";
 }
 
 $result .= "<br /><br />{$slots}<br /><br />";

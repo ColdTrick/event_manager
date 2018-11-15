@@ -14,11 +14,11 @@ $more_link = '/events';
 
 switch ($owner->getType()) {
 	case 'group':
-		$event_options['container_guid'] = $owner->getGUID();
+		$event_options['container_guid'] = $owner->guid;
 		$more_link = '/events/event/list/' . $widget->getOwnerGUID();
 		break;
 	case 'user':
-		$event_options['user_guid'] = $owner->getGUID();
+		$event_options['user_guid'] = $owner->guid;
 		switch ($widget->type_to_show) {
 			case 'owning':
 				$event_options['owning'] = true;
@@ -48,7 +48,7 @@ $content = elgg_view_entity_list($events['entities'], [
 	'limit' => $num_display,
 	'pagination' => false,
 	'full_view' => false,
-	'no_results' => elgg_echo('notfound'),
+	'no_results' => true,
 ]);
 
 echo $content;

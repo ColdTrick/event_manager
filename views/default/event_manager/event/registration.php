@@ -9,11 +9,11 @@ if (!$event->registration_needed) {
 	return;
 }
 
-if (!check_entity_relationship($event->getGUID(), EVENT_MANAGER_RELATION_ATTENDING, elgg_get_logged_in_user_guid())) {
+if (!check_entity_relationship($event->guid, EVENT_MANAGER_RELATION_ATTENDING, elgg_get_logged_in_user_guid())) {
 	return;
 }
 
 echo elgg_view('output/url', [
-	'href' => '/events/registration/view/' . $event->getGUID(),
+	'href' => '/events/registration/view/' . $event->guid,
 	'text' => elgg_echo('event_manager:registration:viewyourregistration')
 ]);

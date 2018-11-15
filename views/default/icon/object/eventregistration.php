@@ -33,7 +33,7 @@ if ($event instanceof Event && $event->canEdit()) {
 	]);
 	$result .= '</li>';
 	
-	$user_relationship = $event->getRelationshipByUser($entity->getGUID());
+	$user_relationship = $event->getRelationshipByUser($entity->guid);
 	if ($user_relationship == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
 		$result .= '<li>';
 		$result .= elgg_view('output/url', [
@@ -64,8 +64,8 @@ if ($event instanceof Event && $event->canEdit()) {
 $result .= elgg_view('output/url', [
 	'text' => elgg_view('output/img', [
 		'src' => elgg_get_simplecache_url("icons/user/default{$size}.gif"),
-		'alt' => $entity->name,
-		'title' => $entity->name,
+		'alt' => $entity->getDisplayName(),
+		'title' => $entity->getDisplayName(),
 	]),
 ]);
 

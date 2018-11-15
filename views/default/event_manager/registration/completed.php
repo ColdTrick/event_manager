@@ -2,15 +2,15 @@
 
 $event = elgg_extract('event', $vars);
 $object = elgg_extract('object', $vars);
-$rel = $event->getRelationshipByUser($object->getGUID());
+$rel = $event->getRelationshipByUser($object->guid);
 
 if ($rel == EVENT_MANAGER_RELATION_ATTENDING) {
 	if (!($completed_text = $event->registration_completed)) {
-		$completed_text = elgg_echo('event_manager:registration:completed', [$object->name, $event->title]);
+		$completed_text = elgg_echo('event_manager:registration:completed', [$object->getDisplayName(), $event->getDisplayName()]);
 	}
 	
-	$completed_text = str_ireplace('[NAME]', $object->name, $completed_text);
-	$completed_text = str_ireplace('[EVENT]', $event->title, $completed_text);
+	$completed_text = str_ireplace('[NAME]', $object->getDisplayName(), $completed_text);
+	$completed_text = str_ireplace('[EVENT]', $event->getDisplayName(), $completed_text);
 	
 	echo elgg_view('output/longtext', ['value' => $completed_text]);
 }

@@ -10,7 +10,7 @@ $title = null;
 
 if ($question instanceof \EventRegistrationQuestion) {
 	// assume day edit mode
-	$guid = $question->getGUID();
+	$guid = $question->guid;
 	$title = $question->title;
 	$fieldtype = $question->fieldtype;
 	$required = $question->required;

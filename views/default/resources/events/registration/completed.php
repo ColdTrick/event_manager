@@ -17,10 +17,10 @@ if (!($object instanceof \ElggUser) && !($object instanceof \EventRegistration))
 elgg_set_page_owner_guid($event->getContainerGUID());
 
 // set breadcrumb
-elgg_push_breadcrumb($event->title, $event->getURL());
+elgg_push_breadcrumb($event->getDisplayName(), $event->getURL());
 
 // build page elements
-$title_text = elgg_echo('event_manager:registration:completed:title', [$event->title]);
+$title_text = elgg_echo('event_manager:registration:completed:title', [$event->getDisplayName()]);
 
 $body = elgg_view('event_manager/registration/completed', [
 	'event' => $event,

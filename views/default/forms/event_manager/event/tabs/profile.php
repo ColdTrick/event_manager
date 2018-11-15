@@ -48,7 +48,7 @@ $current_icon_content = '';
 if ($entity && $entity->icontime) {
 	$current_icon = elgg_view('output/img', [
 		'src' => $entity->getIconURL(),
-		'alt' => $entity->title,
+		'alt' => $entity->getDisplayName(),
 	]);
 
 	$remove_icon_input = elgg_view('input/checkboxes', [

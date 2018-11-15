@@ -21,7 +21,7 @@ if (!$event->openForRegistration()) {
 
 $title_text = elgg_echo('event_manager:event:rsvp:waiting_list');
 
-elgg_push_breadcrumb($event->title, $event->getURL());
+elgg_push_breadcrumb($event->getDisplayName(), $event->getURL());
 
 $form_vars = [
 	'id' => 'event_manager_event_register',

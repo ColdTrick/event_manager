@@ -188,7 +188,7 @@ function event_manager_search_events($options = []) {
 
 		if ($friends = $user->getFriends('', false)) {
 			foreach ($friends as $friend) {
-				$friends_guids[] = $friend->getGUID();
+				$friends_guids[] = $friend->guid;
 			}
 			$entities_options['joins'][] = "JOIN {$dbprefix}entity_relationships e_ra ON e.guid = e_ra.guid_one";
 			$entities_options['wheres'][] = '(e_ra.guid_two IN (' . implode(', ', $friends_guids) . '))';
@@ -340,7 +340,7 @@ function event_manager_create_unsubscribe_code(EventRegistration $registration, 
 		$event = $registration->getOwnerEntity();
 	}
 	
-	return elgg_build_hmac([$registration->getGUID(), $event->time_created])->getToken();
+	return elgg_build_hmac([$registration->guid, $event->time_created])->getToken();
 }
 
 /**
@@ -426,18 +426,18 @@ function event_manager_validate_registration_validation_code($event_guid, $user_
  * @return void
  */
 function event_manager_send_registration_validation_email(Event $event, ElggEntity $entity) {
-	$subject = elgg_echo('event_manager:registration:confirm:subject', [$event->title]);
+	$subject = elgg_echo('event_manager:registration:confirm:subject', [$event->getDisplayName()]);
 	$message = elgg_echo('event_manager:registration:confirm:message', [
-			$entity->name,
-			$event->title,
-			event_manager_get_registration_validation_url($event->getGUID(), $entity->getGUID())
+			$entity->getDisplayName(),
+			$event->getDisplayName(),
+			event_manager_get_registration_validation_url($event->guid, $entity->guid)
 	]);
 
 	$site = elgg_get_site_entity();
 
 	// send confirmation mail
 	if (elgg_instanceof($entity, 'user')) {
-		notify_user($entity->getGUID(), $event->getOwnerGUID(), $subject, $message, null, 'email');
+		notify_user($entity->guid, $event->getOwnerGUID(), $subject, $message, null, 'email');
 	} else {
 
 		$from = $site->email;
@@ -445,8 +445,8 @@ function event_manager_send_registration_validation_email(Event $event, ElggEnti
 			$from = 'noreply@' . $site->getDomain();
 		}
 
-		if (!empty($site->name)) {
-			$site_name = $site->name;
+		if (!empty($site->getDisplayName())) {
+			$site_name = $site->getDisplayName();
 			if (strstr($site_name, ',')) {
 				$site_name = '"' . $site_name . '"'; // Protect the name with quotations if it contains a comma
 			}
@@ -501,7 +501,7 @@ function event_manager_register_title_menu() {
 		if (event_manager_can_create_group_events($page_owner)) {
 			elgg_register_menu_item('title', [
 				'name' => 'new',
-				'href' => 'events/event/new/' . $page_owner->getGUID(),
+				'href' => 'events/event/new/' . $page_owner->guid,
 				'text' => elgg_echo('event_manager:menu:new_event'),
 				'link_class' => 'elgg-button elgg-button-action',
 			]);
@@ -614,7 +614,7 @@ function event_manager_prepare_form_vars($event = null) {
 		'max_attendees' => ELGG_ENTITIES_ANY_VALUE,
 		'waiting_list_enabled' => ELGG_ENTITIES_ANY_VALUE,
 		'access_id' => get_default_access(),
-		'container_guid' => elgg_get_page_owner_entity()->getGUID(),
+		'container_guid' => elgg_get_page_owner_entity()->guid,
 		'event_interested' => 0,
 		'event_presenting' => 0,
 		'event_exhibiting' => 0,

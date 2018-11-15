@@ -7,7 +7,7 @@ if (!($user instanceof \ElggUser)) {
 
 $filter_context = '';
 
-$title = elgg_echo('event_manager:owner:title', [$user->name]);
+$title = elgg_echo('event_manager:owner:title', [$user->getDisplayName()]);
 if ($user->guid === elgg_get_logged_in_user_guid()) {
 	$filter_context = 'mine';
 }
@@ -16,7 +16,7 @@ $content = elgg_list_entities([
 	'type' => 'object',
 	'subtype' => \Event::SUBTYPE,
 	'owner_guid' => $user->guid,
-	'no_results' => elgg_echo('notfound'),
+	'no_results' => true,
 ]);
 
 $body = elgg_view_layout('content', [

@@ -100,10 +100,10 @@ if ($search_type == 'list') {
 		elgg_push_context('maps');
 
 		$result['markers'][] = array(
-			'guid' => $event->getGUID(),
+			'guid' => $event->guid,
 			'lat' => $event->getLatitude(),
 			'lng' => $event->getLongitude(),
-			'title' => $event->title,
+			'title' => $event->getDisplayName(),
 			'html' => elgg_view_entity($event, ['full_view' => false]),
 			'has_relation' => $event->getRelationshipByUser(),
 			'iscreator' => (($event->getOwnerGUID() == elgg_get_logged_in_user_guid()) ? 'owner' : null)

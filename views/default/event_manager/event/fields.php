@@ -22,7 +22,7 @@ if (!empty($event_banner_url)) {
 	$event_details .= "<div class='mbm elgg-border-plain event-manager-event-banner'>";
 	$event_details .= elgg_view('output/img', [
 		'src' => $event_banner_url,
-		'alt' => $event->title,
+		'alt' => $event->getDisplayName(),
 	]);
 
 	$event_details .= "</div>";
@@ -110,7 +110,7 @@ if (!empty($event_files) || $can_edit) {
 	$files_title = '';
 	if ($can_edit) {
 		$files_title .= elgg_view('output/url', [
-			'href' => "events/event/upload/{$event->getGUID()}",
+			'href' => "events/event/upload/{$event->guid}",
 			'title' => elgg_echo('event_manager:event:uploadfiles'),
 			'text' => elgg_view_icon('round-plus'),
 			'class' => 'float-alt'

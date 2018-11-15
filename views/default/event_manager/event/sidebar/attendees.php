@@ -50,7 +50,7 @@ foreach ($ordered_relationships as $rel) {
 		$member_icon = elgg_view_entity_icon($member_entity, 'tiny', ['event' => $event]);
 		$member_name = elgg_view('output/url', [
 			'href' => $member_entity->getURL(),
-			'text' => $member_entity->name,
+			'text' => $member_entity->getDisplayName(),
 		]);
 		$rel_content .= elgg_view_image_block($member_icon, $member_name, ['class' => 'pan']);
 	}

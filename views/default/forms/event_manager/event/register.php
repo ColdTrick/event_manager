@@ -20,7 +20,7 @@ if ($registration_form) {
 
 	foreach ($registration_form as $question) {
 
-		$value = elgg_get_sticky_value('event_register', 'question_' . $question->getGUID());
+		$value = elgg_get_sticky_value('event_register', 'question_' . $question->guid);
 
 		if ($value == null) {
 			if (elgg_is_logged_in()) {
@@ -58,7 +58,7 @@ if (!$form_body) {
 	return;
 }
 
-$form_body .= elgg_view('input/hidden', ['name' => 'event_guid', 'value' => $event->getGUID()]);
+$form_body .= elgg_view('input/hidden', ['name' => 'event_guid', 'value' => $event->guid]);
 $form_body .= elgg_view('input/hidden', ['name' => 'register_type', 'value' => $register_type]);
 
 if ($register_type == 'register') {

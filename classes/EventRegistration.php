@@ -47,22 +47,4 @@ class EventRegistration extends \ElggObject {
 		
 		return parent::getDisplayName();
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @return Event
-	 */
-	public function getOwnerEntity() {
-		return parent::getOwnerEntity();
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @return Event
-	 */
-	public function getContainerEntity() {
-		return parent::getContainerEntity();
-	}
 }

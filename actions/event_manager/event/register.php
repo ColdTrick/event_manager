@@ -31,7 +31,7 @@ $required_error = false;
 
 if ($questions = $event->getRegistrationFormQuestions()) {
 	foreach ($questions as $question) {
-		if ($question->required && empty($answers[$question->getGUID()]) && ($answers[$question->getGUID()] !== '0')) {
+		if ($question->required && empty($answers[$question->guid]) && ($answers[$question->guid] !== '0')) {
 			$required_error = true;
 		}
 
@@ -98,7 +98,7 @@ if (elgg_is_logged_in()) {
 		if ($existing_user = get_user_by_email($answers['email'])) {
 			$object = $existing_user[0];
 			// todo check if there already is a relationship with the event.
-			$current_relationship = $event->getRelationshipByUser($object->getGUID());
+			$current_relationship = $event->getRelationshipByUser($object->guid);
 			if ($current_relationship) {
 				switch ($current_relationship) {
 					case EVENT_MANAGER_RELATION_ATTENDING:
@@ -120,7 +120,7 @@ if (elgg_is_logged_in()) {
 		$existing_entities = elgg_get_entities([
 			'type' => 'object',
 			'subtype' => EventRegistration::SUBTYPE,
-			'owner_guid' => $event->getGUID(),
+			'owner_guid' => $event->guid,
 			'metadata_name_value_pairs' => ['email' => $answers['email']],
 			'metadata_case_sensitive' => false,
 		]);
@@ -128,7 +128,7 @@ if (elgg_is_logged_in()) {
 		if ($existing_entities) {
 			$object = $existing_entities[0];
 
-			$current_relationship = $event->getRelationshipByUser($object->getGUID());
+			$current_relationship = $event->getRelationshipByUser($object->guid);
 			if ($current_relationship) {
 				switch ($current_relationship) {
 					case EVENT_MANAGER_RELATION_ATTENDING:
@@ -153,8 +153,8 @@ if (elgg_is_logged_in()) {
 		$object = new EventRegistration();
 		$object->title = 'EventRegistrationNotLoggedinUser';
 		$object->description = 'EventRegistrationNotLoggedinUser';
-		$object->owner_guid = $event->getGUID();
-		$object->container_guid = $event->getGUID();
+		$object->owner_guid = $event->guid;
+		$object->container_guid = $event->guid;
 		$object->save();
 	}
 
@@ -165,7 +165,7 @@ if (elgg_is_logged_in()) {
 foreach ($answers as $question_guid => $answer) {
 	if (!empty($question_guid) && ($question = get_entity($question_guid))) {
 		if ($question instanceof EventRegistrationQuestion) {
-			$question->updateAnswerFromUser($event, $answer, $object->getGUID());
+			$question->updateAnswerFromUser($event, $answer, $object->guid);
 		}
 	} else {
 		$object->{$question_guid} = $answer;
