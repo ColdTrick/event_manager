@@ -136,22 +136,18 @@ function event_manager_search_events($options = []) {
 			];
 		} else {
 			// start date
-			$event_start_id = elgg_get_metastring_id('event_start');
 			$entities_options['joins'][] = "JOIN {$dbprefix}metadata md_start ON e.guid = md_start.entity_guid";
-			$entities_options['joins'][] = "JOIN {$dbprefix}metastrings msv_start ON md_start.value_id = msv_start.id";
-			$entities_options['wheres'][] = "md_start.name_id = {$event_start_id}";
+			$entities_options['wheres'][] = "md_start.name = 'event_start'";
 			
 			// end date
-			$event_end_id = elgg_get_metastring_id('event_end');
 			$entities_options['joins'][] = "JOIN {$dbprefix}metadata md_end ON e.guid = md_end.entity_guid";
-			$entities_options['joins'][] = "JOIN {$dbprefix}metastrings msv_end ON md_end.value_id = msv_end.id";
-			$entities_options['wheres'][] = "md_end.name_id = {$event_end_id}";
+			$entities_options['wheres'][] = "md_end.name = 'event_end'";
 			
 			// event start > now
-			$time_start = "(msv_start.string >= {$current_time})";
+			$time_start = "(md_start.value >= {$current_time})";
 			
 			// or event start before end and end after now
-			$time_end = "((msv_start.string < {$current_time}) AND (msv_end.string > {$current_time}))";
+			$time_end = "((md_start.value < {$current_time}) AND (md_end.value > {$current_time}))";
 			
 			$entities_options['wheres'][] = "({$time_start} OR {$time_end})";
 		}
