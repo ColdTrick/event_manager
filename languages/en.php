@@ -6,11 +6,6 @@ return array(
 	'event_manager:group' => 'Group events',
 	'event_manager:group:more' => 'More events',
 	
-	'admin:upgrades:migrate_files_to_event' => 'Event Manager files migration',
-	'admin:upgrades:migrate_files_to_event:description' => 'All event related files need to be migrated to be stored with the event, instead of in the data folder of the owner of the event.',
-	'admin:upgrades:convert_timestamps' => 'Event Manager timestamp conversion',
-	'admin:upgrades:convert_timestamps:description' => 'Events store their timestamp metadata in new fields',
-
 	'item:object:event' => 'Events',
 	'item:object:eventslot' => 'Eventslots',
 	'item:object:eventday' => 'Eventdays',
