@@ -8,23 +8,18 @@
 	<website>http://www.coldtrick.com/</website>
 	<repository>https://github.com/ColdTrick/event_manager</repository>
 	<bugtracker>https://github.com/ColdTrick/event_manager/issues</bugtracker>
-	<copyright>(C) ColdTrick IT Solutions 2011 - 2014</copyright>
+	<copyright>(C) ColdTrick IT Solutions 2011 - 2018</copyright>
 	<license>GNU General Public License version 2</license>
 	
 	<requires>
 		<type>elgg_release</type>
-		<version>2.3</version>
+		<version>3.0</version>
 	</requires>
 	
 	<requires>
 		<type>php_extension</type>
 		<name>json</name>
 	</requires>
-	
-	<suggests>
-		<type>plugin</type>
-		<name>widget_manager</name>
-	</suggests>
-	
+		
 	<category>ColdTrick</category>
 </plugin_manifest>
