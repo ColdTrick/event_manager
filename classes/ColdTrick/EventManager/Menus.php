@@ -152,7 +152,7 @@ class Menus {
 			return;
 		}
 	
-		if (!event_manager_groups_enabled() || $group->event_manager_enable == 'no') {
+		if (!event_manager_groups_enabled() || !$group->isToolEnabled('event_manager')) {
 			return;
 		}
 	
@@ -218,8 +218,13 @@ class Menus {
 		$use_cookie = ($event->access_id !== ACCESS_PUBLIC);
 		
 		foreach ($files as $file) {
-			$elggfile->setFilename("files/{$file->file}");
-	
+			$elggfile->setFilename($file->file);
+			
+			if (!$elggfile->exists()) {
+				// check old storage location
+				$elggfile->setFilename("files/{$file->file}");
+			}
+			
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => $file->title,
 				'icon' => 'download',

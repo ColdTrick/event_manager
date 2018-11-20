@@ -31,25 +31,6 @@ function event_manager_event_get_relationship_options() {
 }
 
 /**
- * Returns elgg.data config
- *
- * @param string $hook        hook name
- * @param string $entity_type hook type
- * @param array  $returnvalue current return value
- * @param array  $params      parameters
- *
- * @return array
- */
-function event_manager_get_js_config($hook, $entity_type, $returnvalue, $params) {
-	$plugin = elgg_get_plugin_from_id('event_manager');
-	$returnvalue['event_manager_osm_default_zoom'] = $plugin->getSetting('osm_default_zoom', 7);
-	$returnvalue['event_manager_osm_default_location_lat'] = $plugin->getSetting('osm_default_location_lat', 52);
-	$returnvalue['event_manager_osm_default_location_lng'] = $plugin->getSetting('osm_default_location_lng', 6);
-	
-	return $returnvalue;
-}
-
-/**
  * Search for events
  *
  * @param array $options search options
@@ -209,32 +190,6 @@ function event_manager_search_events($options = []) {
 		'entities' => $entities,
 		'count' => $count_entities,
 	];
-}
-
-/**
- * Sanitizes file name
- *
- * @param string $string          file name
- * @param bool   $force_lowercase forces file name to lower case
- * @param bool   $anal            only return alfanumeric characters
- *
- * @return string
- */
-function event_manager_sanitize_filename($string, $force_lowercase = true, $anal = false) {
-	$strip = array(
-		"~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
-		"}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
-		"—", "–", ",", "<", ">", "/", "?"
-	);
-	$clean = trim(str_replace($strip, "", strip_tags($string)));
-	$clean = preg_replace('/\s+/', "-", $clean);
-	$clean = ($anal) ? preg_replace("/[^a-zA-Z0-9]/", "", $clean) : $clean ;
-	
-	return ($force_lowercase) ?
-		(function_exists('mb_strtolower')) ?
-			mb_strtolower($clean, 'UTF-8') :
-			strtolower($clean) :
-		$clean;
 }
 
 /**

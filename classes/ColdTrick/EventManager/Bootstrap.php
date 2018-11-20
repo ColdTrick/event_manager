@@ -113,7 +113,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 	protected function initRegisterHooks() {
 		$hooks = $this->elgg()->hooks;
 		
-		$hooks->registerHandler('elgg.data', 'site', 'event_manager_get_js_config');
+		$hooks->registerHandler('elgg.data', 'site', '\ColdTrick\EventManager\Js::getJsConfig');
 		$hooks->registerHandler('entity:url', 'object', '\ColdTrick\EventManager\Widgets::getEventsUrl');
 		$hooks->registerHandler('entity:icon:sizes', 'object', '\ColdTrick\EventManager\Icons::getIconSizes');
 		$hooks->registerHandler('entity:icon:file', 'object', '\ColdTrick\EventManager\Icons::getIconFile');

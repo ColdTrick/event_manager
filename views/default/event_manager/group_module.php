@@ -5,8 +5,8 @@
 
 $group = elgg_get_page_owner_entity();
 
-if ($group->event_manager_enable == 'no') {
-	return true;
+if (!$group->isToolEnabled('event_manager')) {
+	return;
 }
 
 $event_options = [

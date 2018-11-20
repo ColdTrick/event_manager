@@ -11,8 +11,15 @@ if (!$event->canEdit()) {
 	return elgg_error_response(elgg_echo('actionunauthorized'));
 }
 
-if (empty($title) || (!isset($_FILES['file']['name']) || empty($_FILES['file']['name']))) {
+if (empty($title)) {
 	return elgg_error_response(elgg_echo('event_manager:action:event:edit:error_fields'));
+}
+
+// check if upload attempted and failed
+$uploaded_file = elgg_get_uploaded_file('file', false);
+if ($uploaded_file && !$uploaded_file->isValid()) {
+	$error = elgg_get_friendly_upload_error($uploaded_file->getError());
+	return elgg_error_response($error);
 }
 
 if (empty($event->files)) {
@@ -21,19 +28,14 @@ if (empty($event->files)) {
 	$filesArray = json_decode($event->files, true);
 }
 
-$newFilename = event_manager_sanitize_filename($_FILES['file']['name']);
-
-$fileHandler = new \ElggFile();
-$fileHandler->setFilename('files/' . $newFilename);
-$fileHandler->owner_guid = $event->guid;
-$fileHandler->open('write');
-$fileHandler->write(get_uploaded_file('file'));
-$fileHandler->close();
+$file = new \ElggFile();
+$file->owner_guid = $event->guid;
+$file->acceptUploadedFile($uploaded_file);
 
 $filesArray[] = [
 	'title' => $title,
-	'file' => $newFilename,
-	'mime' => $_FILES['file']['type'],
+	'file' => $file->getFilename(),
+	'mime' => $file->getMimeType(),
 	'time_uploaded' => time(),
 	'uploader' => elgg_get_logged_in_user_guid(),
 ];

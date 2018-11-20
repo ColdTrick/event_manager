@@ -42,11 +42,11 @@ class Widgets {
 	public static function registerHandlers($hook, $entity_type, $returnvalue, $params) {
 		
 		$container = elgg_extract('container', $params);
-		if (!($container instanceof \ElggGroup)) {
+		if (!$container instanceof \ElggGroup) {
 			return;
 		}
 		
-		if ($container->event_manager_enable !== 'no') {
+		if ($container->isToolEnabled('event_manager')) {
 			return;
 		}
 		

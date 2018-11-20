@@ -19,7 +19,13 @@ $elggfile->owner_guid = $event->guid;
 $use_cookie = ($event->access_id !== ACCESS_PUBLIC);
 
 foreach ($files as $file) {
-	$elggfile->setFilename("files/{$file->file}");
+	
+	$elggfile->setFilename($file->file);
+	
+	if (!$elggfile->exists()) {
+		// check old storage location
+		$elggfile->setFilename("files/{$file->file}");
+	}
 		
 	$link = elgg_view('output/url', [
 		'href' => elgg_get_download_url($elggfile, $use_cookie),
