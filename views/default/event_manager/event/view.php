@@ -12,9 +12,6 @@ if ($event->with_program) {
 	$body .= elgg_view('event_manager/program/view', $vars);
 }
 
-if ($event->comments_on) {
-}
-
 echo elgg_view('object/elements/full', [
 	'entity' => $event,
 	'body' => $body,

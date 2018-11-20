@@ -177,7 +177,7 @@ if ($type) {
 	$registration_details .= '</div>';
 }
 
-$registration_details .= elgg_view('event_manager/event/actions', $vars);
+$registration_details .= elgg_view('event_manager/event/rsvp', $vars);
 
 if (!empty($registration_details)) {
 	$registration_title = elgg_echo('event_manager:registration:register:title');

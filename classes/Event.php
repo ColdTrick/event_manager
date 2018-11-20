@@ -68,6 +68,18 @@ class Event extends ElggObject {
 		
 		return $object;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see ElggObject::canComment()
+	 */
+	public function canComment($user_guid = 0, $default = null) {
+		if (!$this->comments_on) {
+			return false;
+		}
+		
+		return parent::canComment($user_guid, $default);
+	}
 
 	/**
 	 * Returns excerpt based on shortdescription and falls back to long description
