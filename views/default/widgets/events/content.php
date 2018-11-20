@@ -15,7 +15,7 @@ $more_link = '/events';
 switch ($owner->getType()) {
 	case 'group':
 		$event_options['container_guid'] = $owner->guid;
-		$more_link = '/events/event/list/' . $widget->getOwnerGUID();
+		$more_link = elgg_generate_url('collection:object:event:group', ['guid' => $widget->getOwnerGUID()]);
 		break;
 	case 'user':
 		$event_options['user_guid'] = $owner->guid;
@@ -26,7 +26,7 @@ switch ($owner->getType()) {
 				break;
 			case 'attending':
 				$event_options['meattending'] = true;
-				$more_link = '/events/attending/' . $owner->username;
+				$more_link = elgg_generate_url('collection:object:event:attending', ['username' => $owner->username]);
 				break;
 		}
 		break;

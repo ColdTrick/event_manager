@@ -19,7 +19,7 @@ if ((!$event->registration_needed && elgg_is_logged_in()) || (!elgg_is_logged_in
 if (!elgg_is_logged_in()) {
 	if (!$event->hasEventSpotsLeft() || !$event->hasSlotSpotsLeft()) {
 		if ($event->waiting_list_enabled && $event->registration_needed && $event->openForRegistration()) {
-			forward('/events/event/waitinglist/' . $guid);
+			forward(elgg_generate_url('collection:object:event:waitinglist', ['guid' => $guid]));
 		} else {
 			register_error(elgg_echo('event_manager:event:rsvp:nospotsleft'));
 			forward(REFERER);

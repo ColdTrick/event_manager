@@ -14,19 +14,16 @@ class Bootstrap extends DefaultPluginBootstrap {
 
 		// add site menu item
 		elgg_register_menu_item('site', [
-			'name' => 'event_manager',
+			'name' => 'event',
 			'icon' => 'calendar-alt',
 			'text' => elgg_echo('event_manager:menu:title'),
-			'href' => 'events',
+			'href' => elgg_generate_url('collection:object:event:upcoming'),
 		]);
 	
 		// add group tool option
 		if (event_manager_groups_enabled()) {
 			elgg()->group_tools->register('event_manager', ['label' => elgg_echo('groups:enableevents')]);
 		}
-	
-		// page handlers
-		elgg_register_page_handler('events', '\ColdTrick\EventManager\PageHandler::events');
 		
 		$this->initLibraries();
 		$this->initViews();

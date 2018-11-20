@@ -12,7 +12,7 @@ Features
 -----------
 
 - Create site and group events
-- Listing of upcomming events
+- Listing of upcoming events
 - Search events
 - Maps integration
  - Show events on a map

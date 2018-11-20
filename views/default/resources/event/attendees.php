@@ -9,7 +9,10 @@ $entity = get_entity($guid);
 $relationship = elgg_extract('relationship', $vars);
 $valid_relationships = $entity->getSupportedRelationships();
 if (!array_key_exists($relationship, $valid_relationships)) {
-	forward("events/event/attendees/{$entity->guid}/" . EVENT_MANAGER_RELATION_ATTENDING);
+	forward(elgg_generate_url('collection:object:event:attendees', [
+		'guid' => $entity->guid,
+		'relationship' => EVENT_MANAGER_RELATION_ATTENDING,
+	]));
 }
 $rel_text = $valid_relationships[$relationship];
 
@@ -20,7 +23,7 @@ $page_owner = elgg_get_page_owner_entity();
 if ($page_owner instanceof ElggGroup) {
 	elgg_group_gatekeeper();
 	
-	elgg_push_breadcrumb($page_owner->getDisplayName(), "/events/event/list/{$page_owner->guid}");
+	elgg_push_breadcrumb($page_owner->getDisplayName(), elgg_generate_url('collection:object:event:attendees', ['guid' => $page_owner->guid]));
 }
 
 // breadcrumb
@@ -49,7 +52,10 @@ $title = elgg_echo('event_manager:event:attendees:title', [$entity->getDisplayNa
 
 // search form
 $content = elgg_view_form('event_manager/event/attendees', [
-	'action' => "events/event/attendees/{$entity->guid}/{$relationship}",
+	'action' => elgg_generate_url('collection:object:event:attendees', [
+		'guid' => $entity->guid,
+		'relationship' => $relationship,
+	]),
 	'method' => 'GET',
 	'disable_security' => true,
 ], [

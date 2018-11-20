@@ -236,7 +236,7 @@ x.x:
 - changed: moved css to new location and removed the use of a custom icon
 - fixed: correctly check for full_view
 - fixed: correctly include the settings for Elgg 2.0
-- fixed: correctly set default limit for listing upcomming events
+- fixed: correctly set default limit for listing upcoming events
 - fixed: don't use translatable date format for registration enddate input
 
 4.0 (2015-12-14):

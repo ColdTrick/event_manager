@@ -72,7 +72,9 @@ if (elgg_is_logged_in()) {
 	if ($event->register_nologin) {
 		$rsvp_options[] = [
 			'link_attributes' => [
-				'href' => '/events/event/register/' . $event->guid,
+				'href' => elgg_generate_url('default:object:event:register', [
+					'guid' => $event->guid,
+				]),
 			],
 			'text' => elgg_echo('event_manager:event:register:register_link'),
 		];

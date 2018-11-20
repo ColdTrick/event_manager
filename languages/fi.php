@@ -18,7 +18,7 @@ return array (
   'event_manager:menu:title' => 'Tapahtumat',
   'event_manager:menu:events' => 'Kaikki tapahtumat',
   'event_manager:menu:group_events' => 'Ryhmän tapahtumat',
-  'event_manager:menu:new_event' => 'Uusi tapahtuma',
+  'event:add' => 'Uusi tapahtuma',
   'event_manager:menu:unsubscribe' => 'Unsubscribe',
   'event_manager:menu:unsubscribe_confirm' => 'Confirm unsubscription',
   'event_manager:menu:registration:completed' => 'Event registration completed',

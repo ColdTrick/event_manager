@@ -26,13 +26,13 @@ $content = elgg_view_entity_list($events['entities'], [
 elgg_pop_context();
 
 $all_link = elgg_view('output/url', [
-	'href' => '/events/event/list/' . $group->guid,
+	'href' => elgg_generate_url('collection:object:event:group', ['guid' => $group->guid]),
 	'text' => elgg_echo('link:view:all'),
 ]);
 
 $new_link = elgg_view('output/url', [
-	'href' => '/events/event/new/' . $group->guid,
-	'text' => elgg_echo('event_manager:menu:new_event'),
+	'href' => elgg_generate_url('add:object:event', ['guid' => $group->guid]),
+	'text' => elgg_echo('event:add'),
 ]);
 
 echo elgg_view('groups/profile/module', [

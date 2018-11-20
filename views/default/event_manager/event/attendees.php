@@ -24,7 +24,10 @@ foreach ($supported_relationships as $rel => $label) {
 	
 	$rel_title = elgg_view('output/url', [
 		'text' => "{$label} ({$total})",
-		'href' => "events/event/attendees/{$event->guid}/{$rel}",
+		'href' => elgg_generate_url('collection:object:event:attendees', [
+			'guid' => $event->guid,
+			'relationship' => $rel,
+		]),
 	]);
 	
 	$rel_content = '';
@@ -45,7 +48,10 @@ foreach ($supported_relationships as $rel => $label) {
 		
 		$rel_content .= elgg_view('output/url', [
 			'text' => elgg_echo('event_manager:event:view:attendees:more', [$remaining]),
-			'href' => "events/event/attendees/{$event->guid}/{$rel}",
+			'href' => elgg_generate_url('collection:object:event:attendees', [
+				'guid' => $event->guid,
+				'relationship' => $rel,
+			]),
 			'class' => [
 				'elgg-button',
 				'elgg-button-action',

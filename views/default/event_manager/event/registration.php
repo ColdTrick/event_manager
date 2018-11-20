@@ -14,6 +14,6 @@ if (!check_entity_relationship($event->guid, EVENT_MANAGER_RELATION_ATTENDING, e
 }
 
 echo elgg_view('output/url', [
-	'href' => '/events/registration/view/' . $event->guid,
+	'href' => elgg_generate_url('view:object:eventregistration', ['guid' => $event->guid]),
 	'text' => elgg_echo('event_manager:registration:viewyourregistration')
 ]);

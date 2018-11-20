@@ -20,7 +20,10 @@ if (empty($rel)) {
 if ($rel == EVENT_MANAGER_RELATION_ATTENDING) {
 	if ($event->hasEventSpotsLeft() && $event->hasSlotSpotsLeft()) {
 		if ($event->registration_needed && $event->hasRegistrationForm()) {
-			return elgg_redirect_response("events/event/register/{$guid}/{$rel}");
+			return elgg_redirect_response(elgg_generate_url('default:object:event:register', [
+				'guid' => $guid,
+				'relation' => $rel,
+			]));
 		} else {
 			$rsvp = $event->rsvp($rel, $user_guid);
 		}
@@ -29,7 +32,7 @@ if ($rel == EVENT_MANAGER_RELATION_ATTENDING) {
 			$rel = EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST;
 			if ($event->openForRegistration()) {
 				if ($event->registration_needed && $event->hasRegistrationForm()) {
-					return elgg_redirect_response("events/event/waitinglist/{$guid}");
+					return elgg_redirect_response(elgg_generate_url('collection:object:event:waitinglist', ['guid' => $guid]));
 				} else {
 					$rsvp = $event->rsvp($rel, $user_guid);
 				}

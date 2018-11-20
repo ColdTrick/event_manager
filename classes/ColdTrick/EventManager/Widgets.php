@@ -23,9 +23,9 @@ class Widgets {
 			
 		switch ($widget->context) {
 			case 'index':
-				return '/events';
+				return elgg_generate_url('collection:object:event:upcoming');
 			case 'groups':
-				return '/events/event/list/' . $widget->getOwnerGUID();
+				return elgg_generate_url('collection:object:event:group', ['guid' => $widget->getOwnerGUID()]);
 		}
 	}
 

@@ -193,7 +193,7 @@ Iemand heeft zich afgemeld van het \'%s\' evenement (%s). Je bent van de wachtli
   'event_manager:menu:title' => 'Evenementen',
   'event_manager:menu:events' => 'Alle evenementen',
   'event_manager:menu:group_events' => 'Groeps evenementen',
-  'event_manager:menu:new_event' => 'Nieuw Evenement',
+  'event:add' => 'Nieuw Evenement',
   'event_manager:list:title' => 'Evenementen',
   'event_manager:list:group:title' => 'Groeps evenementen',
   'event_manager:list:advancedsearch' => 'Geavanceerd zoeken',

@@ -77,7 +77,98 @@ return [
 	    ],
 	],
 	'routes' => [
-
+		'add:object:event' => [
+			'path' => '/event/add/{guid?}',
+			'resource' => 'event/add',
+			'middleware' => [
+				Gatekeeper::class,
+			],
+		],
+		'edit:object:event' => [
+			'path' => '/event/edit/{guid}',
+			'resource' => 'event/edit',
+			'middleware' => [
+				\Elgg\Router\Middleware\Gatekeeper::class,
+			],
+		],
+		'edit:object:event:program' => [
+			'path' => '/event/edit_program/{guid}',
+			'resource' => 'event/edit_program',
+			'middleware' => [
+				\Elgg\Router\Middleware\Gatekeeper::class,
+			],
+		],
+		'edit:object:event:upload' => [
+			'path' => '/event/upload/{guid}',
+			'resource' => 'event/upload',
+			'middleware' => [
+				\Elgg\Router\Middleware\Gatekeeper::class,
+			],
+		],
+		'view:object:event' => [
+			'path' => '/event/view/{guid}/{title?}',
+			'resource' => 'event/view',
+		],
+		'collection:object:event:waitinglist' => [
+			'path' => '/event/waitinglist/{guid}',
+			'resource' => 'event/waitinglist',
+		],
+		'default:object:event:unsubscribe:confirm' => [
+			'path' => '/event/unsubscribe/confirm/{guid}/{code}',
+			'resource' => 'event/unsubscribe/confirm',
+		],
+		'default:object:event:unsubscribe:request' => [
+			'path' => '/event/unsubscribe/request/{guid}',
+			'resource' => 'event/unsubscribe/request',
+		],
+		'default:object:event:register' => [
+			'path' => '/event/register/{guid}/{relation?}',
+			'resource' => 'event/register',
+		],
+		'default:object:eventregistration:confirm' => [
+			'path' => '/eventregistration/confirm/{guid}',
+			'resource' => 'eventregistration/confirm',
+		],
+		'view:object:eventregistration' => [
+			'path' => '/eventregistration/view/{guid}',
+			'resource' => 'eventregistration/view',
+		],
+		'default:object:eventregistration:completed' => [
+			'path' => '/eventregistration/completed/{event_guid}/{object_guid}',
+			'resource' => 'eventregistration/completed',
+		],
+		'collection:object:event:upcoming' => [
+			'path' => '/event/upcoming',
+			'resource' => 'event/upcoming',
+		],
+		'collection:object:event:map' => [
+			'path' => '/event/map',
+			'resource' => 'event/map',
+		],
+		'collection:object:event:calendar' => [
+			'path' => '/event/calendar',
+			'resource' => 'event/calendar',
+		],
+		'collection:object:event:owner' => [
+			'path' => '/event/owner/{username?}',
+			'resource' => 'event/owner',
+		],
+		'collection:object:event:attending' => [
+			'path' => '/event/attending/{username?}',
+			'resource' => 'event/attending',
+		],
+		'collection:object:event:group' => [
+			'path' => '/event/group/{guid}',
+			'resource' => 'event/group',
+		],
+		'collection:object:event:attendees' => [
+			'path' => '/event/attendees/{guid}/{relationship}',
+			'resource' => 'event/attendees',
+		],
+		'default:object:event' => [
+			'path' => '/event',
+			'resource' => 'event/upcoming',
+		],
 	],
 	'actions' => [
 		'event_manager/event/edit' => [],

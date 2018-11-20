@@ -31,9 +31,10 @@ if (empty($registrations)) {
 
 $registration = $registrations[0];
 
-// generate unsubscribe code
-$unsubscribe_code = event_manager_create_unsubscribe_code($registration, $entity);
-$unsubscribe_link = elgg_normalize_url("events/unsubscribe/confirm/{$registration->guid}/{$unsubscribe_code}");
+$unsubscribe_link = elgg_generate_url('default:object:event:unsubscribe:confirm', [
+	'guid' => $registration->guid,
+	'code' => event_manager_create_unsubscribe_code($registration, $entity),
+]);
 
 // make a message with further instructions
 $subject = elgg_echo('event_manager:unsubscribe:confirm:subject', [$entity->getDisplayName()]);

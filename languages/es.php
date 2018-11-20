@@ -18,7 +18,7 @@ return array (
   'event_manager:menu:title' => 'Eventos',
   'event_manager:menu:events' => 'Todos los eventos',
   'event_manager:menu:group_events' => 'Eventos de grupo',
-  'event_manager:menu:new_event' => 'Nuevo evento',
+  'event:add' => 'Nuevo evento',
   'event_manager:menu:unsubscribe' => 'Cancelar la suscripción',
   'event_manager:menu:unsubscribe_confirm' => 'Confirmar la cancelación de suscripción',
   'event_manager:menu:registration:completed' => 'Inscripción en el evento completada',

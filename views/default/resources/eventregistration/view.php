@@ -58,7 +58,10 @@ if (!empty($key)) {
 			'name' => 'edityourregistration',
 			'text' => elgg_echo('event_manager:registration:edityourregistration'),
 			'link_class' => 'elgg-button elgg-button-action',
-			'href' => 'events/event/register/' . $event->guid . '/event_attending',
+			'href' => elgg_generate_url('default:object:event:register', [
+				'guid' => $event->guid,
+				'relation' => 'event_attending',
+			]),
 		]));
 	}
 }
@@ -67,8 +70,11 @@ elgg_register_menu_item('title', \ElggMenuItem::factory([
 	'name' => 'save_to_pdf',
 	'text' => elgg_echo('event_manager:registration:view:savetopdf'),
 	'link_class' => 'elgg-button elgg-button-action',
-	'href' => 'action/event_manager/registration/pdf?k=' . elgg_build_hmac([$event->time_created, $user_guid])->getToken() . '&guid=' . $guid . '&u_g=' . $user_guid,
-	'is_action' => true,
+	'href' => elgg_generate_action_url('event_manager/registration/pdf', [
+		'k' => elgg_build_hmac([$event->time_created, $user_guid])->getToken(),
+		'guid' => $guid,
+		'u_g' => $user_guid,
+	]),
 ]));
 
 $body = elgg_view_layout('content', [

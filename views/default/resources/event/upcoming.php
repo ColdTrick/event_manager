@@ -15,7 +15,7 @@ if ($page_owner instanceof \ElggGroup) {
 	$event_options['container_guid'] = $page_owner->guid;
 }
 
-event_manager_register_title_menu();
+elgg_register_title_button('event', 'add', 'object', 'event');
 
 $events = event_manager_search_events($event_options);
 $content = elgg_view('event_manager/list', [
@@ -23,17 +23,11 @@ $content = elgg_view('event_manager/list', [
 	'count' => $events['count'],
 ]);
 
-$form = elgg_view_form('event_manager/event/search', [
-	'id' => 'event_manager_search_form',
-	'name' => 'event_manager_search_form',
-	'class' => 'mbl',
-]);
-
 $menu = elgg_view_menu('events_list', ['class' => 'elgg-tabs', 'sort_by' => 'register']);
 
 $body = elgg_view_layout('content', [
 	'filter' => '',
-	'content' => $form . $menu . $content,
+	'content' => $menu . $content,
 	'title' => $title_text,
 ]);
 

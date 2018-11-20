@@ -19,7 +19,7 @@ return array(
 	'event_manager:menu:title' => 'Events',
 	'event_manager:menu:events' => 'All events',
 	'event_manager:menu:group_events' => 'Group events',
-	'event_manager:menu:new_event' => 'New event',
+	'event:add' => 'New event',
 	'event_manager:menu:copy' => 'Copy event',
 	'event_manager:menu:unsubscribe' => "Unsubscribe",
 	'event_manager:menu:unsubscribe_confirm' => "Confirm unsubscription",

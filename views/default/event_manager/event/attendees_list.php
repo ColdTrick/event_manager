@@ -41,10 +41,12 @@ $q = elgg_extract('q', $vars, get_input('q'));
 if (!empty($q)) {
 	$options['query'] = $q;
 	// fix pagination
-	$options['base_url'] = elgg_http_add_url_query_elements("events/event/attendees/{$entity->guid}/{$relationship}", [
+	$options['base_url'] = elgg_generate_url('collection:object:event:attendees', [
+		'guid' => $entity->guid,
+		'relationship' => $relationship,
 		'q' => $q,
 	]);
-	
+		
 	$getter = 'elgg_search';
 }
 

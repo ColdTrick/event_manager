@@ -21,7 +21,7 @@ $page_owner = elgg_get_page_owner_entity();
 if ($page_owner instanceof ElggGroup) {
 	elgg_group_gatekeeper();
 	
-	elgg_push_breadcrumb($page_owner->getDisplayName(), '/events/event/list/' . $page_owner->guid);
+	elgg_push_breadcrumb($page_owner->getDisplayName(), elgg_generate_url('collection:object:event:group', ['guid' => $page_owner->guid]));
 }
 
 $title_text = $event->getDisplayName();

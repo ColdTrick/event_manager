@@ -110,24 +110,15 @@ class Menus {
 				'href' => false,
 			]);
 		}
-		
-		// change some of the basic menus
-		if (!empty($result) && is_array($result)) {
-			foreach ($result as &$item) {
-				switch ($item->getName()) {
-					case 'edit':
-						$item->setHref('events/event/edit/' . $entity->guid);
-						break;
-				}
-			}
-		}
 	
 		// show an unregister link for non logged in users
 		if (!elgg_is_logged_in() && $entity->register_nologin) {
 			$result[] = \ElggMenuItem::factory([
 				'name' => 'unsubscribe',
 				'text' => elgg_echo('event_manager:menu:unsubscribe'),
-				'href' => 'events/unsubscribe/' . $entity->guid . '/' . elgg_get_friendly_title($entity->getDisplayName()),
+				'href' => elgg_generate_url('default:object:event:unsubscribe:request', [
+					'guid' => $entity->guid,
+				]),
 				'priority' => 300,
 			]);
 		}
@@ -159,7 +150,7 @@ class Menus {
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'events',
 			'text' => elgg_echo('event_manager:menu:group_events'),
-			'href' => 'events/event/list/' . $group->guid,
+			'href' => elgg_generate_url('collection:object:event:group', ['guid' => $group->guid]),
 		]);
 	
 		return $returnvalue;
@@ -178,14 +169,14 @@ class Menus {
 	public static function registerUserOwnerBlock($hook, $entity_type, $returnvalue, $params) {
 	
 		$user = elgg_extract('entity', $params);
-		if (!($user instanceof \ElggUser)) {
+		if (!$user instanceof \ElggUser) {
 			return;
 		}
 	
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'events',
 			'text' => elgg_echo('item:object:event'),
-			'href' => 'events/owner/' . $user->username,
+			'href' => elgg_generate_url('collection:object:event:owner', ['username' => $user->username]),
 		]);
 	
 		return $returnvalue;
@@ -273,7 +264,7 @@ class Menus {
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'attending',
 				'text' => elgg_echo('event_manager:menu:attending'),
-				'href' => 'events/attending/' . elgg_get_logged_in_user_entity()->username,
+				'href' => elgg_generate_url('collection:object:event:attending', ['username' => elgg_get_logged_in_user_entity()->username]),
 			]);
 		}
 		
@@ -305,13 +296,14 @@ class Menus {
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'mine',
 			'text' => elgg_echo('mine'),
-			'href' => 'events/owner/' . elgg_get_logged_in_user_entity()->username,
+			'href' => elgg_generate_url('collection:object:event:owner', ['username' => elgg_get_logged_in_user_entity()->username]),
 		]);
 		
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'attending',
 			'text' => elgg_echo('event_manager:menu:attending'),
-			'href' => 'events/attending/' . elgg_get_logged_in_user_entity()->username,
+			'href' => elgg_generate_url('collection:object:event:attending', ['username' => elgg_get_logged_in_user_entity()->username]),
+			
 		]);
 		
 		return $returnvalue;
@@ -369,7 +361,10 @@ class Menus {
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => $rel,
 				'text' => $label,
-				'href' => "events/event/attendees/{$entity->guid}/{$rel}",
+				'href' => elgg_generate_url('collection:object:event:attendees', [
+					'guid' => $entity->guid,
+					'relationship' => $rel,
+				]),
 				'selected' => $relationship === $rel,
 			]);
 		}

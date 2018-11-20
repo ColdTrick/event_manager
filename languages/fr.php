@@ -24,7 +24,7 @@ return array(
 	'event_manager:menu:title' => 'Evènements',
 	'event_manager:menu:events' => 'Tous les évènements',
 	'event_manager:menu:group_events' => 'Evènements de groupe',
-	'event_manager:menu:new_event' => 'Créer évènement',
+	'event:add' => 'Créer évènement',
 	'event_manager:menu:copy' => 'Copier l\'événement',
 	'event_manager:menu:unsubscribe' => "Description",
 	'event_manager:menu:unsubscribe_confirm' => "Confirmé la désinscription",

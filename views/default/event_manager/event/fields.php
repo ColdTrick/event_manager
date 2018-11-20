@@ -110,7 +110,7 @@ if (!empty($event_files) || $can_edit) {
 	$module_vars = [];
 	if ($can_edit) {
 		$module_vars['menu'] = elgg_view('output/url', [
-			'href' => "events/event/upload/{$event->guid}",
+			'href' => elgg_generate_url('edit:object:event:upload', ['guid' => $event->guid]),
 			'title' => elgg_echo('event_manager:event:uploadfiles'),
 			'text' => elgg_echo('upload'),
 			'icon' => 'round-plus',

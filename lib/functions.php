@@ -276,8 +276,11 @@ function event_manager_get_registration_validation_url($event_guid, $user_guid) 
 		return false;
 	}
 	
-	$result = 'events/registration/confirm/' . $event_guid . '?user_guid=' . $user_guid . '&code=' . $code;
-	return elgg_normalize_url($result);
+	return elgg_generate_url('default:object:eventregistration:confirm', [
+		'guid' => $event_guid,
+		'user_guid' => $user_guid,
+		'code' => $code,
+	]);
 }
 
 /**
@@ -410,24 +413,24 @@ function event_manager_format_date($timestamp) {
  * @return void
  */
 function event_manager_register_title_menu() {
-	$page_owner = elgg_get_page_owner_entity();
-	if ($page_owner instanceof \ElggGroup) {
-		if (event_manager_can_create_group_events($page_owner)) {
-			elgg_register_menu_item('title', [
-				'name' => 'new',
-				'href' => 'events/event/new/' . $page_owner->guid,
-				'text' => elgg_echo('event_manager:menu:new_event'),
-				'link_class' => 'elgg-button elgg-button-action',
-			]);
-		}
-	} elseif (event_manager_can_create_site_events()) {
-		elgg_register_menu_item('title', [
-			'name' => 'new',
-			'href' => 'events/event/new',
-			'text' => elgg_echo('event_manager:menu:new_event'),
-			'link_class' => 'elgg-button elgg-button-action',
-		]);
-	}
+// 	$page_owner = elgg_get_page_owner_entity();
+// 	if ($page_owner instanceof \ElggGroup) {
+// 		if (event_manager_can_create_group_events($page_owner)) {
+// 			elgg_register_menu_item('title', [
+// 				'name' => 'new',
+// 				'href' => 'events/event/new/' . $page_owner->guid,
+// 				'text' => elgg_echo('event:add'),
+// 				'link_class' => 'elgg-button elgg-button-action',
+// 			]);
+// 		}
+// 	} elseif (event_manager_can_create_site_events()) {
+// 		elgg_register_menu_item('title', [
+// 			'name' => 'new',
+// 			'href' => 'events/event/new',
+// 			'text' => elgg_echo('event:add'),
+// 			'link_class' => 'elgg-button elgg-button-action',
+// 		]);
+// 	}
 }
 
 /**

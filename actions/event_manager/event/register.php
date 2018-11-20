@@ -214,8 +214,10 @@ elgg_clear_sticky_form('event_register');
 
 $forward_url = $event->getURL();
 if (elgg_is_logged_in()) {
-	$title = elgg_get_friendly_title($event->getDisplayName());
-	$forward_url = "events/registration/completed/{$event->guid}/{$object->guid}/{$title}";
+	$forward_url = elgg_generate_url('default:object:eventregistration:completed', [
+		'event_guid' => $event->guid,
+		'object_guid' => $object->guid,
+	]);
 }
 
 return elgg_ok_response('', $success_message, $forward_url);

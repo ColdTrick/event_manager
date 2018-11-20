@@ -162,7 +162,7 @@ elgg_clear_sticky_form('event');
 $forward_url = $event->getURL();
 if (!$has_days && $event->with_program) {
 	// need to create a program
-	$forward_url = "events/event/edit_program/{$event->guid}";
+	$forward_url = elgg_generate_url('edit:object:event:program', ['guid' => $event->guid]);
 }
 
 return elgg_ok_response('', elgg_echo('event_manager:action:event:edit:ok'), $forward_url);

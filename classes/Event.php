@@ -70,17 +70,6 @@ class Event extends ElggObject {
 	}
 
 	/**
-	 * Returns URL to the entity
-	 *
-	 * @return string
-	 *
-	 * @see ElggEntity::getURL()
-	 */
-	public function getURL() {
-		return elgg_get_site_url() . "events/event/view/" . $this->guid . "/" . elgg_get_friendly_title($this->getDisplayName());
-	}
-
-	/**
 	 * Returns excerpt based on shortdescription and falls back to long description
 	 *
 	 * @param $limit (optional) limited amount of characters
@@ -524,8 +513,11 @@ class Event extends ElggObject {
 
 		if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
 			if ($this->registration_needed) {
-				$link = elgg_get_site_url() . 'events/registration/view/' . $this->guid . '?u_g=' . $to . '&k=' . elgg_build_hmac([$this->time_created, $to])->getToken();
-
+				$link = elgg_generate_url('view:object:eventregistration', [
+					'guid' => $this->guid,
+					'u_g' => $to,
+					'k' => elgg_build_hmac([$this->time_created, $to])->getToken(),
+				]);
 				$registrationLink = PHP_EOL . PHP_EOL;
 				$registrationLink .= elgg_echo('event_manager:event:registration:notification:program:linktext');
 				$registrationLink .= PHP_EOL . PHP_EOL;
@@ -537,7 +529,10 @@ class Event extends ElggObject {
 			}
 
 			if ($this->register_nologin) {
-				$link = elgg_get_site_url() . "events/unsubscribe/" . $this->guid . "/" . elgg_get_friendly_title($this->getDisplayName()) . "?e=" . $to_entity->email;
+				$link = elgg_generate_url('default:object:event:unsubscribe:request', [
+					'guid' => $this->guid,
+					'e' => $to_entity->email,
+				]);
 
 				$unsubscribeLink = PHP_EOL . PHP_EOL;
 				$unsubscribeLink .= elgg_echo('event_manager:event:registration:notification:unsubscribe:linktext');

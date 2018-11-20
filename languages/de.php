@@ -24,7 +24,7 @@ return array (
 	'event_manager:menu:title' => 'Veranstaltungen',
 	'event_manager:menu:events' => 'Alle Veranstaltungen',
 	'event_manager:menu:group_events' => 'Gruppenveranstaltungen',
-	'event_manager:menu:new_event' => 'Neue Veranstaltung',
+	'event:add' => 'Neue Veranstaltung',
 	'event_manager:menu:copy' => 'Kopiere Veranstaltung',
 	'event_manager:menu:unsubscribe' => 'Abmelden',
 	'event_manager:menu:unsubscribe_confirm' => 'Abmeldung best&auml;tigen',
