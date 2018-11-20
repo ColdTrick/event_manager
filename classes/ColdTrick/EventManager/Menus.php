@@ -20,63 +20,57 @@ class Menus {
 		if (empty($guid) || empty($user)) {
 			return;
 		}
+		
 		$event = get_entity($guid);
-		if (!($event instanceof \Event)) {
+		if (!$event instanceof \Event) {
 			return;
 		}
 		
 		if (!$event->canEdit()) {
 			return;
 		}
-		
-		$result = $returnvalue;
-	
+
 		// kick from event (assumes users listed on the view page of an event)
-		$href = 'action/event_manager/event/rsvp?guid=' . $event->guid . '&user=' . $user->guid . '&type=' . EVENT_MANAGER_RELATION_UNDO;
-	
-		$item = \ElggMenuItem::factory([
+		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'event_manager_kick',
 			'text' => elgg_echo('event_manager:event:relationship:kick'),
-			'href' => $href,
-			'is_action' => true,
+			'href' => elgg_generate_action_url('event_manager/event/rsvp', [
+				'guid' => $event->guid,
+				'user' => $user->guid,
+				'type' => EVENT_MANAGER_RELATION_UNDO,
+			]),
 			'section' => 'action',
 		]);
-		
-		$result[] = $item;
 	
 		$user_relationship = $event->getRelationshipByUser($user->guid);
 	
 		if ($user_relationship == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
-			// resend confirmation
-			$href = 'action/event_manager/event/resend_confirmation?guid=' . $event->guid . '&user=' . $user->guid;
-	
-			$item = \ElggMenuItem::factory([
+			
+			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'event_manager_resend_confirmation',
 				'text' => elgg_echo("event_manager:event:menu:user_hover:resend_confirmation"),
-				'href' => $href,
-				'is_action' => true,
+				'href' => elgg_generate_action_url('event_manager/event/resend_confirmation', [
+					'guid' => $event->guid,
+					'user' => $user->guid,
+				]),
 				'section' => 'action',
 			]);
-			
-			$result[] = $item;
 		}
 	
 		if (in_array($user_relationship, [EVENT_MANAGER_RELATION_ATTENDING_PENDING, EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST])) {
-			// move to attendees
-			$href = 'action/event_manager/attendees/move_to_attendees?guid=' . $event->guid . '&user=' . $user->guid;
 			
-			$item = \ElggMenuItem::factory([
+			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'event_manager_move_to_attendees',
 				'text' => elgg_echo('event_manager:event:menu:user_hover:move_to_attendees'),
-				'href' => $href,
-				'is_action' => true,
+				'href' => elgg_generate_action_url('event_manager/attendees/move_to_attendees', [
+					'guid' => $event->guid,
+					'user' => $user->guid,
+				]),
 				'section' => 'action',
 			]);
-	
-			$result[] = $item;
 		}
 		
-		return $result;
+		return $returnvalue;
 	}
 	
 	/**

@@ -23,13 +23,12 @@ if ($event instanceof Event && $event->canEdit()) {
 	
 	$result .= '<li>';
 	$result .= elgg_view('output/url', [
-		'href' => elgg_http_add_url_query_elements('action/event_manager/event/rsvp', [
+		'href' => elgg_generate_action_url('event_manager/event/rsvp', [
 			'guid' => $event->guid,
 			'user' => $entity->guid,
 			'type' => EVENT_MANAGER_RELATION_UNDO,
 		]),
 		'text' => elgg_echo('event_manager:event:relationship:kick'),
-		'is_action' => true
 	]);
 	$result .= '</li>';
 	
@@ -37,23 +36,21 @@ if ($event instanceof Event && $event->canEdit()) {
 	if ($user_relationship == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
 		$result .= '<li>';
 		$result .= elgg_view('output/url', [
-			'href' => elgg_http_add_url_query_elements('action/event_manager/event/resend_confirmation', [
+			'href' => elgg_generate_action_url('event_manager/event/resend_confirmation', [
 				'guid' => $event->guid,
 				'user' => $entity->guid,
 			]),
 			'text' => elgg_echo('event_manager:event:menu:user_hover:resend_confirmation'),
-			'is_action' => true,
 		]);
 		$result .= '</li>';
 		
 		$result .= '<li>';
 		$result .= elgg_view('output/url', [
-			'href' => elgg_http_add_url_query_elements('action/event_manager/attendees/move_to_attendees', [
+			'href' => elgg_generate_action_url('event_manager/attendees/move_to_attendees', [
 				'guid' => $event->guid,
 				'user' => $entity->guid,
 			]),
 			'text' => elgg_echo('event_manager:event:menu:user_hover:move_to_attendees'),
-			'is_action' => true,
 		]);
 		$result .= '</li>';
 	}

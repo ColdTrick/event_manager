@@ -16,7 +16,7 @@ $footer = elgg_view('input/submit', ['value' => elgg_echo('confirm')]);
 $footer .= elgg_view('output/url', [
 	'text' => elgg_echo('delete'),
 	'confirm' => elgg_echo('event_manager:registration:confirm:delete'),
-	'href' => elgg_http_add_url_query_elements('action/event_manager/event/rsvp', [
+	'href' => elgg_generate_action_url('event_manager/event/rsvp', [
 		'guid' => $event->guid,
 		'user' => $user->guid,
 		'type' => EVENT_MANAGER_RELATION_UNDO,

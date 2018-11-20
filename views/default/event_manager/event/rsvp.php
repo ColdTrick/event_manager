@@ -45,8 +45,10 @@ if (elgg_is_logged_in()) {
 					'icon' => $icon,
 					'text' => $link,
 					'link_attributes' => [
-						'is_action' => true,
-						'href' => 'action/event_manager/event/rsvp?guid=' . $event->guid . '&type=' . EVENT_MANAGER_RELATION_UNDO,
+						'href' => elgg_generate_action_url('event_manager/event/rsvp', [
+							'guid' => $event->guid,
+							'type' => EVENT_MANAGER_RELATION_UNDO,
+						]),
 						'confirm' => true,
 						'text' => $link,
 					],
@@ -55,8 +57,10 @@ if (elgg_is_logged_in()) {
 				if ($rel != EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST) {
 					$icon = elgg_view_icon('checkmark-hover', 'float-alt');
 					$link = [
-						'is_action' => true,
-						'href' => 'action/event_manager/event/rsvp?guid=' . $event->guid . '&type=' . $rel,
+						'href' => elgg_generate_action_url('event_manager/event/rsvp', [
+							'guid' => $event->guid,
+							'type' => $rel,
+						]),
 						'text' => elgg_echo('event_manager:event:relationship:' . $rel),
 					];
 					

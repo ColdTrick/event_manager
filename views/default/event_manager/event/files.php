@@ -33,9 +33,13 @@ foreach ($files as $file) {
 	]);
 	
 	$delete = elgg_view('output/url', [
-		'href' => "action/event_manager/event/deletefile?guid={$event->guid}&file={$file->file}",
-		'text' => elgg_view_icon('delete'),
-		'confirm' => true
+		'href' => elgg_generate_action_url('event_manager/event/deletefile', [
+			'guid' => $event->guid,
+			'file' => $file->file,
+		]),
+		'icon' => 'delete',
+		'text' => elgg_echo('delete'),
+		'confirm' => true,
 	]);
 	
 	$rows .= "<tr><td>$link</td><td>$delete</td></tr>";
