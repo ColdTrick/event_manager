@@ -335,20 +335,20 @@ Jemand hat sich von der Veranstaltung \'%s\' abgemeldet (%s). Du wurdest von der
 	'event_manager:event:relationship:message:unavailable_relation' => 'Die Anmeldeart die du gew&auml;hlt hast ist nicht verf&uuml;gbar',
 
 	// widgets
-	'event_manager:widgets:events:title' => 'Veranstaltungen',
-	'event_manager:widgets:events:description' => 'Zeige bevor stehende Veranstaltungen',
+	'widgets:events:name' => 'Veranstaltungen',
+	'widgets:events:description' => 'Zeige bevor stehende Veranstaltungen',
 
-	'event_manager:widgets:events:numbertodisplay' => 'Anzahl der Veranstaltung zur Anzeige',
-	'event_manager:widgets:events:showevents' => 'Zeige Veranstaltungen',
-	'event_manager:widgets:events:showevents:icreated' => 'Ich erstellte',
-	'event_manager:widgets:events:showevents:attendingto' => 'Ich nehme teil',
-	'event_manager:widgets:events:group' => 'Gib einen Gruppennamen ein , um die Ergebnisse einzugrenzen (optional)',
-	'event_manager:widgets:events:group_guid' => 'Gib eine Gruppen guid ein , um die Ergebnisse einzugrenzen (optional)',
+	'widgets:events:numbertodisplay' => 'Anzahl der Veranstaltung zur Anzeige',
+	'widgets:events:showevents' => 'Zeige Veranstaltungen',
+	'widgets:events:showevents:icreated' => 'Ich erstellte',
+	'widgets:events:showevents:attendingto' => 'Ich nehme teil',
+	'widgets:events:group' => 'Gib einen Gruppennamen ein , um die Ergebnisse einzugrenzen (optional)',
+	'widgets:events:group_guid' => 'Gib eine Gruppen guid ein , um die Ergebnisse einzugrenzen (optional)',
 
-	'event_manager:widgets:highlighted_events:title' => 'Veranstaltung hervorheben',
-	'event_manager:widgets:highlighted_events:description' => 'Wählen Sie Ihre Veranstaltungen aus, die Sie in diesem Widget hervorheben möchten',
-	'event_manager:widgets:highlighted_events:edit:event_guids' => 'Wähle Veranstaltungen',
-	'event_manager:widgets:highlighted_events:edit:show_past_events' => 'Vergangene Veranstaltungen anzeigen',
+	'widgets:highlighted_events:name' => 'Veranstaltung hervorheben',
+	'widgets:highlighted_events:description' => 'Wählen Sie Ihre Veranstaltungen aus, die Sie in diesem Widget hervorheben möchten',
+	'widgets:highlighted_events:edit:event_guids' => 'Wähle Veranstaltungen',
+	'widgets:highlighted_events:edit:show_past_events' => 'Vergangene Veranstaltungen anzeigen',
 
 	// actions
 	'event_manager:action:event:edit:ok' => 'Veranstaltung gespeichert',

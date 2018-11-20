@@ -333,20 +333,20 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:event:relationship:message:unavailable_relation' => 'The RSVP type you selected is not available',
 
 	// widgets
-	'event_manager:widgets:events:title' => 'Events',
-	'event_manager:widgets:events:description' => 'Show upcoming events',
+	'widgets:events:name' => 'Events',
+	'widgets:events:description' => 'Show upcoming events',
 
-	'event_manager:widgets:events:numbertodisplay' => 'Number of events to display',
-	'event_manager:widgets:events:showevents' => 'Show events',
-	'event_manager:widgets:events:showevents:icreated' => 'I created',
-	'event_manager:widgets:events:showevents:attendingto' => 'I\'m attending',
-	'event_manager:widgets:events:group' => "Enter a group name to limit the results (optional)",
-	'event_manager:widgets:events:group_guid' => "Enter a group guid to limit the results (optional)",
+	'widgets:events:numbertodisplay' => 'Number of events to display',
+	'widgets:events:showevents' => 'Show events',
+	'widgets:events:showevents:icreated' => 'I created',
+	'widgets:events:showevents:attendingto' => 'I\'m attending',
+	'widgets:events:group' => "Enter a group name to limit the results (optional)",
+	'widgets:events:group_guid' => "Enter a group guid to limit the results (optional)",
 	
-	'event_manager:widgets:highlighted_events:title' => 'Highlighted Events',
-	'event_manager:widgets:highlighted_events:description' => 'Select your events you wish to highlight in this widget',
-	'event_manager:widgets:highlighted_events:edit:event_guids' => 'Select events',
-	'event_manager:widgets:highlighted_events:edit:show_past_events' => 'Show past events',
+	'widgets:highlighted_events:name' => 'Highlighted Events',
+	'widgets:highlighted_events:description' => 'Select your events you wish to highlight in this widget',
+	'widgets:highlighted_events:edit:event_guids' => 'Select events',
+	'widgets:highlighted_events:edit:show_past_events' => 'Show past events',
 
 	// actions
 	'event_manager:action:event:edit:ok' => 'Event saved',

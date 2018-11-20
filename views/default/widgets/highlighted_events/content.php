@@ -15,8 +15,6 @@ $entities = elgg_get_entities([
 	'type' => 'object',
 	'subtype' => 'event',
 	'guids' => $event_guids,
-	'preload_owners' => true,
-	'preload_containers' => true,
 ]);
 
 foreach ($entities as $event) {

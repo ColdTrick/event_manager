@@ -102,4 +102,13 @@ return [
 		'event_manager/slot/save' => [],
 		'event_manager/day/edit' => [],
 	],
+	'widgets' => [
+		'events' => [
+			'context' => ['index', 'dashboard', 'profile', 'groups'],
+		],
+		'highlighted_events' => [
+			'context' => ['index', 'groups'],
+			'multiple' => true,
+		],
+	],
 ];

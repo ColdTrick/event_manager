@@ -329,20 +329,20 @@ une personne s\'est désinscrite de l\'évènement \'%s\' . Vous n\'êtes plus s
 	'event_manager:event:relationship:message:unavailable_relation' => "Le type de RSVP que vous avez choisit n'est pas disponible",
 	
 	// widgets
-	'event_manager:widgets:events:title' => 'évènements manager',
-	'event_manager:widgets:events:description' => 'Afficher les évènements à venir',
+	'widgets:events:name' => 'évènements manager',
+	'widgets:events:description' => 'Afficher les évènements à venir',
 	
-	'event_manager:widgets:events:numbertodisplay' => 'Nombre d\'évènements à afficher',
-	'event_manager:widgets:events:showevents' => 'Afficher les évènements',
-	'event_manager:widgets:events:showevents:icreated' => 'que j\'ai créé',
-	'event_manager:widgets:events:showevents:attendingto' => 'auxquels je participe',
-	'event_manager:widgets:events:group' => "Entrer le nom d'un groupe pour limité le résultat (optionnelle)",
-	'event_manager:widgets:events:group_guid' => "Entrer le guid d'un groupe pour limité le résultat (optionnelle)",
+	'widgets:events:numbertodisplay' => 'Nombre d\'évènements à afficher',
+	'widgets:events:showevents' => 'Afficher les évènements',
+	'widgets:events:showevents:icreated' => 'que j\'ai créé',
+	'widgets:events:showevents:attendingto' => 'auxquels je participe',
+	'widgets:events:group' => "Entrer le nom d'un groupe pour limité le résultat (optionnelle)",
+	'widgets:events:group_guid' => "Entrer le guid d'un groupe pour limité le résultat (optionnelle)",
 
-	'event_manager:widgets:highlighted_events:title' => 'Événements mis en avant',
-	'event_manager:widgets:highlighted_events:description' => 'Sélectionnez l\'événement que vous voulez mettre en avant dans ce widget',
-	'event_manager:widgets:highlighted_events:edit:event_guids' => 'Sélectionnez les événements',
-	'event_manager:widgets:highlighted_events:edit:show_past_events' => 'Montrer les événements passés',
+	'widgets:highlighted_events:name' => 'Événements mis en avant',
+	'widgets:highlighted_events:description' => 'Sélectionnez l\'événement que vous voulez mettre en avant dans ce widget',
+	'widgets:highlighted_events:edit:event_guids' => 'Sélectionnez les événements',
+	'widgets:highlighted_events:edit:show_past_events' => 'Montrer les événements passés',
 	
 	// actions
 	'event_manager:action:event:edit:ok' => 'évènements enregistré',
