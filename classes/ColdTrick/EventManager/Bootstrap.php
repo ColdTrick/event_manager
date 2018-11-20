@@ -15,13 +15,14 @@ class Bootstrap extends DefaultPluginBootstrap {
 		// add site menu item
 		elgg_register_menu_item('site', [
 			'name' => 'event_manager',
+			'icon' => 'calendar-alt',
 			'text' => elgg_echo('event_manager:menu:title'),
 			'href' => 'events',
 		]);
 	
 		// add group tool option
 		if (event_manager_groups_enabled()) {
-			add_group_tool_option('event_manager', elgg_echo('groups:enableevents'), true);
+			elgg()->group_tools->register('event_manager', ['label' => elgg_echo('groups:enableevents')]);
 		}
 	
 		// add widgets
@@ -129,7 +130,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 		$hooks->registerHandler('register', 'menu:entity', '\ColdTrick\EventManager\Menus::registerEntity', 600);
 		$hooks->registerHandler('register', 'menu:owner_block', '\ColdTrick\EventManager\Menus::registerGroupOwnerBlock');
 		$hooks->registerHandler('register', 'menu:owner_block', '\ColdTrick\EventManager\Menus::registerUserOwnerBlock');
-		$hooks->registerHandler('register', 'menu:event_edit', '\ColdTrick\EventManager\Menus::registerEventEdit');
 		$hooks->registerHandler('register', 'menu:event_files', '\ColdTrick\EventManager\Menus::registerEventFiles');
 		$hooks->registerHandler('register', 'menu:events_list', '\ColdTrick\EventManager\Menus::registerEventsList');
 		$hooks->registerHandler('register', 'menu:river', '\ColdTrick\EventManager\Menus::stripEventRelationshipRiverMenuItems', 99999);

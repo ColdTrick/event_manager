@@ -80,7 +80,7 @@ elgg.event_manager.init_edit_program = function() {
 		var $dayElements = $("#day_" + dayGuid + ", #event_manager_event_view_program li.elgg-state-selected");
 		$dayElements.hide();
 
-		elgg.action('event_manager/day/delete', {
+		elgg.action('entity/delete', {
 			data: {
 				guid: dayGuid
 			},
@@ -110,7 +110,7 @@ elgg.event_manager.init_edit_program = function() {
 		var $slotElement = $("#" + slotGuid);
 		$slotElement.hide();
 
-		elgg.action('event_manager/slot/delete', {
+		elgg.action('entity/delete', {
 			data: {
 				guid: slotGuid
 			},

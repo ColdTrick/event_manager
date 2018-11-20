@@ -47,7 +47,7 @@ class Event extends ElggObject {
 	 * {@inheritDoc}
 	 * @see ElggObject::prepareObject()
 	 */
-	protected function prepareObject($object) {
+	protected function prepareObject(\Elgg\Export\Entity $object) {
 		$object = parent::prepareObject($object);
 		
 		$object->starttime = date('c', $this->getStartTimestamp());

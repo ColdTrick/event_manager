@@ -118,13 +118,6 @@ class Menus {
 					case 'edit':
 						$item->setHref('events/event/edit/' . $entity->guid);
 						break;
-					case 'delete':
-						$href = elgg_get_site_url() . 'action/event_manager/event/delete?guid=' . $entity->guid;
-						$href = elgg_add_action_tokens_to_url($href);
-	
-						$item->setHref($href);
-						$item->setConfirmText(elgg_echo('deleteconfirm'));
-						break;
 				}
 			}
 		}
@@ -195,41 +188,6 @@ class Menus {
 			'href' => 'events/owner/' . $user->username,
 		]);
 	
-		return $returnvalue;
-	}
-	
-	/**
-	 * Sidebar menu items on the event edit form
-	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
-	 *
-	 * @return array
-	 */
-	public static function registerEventEdit($hook, $entity_type, $returnvalue, $params) {
-		$sections = ['profile', 'location', 'contact', 'registration', 'questions'];
-		$entity = elgg_extract('entity', $params);
-		
-		foreach ($sections as $section) {
-			$options = [
-				'name' => "event_edit_{$section}",
-				'text' => elgg_echo("event_manager:edit:form:tabs:{$section}"),
-				'href' => "#event-manager-forms-event-edit-{$section}",
-			];
-			
-			if ($section == 'questions') {
-				if (!($entity instanceof \Event)) {
-					$options['item_class'][] = 'hidden';
-				} elseif (!$entity->getRegistrationFormQuestions(true) && !$entity->registration_needed) {
-					$options['item_class'][] = 'hidden';
-				}
-			}
-			
-			$returnvalue[] = \ElggMenuItem::factory($options);
-		}
-		
 		return $returnvalue;
 	}
 	

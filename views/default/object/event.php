@@ -48,16 +48,8 @@ $content .= elgg_view('event_manager/event/actions', $vars);
 
 $icon = elgg_view_entity_icon($event, 'date');
 
-$menu = elgg_view_menu('entity', [
-	'entity' => $vars['entity'],
-	'handler' => 'event',
-	'sort_by' => 'priority',
-	'class' => 'elgg-menu-hz',
-]);
-
 $params = [
 	'entity' => $event,
-	'metadata' => $menu,
 	'subtitle' => $subtitle,
 	'tags' => false,
 	'content' => $content,

@@ -138,18 +138,17 @@ $metadata = elgg_get_metadata([
 	'limit' => false,
 ]);
 
-$metadata_values = metadata_array_to_values($metadata);
 
-if (!empty($metadata_values)) {
-	$metadata_values = array_unique($metadata_values);
-	foreach ($metadata_values as $value) {
+foreach ($metadata as $md) {
+	$md_value = (array) $md->value;
+	foreach ($md_value as $value) {
 		$slot_options[$value] = $value;
 	}
 }
 
 $form_body .= elgg_view_field([
-	'#type' => 'radio', 
-	'#label' => elgg_echo('event_manager:edit:form:slot_set'), 
+	'#type' => 'radio',
+	'#label' => elgg_echo('event_manager:edit:form:slot_set'),
 	'name' => 'slot_set',
 	'options' => $slot_options,
 	'value' => $slot_set,

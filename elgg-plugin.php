@@ -81,7 +81,6 @@ return [
 	],
 	'actions' => [
 		'event_manager/event/edit' => [],
-		'event_manager/event/delete' => [],
 		'event_manager/event/copy' => [],
 		'event_manager/event/rsvp' => [],
 		'event_manager/event/upload' => [],
@@ -101,9 +100,6 @@ return [
 		'event_manager/registration/confirm' => ['access' => 'public'],
 		
 		'event_manager/slot/save' => [],
-		'event_manager/slot/delete' => [],
-		
 		'event_manager/day/edit' => [],
-		'event_manager/day/delete' => [],
 	],
 ];

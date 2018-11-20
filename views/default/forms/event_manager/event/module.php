@@ -58,10 +58,10 @@ if ($collapsed) {
 	}
 }
 
-$header = '';
+$menu = null;
 if ($collapsed) {
-	$header .= elgg_view('input/button', [
-		'class' => "event-manager-edit-{$section}-toggle elgg-button-action float-alt man pan phs",
+	$menu = elgg_view('input/button', [
+		'class' => "event-manager-edit-{$section}-toggle elgg-button-action",
 		'value' => elgg_echo('event_manager:edit:form:tabs:toggle'),
 		'rel' => 'toggle',
 		'data-toggle-slide' => 0,
@@ -79,17 +79,10 @@ if ($collapsed) {
 	], elgg_echo("event_manager:edit:form:tabs:{$section}:toggle"));
 }
 
-if ($title) {
-	$header .= elgg_format_element('h3', [], $title);
-}
-if (empty($header)) {
-	$header = null;
-}
-
 $module_vars = [
 	'id' => elgg_extract('id', $vars),
 	'class' => ['event_tab'],
-	'header' => $header,
+	'menu' => $menu,
 ];
 
 if ($section == 'questions') {
@@ -100,4 +93,4 @@ if ($section == 'questions') {
 	}
 }
 
-echo elgg_view_module('info', null, $body, $module_vars);
+echo elgg_view_module('info', $title, $body, $module_vars);
