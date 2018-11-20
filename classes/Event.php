@@ -91,10 +91,8 @@ class Event extends ElggObject {
 	 * @see elgg_get_excerpt()
 	 */
 	public function getExcerpt($limit = null) {
-		$result = $this->shortdescription;
-		if (empty($shortdescription)) {
-			$result = $this->description;
-		}
+		$result = $this->shortdescription ?: $this->description;
+		
 		return elgg_get_excerpt($result, $limit);
 	}
 	
