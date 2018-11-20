@@ -23,7 +23,6 @@ $output .= elgg_view_field([
 	'#type' => 'longtext',
 	'#label' => elgg_echo('description'),
 	'#help' => elgg_echo('event_manager:edit:form:description:help'),
-	'#class' => 'event-manager-forms-label-inline',
 	'name' => 'description',
 	'value' => $description,
 ]);

@@ -97,7 +97,6 @@ echo elgg_view('elements/forms/field', [
 		'label' => elgg_echo('event_manager:edit:form:registration_options'),
 	]),
 	'input' => $with_program . $registration_needed  . $register_nologin . $notify_onsignup . $show_attendees,
-	'class' => 'event-manager-forms-label-normal',
 ]);
 
 echo '<div class="clearfix"><div class="elgg-col elgg-col-1of4">';
@@ -133,7 +132,7 @@ echo elgg_view_field([
 	'#type' => 'longtext',
 	'#label' => elgg_echo('event_manager:edit:form:registration_completed'),
 	'#help' => elgg_echo('event_manager:edit:form:registration_completed:description'),
-	'#class' => 'event-manager-edit-registration-completed event-manager-forms-label-inline hidden',
+	'#class' => 'event-manager-edit-registration-completed hidden',
 	'name' => 'registration_completed',
 	'value' => $vars['registration_completed'],
 ]);

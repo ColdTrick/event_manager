@@ -1,12 +1,3 @@
-/* Event global */
-.event-manager-forms-label-100 label:not(.elgg-field-label) {
-	font-size: 100%;
-}
-.event-manager-forms-label-normal label:not(.elgg-field-label) {
-	font-size: 100%;
-	font-weight: normal;
-}
-
 /* Event View */
 .event-manager-event-banner img {
 	max-width: 100%;
@@ -32,10 +23,6 @@
 }
 
 /* Event listing  */
-.event_manager_event_list_search_input {
-	width: 300px;
-}
-.event_manager_event_list_owner,
 .event_manager_event_view_owner {
 	color: #808080;
 	font-size: 11px;
@@ -73,63 +60,7 @@
     padding: 2px 0;
 }
 
-#event_manager_event_listing div.pagination {
-	margin: 0;
-}
-
-#event_manager_event_listing .elgg-list {
-	border-top: none;
-}
-
-#event_manager_event_list_search_more {
-	border: 1px solid #CCCCCC;
-    cursor: pointer;
-    line-height: 31px;
-    padding: 5px;
-    text-align: center;
-    width: auto;
-    
-    -webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-
-#event_manager_event_list_search_more:hover {
-	border-color: #4690D6;
-}
-
-/* Event Search */
-#event_manager_search_form label {
-	font-weight: normal;
-	font-size: 100%;
-}
-#event_manager_search_form .elgg-field {
-	margin: 0;
-}
-
-#event-manager-search-form-past-events  {
-	display: inline-block;
-	margin-left: 10px;
-}
-
-#event_manager_event_search_advanced_container .elgg-input-dropdown,
-#event_manager_event_search_advanced_container .elgg-input-date {
-	width: 200px;
-}
-
 /* Event view */
-
-.event-manager-event-view-attendees .elgg-head h3 a {
-	font-size: 1em;
-}
-
-.event-manager-event-view-attendees-more {
-	line-height: 40px;
-	height: 40px;
-	padding-top: 0;
-	padding-bottom: 0;
-}
-
 .event-manager-event-when {
 	margin-bottom: 15px;
 }
@@ -155,17 +86,9 @@
 	padding-top: 20px;
 }
 
-.elgg-module-event label {
-	font-size: 100%;
-}
-
 .event-manager-event-view-maps {
 	width: 100%;
 	height: 400px;
-}
-
-.event-manager-contact-details .elgg-output {
-	margin: 0;
 }
 
 /* Event Program Day */

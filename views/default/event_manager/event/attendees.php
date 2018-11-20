@@ -55,14 +55,11 @@ foreach ($supported_relationships as $rel => $label) {
 			'class' => [
 				'elgg-button',
 				'elgg-button-action',
-				'event-manager-event-view-attendees-more',
 			],
 		]);
 	}
 	
-	$module_vars = [
-		'class' => 'event-manager-event-view-attendees',
-	];
+	$module_vars = [];
 	
 	if ($can_edit) {
 		// export action
