@@ -7,12 +7,12 @@ elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 
 $event = get_entity($guid);
 if (!$event->canEdit()) {
-	register_error(elgg_echo('actionunauthorized'));
-	forward(REFERER);
+	throw new \Elgg\EntityPermissionsException();
 }
 
-elgg_push_breadcrumb($event->getDisplayName(), $event->getURL());
 elgg_set_page_owner_guid($event->getContainerGUID());
+
+elgg_push_entity_breadcrumbs($event);
 
 // build page elements
 $title_text = elgg_echo('event_manager:edit_program:title');
@@ -25,8 +25,8 @@ $content = elgg_format_element('div', [], elgg_view('output/longtext', [
 $content .= elgg_view('event_manager/program/view', ['entity' => $event]);
 
 // build page data
-$body = elgg_view_layout('content', [
-	'filter' => '',
+$body = elgg_view_layout('default', [
+	'filter' => false,
 	'content' => $content,
 	'title' => $title_text,
 ]);

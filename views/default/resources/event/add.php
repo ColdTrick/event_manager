@@ -4,24 +4,11 @@ elgg_gatekeeper();
 
 $title_text = elgg_echo('event_manager:edit:title');
 
-// $guid = (int) elgg_extract('guid', $vars);
-$event = null;
-
 // new event
 $page_owner = elgg_get_page_owner_entity();
 
-if ($page_owner instanceof \ElggGroup) {
-	if (!event_manager_can_create_group_events($page_owner)) {
-		register_error(elgg_echo('actionunauthorized'));
-		forward('events');
-	}
-
-} else {
-	if (!event_manager_can_create_site_events()) {
-		register_error(elgg_echo('actionunauthorized'));
-		forward('events');
-	}
-	elgg_set_page_owner_guid(elgg_get_logged_in_user_guid());
+if (!$page_owner->canWriteToContainer(0, 'object', 'subtype')) {
+	throw new \Elgg\EntityPermissionsException();
 }
 
 $form_vars = [
@@ -30,10 +17,10 @@ $form_vars = [
 	'enctype' => 'multipart/form-data'
 ];
 
-$form = elgg_view_form('event_manager/event/edit', $form_vars, ['entity' => $event]);
+$form = elgg_view_form('event_manager/event/edit', $form_vars);
 
-$body = elgg_view_layout('content', [
-	'filter' => '',
+$body = elgg_view_layout('default', [
+	'filter' => false,
 	'content' => $form,
 	'title' => $title_text,
 ]);

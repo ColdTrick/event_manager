@@ -21,7 +21,7 @@ if (!$event->openForRegistration()) {
 
 $title_text = elgg_echo('event_manager:event:rsvp:waiting_list');
 
-elgg_push_breadcrumb($event->getDisplayName(), $event->getURL());
+elgg_push_entity_breadcrumbs($event);
 
 $form_vars = [
 	'id' => 'event_manager_event_register',
@@ -34,8 +34,8 @@ $body_vars = [
 
 $form = elgg_view_form('event_manager/event/register', $form_vars, $body_vars);
 
-$body = elgg_view_layout('one_sidebar', [
-	'filter' => '',
+$body = elgg_view_layout('default', [
+	'filter' => false,
 	'content' => $form,
 	'title' => $title_text,
 ]);

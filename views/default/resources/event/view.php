@@ -6,35 +6,33 @@ elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 
 $event = get_entity($guid);
 
-if (elgg_get_plugin_setting('add_event_to_calendar', 'event_manager') !== 'no') {
-	// add export button
-	elgg_require_js('addthisevent');
+elgg_push_entity_breadcrumbs($event, false);
+
+if (elgg_get_plugin_setting('add_event_to_calendar', 'event_manager') === 'yes') {
 	elgg_register_menu_item('title', ElggMenuItem::factory([
 		'name' => 'addthisevent',
 		'href' => false,
 		'text' => elgg_view('event_manager/event/addthisevent', ['entity' => $event]),
+		'deps' => 'addthisevent',
 	]));
 }
 
 elgg_set_page_owner_guid($event->getContainerGUID());
 $page_owner = elgg_get_page_owner_entity();
 if ($page_owner instanceof ElggGroup) {
-	elgg_group_gatekeeper();
+	elgg_entity_gatekeeper($page_owner->guid);
 	
 	elgg_push_breadcrumb($page_owner->getDisplayName(), elgg_generate_url('collection:object:event:group', ['guid' => $page_owner->guid]));
 }
 
 $title_text = $event->getDisplayName();
 
-$output = elgg_view_entity($event, ['full_view' => true]);
-
-$sidebar = elgg_view('event_manager/event/sidebar', ['entity' => $event]);
-
-$body = elgg_view_layout('content', [
-	'filter' => '',
-	'content' => $output,
+$body = elgg_view_layout('default', [
+	'filter' => false,
+	'content' => elgg_view_entity($event),
 	'title' => $title_text,
-	'sidebar' => $sidebar,
+	'sidebar' => elgg_view('event_manager/event/sidebar', ['entity' => $event]),
+	'entity' => $event,
 ]);
 
 echo elgg_view_page($title_text, $body, 'default');

@@ -26,8 +26,8 @@ $content = elgg_view('event_manager/list', [
 $menu = elgg_view_menu('events_list', ['class' => 'elgg-tabs', 'sort_by' => 'register']);
 
 $body = elgg_view_layout('content', [
-	'filter' => '',
-	'content' => $menu . $content,
+	'filter' => $menu,
+	'content' => $content,
 	'title' => $title_text,
 ]);
 

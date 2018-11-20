@@ -23,10 +23,8 @@ if (elgg_in_context('maps')) {
 }
 
 $content = '';
-$subtitle = '';
 
 if (!elgg_in_context('widgets')) {
-	$subtitle = elgg_view('page/elements/by_line', $vars);
 	
 	$location = $event->location;
 	if ($location) {
@@ -46,16 +44,23 @@ if (!elgg_in_context('widgets')) {
 
 $content .= elgg_view('event_manager/event/actions', $vars);
 
-$icon = elgg_view_entity_icon($event, 'date');
+$imprint = elgg_extract('imprint', $vars, []);
+
+$attendee_count = $event->countAttendees();
+if ($attendee_count > 0 || $event->openForRegistration()) {
+	$imprint['attendee_count'] = [
+		'icon_name' => 'users',
+		'content' => elgg_echo('event_manager:event:relationship:event_attending:entity_menu', [$attendee_count]),
+	];
+}
 
 $params = [
 	'entity' => $event,
-	'subtitle' => $subtitle,
-	'tags' => false,
 	'content' => $content,
+	'imprint' => $imprint,
 ];
 $params = $params + $vars;
 
 $list_body = elgg_view('object/elements/summary', $params);
 
-echo elgg_view_image_block($icon, $list_body);
+echo elgg_view_image_block(elgg_view_entity_icon($event, 'date'), $list_body);

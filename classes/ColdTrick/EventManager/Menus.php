@@ -90,30 +90,14 @@ class Menus {
 	 * @return array
 	 */
 	public static function registerEntity($hook, $entity_type, $returnvalue, $params) {
-		if (elgg_in_context('widgets')) {
-			return;
-		}
-		
 		$entity = elgg_extract('entity', $params);
-		if (!($entity instanceof \Event)) {
+		if (!$entity instanceof \Event) {
 			return;
 		}
 		
-		$result = $returnvalue;
-			
-		$attendee_count = $entity->countAttendees();
-		if ($attendee_count > 0 || $entity->openForRegistration()) {
-			$result[] = \ElggMenuItem::factory([
-				'name' => 'attendee_count',
-				'priority' => 50,
-				'text' => elgg_echo('event_manager:event:relationship:event_attending:entity_menu', [$attendee_count]),
-				'href' => false,
-			]);
-		}
-	
 		// show an unregister link for non logged in users
 		if (!elgg_is_logged_in() && $entity->register_nologin) {
-			$result[] = \ElggMenuItem::factory([
+			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'unsubscribe',
 				'text' => elgg_echo('event_manager:menu:unsubscribe'),
 				'href' => elgg_generate_url('default:object:event:unsubscribe:request', [
@@ -123,7 +107,7 @@ class Menus {
 			]);
 		}
 	
-		return $result;
+		return $returnvalue;
 	}
 	
 	/**
@@ -139,7 +123,7 @@ class Menus {
 	public static function registerGroupOwnerBlock($hook, $entity_type, $returnvalue, $params) {
 	
 		$group = elgg_extract('entity', $params);
-		if (!($group instanceof \ElggGroup)) {
+		if (!$group instanceof \ElggGroup) {
 			return;
 		}
 	

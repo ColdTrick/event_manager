@@ -26,16 +26,16 @@ if ($page_owner instanceof ElggGroup) {
 	elgg_push_breadcrumb($page_owner->getDisplayName(), elgg_generate_url('collection:object:event:attendees', ['guid' => $page_owner->guid]));
 }
 
-// breadcrumb
-elgg_push_breadcrumb($entity->getDisplayName(), $entity->getURL());
+elgg_push_entity_breadcrumbs($entity);
 
 // title menu item
 if ($entity->canEdit()) {
 	elgg_register_menu_item('title', [
 		'name' => 'export',
 		'title' => elgg_echo('event_manager:event:exportattendees'),
-		'text' => elgg_view_icon('download', ['class' => 'mrs']) . elgg_echo('export'),
-		'href' => elgg_http_add_url_query_elements('action/event_manager/attendees/export', [
+		'icon' => 'download',
+		'text' => elgg_echo('export'),
+		'href' => elgg_generate_action_url('event_manager/attendees/export', [
 			'guid' => $entity->guid,
 			'rel' => $relationship,
 		]),
@@ -43,7 +43,6 @@ if ($entity->canEdit()) {
 			'elgg-button',
 			'elgg-button-action',
 		],
-		'is_action' => true,
 	]);
 }
 
@@ -77,7 +76,7 @@ $tabs = elgg_view_menu('event_attendees', [
 ]);
 
 // build page
-$page_data = elgg_view_layout('content', [
+$page_data = elgg_view_layout('default', [
 	'title' => $title,
 	'content' => $content,
 	'filter' => $tabs,

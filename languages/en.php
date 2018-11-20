@@ -6,12 +6,14 @@ return array(
 	'event_manager:group' => 'Group events',
 	'event_manager:group:more' => 'More events',
 	
-	'item:object:event' => 'Events',
+	'item:object:event' => 'Event',
 	'item:object:eventslot' => 'Eventslots',
 	'item:object:eventday' => 'Eventdays',
 	'item:object:eventregistration' => 'Eventregistrations',
 	'item:object:eventregistrationquestion' => 'Event Registration Questions',
 	'item:object:eventquestions' => 'Event Questions',
+	
+	'collection:object:event' => "Events",
 
 	'event_manager:date:format' => 'Y-m-d',
 	'event_manager:entity:copy' => 'Copy of: %s',

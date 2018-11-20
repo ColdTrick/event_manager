@@ -10,11 +10,10 @@ elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 $event = get_entity($guid);
 
 if (!$event->canEdit()) {
-	register_error(elgg_echo('actionunauthorized'));
-	forward($event->getURL());
+	throw new \Elgg\EntityPermissionsException();
 }
 
-elgg_push_breadcrumb($event->getDisplayName(), $event->getURL());
+elgg_push_entity_breadcrumbs($event);
 
 $form_vars = [
 	'id' => 'event_manager_event_upload',
@@ -26,8 +25,8 @@ $form = elgg_view_form('event_manager/event/upload_file', $form_vars, ['entity' 
 
 $current_files = elgg_view('event_manager/event/files', ['entity' => $event]);
 
-$body = elgg_view_layout('content', [
-	'filter' => '',
+$body = elgg_view_layout('default', [
+	'filter' => false,
 	'content' => $form . $current_files,
 	'title' => $title_text,
 ]);

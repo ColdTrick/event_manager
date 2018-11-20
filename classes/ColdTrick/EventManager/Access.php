@@ -57,4 +57,35 @@ class Access {
 		// restore access
 		elgg_set_ignore_access($ia);
 	}
+	
+	/**
+	 * Checks if plugin setting allows users to write to a container
+	 *
+	 * @param \Elgg\Hook $hook
+	 *
+	 * @return void|false
+	 */
+	public static function containerLogicCheck(\Elgg\Hook $hook) {
+		if ($hook->getParam('subtype') !== 'event') {
+			return;
+		}
+		
+		$container = $hook->getParam('container');
+		if ($container instanceof \ElggGroup) {
+			$who_create_group_events = elgg_get_plugin_setting('who_create_group_events', 'event_manager'); // group_admin, members
+			if (empty($who_create_group_events)) {
+				// no one can create
+				return false;
+			}
+			if ($who_create_group_events === 'group_admin' && !$group->canEdit($user->guid)) {
+				return false;
+			}
+			// in other group case let regular checks take place
+		} else {
+			$who_create_site_events = elgg_get_plugin_setting('who_create_site_events', 'event_manager');
+			if ($who_create_site_events === 'admin_only' && !elgg_is_admin_logged_in()) {
+				return false;
+			}
+		}
+	}
 }
