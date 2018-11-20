@@ -47,9 +47,6 @@ if ($eventDays) {
 }
 
 if ($event->canEdit() && !elgg_in_context('programmailview')) {
-
-	elgg_load_js('lightbox');
-	elgg_load_css('lightbox');
 	
 	$add_day = elgg_view('output/url', [
 		'href' => 'javascript:void(0);',

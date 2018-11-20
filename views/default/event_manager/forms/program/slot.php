@@ -176,7 +176,4 @@ $form = elgg_view('input/form', [
 	'body' => $form_body,
 ]);
 
-elgg_load_js('lightbox');
-elgg_load_css('lightbox');
-
 echo elgg_view_module('info', elgg_echo('event_manager:form:program:slot'), $form, ['id' => 'event-manager-program-slot-lightbox']);

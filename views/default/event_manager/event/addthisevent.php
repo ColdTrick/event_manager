@@ -8,7 +8,8 @@ if (!$event) {
 $link = elgg_view('output/url', [
 	'class' => 'elgg-button elgg-button-action',
 	'href' => $event->getURL(),
-	'text' => elgg_view_icon('calendar', 'float mrs') . elgg_echo('event_manager:event:menu:title:add_to_calendar'),
+	'icon' => 'calendar',
+	'text' => elgg_echo('event_manager:event:menu:title:add_to_calendar'),
 ]);
 
 $location = $event->location ?: $event->venue;

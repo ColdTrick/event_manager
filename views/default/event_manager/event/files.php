@@ -23,7 +23,7 @@ foreach ($files as $file) {
 		
 	$link = elgg_view('output/url', [
 		'href' => elgg_get_download_url($elggfile, $use_cookie),
-		'text' => $file->getDisplayName()
+		'text' => $file->title,
 	]);
 	
 	$delete = elgg_view('output/url', [

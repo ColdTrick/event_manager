@@ -94,7 +94,4 @@ $body = elgg_view('input/form', [
 	'body' => $form_body,
 ]);
 
-elgg_load_js('lightbox');
-elgg_load_css('lightbox');
-
 echo elgg_view_module('info', elgg_echo('event_manager:form:program:day'), $body, ['id' => 'event-manager-program-day-lightbox']);

@@ -100,12 +100,4 @@ if (elgg_is_logged_in()) {
 
 $form_body .= '</div>';
 
-$form_body .= elgg_format_element('span', ['id' => 'event-manager-search-form-past-events'], elgg_view_field([
-	'#type' => 'checkboxes',
-	'name' => 'past_events',
-	'data-slide-toggle' => 0,
-	'value' => 0,
-	'options' => [elgg_echo('event_manager:list:includepastevents') => '1'],
-]));
-
 echo $form_body;

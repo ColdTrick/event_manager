@@ -22,20 +22,7 @@ foreach ($supported_relationships as $rel => $label) {
 	$total = count($members);
 	$member_limit = 10;
 	
-	$rel_title = '';
-	if ($can_edit) {
-
-		// export action
-		$rel_title .= elgg_view('output/url', [
-			'is_action' => true,
-			'href' => "action/event_manager/attendees/export?guid={$event->guid}&rel={$rel}",
-			'title' => elgg_echo('event_manager:event:exportattendees'),
-			'text' => elgg_view_icon('download'),
-			'class' => 'float-alt'
-		]);
-	}
-	
-	$rel_title .= elgg_view('output/url', [
+	$rel_title = elgg_view('output/url', [
 		'text' => "{$label} ({$total})",
 		'href' => "events/event/attendees/{$event->guid}/{$rel}",
 	]);
@@ -66,6 +53,25 @@ foreach ($supported_relationships as $rel => $label) {
 			],
 		]);
 	}
+	
+	$module_vars = [
+		'class' => 'event-manager-event-view-attendees',
+	];
+	
+	if ($can_edit) {
+		// export action
+		$module_vars['menu'] = elgg_view('output/url', [
+			'href' => elgg_generate_action_url('event_manager/attendees/export', [
+				'guid' => $event->guid,
+				'rel' => $rel,
+			]),
+			'title' => elgg_echo('event_manager:event:exportattendees'),
+			'icon' => 'download',
+			'text' => elgg_echo('download'),
+		]);
+	}
+	
+	$rel_content = elgg_format_element('div', ['class' => 'clearfix'], $rel_content);
 		
-	echo elgg_view_module('info', $rel_title, $rel_content, ['class' => 'event-manager-event-view-attendees']);
+	echo elgg_view_module('info', $rel_title, $rel_content, $module_vars);
 }

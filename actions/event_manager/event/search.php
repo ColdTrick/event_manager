@@ -1,7 +1,5 @@
 <?php
 
-$search = get_input('search');
-$advanced_search = get_input('advanced_search');
 $search_type = get_input('search_type');
 $offset = (int) get_input('offset', 0);
 $container_guid = (int) get_input('container_guid');
@@ -23,40 +21,10 @@ $distance = [
 
 $options = [
 	'search_type' => $search_type,
-	'query' => $search,
 	'offset' => $offset
 ];
 
-if ($advanced_search) {
-	$options['advanced'] = true;
-	$options['meattending'] = (bool) $attending;
-	$options['owning'] = (bool) $owning;
-	$options['friendsattending'] = (bool) $friendsattending;
-	
-	if ($region !== '-') {
-		$options['region'] = $region;
-	}
-
-	if ($event_type !== '-') {
-		$options['event_type'] = $event_type;
-	}
-
-	if (!empty($event_start)) {
-		$options['event_start'] = $event_start;
-	}
-
-	if (!empty($event_end)) {
-		$options['event_end'] = $event_end;
-	}
-
-	if (empty($event_end) && empty($event_start) && empty($search)) {
-		$options['past_events'] = false;
-	} else {
-		$options['past_events'] = true;
-	}
-} else {
-	$options['past_events'] = (bool) $past_events;
-}
+$options['past_events'] = (bool) $past_events;
 
 if (!empty($container_guid)) {
 	$options['container_guid'] = $container_guid;

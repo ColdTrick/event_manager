@@ -37,7 +37,7 @@ if (!empty($key)) {
 	elgg_set_ignore_access($old_ia);
 
 } else {
-	gatekeeper();
+	elgg_gatekeeper();
 	
 	if (!$event->canEdit() && ($user_guid !== elgg_get_logged_in_user_guid())) {
 		forward($event->getURL());

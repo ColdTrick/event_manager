@@ -221,8 +221,9 @@ class Menus {
 			$elggfile->setFilename("files/{$file->file}");
 	
 			$returnvalue[] = \ElggMenuItem::factory([
-				'name' => $file->getDisplayName(),
-				'text' => elgg_view_icon('download', 'mrs') . $file->getDisplayName(),
+				'name' => $file->title,
+				'icon' => 'download',
+				'text' => $file->title,
 				'href' => elgg_get_inline_url($elggfile, $use_cookie),
 			]);
 		}

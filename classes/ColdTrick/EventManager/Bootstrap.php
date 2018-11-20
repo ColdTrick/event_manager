@@ -27,9 +27,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 	
 		// add widgets
 		elgg_register_widget_type('events', elgg_echo('event_manager:widgets:events:title'), elgg_echo('event_manager:widgets:events:description'), ['index', 'dashboard', 'profile', 'groups']);
-		if (elgg_view_exists('input/objectpicker')) {
-			elgg_register_widget_type('highlighted_events', elgg_echo('event_manager:widgets:highlighted_events:title'), elgg_echo('event_manager:widgets:highlighted_events:description'), ['index', 'groups'], true);
-		}
+		elgg_register_widget_type('highlighted_events', elgg_echo('event_manager:widgets:highlighted_events:title'), elgg_echo('event_manager:widgets:highlighted_events:description'), ['index', 'groups'], true);
 		
 		// page handlers
 		elgg_register_page_handler('events', '\ColdTrick\EventManager\PageHandler::events');

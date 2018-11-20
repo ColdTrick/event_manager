@@ -1,4 +1,6 @@
 <?php
+use Elgg\Database\Clauses\OrderByClause;
+
 /**
  * Show a list of attendees to an event
  *
@@ -6,13 +8,20 @@
  * @uses $vars['relationship'] which attendees to list
  */
 
+$guid = get_input('guid');
 $entity = elgg_extract('entity', $vars);
-$relationship = elgg_extract('relationship', $vars);
+$relationship = elgg_extract('relationship', $vars, get_input('relationship'));
+
+if (!$entity && $guid) {
+	$entity = get_entity($guid);
+}
+
 if (!$entity instanceof Event || empty($relationship)) {
 	return;
 }
 
 $options = [
+	'type' => 'user', // trigger search fields generation
 	'type_subtype_pairs' => [
 		'user' => ELGG_ENTITIES_ANY_VALUE,
 		'object' => [
@@ -22,39 +31,21 @@ $options = [
 	'relationship_guid' => $entity->guid,
 	'relationship' => $relationship,
 	'no_results' => true,
-	'order_by' => 'r.time_created DESC',
+	'order_by' => new OrderByClause('r.time_created', 'DESC'),
 ];
+
+$getter = 'elgg_get_entities';
 
 // searching ?
 $q = elgg_extract('q', $vars, get_input('q'));
 if (!empty($q)) {
+	$options['query'] = $q;
 	// fix pagination
 	$options['base_url'] = elgg_http_add_url_query_elements("events/event/attendees/{$entity->guid}/{$relationship}", [
 		'q' => $q,
 	]);
 	
-	// search
-	$dbprefix = elgg_get_config('dbprefix');
-	$q = sanitize_string($q);
-	
-	$options['joins'] = [
-		"LEFT OUTER JOIN {$dbprefix}users_entity ue ON e.guid = ue.guid",
-		"LEFT OUTER JOIN {$dbprefix}metadata md ON e.guid = md.entity_guid",
-		"JOIN {$dbprefix}metastrings msn ON md.name_id = msn.id",
-		"JOIN {$dbprefix}metastrings msv ON md.value_id = msv.id",
-	];
-	
-	$wheres = [
-		"e.type = 'user' AND ue.name LIKE '%{$q}%'",
-		"e.type = 'user' AND ue.username LIKE '%{$q}%'",
-		"e.type = 'object' AND msn.string = 'name' AND msv.string LIKE '%{$q}%'",
-	];
-	
-	if ($entity->canEdit()) {
-		$wheres[] = "e.type = 'object' AND msn.string = 'email' AND msv.string LIKE '%{$q}%'";
-	}
-	
-	$options['wheres'] = '((' . implode(') OR (', $wheres) . '))';
+	$getter = 'elgg_search';
 }
 
-echo elgg_list_entities($options);
+echo elgg_list_entities($options, $getter);

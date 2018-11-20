@@ -20,9 +20,6 @@ $details .= $day->getDisplayName();
 
 if ($can_edit && !elgg_in_context('programmailview') && ($participate == false)) {
 	
-	elgg_load_js('lightbox');
-	elgg_load_css('lightbox');
-	
 	$edit_day = elgg_view('output/url', [
 		'href' => 'javascript:void(0);',
 		'rel' => $day->guid,
@@ -68,9 +65,6 @@ if ($daySlots) {
 }
 
 if ($can_edit && !elgg_in_context('programmailview') && ($participate == false)) {
-
-	elgg_load_js('lightbox');
-	elgg_load_css('lightbox');
 	
 	$slots .= elgg_view('output/url', [
 		'href' => 'javascript:void(0);',

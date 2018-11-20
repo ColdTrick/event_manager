@@ -107,22 +107,21 @@ if (!empty($location_details)) {
 // files
 $event_files = elgg_view_menu('event_files', ['entity' => $event]);
 if (!empty($event_files) || $can_edit) {
-	$files_title = '';
+	$module_vars = [];
 	if ($can_edit) {
-		$files_title .= elgg_view('output/url', [
+		$module_vars['menu'] = elgg_view('output/url', [
 			'href' => "events/event/upload/{$event->guid}",
 			'title' => elgg_echo('event_manager:event:uploadfiles'),
-			'text' => elgg_view_icon('round-plus'),
-			'class' => 'float-alt'
+			'text' => elgg_echo('upload'),
+			'icon' => 'round-plus',
 		]);
 	}
-	$files_title .= elgg_echo('event_manager:edit:form:files');
-		
+	
 	if (empty($event_files)) {
 		$event_files = elgg_echo('event_manager:event:uploadfiles:no_files');
 	}
 
-	$event_details .= elgg_view_module('info', $files_title, $event_files);
+	$event_details .= elgg_view_module('info', elgg_echo('event_manager:edit:form:files'), $event_files, $module_vars);
 }
 
 $registration_details = '';

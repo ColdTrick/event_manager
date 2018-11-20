@@ -1,5 +1,5 @@
 <?php
-gatekeeper();
+elgg_gatekeeper();
 
 $guid = (int) elgg_extract('guid', $vars);
 

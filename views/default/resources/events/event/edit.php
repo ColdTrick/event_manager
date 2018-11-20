@@ -1,6 +1,6 @@
 <?php
 
-gatekeeper();
+elgg_gatekeeper();
 
 $title_text = elgg_echo('event_manager:edit:title');
 

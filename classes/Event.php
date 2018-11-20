@@ -1,4 +1,7 @@
 <?php
+use Elgg\Database\QueryBuilder;
+use Elgg\Database\Clauses\JoinClause;
+
 /**
  * Event
  *
@@ -793,8 +796,8 @@ class Event extends ElggObject {
 		}
 
 		$event_guid = $this->guid;
-
-		$row = get_data_row("SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid AND guid_two=$user_guid");
+		
+		$row = elgg()->db->getDataRow("SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid AND guid_two=$user_guid");
 		if ($row) {
 			$result = $row->relationship;
 		}
@@ -824,7 +827,7 @@ class Event extends ElggObject {
 			$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid ORDER BY relationship ASC, time_created {$order}";
 		}
 
-		$all_relations = get_data($query);
+		$all_relations = elgg()->db->getData($query);
 		if (empty($all_relations)) {
 			return false;
 		}
@@ -884,18 +887,31 @@ class Event extends ElggObject {
 	 * @return array|boolean
 	 */
 	public function getRegistrationFormQuestions($count = false) {
-		$dbprefix = elgg_get_config('dbprefix');
 
+		$event_guid = $this->guid;
+		
+		$on_object = function (QueryBuilder $qb, $joined_alias, $main_alias) {
+			return $qb->compare("{$joined_alias}.entity_guid", '=', "{$main_alias}.guid");
+		};
+		$on_relationship = function (QueryBuilder $qb, $joined_alias, $main_alias) {
+			return $qb->compare("{$joined_alias}.guid_one", '=', "{$main_alias}.guid");
+		};
+		
 		return elgg_get_entities([
 			'type' => 'object',
 			'subtype' => 'eventregistrationquestion',
 			'joins' => [
-				"JOIN {$dbprefix}metadata n_table_r on e.guid = n_table_r.entity_guid",
-				"JOIN {$dbprefix}entity_relationships r on r.guid_one = e.guid"
+				new JoinClause('metadata', 'n_table_r', $on_object),
+				new JoinClause('entity_relationships', 'r', $on_relationship),
 			],
 			'wheres' => [
-				'r.guid_two = ' . $this->guid,
-				'r.relationship = "event_registrationquestion_relation"'
+				function (QueryBuilder $qb, $main_alias) use ($event_guid) {
+					$wheres = [];
+					$wheres[] = $qb->compare("r.guid_two", '=', $event_guid, ELGG_VALUE_INTEGER);
+					$wheres[] = $qb->compare('r.relationship', '=', 'event_registrationquestion_relation', ELGG_VALUE_STRING);
+					
+					return $qb->merge($wheres, 'AND');
+				},
 			],
 			'order_by_metadata' => [
 				'name' => 'order',
@@ -915,7 +931,7 @@ class Event extends ElggObject {
 	protected function getFirstWaitingUser() {
 		$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one= '" . $this->guid . "' AND relationship = '" . EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST . "' ORDER BY time_created ASC LIMIT 1";
 
-		$waiting_users = get_data($query);
+		$waiting_users = elgg()->db->getData($query);
 		if (empty($waiting_users)) {
 			return false;
 		}
@@ -1001,7 +1017,7 @@ class Event extends ElggObject {
 
 		$dbprefix = elgg_get_config('dbprefix');
 
-		$data = get_data("SELECT slot.guid FROM {$dbprefix}entities AS slot
+		$data = elgg()->db->getData("SELECT slot.guid FROM {$dbprefix}entities AS slot
 			INNER JOIN {$dbprefix}entities AS event ON event.guid = slot.owner_guid
 			INNER JOIN {$dbprefix}entity_relationships AS slot_user_relation ON slot.guid = slot_user_relation.guid_two
 			INNER JOIN {$dbprefix}entities AS entity ON entity.guid = slot_user_relation.guid_one

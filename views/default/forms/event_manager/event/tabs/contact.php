@@ -30,7 +30,7 @@ $output .= '</div>';
 $output .= '</div>';
 $output .= '</div>';
 
-$field_classes = ['event-manager-contact-organizer-guids', 'event-manager-contact-userpicker'];
+$field_classes = ['event-manager-contact-organizer-guids'];
 if (empty($organizer_guids)) {
 	$field_classes[] = 'hidden';
 }
@@ -40,6 +40,7 @@ $output .= elgg_view_field([
 	'#class' => $field_classes,
 	'name' => 'organizer_guids',
 	'values' => $organizer_guids,
+	'show_friends' => false,
 ]);
 
 $output .= '<div class="clearfix">';
@@ -64,7 +65,7 @@ $output .= '</div>';
 $output .= '</div>';
 $output .= '</div>';
 
-$field_classes = ['event-manager-contact-contact-guids', 'event-manager-contact-userpicker'];
+$field_classes = ['event-manager-contact-contact-guids'];
 if (empty($contact_guids)) {
 	$field_classes[] = 'hidden';
 }
@@ -74,6 +75,7 @@ $output .= elgg_view_field([
 	'#class' => $field_classes,
 	'name' => 'contact_guids',
 	'values' => $contact_guids,
+	'show_friends' => false,
 ]);
 
 $output .= elgg_view_field([

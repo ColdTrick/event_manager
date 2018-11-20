@@ -64,9 +64,7 @@ if (!empty($slot_set)) {
 }
 
 if ($slot->canEdit() && !elgg_in_context('programmailview') && ($participate == false)) {
-	elgg_load_js('lightbox');
-	elgg_load_css('lightbox');
-	
+
 	$edit_slot = elgg_view('output/url', [
 		'href' => 'javascript:void(0);',
 		'rel' => $slot->guid,

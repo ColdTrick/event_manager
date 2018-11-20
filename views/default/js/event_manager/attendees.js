@@ -5,13 +5,15 @@ define(function(require) {
 	
 	$(document).on('submit', 'form.elgg-form-event-manager-event-attendees', function() {
 		
-		var $form = $(this);
+		var form = this;
+		var $form = $(form);
 		var ajax = new Ajax();
+		
 		ajax.view('event_manager/event/attendees_list', {
-			data: ajax.objectify(this),
+			method: 'POST',
+			data: ajax.objectify(form),
 			success: function(data) {
 				console.log(data);
-				
 				$form.nextAll('ul.elgg-list, ul.elgg-pagination, p.elgg-no-results').remove();
 				$form.after(data);
 			}

@@ -20,11 +20,6 @@
 	display: inline-block;
 }
 
-.event-manager-contact-userpicker .elgg-user-picker > label, 
-.event-manager-contact-userpicker .elgg-user-picker > input[type="checkbox"] {
-	display: none;
-}
-
 .event_manager_event_edit_date {
 	width: 100px;
 	height: 20px;

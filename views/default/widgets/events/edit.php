@@ -37,28 +37,19 @@ if (!($widget->getOwnerEntity() instanceof ElggSite)) {
 
 $group_guid = $widget->group_guid;
 
-if (elgg_view_exists('input/grouppicker')) {
-	if (!empty($group_guid) && !is_array($group_guid)) {
-		$group_guid = [$group_guid];
-	}
-	
-	echo elgg_view_field([
-		'#type' => 'hidden',
-		'name' => 'params[group_guid]',
-		'value' => 0,
-	]);
-	echo elgg_view_field([
-		'#type' => 'grouppicker',
-		'#label' => elgg_echo('event_manager:widgets:events:group'),
-		'name' => 'params[group_guid]',
-		'values' => $group_guid,
-		'limit' => 1,
-	]);
-} else {
-	echo elgg_view_field([
-		'#type' => 'text',
-		'#label' => elgg_echo('event_manager:widgets:events:group_guid'),
-		'name' => 'params[group_guid]',
-		'value' => $group_guid,
-	]);
+if (!empty($group_guid) && !is_array($group_guid)) {
+	$group_guid = [$group_guid];
 }
+
+echo elgg_view_field([
+	'#type' => 'hidden',
+	'name' => 'params[group_guid]',
+	'value' => 0,
+]);
+echo elgg_view_field([
+	'#type' => 'grouppicker',
+	'#label' => elgg_echo('event_manager:widgets:events:group'),
+	'name' => 'params[group_guid]',
+	'values' => $group_guid,
+	'limit' => 1,
+]);

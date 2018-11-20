@@ -65,7 +65,6 @@ function event_manager_search_events($options = []) {
 		'limit' => (int) get_input('limit', 10),
 		'offset' => (int) get_input('offset', 0),
 		'container_guid' => null,
-		'query' => false,
 		'meattending' => false,
 		'owning' => false,
 		'friendsattending' => false,
@@ -101,11 +100,6 @@ function event_manager_search_events($options = []) {
 	if ($options['container_guid']) {
 		// limit for a group
 		$entities_options['container_guid'] = $options['container_guid'];
-	}
-
-	if ($options['query']) {
-		$entities_options['joins'][] = "JOIN {$dbprefix}objects_entity oe ON e.guid = oe.guid";
-		$entities_options['wheres'][] = event_manager_search_get_where_sql('oe', ['title', 'description'], $options);
 	}
 
 	if (!empty($options['event_start'])) {
@@ -241,37 +235,6 @@ function event_manager_sanitize_filename($string, $force_lowercase = true, $anal
 			mb_strtolower($clean, 'UTF-8') :
 			strtolower($clean) :
 		$clean;
-}
-
-/**
- * Returns the where part for a event search sql query
- *
- * @param string $table  table prefix
- * @param array  $fields fields to search
- * @param array  $params parameters to search
- *
- * @return string
- */
-function event_manager_search_get_where_sql($table, $fields, $params) {
-
-	// TODO: why not use a search hook?
-	$query = $params['query'];
-
-	// add the table prefix to the fields
-	foreach ($fields as $i => $field) {
-		if ($table) {
-			$fields[$i] = "$table.$field";
-		}
-	}
-
-	$likes = array();
-	$query = sanitise_string($query);
-	foreach ($fields as $field) {
-		$likes[] = "$field LIKE '%$query%'";
-	}
-	$likes_str = implode(' OR ', $likes);
-	
-	return "($likes_str)";
 }
 
 /**
