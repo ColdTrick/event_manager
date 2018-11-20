@@ -31,25 +31,6 @@ elgg.event_manager.slot_set_init = function() {
 elgg.event_manager.init = function() {
 
 	elgg.event_manager.slot_set_init();
-
-	// toggle drop down menu
-	$(document).on('click', '.event_manager_event_actions', function(event) {
-		if ($(this).next().is(':hidden')) {
-			// only needed if the current menu is already dropped down
-			$('body > .event_manager_event_actions_drop_down').remove();
-			$('body').append($(this).next().clone());
-			var css_top = $(this).offset().top + $(this).height();
-			var css_left = $(this).offset().left;
-			$('body > .event_manager_event_actions_drop_down').css({top: css_top, left: css_left}).show();
-		}
-
-		event.stopPropagation();
-	});
-
-	// hide drop down menu items
-	$(document).on('click', function() {
-		$('body > .event_manager_event_actions_drop_down').remove();
-	});
 	
 	$('#event_manager_event_register').submit(function() {
 		if (($("input[name='question_name']").val() === "") || ($("input[name='question_email']").val() === "")) {

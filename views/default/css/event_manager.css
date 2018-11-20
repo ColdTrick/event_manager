@@ -168,30 +168,6 @@
 	margin: 0;
 }
 
-/* Event tool links */
-.event_manager_event_actions_drop_down {
-    background: #FFFFFF;
-    padding: 5px 2px 5px 0;
-    position: absolute;
-    white-space: nowrap;
-    border-color: #CCCCCC;
-    border-style: solid;
-	z-index: 10;
-    border-width: 1px 1px 1px 1px;
-    list-style-type: none;
-    display: none;
-}
-
-.event_manager_event_actions_drop_down li {
-	padding: 0 0 0 10px;
-}
-.event_manager_event_actions_drop_down li .elgg-icon-checkmark-hover {
-	visibility: hidden;
-}
-.event_manager_event_actions_drop_down li:hover .elgg-icon-checkmark-hover {
-	visibility: visible;
-}
-
 /* Event Program Day */
 
 #event-manager-program-day-lightbox {

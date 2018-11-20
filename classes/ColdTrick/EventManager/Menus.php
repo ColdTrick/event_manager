@@ -349,4 +349,99 @@ class Menus {
 		
 		return $returnvalue;
 	}
+	
+	/**
+	 * Registers menu items for the rsvp menu
+	 *
+	 * @param \Elgg\Hook $hook 'register', 'menu:event:rsvp'
+	 *
+	 * @return \ElggMenuItem[]
+	 */
+	public static function registerRsvp(\Elgg\Hook $hook) {
+		
+		$event = $hook->getEntityParam();
+		if (!$event instanceof \Event) {
+			return;
+		}
+		
+		if (!$event->openForRegistration()) {
+			return;
+		}
+		
+		$result = $hook->getValue();
+	
+		if (elgg_is_logged_in()) {
+			$event_relationship_options = event_manager_event_get_relationship_options();
+			
+			$user_relation = $event->getRelationshipByUser();
+			if ($user_relation) {
+				if (!in_array($user_relation, $event_relationship_options)) {
+					$event_relationship_options[] = $user_relation;
+				}
+			}
+			
+			if (in_array($user_relation, $event_relationship_options)) {
+				$event_relationship_options = [$user_relation];
+			}
+			
+			foreach ($event_relationship_options as $rel) {
+				if (($rel == EVENT_MANAGER_RELATION_ATTENDING) || ($rel == EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST) || $event->$rel) {
+					
+					if ($rel == EVENT_MANAGER_RELATION_ATTENDING && ($user_relation !== EVENT_MANAGER_RELATION_ATTENDING)) {
+						if (!$event->hasEventSpotsLeft() && !$event->waiting_list_enabled) {
+							continue;
+						}
+					}
+					
+					if ($rel == $user_relation) {
+						$result[] = \ElggMenuItem::factory([
+							'name' => 'undo',
+							'href' => elgg_generate_action_url('event_manager/event/rsvp', [
+								'guid' => $event->guid,
+								'type' => EVENT_MANAGER_RELATION_UNDO,
+							]),
+							'confirm' => true,
+							'link_class' => ['elgg-button', 'elgg-button-cancel'],
+							'text' => elgg_echo("event_manager:event:relationship:{$rel}:undo"),
+							'icon' => 'undo',
+						]);
+					} else {
+						if ($rel != EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST) {
+							
+							$result[] = \ElggMenuItem::factory([
+								'name' => $rel,
+								'href' => elgg_generate_action_url('event_manager/event/rsvp', [
+									'guid' => $event->guid,
+									'type' => $rel,
+								]),
+								'text' => elgg_echo("event_manager:event:relationship:{$rel}"),
+								'link_class' => ['elgg-button', 'elgg-button-action'],
+							]);
+						}
+					}
+				}
+			}
+		} else {
+			if ($event->register_nologin) {
+				
+				$result[] = \ElggMenuItem::factory([
+					'name' => 'register',
+					'href' => elgg_generate_url('default:object:event:register', [
+						'guid' => $event->guid,
+					]),
+					'text' => elgg_echo('event_manager:event:register:register_link'),
+					'link_class' => ['elgg-button', 'elgg-button-action'],
+				]);
+			} elseif (elgg_extract('full_view', $vars)) {
+				$result[] = \ElggMenuItem::factory([
+					'name' => 'log_in_first',
+					'href' => false,
+					'text' => elgg_echo('event_manager:event:register:log_in_first'),
+					'link_class' => ['elgg-button', 'elgg-button-action'],
+				]);
+			}
+		}
+
+		return $result;
+	}
 }
