@@ -15,4 +15,5 @@ if ($event->with_program) {
 echo elgg_view('object/elements/full', [
 	'entity' => $event,
 	'body' => $body,
+	'show_summary' => true,
 ]);
