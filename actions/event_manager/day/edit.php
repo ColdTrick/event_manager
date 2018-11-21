@@ -51,17 +51,41 @@ if (empty($content_title)) {
 }
 
 if (!$edit) {
-	$content_title = '<li><a rel="day_' . $day->guid . '" href="javascript:void(0);">' . $content_title . '</a></li>';
+	$title_anchor = elgg_view('output/url', [
+		'href' => "#event_manager_event_view_program-{$day->guid}",
+		'text' => $content_title,
+		'rel' => "day_{$day->guid}",
+		'data-target' => "#event_manager_event_view_program-{$day->guid}",
+		'class' => [
+			'elgg-menu-content',
+		],
+	]);
+	$content_title = elgg_format_element('li', [
+		'data-menu-item' => "event_manager_event_view_program-tab-{$day->guid}",
+		'class' => [
+			"elgg-menu-item-event-manager-event-view-program-tab-{$day->guid}",
+			'elgg-components-tab',
+		],
+	], $title_anchor);
 }
 
+$content_body = elgg_view('event_manager/program/elements/day', [
+	'entity' => $day,
+	'details_only' => $edit,
+]);
+
+if (!$edit) {
+	$content_body = elgg_format_element('div', [
+		'class' => 'elgg-content',
+		'id' => "event_manager_event_view_program-{$day->guid}",
+	], $content_body);
+}
+	
 $result = [
 	'guid' => $day->guid,
 	'edit' => $edit,
 	'content_title' => $content_title,
-	'content_body' => elgg_view('event_manager/program/elements/day', [
-		'entity' => $day,
-		'details_only' => $edit
-	]),
+	'content_body' => $content_body,
 ];
 
 return elgg_ok_response($result);

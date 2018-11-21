@@ -44,9 +44,10 @@ elgg.event_manager.program_add_day = function(form) {
 					$("#day_" + guid + " .event_manager_program_day_details").html(json.output.content_body);
 					$("#event_manager_event_view_program a[rel='day_" + guid + "']").html(json.output.content_title).click();
 				} else {
-					$("#event_manager_event_view_program").after(json.output.content_body);
-					$("#event_manager_event_view_program li:last").before(json.output.content_title);
-					$("#event_manager_event_view_program a[rel='day_" + guid + "']").click();
+					var $program = $('#event_manager_event_view_program');
+					$program.find('.elgg-tabs-content').append(json.output.content_body);
+					$program.find('.elgg-menu-navigation-tabs').append(json.output.content_title);
+					$program.find("a[rel='day_" + guid + "']").click();
 				}
 			} else {
 				$button.show();
@@ -73,11 +74,17 @@ elgg.event_manager.init_edit_program = function() {
 		}
 		
 		var dayGuid = $(this).parent().attr("rel");
+		console.log(dayGuid);
 		if (!dayGuid) {
 			return false;
 		}
 		
-		var $dayElements = $("#day_" + dayGuid + ", #event_manager_event_view_program li.elgg-state-selected");
+		var $program = $('#event_manager_event_view_program');
+		
+		var $dayElements = $program.find("#day_" + dayGuid + ", .elgg-menu-navigation-tabs a[rel='day_" + dayGuid + "']").parent();
+		
+		$program.find('.elgg-menu-navigation-tabs li:first a').click();
+		
 		$dayElements.hide();
 
 		elgg.action('entity/delete', {
@@ -87,9 +94,6 @@ elgg.event_manager.init_edit_program = function() {
 			success: function(json) {
 				if (json.status >= 0) {
 					$dayElements.remove();
-					if($("#event_manager_event_view_program li").length > 1){
-						$("#event_manager_event_view_program li:first a").click();
-					}
 				} else {
 					$dayElements.show();
 				}

@@ -5,7 +5,7 @@ $participate = elgg_extract('participate', $vars);
 $register_type = elgg_extract('register_type', $vars);
 $details_only = elgg_extract('details_only', $vars);
 
-if (!($day instanceof \ColdTrick\EventManager\Event\Day)) {
+if (!$day instanceof \ColdTrick\EventManager\Event\Day) {
 	return;
 }
 
@@ -27,13 +27,13 @@ if ($can_edit && !elgg_in_context('programmailview') && ($participate == false))
 			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/day?day_guid=' . $day->guid)
 		]),
 		'class' => 'event_manager_program_day_edit elgg-lightbox',
-		'text' => elgg_echo('edit')
+		'text' => elgg_echo('edit'),
 	]);
 
 	$delete_day = elgg_view('output/url', [
 		'href' => 'javascript:void(0);',
 		'class' => 'event_manager_program_day_delete',
-		'text' => elgg_echo('delete')
+		'text' => elgg_echo('delete'),
 	]);
 	
 	$details .= " [ $edit_day | $delete_day ]";
@@ -46,7 +46,7 @@ if ($details_only) {
 
 $day_info = elgg_format_element('div', [
 	'class' => 'event_manager_program_day_details pbs mbs elgg-divide-bottom',
-	'rel' => $day->guid
+	'rel' => $day->guid,
 ], $details);
 
 $slots = '';
@@ -73,16 +73,12 @@ if ($can_edit && !elgg_in_context('programmailview') && ($participate == false))
 		'data-colorbox-opts' => json_encode([
 			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/slot?day_guid=' . $day->guid)
 		]),
-		'text' => elgg_echo("event_manager:program:slot:add")
+		'text' => elgg_echo("event_manager:program:slot:add"),
+		'icon' => 'plus',
 	]);
 }
 
-$classes = ['event_manager_program_day'];
-if (!elgg_extract('selected', $vars)) {
-	$classes[] = 'hidden';
-}
-
 echo elgg_format_element('div', [
-	'class' => $classes,
+	'class' => ['event_manager_program_day'],
 	'id' => 'day_' . $day->guid
 ], $day_info . $slots);

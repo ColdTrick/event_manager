@@ -4,7 +4,7 @@
 $event = elgg_extract('entity', $vars);
 $register_type = elgg_extract('register_type', $vars);
 
-if (empty($event) || !($event instanceof Event)) {
+if (!$event instanceof Event) {
 	return;
 }
 
@@ -12,53 +12,38 @@ if (!$event->with_program) {
 	return;
 }
 
-elgg_require_js('event_manager/view_event');
+$tab_options = [
+	'id' => 'event_manager_event_view_program',
+	'tabs' => [],
+];
 
-$tabtitles = '';
-$tabcontent = '';
-
-if ($eventDays = $event->getEventDays()) {
+$eventDays = $event->getEventDays();
+if ($eventDays) {
+	$member = elgg_extract('member', $vars);
 	foreach ($eventDays as $key => $day) {
-		if ($key == 0) {
-			// select the first
-			$selected = true;
-			$tabtitles .= "<li class='elgg-state-selected'>";
-		} else {
-			$selected = false;
-			$tabtitles .= "<li>";
-		}
-		
 		$day_title = event_manager_format_date($day->date);
 		if ($description = $day->description) {
 			$day_title = $description;
 		}
 		
-		$tabtitles .= "<a href='javascript:void(0);' rel='day_" . $day->guid . "'>" . $day_title . "</a>";
-		$tabtitles .= "</li>";
-		
-		$tabcontent .= elgg_view('event_manager/program/elements/day', [
-			'entity' => $day,
-			'selected' => $selected,
-			'participate' => true,
-			'register_type' => $register_type
-		]);
+		$tab_options['tabs'][] = [
+			'text' => $day_title,
+			'content' => elgg_view('event_manager/program/elements/day', [
+				'entity' => $day,
+				'participate' => true,
+				'register_type' => $register_type,
+			]),
+			'selected' => ($key === 0),
+		];
 	}
 }
 
-$program = '<div id="event_manager_event_view_program">';
-$program .= '<ul class="elgg-tabs elgg-htabs">';
-
-$program .= $tabtitles;
-
-$program .= '</ul>';
-
-$program .= '</div>';
-$program .= elgg_view('input/hidden', [
+$program = elgg_view('input/hidden', [
 	'id' => 'event_manager_program_guids',
 	'name' => 'program_guids'
 ]);
 
-$program .= $tabcontent;
+$program .= elgg_view('page/components/tabs', $tab_options);
 
 $slot_sets = elgg_get_metadata([
 	'type' => 'object',
