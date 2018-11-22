@@ -24,27 +24,25 @@ if (elgg_in_context('maps')) {
 
 $content = '';
 
-if (!elgg_in_context('widgets')) {
-	
-	$location = $event->location;
-	if ($location) {
-		$content .= '<div>' . elgg_echo('event_manager:edit:form:location') . ': ';
-		$content .= elgg_view('output/url', [
-			'href' => $event->getURL() . '#location',
-			'text' => $location,
-		]);
-		$content .= '</div>';
-	}
-
-	$excerpt = $event->getExcerpt();
-	if ($excerpt) {
-		$content .= '<div>' . $excerpt . '</div>';
-	}
+$excerpt = $event->getExcerpt();
+if ($excerpt) {
+	$content .= '<div>' . $excerpt . '</div>';
 }
 
 $content .= elgg_view('event_manager/event/rsvp', $vars);
 
 $imprint = elgg_extract('imprint', $vars, []);
+
+$location = $event->location;
+if ($location) {
+	$imprint['location'] = [
+		'icon_name' => 'map-marker-alt',
+		'content' => elgg_view('output/url', [
+			'href' => $event->getURL() . '#location',
+			'text' => $location,
+		]),
+	];
+}
 
 $attendee_count = $event->countAttendees();
 if ($attendee_count > 0 || $event->openForRegistration()) {

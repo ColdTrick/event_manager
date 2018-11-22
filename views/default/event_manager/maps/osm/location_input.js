@@ -85,12 +85,11 @@ define(['jquery', 'event_manager/osm'], function($, EventMap) {
 			$('#event-manager-edit-maps-search-container [name="address_search_save"]').addClass('hidden');
 		}
 	});
-	$(document).on('click', '#event-manager-edit-maps-search-container input[name="address_search_submit"]', function() {
+	$(document).on('click', '#event-manager-edit-maps-search-container button[name="address_search_submit"]', function() {
 		executeSearch();
 	});
 	
-	$(document).on('click', '#event-manager-edit-maps-search-container input[name="address_search_save"]', function() {
-		
+	$(document).on('click', '#event-manager-edit-maps-search-container button[name="address_search_save"]', function() {
 		var address = $('#event-manager-edit-maps-search-container input[name="address_search"]').val();
 		var $location_field = $('#event_manager_event_edit input[name="location"]');
 		var $latitude = $('#event_manager_event_edit input[name="latitude"]');

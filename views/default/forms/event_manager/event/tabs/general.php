@@ -64,5 +64,7 @@ $end = elgg_view('elements/forms/field', [
 	'class' => 'event-manager-forms-label-inline man',
 ]);
 
+echo "<div class='clearfix'>";
 echo "<div class='elgg-col elgg-col-1of2'>{$start}</div>";
 echo "<div class='elgg-col elgg-col-1of2'>{$end}</div>";
+echo "</div>";
