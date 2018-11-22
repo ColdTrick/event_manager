@@ -1,25 +1,25 @@
 <?php
 $key = elgg_extract('k', $vars);
 $guid = (int) elgg_extract('guid', $vars);
-$user_guid = (int) elgg_extract('u_g', $vars);
+$user_guid = (int) elgg_extract('u_g', $vars, elgg_get_logged_in_user_guid());
 
 elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 $event = get_entity($guid);
 
 $output = '';
 $title_text = elgg_echo('event_manager:registration:registrationto') . " '{$event->getDisplayName()}'";
-elgg_push_breadcrumb($event->getDisplayName(), $event->getURL());
+elgg_push_entity_breadcrumbs($event);
 
 if (!empty($key)) {
 	// registration of a non logged in user
 	
 	$entity = get_entity($user_guid);
 	if (empty($entity)) {
-		forward('events');
+		forward(elgg_generate_url('default:object:event'));
 	}
 	
 	if (!elgg_build_hmac([$event->time_created, $user_guid])->matchesToken($key)) {
-		forward('events');
+		forward(elgg_generate_url('default:object:event'));
 	}
 
 	$old_ia = elgg_set_ignore_access(true);
@@ -56,6 +56,7 @@ if (!empty($key)) {
 	if ($user_guid == elgg_get_logged_in_user_guid()) {
 		elgg_register_menu_item('title', \ElggMenuItem::factory([
 			'name' => 'edityourregistration',
+			'icon' => 'edit',
 			'text' => elgg_echo('event_manager:registration:edityourregistration'),
 			'link_class' => 'elgg-button elgg-button-action',
 			'href' => elgg_generate_url('default:object:event:register', [
@@ -68,6 +69,7 @@ if (!empty($key)) {
 
 elgg_register_menu_item('title', \ElggMenuItem::factory([
 	'name' => 'save_to_pdf',
+	'icon' => 'download',
 	'text' => elgg_echo('event_manager:registration:view:savetopdf'),
 	'link_class' => 'elgg-button elgg-button-action',
 	'href' => elgg_generate_action_url('event_manager/registration/pdf', [

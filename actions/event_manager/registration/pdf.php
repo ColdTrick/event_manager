@@ -1,6 +1,15 @@
 <?php
 
-elgg_load_library('dompdf');
+use Elgg\Project\Paths;
+
+$config_location = 'vendor/dompdf/dompdf/dompdf_config.inc.php';
+if (file_exists(Paths::elgg() . $config_location)) {
+	// plugin installed via composer
+	require_once Paths::elgg() . $config_location;
+} elseif (elgg_get_plugins_path() . "event_manager/{$config_location}") {
+	// normal plugin install
+	require_once elgg_get_plugins_path() . "event_manager/{$config_location}";
+}
 
 $key = get_input('k');
 $guid = (int) get_input('guid');
@@ -14,14 +23,14 @@ if ($guid && ($entity = get_entity($guid))) {
 }
 
 if (!$event || empty($key)) {
-	return elgg_redirect_response('events');
+	return elgg_redirect_response(elgg_generate_url('default:object:event'));
 }
 
 $tempKey = elgg_build_hmac([$event->time_created, $user_guid])->getToken();
 
 $entity = get_entity($user_guid);
 if (empty($entity) || ($tempKey !== $key)) {
-	return elgg_redirect_response('events');
+	return elgg_redirect_response(elgg_generate_url('default:object:event'));
 }
 
 $html = elgg_view_title(elgg_echo('event_manager:registration:yourregistration'));

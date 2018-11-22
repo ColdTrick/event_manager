@@ -37,15 +37,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 	 * @return void
 	 */
 	protected function initLibraries() {
-		$base_dir = dirname(__FILE__);
-	
-		if (file_exists($base_dir . '/vendor/dompdf/dompdf/dompdf_config.inc.php')) {
-			// normal plugin install
-			elgg_register_library('dompdf', $base_dir . '/vendor/dompdf/dompdf/dompdf_config.inc.php');
-		} elseif (file_exists(dirname(dirname($base_dir)) . '/vendor/dompdf/dompdf/dompdf_config.inc.php')) {
-			// plugin installed via composer
-			elgg_register_library('dompdf', dirname(dirname($base_dir)) . '/vendor/dompdf/dompdf/dompdf_config.inc.php');
-		}
 		
 		// register js libraries
 		elgg_define_js('gmaps', [
