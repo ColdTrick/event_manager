@@ -12,6 +12,8 @@ if (elgg_get_plugin_setting('add_event_to_calendar', 'event_manager') === 'yes')
 	elgg_register_menu_item('title', ElggMenuItem::factory([
 		'name' => 'addthisevent',
 		'href' => false,
+		'icon' => 'calendar',
+		'class' => 'elgg-button elgg-button-action',
 		'text' => elgg_view('event_manager/event/addthisevent', ['entity' => $event]),
 		'deps' => 'addthisevent',
 	]));

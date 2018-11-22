@@ -5,13 +5,6 @@ if (!$event) {
 	return;
 }
 
-$link = elgg_view('output/url', [
-	'class' => 'elgg-button elgg-button-action',
-	'href' => $event->getURL(),
-	'icon' => 'calendar',
-	'text' => elgg_echo('event_manager:event:menu:title:add_to_calendar'),
-]);
-
 $location = $event->location ?: $event->venue;
 
 $start = $event->getStartDate('d/m/Y H:i:00');
@@ -31,7 +24,7 @@ $description .= $event->getURL();
 
 ?>
 <span class="addthisevent">
-	<?php echo $link; ?>
+	<?php echo elgg_echo('event_manager:event:menu:title:add_to_calendar'); ?>
 	<div class='hidden'>
 		<span class="start"><?php echo $start; ?></span>
 		<span class="end"><?php echo $end; ?></span>
