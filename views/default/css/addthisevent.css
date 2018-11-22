@@ -11,17 +11,17 @@
 	z-index: 1;
 	background: white;
 	border: 1px solid #CCC;
-}
-
-.addthisevent_dropdown span {
-	display: block;
-	white-space: nowrap;
-	color: $(text-color-strong);
-	padding: 5px 15px;
-}
-
-.addthisevent_dropdown span:hover {
-	background: $(background-color-soft);
-	color: #333;
-	cursor: pointer;
+	
+	span {
+		display: block;
+		white-space: nowrap;
+		color: $(text-color-strong);
+		padding: 5px 15px;
+		
+		&:hover {
+			background: $(background-color-soft);
+			color: #333;
+			cursor: pointer;	
+		}
+	}	
 }
