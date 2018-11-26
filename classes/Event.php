@@ -607,45 +607,16 @@ class Event extends ElggObject {
 			notify_user($to, $this->getOwnerGUID(), $user_subject, $user_message, $params);
 		} else {
 			// send e-mail for non users
-			$to_email = $to_entity->getDisplayName() . "<" . $to_entity->email . ">";
-
-			$site = elgg_get_site_entity($this->site_guid);
-			$site_from = $this->getSiteEmailAddress($site);
-
-			elgg_send_email($site_from, $to_email, $user_subject, $user_message);
+			elgg_send_email(\Elgg\Email::factory([
+				'to' => $to_entity,
+				'subject' => $user_subject,
+				'body' => $user_message,
+			]));
 		}
 
 		elgg_set_ignore_access($ia);
 	}
-	
-	/**
-	 * Returns a formatted site emailaddress
-	 *
-	 * @param ElggSite $site the site to get the emailaddress from
-	 *
-	 * @return string
-	 */
-	protected function getSiteEmailAddress(ElggSite $site) {
-		$site_from = '';
 		
-		if ($site->email) {
-			if ($site->getDisplayName()) {
-				$site_from = $site->getDisplayName() . " <" . $site->email . ">";
-			} else {
-				$site_from = $site->email;
-			}
-		} else {
-			// no site email, so make one up
-			if ($site->getDisplayName()) {
-				$site_from = $site->getDisplayName() . " <noreply@" . $site->getDomain() . ">";
-			} else {
-				$site_from = "noreply@" . $site->getDomain();
-			}
-		}
-		
-		return $site_from;
-	}
-	
 	/**
 	 * Notifies an owner of the event
 	 *

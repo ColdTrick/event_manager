@@ -45,17 +45,13 @@ $message = elgg_echo('event_manager:unsubscribe:confirm:message', [
 	$unsubscribe_link,
 ]);
 
-// nice e-mail addresses
-$site = elgg_get_site_entity();
-if ($site->email) {
-	$from = $site->getDisplayName() . " <{$site->email}>";
-} else {
-	$from = $site->getDisplayName() . " <noreply@{$site->getDomain()}>";
-}
+$email_sent = elgg_send_email(\Elgg\Email::factory([
+	'to' => $registration,
+	'subject' => $subject,
+	'body' => $message,
+]));
 
-$to = $registration->getDisplayName() . " <{$registration->email}>";
-
-if (!elgg_send_email($from, $to, $subject, $message)) {
+if (!$email_sent) {
 	return elgg_error_response(elgg_echo('event_manager:action:unsubscribe:error:mail'));
 }
 

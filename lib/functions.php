@@ -353,25 +353,14 @@ function event_manager_send_registration_validation_email(Event $event, ElggEnti
 	$site = elgg_get_site_entity();
 
 	// send confirmation mail
-	if (elgg_instanceof($entity, 'user')) {
+	if ($entity instanceof \ElggUser) {
 		notify_user($entity->guid, $event->getOwnerGUID(), $subject, $message, null, 'email');
 	} else {
-
-		$from = $site->email;
-		if (empty($from)) {
-			$from = 'noreply@' . $site->getDomain();
-		}
-
-		if (!empty($site->getDisplayName())) {
-			$site_name = $site->getDisplayName();
-			if (strstr($site_name, ',')) {
-				$site_name = '"' . $site_name . '"'; // Protect the name with quotations if it contains a comma
-			}
-
-			$from = $site_name . " <" . $from . ">";
-		}
-
-		elgg_send_email($from, $entity->email, $subject, $message);
+		elgg_send_email(\Elgg\Email::factory([
+			'to' => $entity,
+			'subject' => $subject,
+			'body' => $message,
+		]));
 	}
 }
 
