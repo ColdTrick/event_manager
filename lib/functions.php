@@ -39,7 +39,6 @@ function event_manager_get_default_list_options($options = []) {
 		'container_guid' => null,
 		'meattending' => false,
 		'owning' => false,
-		'friendsattending' => false,
 		'region' => null,
 		'latitude' => null,
 		'longitude' => null,
@@ -145,23 +144,6 @@ function event_manager_get_default_list_options($options = []) {
 			'name' => 'event_type',
 			'value' => $options['event_type']
 		];
-	}
-	
-	if ($options['friendsattending'] && !empty($options['user_guid'])) {
-		$friends_guids = [];
-		$user = get_entity($options['user_guid']);
-		
-		if ($friends = $user->getFriends('', false)) {
-			foreach ($friends as $friend) {
-				$friends_guids[] = $friend->guid;
-			}
-			$entities_options['joins'][] = "JOIN {$dbprefix}entity_relationships e_ra ON e.guid = e_ra.guid_one";
-			$entities_options['wheres'][] = '(e_ra.guid_two IN (' . implode(', ', $friends_guids) . '))';
-		} else {
-			// return no result
-			$entities_options['joins'] = [];
-			$entities_options['wheres'] = ['(1=0)'];
-		}
 	}
 	
 	if (($options['search_type'] == 'onthemap') && !empty($options['latitude']) && !empty($options['longitude']) && !empty($options['distance'])) {

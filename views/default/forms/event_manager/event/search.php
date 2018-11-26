@@ -85,7 +85,7 @@ if ($region_options || $type_options) {
 
 if (elgg_is_logged_in()) {
 	$form_body .= "<div class='{$col_class}'>";
-	foreach (['attending', 'owning', 'friendsattending'] as $relationship) {
+	foreach (['attending', 'owning'] as $relationship) {
 		$form_body .= elgg_view_field([
 			'#type' => 'checkboxes',
 			'id' => $relationship,

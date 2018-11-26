@@ -7,7 +7,6 @@ $type = get_input('type');
 $past_events = get_input('past_events');
 $attending = get_input('attending');
 $owning = get_input('owning');
-$friendsattending = get_input('friendsattending');
 $region = get_input('region');
 $event_type = get_input('event_type');
 $event_start = get_input('event_start');

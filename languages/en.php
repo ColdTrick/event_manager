@@ -50,7 +50,6 @@ return array(
 	'event_manager:list:includepastevents' => 'Include past events',
 	'event_manager:list:attending' => 'Show events I\'m  attending',
 	'event_manager:list:owning' => 'Show events I created',
-	'event_manager:list:friendsattending' => 'Show events my friends are attending',
 
 	'event_manager:list:navigation:list' => 'List',
 	'event_manager:list:navigation:calendar' => 'Calendar',
