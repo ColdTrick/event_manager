@@ -30,11 +30,11 @@ if ($container_guid) {
 	$events_options['container_guid'] = $container_guid;
 }
 
-$events = event_manager_search_events($events_options);
+$events = elgg_get_entities(event_manager_get_default_list_options($events_options));
 
 $result = [];
 
-foreach ($events['entities'] as $event) {
+foreach ($events as $event) {
 	
 	$start = $event->getStartDate();
 	$end = $event->getEndDate('c');

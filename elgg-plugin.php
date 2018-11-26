@@ -180,7 +180,6 @@ return [
 		'event_manager/event/rsvp' => ['access' => 'public'],
 		'event_manager/event/upload' => [],
 		'event_manager/event/deletefile' => [],
-		'event_manager/event/search' => [],
 		'event_manager/event/unsubscribe' => ['access' => 'public'],
 		'event_manager/event/unsubscribe_confirm' => ['access' => 'public'],
 		'event_manager/event/resend_confirmation' => [],

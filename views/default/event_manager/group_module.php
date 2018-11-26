@@ -9,21 +9,13 @@ if (!$group->isToolEnabled('event_manager')) {
 	return;
 }
 
-$event_options = [
+$options = event_manager_get_default_list_options([
 	'container_guid' => elgg_get_page_owner_guid(),
-];
-
-$events = event_manager_search_events($event_options);
-
-elgg_push_context('widgets');
-$content = elgg_view_entity_list($events['entities'], [
-	'count' => 0,
-	'offset' => 0,
+	'pagination' => false,
 	'limit' => 5,
-	'full_view' => false,
-	'no_results' => elgg_echo('event_manager:list:noresults'),
 ]);
-elgg_pop_context();
+
+$content = elgg_list_entities($options);
 
 $all_link = elgg_view('output/url', [
 	'href' => elgg_generate_url('collection:object:event:group', ['guid' => $group->guid]),

@@ -70,6 +70,8 @@ function event_manager_get_default_list_options($options = []) {
 		'no_results' => elgg_echo('event_manager:list:noresults'),
 	];
 	
+	$dbprefix = elgg_get_config('dbprefix');
+	
 	if ($options['container_guid']) {
 		// limit for a group
 		$entities_options['container_guid'] = $options['container_guid'];

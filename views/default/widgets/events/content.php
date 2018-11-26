@@ -6,7 +6,10 @@ $num_display = (int) $widget->num_display;
 if ($num_display < 1) {
 	$num_display = 5;
 }
-$event_options = ['limit' => $num_display];
+$event_options = [
+	'limit' => $num_display,
+	'pagination' => false,
+];
 
 $owner = $widget->getOwnerEntity();
 
@@ -41,19 +44,11 @@ if (!empty($group_guid)) {
 	$event_options['container_guid'] = $group_guid;
 }
 
-$events = event_manager_search_events($event_options);
-$content = elgg_view_entity_list($events['entities'], [
-	'count' => $events['count'],
-	'offset' => 0,
-	'limit' => $num_display,
-	'pagination' => false,
-	'full_view' => false,
-	'no_results' => true,
-]);
+$content = elgg_list_entities(event_manager_get_default_list_options($event_options));
 
 echo $content;
 
-if (empty($events['count'])) {
+if (empty($content)) {
 	return;
 }
 
