@@ -257,7 +257,7 @@ class Event extends ElggObject {
 		$qb->where($qb->compare('guid_one', '=', $event_guid, ELGG_VALUE_INTEGER))
 			->andWhere($qb->compare('guid_two', '=', $user_guid, ELGG_VALUE_INTEGER));
 		
-		elgg()->db->deleteData($qb->getSQL());
+		elgg()->db->deleteData($qb->getSQL(), '', $qb->getParameters());
 		
 		// remove river events
 		if ($user_entity) {
@@ -699,7 +699,7 @@ class Event extends ElggObject {
 					$qb->where($qb->compare('guid_one', '=', $guid, ELGG_VALUE_INTEGER))
 						->andWhere($qb->compare('guid_two', '=', $slot->guid, ELGG_VALUE_INTEGER));
 					
-					elgg()->db->deleteData($qb->getSQL());
+					elgg()->db->deleteData($qb->getSQL(), '', $qb->getParameters());
 				}
 			}
 		}
@@ -785,8 +785,8 @@ class Event extends ElggObject {
 		$qb->select('relationship');
 		$qb->where($qb->compare('guid_one', '=', $this->guid, ELGG_VALUE_INTEGER))
 			->andWhere($qb->compare('guid_two', '=', $user_guid, ELGG_VALUE_INTEGER));
-		
-		$row = elgg()->db->getDataRow($qb->getSQL());
+
+		$row = elgg()->db->getDataRow($qb->getSQL(), '', $qb->getParameters());
 		if ($row) {
 			$result = $row->relationship;
 		}
@@ -822,7 +822,7 @@ class Event extends ElggObject {
 			$qb->addOrderBy('time_created', $order);
 		}
 
-		$all_relations = elgg()->db->getData($qb->getSQL());
+		$all_relations = elgg()->db->getData($qb->getSQL(), '', $qb->getParameters());
 		if (empty($all_relations)) {
 			return false;
 		}
@@ -933,7 +933,7 @@ class Event extends ElggObject {
 		$qb->orderBy('time_created', 'ASC');
 		$qb->setMaxResults(1);
 
-		$waiting_user = elgg()->db->getDataRow($qb->getSQL());
+		$waiting_user = elgg()->db->getDataRow($qb->getSQL(), '', $qb->getParameters());
 		if (empty($waiting_user)) {
 			return false;
 		}
