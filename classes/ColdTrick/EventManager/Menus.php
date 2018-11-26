@@ -439,10 +439,10 @@ class Menus {
 					'text' => elgg_echo('event_manager:event:register:register_link'),
 					'link_class' => ['elgg-button', 'elgg-button-action'],
 				]);
-			} elseif (elgg_extract('full_view', $vars)) {
+			} elseif ($hook->getParam('full_view')) {
 				$result[] = \ElggMenuItem::factory([
 					'name' => 'log_in_first',
-					'href' => false,
+					'href' => 'login',
 					'text' => elgg_echo('event_manager:event:register:log_in_first'),
 					'link_class' => ['elgg-button', 'elgg-button-action'],
 				]);
