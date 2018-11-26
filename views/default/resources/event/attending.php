@@ -1,7 +1,7 @@
 <?php
 
 $user = elgg_get_page_owner_entity();
-if (!($user instanceof \ElggUser)) {
+if (!$user instanceof \ElggUser) {
 	forward('', '404');
 }
 
