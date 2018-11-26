@@ -165,6 +165,10 @@ return [
 			'path' => '/event/attendees/{guid}/{relationship}',
 			'resource' => 'event/attendees',
 		],
+		'collection:object:event:all' => [
+			'path' => '/event/upcoming',
+			'resource' => 'event/upcoming',
+		],
 		'default:object:event' => [
 			'path' => '/event',
 			'resource' => 'event/upcoming',
