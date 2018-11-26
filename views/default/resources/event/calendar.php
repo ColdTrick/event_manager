@@ -1,8 +1,11 @@
 <?php
 
+elgg_require_js('event_manager/calendar');
+elgg_load_css('fullcalendar');
+
 $title_text = elgg_echo('event_manager:list:title');
 
-$event_options = event_manager_get_default_list_options();
+$event_options = [];
 
 $page_owner = elgg_get_page_owner_entity() ?: null;
 if ($page_owner instanceof \ElggGroup) {
@@ -16,7 +19,12 @@ elgg_push_collection_breadcrumbs('object', 'event', $page_owner, false);
 
 elgg_register_title_button('event', 'add', 'object', 'event');
 
-$content = elgg_list_entities($event_options);
+
+
+$content = elgg_format_element('div', [
+	'id' => 'event-manager-event-calendar',
+	'class' => 'event-manager-results',
+]);
 
 $body = elgg_view_layout('default', [
 	'filter_id' => 'events',

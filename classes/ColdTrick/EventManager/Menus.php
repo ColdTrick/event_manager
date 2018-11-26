@@ -225,23 +225,22 @@ class Menus {
 	public static function registerEventsList($hook, $entity_type, $returnvalue, $params) {
 	
 		$returnvalue[] = \ElggMenuItem::factory([
-			'name' => 'events_list',
+			'name' => 'events_upcoming',
 			'text' => elgg_echo('event_manager:list:navigation:list'),
-			'href' => 'javascript:void(0);',
+			'href' => elgg_generate_url('collection:object:event:upcoming'),
 			'rel' => 'list',
-			'selected' => true,
 		]);
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'events_calendar',
 			'text' => elgg_echo('event_manager:list:navigation:calendar'),
-			'href' => 'events/calendar',
+			'href' => elgg_generate_url('collection:object:event:calendar'),
 			'rel' => 'calendar',
 		]);
-		if (elgg_get_plugin_setting('maps_provider', 'event_manager', 'google') !== 'none') {
+		if (elgg_get_plugin_setting('maps_provider', 'event_manager') !== 'none') {
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'events_map',
 				'text' => elgg_echo('event_manager:list:navigation:onthemap'),
-				'href' => 'javascript:void(0);',
+				'href' => elgg_generate_url('collection:object:event:map'),
 				'rel' => 'onthemap',
 			]);
 		}
@@ -249,7 +248,16 @@ class Menus {
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'attending',
 				'text' => elgg_echo('event_manager:menu:attending'),
-				'href' => elgg_generate_url('collection:object:event:attending', ['username' => elgg_get_logged_in_user_entity()->username]),
+				'href' => elgg_generate_url('collection:object:event:attending', [
+					'username' => elgg_get_logged_in_user_entity()->username,
+				]),
+			]);
+			$returnvalue[] = \ElggMenuItem::factory([
+				'name' => 'owned',
+				'text' => elgg_echo('mine'),
+				'href' => elgg_generate_url('collection:object:event:owner', [
+					'username' => elgg_get_logged_in_user_entity()->username,
+				]),
 			]);
 		}
 		

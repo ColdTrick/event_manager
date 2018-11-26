@@ -19,7 +19,10 @@ if (!empty($legend)) {
 echo elgg_format_element('div', [
 	'id' => 'event_manager_event_map',
 	'class' => [
-		'hidden',
 		'event-manager-results',
 	],
 ], $body);
+
+echo elgg_format_element('script', [], 'require(["elgg"], function(elgg) {
+	elgg.trigger_hook("tab:onthemap", "event_manager");
+});');

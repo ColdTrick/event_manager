@@ -1,5 +1,4 @@
 define(['jquery', 'elgg'], function($, elgg) {
-	
 	var event_map;
 	var current_markers = [];
 	
@@ -72,6 +71,7 @@ define(['jquery', 'elgg'], function($, elgg) {
 		}
 	};
 	
-	elgg.register_hook_handler('tab:onthemap', 'event_manager', initialize_tab);
+	initialize_tab();
+	
 	elgg.register_hook_handler('search:onthemap', 'event_manager', execute_search_map);
 });

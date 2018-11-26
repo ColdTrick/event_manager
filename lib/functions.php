@@ -30,16 +30,7 @@ function event_manager_event_get_relationship_options() {
 	return $result;
 }
 
-/**
- * Search for events
- *
- * @param array $options search options
- *
- * @return array
- */
-function event_manager_search_events($options = []) {
-	$dbprefix = elgg_get_config('dbprefix');
-	
+function event_manager_get_default_list_options($options = []) {
 	$defaults = [
 		'past_events' => false,
 		'count' => false,
@@ -60,9 +51,9 @@ function event_manager_search_events($options = []) {
 		'user_guid' => elgg_get_logged_in_user_guid(),
 		'metadata_name_value_pairs' => [],
 	];
-
+	
 	$options = array_merge($defaults, $options);
-
+	
 	$entities_options = [
 		'type' => 'object',
 		'subtype' => 'event',
@@ -75,14 +66,15 @@ function event_manager_search_events($options = []) {
 			'name' => 'event_start',
 			'direction' => 'ASC',
 			'as' => 'integer'
-		]
+		],
+		'no_results' => elgg_echo('event_manager:list:noresults'),
 	];
-
+	
 	if ($options['container_guid']) {
 		// limit for a group
 		$entities_options['container_guid'] = $options['container_guid'];
 	}
-
+	
 	if (!empty($options['event_start'])) {
 		$entities_options['metadata_name_value_pairs'][] = [
 			'name' => 'event_start',
@@ -90,7 +82,7 @@ function event_manager_search_events($options = []) {
 			'operand' => '>='
 		];
 	}
-
+	
 	if (!empty($options['event_end'])) {
 		$options['event_end'] += 86400; // add one day
 		$entities_options['metadata_name_value_pairs'][] = [
@@ -99,7 +91,7 @@ function event_manager_search_events($options = []) {
 			'operand' => '<='
 		];
 	}
-
+	
 	if (!$options['past_events']) {
 		// only show from current day or newer (or where event is still running)
 		$current_time = gmmktime(0, 0, 1);
@@ -127,36 +119,36 @@ function event_manager_search_events($options = []) {
 			$entities_options['wheres'][] = "({$time_start} OR {$time_end})";
 		}
 	}
-
+	
 	if ($options['meattending'] && !empty($options['user_guid'])) {
 		$entities_options['joins'][] = "JOIN {$dbprefix}entity_relationships e_r ON e.guid = e_r.guid_one";
-
+		
 		$entities_options['wheres'][] = 'e_r.guid_two = ' . $options['user_guid'];
 		$entities_options['wheres'][] = 'e_r.relationship = "' . EVENT_MANAGER_RELATION_ATTENDING . '"';
 	}
-
+	
 	if ($options['owning'] && !empty($options['user_guid'])) {
 		$entities_options['owner_guids'] = [$options['user_guid']];
 	}
-
+	
 	if ($options['region']) {
 		$entities_options['metadata_name_value_pairs'][] = [
 			'name' => 'region',
 			'value' => $options['region']
 		];
 	}
-
+	
 	if ($options['event_type']) {
 		$entities_options['metadata_name_value_pairs'][] = [
 			'name' => 'event_type',
 			'value' => $options['event_type']
 		];
 	}
-
+	
 	if ($options['friendsattending'] && !empty($options['user_guid'])) {
 		$friends_guids = [];
 		$user = get_entity($options['user_guid']);
-
+		
 		if ($friends = $user->getFriends('', false)) {
 			foreach ($friends as $friend) {
 				$friends_guids[] = $friend->guid;
@@ -174,6 +166,22 @@ function event_manager_search_events($options = []) {
 		$entities_options['latitude'] = $options['latitude'];
 		$entities_options['longitude'] = $options['longitude'];
 		$entities_options['distance'] = $options['distance'];
+	}
+	
+	return $entities_options;
+}
+
+/**
+ * Search for events
+ *
+ * @param array $options search options
+ *
+ * @return array
+ */
+function event_manager_search_events($options = []) {
+	$entities_options = event_manager_get_default_list_options();
+	
+	if (!empty($entities_options['latitude']) && !empty($entities_options['longitude']) && !empty($entities_options['distance'])) {
 		$entities = elgg_get_entities_from_location($entities_options);
 
 		$entities_options['count'] = true;

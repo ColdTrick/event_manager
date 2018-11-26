@@ -110,13 +110,13 @@ class Bootstrap extends DefaultPluginBootstrap {
 		$hooks->registerHandler('likes:is_likable', 'object:' . \Event::SUBTYPE, '\Elgg\Values::getTrue');
 		$hooks->registerHandler('prepare', 'notification:create:object:' . Event::SUBTYPE, '\ColdTrick\EventManager\Notifications::prepareCreateEventNotification');
 		$hooks->registerHandler('register', 'menu:filter', '\ColdTrick\EventManager\Menus::registerFilter');
+		$hooks->registerHandler('register', 'menu:filter:events', '\ColdTrick\EventManager\Menus::registerEventsList');
 		$hooks->registerHandler('register', 'menu:entity', '\ColdTrick\EventManager\Menus::registerAttendeeActions');
 		$hooks->registerHandler('register', 'menu:entity', '\ColdTrick\EventManager\Menus::registerEntity', 600);
 		$hooks->registerHandler('register', 'menu:event:rsvp', '\ColdTrick\EventManager\Menus::registerRsvp');
 		$hooks->registerHandler('register', 'menu:owner_block', '\ColdTrick\EventManager\Menus::registerGroupOwnerBlock');
 		$hooks->registerHandler('register', 'menu:owner_block', '\ColdTrick\EventManager\Menus::registerUserOwnerBlock');
 		$hooks->registerHandler('register', 'menu:event_files', '\ColdTrick\EventManager\Menus::registerEventFiles');
-		$hooks->registerHandler('register', 'menu:events_list', '\ColdTrick\EventManager\Menus::registerEventsList');
 		$hooks->registerHandler('register', 'menu:river', '\ColdTrick\EventManager\Menus::stripEventRelationshipRiverMenuItems', 99999);
 		$hooks->registerHandler('register', 'menu:event_attendees', '\ColdTrick\EventManager\Menus::registerEventAttendees');
 		$hooks->registerHandler('setting', 'plugin', '\ColdTrick\EventManager\Settings::clearCache');
