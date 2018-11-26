@@ -6,8 +6,6 @@ elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 
 $event = get_entity($guid);
 
-elgg_push_entity_breadcrumbs($event, false);
-
 if (elgg_get_plugin_setting('add_event_to_calendar', 'event_manager') === 'yes') {
 	elgg_register_menu_item('title', ElggMenuItem::factory([
 		'name' => 'addthisevent',
@@ -23,9 +21,9 @@ elgg_set_page_owner_guid($event->getContainerGUID());
 $page_owner = elgg_get_page_owner_entity();
 if ($page_owner instanceof ElggGroup) {
 	elgg_entity_gatekeeper($page_owner->guid);
-	
-	elgg_push_breadcrumb($page_owner->getDisplayName(), elgg_generate_url('collection:object:event:group', ['guid' => $page_owner->guid]));
 }
+
+elgg_push_entity_breadcrumbs($event, false);
 
 $title_text = $event->getDisplayName();
 

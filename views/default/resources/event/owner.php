@@ -5,6 +5,8 @@ if (!($user instanceof \ElggUser)) {
 	forward('', '404');
 }
 
+elgg_push_collection_breadcrumbs('object', 'event', $user, false);
+
 $filter_context = '';
 
 $title = elgg_echo('event_manager:owner:title', [$user->getDisplayName()]);

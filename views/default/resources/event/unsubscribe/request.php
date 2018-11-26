@@ -12,8 +12,7 @@ if (!$entity->register_nologin) {
 // set page owner
 elgg_set_page_owner_guid($entity->getContainerGUID());
 
-// make breadcrumb
-elgg_push_breadcrumb($entity->getDisplayName(), $entity->getURL());
+elgg_push_entity_breadcrumbs($event);
 
 // build page elements
 $title_text = elgg_echo('event_manager:unsubscribe:title', [$entity->getDisplayName()]);

@@ -17,8 +17,7 @@ if (empty($code) || ($code !== $verify_code)) {
 // set page owner
 elgg_set_page_owner_guid($event->getContainerGUID());
 
-// make breadcrumb
-elgg_push_breadcrumb($event->getDisplayName(), $event->getURL());
+elgg_push_entity_breadcrumbs($event);
 
 // make page elements
 $title_text = elgg_echo('event_manager:unsubscribe_confirm:title', [$event->getDisplayName()]);

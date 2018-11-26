@@ -11,6 +11,8 @@ if (!$page_owner->canWriteToContainer(0, 'object', 'subtype')) {
 	throw new \Elgg\EntityPermissionsException();
 }
 
+elgg_push_collection_breadcrumbs('object', 'event', $page_owner, false);
+
 $form_vars = [
 	'id' => 'event_manager_event_edit',
 	'name' 	=> 'event_manager_event_edit',
