@@ -10,11 +10,10 @@ if (!$entity instanceof EventRegistration) {
 	return;
 }
 
-$icon = elgg_view_entity_icon($entity, 'tiny');
-
 $params = [
 	'title' => $entity->getDisplayName(),
-	'icon' => $icon,
+	'icon_entity' => $entity,
+	'subtitle' => false,
 ];
 $params = $params + $vars;
 echo elgg_view('object/elements/summary', $params);

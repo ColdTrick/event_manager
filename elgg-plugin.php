@@ -173,7 +173,7 @@ return [
 	'actions' => [
 		'event_manager/event/edit' => [],
 		'event_manager/event/copy' => [],
-		'event_manager/event/rsvp' => [],
+		'event_manager/event/rsvp' => ['access' => 'public'],
 		'event_manager/event/upload' => [],
 		'event_manager/event/deletefile' => [],
 		'event_manager/event/search' => [],

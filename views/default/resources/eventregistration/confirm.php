@@ -1,8 +1,8 @@
 <?php
 
-$event_guid = (int) elgg_extract('event_guid', $vars);
-$user_guid = (int) elgg_extract('user_guid', $vars);
-$code = elgg_extract('code', $vars);
+$event_guid = (int) elgg_extract('guid', $vars);
+$user_guid = (int) elgg_extract('user_guid', $vars, get_input('user_guid'));
+$code = elgg_extract('code', $vars, get_input('code'));
 
 elgg_entity_gatekeeper($event_guid, 'object', Event::SUBTYPE);
 $event = get_entity($event_guid);
@@ -12,12 +12,11 @@ $user = get_entity($user_guid);
 
 // is the code valid
 if (!event_manager_validate_registration_validation_code($event_guid, $user_guid, $code)) {
-	register_error(elgg_echo('event_manager:registration:confirm:error:code'));
-	forward();
+	throw new \Elgg\HttpException(elgg_echo('event_manager:registration:confirm:error:code'), ELGG_HTTP_FORBIDDEN);
 }
 
 // do we have a pending registration
-if ($event->getRelationshipByUser($user_guid) != EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
+if ($event->getRelationshipByUser($user_guid) !== EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
 	forward($event->getURL());
 }
 

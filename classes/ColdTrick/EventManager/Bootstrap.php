@@ -102,6 +102,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		$hooks->registerHandler('entity:url', 'object', '\ColdTrick\EventManager\Widgets::getEventsUrl');
 		$hooks->registerHandler('entity:icon:sizes', 'object', '\ColdTrick\EventManager\Icons::getIconSizes');
 		$hooks->registerHandler('entity:icon:file', 'object', '\ColdTrick\EventManager\Icons::getIconFile');
+		$hooks->registerHandler('entity:icon:url', 'object', '\ColdTrick\EventManager\Icons::getEventRegistrationIconURL');
 		$hooks->registerHandler('export_attendee', 'event', '\ColdTrick\EventManager\Attendees::exportBaseAttributes', 100);
 		$hooks->registerHandler('export_attendee', 'event', '\ColdTrick\EventManager\Attendees::exportQuestionData', 200);
 		$hooks->registerHandler('export_attendee', 'event', '\ColdTrick\EventManager\Attendees::exportProgramData', 300);
@@ -109,7 +110,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		$hooks->registerHandler('likes:is_likable', 'object:' . \Event::SUBTYPE, '\Elgg\Values::getTrue');
 		$hooks->registerHandler('prepare', 'notification:create:object:' . Event::SUBTYPE, '\ColdTrick\EventManager\Notifications::prepareCreateEventNotification');
 		$hooks->registerHandler('register', 'menu:filter', '\ColdTrick\EventManager\Menus::registerFilter');
-		$hooks->registerHandler('register', 'menu:user_hover', '\ColdTrick\EventManager\Menus::registerUserHover');
+		$hooks->registerHandler('register', 'menu:entity', '\ColdTrick\EventManager\Menus::registerAttendeeActions');
 		$hooks->registerHandler('register', 'menu:entity', '\ColdTrick\EventManager\Menus::registerEntity', 600);
 		$hooks->registerHandler('register', 'menu:event:rsvp', '\ColdTrick\EventManager\Menus::registerRsvp');
 		$hooks->registerHandler('register', 'menu:owner_block', '\ColdTrick\EventManager\Menus::registerGroupOwnerBlock');

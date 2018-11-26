@@ -19,6 +19,7 @@ $footer .= elgg_view('output/url', [
 	'href' => elgg_generate_action_url('event_manager/event/rsvp', [
 		'guid' => $event->guid,
 		'user' => $user->guid,
+		'code' => $code,
 		'type' => EVENT_MANAGER_RELATION_UNDO,
 		'forward_url' => $event->getURL(),
 	]),

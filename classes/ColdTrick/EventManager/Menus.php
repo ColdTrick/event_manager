@@ -4,24 +4,25 @@ namespace ColdTrick\EventManager;
 
 class Menus {
 	/**
-	 * Adds menu items to the user hover menu
+	 * Adds menu items to the attendees entity menu
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'register', 'menu:entity'
 	 *
 	 * @return array
 	 */
-	public static function registerUserHover($hook, $entity_type, $returnvalue, $params) {
-		$guid = get_input('guid');
-		$user = elgg_extract('entity', $params);
+	public static function registerAttendeeActions(\Elgg\Hook $hook) {
 		
-		if (empty($guid) || empty($user)) {
+		$entity = $hook->getEntityParam();
+		if (!$entity instanceof \ElggUser && !$entity instanceof \EventRegistration) {
 			return;
 		}
 		
-		$event = get_entity($guid);
+		$route = _elgg_services()->request->getRoute();
+		if (!$route || $route->getName() !== 'collection:object:event:attendees') {
+			return;
+		}
+		
+		$event = get_entity((int) elgg_extract('guid', $route->getMatchedParameters()));
 		if (!$event instanceof \Event) {
 			return;
 		}
@@ -29,29 +30,33 @@ class Menus {
 		if (!$event->canEdit()) {
 			return;
 		}
+		
+		$returnvalue = $hook->getValue();
 
 		// kick from event (assumes users listed on the view page of an event)
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'event_manager_kick',
+			'icon' => 'user-times',
 			'text' => elgg_echo('event_manager:event:relationship:kick'),
 			'href' => elgg_generate_action_url('event_manager/event/rsvp', [
 				'guid' => $event->guid,
-				'user' => $user->guid,
+				'user' => $entity->guid,
 				'type' => EVENT_MANAGER_RELATION_UNDO,
 			]),
 			'section' => 'action',
 		]);
 	
-		$user_relationship = $event->getRelationshipByUser($user->guid);
+		$user_relationship = $event->getRelationshipByUser($entity->guid);
 	
 		if ($user_relationship == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
 			
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'event_manager_resend_confirmation',
+				'icon' => 'user-times',
 				'text' => elgg_echo("event_manager:event:menu:user_hover:resend_confirmation"),
 				'href' => elgg_generate_action_url('event_manager/event/resend_confirmation', [
 					'guid' => $event->guid,
-					'user' => $user->guid,
+					'user' => $entity->guid,
 				]),
 				'section' => 'action',
 			]);
@@ -61,10 +66,11 @@ class Menus {
 			
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'event_manager_move_to_attendees',
+				'icon' => 'user-times',
 				'text' => elgg_echo('event_manager:event:menu:user_hover:move_to_attendees'),
 				'href' => elgg_generate_action_url('event_manager/attendees/move_to_attendees', [
 					'guid' => $event->guid,
-					'user' => $user->guid,
+					'user' => $entity->guid,
 				]),
 				'section' => 'action',
 			]);
@@ -93,6 +99,7 @@ class Menus {
 		if (!elgg_is_logged_in() && $entity->register_nologin) {
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'unsubscribe',
+				'icon' => 'sign-out-alt',
 				'text' => elgg_echo('event_manager:menu:unsubscribe'),
 				'href' => elgg_generate_url('default:object:event:unsubscribe:request', [
 					'guid' => $entity->guid,

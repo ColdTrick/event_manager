@@ -13,6 +13,15 @@ $event = get_entity($guid);
 elgg_entity_gatekeeper($user_guid);
 $user = get_entity($user_guid);
 
+if (!elgg_is_logged_in()) {
+	$code = get_input('code');
+	if (!event_manager_validate_registration_validation_code($guid, $user_guid, $code)) {
+		return elgg_error_response(elgg_echo('event_manager:registration:confirm:error:code'));
+	}
+} elseif (!$user->canEdit() && !$event->canEdit()) {
+	return elgg_echo('actionunauthorized');
+}
+
 if (empty($rel)) {
 	return elgg_error_response(elgg_echo('error:missing_data'));
 }
@@ -44,7 +53,7 @@ if ($rel == EVENT_MANAGER_RELATION_ATTENDING) {
 		}
 	}
 } else {
-	if ($event->$rel || ($rel == EVENT_MANAGER_RELATION_UNDO && ($event->canEdit() || $user->canEdit()))) {
+	if ($event->$rel || ($rel == EVENT_MANAGER_RELATION_UNDO)) {
 		$rsvp = $event->rsvp($rel, $user_guid);
 	} else {
 		return elgg_error_response(elgg_echo('event_manager:event:relationship:message:unavailable_relation'));
