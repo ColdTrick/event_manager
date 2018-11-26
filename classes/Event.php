@@ -1,6 +1,8 @@
 <?php
 use Elgg\Database\QueryBuilder;
 use Elgg\Database\Clauses\JoinClause;
+use Elgg\Database\Delete;
+use Elgg\Database\Select;
 
 /**
  * Event
@@ -251,8 +253,12 @@ class Event extends ElggObject {
 		}
 
 		// remove current relationships
-		delete_data("DELETE FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid AND guid_two=$user_guid");
-
+		$qb = Delete::fromTable('entity_relationships');
+		$qb->where($qb->compare('guid_one', '=', $event_guid, ELGG_VALUE_INTEGER))
+			->andWhere($qb->compare('guid_two', '=', $user_guid, ELGG_VALUE_INTEGER));
+		
+		elgg()->db->deleteData($qb->getSQL());
+		
 		// remove river events
 		if ($user_entity) {
 			elgg_delete_river([
@@ -689,7 +695,11 @@ class Event extends ElggObject {
 				if ($relate) {
 					$entity->addRelationship($slot->guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION);
 				} else {
-					delete_data("DELETE FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one='" . $guid . "' AND guid_two='" . $slot->guid . "'");
+					$qb = Delete::fromTable('entity_relationships');
+					$qb->where($qb->compare('guid_one', '=', $guid, ELGG_VALUE_INTEGER))
+						->andWhere($qb->compare('guid_two', '=', $slot->guid, ELGG_VALUE_INTEGER));
+					
+					elgg()->db->deleteData($qb->getSQL());
 				}
 			}
 		}
@@ -770,10 +780,13 @@ class Event extends ElggObject {
 		if (empty($user_guid)) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
-
-		$event_guid = $this->guid;
 		
-		$row = elgg()->db->getDataRow("SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid AND guid_two=$user_guid");
+		$qb = Select::fromTable('entity_relationships');
+		$qb->select('relationship');
+		$qb->where($qb->compare('guid_one', '=', $this->guid, ELGG_VALUE_INTEGER))
+			->andWhere($qb->compare('guid_two', '=', $user_guid, ELGG_VALUE_INTEGER));
+		
+		$row = elgg()->db->getDataRow($qb->getSQL());
 		if ($row) {
 			$result = $row->relationship;
 		}
@@ -791,33 +804,41 @@ class Event extends ElggObject {
 	 */
 	public function getRelationships($count = false, $order = 'ASC') {
 		$event_guid = $this->guid;
-		
 
+		$qb = Select::fromTable('entity_relationships');
+		$qb->where($qb->compare('guid_one', '=', $event_guid, ELGG_VALUE_INTEGER));
+		$qb->orderBy('relationship', 'ASC');
+		
 		if ($count) {
-			$query = "SELECT relationship, count(*) as count FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid GROUP BY relationship ORDER BY relationship ASC";
+			$qb->select('relationship');
+			$qb->addSelect('count(*) AS count');
+			$qb->groupBy('relationship');
 		} else {
 			if (!in_array($order, ['ASC', 'DESC'])) {
 				$order = 'ASC';
 			}
 			
-			$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one=$event_guid ORDER BY relationship ASC, time_created {$order}";
+			$qb->select('*');
+			$qb->addOrderBy('time_created', $order);
 		}
 
-		$all_relations = elgg()->db->getData($query);
+		$all_relations = elgg()->db->getData($qb->getSQL());
 		if (empty($all_relations)) {
 			return false;
 		}
 
-		$result = array("total" => 0);
+		$result = [
+			'total' => 0,
+		];
 		foreach ($all_relations as $row) {
 			$relationship = $row->relationship;
 
 			if ($count) {
 				$result[$relationship] = $row->count;
-				$result["total"] += $row->count;
+				$result['total'] += $row->count;
 			} else {
 				if (!array_key_exists($relationship, $result)) {
-					$result[$relationship] = array();
+					$result[$relationship] = [];
 				}
 				$result[$relationship][] = $row->guid_two;
 			}
@@ -905,14 +926,19 @@ class Event extends ElggObject {
 	 * @return boolean|entity
 	 */
 	protected function getFirstWaitingUser() {
-		$query = "SELECT * FROM " . elgg_get_config("dbprefix") . "entity_relationships WHERE guid_one= '" . $this->guid . "' AND relationship = '" . EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST . "' ORDER BY time_created ASC LIMIT 1";
+		$qb = Select::fromTable('entity_relationships');
+		$qb->select('guid_two');
+		$qb->where($qb->compare('guid_one', '=', $this->guid, ELGG_VALUE_INTEGER));
+		$qb->andWhere($qb->compare('relationship', '=', EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST, ELGG_VALUE_STRING));
+		$qb->orderBy('time_created', 'ASC');
+		$qb->setMaxResults(1);
 
-		$waiting_users = elgg()->db->getData($query);
-		if (empty($waiting_users)) {
+		$waiting_user = elgg()->db->getDataRow($qb->getSQL());
+		if (empty($waiting_user)) {
 			return false;
 		}
 
-		return get_entity($waiting_users[0]->guid_two);
+		return get_entity($waiting_user->guid_two);
 	}
 
 	/**
