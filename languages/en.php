@@ -461,7 +461,7 @@ If you didn't register for this event, you can ignore this email or click on the
 	'event_manager:river:event_relationship:create:event_exhibiting' => '%s is exhibiting at %s',
 	'event_manager:river:event_relationship:create:event_organizing' => '%s is organizing %s',
 
-	'river:create:object:event' => '%s created event %s',
+	'river:object:event:create' => '%s created event %s',
 
 	'event_manager:date:to' => 'to',
 	'requiredfields' => 'Required fields',

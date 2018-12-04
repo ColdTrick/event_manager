@@ -21,7 +21,4 @@ $string = elgg_echo("event_manager:river:event_relationship:create:{$relationtyp
 echo elgg_view('river/elements/layout', [
 	'item' => $item,
 	'summary' => $string,
-
-	// truthy value to bypass responses rendering
-	'responses' => ' ',
 ]);
