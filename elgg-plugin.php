@@ -1,6 +1,9 @@
 <?php
 
 use ColdTrick\EventManager\Bootstrap;
+use Elgg\Router\Middleware\Gatekeeper;
+use ColdTrick\EventManager\Event\Day;
+use ColdTrick\EventManager\Event\Slot;
 
 define('DOMPDF_ENABLE_AUTOLOAD', false);
 
@@ -45,28 +48,28 @@ return [
 		[
 			'type' => 'object',
 			'subtype' => 'event',
-			'class' => 'Event',
+			'class' => Event::class,
 			'searchable' => true,
 		],
 		[
 			'type' => 'object',
 			'subtype' => 'eventregistrationquestion',
-			'class' => 'EventRegistrationQuestion',
+			'class' => EventRegistrationQuestion::class,
 		],
 		[
 			'type' => 'object',
 			'subtype' => 'eventregistration',
-			'class' => 'EventRegistration',
+			'class' => EventRegistration::class,
 		],
 		[
 			'type' => 'object',
 			'subtype' => 'eventday',
-			'class' => '\ColdTrick\EventManager\Event\Day',
+			'class' => Day::class,
 		],
 		[
 			'type' => 'object',
 			'subtype' => 'eventslot',
-			'class' => '\ColdTrick\EventManager\Event\Slot',
+			'class' => Slot::class,
 		],
 	],
 	'views' => [
@@ -88,21 +91,21 @@ return [
 			'path' => '/event/edit/{guid}',
 			'resource' => 'event/edit',
 			'middleware' => [
-				\Elgg\Router\Middleware\Gatekeeper::class,
+				Gatekeeper::class,
 			],
 		],
 		'edit:object:event:program' => [
 			'path' => '/event/edit_program/{guid}',
 			'resource' => 'event/edit_program',
 			'middleware' => [
-				\Elgg\Router\Middleware\Gatekeeper::class,
+				Gatekeeper::class,
 			],
 		],
 		'edit:object:event:upload' => [
 			'path' => '/event/upload/{guid}',
 			'resource' => 'event/upload',
 			'middleware' => [
-				\Elgg\Router\Middleware\Gatekeeper::class,
+				Gatekeeper::class,
 			],
 		],
 		'view:object:event' => [
