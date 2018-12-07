@@ -29,9 +29,7 @@ if ($collapsed) {
 			$location = elgg_extract('location', $body_vars);
 			$region = elgg_extract('region', $body_vars);
 			
-			$region_options = event_manager_event_region_options();
-			
-			if (!empty($venue) || !empty($location) || (!empty($region) && $region_options)) {
+			if (!empty($venue) || !empty($location) || !empty($region)) {
 				$collapsed = false;
 			}
 			break;

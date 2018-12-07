@@ -169,29 +169,6 @@ function event_manager_search_events($options = []) {
 }
 
 /**
- * Returns event region options
- *
- * @return bool|array
- */
-function event_manager_event_region_options() {
-	$region_settings = trim(elgg_get_plugin_setting('region_list', 'event_manager'));
-
-	if (empty($region_settings)) {
-		return false;
-	}
-	
-	$region_options = ['-'];
-	$region_list = explode(',', $region_settings);
-	$region_options = array_merge($region_options, $region_list);
-
-	array_walk($region_options, function(&$val) {
-		$val = trim($val);
-	});
-
-	return $region_options;
-}
-
-/**
  * Returns event type options
  *
  * @return bool|array

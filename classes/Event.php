@@ -182,21 +182,6 @@ class Event extends ElggObject {
 	 *
 	 * @return void
 	 */
-	public function setRegion($region) {
-		if ($region == '-') {
-			$region = '';
-		}
-		
-		$this->region = $region;
-	}
-
-	/**
-	 * Correctly sets the region
-	 *
-	 * @param string $max the region
-	 *
-	 * @return void
-	 */
 	public function setEventType($event_type) {
 		if ($event_type == '-') {
 			$event_type = '';

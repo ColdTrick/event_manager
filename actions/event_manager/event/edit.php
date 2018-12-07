@@ -66,7 +66,6 @@ if ($event_created) {
 }
 
 $event->setMaxAttendees(get_input('max_attendees'));
-$event->setRegion(get_input('region'));
 $event->setEventType(get_input('event_type'));
 
 $event->event_start = $event_start;
@@ -80,7 +79,7 @@ $metadata_fields = [
 	'shortdescription', 'comments_on', 'registration_ended', 'registration_needed', 'show_attendees',
 	'notify_onsignup', 'waiting_list', 'venue', 'contact_details', 'website',
 	'organizer', 'fee', 'fee_details', 'register_nologin', 'waiting_list_enabled', 'registration_completed',
-	'organizer_guids', 'contact_guids',
+	'organizer_guids', 'contact_guids', 'region',
 ];
 
 foreach ($metadata_fields as $field) {
