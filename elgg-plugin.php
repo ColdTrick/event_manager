@@ -191,7 +191,6 @@ return [
 		'event_manager/event/unsubscribe_confirm' => ['access' => 'public'],
 		'event_manager/event/resend_confirmation' => [],
 		'event_manager/event/register' => ['access' => 'public'],
-		'event_manager/event/search' => ['access' => 'public'],
 		
 		'event_manager/attendees/export' => [],
 		'event_manager/attendees/move_to_attendees' => [],
