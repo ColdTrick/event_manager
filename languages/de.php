@@ -44,7 +44,7 @@ return array (
 	'event_manager:calendar:week' => 'Woche',
 	'event_manager:calendar:day' => 'Tag',
 
-	'event_manager:list:title' => 'Veranstaltungen',
+	'event_manager:list:upcoming' => 'Veranstaltungen',
 	'event_manager:list:group:title' => 'Gruppenveranstaltungen',
 	'event_manager:list:advancedsearch' => 'erweiterte Suche',
 	'event_manager:list:simplesearch' => 'einfache Suche',
@@ -55,7 +55,6 @@ return array (
 	'event_manager:list:owning' => 'zeige von mir erstellte Veranstaltungen',
 	'event_manager:list:friendsattending' => 'zeige Veranstaltungen an denen meine Freunde teilnehmen',
 
-	'event_manager:list:navigation:list' => 'Liste',
 	'event_manager:list:navigation:calendar' => 'Kalender',
 	'event_manager:list:navigation:other' => 'andere Veranstaltungen',
 	'event_manager:list:navigation:your' => 'deine Veranstaltungen',

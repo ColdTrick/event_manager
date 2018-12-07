@@ -39,11 +39,9 @@ function event_manager_get_default_list_options($options = []) {
 		'container_guid' => null,
 		'meattending' => false,
 		'owning' => false,
-		'region' => null,
 		'latitude' => null,
 		'longitude' => null,
 		'distance' => null,
-		'event_type' => false,
 		'event_start' => null,
 		'event_end' => null,
 		'search_type' => "list",
@@ -131,21 +129,7 @@ function event_manager_get_default_list_options($options = []) {
 	if ($options['owning'] && !empty($options['user_guid'])) {
 		$entities_options['owner_guids'] = [$options['user_guid']];
 	}
-	
-	if ($options['region']) {
-		$entities_options['metadata_name_value_pairs'][] = [
-			'name' => 'region',
-			'value' => $options['region']
-		];
-	}
-	
-	if ($options['event_type']) {
-		$entities_options['metadata_name_value_pairs'][] = [
-			'name' => 'event_type',
-			'value' => $options['event_type']
-		];
-	}
-	
+		
 	if (($options['search_type'] == 'onthemap') && !empty($options['latitude']) && !empty($options['longitude']) && !empty($options['distance'])) {
 		$entities_options['latitude'] = $options['latitude'];
 		$entities_options['longitude'] = $options['longitude'];

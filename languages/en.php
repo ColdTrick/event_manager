@@ -41,7 +41,8 @@ return array(
 	'event_manager:calendar:week' => 'Week',
 	'event_manager:calendar:day' => 'Day',
 	
-	'event_manager:list:title' => 'Events',
+	'event_manager:list:live' => 'Live events',
+	'event_manager:list:upcoming' => 'Upcoming events',
 	'event_manager:list:group:title' => 'Group events',
 	'event_manager:list:advancedsearch' => 'Advanced search',
 	'event_manager:list:simplesearch' => 'Simple search',
@@ -51,7 +52,8 @@ return array(
 	'event_manager:list:attending' => 'Show events I\'m  attending',
 	'event_manager:list:owning' => 'Show events I created',
 
-	'event_manager:list:navigation:list' => 'List',
+	'event_manager:list:navigation:live' => 'Live',
+	'event_manager:list:navigation:upcoming' => 'Upcoming',
 	'event_manager:list:navigation:calendar' => 'Calendar',
 	'event_manager:list:navigation:other' => 'Other events',
 	'event_manager:list:navigation:your' => 'Your events',
