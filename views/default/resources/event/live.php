@@ -1,6 +1,6 @@
 <?php
 
-$title_text = elgg_echo('event_manager:list:upcoming');
+$title_text = elgg_echo('event_manager:list:live');
 
 elgg_push_collection_breadcrumbs('object', \Event::SUBTYPE);
 
@@ -12,6 +12,11 @@ $content = elgg_list_entities([
 	'metadata_name_value_pairs' => [
 		[
 			'name' => 'event_start',
+			'value' => time(),
+			'operand' => '<=',
+		],
+		[
+			'name' => 'event_end',
 			'value' => time(),
 			'operand' => '>=',
 		],
@@ -28,7 +33,7 @@ $body = elgg_view_layout('default', [
 	'title' => $title_text,
 	'content' => $content,
 	'filter_id' => 'events',
-	'filter_value' => 'upcoming',
+	'filter_value' => 'live',
 ]);
 
 echo elgg_view_page($title_text, $body);

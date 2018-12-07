@@ -140,6 +140,10 @@ return [
 			'path' => '/eventregistration/completed/{event_guid}/{object_guid}',
 			'resource' => 'eventregistration/completed',
 		],
+		'collection:object:event:live' => [
+			'path' => '/event/live',
+			'resource' => 'event/live',
+		],
 		'collection:object:event:upcoming' => [
 			'path' => '/event/upcoming',
 			'resource' => 'event/upcoming',

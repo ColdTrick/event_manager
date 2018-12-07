@@ -44,7 +44,7 @@ return array(
 	'event_manager:calendar:week' => 'Semaine',
 	'event_manager:calendar:day' => 'Jour',
 
-	'event_manager:list:title' => 'Evènements',
+	'event_manager:list:live' => 'Evènements',
 	'event_manager:list:group:title' => 'Événements de groupe',
 	'event_manager:list:advancedsearch' => 'Recherche avancée',
 	'event_manager:list:simplesearch' => 'Recherche simple',
@@ -55,7 +55,6 @@ return array(
 	'event_manager:list:owning' => 'Montrer les évènements que j\'ai créé',
 	'event_manager:list:friendsattending' => 'Montrer les évènements auxquels mes contacts participent',
 	
-	'event_manager:list:navigation:list' => 'Liste',
 	'event_manager:list:navigation:calendar' => 'Calendrier',
 	'event_manager:list:navigation:other' => 'Autres évènements',
 	'event_manager:list:navigation:your' => 'Vos évènements',
@@ -359,7 +358,7 @@ une personne s\'est désinscrite de l\'évènement \'%s\' . Vous n\'êtes plus s
 	'event_manager:action:move_to_attendees:success' => "L'utilisateur à été retirer des participants",
 	'event_manager:action:slot:day_not_found' => "Le jour demandé n'as pas été trouvé",
 	'event_manager:action:slot:missing_fields' => "Veuillez remplir les champs requis",
-	'event_manager:action:slot:not_found' => "Le créneau n'as pas été trouvé",	
+	'event_manager:action:slot:not_found' => "Le créneau n'as pas été trouvé",
 	'event_manager:action:slot:cannot_save' => "Une erreur est survenu pendant l'enregistrement du créneaux",
 	'event_manager:action:slot:saved' => 'Créneau enregistré',
 	'event_manager:action:slot:delete:error' => 'Le créneau ne peut être supprimé',
@@ -426,7 +425,7 @@ Si vous n'avez pas demander à vous inscrire ou pour retirer votre participation
 	'event_manager:registration:confirm:subject' => "Veuillez confirmer votre inscription pour %s",
 	'event_manager:registration:confirm:message' => "Bonjour %s,
 
-Pour terminer votre inscription pour l'événement \"%s\", veuillez cliquer sur ce lien 
+Pour terminer votre inscription pour l'événement \"%s\", veuillez cliquer sur ce lien
 %s
 
 Si vous ne vous êtes pas inscrit à cet événement, vous pouvez ignorer ce courriel ou cliquer sur le lien et supprimer votre inscription.",
@@ -441,7 +440,7 @@ Si vous ne vous êtes pas inscrit à cet événement, vous pouvez ignorer ce cou
 	'river:create:object:event' => '%s à créé l\'événement %s',
 	
 	'event_manager:date:to' => 'Vers',
-	'requiredfields' => 'Champs obligatoires',	
+	'requiredfields' => 'Champs obligatoires',
 	'confirm' => 'Confirmer',
 
 	'event_manager:addevent:mail:title' => 'Exporter vers',

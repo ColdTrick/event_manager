@@ -1,6 +1,6 @@
 <?php
 
-$title_text = elgg_echo('event_manager:list:title');
+$title_text = elgg_echo('collection:object:event');
 
 $event_options = [];
 

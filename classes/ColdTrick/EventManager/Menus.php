@@ -225,8 +225,14 @@ class Menus {
 	public static function registerEventsList($hook, $entity_type, $returnvalue, $params) {
 	
 		$returnvalue[] = \ElggMenuItem::factory([
+			'name' => 'live',
+			'text' => elgg_echo('event_manager:list:navigation:live'),
+			'href' => elgg_generate_url('collection:object:event:live'),
+			'rel' => 'list',
+		]);
+		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'upcoming',
-			'text' => elgg_echo('event_manager:list:navigation:list'),
+			'text' => elgg_echo('event_manager:list:navigation:upcoming'),
 			'href' => elgg_generate_url('collection:object:event:upcoming'),
 			'rel' => 'list',
 		]);
