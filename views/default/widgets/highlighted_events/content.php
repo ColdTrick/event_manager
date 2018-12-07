@@ -1,11 +1,12 @@
 <?php
 
+/* @var $widget ElggWidget */
 $widget = elgg_extract('entity', $vars);
 $event_guids = $widget->event_guids;
 $show_past_events = (bool) $widget->show_past_events;
 
 if (empty($event_guids)) {
-	echo elgg_echo('notfound');
+	echo elgg_echo('event_manager:list:noresults');
 	return;
 }
 
@@ -13,8 +14,9 @@ $events = [];
 
 $entities = elgg_get_entities([
 	'type' => 'object',
-	'subtype' => 'event',
+	'subtype' => Event::SUBTYPE,
 	'guids' => $event_guids,
+	'limit' => false,
 ]);
 
 foreach ($entities as $event) {
@@ -39,5 +41,7 @@ foreach ($event_guids as $guid) {
 
 echo elgg_view_entity_list($sorted_entities, [
 	'full_view' => false,
-	'no_results' => true,
+	'pagination' => false,
+	'limit' => false,
+	'no_results' => elgg_echo('event_manager:list:noresults'),
 ]);
