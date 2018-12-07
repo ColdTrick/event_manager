@@ -1,13 +1,21 @@
 <?php
 
+header('Content-type: application/json');
+
 $events_options = [
-	'limit' => false,
-	'past_events' => true,
+	'limit' => 999, // not wise to leave unlimited
+	'type' => 'object',
+	'subtype' => 'event',
 	'metadata_name_value_pairs' => [],
 ];
 
 $start = get_input('start');
 $end = get_input('end');
+
+if (empty($start) && empty($end)) {
+	echo json_encode([]);
+	return;
+}
 
 if ($start) {
 	$events_options['metadata_name_value_pairs'][] = [
@@ -30,7 +38,7 @@ if ($container_guid) {
 	$events_options['container_guid'] = $container_guid;
 }
 
-$events = elgg_get_entities(event_manager_get_default_list_options($events_options));
+$events = elgg_get_entities($events_options);
 
 $result = [];
 
@@ -55,7 +63,5 @@ foreach ($events as $event) {
 	
 	$result[] = $event_result;
 }
-
-header('Content-type: application/json');
 
 echo json_encode($result);
