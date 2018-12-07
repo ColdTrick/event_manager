@@ -17,7 +17,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 			'name' => 'event',
 			'icon' => 'calendar-alt',
 			'text' => elgg_echo('event_manager:menu:title'),
-			'href' => elgg_generate_url('collection:object:event:upcoming'),
+			'href' => elgg_generate_url('default:object:event'),
 		]);
 	
 		// add group tool option
