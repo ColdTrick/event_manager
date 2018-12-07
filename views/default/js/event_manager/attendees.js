@@ -13,7 +13,6 @@ define(function(require) {
 			method: 'POST',
 			data: ajax.objectify(form),
 			success: function(data) {
-				console.log(data);
 				$form.nextAll('ul.elgg-list, ul.elgg-pagination, p.elgg-no-results').remove();
 				$form.after(data);
 			}
