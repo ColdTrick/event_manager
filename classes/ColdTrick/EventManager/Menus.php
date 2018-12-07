@@ -225,20 +225,20 @@ class Menus {
 	public static function registerEventsList($hook, $entity_type, $returnvalue, $params) {
 	
 		$returnvalue[] = \ElggMenuItem::factory([
-			'name' => 'events_upcoming',
+			'name' => 'upcoming',
 			'text' => elgg_echo('event_manager:list:navigation:list'),
 			'href' => elgg_generate_url('collection:object:event:upcoming'),
 			'rel' => 'list',
 		]);
 		$returnvalue[] = \ElggMenuItem::factory([
-			'name' => 'events_calendar',
+			'name' => 'calendar',
 			'text' => elgg_echo('event_manager:list:navigation:calendar'),
 			'href' => elgg_generate_url('collection:object:event:calendar'),
 			'rel' => 'calendar',
 		]);
 		if (elgg_get_plugin_setting('maps_provider', 'event_manager') !== 'none') {
 			$returnvalue[] = \ElggMenuItem::factory([
-				'name' => 'events_map',
+				'name' => 'map',
 				'text' => elgg_echo('event_manager:list:navigation:onthemap'),
 				'href' => elgg_generate_url('collection:object:event:map'),
 				'rel' => 'onthemap',
@@ -253,7 +253,7 @@ class Menus {
 				]),
 			]);
 			$returnvalue[] = \ElggMenuItem::factory([
-				'name' => 'owned',
+				'name' => 'mine',
 				'text' => elgg_echo('mine'),
 				'href' => elgg_generate_url('collection:object:event:owner', [
 					'username' => elgg_get_logged_in_user_entity()->username,

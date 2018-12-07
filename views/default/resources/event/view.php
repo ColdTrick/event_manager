@@ -4,6 +4,7 @@ $guid = (int) elgg_extract('guid', $vars);
 
 elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 
+/* @var $event Event */
 $event = get_entity($guid);
 
 if (elgg_get_plugin_setting('add_event_to_calendar', 'event_manager') === 'yes') {
@@ -15,12 +16,6 @@ if (elgg_get_plugin_setting('add_event_to_calendar', 'event_manager') === 'yes')
 		'text' => elgg_view('event_manager/event/addthisevent', ['entity' => $event]),
 		'deps' => 'addthisevent',
 	]));
-}
-
-elgg_set_page_owner_guid($event->getContainerGUID());
-$page_owner = elgg_get_page_owner_entity();
-if ($page_owner instanceof ElggGroup) {
-	elgg_entity_gatekeeper($page_owner->guid);
 }
 
 elgg_push_entity_breadcrumbs($event, false);
