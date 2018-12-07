@@ -63,11 +63,10 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 		}
 		
 		var map = new EventMap(options);
-		
 		if (options.lat && options.lng) {
 			map.moveToLatLng(options.lat, options.lng);
 		}
-
+		console.log(map);
 		return map;
 	};
 	
