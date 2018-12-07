@@ -61,8 +61,8 @@ define(['jquery', 'elgg'], function($, elgg) {
 			require(['event_manager/osm'], function (EventMap) {
 				event_map = EventMap.setup({
 					element: 'event_manager_onthemap_canvas'
-				}).moveToDefaultLocation();
-				
+				});
+				event_map.moveToDefaultLocation();
 				event_map.getMap().on('moveend', execute_search_map);
 				execute_search_map();
 			});

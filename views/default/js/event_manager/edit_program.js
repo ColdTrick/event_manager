@@ -74,7 +74,6 @@ elgg.event_manager.init_edit_program = function() {
 		}
 		
 		var dayGuid = $(this).parent().attr("rel");
-		console.log(dayGuid);
 		if (!dayGuid) {
 			return false;
 		}
