@@ -5,13 +5,15 @@ if (!$user instanceof \ElggUser) {
 	forward('', '404');
 }
 
-elgg_push_collection_breadcrumbs('object', 'event', $user, false);
+elgg_register_title_button('event', 'add', 'object', \Event::SUBTYPE);
 
-$filter_context = '';
+elgg_push_collection_breadcrumbs('object', 'event', $user);
+
+$filter_value = '';
 
 $title = elgg_echo('event_manager:owner:title', [$user->getDisplayName()]);
 if ($user->guid === elgg_get_logged_in_user_guid()) {
-	$filter_context = 'mine';
+	$filter_value = 'mine';
 }
 
 $content = elgg_list_entities([
@@ -24,7 +26,7 @@ $content = elgg_list_entities([
 $body = elgg_view_layout('default', [
 	'content' => $content,
 	'title' => $title,
-	'filter_context' => $filter_context,
+	'filter_value' => $filter_value,
 	'filter_id' => 'events',
 ]);
 
