@@ -41,6 +41,13 @@ $entities = elgg_get_entities([
 			]);
 		}
 	],
+	'metadata_name_value_pairs' => [
+		[
+			'name' => 'event_start',
+			'value' => time(),
+			'operand' => '>=',
+		],
+	],
 ]);
 
 if (empty($entities)) {
@@ -49,9 +56,6 @@ if (empty($entities)) {
 
 $result = [];
 foreach ($entities as $event) {
-
-	elgg_push_context('maps');
-
 	$result['markers'][] = [
 		'guid' => $event->guid,
 		'lat' => $event->getLatitude(),
@@ -61,7 +65,6 @@ foreach ($entities as $event) {
 		'has_relation' => $event->getRelationshipByUser(),
 		'iscreator' => (($event->getOwnerGUID() == elgg_get_logged_in_user_guid()) ? 'owner' : null)
 	];
-	elgg_pop_context();
 }
 
 return elgg_ok_response($result);

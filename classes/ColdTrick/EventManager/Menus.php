@@ -271,44 +271,6 @@ class Menus {
 	}
 	
 	/**
-	 * Add filter tabs for user filter menu
-	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
-	 *
-	 * @return array
-	 */
-	public static function registerFilter($hook, $entity_type, $returnvalue, $params) {
-		if (!elgg_in_context('events')) {
-			return;
-		}
-		
-		$returnvalue = [];
-		
-		$returnvalue[] = \ElggMenuItem::factory([
-			'name' => 'all',
-			'text' => elgg_echo('all'),
-			'href' => 'events',
-		]);
-		$returnvalue[] = \ElggMenuItem::factory([
-			'name' => 'mine',
-			'text' => elgg_echo('mine'),
-			'href' => elgg_generate_url('collection:object:event:owner', ['username' => elgg_get_logged_in_user_entity()->username]),
-		]);
-		
-		$returnvalue[] = \ElggMenuItem::factory([
-			'name' => 'attending',
-			'text' => elgg_echo('event_manager:menu:attending'),
-			'href' => elgg_generate_url('collection:object:event:attending', ['username' => elgg_get_logged_in_user_entity()->username]),
-			
-		]);
-		
-		return $returnvalue;
-	}
-	
-	/**
 	 * Removes unwanted menu items from activity items if it is an event RSVP
 	 *
 	 * @param string $hook        hook name

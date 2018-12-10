@@ -26,8 +26,6 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 				distance_longitude: distance_longitude,
 			},
 			success: function(data) {
-				console.log(data);
-				
 				if (!data.markers) {
 					return;
 				}
