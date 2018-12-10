@@ -149,7 +149,7 @@ return [
 			'resource' => 'event/upcoming',
 		],
 		'collection:object:event:map' => [
-			'path' => '/event/map',
+			'path' => '/event/map/{guid?}',
 			'resource' => 'event/map',
 		],
 		'collection:object:event:calendar' => [

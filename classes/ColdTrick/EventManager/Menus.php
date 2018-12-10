@@ -257,7 +257,7 @@ class Menus {
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'map',
 				'text' => elgg_echo('event_manager:list:navigation:onthemap'),
-				'href' => elgg_generate_url('collection:object:event:map'),
+				'href' => elgg_generate_url('collection:object:event:map', $route_params),
 				'rel' => 'onthemap',
 				'selected' => $selected === 'map',
 			]);

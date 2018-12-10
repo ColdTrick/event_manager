@@ -13,6 +13,8 @@ if ($page_owner instanceof \ElggGroup) {
 	elgg_set_page_owner_guid(null);
 }
 
+elgg_group_tool_gatekeeper('event_manager');
+
 elgg_push_collection_breadcrumbs('object', \Event::SUBTYPE, $page_owner);
 
 elgg_register_title_button('event', 'add', 'object', \Event::SUBTYPE);
