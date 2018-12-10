@@ -141,7 +141,7 @@ return [
 			'resource' => 'eventregistration/completed',
 		],
 		'collection:object:event:live' => [
-			'path' => '/event/live',
+			'path' => '/event/live/{guid?}',
 			'resource' => 'event/live',
 		],
 		'collection:object:event:upcoming' => [

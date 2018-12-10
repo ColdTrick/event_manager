@@ -235,7 +235,7 @@ class Menus {
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'live',
 			'text' => elgg_echo('event_manager:list:navigation:live'),
-			'href' => elgg_generate_url('collection:object:event:live'),
+			'href' => elgg_generate_url('collection:object:event:live', $route_params),
 			'rel' => 'list',
 			'selected' => $selected === 'live',
 		]);
