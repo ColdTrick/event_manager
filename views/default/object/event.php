@@ -1,5 +1,10 @@
 <?php
 
+$event = elgg_extract('entity', $vars);
+if (!$event instanceof Event) {
+	return;
+}
+
 if (elgg_extract('full_view', $vars)) {
 	echo elgg_view("event_manager/event/view", $vars);
 	return;
