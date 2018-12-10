@@ -176,21 +176,6 @@ class Event extends ElggObject {
 	}
 
 	/**
-	 * Correctly sets the region
-	 *
-	 * @param string $max the region
-	 *
-	 * @return void
-	 */
-	public function setEventType($event_type) {
-		if ($event_type == '-') {
-			$event_type = '';
-		}
-			
-		$this->event_type = $event_type;
-	}
-
-	/**
 	 * Returns files for the event
 	 *
 	 * @return mixed|boolean
