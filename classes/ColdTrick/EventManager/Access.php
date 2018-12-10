@@ -61,7 +61,7 @@ class Access {
 	/**
 	 * Checks if plugin setting allows users to write to a container
 	 *
-	 * @param \Elgg\Hook $hook
+	 * @param \Elgg\Hook $hook 'container_logic_check', 'object'
 	 *
 	 * @return void|false
 	 */
@@ -77,7 +77,10 @@ class Access {
 				// no one can create
 				return false;
 			}
-			if ($who_create_group_events === 'group_admin' && !$container->canEdit($user->guid)) {
+			
+			$user = $hook->getParam('user');
+			$user_guid = $user instanceof \ElggUser ? $user->guid : 0;
+			if ($who_create_group_events === 'group_admin' && !$container->canEdit($user_guid)) {
 				return false;
 			}
 			// in other group case let regular checks take place
