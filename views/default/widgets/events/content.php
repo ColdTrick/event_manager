@@ -9,6 +9,8 @@ if ($num_display < 1) {
 }
 
 $event_options = [
+	'type' => 'object',
+	'subtype' => 'event',
 	'limit' => $num_display,
 	'pagination' => false,
 ];
@@ -25,16 +27,19 @@ switch ($owner->getType()) {
 		]);
 		break;
 	case 'user':
-		$event_options['user_guid'] = $owner->guid;
+		
 		switch ($widget->type_to_show) {
 			case 'owning':
-				$event_options['owning'] = true;
+				$event_options['owner_guid'] = $owner->guid;
 				$more_link = elgg_generate_url('collection:object:event:owner', [
 					'username' => $owner->username,
 				]);
 				break;
 			case 'attending':
-				$event_options['meattending'] = true;
+				$event_options['relationship'] = EVENT_MANAGER_RELATION_ATTENDING;
+				$event_options['relationship_guid'] = $owner->guid;
+				$event_options['inverse_relationship'] = true;
+				
 				$more_link = elgg_generate_url('collection:object:event:attending', [
 					'username' => $owner->username,
 				]);
@@ -45,17 +50,10 @@ switch ($owner->getType()) {
 
 $group_guid = $widget->group_guid;
 if (is_array($group_guid)) {
-	$group_guid = $group_guid[0];
+	$event_options['container_guid'] = $group_guid[0];
 }
 
-if (!empty($group_guid)) {
-	$event_options['container_guid'] = $group_guid;
-}
-
-$options = event_manager_get_default_list_options($event_options);
-$options['no_results'] = false;
-
-$content = elgg_list_entities($options);
+$content = elgg_list_entities($event_options);
 if (empty($content)) {
 	echo elgg_echo('event_manager:list:noresults');
 	return;

@@ -21,7 +21,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		]);
 	
 		// add group tool option
-		if (event_manager_groups_enabled()) {
+		if (elgg_get_plugin_setting('who_create_group_events', 'event_manager')) {
 			elgg()->group_tools->register('event_manager', ['label' => elgg_echo('groups:enableevents')]);
 		}
 		

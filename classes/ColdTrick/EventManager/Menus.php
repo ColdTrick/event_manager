@@ -128,7 +128,7 @@ class Menus {
 			return;
 		}
 	
-		if (!event_manager_groups_enabled() || !$group->isToolEnabled('event_manager')) {
+		if (!$group->canWriteToContainer(0, 'object', 'event') || !$group->isToolEnabled('event_manager')) {
 			return;
 		}
 	

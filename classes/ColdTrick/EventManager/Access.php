@@ -77,7 +77,7 @@ class Access {
 				// no one can create
 				return false;
 			}
-			if ($who_create_group_events === 'group_admin' && !$group->canEdit($user->guid)) {
+			if ($who_create_group_events === 'group_admin' && !$container->canEdit($user->guid)) {
 				return false;
 			}
 			// in other group case let regular checks take place

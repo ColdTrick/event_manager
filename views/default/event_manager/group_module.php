@@ -9,13 +9,13 @@ if (!$group->isToolEnabled('event_manager')) {
 	return;
 }
 
-$options = event_manager_get_default_list_options([
+$content = elgg_list_entities([
+	'type' => 'object',
+	'subtype' => 'event',
 	'container_guid' => elgg_get_page_owner_guid(),
 	'pagination' => false,
 	'limit' => 5,
 ]);
-
-$content = elgg_list_entities($options);
 
 $all_link = elgg_view('output/url', [
 	'href' => elgg_generate_url('collection:object:event:group', ['guid' => $group->guid]),

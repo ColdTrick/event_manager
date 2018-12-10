@@ -53,8 +53,7 @@ class Icons {
 		
 		return $returnvalue;
 	}
-	
-	
+		
 	/**
 	 * Returns the user default icon for event registration objects
 	 *

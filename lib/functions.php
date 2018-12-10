@@ -9,12 +9,7 @@
  * @return array
  */
 function event_manager_event_get_relationship_options() {
-	
-	static $result;
-	if (isset($result)) {
-		return $result;
-	}
-	
+		
 	$result = [
 		EVENT_MANAGER_RELATION_ATTENDING,
 		EVENT_MANAGER_RELATION_PRESENTING,
@@ -28,143 +23,6 @@ function event_manager_event_get_relationship_options() {
 	}
 	
 	return $result;
-}
-
-function event_manager_get_default_list_options($options = []) {
-	$defaults = [
-		'past_events' => false,
-		'count' => false,
-		'limit' => (int) get_input('limit', 10),
-		'offset' => (int) get_input('offset', 0),
-		'container_guid' => null,
-		'meattending' => false,
-		'owning' => false,
-		'latitude' => null,
-		'longitude' => null,
-		'distance' => null,
-		'event_start' => null,
-		'event_end' => null,
-		'user_guid' => elgg_get_logged_in_user_guid(),
-		'metadata_name_value_pairs' => [],
-	];
-	
-	$options = array_merge($defaults, $options);
-	
-	$entities_options = [
-		'type' => 'object',
-		'subtype' => 'event',
-		'offset' => $options['offset'],
-		'limit' => $options['limit'],
-		'joins' => [],
-		'wheres' => [],
-		'metadata_name_value_pairs' => $options['metadata_name_value_pairs'],
-		'order_by_metadata' => [
-			'name' => 'event_start',
-			'direction' => 'ASC',
-			'as' => 'integer'
-		],
-		'no_results' => elgg_echo('event_manager:list:noresults'),
-	];
-	
-	$dbprefix = elgg_get_config('dbprefix');
-	
-	if ($options['container_guid']) {
-		// limit for a group
-		$entities_options['container_guid'] = $options['container_guid'];
-	}
-	
-	if (!empty($options['event_start'])) {
-		$entities_options['metadata_name_value_pairs'][] = [
-			'name' => 'event_start',
-			'value' => $options['event_start'],
-			'operand' => '>='
-		];
-	}
-	
-	if (!empty($options['event_end'])) {
-		$options['event_end'] += 86400; // add one day
-		$entities_options['metadata_name_value_pairs'][] = [
-			'name' => 'event_end',
-			'value' => $options['event_end'],
-			'operand' => '<='
-		];
-	}
-	
-	if (!$options['past_events']) {
-		// only show from current day or newer (or where event is still running)
-		$current_time = gmmktime(0, 0, 1);
-		if ($options['event_end']) {
-			$entities_options['metadata_name_value_pairs'][] = [
-				'name' => 'event_start',
-				'value' => $current_time,
-				'operand' => '>='
-			];
-		} else {
-			// start date
-			$entities_options['joins'][] = "JOIN {$dbprefix}metadata md_start ON e.guid = md_start.entity_guid";
-			$entities_options['wheres'][] = "md_start.name = 'event_start'";
-			
-			// end date
-			$entities_options['joins'][] = "JOIN {$dbprefix}metadata md_end ON e.guid = md_end.entity_guid";
-			$entities_options['wheres'][] = "md_end.name = 'event_end'";
-			
-			// event start > now
-			$time_start = "(md_start.value >= {$current_time})";
-			
-			// or event start before end and end after now
-			$time_end = "((md_start.value < {$current_time}) AND (md_end.value > {$current_time}))";
-			
-			$entities_options['wheres'][] = "({$time_start} OR {$time_end})";
-		}
-	}
-	
-	if ($options['meattending'] && !empty($options['user_guid'])) {
-		$entities_options['joins'][] = "JOIN {$dbprefix}entity_relationships e_r ON e.guid = e_r.guid_one";
-		
-		$entities_options['wheres'][] = 'e_r.guid_two = ' . $options['user_guid'];
-		$entities_options['wheres'][] = 'e_r.relationship = "' . EVENT_MANAGER_RELATION_ATTENDING . '"';
-	}
-	
-	if ($options['owning'] && !empty($options['user_guid'])) {
-		$entities_options['owner_guids'] = [$options['user_guid']];
-	}
-		
-	if (($options['search_type'] == 'onthemap') && !empty($options['latitude']) && !empty($options['longitude']) && !empty($options['distance'])) {
-		$entities_options['latitude'] = $options['latitude'];
-		$entities_options['longitude'] = $options['longitude'];
-		$entities_options['distance'] = $options['distance'];
-	}
-	
-	return $entities_options;
-}
-
-/**
- * Search for events
- *
- * @param array $options search options
- *
- * @return array
- */
-function event_manager_search_events($options = []) {
-	$entities_options = event_manager_get_default_list_options();
-	
-	if (!empty($entities_options['latitude']) && !empty($entities_options['longitude']) && !empty($entities_options['distance'])) {
-		$entities = elgg_get_entities_from_location($entities_options);
-
-		$entities_options['count'] = true;
-		$count_entities = elgg_get_entities_from_location($entities_options);
-
-	} else {
-		$entities = elgg_get_entities($entities_options);
-
-		$entities_options['count'] = true;
-		$count_entities = elgg_get_entities($entities_options);
-	}
-	
-	return [
-		'entities' => $entities,
-		'count' => $count_entities,
-	];
 }
 
 /**
@@ -292,27 +150,6 @@ function event_manager_send_registration_validation_email(Event $event, ElggEnti
 			'body' => $message,
 		]));
 	}
-}
-
-/**
- * Checks if it is allowed to create events in groups
- *
- * @return bool
- */
-function event_manager_groups_enabled() {
-	static $result;
-
-	if (isset($result)) {
-		return $result;
-	}
-	
-	$result = true;
-
-	if (!elgg_get_plugin_setting('who_create_group_events', 'event_manager')) {
-		$result = false;
-	}
-
-	return $result;
 }
 
 /**
