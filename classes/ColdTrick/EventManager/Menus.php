@@ -249,9 +249,9 @@ class Menus {
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'calendar',
 			'text' => elgg_echo('event_manager:list:navigation:calendar'),
-			'href' => elgg_generate_url('collection:object:event:calendar'),
+			'href' => elgg_generate_url('collection:object:event:calendar', $route_params),
 			'rel' => 'calendar',
-			'selected' => $selected === 'calendat',
+			'selected' => $selected === 'calendar',
 		]);
 		if (elgg_get_plugin_setting('maps_provider', 'event_manager') !== 'none') {
 			$returnvalue[] = \ElggMenuItem::factory([
