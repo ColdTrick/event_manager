@@ -68,17 +68,7 @@ if ($entity && $entity->icontime) {
 	]);
 }
 
-$type_options = event_manager_event_type_options();
-if ($type_options) {
-	$output .= elgg_view_field([
-		'#type' => 'select',
-		'#label' => elgg_echo('event_manager:edit:form:type'),
-		'#help' => elgg_echo('event_manager:edit:form:type:help'),
-		'name' => 'event_type',
-		'value' => $vars['event_type'],
-		'options' => $type_options,
-	]);
-}
+$output .= elgg_view('forms/event_manager/event/edit/event_type', $vars);
 
 $output .= elgg_view_field([
 	'#type' => 'checkboxes',

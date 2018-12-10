@@ -1,4 +1,5 @@
 <?php
+
 use Elgg\Database\QueryBuilder;
 use Elgg\Database\Clauses\JoinClause;
 use Elgg\Database\Delete;
@@ -9,8 +10,32 @@ use Elgg\Database\Select;
  *
  * @package EventManager
  *
+ * @property bool   $comments_on            comments enabled
+ * @property string $contact_details        contact details
+ * @property int[]  $contact_guids          additional contact persons
+ * @property int    $endregistration_day    date until which registration is allowed
+ * @property string $event_type             admin controlled event type
+ * @property int    $event_start            start date
+ * @property int    $event_end              end date
+ * @property string $fee                    fee for the event
+ * @property string $fee_details            information about the fee
+ * @property bool   $notify_onsignup        event owner receives notification on new registration
+ * @property string $organizer              organizer
+ * @property int[]  $organizer_guids        additional organizers
+ * @property string $region                 admin controlled event region
+ * @property string $registration_completed text to show after registration is completed
+ * @property bool   $registration_ended     is registration closed
+ * @property bool   $registration_needed    is registration needed
+ * @property bool   $register_nologin       registration is enabled for non site users
+ * @property string $shortdescription       short event description
+ * @property bool   $show_attendees         show attendees to users
+ * @property string $venue                  venue of the event
+ * @property bool   $waiting_list_enabled   is a waitling list enabled
+ * @property string $website                event website
+ * @property bool   $with_program           has a program
  */
 class Event extends ElggObject {
+	
 	const SUBTYPE = "event";
 
 	/**
@@ -86,7 +111,7 @@ class Event extends ElggObject {
 	/**
 	 * Returns excerpt based on shortdescription and falls back to long description
 	 *
-	 * @param $limit (optional) limited amount of characters
+	 * @param int $limit (optional) limited amount of characters
 	 *
 	 * @return string
 	 *
@@ -119,7 +144,7 @@ class Event extends ElggObject {
 	/**
 	 * Returns the startdate and time for the event formatted as ISO-8601
 	 *
-	 * @param $format provide a format for the date
+	 * @param string $format provide a format for the date
 	 *
 	 * @see https://en.wikipedia.org/wiki/ISO_8601
 	 *
@@ -132,7 +157,7 @@ class Event extends ElggObject {
 	/**
 	 * Returns the startdate and time for the event formatted as ISO-8601
 	 *
-	 * @param $format provide a format for the date
+	 * @param string $format provide a format for the date
 	 *
 	 * @see https://en.wikipedia.org/wiki/ISO_8601
 	 *
@@ -163,37 +188,22 @@ class Event extends ElggObject {
 	/**
 	 * Correctly sets the max attendees
 	 *
-	 * @param string $max the max attendees
+	 * @param int $max the max attendees
 	 *
 	 * @return void
 	 */
 	public function setMaxAttendees($max) {
 		if (!empty($max) && !is_numeric($max)) {
-			$max = '';
+			$max = null;
 		}
 		
 		$this->max_attendees = $max;
 	}
 
 	/**
-	 * Correctly sets the region
-	 *
-	 * @param string $max the region
-	 *
-	 * @return void
-	 */
-	public function setEventType($event_type) {
-		if ($event_type == '-') {
-			$event_type = '';
-		}
-			
-		$this->event_type = $event_type;
-	}
-
-	/**
 	 * Returns files for the event
 	 *
-	 * @return mixed|boolean
+	 * @return mixed|false
 	 */
 	public function hasFiles() {
 		$files = json_decode($this->files);
@@ -208,7 +218,7 @@ class Event extends ElggObject {
 	 * RSVP to the event
 	 *
 	 * @param string  $type           type of the rsvp
-	 * @param number  $user_guid      guid of the user for whom the rsvp is changed
+	 * @param int     $user_guid      guid of the user for whom the rsvp is changed
 	 * @param boolean $reset_program  does the program need a reset with this rsvp
 	 * @param boolean $add_to_river   add an event to the river
 	 * @param boolean $notify_on_rsvp control if a (potential)notification is send
@@ -286,6 +296,14 @@ class Event extends ElggObject {
 		return $result;
 	}
 	
+	/**
+	 * Undo a registrion for a given user
+	 *
+	 * @param int  $user_guid     the user to undo for
+	 * @param bool $reset_program reset the event program
+	 *
+	 * @return void
+	 */
 	protected function undoRegistration($user_guid, $reset_program) {
 		global $EVENT_MANAGER_UNDO_REGISTRATION;
 		
@@ -359,7 +377,7 @@ class Event extends ElggObject {
 	/**
 	 * Clears registrations for a given user
 	 *
-	 * @param string $user_guid guid of the user
+	 * @param int $user_guid guid of the user
 	 *
 	 * @return void
 	 */
@@ -444,11 +462,11 @@ class Event extends ElggObject {
 	/**
 	 * Returns the program data for a user
 	 *
-	 * @param string $user_guid     guid of the entity
+	 * @param int    $user_guid     guid of the entity
 	 * @param bool   $participate   show the participation
 	 * @param string $register_type type of the registration
 	 *
-	 * @return boolean|string
+	 * @return false|string
 	 */
 	public function getProgramData($user_guid = null, $participate = false, $register_type = "register") {
 		if ($user_guid === null) {
@@ -483,7 +501,7 @@ class Event extends ElggObject {
 	 * Notifies an user of the RSVP
 	 *
 	 * @param string $type type of the RSVP
-	 * @param string $to   guid of the user
+	 * @param int    $to   guid of the user
 	 *
 	 * @return void
 	 */
@@ -651,7 +669,7 @@ class Event extends ElggObject {
 	 * Relates a user to all the slots
 	 *
 	 * @param boolean $relate add or remove relationship
-	 * @param string  $guid   guid of the entity
+	 * @param int     $guid   guid of the entity
 	 *
 	 * @return void
 	 */
@@ -754,13 +772,12 @@ class Event extends ElggObject {
 	/**
 	 * Returns the relationships between a user and the event
 	 *
-	 * @param string $user_guid guid of the user
+	 * @param int $user_guid guid of the user
 	 *
-	 * @return boolean|string
+	 * @return false|string
 	 */
 	public function getRelationshipByUser($user_guid = null) {
-		$result = false;
-
+		
 		$user_guid = (int) $user_guid;
 		if (empty($user_guid)) {
 			$user_guid = elgg_get_logged_in_user_guid();
@@ -773,10 +790,10 @@ class Event extends ElggObject {
 
 		$row = elgg()->db->getDataRow($qb->getSQL(), '', $qb->getParameters());
 		if ($row) {
-			$result = $row->relationship;
+			return $row->relationship;
 		}
 
-		return $result;
+		return false;
 	}
 
 	/**
@@ -785,7 +802,7 @@ class Event extends ElggObject {
 	 * @param bool   $count return count or array
 	 * @param string $order order of timecreated sorting
 	 *
-	 * @return boolean|array
+	 * @return false|array
 	 */
 	public function getRelationships($count = false, $order = 'ASC') {
 		$event_guid = $this->guid;
@@ -835,7 +852,7 @@ class Event extends ElggObject {
 	/**
 	 * Returns the supported relationships for this event (primarily used for presentations purpose)
 	 *
-	 * @return []
+	 * @return string[]
 	 */
 	public function getSupportedRelationships() {
 		$relationships = [
@@ -866,7 +883,7 @@ class Event extends ElggObject {
 	 *
 	 * @param boolean $count return the count or the entities
 	 *
-	 * @return array|boolean
+	 * @return \ElggEntity[]|int|mixed
 	 */
 	public function getRegistrationFormQuestions($count = false) {
 
@@ -908,7 +925,7 @@ class Event extends ElggObject {
 	/**
 	 * Returns the first waiting entity
 	 *
-	 * @return boolean|entity
+	 * @return false|\ElggEntity
 	 */
 	protected function getFirstWaitingUser() {
 		$qb = Select::fromTable('entity_relationships');
@@ -1053,7 +1070,7 @@ class Event extends ElggObject {
 	/**
 	 * Counts the attendees
 	 *
-	 * @return boolean|int
+	 * @return int
 	 */
 	public function countAttendees() {
 		$old_ia = elgg_set_ignore_access(true);
@@ -1073,7 +1090,7 @@ class Event extends ElggObject {
 	/**
 	 * Counts the waiters
 	 *
-	 * @return boolean|int
+	 * @return int
 	 */
 	public function countWaiters() {
 		$old_ia = elgg_set_ignore_access(true);

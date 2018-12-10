@@ -168,28 +168,6 @@ function event_manager_search_events($options = []) {
 }
 
 /**
- * Returns event type options
- *
- * @return bool|array
- */
-function event_manager_event_type_options() {
-	$type_settings = trim(elgg_get_plugin_setting('type_list', 'event_manager'));
-
-	if (empty($type_settings)) {
-		return false;
-	}
-	$type_options = array('-');
-	$type_list = explode(',', $type_settings);
-	$type_options = array_merge($type_options, $type_list);
-	
-	array_walk($type_options, function(&$val) {
-		$val = trim($val);
-	});
-
-	return $type_options;
-}
-
-/**
  * Creates an unsubscribe code
  *
  * @param EventRegistration $registration registration object
