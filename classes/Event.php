@@ -242,7 +242,7 @@ class Event extends ElggObject {
 		$qb->where($qb->compare('guid_one', '=', $event_guid, ELGG_VALUE_INTEGER))
 			->andWhere($qb->compare('guid_two', '=', $user_guid, ELGG_VALUE_INTEGER));
 		
-		elgg()->db->deleteData($qb->getSQL(), '', $qb->getParameters());
+		elgg()->db->deleteData($qb->getSQL(), $qb->getParameters());
 		
 		// remove river events
 		if ($user_entity) {
