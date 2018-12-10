@@ -66,7 +66,7 @@ class Event extends ElggObject {
 		$object->website = $this->website;
 		$object->organizer = $this->organizer;
 		$object->{'geo:lat'} = $this->getLatitude();
-		$object->{'goe:long'} = $this->getLongitude();
+		$object->{'geo:long'} = $this->getLongitude();
 		
 		return $object;
 	}

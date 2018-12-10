@@ -1,4 +1,4 @@
-define(['jquery', 'elgg'], function($, elgg) {
+define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 	var event_map;
 	var current_markers = [];
 	
@@ -7,52 +7,47 @@ define(['jquery', 'elgg'], function($, elgg) {
 			return;
 		}
 		
-		require(['elgg/spinner'], function(spinner) {
-			spinner.start();
-			
-			var mapBounds = event_map.getMap().getBounds();
-			var latitude = mapBounds.getCenter().lat;
-			var longitude = mapBounds.getCenter().lng;
-			var distance_latitude = mapBounds.getNorthEast().lat - latitude;
-			var distance_longitude = mapBounds.getNorthEast().lng - longitude;
-			if (distance_longitude < 0) {
-				distance_longitude = 360 + distance_longitude;
-			}
+		var ajax = new Ajax();
 		
-			$("#latitude").val(latitude);
-			$("#longitude").val(longitude);
-			$("#distance_latitude").val(distance_latitude);
-			$("#distance_longitude").val(distance_longitude);
-			
-			elgg.action('event_manager/event/search', {
-				data: $('#event_manager_search_form').serialize(),
-				success: function(data) {
-					var response = data.output;
-
-					if (!response.markers) {
+		var mapBounds = event_map.getMap().getBounds();
+		var latitude = mapBounds.getCenter().lat;
+		var longitude = mapBounds.getCenter().lng;
+		var distance_latitude = mapBounds.getNorthEast().lat - latitude;
+		var distance_longitude = mapBounds.getNorthEast().lng - longitude;
+		if (distance_longitude < 0) {
+			distance_longitude = 360 + distance_longitude;
+		}
+		
+		ajax.action('event_manager/maps/data', {
+			data: {
+				latitude: latitude,
+				longitude: longitude,
+				distance_latitude: distance_latitude,
+				distance_longitude: distance_longitude,
+			},
+			success: function(data) {
+				console.log(data);
+				
+				if (!data.markers) {
+					return;
+				}
+				
+				$.each(data.markers, function(i, event) {
+					if (current_markers[event.guid]) {
+						// already added, so return
 						return;
 					}
-					
-					$.each(response.markers, function(i, event) {
-						if (current_markers[event.guid]) {
-							// already added, so return
-							return;
-						}
 
-						var markerOptions = {
-							lat: event.lat, 
-							lng: event.lng,
-						};
-						
-						event_map.addMarker(markerOptions).bindPopup(event.html);
-						
-						current_markers[event.guid] = true;
-					});
-				},
-				complete: function() {
-					spinner.stop();
-				}
-			});
+					var markerOptions = {
+						lat: event.lat, 
+						lng: event.lng,
+					};
+					
+					event_map.addMarker(markerOptions).bindPopup(event.html);
+					
+					current_markers[event.guid] = true;
+				});
+			}
 		});
 	};
 	
