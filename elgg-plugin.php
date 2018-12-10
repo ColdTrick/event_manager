@@ -141,19 +141,19 @@ return [
 			'resource' => 'eventregistration/completed',
 		],
 		'collection:object:event:live' => [
-			'path' => '/event/live',
+			'path' => '/event/live/{guid?}',
 			'resource' => 'event/live',
 		],
 		'collection:object:event:upcoming' => [
-			'path' => '/event/upcoming',
+			'path' => '/event/upcoming/{guid?}',
 			'resource' => 'event/upcoming',
 		],
 		'collection:object:event:map' => [
-			'path' => '/event/map',
+			'path' => '/event/map/{guid?}',
 			'resource' => 'event/map',
 		],
 		'collection:object:event:calendar' => [
-			'path' => '/event/calendar',
+			'path' => '/event/calendar/{guid?}',
 			'resource' => 'event/calendar',
 		],
 		'collection:object:event:owner' => [
@@ -166,7 +166,7 @@ return [
 		],
 		'collection:object:event:group' => [
 			'path' => '/event/group/{guid}',
-			'resource' => 'event/group',
+			'resource' => 'event/upcoming',
 		],
 		'collection:object:event:attendees' => [
 			'path' => '/event/attendees/{guid}/{relationship}',

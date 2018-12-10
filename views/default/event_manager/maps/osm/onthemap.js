@@ -24,6 +24,7 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 				longitude: longitude,
 				distance_latitude: distance_latitude,
 				distance_longitude: distance_longitude,
+				container_guid: elgg.get_page_owner_guid()
 			},
 			success: function(data) {
 				if (!data.markers) {

@@ -7,10 +7,13 @@ $latitude = get_input('latitude');
 $longitude = get_input('longitude');
 $lat_distance = get_input('distance_latitude');
 $long_distance = get_input('distance_longitude');
+$container_guid = (int) get_input('container_guid');
 
 if (!isset($latitude) || !isset($longitude) || !isset($lat_distance) || !isset($long_distance)) {
 	return [];
 }
+
+$container = get_entity($container_guid);
 
 $latitude = (float) $latitude;
 $longitude = (float) $longitude;
@@ -26,6 +29,7 @@ $entities = elgg_get_entities([
 	'limit' => 50,
 	'type' => 'object',
 	'subtype' => 'event',
+	'container_guid' => ($container instanceof ElggGroup) ? $container->guid : ELGG_ENTITIES_ANY_VALUE,
 	'wheres' => [
 		function (QueryBuilder $qb, $main_alias) use ($lat_min, $lat_max, $long_min, $long_max) {
 			

@@ -224,39 +224,54 @@ class Menus {
 	 */
 	public static function registerEventsList($hook, $entity_type, $returnvalue, $params) {
 	
+		$route_params = [];
+		$page_owner = elgg_get_page_owner_entity();
+		if ($page_owner instanceof \ElggGroup) {
+			$route_params['guid'] = $page_owner->guid;
+		}
+		
+		$selected = elgg_extract('filter_value', $params);
+		
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'live',
 			'text' => elgg_echo('event_manager:list:navigation:live'),
-			'href' => elgg_generate_url('collection:object:event:live'),
+			'href' => elgg_generate_url('collection:object:event:live', $route_params),
 			'rel' => 'list',
+			'selected' => $selected === 'live',
 		]);
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'upcoming',
 			'text' => elgg_echo('event_manager:list:navigation:upcoming'),
-			'href' => elgg_generate_url('collection:object:event:upcoming'),
+			'href' => elgg_generate_url('collection:object:event:upcoming', $route_params),
 			'rel' => 'list',
+			'selected' => $selected === 'upcoming',
 		]);
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'calendar',
 			'text' => elgg_echo('event_manager:list:navigation:calendar'),
-			'href' => elgg_generate_url('collection:object:event:calendar'),
+			'href' => elgg_generate_url('collection:object:event:calendar', $route_params),
 			'rel' => 'calendar',
+			'selected' => $selected === 'calendar',
 		]);
 		if (elgg_get_plugin_setting('maps_provider', 'event_manager') !== 'none') {
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'map',
 				'text' => elgg_echo('event_manager:list:navigation:onthemap'),
-				'href' => elgg_generate_url('collection:object:event:map'),
+				'href' => elgg_generate_url('collection:object:event:map', $route_params),
 				'rel' => 'onthemap',
+				'selected' => $selected === 'map',
 			]);
 		}
-		if (elgg_is_logged_in()) {
+		
+		// user links (not in group context)
+		if (!$page_owner instanceof \ElggGroup && elgg_is_logged_in()) {
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'attending',
 				'text' => elgg_echo('event_manager:menu:attending'),
 				'href' => elgg_generate_url('collection:object:event:attending', [
 					'username' => elgg_get_logged_in_user_entity()->username,
 				]),
+				'selected' => $selected === 'attending',
 			]);
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'mine',
@@ -264,6 +279,7 @@ class Menus {
 				'href' => elgg_generate_url('collection:object:event:owner', [
 					'username' => elgg_get_logged_in_user_entity()->username,
 				]),
+				'selected' => $selected === 'mine',
 			]);
 		}
 		
