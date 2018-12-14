@@ -19,20 +19,15 @@ return array(
 	'event_manager:entity:copy' => 'Copy of: %s',
 
 	'event_manager:menu:title' => 'Events',
-	'event_manager:menu:events' => 'All events',
 	'event_manager:menu:group_events' => 'Group events',
 	'event:add' => 'New event',
 	'event_manager:menu:copy' => 'Copy event',
 	'event_manager:menu:unsubscribe' => "Unsubscribe",
-	'event_manager:menu:unsubscribe_confirm' => "Confirm unsubscription",
-	'event_manager:menu:registration:completed' => "Event registration completed",
 	'event_manager:menu:attending' => "Attending",
 
 	'event_manager:notification:subject' => "An event has been created",
 	'event_manager:notification:summary' => "An event has been created",
 	'event_manager:notification:body' => "%s created a new event %s",
-
-	'event_manager:sidebar:title' => 'Now showing',
 
 	'river:comment:object:event' => '%s commented on %s',
 
@@ -44,13 +39,7 @@ return array(
 	'event_manager:list:live' => 'Live events',
 	'event_manager:list:upcoming' => 'Upcoming events',
 	'event_manager:list:group:title' => 'Group events',
-	'event_manager:list:advancedsearch' => 'Advanced search',
-	'event_manager:list:simplesearch' => 'Simple search',
 	'event_manager:list:noresults' => 'No events found',
-	'event_manager:list:showmorevents' => 'Show more events',
-	'event_manager:list:includepastevents' => 'Include past events',
-	'event_manager:list:attending' => 'Show events I\'m  attending',
-	'event_manager:list:owning' => 'Show events I created',
 
 	'event_manager:list:navigation:live' => 'Live',
 	'event_manager:list:navigation:upcoming' => 'Upcoming',
@@ -66,9 +55,6 @@ return array(
 	'event_manager:full' => 'full',
 	'event_manager:personwaitinglist' => 'person on the waiting list',
 	'event_manager:peoplewaitinglist' => 'people on the waiting list',
-
-	'event_manager:registration:list:navigation:waiting' => 'Waiting list',
-	'event_manager:registration:list:navigation:attending' => 'Attending',
 
 	'event_manager:registration:view:savetopdf' => 'Save as pdf',
 
@@ -101,7 +87,6 @@ return array(
 	'event_manager:edit:form:fee_details' => 'Payment instructions',
 	'event_manager:edit:form:options' => 'Options',
 	'event_manager:edit:form:registration_options' => 'Registration options',
-	'event_manager:edit:form:rsvp_options' => 'RSVP options',
 	'event_manager:edit:form:shortdescription' => 'Short Description',
 	'event_manager:edit:form:shortdescription:help' => '',
 	'event_manager:edit:form:description:help' => '',
@@ -130,8 +115,6 @@ return array(
 	'event_manager:edit:form:start' => 'Start',
 	'event_manager:edit:form:end' => 'End',
 	'event_manager:edit:form:start_day' => 'Date',
-	'event_manager:edit:form:start_day:from' => 'Date from',
-	'event_manager:edit:form:start_day:to' => 'Date to',
 	'event_manager:edit:form:endregistration_day' => 'End date of registration',
 	'event_manager:edit:form:start_time' => 'Start time',
 	'event_manager:edit:form:end_time' => 'End time',
@@ -157,9 +140,7 @@ return array(
 	'event_manager:form:program:slot' => 'Add activity slot',
 	'event_manager:program:slot:add' => 'Add slot',
 
-	'event_manager:editregistration:title' => 'Edit event registration form',
 	'event_manager:editregistration:addfield' => 'Add field',
-	'event_manager:editregistration:addfield:title' => 'Add registrationform field',
 	'event_manager:editregistration:fieldtype' => 'Field type',
 	'event_manager:editregistration:fieldoptions' => 'Field options',
 	'event_manager:editregistration:commasepatared' => 'comma separated',
@@ -290,7 +271,6 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 
 	'event_manager:event:view:event' => 'Event',
 	'event_manager:event:view:date' => 'Date',
-	'event_manager:event:view:createdby' => 'Created by',
 	'event_manager:event:view:contact_persons' => 'Contact persons',
 	'event_manager:event:view:attendees:more' => '+ %s more',
 	
@@ -343,7 +323,6 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'widgets:events:showevents:icreated' => 'I created',
 	'widgets:events:showevents:attendingto' => 'I\'m attending',
 	'widgets:events:group' => "Enter a group name to limit the results (optional)",
-	'widgets:events:group_guid' => "Enter a group guid to limit the results (optional)",
 	
 	'widgets:highlighted_events:name' => 'Highlighted Events',
 	'widgets:highlighted_events:description' => 'Select your events you wish to highlight in this widget',
@@ -369,7 +348,6 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:action:slot:not_found' => "The slot was not found",
 	'event_manager:action:slot:cannot_save' => 'Something went wrong when attempting to save the slot',
 	'event_manager:action:slot:saved' => 'Slot saved',
-	'event_manager:action:slot:delete:error' => 'Can not delete the slot',
 
 	// settings
 	'event_manager:settings:maps' => 'Maps Integration settings',
@@ -465,7 +443,6 @@ If you didn't register for this event, you can ignore this email or click on the
 	'river:object:event:create' => '%s created event %s',
 
 	'event_manager:date:to' => 'to',
-	'requiredfields' => 'Required fields',
 	'confirm' => 'Confirm',
 	
 	'event_manager:addevent:mail:title' => 'Add to calendar',
