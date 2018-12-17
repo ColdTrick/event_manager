@@ -2,7 +2,8 @@
 
 $event = elgg_extract('entity', $vars);
 
-$body =  elgg_view('event_manager/event/fields', $vars);
+$body =  elgg_view('event_manager/event/banner', $vars);
+$body .=  elgg_view('event_manager/event/fields', $vars);
 
 if ($event->show_attendees || $event->canEdit()) {
 	$body .= elgg_view('event_manager/event/attendees', $vars);

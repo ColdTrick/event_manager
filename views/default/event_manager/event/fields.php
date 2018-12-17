@@ -11,20 +11,6 @@ $can_edit = $event->canEdit();
 
 $event_details = '';
 
-// event details
-$event_banner_url = '';
-if ($event->hasIcon('event_banner')) {
-	$event_banner_url = $event->getIconURL('event_banner');
-} elseif ($event->hasIcon('master')) {
-	$event_banner_url = $event->getIconURL('master');
-}
-
-if (!empty($event_banner_url)) {
-	$event_details .= elgg_format_element('div', [
-		'class' => ['mbl', 'event-manager-event-banner'],
-		'style' => "background-image: url('{$event_banner_url}');"
-	]);
-}
 $event_start = $event->getStartTimestamp();
 $event_end = $event->getEndTimestamp();
 
