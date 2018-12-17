@@ -38,6 +38,14 @@
 	} 
 }
 
+.event-manager-contact-details {
+	.elgg-columns {
+		> div:first-child {
+			flex-grow: 0;
+		}
+	}
+}
+
 /* Event Edit */
 .event-manager-forms-label-inline .elgg-field-label {
 	display: inline-block;
@@ -114,6 +122,10 @@
 .elgg-module-event {
 	border-top: 1px solid #ebebeb;
 	padding-top: 20px;
+	
+	> .elgg-head {
+		margin-bottom: 0.5rem;
+	}
 }
 
 .event-manager-event-view-maps {
