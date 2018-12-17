@@ -6,6 +6,38 @@
 	background-size: cover;
 }
 
+.event-manager-header {
+	
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	
+	> div {
+		flex: 1 1 50%;
+		min-width: 500px;
+	}
+}
+
+.event-manager-view-registration-details {
+	display: flex;
+	
+	> div {
+		flex: 1 1 0;
+		
+		&:last-child {
+			text-align: right;
+		}
+	}
+	
+	.elgg-menu-event-rsvp-container {
+		align-items: flex-end;
+	}
+	
+	.elgg-columns {
+		white-space: nowrap;
+	} 
+}
+
 /* Event Edit */
 .event-manager-forms-label-inline .elgg-field-label {
 	display: inline-block;
@@ -77,7 +109,6 @@
 .event-manager-event-when-subtitle {
 	color: #CCC;
 	font-size: 18px;
-	margin-top: 10px;
 }
 
 .elgg-module-event {

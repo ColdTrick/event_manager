@@ -81,7 +81,8 @@ class EventRegistrationQuestion extends ElggObject {
 		$old_answer = $this->getAnswerFromUser($user_guid);
 		if ($old_answer && get_user($user_guid)) {
 			if (!empty($new_answer)) {
-				update_annotation($old_answer->id, 'answer_to_event_registration', $new_answer, '', $user_guid, $event->access_id);
+				$old_answer->setValue($new_answer);
+				$old_answer->save();
 			} else {
 				elgg_delete_annotation_by_id($old_answer->id);
 			}

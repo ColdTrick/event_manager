@@ -407,6 +407,13 @@ class Menus {
 					} else {
 						if ($rel != EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST) {
 							
+							$link_class = ['elgg-button'];
+							if ($rel === EVENT_MANAGER_RELATION_ATTENDING) {
+								$link_class[] = 'elgg-button-submit';
+							} else {
+								$link_class[] = 'elgg-button-action';
+							}
+							
 							$result[] = \ElggMenuItem::factory([
 								'name' => $rel,
 								'href' => elgg_generate_action_url('event_manager/event/rsvp', [
@@ -414,7 +421,7 @@ class Menus {
 									'type' => $rel,
 								]),
 								'text' => elgg_echo("event_manager:event:relationship:{$rel}"),
-								'link_class' => ['elgg-button', 'elgg-button-action'],
+								'link_class' => $link_class,
 							]);
 						}
 					}
@@ -429,7 +436,7 @@ class Menus {
 						'guid' => $event->guid,
 					]),
 					'text' => elgg_echo('event_manager:event:register:register_link'),
-					'link_class' => ['elgg-button', 'elgg-button-action'],
+					'link_class' => ['elgg-button', 'elgg-button-submit'],
 				]);
 			} elseif ($hook->getParam('full_view')) {
 				$result[] = \ElggMenuItem::factory([
