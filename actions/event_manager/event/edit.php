@@ -88,7 +88,7 @@ foreach ($metadata_fields as $field) {
 $has_days = $event->hasEventDays();
 $event->generateInitialProgramData();
 
-if (get_input('delete_current_icon')) {
+if (get_input('icon_remove')) {
 	$event->deleteIcon();
 } elseif ($uploaded_file = elgg_get_uploaded_file('icon')) {
 	if (stripos($uploaded_file->getMimeType(), 'image/') !== false) {

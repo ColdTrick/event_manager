@@ -12,8 +12,12 @@ if ($event->with_program) {
 	$body .= elgg_view('event_manager/program/view', $vars);
 }
 
-echo elgg_view('object/elements/full', [
-	'entity' => $event,
+$params = [
+	'icon' => true,
 	'body' => $body,
 	'show_summary' => true,
-]);
+	'show_navigation' => false,
+];
+$params = $params + $vars;
+
+echo elgg_view('object/elements/full', $params);
