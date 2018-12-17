@@ -5,6 +5,10 @@ if (!$event instanceof \Event) {
 	return;
 }
 
+if (!$event->show_attendees && !$event->canEdit()) {
+	return;
+}
+
 $relationships = $event->getRelationships(false, 'DESC');
 if (empty($relationships)) {
 	return;
