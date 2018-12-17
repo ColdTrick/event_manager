@@ -35,38 +35,11 @@ $output .= elgg_view_field([
 	'value' => $tags,
 ]);
 
-$output .= elgg_view_field([
-	'#type' => 'file',
-	'#label' => elgg_echo('event_manager:edit:form:icon'),
-	'#help' => elgg_echo('event_manager:edit:form:icon:help'),
-	'name' => 'icon',
+$output .= elgg_view('entity/edit/icon', [
+	'entity' => $entity,
+	'entity_type' => 'object',
+	'entity_subtype' => 'event',
 ]);
-
-$current_icon_content = '';
-
-if ($entity && $entity->icontime) {
-	$current_icon = elgg_view('output/img', [
-		'src' => $entity->getIconURL(),
-		'alt' => $entity->getDisplayName(),
-	]);
-
-	$remove_icon_input = elgg_view('input/checkboxes', [
-		'name' => 'delete_current_icon',
-		'id' => 'delete_current_icon',
-		'value' => 0,
-		'options' => [
-			elgg_echo('event_manager:edit:form:delete_current_icon') => '1'
-		],
-	]);
-	
-	$output .= elgg_view('elements/forms/field', [
-		'label' => elgg_view('elements/forms/label', [
-			'label' => elgg_echo('event_manager:edit:form:currenticon'),
-			'id' => 'delete_current_icon',
-		]),
-		'input' => $current_icon . $remove_icon_input,
-	]);
-}
 
 $output .= elgg_view('forms/event_manager/event/edit/event_type', $vars);
 
