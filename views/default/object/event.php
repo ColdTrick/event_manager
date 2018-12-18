@@ -44,6 +44,7 @@ $params = [
 	'entity' => $event,
 	'content' => $content,
 	'imprint' => $imprint,
+	'time' => false,
 	'icon' => elgg_view_entity_icon($event, 'date'),
 ];
 $params = $params + $vars;
