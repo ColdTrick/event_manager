@@ -44,9 +44,8 @@ $params = [
 	'entity' => $event,
 	'content' => $content,
 	'imprint' => $imprint,
+	'icon' => elgg_view_entity_icon($event, 'date'),
 ];
 $params = $params + $vars;
 
-$list_body = elgg_view('object/elements/summary', $params);
-
-echo elgg_view_image_block(elgg_view_entity_icon($event, 'date'), $list_body);
+echo elgg_view('object/elements/summary', $params);
