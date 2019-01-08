@@ -58,7 +58,6 @@ $event->tags = string_to_tag_array(get_input('tags'));
 
 if ($event_created) {
 	elgg_create_river_item([
-		'view' => 'river/object/event/create',
 		'action_type' => 'create',
 		'subject_guid' => elgg_get_logged_in_user_guid(),
 		'object_guid' => $event->guid,
