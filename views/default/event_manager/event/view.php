@@ -10,9 +10,9 @@ $body .= elgg_format_element('div', ['class' => 'event-manager-header'], $dateti
 $body .= elgg_view('event_manager/event/view/description', $vars);
 $body .= elgg_view('event_manager/event/view/contact_details', $vars);
 $body .= elgg_view('event_manager/event/view/location', $vars);
+$body .= elgg_view('event_manager/program/view', $vars);
 $body .= elgg_view('event_manager/event/view/files', $vars);
 $body .= elgg_view('event_manager/event/view/attendees', $vars);
-$body .= elgg_view('event_manager/program/view', $vars);
 
 $params = [
 	'icon' => true,
