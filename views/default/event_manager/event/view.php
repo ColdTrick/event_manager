@@ -19,6 +19,7 @@ $params = [
 	'body' => $body,
 	'show_summary' => true,
 	'show_navigation' => false,
+	'icon' => false,
 ];
 $params = $params + $vars;
 
