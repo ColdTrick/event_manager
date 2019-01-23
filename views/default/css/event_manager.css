@@ -21,6 +21,12 @@
 	.event-manager-event-when {
 		white-space: nowrap;
 	}
+	
+	.event-manager-view-registration-details {
+		.elgg-menu-event-rsvp {
+			flex-wrap: nowrap;
+		}
+	}
 }
 
 .event-manager-view-registration-details {
