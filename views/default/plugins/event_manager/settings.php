@@ -7,11 +7,6 @@ if (!$plugin instanceof \ElggPlugin) {
 
 elgg_require_js('plugins/event_manager/settings');
 
-$yes_no_options = [
-	'yes' => elgg_echo('option:yes'),
-	'no' => elgg_echo('option:no'),
-];
-
 $maps_provider = $plugin->maps_provider;
 
 $maps = elgg_view_field([
