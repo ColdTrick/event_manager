@@ -44,13 +44,14 @@ $output .= elgg_view('entity/edit/icon', [
 $output .= elgg_view('forms/event_manager/event/edit/event_type', $vars);
 
 $output .= elgg_view_field([
-	'#type' => 'checkboxes',
+	'#type' => 'checkbox',
+	'#label' => elgg_echo('event_manager:edit:form:comments_on'),
 	'#help' => elgg_echo('event_manager:edit:form:comments_on:help'),
 	'name' => 'comments_on',
-	'value' => $vars['comments_on'],
-	'options' => [
-		elgg_echo('event_manager:edit:form:comments_on') => '1',
-	],
+	'checked' => (int) $vars['comments_on'] === 1,
+	'switch' => true,
+	'default' => '0',
+	'value' => '1',
 ]);
 
 $output .= elgg_view_field([
