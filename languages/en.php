@@ -148,6 +148,7 @@ return array(
 
 	'event_manager:edit_program:title' => "Edit the program of the event",
 	'event_manager:edit_program:description' => "Here you can edit/configure the program of the event.",
+	'event_manager:edit_program:continue' => "Continue to the event",
 	
 	'event_manager:registration:message:registrationnotneeded' => 'Registration to this event is not needed.',
 	'event_manager:registration:register:title' => 'Register to event',

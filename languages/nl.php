@@ -65,6 +65,7 @@ return array (
   'event_manager:edit:form:registration_completed:toggle' => 'Klik om de tekst te configureren van de pagina die gebruikers te zien krijgen na registratie',
   'event_manager:edit_program:title' => 'Bewerk het programma van het evenement',
   'event_manager:edit_program:description' => 'Hier kun je het programma van het evenement beheren.',
+  'event_manager:edit_program:continue' => "Door naar het evenement",
   'event_manager:event:registration:notification:owner:summary:event_attending' => '%s heeft zich ingeschreven als \'deelnemend\' aan je \'%s\' evenement.',
   'event_manager:event:registration:notification:user:summary:event_attending' => 'Je hebt je succesvol ingeschreven als \'deelnemend\' aan het \'%s\' evenement.',
   'event_manager:event:registration:notification:user:summary:event_exhibiting' => 'Je hebt je succesvol ingeschreven als \'exposerend\' op het \'%s\' evenement.',
