@@ -110,6 +110,10 @@
     padding: 2px 0;
 }
 
+.elgg-list .elgg-item-object-event .elgg-listing-summary-content div + .elgg-menu-event-rsvp-container {
+	margin-top: 1rem;
+}
+
 /* Event view */
 .event-manager-event-when {
 	margin-bottom: 15px;
