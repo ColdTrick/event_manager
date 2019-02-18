@@ -27,6 +27,7 @@ $event_start_input = elgg_view('input/date', [
 $start_time_input = elgg_view('input/time', [
 	'name' => 'start_time',
 	'value' => $vars['event_start'],
+	'timestamp' => true,
 ]);
 
 $start = elgg_view('elements/forms/field', [
@@ -52,6 +53,7 @@ $event_end_input = elgg_view('input/date', [
 $end_time_input = elgg_view('input/time', [
 	'name' => 'end_time',
 	'value' => $vars['event_end'],
+	'timestamp' => true,
 ]);
 
 $end = elgg_view('elements/forms/field', [

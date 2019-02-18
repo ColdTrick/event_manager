@@ -26,23 +26,13 @@ $new_event->access_id = get_input('access_id', $new_event->access_id);
 
 $event_start = (int) get_input('event_start');
 if ($event_start) {
-	$start_time_hours = (int) get_input('start_time_hours');
-	$start_time_minutes = (int) get_input('start_time_minutes');
-
-	$event_start += $start_time_minutes * 60;
-	$event_start += $start_time_hours * 3600;
-
+	$event_start += (int) get_input('start_time');
 	$new_event->event_start = $event_start;
 }
 
 $event_end = (int) get_input('event_end');
 if ($event_end) {
-	$end_time_hours = (int) get_input('end_time_hours');
-	$end_time_minutes = (int) get_input('end_time_minutes');
-	
-	$event_end += $end_time_minutes * 60;
-	$event_end += $end_time_hours * 3600;
-	
+	$event_end += (int) get_input('end_time');
 	$new_event->event_end = $event_end;
 }
 

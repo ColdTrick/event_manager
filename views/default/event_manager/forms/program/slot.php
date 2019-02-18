@@ -36,8 +36,10 @@ if ($entity instanceof \ColdTrick\EventManager\Event\Slot) {
 	// assume slot edit mode
 	$guid = $entity->guid;
 	$title = $entity->title;
-	$start_time = $entity->start_time;
-	$end_time = $entity->end_time;
+	
+	// special handling of time for BC reasons
+	$start_time = (new \DateTime())->setTimestamp($entity->start_time - 1);
+	$end_time = (new \DateTime())->setTimestamp($entity->end_time - 1);
 	$location = $entity->location;
 	$max_attendees = $entity->max_attendees;
 	$description = $entity->description;
@@ -87,6 +89,7 @@ $time_fields = [
 		'name' => 'start_time',
 		'value' => $start_time,
 		'required' => true,
+		'timestamp' => true,
 	],
 	[
 		'#type' => 'time',
@@ -94,6 +97,7 @@ $time_fields = [
 		'name' => 'end_time',
 		'value' => $end_time,
 		'required' => true,
+		'timestamp' => true,
 	],
 ];
 

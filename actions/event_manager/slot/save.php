@@ -18,13 +18,18 @@ $guid = (int) get_input('guid');
 $title = get_input('title');
 $description = get_input('description');
 
-$start_time_hours = get_input('start_time_hours');
-$start_time_minutes = get_input('start_time_minutes');
-$start_time = mktime($start_time_hours, $start_time_minutes, 1, 0, 0, 0);
+$start_time_ts = (int) get_input('start_time');
 
-$end_time_hours = get_input('end_time_hours');
-$end_time_minutes = get_input('end_time_minutes');
-$end_time = mktime($end_time_hours, $end_time_minutes, 1, 0, 0, 0);
+$minutes = $start_time_ts % 3600;
+$hours = $start_time_ts - $minutes;
+
+// special handling of time for BC reasons
+$start_time = mktime($hours / 3600, $minutes / 60, 1, 0, 0, 0);
+
+$end_time_ts = (int) get_input('end_time');
+$minutes = $end_time_ts % 3600;
+$hours = $end_time_ts - $minutes;
+$end_time = mktime($hours / 3600, $minutes / 60, 1, 0, 0, 0);
 
 $location = get_input('location');
 $max_attendees = get_input('max_attendees');

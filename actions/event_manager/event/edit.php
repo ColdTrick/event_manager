@@ -6,12 +6,10 @@ elgg_make_sticky_form('event');
 $title = get_input('title');
 
 $event_start = (int) get_input('event_start');
-$start_time_hours = (int) get_input('start_time_hours');
-$start_time_minutes = (int) get_input('start_time_minutes');
+$start_time = (int) get_input('start_time');
 
 $event_end = (int) get_input('event_end');
-$end_time_hours = (int) get_input('end_time_hours');
-$end_time_minutes = (int) get_input('end_time_minutes');
+$end_time = (int) get_input('end_time');
 
 $endregistration_day = get_input('endregistration_day');
 
@@ -21,11 +19,9 @@ if (empty($title) || empty($event_start) || empty($event_end)) {
 	return elgg_error_response(elgg_echo('event_manager:action:event:edit:error_fields'));
 }
 
-$event_end += $end_time_minutes * 60;
-$event_end += $end_time_hours * 3600;
+$event_end += $end_time;
 
-$event_start += $start_time_minutes * 60;
-$event_start += $start_time_hours * 3600;
+$event_start += $start_time;
 
 if ($event_end < $event_start) {
 	return elgg_error_response(elgg_echo('event_manager:action:event:edit:end_before_start'));
