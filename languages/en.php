@@ -29,8 +29,6 @@ return array(
 	'event_manager:notification:summary' => "An event has been created",
 	'event_manager:notification:body' => "%s created a new event %s",
 
-	'river:comment:object:event' => '%s commented on %s',
-
 	'event_manager:calendar:today' => 'Today',
 	'event_manager:calendar:month' => 'Month',
 	'event_manager:calendar:week' => 'Week',
@@ -442,7 +440,8 @@ If you didn't register for this event, you can ignore this email or click on the
 	'event_manager:river:event_relationship:create:event_organizing' => '%s is organizing %s',
 
 	'river:object:event:create' => '%s created event %s',
-
+	'river:object:event:comment' => '%s commented on the event %s',
+	
 	'event_manager:date:to' => 'to',
 	'confirm' => 'Confirm',
 	
