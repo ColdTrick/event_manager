@@ -1,10 +1,11 @@
 <?php
 /**
  * This file was created by Translation Editor v7.0-beta
- * On 2018-12-14 15:01
+ * On 2019-03-05 15:51
  */
 
 return array (
+  'river:object:event:comment' => '% reageerde op het evenement %s',
   'collection:object:event' => 'Evenementen',
   'event_manager:list:upcoming' => 'Aankomende evenementen',
   'event_manager:edit:form:spots_left:full' => 'Evenement is vol',
@@ -16,7 +17,6 @@ return array (
   'event_manager:settings:osm:osm_default_zoom' => 'Voer een zoomlevel in voor de evenementen \'op de kaart\' pagina (0 = uitgezoomd, 19 = ingezoomd) ',
   'event_manager:settings:osm:osm_detail_zoom' => 'Voer een zoomlevel in voor de evenement detailpagina (0 = uitgezoomd, 19 = ingezoomd) ',
   'river:object:event:create' => '%s creëerde evenement %s',
-  'river:object:event:comment' => '%s reageerde op het evenement %s',
   'event_manager:list:navigation:live' => 'Live',
   'event_manager:list:navigation:upcoming' => 'Aankomend',
   'event_manager:event:view:attendees:more' => '+ %s meer',
@@ -66,7 +66,7 @@ return array (
   'event_manager:edit:form:registration_completed:toggle' => 'Klik om de tekst te configureren van de pagina die gebruikers te zien krijgen na registratie',
   'event_manager:edit_program:title' => 'Bewerk het programma van het evenement',
   'event_manager:edit_program:description' => 'Hier kun je het programma van het evenement beheren.',
-  'event_manager:edit_program:continue' => "Door naar het evenement",
+  'event_manager:edit_program:continue' => 'Door naar het evenement',
   'event_manager:event:registration:notification:owner:summary:event_attending' => '%s heeft zich ingeschreven als \'deelnemend\' aan je \'%s\' evenement.',
   'event_manager:event:registration:notification:user:summary:event_attending' => 'Je hebt je succesvol ingeschreven als \'deelnemend\' aan het \'%s\' evenement.',
   'event_manager:event:registration:notification:user:summary:event_exhibiting' => 'Je hebt je succesvol ingeschreven als \'exposerend\' op het \'%s\' evenement.',
