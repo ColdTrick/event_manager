@@ -52,6 +52,11 @@ elgg.event_manager.edit_event_init = function() {
 		var temp_id = 't_' + d.getTime();
 		$($clone).html($clone.html().replace(/questions\[\]\[/g, 'questions[' + temp_id + ']['));	
 	});
+
+	$(document).on('click', '#event-manager-location-input-delete', function() {
+		$('#event_manager_event_edit').find('input[name="location"], input[name="latitude"], input[name="longitude"]').val('');
+		$(this).closest('.elgg-field').addClass('hidden');
+	});
 };
 
 elgg.register_hook_handler('init', 'system', elgg.event_manager.edit_event_init);

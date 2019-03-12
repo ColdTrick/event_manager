@@ -67,6 +67,23 @@
 	height: 20px;
 }
 
+.event-manager-location-input {
+	display: flex;
+	align-items: flex-end;
+
+	> .elgg-field {
+	
+		margin: 0;
+	
+		&:first-child {
+			flex-basis: 100%;
+		}
+		&:not(.hidden):last-child {
+			margin-left: 1rem;
+		}
+	}
+}
+
 #event-manager-maps-location-search {
 	height: 400px;
 	width: 600px;

@@ -62,6 +62,8 @@ define(['jquery'], function($) {
 					$longitude.val(results[0].geometry.location.lng());
 				}
 			});
+			
+			$('#event-manager-location-input-delete').closest('.elgg-field').removeClass('hidden');
 		} else {
 			$location_field.val('');
 			$latitude.val('');

@@ -17,11 +17,27 @@ $output = elgg_view_field([
 ]);
 
 $field_options = [
-	'#type' => 'text',
-	'#label' => elgg_echo('event_manager:edit:form:location'),
-	'#help' => elgg_echo('event_manager:edit:form:location:help'),
-	'name' => 'location',
-	'value' => $location,
+	'#type' => 'fieldset',
+	'align' => 'horizontal',
+	'class' => 'event-manager-location-input',
+	'fields' => [
+		[
+			'#type' => 'text',
+			'#label' => elgg_echo('event_manager:edit:form:location'),
+			'#help' => elgg_echo('event_manager:edit:form:location:help'),
+			'name' => 'location',
+			'value' => $location,
+		],
+		[
+			'#type' => 'button',
+			'value' => elgg_echo('delete'),
+			'id' => 'event-manager-location-input-delete',
+			'class' => [
+				'elgg-button-delete',
+			],
+			'#class' => $location ? null : 'hidden',
+		],
+	],
 ];
 
 if (elgg_view_exists("event_manager/maps/{$maps_provider}/location_input")) {
