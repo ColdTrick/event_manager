@@ -1,6 +1,37 @@
 Version history
 ===============
 
+10.0 (2019-03-27):
+
+- added: button to delete selected address on edit event form
+- added: group event page
+- added: group support on live events page
+- added: group support on maps page
+- added: summary now shows on full view
+- added: support for groups on calendar page
+- changed: default group page in now upcomming events
+- changed: default site menu item link
+- changed: event icon shows current date if event is underway
+- changed: event_type logic
+- changed: minimal requirements set to Elgg 3.0
+- changed: moved contact details back into main content
+- changed: moved registration info/actions on event page to top
+- changed: no longer showing the rsvp menu in widgets
+- changed: no time created info in summary imprint
+- changed: plugin init now uses elgg-plugin and bootstrap class
+- changed: region rework
+- changed: replaced custom entity delete action with generic versions
+- changed: rewrote all event links to elgg standards
+- changed: rsvp actions are now a menu
+- changed: separate listing for live and upcoming events
+- fixed: declare event entity
+- fixed: entitiy tools integration
+- fixed: getExcerpt uses shortdescription
+- fixed: search in correct fields
+- fixed: widgets
+- removed: friends attending search param
+- removed: unknown rss view
+
 9.2 (2018-05-03):
 
 - added: event->getRelationships now supports changing time order
