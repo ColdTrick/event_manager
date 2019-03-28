@@ -867,7 +867,9 @@ class Event extends ElggObject {
 			if ($this->waiting_list_enabled) {
 				$relationships[] = EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST;
 			}
-			$relationships[] = EVENT_MANAGER_RELATION_ATTENDING_PENDING;
+			if ($this->register_nologin) {
+				$relationships[] = EVENT_MANAGER_RELATION_ATTENDING_PENDING;
+			}
 		}
 		
 		$result = [];
