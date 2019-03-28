@@ -66,7 +66,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 		elgg_extend_view('css/html_email_handler/notification', 'css/event_manager/email_addevent.css');
 		elgg_extend_view('js/elgg', 'js/event_manager/site.js');
 		elgg_extend_view('js/addthisevent.js', 'js/event_manager/addthisevent.settings.js');
-		elgg_extend_view('groups/tool_latest', 'event_manager/group_module');
 	
 		// register ajax views
 		elgg_register_ajax_view('event_manager/event/attendees_list');
