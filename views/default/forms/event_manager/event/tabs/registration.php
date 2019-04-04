@@ -121,18 +121,10 @@ echo elgg_view_field([
 ]);
 echo '</div></div>';
 
-echo elgg_view('input/button', [
-	'value' => elgg_echo('event_manager:edit:form:registration_completed:toggle'),
-	'class' => 'elgg-button-action event-manager-edit-registration-completed',
-	'rel' => 'toggle',
-	'data-toggle-slide' => '0',
-	'data-toggle-selector' => '.event-manager-edit-registration-completed',
-]);
 echo elgg_view_field([
 	'#type' => 'longtext',
 	'#label' => elgg_echo('event_manager:edit:form:registration_completed'),
 	'#help' => elgg_echo('event_manager:edit:form:registration_completed:description'),
-	'#class' => 'event-manager-edit-registration-completed hidden',
 	'name' => 'registration_completed',
 	'value' => $vars['registration_completed'],
 ]);

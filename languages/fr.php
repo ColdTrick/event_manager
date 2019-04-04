@@ -113,7 +113,6 @@ return array (
   'event_manager:edit:form:spots_left:waiting_list' => ' Participant(e)s sur la liste d\'attente',
   'event_manager:edit:form:currenticon' => 'Icone actuelle',
   'event_manager:edit:form:icon' => 'Icone de l\'évènement (ne rien mettre pour laisser inchangé)',
-  'event_manager:edit:form:registration_completed:toggle' => 'Cliquez ici pour paramétrer le texte de la page préinscription',
   'event_manager:edit:form:registration_completed' => 'Texte affiché une fois l\'inscription faite',
   'event_manager:edit:form:registration_completed:description' => 'Si vous ajoutez [NAME] le nom de l\'utilisateur inscrit sera affiché. Si vous ajoutez [EVENT] le nom de l\'événement sera affiché.',
   'event_manager:edit:form:slot_set' => 'Ensemble de Créneaux',

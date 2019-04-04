@@ -316,7 +316,6 @@ Si no te inscribiste en este evento, puedes ignorar este e-mail o hacer click en
   'event_manager:edit:form:max_attendees:help' => '',
   'event_manager:edit:form:with_program' => 'Este evento tiene un programa diario especificado',
   'event_manager:edit:form:registration_needed' => 'Participantes tienen que especificar un programa personal o responder preguntar adicionales',
-  'event_manager:edit:form:registration_completed:toggle' => 'Haga click para configurar el texto que se mostrará luego de la inscripción',
   'event_manager:edit_program:title' => 'Editar el programa del evento',
   'event_manager:edit_program:description' => 'Aqui puedes editar o configurar el programa del evento',
   'event_manager:registration:slot_set:info' => 'Este programa contiene actividades simultáneas. Solo puedes seleccionar una actividad para cada horario.',

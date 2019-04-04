@@ -63,7 +63,6 @@ return array (
   'event_manager:edit:form:organizer_guids' => 'Selecteer organiserende gebruikers',
   'event_manager:edit:form:contact_guids' => 'Selecteer contactpersonen',
   'event_manager:edit:form:fee_details' => 'Betalingsinstructies',
-  'event_manager:edit:form:registration_completed:toggle' => 'Klik om de tekst te configureren van de pagina die gebruikers te zien krijgen na registratie',
   'event_manager:edit_program:title' => 'Bewerk het programma van het evenement',
   'event_manager:edit_program:description' => 'Hier kun je het programma van het evenement beheren.',
   'event_manager:edit_program:continue' => 'Door naar het evenement',

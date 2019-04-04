@@ -113,7 +113,6 @@ return array (
   'event_manager:edit:form:spots_left:waiting_list' => ' Teilnehmer auf der Warteliste',
   'event_manager:edit:form:currenticon' => 'aktuelles Bild',
   'event_manager:edit:form:icon' => 'Bild (freilassen um es unver&auml;ndert zu lassen)',
-  'event_manager:edit:form:registration_completed:toggle' => 'Klicken Sie hier, um Text für die Seite nach der Anmeldung zu konfigurieren',
   'event_manager:edit:form:registration_completed' => 'Text wenn die Anmeldung abgeschlossen ist',
   'event_manager:edit:form:registration_completed:description' => 'wenn du [NAME] hinzuf&uuml;gst werden die Teilnehmer angezeigt. Wenn du [EVENT] hinzuf&uuml;gst werden die Veranstaltungen angezeigt.',
   'event_manager:edit:form:slot_set' => 'Platz',
