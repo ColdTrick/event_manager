@@ -67,6 +67,38 @@
 	height: 20px;
 }
 
+.event-manager-event-edit-global-dates {
+	display: flex;
+	flex-wrap: wrap;
+	
+	> div {
+		margin-right: .5rem;
+	}
+}
+
+.event-manager-event-view-level {
+	display: flex;
+	flex-wrap: wrap;
+}
+	
+.event-manager-event-edit-level {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	
+	> *:first-child {
+		flex-grow: 1;
+	}
+	
+	.event_manager_registrationform_select_options {
+		flex-grow: 1;
+	}
+	
+	> .elgg-field {
+		margin-right: .5rem;
+	}
+}
+
 .event-manager-location-input {
 	display: flex;
 	align-items: flex-end;

@@ -8,8 +8,8 @@ $contact_guids = elgg_extract('contact_guids', $vars);
 
 $output = '';
 
-$output .= '<div class="clearfix">';
-$output .= '<div class="elgg-col elgg-col-3of5">';
+$output .= '<div class="event-manager-event-edit-level">';
+
 $output .= elgg_view_field([
 	'#type' => 'text',
 	'#label' => elgg_echo('event_manager:edit:form:organizer'),
@@ -17,8 +17,7 @@ $output .= elgg_view_field([
 	'name' => 'organizer',
 	'value' => $organizer,
 ]);
-$output .= '</div>';
-$output .= '<div class="elgg-col elgg-col-2of5"><div class="mlm mtl float-alt">';
+$output .= '<div class="elgg-field">';
 $output .= elgg_format_element('span', ['class' => 'phm'], elgg_echo('event_manager:edit:form:users:or'));
 $output .= elgg_view('input/button', [
 	'value' => elgg_echo('event_manager:edit:form:users:add'),
@@ -26,7 +25,6 @@ $output .= elgg_view('input/button', [
 	'rel' => 'toggle',
 	'data-toggle-selector' => '.event-manager-contact-organizer-guids',
 ]);
-$output .= '</div>';
 $output .= '</div>';
 $output .= '</div>';
 
@@ -43,8 +41,7 @@ $output .= elgg_view_field([
 	'show_friends' => false,
 ]);
 
-$output .= '<div class="clearfix">';
-$output .= '<div class="elgg-col elgg-col-3of5">';
+$output .= '<div class="event-manager-event-edit-level">';
 $output .= elgg_view_field([
 	'#type' => 'text',
 	'#label' => elgg_echo('event_manager:edit:form:contact_details'),
@@ -52,8 +49,7 @@ $output .= elgg_view_field([
 	'name' => 'contact_details',
 	'value' => $contact_details,
 ]);
-$output .= '</div>';
-$output .= '<div class="elgg-col elgg-col-2of5"><div class="mlm mtl float-alt">';
+$output .= '<div class="elgg-field">';
 $output .= elgg_format_element('span', ['class' => 'phm'], elgg_echo('event_manager:edit:form:users:or'));
 $output .= elgg_view('input/button', [
 	'value' => elgg_echo('event_manager:edit:form:users:add'),
@@ -61,7 +57,6 @@ $output .= elgg_view('input/button', [
 	'rel' => 'toggle',
 	'data-toggle-selector' => '.event-manager-contact-contact-guids',
 ]);
-$output .= '</div>';
 $output .= '</div>';
 $output .= '</div>';
 

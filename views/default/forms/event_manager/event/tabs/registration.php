@@ -5,7 +5,7 @@
 
 $event = elgg_extract('entity', $vars);
 
-echo '<div class="clearfix"><div class="elgg-col elgg-col-1of4">';
+echo '<div class="event-manager-event-edit-level">';
 echo elgg_view_field([
 	'#type' => 'text',
 	'#label' => elgg_echo('event_manager:edit:form:fee'),
@@ -13,23 +13,18 @@ echo elgg_view_field([
 	'name' => 'fee',
 	'value' => $vars['fee'],
 ]);
-echo '</div>';
-echo '<div class="elgg-col elgg-col-3of4">';
-$field_class = 'pll';
-if (empty($vars['fee'])) {
-	$field_class .= ' hidden';
-}
+
 echo elgg_view_field([
 	'#type' => 'text',
 	'#label' => elgg_echo('event_manager:edit:form:fee_details'),
 	'#help' => elgg_echo('event_manager:edit:form:fee_details:help'),
-	'#class' => $field_class,
+	'#class' => empty($vars['fee']) ? 'hidden' : null,
 	'name' => 'fee_details',
 	'value' => $vars['fee_details'],
 ]);
-echo '</div></div>';
+echo '</div>';
 
-echo '<div class="clearfix"><div class="elgg-col elgg-col-1of4">';
+echo '<div class="event-manager-event-edit-level">';
 echo elgg_view_field([
 	'#type' => 'text',
 	'#label' => elgg_echo('event_manager:edit:form:max_attendees'),
@@ -37,22 +32,16 @@ echo elgg_view_field([
 	'name' => 'max_attendees',
 	'value' => $vars['max_attendees'],
 ]);
-echo '</div>';
-echo '<div class="elgg-col elgg-col-3of4">';
-$field_class = 'pll';
-if (empty($vars['max_attendees']) && empty($vars['waiting_list_enabled'])) {
-	$field_class .= ' hidden';
-}
+
 echo elgg_view_field([
 	'#type' => 'checkboxes',
-	'#label' => '&nbsp;',
-	'#class' => $field_class,
+	'#class' => (empty($vars['max_attendees']) && empty($vars['waiting_list_enabled'])) ? 'hidden' : null,
 	'name' => 'waiting_list_enabled',
 	'value' => $vars['waiting_list_enabled'],
 	'options' => [elgg_echo('event_manager:edit:form:waiting_list') => '1'],
 	'class' => 'mts',
 ]);
-echo '</div></div>';
+echo '</div>';
 
 $with_program = elgg_view('input/checkboxes', [
 	'name' => 'with_program',
@@ -99,7 +88,7 @@ echo elgg_view('elements/forms/field', [
 	'input' => $with_program . $registration_needed  . $register_nologin . $notify_onsignup . $show_attendees,
 ]);
 
-echo '<div class="clearfix"><div class="elgg-col elgg-col-1of4">';
+echo '<div class="event-manager-event-edit-level">';
 echo elgg_view_field([
 	'#type' => 'date',
 	'#label' => elgg_echo('event_manager:edit:form:endregistration_day'),
@@ -108,18 +97,15 @@ echo elgg_view_field([
 	'id' => 'endregistration_day',
 	'value' => $vars['endregistration_day'],
 ]);
-echo '</div>';
-echo '<div class="elgg-col elgg-col-3of4">';
+
 echo elgg_view_field([
 	'#type' => 'checkboxes',
-	'#label' => '&nbsp;',
-	'#class' => 'pll',
 	'name' => 'registration_ended',
 	'value' => $vars['registration_ended'],
 	'options' => [elgg_echo('event_manager:edit:form:registration_ended') => '1'],
 	'class' => 'mts',
 ]);
-echo '</div></div>';
+echo '</div>';
 
 echo elgg_view_field([
 	'#type' => 'longtext',

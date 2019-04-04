@@ -45,7 +45,8 @@ $form_body .= elgg_view_field([
 	'disabled' => $disabled,
 ]);
 
-$form_body .= '<div class="elgg-col elgg-col-1of4">';
+$form_body .= '<div class="event-manager-event-edit-level">';
+
 $form_body .= elgg_view_field([
 	'#type' => 'select',
 	'#label' => elgg_echo('event_manager:editregistration:fieldtype'),
@@ -57,8 +58,6 @@ $form_body .= elgg_view_field([
 	'disabled' => $disabled,
 ]);
 
-$form_body .= '</div>';
-$form_body .= '<div class="elgg-col elgg-col-3of4">';
 $field_class = ['event_manager_registrationform_select_options', 'man'];
 if (!in_array($fieldtype, ['Radiobutton', 'Dropdown'])) {
 	$field_class[] = 'hidden';
