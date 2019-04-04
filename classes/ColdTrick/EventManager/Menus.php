@@ -334,6 +334,10 @@ class Menus {
 		
 		$relationship = elgg_extract('relationship', $params);
 		$valid_relationships = $entity->getSupportedRelationships();
+		if (count($valid_relationships) === 1) {
+			return;
+		}
+		
 		foreach ($valid_relationships as $rel => $label) {
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => $rel,
