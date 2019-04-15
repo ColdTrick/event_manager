@@ -213,20 +213,7 @@
 	height: 400px;
 }
 
-/* Event Program Day */
-
-#event-manager-program-day-lightbox {
-	width: 300px;
-	margin-bottom: 0px;
-}
-
 /* Event Program Slot */
-#event-manager-program-slot-lightbox {
-	width: 600px;
-	height: 500px;
-	overflow: auto;
-}
-
 #event_manager_form_program_slot label {
 	white-space: nowrap;
 	padding-right: 10px;
@@ -309,4 +296,14 @@
 /* hack to hide clear button on input/date fields for IE/Edge */
 .elgg-input-date::-ms-clear {
 	display: none;
+}
+
+@media $(media-mobile-only) {
+	.event_manager_program_slot_attending {
+		float: left;
+	}
+	
+	.event_manager_program_day td {
+		display: block;
+	}
 }
