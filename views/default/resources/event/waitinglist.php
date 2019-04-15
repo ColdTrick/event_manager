@@ -6,9 +6,6 @@ elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
 $event = get_entity($guid);
 
 elgg_set_page_owner_guid($event->getContainerGUID());
-if (elgg_get_page_owner_entity() instanceof \ElggGroup) {
-	elgg_group_gatekeeper();
-}
 
 if (!$event->waiting_list_enabled) {
 	forward($event->getURL());
