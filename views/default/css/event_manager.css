@@ -46,6 +46,7 @@
 
 .event-manager-view-registration-details {
 	display: flex;
+	flex-wrap: wrap;
 	
 	> div {
 		flex: auto;
