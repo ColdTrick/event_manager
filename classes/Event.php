@@ -731,8 +731,10 @@ class Event extends ElggObject {
 			}
 
 			foreach ($eventSlots as $eventSlot) {
-				$spots['total'] = ($spots['total'] + $eventSlot->max_attendees);
-				$spots['left'] = ($spots['left'] + ($eventSlot->max_attendees - $eventSlot->countRegistrations()));
+				$max_attendees = (int) $eventSlot->max_attendees;
+				
+				$spots['total'] = ($spots['total'] + $max_attendees);
+				$spots['left'] = ($spots['left'] + ($max_attendees - $eventSlot->countRegistrations()));
 			}
 		}
 

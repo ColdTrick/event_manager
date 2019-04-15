@@ -19,11 +19,6 @@ $rel_text = $valid_relationships[$relationship];
 // page owner
 elgg_set_page_owner_guid($entity->container_guid);
 
-$page_owner = elgg_get_page_owner_entity();
-if ($page_owner instanceof ElggGroup) {
-	elgg_group_gatekeeper();
-}
-
 elgg_push_entity_breadcrumbs($entity);
 
 // title menu item
