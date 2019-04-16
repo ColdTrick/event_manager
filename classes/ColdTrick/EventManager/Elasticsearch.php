@@ -23,6 +23,7 @@ class Elasticsearch {
 		$result[] = 'event_type';
 		$result[] = 'location';
 		$result[] = 'region';
+		$result[] = 'shortdescription';
 		
 		return $result;
 	}
