@@ -3,18 +3,18 @@
  * Group event manager module
  */
 
-$group = elgg_get_page_owner_entity();
-
-if (!$group->isToolEnabled('event_manager')) {
+$group = elgg_extract('entity', $vars);
+if (!$group instanceof \ElggGroup) {
 	return;
 }
 
 $content = elgg_list_entities([
 	'type' => 'object',
 	'subtype' => 'event',
-	'container_guid' => elgg_get_page_owner_guid(),
+	'container_guid' => $group->guid,
 	'pagination' => false,
 	'limit' => 5,
+	'no_results' => true,
 ]);
 
 $all_link = elgg_view('output/url', [
