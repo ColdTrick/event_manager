@@ -25,6 +25,7 @@ class Search {
 			'event_type',
 			'location',
 			'region',
+			'shortdescription',
 		];
 		
 		$value['metadata'] = array_merge($value['metadata'], $fields);
