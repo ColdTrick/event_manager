@@ -1,6 +1,14 @@
 Version history
 ===============
 
+10.0.1 (2019-04-17):
+
+- changed: added shortdescription as a searchable metadata field
+- changed: no longer put welcome text behind a toggle on edit
+- fixed: no longer use elgg-col so pages behave better responsive
+- fixed: moved group module content to correct view location
+- fixed: only show email validation pending info if register_nologin is on
+
 10.0 (2019-03-27):
 
 - added: button to delete selected address on edit event form
