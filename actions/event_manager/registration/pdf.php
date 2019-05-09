@@ -3,12 +3,14 @@
 use Elgg\Project\Paths;
 
 $config_location = 'vendor/dompdf/dompdf/dompdf_config.inc.php';
-if (file_exists(Paths::elgg() . $config_location)) {
+if (file_exists(Paths::project() . $config_location)) {
 	// plugin installed via composer
-	require_once Paths::elgg() . $config_location;
-} elseif (elgg_get_plugins_path() . "event_manager/{$config_location}") {
+	require_once Paths::project() . $config_location;
+} elseif (file_exists(elgg_get_plugins_path() . "event_manager/{$config_location}")) {
 	// normal plugin install
 	require_once elgg_get_plugins_path() . "event_manager/{$config_location}";
+} else {
+	return elgg_error_response('No config found');
 }
 
 $key = get_input('k');
