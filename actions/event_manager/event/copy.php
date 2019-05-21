@@ -77,19 +77,20 @@ foreach ($old_event->getRegistrationFormQuestions() as $question) {
 // copy all event files
 $dir = new \Elgg\EntityDirLocator($old_event->guid);
 $source = elgg_get_data_path() . $dir;
-mkdir($source);
-
-$dir = new \Elgg\EntityDirLocator($new_event->guid);
-$dest = elgg_get_data_path() . $dir;
-
-mkdir($dest);
-
-$iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST);
-foreach ($iterator as $item) {
-	if ($item->isDir()) {
-		mkdir($dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
-	} else {
-		copy($item, $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+if (is_dir($source)) {
+	$dir = new \Elgg\EntityDirLocator($new_event->guid);
+	$dest = elgg_get_data_path() . $dir;
+	
+	// create new event data structure bucket
+	mkdir($dest, 0755, true);
+	
+	$iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST);
+	foreach ($iterator as $item) {
+		if ($item->isDir()) {
+			mkdir($dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName(), 0755, true);
+		} else {
+			copy($item, $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+		}
 	}
 }
 
