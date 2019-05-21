@@ -1,12 +1,12 @@
 <?php
-use Elgg\Database\Clauses\OrderByClause;
-
 /**
  * Show a list of attendees to an event
  *
  * @uses $vars['entity']       Event to show attendees for
  * @uses $vars['relationship'] which attendees to list
  */
+
+use Elgg\Database\Clauses\OrderByClause;
 
 $guid = get_input('guid');
 $entity = elgg_extract('entity', $vars);
