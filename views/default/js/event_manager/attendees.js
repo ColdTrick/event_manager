@@ -13,7 +13,7 @@ define(function(require) {
 			method: 'POST',
 			data: ajax.objectify(form),
 			success: function(data) {
-				$form.nextAll('ul.elgg-list, ul.elgg-pagination, p.elgg-no-results').remove();
+				$form.nextAll('ul.elgg-list, ul.elgg-pagination, p.elgg-no-results, div.elgg-list-container').remove();
 				$form.after(data);
 			}
 		});
