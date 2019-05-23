@@ -13,11 +13,23 @@ $event_options = [
 	'subtype' => 'event',
 	'limit' => $num_display,
 	'pagination' => false,
+	'metadata_name_value_pairs' => [
+		[
+			'name' => 'event_start',
+			'value' => time(),
+			'operand' => '>=',
+		],
+	],
+	'order_by_metadata' => [
+		'name' => 'event_start',
+		'direction' => 'ASC',
+		'as' => 'integer'
+	],
 ];
 
 $owner = $widget->getOwnerEntity();
 
-$more_link = elgg_generate_url('default:object:event');
+$more_link = elgg_generate_url('collection:object:event:upcoming');
 
 switch ($owner->getType()) {
 	case 'group':
