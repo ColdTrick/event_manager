@@ -173,16 +173,10 @@ class Event extends ElggObject {
 	 * @return bool is it a multiday event
 	 */
 	public function isMultiDayEvent() {
-		$start = $this->getStartTimestamp();
-		$end = $this->getEndTimestamp();
+		$start = $this->getStartDate('d-m-Y');
+		$end = $this->getEndDate('d-m-Y');
 		
-		$diff = $end - $start;
-		
-		if ($diff > (60 * 60 * 24)) {
-			return true;
-		}
-		
-		return false;
+		return $start !== $end;
 	}
 
 	/**

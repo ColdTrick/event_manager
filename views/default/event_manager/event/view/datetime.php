@@ -5,28 +5,20 @@ if (!$event instanceof \Event) {
 	return;
 }
 
-$event_start = $event->getStartTimestamp();
-$event_end = $event->getEndTimestamp();
+$event_start = \Elgg\Values::normalizeTime($event->getStartDate('d-m-Y H:i:s'));
+$event_end = \Elgg\Values::normalizeTime($event->getEndDate('d-m-Y H:i:s'));
 
-$when_title = elgg_echo('date:weekday:' . gmdate('w', $event_start)) . ', ';
-$when_title .= elgg_echo('date:month:' . gmdate('m', $event_start), [gmdate('j', $event_start)]) . ' ';
-$when_title .= gmdate('Y', $event_start);
-
+$when_title = $event_start->formatLocale('l, M j Y');
 $when_subtitle = '';
 
-if (!$event_end) {
-	$when_title .= ' ' . gmdate('H:i', $event_start);
-} elseif (gmdate('d-m-Y', $event_end) === gmdate('d-m-Y', $event_start)) {
+if (!$event->isMultiDayEvent()) {
 	// same day event
-	$when_subtitle .= gmdate('H:i', $event_start) . ' ' . strtolower(elgg_echo('event_manager:date:to')) . ' ' . gmdate('H:i', $event_end);
+	$when_subtitle .= $event_start->formatLocale('H:i') . ' ' . strtolower(elgg_echo('event_manager:date:to')) . ' ' . $event_end->formatLocale('H:i');
 } else {
-	$when_title .= ' ' . gmdate('H:i', $event_start);
+	$when_title .= ' ' . $event_start->formatLocale('H:i');
+	
 	$when_subtitle .= strtolower(elgg_echo('event_manager:date:to')) . ' ';
-
-	$when_subtitle .= elgg_echo('date:weekday:' . gmdate('w', $event_end)) . ', ';
-	$when_subtitle .= elgg_echo('date:month:' . gmdate('m', $event_end), [gmdate('j', $event_end)]) . ' ';
-	$when_subtitle .= gmdate('Y', $event_end) . ' ';
-	$when_subtitle .= gmdate('H:i', $event_end);
+	$when_subtitle .= $event_end->formatLocale('l, M j Y H:i');
 }
 
 $when = elgg_format_element('div', ['class' => 'event-manager-event-when-title'], $when_title);

@@ -14,7 +14,7 @@ $endregistration_day = $event->endregistration_day;
 if ($endregistration_day) {
 	$registration_details .= '<div class="elgg-columns">';
 	$registration_details .= '<label class="elgg-col">' . elgg_echo('event_manager:edit:form:endregistration_day') . ':</label>';
-	$registration_details .= '<span class="elgg-col">' . event_manager_format_date($endregistration_day) . '</span>';
+	$registration_details .= '<span class="elgg-col">' . elgg_view('output/date', ['value' => $endregistration_day]) . '</span>';
 	$registration_details .= '</div>';
 }
 

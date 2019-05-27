@@ -11,9 +11,6 @@ echo elgg_view_field([
 	'required' => true,
 ]);
 
-$gm_event_start = gmmktime(0,0,0,gmdate('m', $vars['event_start']),gmdate('d', $vars['event_start']),gmdate('Y', $vars['event_start']));
-$gm_event_end = gmmktime(0,0,0,gmdate('m', $vars['event_end']),gmdate('d', $vars['event_end']),gmdate('Y', $vars['event_end']));
-
 // Starting time
 $event_start_id = 'event_start_' . uniqid();
 $event_start_input = elgg_view('input/date', [
@@ -21,7 +18,7 @@ $event_start_input = elgg_view('input/date', [
 	'id' => $event_start_id,
 	'timestamp' => true,
 	'required' => true,
-	'value' => $gm_event_start,
+	'value' => $vars['event_start'],
 	'class' => 'event_manager_event_edit_date',
 ]);
 $start_time_input = elgg_view('input/time', [
@@ -47,7 +44,7 @@ $event_end_input = elgg_view('input/date', [
 	'id' => $event_end_id,
 	'timestamp' => true,
 	'required' => true,
-	'value' => $gm_event_end,
+	'value' => $vars['event_end'],
 	'class' => 'event_manager_event_edit_date'
 ]);
 $end_time_input = elgg_view('input/time', [

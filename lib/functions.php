@@ -193,8 +193,8 @@ function event_manager_prepare_form_vars($event = null) {
 		'fee_details' => ELGG_ENTITIES_ANY_VALUE,
 		'organizer' => ELGG_ENTITIES_ANY_VALUE,
 		'organizer_guids' => ELGG_ENTITIES_ANY_VALUE,
-		'event_start' => gmmktime(date('H')) + 3600, // 1 hour from now
-		'event_end' => gmmktime(date('H')) + 3600 + 3600, // 2 hours from now
+		'event_start' => \Elgg\Values::normalizeTime('+1 hour'), // 1 hour from now
+		'event_end' => \Elgg\Values::normalizeTime('+2 hour'), // 2 hours from now
 		'registration_ended' => ELGG_ENTITIES_ANY_VALUE,
 		'endregistration_day' => ELGG_ENTITIES_ANY_VALUE,
 		'with_program' => ELGG_ENTITIES_ANY_VALUE,
@@ -224,9 +224,8 @@ function event_manager_prepare_form_vars($event = null) {
 			}
 		}
 		
-		if (!empty($values['endregistration_day'])) {
-			$values['endregistration_day'] = date('Y-m-d', $values['endregistration_day']);
-		}
+		$values['event_start'] = \Elgg\Values::normalizeTimestamp($event->getStartDate('d-m-Y H:i:s'));
+		$values['event_end'] = \Elgg\Values::normalizeTimestamp($event->getEndDate('d-m-Y H:i:s'));
 	}
 	
 	if (elgg_is_sticky_form('event')) {
