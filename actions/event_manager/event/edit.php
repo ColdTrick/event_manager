@@ -34,8 +34,9 @@ if ($event_end < $event_start) {
 }
 
 if (!empty($endregistration_day)) {
-	$date_endregistration_day = explode('-', $endregistration_day);
-	$endregistration_day = mktime(0, 0, 1, $date_endregistration_day[1], $date_endregistration_day[2], $date_endregistration_day[0]);
+	$date_endregistration_day = \Elgg\Values::normalizeTime($endregistration_day);
+	$date_endregistration_day->setTime(0, 0, 1);
+	$endregistration_day = $date_endregistration_day->getTimestamp();
 }
 
 $entity = get_entity(get_input('guid'));
