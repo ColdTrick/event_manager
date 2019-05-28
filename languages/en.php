@@ -442,6 +442,9 @@ If you didn't register for this event, you can ignore this email or click on the
 	'river:object:event:comment' => '%s commented on the event %s',
 	
 	'event_manager:date:to' => 'to',
+	'event_manager:date:view:full' => 'l, M j Y H:i',
+	'event_manager:date:view:short' => 'l, M j Y',
+	'event_manager:date:view:time' => 'H:i',
 	'confirm' => 'Confirm',
 	
 	'event_manager:addevent:mail:title' => 'Add to calendar',
