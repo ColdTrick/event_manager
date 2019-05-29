@@ -1,6 +1,15 @@
 Version history
 ===============
 
+10.1 (2019-05-29):
+
+- changed: allow date and time format to be controlled by translations
+- fixed: correctly copy event files when copying event
+- fixed: correctly normalize endregistration_day
+- fixed: events widget now shows upcoming events
+- fixed: pdf download works again
+- fixed: support hypeLists wrapper
+
 10.0.1 (2019-04-17):
 
 - changed: added shortdescription as a searchable metadata field
