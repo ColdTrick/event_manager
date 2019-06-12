@@ -1,6 +1,11 @@
 Version history
 ===============
 
+10.1.1 (2019-06-12):
+
+- fixed: correctly normalize event_start and end in prepare form vars
+- fixed: use correct variable for elgg_push_entity_breadcrumbs
+
 10.1 (2019-05-29):
 
 - changed: allow date and time format to be controlled by translations
