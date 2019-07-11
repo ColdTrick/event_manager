@@ -1,10 +1,11 @@
 <?php
 /**
- * This file was created by Translation Editor v7.0-beta
- * On 2019-03-05 15:51
+ * This file was created by Translation Editor v7.0.3
+ * On 2019-07-11 17:31
  */
 
 return array (
+  'widgets:events:showevents:status' => 'Evenement status',
   'river:object:event:comment' => '% reageerde op het evenement %s',
   'collection:object:event' => 'Evenementen',
   'event_manager:list:upcoming' => 'Aankomende evenementen',

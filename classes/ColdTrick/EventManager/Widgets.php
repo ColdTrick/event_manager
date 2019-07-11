@@ -23,8 +23,16 @@ class Widgets {
 			
 		switch ($widget->context) {
 			case 'index':
+				if ($widget->event_status === 'live') {
+					return elgg_generate_url('collection:object:event:live');
+				}
+				
 				return elgg_generate_url('collection:object:event:upcoming');
 			case 'groups':
+				if ($widget->event_status === 'live') {
+					return elgg_generate_url('collection:object:event:live', ['guid' => $widget->getOwnerGUID()]);
+				}
+				
 				return elgg_generate_url('collection:object:event:group', ['guid' => $widget->getOwnerGUID()]);
 		}
 	}

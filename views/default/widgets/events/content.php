@@ -27,18 +27,38 @@ $event_options = [
 	],
 ];
 
+$more_link = elgg_generate_url('collection:object:event:upcoming');
+$group_route_name = 'collection:object:event:group';
+
+if ($widget->event_status === 'live') {
+	$event_options['metadata_name_value_pairs'] = [
+		[
+			'name' => 'event_start',
+			'value' => time(),
+			'operand' => '<=',
+		],
+		[
+			'name' => 'event_end',
+			'value' => time(),
+			'operand' => '>=',
+		],
+	];
+	
+	$more_link = elgg_generate_url('collection:object:event:live');
+	$group_route_name = 'collection:object:event:live';
+}
+
 $owner = $widget->getOwnerEntity();
 
-$more_link = elgg_generate_url('collection:object:event:upcoming');
-
-switch ($owner->getType()) {
-	case 'group':
+switch ($widget->context) {
+	case 'groups':
 		$event_options['container_guid'] = $owner->guid;
-		$more_link = elgg_generate_url('collection:object:event:group', [
+		$more_link = elgg_generate_url($group_route_name, [
 			'guid' => $owner->guid,
 		]);
 		break;
-	case 'user':
+	case 'profile':
+	case 'dashboard':
 		
 		switch ($widget->type_to_show) {
 			case 'owning':

@@ -20,6 +20,17 @@ if (in_array($widget->context, ['dashboard', 'profile'])) {
 			'attending' => elgg_echo('widgets:events:showevents:attendingto'),
 		],
 	]);
+} else {
+	echo elgg_view_field([
+		'#type' => 'select',
+		'#label' => elgg_echo('widgets:events:showevents:status'),
+		'name' => 'params[event_status]',
+		'value' => $widget->event_status,
+		'options_values' => [
+			'upcoming' => elgg_echo('event_manager:list:upcoming'),
+			'live' => elgg_echo('event_manager:list:live'),
+		],
+	]);
 }
 
 if (!$widget->getOwnerEntity() instanceof ElggSite) {

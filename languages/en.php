@@ -317,6 +317,7 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'widgets:events:name' => 'Events',
 	'widgets:events:description' => 'Show upcoming events',
 
+	'widgets:events:showevents:status' => 'Event status',
 	'widgets:events:showevents' => 'Show events',
 	'widgets:events:showevents:icreated' => 'I created',
 	'widgets:events:showevents:attendingto' => 'I\'m attending',
