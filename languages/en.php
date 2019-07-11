@@ -14,6 +14,10 @@ return array(
 	'item:object:eventquestions' => 'Event Questions',
 	
 	'collection:object:event' => "Events",
+	'collection:object:eventslot' => "Eventslots",
+	'collection:object:eventday' => "Eventdays",
+	'collection:object:eventregistration' => "Eventregistrations",
+	'collection:object:eventregistrationquestion' => "Event Registration Questions",
 
 	'event_manager:date:format' => 'Y-m-d',
 	'event_manager:entity:copy' => 'Copy of: %s',
