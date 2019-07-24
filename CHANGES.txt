@@ -1,6 +1,10 @@
 Version history
 ===============
 
+10.2 (2019-07-24):
+
+- added: option to show live events in widget
+
 10.1.1 (2019-06-12):
 
 - fixed: correctly normalize event_start and end in prepare form vars
