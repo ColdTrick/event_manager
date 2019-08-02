@@ -12,7 +12,7 @@ if (empty($lat) || empty($long)) {
 	return;
 }
 
-elgg_load_css('leafletjs');
+elgg_load_external_file('css', 'leafletjs');
 
 echo elgg_format_element('div', [
 	'id' => 'event-manager-leafletjs-map',

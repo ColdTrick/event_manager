@@ -1,3 +1,3 @@
 <?php
 
-elgg_load_css('leafletjs');
+elgg_load_external_file('css', 'leafletjs');

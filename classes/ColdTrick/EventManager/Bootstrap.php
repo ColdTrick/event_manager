@@ -48,9 +48,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		elgg_define_js('leafletjs', [
 			'src' => '//unpkg.com/leaflet@1.2.0/dist/leaflet.js',
 		]);
-		elgg_register_css('leafletjs', '//unpkg.com/leaflet@1.2.0/dist/leaflet.css');
-		
-		elgg_register_css('fullcalendar', elgg_get_simplecache_url('css/event_manager/fullcalendar'));
+		elgg_register_external_file('css', 'leafletjs', '//unpkg.com/leaflet@1.2.0/dist/leaflet.css', 'head');
 	}
 
 	/**

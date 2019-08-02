@@ -20,7 +20,7 @@ elgg_push_collection_breadcrumbs('object', \Event::SUBTYPE, $page_owner);
 elgg_register_title_button('event', 'add', 'object', \Event::SUBTYPE);
 
 elgg_require_js('event_manager/calendar');
-elgg_load_css('fullcalendar');
+elgg_require_css('event_manager/fullcalendar');
 
 $content = elgg_format_element('div', ['id' => 'event-manager-event-calendar']);
 
