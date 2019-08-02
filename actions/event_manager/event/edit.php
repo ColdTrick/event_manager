@@ -98,60 +98,58 @@ if (get_input('icon_remove')) {
 	}
 }
 
-$ia = elgg_set_ignore_access(true);
-
-$order = 0;
-
-$questions = get_input('questions');
-$saved_questions = [];
-if (!empty($questions)) {
-	foreach ($questions as $question) {
-		$question_guid = (int) elgg_extract('guid', $question);
-		$fieldtype = elgg_extract('fieldtype', $question);
-		$fieldoptions = elgg_extract('fieldoptions', $question);
-		$questiontext = elgg_extract('questiontext', $question);
-		$required = elgg_extract('required', $question);
-		$required = !empty($required) ? 1 : 0;
-		
-		if ($question_guid) {
-			$question = get_entity($question_guid);
-			if (!($question instanceof \EventRegistrationQuestion)) {
-				continue;
+elgg_call(ELGG_IGNORE_ACCESS, function() use ($event) {
+	$order = 0;
+	
+	$questions = get_input('questions');
+	$saved_questions = [];
+	if (!empty($questions)) {
+		foreach ($questions as $question) {
+			$question_guid = (int) elgg_extract('guid', $question);
+			$fieldtype = elgg_extract('fieldtype', $question);
+			$fieldoptions = elgg_extract('fieldoptions', $question);
+			$questiontext = elgg_extract('questiontext', $question);
+			$required = elgg_extract('required', $question);
+			$required = !empty($required) ? 1 : 0;
+			
+			if ($question_guid) {
+				$question = get_entity($question_guid);
+				if (!($question instanceof \EventRegistrationQuestion)) {
+					continue;
+				}
+			} else {
+				$question = new \EventRegistrationQuestion();
+				$question->container_guid = $event->guid;
+				$question->owner_guid = $event->guid;
+				$question->access_id = $event->access_id;
 			}
-		} else {
-			$question = new \EventRegistrationQuestion();
-			$question->container_guid = $event->guid;
-			$question->owner_guid = $event->guid;
-			$question->access_id = $event->access_id;
-		}
-		
-		$question->title = $questiontext;
-		
-		if ($question->save()) {
-			$question->fieldtype = $fieldtype;
-			$question->required = $required;
-			$question->fieldoptions = $fieldoptions;
-			$question->order = $order;
-		
-			$question->addRelationship($event->guid, 'event_registrationquestion_relation');
 			
-			$order++;
+			$question->title = $questiontext;
 			
-			$saved_questions[] = $question->guid;
+			if ($question->save()) {
+				$question->fieldtype = $fieldtype;
+				$question->required = $required;
+				$question->fieldoptions = $fieldoptions;
+				$question->order = $order;
+			
+				$question->addRelationship($event->guid, 'event_registrationquestion_relation');
+				
+				$order++;
+				
+				$saved_questions[] = $question->guid;
+			}
 		}
-	}
-}
-
-$current_questions = $event->getRegistrationFormQuestions();
-foreach ($current_questions as $current_question) {
-	if (in_array($current_question->guid, $saved_questions)) {
-		continue;
 	}
 	
-	$current_question->delete();
-}
-
-elgg_set_ignore_access($ia);
+	$current_questions = $event->getRegistrationFormQuestions();
+	foreach ($current_questions as $current_question) {
+		if (in_array($current_question->guid, $saved_questions)) {
+			continue;
+		}
+		
+		$current_question->delete();
+	}
+});
 
 // added because we need an update event
 $event->save();

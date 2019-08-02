@@ -22,18 +22,13 @@ class Slot extends \ElggObject {
 	 * @return boolean|int
 	 */
 	public function countRegistrations() {
-		$old_ia = elgg_set_ignore_access(true);
-
-		$result = elgg_get_entities([
-			'relationship' => EVENT_MANAGER_RELATION_SLOT_REGISTRATION,
-			'relationship_guid' => $this->guid,
-			'inverse_relationship' => true,
-			'count' => true,
-		]);
-
-		elgg_set_ignore_access($old_ia);
-
-		return $result;
+		return elgg_call(ELGG_IGNORE_ACCESS, function() {
+			return elgg_count_entities([
+				'relationship' => EVENT_MANAGER_RELATION_SLOT_REGISTRATION,
+				'relationship_guid' => $this->guid,
+				'inverse_relationship' => true,
+			]);
+		});
 	}
 
 	/**
@@ -57,19 +52,15 @@ class Slot extends \ElggObject {
 	 * @return boolean|int|array
 	 */
 	public function getWaitingUsers($count = false) {
-		$old_ia = elgg_set_ignore_access(true);
-
-		if ($count) {
-			$result = $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST, true);
-		} else {
-			$result = $this->getEntitiesFromRelationship([
+		return elgg_call(ELGG_IGNORE_ACCESS, function() use ($count) {
+			if ($count) {
+				return $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST, true);
+			}
+			
+			return $this->getEntitiesFromRelationship([
 				'relationship' => EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST,
 				'inverse_relationship' => true,
 			]);
-		}
-
-		elgg_set_ignore_access($old_ia);
-
-		return $result;
+		});
 	}
 }

@@ -9,33 +9,33 @@ if (!$event->canEdit()) {
 	return elgg_error_response(elgg_echo('actionunauthorized'));
 }
 
-$old_ia = elgg_set_ignore_access(true);
-
-$rows = [];
-
-$attendees = new \ElggBatch('elgg_get_entities', [
-	'relationship' => $rel,
-	'relationship_guid' => $event->guid,
-	'inverse_relationship' => false,
-	'limit' => false,
-]);
-
-foreach ($attendees as $attendee) {
-	$params = [
-		'event' => $event,
-		'attendee' => $attendee,
-		'relationship' => $rel,
-	];
+$rows = elgg_call(ELGG_IGNORE_ACCESS, function() use ($rel, $event) {
+	$rows = [];
 	
-	$rowdata = elgg_trigger_plugin_hook('export_attendee', 'event', $params, []);;
-	if (empty($rowdata)) {
-		continue;
+	$attendees = new \ElggBatch('elgg_get_entities', [
+		'relationship' => $rel,
+		'relationship_guid' => $event->guid,
+		'inverse_relationship' => false,
+		'limit' => false,
+	]);
+	
+	foreach ($attendees as $attendee) {
+		$params = [
+			'event' => $event,
+			'attendee' => $attendee,
+			'relationship' => $rel,
+		];
+		
+		$rowdata = elgg_trigger_plugin_hook('export_attendee', 'event', $params, []);;
+		if (empty($rowdata)) {
+			continue;
+		}
+		
+		$rows[] = $rowdata;
 	}
 	
-	$rows[] = $rowdata;
-}
-
-elgg_set_ignore_access($old_ia);
+	return $rows;
+});
 
 if (empty($rows)) {
 	return elgg_error_response(elgg_echo('event_manager:action:attendees:export:no_data'));

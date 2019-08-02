@@ -22,20 +22,20 @@ if (!empty($key)) {
 		forward(elgg_generate_url('default:object:event'));
 	}
 
-	$old_ia = elgg_set_ignore_access(true);
-
-	$output .= elgg_view('event_manager/event/pdf', ['entity' => $event]);
-	$output .= elgg_view('event_manager/registration/user_data', [
-		'event' => $event,
-		'entity' => $entity,
-	]);
-
-	if ($event->with_program) {
-		$output .= $event->getProgramData($user_guid);
-	}
-
-	elgg_set_ignore_access($old_ia);
-
+	$output .= elgg_call(ELGG_IGNORE_ACCESS, function() use ($entity, $event) {
+		
+		$result = elgg_view('event_manager/event/pdf', ['entity' => $event]);
+		$result .= elgg_view('event_manager/registration/user_data', [
+			'event' => $event,
+			'entity' => $entity,
+		]);
+	
+		if ($event->with_program) {
+			$result .= $event->getProgramData($entity->guid);
+		}
+		
+		return $result;
+	});
 } else {
 	elgg_gatekeeper();
 	

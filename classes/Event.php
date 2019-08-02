@@ -1071,18 +1071,13 @@ class Event extends ElggObject {
 	 * @return int
 	 */
 	public function countAttendees() {
-		$old_ia = elgg_set_ignore_access(true);
-
-		$entities = elgg_get_entities([
-			'relationship' => EVENT_MANAGER_RELATION_ATTENDING,
-			'relationship_guid' => $this->guid,
-			'inverse_relationship' => false,
-			'count' => true,
-		]);
-
-		elgg_set_ignore_access($old_ia);
-
-		return $entities;
+		return elgg_call(ELGG_IGNORE_ACCESS, function() {
+			return elgg_count_entities([
+				'relationship' => EVENT_MANAGER_RELATION_ATTENDING,
+				'relationship_guid' => $this->guid,
+				'inverse_relationship' => false,
+			]);
+		});
 	}
 
 	/**
@@ -1091,17 +1086,12 @@ class Event extends ElggObject {
 	 * @return int
 	 */
 	public function countWaiters() {
-		$old_ia = elgg_set_ignore_access(true);
-
-		$entities = elgg_get_entities([
-			'relationship' => EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
-			'relationship_guid' => $this->guid,
-			'inverse_relationship' => false,
-			'count' => true,
-		]);
-
-		elgg_set_ignore_access($old_ia);
-
-		return $entities;
+		return elgg_call(ELGG_IGNORE_ACCESS, function() {
+			return elgg_count_entities([
+				'relationship' => EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
+				'relationship_guid' => $this->guid,
+				'inverse_relationship' => false,
+			]);
+		});
 	}
 }
