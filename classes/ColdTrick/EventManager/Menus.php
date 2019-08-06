@@ -32,6 +32,9 @@ class Menus {
 		}
 		
 		$returnvalue = $hook->getValue();
+		
+		// no delete menu item
+		$returnvalue->remove('delete');
 
 		// kick from event (assumes users listed on the view page of an event)
 		$returnvalue[] = \ElggMenuItem::factory([
