@@ -39,23 +39,23 @@ $html = elgg_view_title(elgg_echo('event_manager:registration:yourregistration')
 
 $html .= elgg_view('event_manager/event/pdf', ['entity' => $event]);
 
-$old_ia = elgg_set_ignore_access(true);
-
-$html .= elgg_view('event_manager/registration/user_data', [
-	'event' => $event,
-	'entity' => $entity,
-	'show_title' => true,
-]);
-
-if ($event->with_program) {
-	elgg_push_context('programmailview');
-
-	$html .= elgg_view_module('main', '', elgg_view('event_manager/program/pdf', ['entity' => $event, 'user_guid' => $user_guid]));
-
-	elgg_pop_context();
-}
-
-elgg_set_ignore_access($old_ia);
+$html .= elgg_call(ELGG_IGNORE_ACCESS, function () use ($event, $entity) {
+	$output = elgg_view('event_manager/registration/user_data', [
+		'event' => $event,
+		'entity' => $entity,
+		'show_title' => true,
+	]);
+	
+	if ($event->with_program) {
+		elgg_push_context('programmailview');
+	
+		$output = elgg_view_module('main', '', elgg_view('event_manager/program/pdf', ['entity' => $event, 'user_guid' => $entity->guid]));
+	
+		elgg_pop_context();
+	}
+	
+	return $output;
+});
 
 $dompdf = new DOMPDF();
 $dompdf->set_paper('A4');

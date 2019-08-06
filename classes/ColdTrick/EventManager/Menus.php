@@ -82,48 +82,44 @@ class Menus {
 	/**
 	 * Adds menu items to the entity menu
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'register', 'menu:entity'
 	 *
 	 * @return array
 	 */
-	public static function registerEntity($hook, $entity_type, $returnvalue, $params) {
-		$entity = elgg_extract('entity', $params);
+	public static function registerEntity(\Elgg\Hook $hook) {
+		$entity = $hook->getEntityParam();
 		if (!$entity instanceof \Event) {
 			return;
 		}
 		
-		// show an unregister link for non logged in users
-		if (!elgg_is_logged_in() && $entity->register_nologin) {
-			$returnvalue[] = \ElggMenuItem::factory([
-				'name' => 'unsubscribe',
-				'icon' => 'sign-out-alt',
-				'text' => elgg_echo('event_manager:menu:unsubscribe'),
-				'href' => elgg_generate_url('default:object:event:unsubscribe:request', [
-					'guid' => $entity->guid,
-				]),
-				'priority' => 300,
-			]);
+		if (elgg_is_logged_in() || !$entity->register_nologin) {
+			return;
 		}
-	
+		
+		// show an unregister link for non logged in users
+		$returnvalue = $hook->getValue();
+		$returnvalue[] = \ElggMenuItem::factory([
+			'name' => 'unsubscribe',
+			'icon' => 'sign-out-alt',
+			'text' => elgg_echo('event_manager:menu:unsubscribe'),
+			'href' => elgg_generate_url('default:object:event:unsubscribe:request', [
+				'guid' => $entity->guid,
+			]),
+			'priority' => 300,
+		]);
 		return $returnvalue;
 	}
 	
 	/**
 	 * add menu item for groups to owner block
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'register', 'menu:owner_block'
 	 *
 	 * @return array
 	 */
-	public static function registerGroupOwnerBlock($hook, $entity_type, $returnvalue, $params) {
+	public static function registerGroupOwnerBlock(\Elgg\Hook $hook) {
 	
-		$group = elgg_extract('entity', $params);
+		$group = $hook->getEntityParam();
 		if (!$group instanceof \ElggGroup) {
 			return;
 		}
@@ -132,6 +128,7 @@ class Menus {
 			return;
 		}
 	
+		$returnvalue = $hook->getValue();
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'events',
 			'text' => elgg_echo('event_manager:menu:group_events'),
@@ -144,20 +141,18 @@ class Menus {
 	/**
 	 * add menu item to user owner block
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'register', 'menu:owner_block'
 	 *
 	 * @return array
 	 */
-	public static function registerUserOwnerBlock($hook, $entity_type, $returnvalue, $params) {
+	public static function registerUserOwnerBlock(\Elgg\Hook $hook) {
 	
-		$user = elgg_extract('entity', $params);
+		$user = $hook->getEntityParam();
 		if (!$user instanceof \ElggUser) {
 			return;
 		}
 	
+		$returnvalue = $hook->getValue();
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'events',
 			'text' => elgg_echo('item:object:event'),
@@ -170,16 +165,13 @@ class Menus {
 	/**
 	 * Add menu items listing of event files
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'register', 'menu:event_files'
 	 *
 	 * @return array
 	 */
-	public static function registerEventFiles($hook, $entity_type, $returnvalue, $params) {
-		$event = elgg_extract('entity', $params);
-		if (!($event instanceof \Event)) {
+	public static function registerEventFiles(\Elgg\Hook $hook) {
+		$event = $hook->getEntityParam();
+		if (!$event instanceof \Event) {
 			return;
 		}
 		
@@ -192,7 +184,7 @@ class Menus {
 		$elggfile->owner_guid = $event->guid;
 		
 		$use_cookie = ($event->access_id !== ACCESS_PUBLIC);
-		
+		$returnvalue = $hook->getValue();
 		foreach ($files as $file) {
 			$elggfile->setFilename($file->file);
 			
@@ -215,14 +207,11 @@ class Menus {
 	/**
 	 * Add filter tabs for event lists
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'register', 'menu:filter:events'
 	 *
 	 * @return array
 	 */
-	public static function registerEventsList($hook, $entity_type, $returnvalue, $params) {
+	public static function registerEventsList(\Elgg\Hook $hook) {
 	
 		$route_params = [];
 		$page_owner = elgg_get_page_owner_entity();
@@ -230,8 +219,9 @@ class Menus {
 			$route_params['guid'] = $page_owner->guid;
 		}
 		
-		$selected = elgg_extract('filter_value', $params);
+		$selected = $hook->getParam('filter_value');
 		
+		$returnvalue = $hook->getValue();
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'live',
 			'text' => elgg_echo('event_manager:list:navigation:live'),
@@ -289,22 +279,20 @@ class Menus {
 	/**
 	 * Removes unwanted menu items from activity items if it is an event RSVP
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'register', 'menu:river'
 	 *
 	 * @return array
 	 */
-	public static function stripEventRelationshipRiverMenuItems($hook, $entity_type, $returnvalue, $params) {
-		$item = elgg_extract('item', $params);
-		if (!($item instanceof \ElggRiverItem)) {
+	public static function stripEventRelationshipRiverMenuItems(\Elgg\Hook $hook) {
+		$item = $hook->getParam('item');
+		if (!$item instanceof \ElggRiverItem) {
 			return;
 		}
 		if ($item->view !== 'river/event_relationship/create') {
 			return;
 		}
 		
+		$returnvalue = $hook->getValue();
 		foreach ($returnvalue as $key => $menu_item) {
 			if ($menu_item->getName() === 'delete') {
 				continue;
@@ -318,26 +306,24 @@ class Menus {
 	/**
 	 * Register tabs for the event attendees page
 	 *
-	 * @param string          $hook        hook name
-	 * @param string          $entity_type hook type
-	 * @param \ElggMenuItem[] $returnvalue current return value
-	 * @param array           $params      parameters
+	 * @param \Elgg\Hook $hook 'register', 'menu:event_attendees'
 	 *
 	 * @return void|\ElggMenuItem[]
 	 */
-	public static function registerEventAttendees($hook, $entity_type, $returnvalue, $params) {
+	public static function registerEventAttendees(\Elgg\Hook $hook) {
 		
-		$entity = elgg_extract('entity', $params);
+		$entity = $hook->getEntityParam();
 		if (!$entity instanceof \Event) {
 			return;
 		}
 		
-		$relationship = elgg_extract('relationship', $params);
+		$relationship = $hook->getParam('relationship');
 		$valid_relationships = $entity->getSupportedRelationships();
 		if (count($valid_relationships) === 1) {
 			return;
 		}
 		
+		$returnvalue = $hook->getValue();
 		foreach ($valid_relationships as $rel => $label) {
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => $rel,

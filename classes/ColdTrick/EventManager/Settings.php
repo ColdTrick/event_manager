@@ -7,15 +7,12 @@ class Settings {
 	/**
 	 * Flushes simple cache after saving the settings
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param bool   $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'setting', 'plugin'
 	 *
 	 * @return bool
 	 */
-	public static function clearCache($hook, $entity_type, $returnvalue, $params) {
-		$plugin = elgg_extract('plugin', $params);
+	public static function clearCache(\Elgg\Hook $hook) {
+		$plugin = $hook->getParam('plugin');
 		if (empty($plugin)) {
 			return;
 		}

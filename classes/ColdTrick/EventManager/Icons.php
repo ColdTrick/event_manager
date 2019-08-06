@@ -7,21 +7,19 @@ class Icons {
 	/**
 	 * Returns additional icon sizes for Events
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'entity:icon:sizes', 'object'
 	 *
 	 * @return array
 	 *
 	 * @see elgg_get_icon_sizes()
 	 */
-	public static function getIconSizes($hook, $entity_type, $returnvalue, $params) {
-		$subtype = elgg_extract('entity_subtype', $params);
+	public static function getIconSizes(\Elgg\Hook $hook) {
+		$subtype = $hook->getParam('entity_subtype');
 		if ($subtype !== 'event') {
 			return;
 		}
 		
+		$returnvalue = $hook->getValue();
 		$returnvalue['event_banner'] = [
 			'w' => 1920,
 			'h' => 1080,
@@ -34,21 +32,19 @@ class Icons {
 	/**
 	 * Set correct filename for Event icon
 	 *
-	 * @param string    $hook        hook name
-	 * @param string    $entity_type hook type
-	 * @param \ElggIcon $returnvalue current return value
-	 * @param array     $params      parameters
+	 * @param \Elgg\Hook $hook 'entity:icon:file', 'object'
 	 *
 	 * @return void|\ElggIcon
 	 */
-	public static function getIconFile($hook, $entity_type, $returnvalue, $params) {
+	public static function getIconFile(\Elgg\Hook $hook) {
 		
-		$entity = elgg_extract('entity', $params);
-		if (!($entity instanceof \Event)) {
+		$entity = $hook->getEntityParam();
+		if (!$entity instanceof \Event) {
 			return;
 		}
 		
-		$size = elgg_extract('size', $params);
+		$size = $hook->getParam('size');
+		$returnvalue = $hook->getValue();
 		$returnvalue->setFilename("{$size}.jpg");
 		
 		return $returnvalue;

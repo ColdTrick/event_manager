@@ -7,17 +7,14 @@ class Widgets {
 	/**
 	 * Generates correct title link for widgets depending on the context
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'entity:url', 'object'
 	 *
 	 * @return string
 	 */
-	public static function getEventsUrl($hook, $entity_type, $returnvalue, $params) {
+	public static function getEventsUrl(\Elgg\Hook $hook) {
 		
-		$widget = elgg_extract('entity', $params);
-		if (!empty($returnvalue) || !($widget instanceof \ElggWidget) || $widget->handler !== 'events') {
+		$widget = $hook->getEntityParam();
+		if (!empty($hook->getValue()) || !($widget instanceof \ElggWidget) || $widget->handler !== 'events') {
 			return;
 		}
 			
@@ -40,16 +37,13 @@ class Widgets {
 	/**
 	 * Registers the widget handlers for events
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'handlers', 'widgets'
 	 *
 	 * @return string
 	 */
-	public static function registerHandlers($hook, $entity_type, $returnvalue, $params) {
+	public static function registerHandlers(\Elgg\Hook $hook) {
 		
-		$container = elgg_extract('container', $params);
+		$container = $hook->getParam('container');
 		if (!$container instanceof \ElggGroup) {
 			return;
 		}
@@ -58,6 +52,7 @@ class Widgets {
 			return;
 		}
 		
+		$returnvalue = $hook->getValue();
 		foreach ($returnvalue as $index => $widget) {
 			if ($widget->id === 'events') {
 				unset($returnvalue[$index]);
@@ -71,22 +66,20 @@ class Widgets {
 	/**
 	 * Change the entity_timestamp in the content_by_tag widget to show the start date of the event
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'view_vars', 'widgets/content_by_tag/display/[simple|slim]'
 	 *
 	 * @return void|array
 	 */
-	public static function contentByTagEntityTimestamp($hook, $entity_type, $returnvalue, $params) {
+	public static function contentByTagEntityTimestamp(\Elgg\Hook $hook) {
+		$vars = $hook->getValue();
 		
-		$entity = elgg_extract('entity', $returnvalue);
-		if (!($entity instanceof \Event)) {
+		$entity = elgg_extract('entity', $vars);
+		if (!$entity instanceof \Event) {
 			return;
 		}
 		
-		$returnvalue['entity_timestamp'] = $entity->getStartTimestamp();
+		$vars['entity_timestamp'] = $entity->getStartTimestamp();
 		
-		return $returnvalue;
+		return $vars;
 	}
 }

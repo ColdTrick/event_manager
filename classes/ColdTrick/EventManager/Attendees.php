@@ -7,18 +7,15 @@ class Attendees {
 	/**
 	 * Exports base attributes for event attendees
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'export_attendee', 'event'
 	 *
 	 * @return array
 	 */
-	public static function exportBaseAttributes($hook, $entity_type, $returnvalue, $params) {
+	public static function exportBaseAttributes(\Elgg\Hook $hook) {
 		
-		$attendee = elgg_extract('attendee', $params);
-		$event = elgg_extract('event', $params);
-		$rel = elgg_extract('relationship', $params);
+		$attendee = $hook->getParam('attendee');
+		$event = $hook->getParam('event');
+		$rel = $hook->getParam('relationship');
 		
 		$relation = check_entity_relationship($event->guid, $rel, $attendee->guid);
 		
@@ -30,23 +27,20 @@ class Attendees {
 			'registration date' => date("d-m-Y H:i:s", $relation->time_created),
 		];
 		
-		return array_merge((array) $returnvalue, $base_attributes);
+		return array_merge((array) $hook->getValue(), $base_attributes);
 	}
 	
 	/**
 	 * Exports questiondata for event attendees
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'export_attendee', 'event'
 	 *
 	 * @return array
 	 */
-	public static function exportQuestionData($hook, $entity_type, $returnvalue, $params) {
+	public static function exportQuestionData(\Elgg\Hook $hook) {
 		
-		$attendee = elgg_extract('attendee', $params);
-		$event = elgg_extract('event', $params);
+		$attendee = $hook->getParam('attendee');
+		$event = $hook->getParam('event');
 		
 		if (!$event->registration_needed) {
 			return;
@@ -68,23 +62,20 @@ class Attendees {
 			$question_data[$question->getDisplayName()] = $value;
 		}
 			
-		return array_merge((array) $returnvalue, $question_data);
+		return array_merge((array) $hook->getValue(), $question_data);
 	}
 	
 	/**
 	 * Exports programchoices for event attendees
 	 *
-	 * @param string $hook        hook name
-	 * @param string $entity_type hook type
-	 * @param array  $returnvalue current return value
-	 * @param array  $params      parameters
+	 * @param \Elgg\Hook $hook 'export_attendee', 'event'
 	 *
 	 * @return array
 	 */
-	public static function exportProgramData($hook, $entity_type, $returnvalue, $params) {
+	public static function exportProgramData(\Elgg\Hook $hook) {
 		
-		$attendee = elgg_extract('attendee', $params);
-		$event = elgg_extract('event', $params);
+		$attendee = $hook->getParam('attendee');
+		$event = $hook->getParam('event');
 		
 		if (!$event->with_program) {
 			return;
@@ -122,6 +113,6 @@ class Attendees {
 			}
 		}
 				
-		return array_merge((array) $returnvalue, $program_data);
+		return array_merge((array) $hook->getValue(), $program_data);
 	}
 }

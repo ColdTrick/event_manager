@@ -1,5 +1,7 @@
 <?php
 
+use Elgg\Http\ResponseBuilder;
+
 elgg_make_sticky_form('event_register');
 
 $guid = (int) get_input('event_guid');
@@ -88,77 +90,82 @@ if (elgg_is_logged_in()) {
 	$object = elgg_get_logged_in_user_entity();
 } else {
 	// validate email
-	$old_ia = elgg_set_ignore_access(true);
-	$object = null;
-	
-	if (!is_email_address($answers['email'])) {
-		return elgg_error_response(elgg_echo('registration:notemail'));
-	} else {
-		// check for user with this emailaddress
-		if ($existing_user = get_user_by_email($answers['email'])) {
-			$object = $existing_user[0];
-			// todo check if there already is a relationship with the event.
-			$current_relationship = $event->getRelationshipByUser($object->guid);
-			if ($current_relationship) {
-				switch ($current_relationship) {
-					case EVENT_MANAGER_RELATION_ATTENDING:
-						// already attendee
-						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:attending'));
-					case EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST:
-						// on the waitinglist
-						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:waiting'));
-					case EVENT_MANAGER_RELATION_ATTENDING_PENDING:
-						// pending confirmation resend mail
-						event_manager_send_registration_validation_email($event, $object);
-
-						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:pending'));
-				}
-			}
-		}
-
-		// check for existing registration based on this email
-		$existing_entities = elgg_get_entities([
-			'type' => 'object',
-			'subtype' => EventRegistration::SUBTYPE,
-			'owner_guid' => $event->guid,
-			'metadata_name_value_pairs' => ['email' => $answers['email']],
-			'metadata_case_sensitive' => false,
-		]);
+	$object = elgg_call(ELGG_IGNORE_ACCESS, function() use ($answers, $event) {
+		$object = null;
 		
-		if ($existing_entities) {
-			$object = $existing_entities[0];
-
-			$current_relationship = $event->getRelationshipByUser($object->guid);
-			if ($current_relationship) {
-				switch ($current_relationship) {
-					case EVENT_MANAGER_RELATION_ATTENDING:
-						// already attendee
-						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:attending'));
-					case EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST:
-						// on the waitinglist
-						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:waiting'));
-					case EVENT_MANAGER_RELATION_ATTENDING_PENDING:
-					default:
-						// pending confirmation resend mail
-						event_manager_send_registration_validation_email($event, $object);
-
-						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:pending'));
+		if (!is_email_address($answers['email'])) {
+			return elgg_error_response(elgg_echo('registration:notemail'));
+		} else {
+			// check for user with this emailaddress
+			if ($existing_user = get_user_by_email($answers['email'])) {
+				$object = $existing_user[0];
+				// todo check if there already is a relationship with the event.
+				$current_relationship = $event->getRelationshipByUser($object->guid);
+				if ($current_relationship) {
+					switch ($current_relationship) {
+						case EVENT_MANAGER_RELATION_ATTENDING:
+							// already attendee
+							return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:attending'));
+						case EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST:
+							// on the waitinglist
+							return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:waiting'));
+						case EVENT_MANAGER_RELATION_ATTENDING_PENDING:
+							// pending confirmation resend mail
+							event_manager_send_registration_validation_email($event, $object);
+	
+							return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:pending'));
+					}
+				}
+			}
+	
+			// check for existing registration based on this email
+			$existing_entities = elgg_get_entities([
+				'type' => 'object',
+				'subtype' => EventRegistration::SUBTYPE,
+				'owner_guid' => $event->guid,
+				'metadata_name_value_pairs' => ['email' => $answers['email']],
+				'metadata_case_sensitive' => false,
+			]);
+			
+			if ($existing_entities) {
+				$object = $existing_entities[0];
+	
+				$current_relationship = $event->getRelationshipByUser($object->guid);
+				if ($current_relationship) {
+					switch ($current_relationship) {
+						case EVENT_MANAGER_RELATION_ATTENDING:
+							// already attendee
+							return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:attending'));
+						case EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST:
+							// on the waitinglist
+							return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:waiting'));
+						case EVENT_MANAGER_RELATION_ATTENDING_PENDING:
+						default:
+							// pending confirmation resend mail
+							event_manager_send_registration_validation_email($event, $object);
+	
+							return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:pending'));
+					}
 				}
 			}
 		}
+	
+		if (!$object) {
+			// create new registration
+			$object = new EventRegistration();
+			$object->title = 'EventRegistrationNotLoggedinUser';
+			$object->description = 'EventRegistrationNotLoggedinUser';
+			$object->owner_guid = $event->guid;
+			$object->container_guid = $event->guid;
+			$object->save();
+		}
+		
+		return $object;
+	});
+	
+	if ($object instanceof ResponseBuilder) {
+		return $object;
 	}
-
-	if (!$object) {
-		// create new registration
-		$object = new EventRegistration();
-		$object->title = 'EventRegistrationNotLoggedinUser';
-		$object->description = 'EventRegistrationNotLoggedinUser';
-		$object->owner_guid = $event->guid;
-		$object->container_guid = $event->guid;
-		$object->save();
-	}
-
-	elgg_set_ignore_access($old_ia);
 }
 
 // save all answers

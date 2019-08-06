@@ -7,7 +7,7 @@ class Js {
 	/**
 	 * Returns elgg.data config
 	 *
-	 * @param string \Elgg\Hook $hook hook name
+	 * @param string \Elgg\Hook $hook 'elgg.data', 'site'
 	 *
 	 * @return array
 	 */

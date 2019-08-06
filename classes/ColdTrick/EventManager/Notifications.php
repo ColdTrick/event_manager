@@ -7,17 +7,15 @@ class Notifications {
 	/**
 	 * Prepare a notification message about a created event
 	 *
-	 * @param string                          $hook         Hook name
-	 * @param string                          $type         Hook type
-	 * @param Elgg_Notifications_Notification $notification The notification to prepare
-	 * @param array                           $params       Hook parameters
+	 * @param \Elgg\Hook $hook 'prepare', 'notification:create:object:event'
 	 *
 	 * @return Elgg_Notifications_Notification
 	 */
-	public static function prepareCreateEventNotification($hook, $type, $notification, $params) {
-		$entity = $params['event']->getObject();
-		$owner = $params['event']->getActor();
-		$language = $params['language'];
+	public static function prepareCreateEventNotification(\Elgg\Hook $hook) {
+		$event = $hook->getParam('event');
+		$entity = $event->getObject();
+		$owner = $event->getActor();
+		$language = $hook->getParam('language');
 		
 		$subject = elgg_echo('event_manager:notification:subject', [], $language);
 		$summary = elgg_echo('event_manager:notification:summary', [], $language);
@@ -30,6 +28,7 @@ class Notifications {
 	
 		$body .= PHP_EOL . PHP_EOL . $entity->getURL();
 	
+		$notification = $hook->getValue();
 		$notification->subject = $subject;
 		$notification->body = $body;
 		$notification->summary = $summary;
