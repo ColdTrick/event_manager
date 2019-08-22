@@ -1,6 +1,13 @@
 Version history
 ===============
 
+11.0 (2019-08-22):
+
+- changed: increased minimal Elgg requirement to 3.1
+- changed: replaced deprecated function calls and hook/event callbacks
+- changed: replaced deprecated way of requiring css files
+- fixed: do not show entity delete menu item in attendee list
+
 10.2 (2019-07-24):
 
 - added: option to show live events in widget
