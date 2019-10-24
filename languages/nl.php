@@ -137,7 +137,7 @@ Indien u zich niet heeft geregistreerd kunt u deze email negeren of de link volg
   'event_manager:notification:subject' => 'Er is een nieuw evenement aangemaakt',
   'event_manager:notification:summary' => 'Er is een nieuw evenement aangemaakt',
   'event_manager:notification:body' => '%s heeft het volgende evenement aangemaakt %s',
-  'event_manager:edit:form:registration_completed' => 'Tekst die getoond wordt als een registratie is afgerond',
+  'event_manager:edit:form:registration_completed' => 'Tekst die getoond wordt als een gebruiker de registratie heeft afgerond',
   'event_manager:edit:form:registration_completed:description' => '[NAME] wordt vervangen in de tekst door de naam van de registrerende gebruiker. [EVENT] wordt vervangen door de naam van het evenement.',
   'event_manager:edit:form:slot_set' => 'Set',
   'event_manager:edit:form:slot_set:add' => 'Set toevoegen',
