@@ -2,7 +2,7 @@ define(['jquery', 'elgg', 'fullcalendar'], function($, elgg) {
 
 	var init = function() {
 		$('#event-manager-event-calendar').fullCalendar({
-			events: elgg.normalize_url('ajax/view/event_manager/calendar?container_guid=' + elgg.get_page_owner_guid()),
+			events: elgg.normalize_url('ajax/view/event_manager/calendar?view=json&container_guid=' + elgg.get_page_owner_guid()),
 			header: {
 				left: 'prev,next today',
 				center: 'title',

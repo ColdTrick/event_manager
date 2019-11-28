@@ -1,7 +1,5 @@
 <?php
 
-header('Content-type: application/json');
-
 $events_options = [
 	'limit' => 999, // not wise to leave unlimited
 	'type' => 'object',
