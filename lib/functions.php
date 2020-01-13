@@ -34,11 +34,11 @@ function event_manager_event_get_relationship_options() {
  * @return false|string
  */
 function event_manager_create_unsubscribe_code(EventRegistration $registration, Event $event = null) {
-	if (empty($registration) || !elgg_instanceof($registration, 'object', EventRegistration::SUBTYPE)) {
+	if (empty($registration) || !$registration instanceof EventRegistration) {
 		return false;
 	}
 	
-	if (empty($event) || !elgg_instanceof($event, 'object', Event::SUBTYPE)) {
+	if (empty($event) || !$event instanceof Event) {
 		$event = $registration->getOwnerEntity();
 	}
 	
@@ -88,7 +88,7 @@ function event_manager_generate_registration_validation_code($event_guid, $user_
 	$user = get_entity($user_guid);
 
 	$result = false;
-	if (!empty($event) && elgg_instanceof($event, 'object', Event::SUBTYPE) && !empty($user) && (elgg_instanceof($user, 'user') || elgg_instanceof($user, 'object', EventRegistration::SUBTYPE))) {
+	if (!empty($event) && ($event instanceof Event) && !empty($user) && (($user instanceof \ElggUser) || ($user instanceof EventRegistration))) {
 		$result = elgg_build_hmac([$event_guid, $user_guid, $event->time_created])->getToken();
 	}
 
