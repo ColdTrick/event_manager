@@ -1,6 +1,10 @@
 Version history
 ===============
 
+11.0.1 (2020-01-21):
+
+- changed: make sure calendar data comes from correct view location
+
 11.0 (2019-08-22):
 
 - changed: increased minimal Elgg requirement to 3.1
