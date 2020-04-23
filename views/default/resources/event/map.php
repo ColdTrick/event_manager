@@ -19,13 +19,8 @@ elgg_push_collection_breadcrumbs('object', \Event::SUBTYPE, $page_owner);
 
 elgg_register_title_button('event', 'add', 'object', \Event::SUBTYPE);
 
-$content = elgg_view('event_manager/onthemap', $vars);
-
-$body = elgg_view_layout('default', [
-	'title' => $title_text,
-	'content' => $content,
+echo elgg_view_page($title_text, [
+	'content' => elgg_view('event_manager/onthemap', $vars),
 	'filter_id' => 'events',
 	'filter_value' => 'map',
 ]);
-
-echo elgg_view_page($title_text, $body);

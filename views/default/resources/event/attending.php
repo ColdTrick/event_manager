@@ -7,11 +7,11 @@ if (!$user instanceof \ElggUser) {
 
 elgg_push_collection_breadcrumbs('object', 'event', $user, false);
 
-$filter_context = '';
+$filter_value = '';
 
 $title = elgg_echo('event_manager:attending:title', [$user->getDisplayName()]);
 if ($user->guid === elgg_get_logged_in_user_guid()) {
-	$filter_context = 'attending';
+	$filter_value = 'attending';
 }
 
 $content = elgg_list_entities([
@@ -23,11 +23,8 @@ $content = elgg_list_entities([
 	'no_results' => true,
 ]);
 
-$body = elgg_view_layout('default', [
+echo elgg_view_page($title, [
 	'content' => $content,
-	'title' => $title,
-	'filter_context' => $filter_context,
+	'filter_value' => $filter_value,
 	'filter_id' => 'events',
 ]);
-
-echo elgg_view_page($title, $body);

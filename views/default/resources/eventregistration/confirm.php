@@ -35,12 +35,4 @@ $body_vars = [
 ];
 $form = elgg_view_form('event_manager/registration/confirm', [], $body_vars);
 
-// build page
-$page_data = elgg_view_layout('content', [
-	'title' => $title_text,
-	'content' => $form,
-	'filter' => ''
-]);
-
-// draw page
-echo elgg_view_page($title_text, $page_data);
+echo elgg_view_page($title_text, ['content' => $form]);

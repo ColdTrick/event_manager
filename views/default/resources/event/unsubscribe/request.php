@@ -19,10 +19,4 @@ $title_text = elgg_echo('event_manager:unsubscribe:title', [$entity->getDisplayN
 
 $body = elgg_view_form('event_manager/event/unsubscribe', [], ['entity' => $entity]);
 
-$page_data = elgg_view_layout('content', [
-	'title' => $title_text,
-	'content' => $body,
-	'filter' => '',
-]);
-
-echo elgg_view_page($title_text, $page_data, 'default');
+echo elgg_view_page($title_text, ['content' => $body]);

@@ -41,11 +41,8 @@ $content = elgg_list_entities([
 	'no_results' => elgg_echo('event_manager:list:noresults'),
 ]);
 
-$body = elgg_view_layout('default', [
-	'title' => $title_text,
+echo elgg_view_page($title_text, [
 	'content' => $content,
 	'filter_id' => 'events',
 	'filter_value' => 'live',
 ]);
-
-echo elgg_view_page($title_text, $body);

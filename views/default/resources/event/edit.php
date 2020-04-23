@@ -34,10 +34,4 @@ $form_vars = [
 
 $form = elgg_view_form('event_manager/event/edit', $form_vars, ['entity' => $event]);
 
-$body = elgg_view_layout('default', [
-	'filter' => false,
-	'content' => $form,
-	'title' => $title_text,
-]);
-
-echo elgg_view_page($title_text, $body);
+echo elgg_view_page($title_text, ['content' => $form]);

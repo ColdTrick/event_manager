@@ -40,12 +40,6 @@ elgg_push_entity_breadcrumbs($event);
 
 $title = $title_text . " '{$event->getDisplayName()}'";
 
-$body = elgg_view_layout('content', [
-	'filter' => '',
-	'content' => $form,
-	'title' => $title,
-]);
-
-echo elgg_view_page($title, $body, 'default');
+echo elgg_view_page($title, ['content' => $form]);
 
 elgg_clear_sticky_form('event_register');

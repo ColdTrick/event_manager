@@ -26,12 +26,4 @@ $body = elgg_view('event_manager/registration/completed', [
 	'object' => $object,
 ]);
 
-// build page
-$page_data = elgg_view_layout('content', [
-	'title' => $title_text,
-	'content' => $body,
-	'filter' => '',
-]);
-
-// draw page
-echo elgg_view_page($title_text, $page_data);
+echo elgg_view_page($title_text, ['content' => $body]);

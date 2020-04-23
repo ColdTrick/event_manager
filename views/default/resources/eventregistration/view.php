@@ -79,10 +79,4 @@ elgg_register_menu_item('title', \ElggMenuItem::factory([
 	]),
 ]));
 
-$body = elgg_view_layout('content', [
-	'filter' => '',
-	'content' => $output,
-	'title' => $title_text,
-]);
-
-echo elgg_view_page($title_text, $body);
+echo elgg_view_page($title_text, ['content' => $output]);

@@ -23,11 +23,8 @@ $content = elgg_list_entities([
 	'no_results' => true,
 ]);
 
-$body = elgg_view_layout('default', [
+echo elgg_view_page($title, [
 	'content' => $content,
-	'title' => $title,
 	'filter_value' => $filter_value,
 	'filter_id' => 'events',
 ]);
-
-echo elgg_view_page($title, $body);

@@ -29,12 +29,4 @@ $body_vars = [
 ];
 $body = elgg_view_form('event_manager/event/unsubscribe_confirm', [], $body_vars);
 
-// make page
-$page_data = elgg_view_layout('content', [
-	'title' => $title_text,
-	'content' => $body,
-	'filter' => '',
-]);
-
-// draw page
-echo elgg_view_page($title_text, $page_data, 'default');
+echo elgg_view_page($title_text, ['content' => $body]);

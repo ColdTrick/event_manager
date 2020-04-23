@@ -25,10 +25,4 @@ $form = elgg_view_form('event_manager/event/upload_file', $form_vars, ['entity' 
 
 $current_files = elgg_view('event_manager/event/files', ['entity' => $event]);
 
-$body = elgg_view_layout('default', [
-	'filter' => false,
-	'content' => $form . $current_files,
-	'title' => $title_text,
-]);
-
-echo elgg_view_page($title_text, $body);
+echo elgg_view_page($title_text, ['content' => $form . $current_files]);

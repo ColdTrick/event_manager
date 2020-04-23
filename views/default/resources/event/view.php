@@ -20,14 +20,8 @@ if (elgg_get_plugin_setting('add_event_to_calendar', 'event_manager') === 'yes')
 
 elgg_push_entity_breadcrumbs($event, false);
 
-$title_text = $event->getDisplayName();
-
-$body = elgg_view_layout('default', [
-	'filter' => false,
+echo elgg_view_page($event->getDisplayName(), [
 	'content' => elgg_view_entity($event),
-	'title' => $title_text,
 	'sidebar' => elgg_view('event_manager/event/sidebar', ['entity' => $event]),
 	'entity' => $event,
 ]);
-
-echo elgg_view_page($title_text, $body, 'default');

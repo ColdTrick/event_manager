@@ -32,12 +32,4 @@ $content = elgg_format_element('div', [], elgg_view('output/longtext', [
 
 $content .= elgg_view('event_manager/program/view', ['entity' => $event]);
 
-// build page data
-$body = elgg_view_layout('default', [
-	'filter' => false,
-	'content' => $content,
-	'title' => $title_text,
-]);
-
-// draw page
-echo elgg_view_page($title_text, $body);
+echo elgg_view_page($title_text, ['content' => $content]);

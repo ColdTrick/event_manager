@@ -22,13 +22,8 @@ elgg_register_title_button('event', 'add', 'object', \Event::SUBTYPE);
 elgg_require_js('event_manager/calendar');
 elgg_require_css('event_manager/fullcalendar');
 
-$content = elgg_format_element('div', ['id' => 'event-manager-event-calendar']);
-
-$body = elgg_view_layout('default', [
-	'title' => $title_text,
-	'content' => $content,
+echo elgg_view_page($title_text, [
+	'content' => elgg_format_element('div', ['id' => 'event-manager-event-calendar']),
 	'filter_id' => 'events',
 	'filter_value' => 'calendar',
 ]);
-
-echo elgg_view_page($title_text, $body);
