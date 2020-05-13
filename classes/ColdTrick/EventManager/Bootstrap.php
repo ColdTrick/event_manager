@@ -107,6 +107,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		$hooks->registerHandler('handlers', 'widgets', '\ColdTrick\EventManager\Widgets::registerHandlers');
 		$hooks->registerHandler('likes:is_likable', 'object:' . \Event::SUBTYPE, '\Elgg\Values::getTrue');
 		$hooks->registerHandler('prepare', 'notification:create:object:' . Event::SUBTYPE, '\ColdTrick\EventManager\Notifications::prepareCreateEventNotification');
+		$hooks->registerHandler('prepare', 'system:email', '\ColdTrick\EventManager\Notifications::prepareEventRegistrationSender');
 		$hooks->registerHandler('register', 'menu:filter:events', '\ColdTrick\EventManager\Menus::registerEventsList');
 		$hooks->registerHandler('register', 'menu:entity', '\ColdTrick\EventManager\Menus::registerAttendeeActions');
 		$hooks->registerHandler('register', 'menu:entity', '\ColdTrick\EventManager\Menus::registerEntity', 600);

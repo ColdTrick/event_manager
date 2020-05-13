@@ -621,13 +621,13 @@ class Event extends ElggObject {
 	 * Notifies an owner of the event
 	 *
 	 * @param string     $type              type of the RSVP
-	 * @param ElggEntity $to                registering entity
+	 * @param ElggEntity $rsvp_entity       registering entity
 	 * @param string     $event_title_link  title of the event
 	 * @param string     $registration_link registration link of the event
 	 *
 	 * @return void
 	 */
-	protected function notifyOwnerOnRSVP($type, ElggEntity $to, $event_title_link, $registration_link = '') {
+	protected function notifyOwnerOnRSVP($type, ElggEntity $rsvp_entity, $event_title_link, $registration_link = '') {
 		
 		if (!$this->notify_onsignup) {
 			return;
@@ -637,12 +637,12 @@ class Event extends ElggObject {
 
 		$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, [
 			$this->getOwnerEntity()->getDisplayName(),
-			$to->getDisplayName(),
+			$rsvp_entity->getDisplayName(),
 			$event_title_link,
 		]) . $registration_link;
 		
 		$summary = elgg_echo('event_manager:event:registration:notification:owner:summary:' . $type, [
-			$to->getDisplayName(),
+			$rsvp_entity->getDisplayName(),
 			$this->getDisplayName(),
 		]);
 		
@@ -653,7 +653,7 @@ class Event extends ElggObject {
 			'action' => 'rsvp_owner',
 		];
 		
-		notify_user($this->getOwnerGUID(), $this->getOwnerGUID(), $owner_subject, $owner_message, $params);
+		notify_user($this->owner_guid, $rsvp_entity->guid, $owner_subject, $owner_message, $params);
 	}
 
 	/**
