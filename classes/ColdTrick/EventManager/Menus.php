@@ -356,7 +356,7 @@ class Menus {
 			return;
 		}
 		
-		if (!$event->openForRegistration()) {
+		if (!$event->openForRegistration() && (!elgg_is_logged_in() || empty($event->getRelationshipByUser()))) {
 			return;
 		}
 		
