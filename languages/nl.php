@@ -1,10 +1,14 @@
 <?php
 /**
- * This file was created by Translation Editor v7.0.3
- * On 2019-07-11 17:31
+ * This file was created by Translation Editor v7.0.4
+ * On 2020-05-18 12:10
  */
 
 return array (
+  'collection:object:eventslot' => 'Event Manager - Evenementsloten',
+  'collection:object:eventday' => 'Event Manager - Evenementdagen',
+  'collection:object:eventregistration' => 'Event Manager - Evenementregistraties',
+  'collection:object:eventregistrationquestion' => 'Event Manager - Evenement Registratie Vragen',
   'widgets:events:showevents:status' => 'Evenement status',
   'river:object:event:comment' => '% reageerde op het evenement %s',
   'collection:object:event' => 'Evenementen',
@@ -200,7 +204,7 @@ Iemand heeft zich afgemeld van het \'%s\' evenement (%s). Je bent van de wachtli
   'event_manager:group:more' => 'Meer evenementen',
   'item:object:event' => 'Evenement',
   'item:object:eventslot' => 'Event Manager - Evenementslot',
-  'item:object:eventday' => 'Event Manager - Evenementday',
+  'item:object:eventday' => 'Event Manager - Evenementdag',
   'item:object:eventregistration' => 'Event Manager - Evenementregistratie',
   'item:object:eventregistrationquestion' => 'Event Manager - Evenement Registratie Vraag',
   'item:object:eventquestions' => 'Event Manager - Evenement Vraag',
