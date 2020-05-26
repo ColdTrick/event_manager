@@ -1,6 +1,13 @@
 Version history
 ===============
 
+12.0 (2020-05-26):
+
+- changed: increased minimal Elgg requirement to v3.3
+- changed: updated resources to use default layout
+- fixed: allow users to undo event rsvp after registration closed date
+- fixed: owner rsvp notifications had wrong sender
+
 11.0.1 (2020-01-21):
 
 - changed: make sure calendar data comes from correct view location
