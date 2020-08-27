@@ -11,7 +11,7 @@
 	"require": {
 		"composer/installers": "^1.0.8",
 		"ext-json": "*",
-		"dompdf/dompdf" : "~0.6.0",
+		"dompdf/dompdf" : "~0.8.0",
 		"bower-asset/fullcalendar": "~2.9.0"
 	},
 	"require-dev": {

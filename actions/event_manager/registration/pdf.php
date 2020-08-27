@@ -1,17 +1,6 @@
 <?php
 
-use Elgg\Project\Paths;
-
-$config_location = 'vendor/dompdf/dompdf/dompdf_config.inc.php';
-if (file_exists(Paths::project() . $config_location)) {
-	// plugin installed via composer
-	require_once Paths::project() . $config_location;
-} elseif (file_exists(elgg_get_plugins_path() . "event_manager/{$config_location}")) {
-	// normal plugin install
-	require_once elgg_get_plugins_path() . "event_manager/{$config_location}";
-} else {
-	return elgg_error_response('No config found');
-}
+use Dompdf\Dompdf;
 
 $key = get_input('k');
 $guid = (int) get_input('guid');
@@ -57,9 +46,9 @@ $html .= elgg_call(ELGG_IGNORE_ACCESS, function () use ($event, $entity) {
 	return $output;
 });
 
-$dompdf = new DOMPDF();
-$dompdf->set_paper('A4');
-$dompdf->load_html($html);
+$dompdf = new Dompdf();
+$dompdf->setPaper('A4');
+$dompdf->loadHtml($html);
 $dompdf->render();
 $dompdf->stream('registration.pdf');
 

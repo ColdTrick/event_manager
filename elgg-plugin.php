@@ -5,8 +5,6 @@ use Elgg\Router\Middleware\Gatekeeper;
 use ColdTrick\EventManager\Event\Day;
 use ColdTrick\EventManager\Event\Slot;
 
-define('DOMPDF_ENABLE_AUTOLOAD', false);
-
 define('EVENT_MANAGER_RELATION_ATTENDING', 'event_attending');
 define('EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST', 'event_waitinglist');
 define('EVENT_MANAGER_RELATION_ATTENDING_PENDING', 'event_pending');
