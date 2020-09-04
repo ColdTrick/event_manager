@@ -5,8 +5,14 @@ if (!$event instanceof Event) {
 	return;
 }
 
+if ($event->owner_guid === elgg_get_logged_in_user_guid()) {
+	$vars['class'] = elgg_extract_class($vars, 'event-manager-calendar-owner');
+} elseif ($event->getRelationshipByUser()) {
+	$vars['class'] = elgg_extract_class($vars, 'event-manager-calendar-attending');
+}
+
 if (elgg_extract('full_view', $vars)) {
-	echo elgg_view("event_manager/event/view", $vars);
+	echo elgg_view('event_manager/event/view', $vars);
 	return;
 }
 
@@ -14,7 +20,7 @@ $content = '';
 
 $excerpt = $event->getExcerpt();
 if ($excerpt) {
-	$content .= '<div>' . $excerpt . '</div>';
+	$content .= elgg_format_element('div', [], $excerpt);
 }
 
 $content .= elgg_view('event_manager/event/rsvp', $vars);
@@ -47,6 +53,7 @@ $params = [
 	'time' => false,
 	'icon' => elgg_view_entity_icon($event, 'date'),
 ];
+
 $params = $params + $vars;
 
 echo elgg_view('object/elements/summary', $params);
