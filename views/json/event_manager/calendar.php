@@ -40,6 +40,7 @@ $events = elgg_get_entities($events_options);
 
 $result = [];
 
+/* @var $event \Event */
 foreach ($events as $event) {
 	
 	$start = $event->getStartDate();
@@ -51,12 +52,20 @@ foreach ($events as $event) {
 		$end = date('c', strtotime($end . ' +1 day'));
 	}
 	
+	$classes = [];
+	if ($event->owner_guid === elgg_get_logged_in_user_guid()) {
+		$classes[] = 'event-manager-calandar-owner';
+	} elseif ($event->getRelationshipByUser()) {
+		$classes[] = 'event-manager-calandar-attending';
+	}
+	
 	$event_result = [
 		'title' => $event->getDisplayName(),
 		'start' => $start,
 		'end' => $end,
 		'allDay' => $all_day,
 		'url' => $event->getURL(),
+		'className' => $classes,
 	];
 	
 	$result[] = $event_result;
