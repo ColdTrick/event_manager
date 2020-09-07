@@ -233,6 +233,7 @@ class Menus {
 			'href' => elgg_generate_url('collection:object:event:live', $route_params),
 			'rel' => 'list',
 			'selected' => $selected === 'live',
+			'priority' => 100,
 		]);
 		$returnvalue[] = \ElggMenuItem::factory([
 			'name' => 'upcoming',
@@ -240,6 +241,7 @@ class Menus {
 			'href' => elgg_generate_url('collection:object:event:upcoming', $route_params),
 			'rel' => 'list',
 			'selected' => $selected === 'upcoming',
+			'priority' => 200,
 		]);
 		
 		// user links (not in group context)
@@ -252,6 +254,7 @@ class Menus {
 					'list_type' => get_input('list_type'),
 				]),
 				'selected' => $selected === 'attending',
+				'priority' => 300,
 			]);
 			$returnvalue[] = \ElggMenuItem::factory([
 				'name' => 'mine',
@@ -261,6 +264,7 @@ class Menus {
 					'list_type' => get_input('list_type'),
 				]),
 				'selected' => $selected === 'mine',
+				'priority' => 400,
 			]);
 		}
 		
