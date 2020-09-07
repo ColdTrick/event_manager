@@ -67,7 +67,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 	
 		// register ajax views
 		elgg_register_ajax_view('event_manager/event/attendees_list');
-		elgg_register_ajax_view('event_manager/event/maps/route');
 		elgg_register_ajax_view('event_manager/forms/program/day');
 		elgg_register_ajax_view('event_manager/forms/program/slot');
 		elgg_register_ajax_view('event_manager/calendar');
@@ -109,6 +108,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		$hooks->registerHandler('prepare', 'notification:create:object:' . Event::SUBTYPE, '\ColdTrick\EventManager\Notifications::prepareCreateEventNotification');
 		$hooks->registerHandler('prepare', 'system:email', '\ColdTrick\EventManager\Notifications::prepareEventRegistrationSender');
 		$hooks->registerHandler('register', 'menu:filter:events', '\ColdTrick\EventManager\Menus::registerEventsList');
+		$hooks->registerHandler('register', 'menu:filter:events', '\ColdTrick\EventManager\Menus\Filter::registerViewTypes');
 		$hooks->registerHandler('register', 'menu:entity', '\ColdTrick\EventManager\Menus::registerAttendeeActions');
 		$hooks->registerHandler('register', 'menu:entity', '\ColdTrick\EventManager\Menus::registerEntity', 600);
 		$hooks->registerHandler('register', 'menu:event:rsvp', '\ColdTrick\EventManager\Menus::registerRsvp');

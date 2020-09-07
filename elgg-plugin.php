@@ -146,14 +146,6 @@ return [
 			'path' => '/event/upcoming/{guid?}',
 			'resource' => 'event/upcoming',
 		],
-		'collection:object:event:map' => [
-			'path' => '/event/map/{guid?}',
-			'resource' => 'event/map',
-		],
-		'collection:object:event:calendar' => [
-			'path' => '/event/calendar/{guid?}',
-			'resource' => 'event/calendar',
-		],
 		'collection:object:event:owner' => [
 			'path' => '/event/owner/{username?}',
 			'resource' => 'event/owner',

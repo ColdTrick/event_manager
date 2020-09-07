@@ -17,9 +17,8 @@ elgg_register_title_button('event', 'add', 'object', \Event::SUBTYPE);
 
 $title_text = elgg_echo('event_manager:list:live');
 
-$content = elgg_list_entities([
-	'type' => 'object',
-	'subtype' => 'event',
+$list_type = get_input('list_type', 'list');
+$options = [
 	'container_guid' => ($page_owner instanceof ElggGroup) ? $page_owner->guid : ELGG_ENTITIES_ANY_VALUE,
 	'metadata_name_value_pairs' => [
 		[
@@ -38,7 +37,11 @@ $content = elgg_list_entities([
 		'direction' => 'ASC',
 		'as' => 'integer'
 	],
-	'no_results' => elgg_echo('event_manager:list:noresults'),
+];
+$content = elgg_view("event_manager/listing/{$list_type}", [
+	'options' => $options,
+	'resource' => 'live',
+	'page_owner' => $page_owner,
 ]);
 
 echo elgg_view_page($title_text, [

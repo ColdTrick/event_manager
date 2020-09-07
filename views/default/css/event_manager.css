@@ -307,3 +307,9 @@
 		display: block;
 	}
 }
+
+.elgg-menu-container {
+	.event-manager-listing-sorting {
+		margin-left: auto;
+	}
+}

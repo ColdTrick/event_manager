@@ -216,7 +216,9 @@ class Menus {
 	 */
 	public static function registerEventsList(\Elgg\Hook $hook) {
 	
-		$route_params = [];
+		$route_params = [
+			'list_type' => get_input('list_type'),
+		];
 		$page_owner = elgg_get_page_owner_entity();
 		if ($page_owner instanceof \ElggGroup) {
 			$route_params['guid'] = $page_owner->guid;
@@ -239,22 +241,6 @@ class Menus {
 			'rel' => 'list',
 			'selected' => $selected === 'upcoming',
 		]);
-		$returnvalue[] = \ElggMenuItem::factory([
-			'name' => 'calendar',
-			'text' => elgg_echo('event_manager:list:navigation:calendar'),
-			'href' => elgg_generate_url('collection:object:event:calendar', $route_params),
-			'rel' => 'calendar',
-			'selected' => $selected === 'calendar',
-		]);
-		if (elgg_get_plugin_setting('maps_provider', 'event_manager') !== 'none') {
-			$returnvalue[] = \ElggMenuItem::factory([
-				'name' => 'map',
-				'text' => elgg_echo('event_manager:list:navigation:onthemap'),
-				'href' => elgg_generate_url('collection:object:event:map', $route_params),
-				'rel' => 'onthemap',
-				'selected' => $selected === 'map',
-			]);
-		}
 		
 		// user links (not in group context)
 		if (!$page_owner instanceof \ElggGroup && elgg_is_logged_in()) {
@@ -263,6 +249,7 @@ class Menus {
 				'text' => elgg_echo('event_manager:menu:attending'),
 				'href' => elgg_generate_url('collection:object:event:attending', [
 					'username' => elgg_get_logged_in_user_entity()->username,
+					'list_type' => get_input('list_type'),
 				]),
 				'selected' => $selected === 'attending',
 			]);
@@ -271,6 +258,7 @@ class Menus {
 				'text' => elgg_echo('mine'),
 				'href' => elgg_generate_url('collection:object:event:owner', [
 					'username' => elgg_get_logged_in_user_entity()->username,
+					'list_type' => get_input('list_type'),
 				]),
 				'selected' => $selected === 'mine',
 			]);

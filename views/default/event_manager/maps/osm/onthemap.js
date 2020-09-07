@@ -18,13 +18,15 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 			distance_longitude = 360 + distance_longitude;
 		}
 		
+		var canvas_data = $('#event_manager_onthemap_canvas').data();
+		
 		ajax.action('event_manager/maps/data', {
 			data: {
+				...canvas_data,
 				latitude: latitude,
 				longitude: longitude,
 				distance_latitude: distance_latitude,
-				distance_longitude: distance_longitude,
-				container_guid: elgg.get_page_owner_guid()
+				distance_longitude: distance_longitude
 			},
 			success: function(data) {
 				if (!data.markers) {

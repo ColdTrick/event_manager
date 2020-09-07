@@ -1,8 +1,28 @@
-define(['jquery', 'elgg', 'fullcalendar'], function($, elgg) {
-
+define(function(require) {
+	var $ = require('jquery');
+	var elgg = require('elgg');
+	var Ajax = require('elgg/Ajax');
+	
+	require('fullcalendar');
+	
 	var init = function() {
 		$('#event-manager-event-calendar').fullCalendar({
-			events: elgg.normalize_url('ajax/view/event_manager/calendar?view=json&container_guid=' + elgg.get_page_owner_guid()),
+			events: function(start, end, timezone, callback) {
+				var ajax = new Ajax();
+				var wrapper_data = $('#event-manager-event-calendar-wrapper').data();
+				
+				var events = ajax.view('event_manager/calendar', {
+					data: {
+						view: 'json',
+						start: start.toString(),
+						end: end.toString(),
+						...wrapper_data
+					},
+					success: function(result) {
+						callback(result);
+					}
+				});
+			},
 			header: {
 				left: 'prev,next today',
 				center: 'title',

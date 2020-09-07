@@ -1,21 +1,24 @@
 <?php
 
 $events_options = [
-	'limit' => 999, // not wise to leave unlimited
 	'type' => 'object',
-	'subtype' => 'event',
+	'subtype' => \Event::SUBTYPE,
+	'limit' => 999, // not wise to leave unlimited
+	'batch' => true,
 	'metadata_name_value_pairs' => [],
 ];
 
 $start = get_input('start');
 $end = get_input('end');
+$guid = (int) get_input('guid');
+$resource = get_input('resource');
 
 if (empty($start) && empty($end)) {
 	echo json_encode([]);
 	return;
 }
 
-if ($start) {
+if (!empty($start)) {
 	$events_options['metadata_name_value_pairs'][] = [
 		'name' => 'event_end',
 		'value' => strtotime($start),
@@ -23,7 +26,7 @@ if ($start) {
 	];
 }
 
-if ($end) {
+if (!empty($end)) {
 	$events_options['metadata_name_value_pairs'][] = [
 		'name' => 'event_start',
 		'value' => strtotime($end),
@@ -31,9 +34,30 @@ if ($end) {
 	];
 }
 
-$container_guid = (int) get_input('container_guid');
-if ($container_guid) {
-	$events_options['container_guid'] = $container_guid;
+$entity = get_entity($guid);
+if ($entity instanceof ElggGroup) {
+	$events_options['container_guid'] = $entity->guid;
+}
+
+switch ($resource) {
+	case 'owner':
+		if (!$entity instanceof ElggUser) {
+			echo json_encode([]);
+			return;
+		}
+		
+		$events_options['owner_guid'] = $entity->guid;
+		break;
+	case 'attending':
+		if (!$entity instanceof ElggUser) {
+			echo json_encode([]);
+			return;
+		}
+		
+		$events_options['relationship'] = EVENT_MANAGER_RELATION_ATTENDING;
+		$events_options['relationship_guid'] = $entity->guid;
+		$events_options['inverse_relationship'] = true;
+		break;
 }
 
 $events = elgg_get_entities($events_options);
