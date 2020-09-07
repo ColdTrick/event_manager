@@ -36,12 +36,43 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 						// already added, so return
 						return;
 					}
+					
+					var custom_icon_options = {
+						iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+						shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+						iconSize: [25, 41],
+						iconAnchor: [12, 41],
+						popupAnchor: [1, -34],
+						shadowSize: [41, 41],
+						...elgg.event_manager.maps_osm_icon_default
+					}
+					
+					if (event.iscreator) {
+						custom_icon_options = {
+							...custom_icon_options,
+							...{
+								iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png'
+							},
+							...elgg.event_manager.maps_osm_icon_owned
+						}
+					} else {
+						if (event.has_relation) {
+							custom_icon_options = {
+								...custom_icon_options,
+								...{
+									iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png'
+								},
+								...elgg.event_manager.maps_osm_icon_attending
+							}
+						}
+					}
 
 					var markerOptions = {
 						lat: event.lat, 
 						lng: event.lng,
+						icon: custom_icon_options
 					};
-					
+										
 					event_map.addMarker(markerOptions).bindPopup(event.html);
 					
 					current_markers[event.guid] = true;

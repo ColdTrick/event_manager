@@ -37,7 +37,12 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 			this.event_map.attributionControl.addAttribution('© <a href="https://nominatim.openstreetmap.org">Nominatim</a>');
 		},
 		addMarker : function(options) {
-			return leaflet.marker(options).addTo(this.markerGroup);
+			var extra_options = {};
+			if (options.icon) {
+				extra_options['icon'] = new leaflet.Icon(options.icon);
+			}
+
+			return leaflet.marker(options, extra_options).addTo(this.markerGroup);
 		},
 		clearMarkers : function() {
 			this.markerGroup.clearLayers();
