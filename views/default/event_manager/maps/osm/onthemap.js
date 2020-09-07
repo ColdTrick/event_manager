@@ -46,7 +46,7 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 						iconAnchor: [12, 41],
 						popupAnchor: [1, -34],
 						shadowSize: [41, 41],
-						...elgg.event_manager.maps_osm_icon_default
+						...elgg.data.event_manager_osm_icon_default
 					}
 					
 					if (event.iscreator) {
@@ -55,7 +55,7 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 							...{
 								iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png'
 							},
-							...elgg.event_manager.maps_osm_icon_owned
+							...elgg.data.event_manager_osm_icon_owned
 						}
 					} else {
 						if (event.has_relation) {
@@ -64,7 +64,7 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 								...{
 									iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png'
 								},
-								...elgg.event_manager.maps_osm_icon_attending
+								...elgg.data.event_manager_osm_icon_attending
 							}
 						}
 					}
