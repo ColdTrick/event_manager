@@ -47,7 +47,7 @@ $options = [
 		}
 	],
 	'metadata_name_value_pairs' => [
-		'upcomming' => [
+		'upcoming' => [
 			'name' => 'event_start',
 			'value' => time(),
 			'operand' => '>=',
@@ -59,7 +59,7 @@ $options = [
 // resource specific options
 switch ($resource) {
 	case 'live':
-		unset($options['metadata_name_value_pairs']['upcomming']);
+		unset($options['metadata_name_value_pairs']['upcoming']);
 		
 		$options['metadata_name_value_pairs'][] = [
 			'name' => 'event_start',
@@ -77,7 +77,7 @@ switch ($resource) {
 			return elgg_error_response();
 		}
 		
-		unset($options['metadata_name_value_pairs']['upcomming']);
+		unset($options['metadata_name_value_pairs']['upcoming']);
 		
 		$options['owner_guid'] = $entity->guid;
 		break;
