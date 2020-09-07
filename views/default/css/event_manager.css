@@ -282,17 +282,6 @@
 	margin-bottom: 20px;
 }
 
-/* google maps */
-#event_manager_onthemap_legend {
-	padding: 5px 0px;
-	text-align: center;
-	height: 32px;
-}
-
-#event_manager_onthemap_legend img {
-	vertical-align: middle;
-}
-
 /* hack to hide clear button on input/date fields for IE/Edge */
 .elgg-input-date::-ms-clear {
 	display: none;

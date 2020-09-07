@@ -26,11 +26,6 @@ $body = elgg_format_element('div', [
 	'data-guid' => ($page_owner instanceof ElggEntity) ? $page_owner->guid : null,
 ]);
 
-$legend = elgg_view("event_manager/maps/{$maps_provider}/legend");
-if (!empty($legend)) {
-	$body .= elgg_format_element('div', ['id' => 'event_manager_onthemap_legend'], $legend);
-}
-
 echo elgg_format_element('div', ['id' => 'event_manager_event_map'], $body);
 
 echo elgg_format_element('script', [], 'require(["elgg"], function(elgg) {
