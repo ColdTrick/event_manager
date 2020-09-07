@@ -11,11 +11,6 @@ if (elgg_view_exists("event_manager/maps/{$maps_provider}/onthemap.js")) {
 
 $body = '<div id="event_manager_onthemap_canvas"></div>';
 
-$legend = elgg_view("event_manager/maps/{$maps_provider}/legend");
-if (!empty($legend)) {
-	$body .= elgg_format_element('div', ['id' => 'event_manager_onthemap_legend'], $legend);
-}
-
 echo elgg_format_element('div', ['id' => 'event_manager_event_map'], $body);
 
 echo elgg_format_element('script', [], 'require(["elgg"], function(elgg) {

@@ -46,9 +46,6 @@ return array(
 	'event_manager:list:navigation:live' => 'Live',
 	'event_manager:list:navigation:upcoming' => 'Upcoming',
 	'event_manager:list:navigation:calendar' => 'Calendar',
-	'event_manager:list:navigation:other' => 'Other events',
-	'event_manager:list:navigation:your' => 'Your events',
-	'event_manager:list:navigation:attending' => 'Attending events',
 	'event_manager:list:navigation:onthemap' => 'On the map',
 	
 	'event_manager:owner:title' => '%s\'s events',
