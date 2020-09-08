@@ -455,4 +455,6 @@ If you didn't register for this event, you can ignore this email or click on the
 	'event_manager:addevent:mail:service:outlook' => 'Outlook',
 	'event_manager:addevent:mail:service:outlookcom' => 'Outlook.com',
 	'event_manager:addevent:mail:service:yahoo' => 'Yahoo',
+	
+	'event_manager:popup:event_link' => 'Go to the event',
 );

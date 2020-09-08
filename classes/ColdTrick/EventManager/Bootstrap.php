@@ -67,6 +67,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 	
 		// register ajax views
 		elgg_register_ajax_view('event_manager/event/attendees_list');
+		elgg_register_ajax_view('event_manager/event/popup');
 		elgg_register_ajax_view('event_manager/forms/program/day');
 		elgg_register_ajax_view('event_manager/forms/program/slot');
 		elgg_register_ajax_view('event_manager/calendar');

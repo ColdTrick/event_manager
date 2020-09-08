@@ -36,6 +36,19 @@ define(function(require) {
 				month: elgg.echo('event_manager:calendar:month'),
 				week: elgg.echo('event_manager:calendar:week'),
 				day: elgg.echo('event_manager:calendar:day')
+			},
+			eventClick: function(info) {
+				if (!info.guid) {
+					return;
+				}
+				
+				require(['elgg/lightbox'], function(lightbox) {
+					lightbox.open({
+						'href': elgg.normalize_url('ajax/view/event_manager/event/popup?guid=' + info.guid),
+					});
+				});
+				
+				return false;
 			}
 		});
 	};

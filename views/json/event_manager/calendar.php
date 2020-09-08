@@ -84,6 +84,7 @@ foreach ($events as $event) {
 	}
 	
 	$event_result = [
+		'guid' => $event->guid,
 		'title' => $event->getDisplayName(),
 		'start' => $start,
 		'end' => $end,

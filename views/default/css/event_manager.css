@@ -249,28 +249,36 @@
 	width: 100%;
 }
 
+/* popup */
+.event-manager-popup-title {
+	position: relative;
+	margin-bottom: 1rem;
+	
+	> .event-manager-event-banner {
+		margin: 0;
+		
+		& + h2 {
+			position: absolute;
+			bottom: 0;
+			padding: 1rem;
+			color: white;
+		}
+	}
+}
+
+@media $(media-tablet-up) {
+	.event-manager-popup-footer {
+		display: flex;
+		
+		> a {
+			margin-left: auto;
+		}
+	}
+}
+
 /* event copy form */
 .elgg-form-event-manager-event-copy {
 	width: 600px;
-}
-
-.maps_infowindow {
-	font-size: 11px;
-	display: flex;
-}
-.maps_infowindow_text div.event_manager_event_view_owner {
-	font-size: 11px;
-}
-
-.maps_infowindow_text {
-	width: 250px;
-}
-
-.maps_infowindow_icon {
-	height: 100px;
-	width: 100px;
-	padding: 10px;
-	border: 1px solid #CCCCCC;
 }
 
 .leaflet-container .elgg-button {
@@ -280,6 +288,7 @@
 #event_manager_onthemap_canvas {
 	height: 650px;
 	margin-bottom: 20px;
+	z-index: 1;
 }
 
 /* hack to hide clear button on input/date fields for IE/Edge */

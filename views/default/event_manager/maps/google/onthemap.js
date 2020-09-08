@@ -28,8 +28,6 @@ define(['jquery', 'elgg'], function($, elgg) {
 						return;
 					}
 					
-					elgg.event_manager.infowindow = new google.maps.InfoWindow();
-
 					var shadowIcon = new google.maps.MarkerImage("//chart.apis.google.com/chart?chst=d_map_pin_shadow",
 						new google.maps.Size(40, 37),
 						new google.maps.Point(0, 0),
@@ -53,9 +51,6 @@ define(['jquery', 'elgg'], function($, elgg) {
 							animation: google.maps.Animation.DROP,
 							title: event.title,
 							shadow: shadowIcon,
-							infoWindow: {
-								content: event.html
-							},
 						};
 						
 						if (event.iscreator) {

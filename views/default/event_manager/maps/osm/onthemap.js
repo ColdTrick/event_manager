@@ -75,8 +75,14 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 						icon: custom_icon_options
 					};
 										
-					event_map.addMarker(markerOptions).bindPopup(event.html);
-					
+					var marker = event_map.addMarker(markerOptions).on('click', function() {
+						require(['elgg/lightbox'], function(lightbox) {
+							lightbox.open({
+								'href': elgg.normalize_url('ajax/view/event_manager/event/popup?guid=' + event.guid),
+							});
+						});
+					});
+										
 					current_markers[event.guid] = true;
 				});
 			}

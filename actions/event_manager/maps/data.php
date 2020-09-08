@@ -101,7 +101,6 @@ foreach ($entities as $event) {
 		'lat' => $event->getLatitude(),
 		'lng' => $event->getLongitude(),
 		'title' => $event->title,
-		'html' => elgg_view('event_manager/event/infowindow', ['entity' => $event]),
 		'has_relation' => $event->getRelationshipByUser(),
 		'iscreator' => (($event->getOwnerGUID() == elgg_get_logged_in_user_guid()) ? 'owner' : null)
 	];
