@@ -60,6 +60,16 @@ switch ($resource) {
 		break;
 }
 
+// let others extend this
+$params = [
+	'resource' => $resource,
+	'guid' => $guid,
+	'start' => $start,
+	'end' => $end,
+];
+$events_options = elgg_trigger_plugin_hook('calendar_data:options', 'event_manager', $params, $events_options);
+
+// fetch data
 $events = elgg_get_entities($events_options);
 
 $result = [];

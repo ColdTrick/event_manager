@@ -92,6 +92,18 @@ switch ($resource) {
 		break;
 }
 
+// let others extend this
+$params = [
+	'resource' => $resource,
+	'guid' => $guid,
+	'latitude' => $latitude,
+	'longitude' => $longitude,
+	'distance_latitude' => $lat_distance,
+	'distance_longitude' => $long_distance,
+];
+$options = elgg_trigger_plugin_hook('maps_data:options', 'event_manager', $params, $options);
+
+// fetch data
 $entities = elgg_get_entities($options);
 
 $result = [];
