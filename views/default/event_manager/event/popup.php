@@ -40,4 +40,11 @@ $event_link = elgg_view('output/url', [
 
 $result .= elgg_format_element('div', ['class' => 'event-manager-popup-footer'], $location . $event_link);
 
-echo elgg_format_element('div', ['class' => 'event-manager-popup'], $result);
+$classes = ['event-manager-popup'];
+if ($event->owner_guid === elgg_get_logged_in_user_guid()) {
+	$classes[] = 'event-manager-calendar-owner';
+} elseif ($event->getRelationshipByUser()) {
+	$classes[] = 'event-manager-calendar-attending';
+}
+
+echo elgg_format_element('div', ['class' => $classes], $result);
