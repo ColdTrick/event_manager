@@ -88,9 +88,9 @@ foreach ($events as $event) {
 	
 	$classes = [];
 	if ($event->owner_guid === elgg_get_logged_in_user_guid()) {
-		$classes[] = 'event-manager-calendar-owner';
+		$classes[] = 'event-manager-event-owner';
 	} elseif ($event->getRelationshipByUser()) {
-		$classes[] = 'event-manager-calendar-attending';
+		$classes[] = 'event-manager-event-attending';
 	}
 	
 	$event_result = [

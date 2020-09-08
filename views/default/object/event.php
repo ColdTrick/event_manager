@@ -6,9 +6,9 @@ if (!$event instanceof Event) {
 }
 
 if ($event->owner_guid === elgg_get_logged_in_user_guid()) {
-	$vars['class'] = elgg_extract_class($vars, 'event-manager-calendar-owner');
+	$vars['class'] = elgg_extract_class($vars, 'event-manager-event-owner');
 } elseif ($event->getRelationshipByUser()) {
-	$vars['class'] = elgg_extract_class($vars, 'event-manager-calendar-attending');
+	$vars['class'] = elgg_extract_class($vars, 'event-manager-event-attending');
 }
 
 if (elgg_extract('full_view', $vars)) {
