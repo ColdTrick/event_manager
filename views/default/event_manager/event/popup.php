@@ -27,7 +27,10 @@ if (!empty($description)) {
 $location = '';
 if ($event->location) {
 	$location_details = elgg_format_element('label', [], elgg_echo('event_manager:edit:form:location'));
-	$location_details .= elgg_format_element('div', [], $event->location);
+	$location_details .= elgg_format_element('div', [], elgg_view('output/url', [
+		'href' => $event->getURL() . '#location',
+		'text' => $event->location,
+	]));
 	
 	$location = elgg_format_element('div', [], $location_details);
 }
