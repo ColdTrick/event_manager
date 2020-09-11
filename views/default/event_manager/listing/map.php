@@ -14,10 +14,6 @@ if ($maps_provider === 'none') {
 	throw new EntityNotFoundException();
 }
 
-if (elgg_view_exists("event_manager/maps/{$maps_provider}/onthemap.js")) {
-	elgg_require_js("event_manager/maps/{$maps_provider}/onthemap");
-}
-
 $page_owner = elgg_extract('page_owner', $vars);
 
 $body = elgg_format_element('div', [
@@ -28,6 +24,6 @@ $body = elgg_format_element('div', [
 
 echo elgg_format_element('div', ['id' => 'event_manager_event_map'], $body);
 
-echo elgg_format_element('script', [], 'require(["elgg"], function(elgg) {
+echo elgg_format_element('script', [], 'require(["elgg", "event_manager/maps/' . $maps_provider . '/onthemap"], function(elgg) {
 	elgg.trigger_hook("tab:onthemap", "event_manager");
 });');

@@ -21,7 +21,7 @@ $zoom_level = (int) elgg_get_plugin_setting('google_maps_detail_zoom', 'event_ma
 <script>
 	require(['event_manager/maps'], function (EventMap) {
 		EventMap.setup('#event-manager-gmaps-location', '<?php echo $location; ?>', {
-			zoom: <?= $zoom_level ?>
+			zoom: <?php echo $zoom_level; ?>
 		});
 	});
 </script>

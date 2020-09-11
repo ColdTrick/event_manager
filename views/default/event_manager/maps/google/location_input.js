@@ -46,8 +46,7 @@ define(['jquery'], function($) {
 		executeSearch();
 	});
 	
-	$(document).on('click', '#event-manager-edit-maps-search-container input[name="address_search_save"]', function() {
-		
+	$(document).on('click', '#event-manager-edit-maps-search-container button[name="address_search_save"]', function() {
 		var address = $('#event-manager-edit-maps-search-container input[name="address_search"]').val();
 		var $location_field = $('#event_manager_event_edit input[name="location"]');
 		var $latitude = $('#event_manager_event_edit input[name="latitude"]');
