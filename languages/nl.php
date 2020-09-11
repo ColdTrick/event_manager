@@ -1,10 +1,11 @@
 <?php
 /**
  * This file was created by Translation Editor v7.0.4
- * On 2020-05-18 12:10
+ * On 2020-09-11 09:41
  */
 
 return array (
+  'event_manager:popup:event_link' => 'Naar het evenement',
   'collection:object:eventslot' => 'Event Manager - Evenementsloten',
   'collection:object:eventday' => 'Event Manager - Evenementdagen',
   'collection:object:eventregistration' => 'Event Manager - Evenementregistraties',
@@ -214,9 +215,6 @@ Iemand heeft zich afgemeld van het \'%s\' evenement (%s). Je bent van de wachtli
   'event_manager:list:live' => 'Live evenementen',
   'event_manager:list:group:title' => 'Groeps evenementen',
   'event_manager:list:noresults' => 'Geen evenementen gevonden',
-  'event_manager:list:navigation:other' => 'Andere evenementen',
-  'event_manager:list:navigation:your' => 'Jouw evenementen',
-  'event_manager:list:navigation:attending' => 'Evenementen waar je aan deelneemt',
   'event_manager:list:navigation:onthemap' => 'Op de kaart',
   'event_manager:full' => 'vol',
   'event_manager:personwaitinglist' => 'persoon op de wachtlijst',
