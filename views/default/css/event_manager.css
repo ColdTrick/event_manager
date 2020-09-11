@@ -272,6 +272,7 @@
 		
 		> a {
 			margin-left: auto;
+			align-self: start;
 		}
 	}
 }

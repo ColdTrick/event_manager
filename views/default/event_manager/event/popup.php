@@ -14,7 +14,7 @@ $title .= elgg_view_title($event->getDisplayName(), [
 $result .= elgg_format_element('div', ['class' => 'event-manager-popup-title'], $title);
 
 $datetime = elgg_view('event_manager/event/view/datetime', $vars);
-$registration = elgg_view('event_manager/event/view/registration', $vars);
+$registration = elgg_view('event_manager/event/view/registration', $vars + ['show_rsvp' => false]);
 
 $result .= elgg_format_element('div', ['class' => 'event-manager-header'], $datetime . $registration);
 
