@@ -1,6 +1,18 @@
 Version history
 ===============
 
+12.1 (2020-09-15):
+
+- added: calendar and map popup content is shown in a lightbox
+- added: class in calendar view
+- added: css class on each entity to indicate attending/owning
+- added: listing now has different display modes
+- added: plugin hooks to change calendar/map data options
+- added: popup now has class indicating owner or attending
+- changed: marker colors change on type of event relationship
+- fixed: google maps api functionality
+- removed: no longer showing a legend below the map
+
 12.0.1 (2020-09-01):
 
 - changed: updated dompdf lib
