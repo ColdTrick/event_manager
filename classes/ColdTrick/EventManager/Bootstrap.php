@@ -100,6 +100,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		$hooks->registerHandler('entity:icon:sizes', 'object', '\ColdTrick\EventManager\Icons::getIconSizes');
 		$hooks->registerHandler('entity:icon:file', 'object', '\ColdTrick\EventManager\Icons::getIconFile');
 		$hooks->registerHandler('entity:icon:url', 'object', '\ColdTrick\EventManager\Icons::getEventRegistrationIconURL');
+		$hooks->registerHandler('entity_types', 'content_subscriptions', '\ColdTrick\EventManager\Plugins\ContentSubscriptions::registerContentType');
 		$hooks->registerHandler('export_attendee', 'event', '\ColdTrick\EventManager\Attendees::exportBaseAttributes', 100);
 		$hooks->registerHandler('export_attendee', 'event', '\ColdTrick\EventManager\Attendees::exportQuestionData', 200);
 		$hooks->registerHandler('export_attendee', 'event', '\ColdTrick\EventManager\Attendees::exportProgramData', 300);
