@@ -9,6 +9,7 @@ $lat_distance = get_input('distance_latitude');
 $long_distance = get_input('distance_longitude');
 $guid = (int) get_input('guid');
 $resource = get_input('resource');
+$tag = get_input('tag');
 
 if (!isset($latitude) || !isset($longitude) || !isset($lat_distance) || !isset($long_distance)) {
 	return [];
@@ -90,6 +91,14 @@ switch ($resource) {
 		$options['relationship_guid'] = $entity->guid;
 		$options['inverse_relationship'] = true;
 		break;
+}
+
+if (!empty($tag)) {
+	$options['metadata_name_value_pairs'][] = [
+		'name' => 'tags',
+		'value' => $tag,
+		'case_sensitive' => false,
+	];
 }
 
 // let others extend this

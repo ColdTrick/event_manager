@@ -218,6 +218,7 @@ class Menus {
 	
 		$route_params = [
 			'list_type' => get_input('list_type'),
+			'tag' => get_input('tag'),
 		];
 		$page_owner = elgg_get_page_owner_entity();
 		if ($page_owner instanceof \ElggGroup) {
@@ -252,6 +253,7 @@ class Menus {
 				'href' => elgg_generate_url('collection:object:event:attending', [
 					'username' => elgg_get_logged_in_user_entity()->username,
 					'list_type' => get_input('list_type'),
+					'tag' => get_input('tag'),
 				]),
 				'selected' => $selected === 'attending',
 				'priority' => 300,
@@ -262,6 +264,7 @@ class Menus {
 				'href' => elgg_generate_url('collection:object:event:owner', [
 					'username' => elgg_get_logged_in_user_entity()->username,
 					'list_type' => get_input('list_type'),
+					'tag' => get_input('tag'),
 				]),
 				'selected' => $selected === 'mine',
 				'priority' => 400,

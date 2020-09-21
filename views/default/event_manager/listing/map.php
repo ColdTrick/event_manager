@@ -20,7 +20,10 @@ $body = elgg_format_element('div', [
 	'id' => 'event_manager_onthemap_canvas',
 	'data-resource' => elgg_extract('resource', $vars),
 	'data-guid' => ($page_owner instanceof ElggEntity) ? $page_owner->guid : null,
+	'data-tag' => get_input('tag'),
 ]);
+
+echo elgg_view('event_manager/listing/elements/tags');
 
 echo elgg_format_element('div', ['id' => 'event_manager_event_map'], $body);
 

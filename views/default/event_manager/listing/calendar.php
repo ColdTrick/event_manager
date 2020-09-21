@@ -16,7 +16,10 @@ $wrapper_attr = [
 	'id' => 'event-manager-event-calendar-wrapper',
 	'data-resource' => elgg_extract('resource', $vars),
 	'data-guid' => ($page_owner instanceof ElggEntity) ? $page_owner->guid : null,
+	'data-tag' => get_input('tag'),
 ];
 $content = elgg_format_element('div', ['id' => 'event-manager-event-calendar']);
+
+echo elgg_view('event_manager/listing/elements/tags');
 
 echo elgg_format_element('div', $wrapper_attr, $content);

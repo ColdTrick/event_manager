@@ -33,6 +33,15 @@ if (in_array($widget->context, ['dashboard', 'profile'])) {
 	]);
 }
 
+echo elgg_view_field([
+	'#type' => 'text',
+	'#label' => elgg_echo('widgets:events:tag_filter'),
+	'#help' => elgg_echo('widgets:events:tag_filter:help'),
+	'name' => 'params[tag]',
+	'value' => $widget->tag,
+
+]);
+
 if (!$widget->getOwnerEntity() instanceof ElggSite) {
 	// profile, dashboard, groups
 	return;

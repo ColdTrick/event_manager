@@ -12,6 +12,7 @@ $start = get_input('start');
 $end = get_input('end');
 $guid = (int) get_input('guid');
 $resource = get_input('resource');
+$tag = get_input('tag');
 
 if (empty($start) && empty($end)) {
 	echo json_encode([]);
@@ -31,6 +32,14 @@ if (!empty($end)) {
 		'name' => 'event_start',
 		'value' => strtotime($end),
 		'operand' => '<='
+	];
+}
+
+if (!empty($tag)) {
+	$events_options['metadata_name_value_pairs'][] = [
+		'name' => 'tags',
+		'value' => $tag,
+		'case_sensitive' => false,
 	];
 }
 

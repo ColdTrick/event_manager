@@ -1,10 +1,12 @@
 <?php
 /**
  * This file was created by Translation Editor v7.0.4
- * On 2020-09-11 09:41
+ * On 2020-09-21 11:04
  */
 
 return array (
+  'widgets:events:tag_filter' => 'Tag filter',
+  'widgets:events:tag_filter:help' => 'Voer een optionele tag in om de inhoud te filteren',
   'event_manager:popup:event_link' => 'Naar het evenement',
   'collection:object:eventslot' => 'Event Manager - Evenementsloten',
   'collection:object:eventday' => 'Event Manager - Evenementdagen',
@@ -13,6 +15,7 @@ return array (
   'widgets:events:showevents:status' => 'Evenement status',
   'river:object:event:comment' => '% reageerde op het evenement %s',
   'collection:object:event' => 'Evenementen',
+  'event_manager:list:filter:tags' => 'Gefilterd met de tag %s',
   'event_manager:list:upcoming' => 'Aankomende evenementen',
   'event_manager:edit:form:spots_left:full' => 'Evenement is vol',
   'event_manager:form:program:slot' => 'Evenement slot toevoegen',

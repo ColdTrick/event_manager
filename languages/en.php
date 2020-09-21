@@ -38,6 +38,8 @@ return array(
 	'event_manager:calendar:week' => 'Week',
 	'event_manager:calendar:day' => 'Day',
 	
+	'event_manager:list:filter:tags' => 'Filtered by tag %s',
+
 	'event_manager:list:live' => 'Live events',
 	'event_manager:list:upcoming' => 'Upcoming events',
 	'event_manager:list:group:title' => 'Group events',
@@ -317,6 +319,8 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	// widgets
 	'widgets:events:name' => 'Events',
 	'widgets:events:description' => 'Show upcoming events',
+	'widgets:events:tag_filter' => 'Tag filter',
+	'widgets:events:tag_filter:help' => 'Enter a optional tag to filter the contents',
 
 	'widgets:events:showevents:status' => 'Event status',
 	'widgets:events:showevents' => 'Show events',
