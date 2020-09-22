@@ -39,6 +39,8 @@ return array(
 	'event_manager:calendar:day' => 'Day',
 	
 	'event_manager:list:filter:tags' => 'Filtered by tag %s',
+	'event_manager:list:more' => 'More events',
+	'event_manager:list:more:with_tag' => 'More events with tag %s',
 
 	'event_manager:list:live' => 'Live events',
 	'event_manager:list:upcoming' => 'Upcoming events',

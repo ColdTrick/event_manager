@@ -5,6 +5,8 @@
  */
 
 return array (
+  'event_manager:list:more' => 'Meer evenementen',
+  'event_manager:list:more:with_tag' => 'Meer evenementen met tag %s',
   'widgets:events:tag_filter' => 'Tag filter',
   'widgets:events:tag_filter:help' => 'Voer een optionele tag in om de inhoud te filteren',
   'event_manager:popup:event_link' => 'Naar het evenement',
