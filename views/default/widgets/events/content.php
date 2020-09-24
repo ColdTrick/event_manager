@@ -27,7 +27,7 @@ $event_options = [
 	],
 ];
 
-$tag_filter = $widget->tag ?: null;
+$tag_filter = $widget->tag ? string_to_tag_array($widget->tag)[0]: null;
 
 $more_link = elgg_generate_url('collection:object:event:upcoming', [
 	'tag' => $tag_filter,
