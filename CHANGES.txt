@@ -1,6 +1,11 @@
 Version history
 ===============
 
+12.2 (2020-09-30):
+
+- added: content listings now support a tag filter
+- added: support for content subscriptions
+
 12.1 (2020-09-15):
 
 - added: calendar and map popup content is shown in a lightbox
