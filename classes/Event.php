@@ -1014,14 +1014,15 @@ class Event extends ElggObject {
 	public function getRegisteredSlotsForEntity($guid, $slot_relationship) {
 		$slots = [];
 
-		$dbprefix = elgg_get_config('dbprefix');
+		$qb = Select::fromTable('entities', 'slot');
+		$qb->select('slot.guid');
+		$qb->joinEntitiesTable('slot', 'owner_guid', 'inner', 'event');
+		$qb->joinRelationshipTable('slot', 'guid', $slot_relationship, false, 'inner', 'slot_user_relation');
+		$qb->joinEntitiesTable('slot_user_relation', 'guid_one', 'inner', 'entity');
+		$qb->where($qb->compare('entity.guid', '=', $guid, ELGG_VALUE_INTEGER));
 
-		$data = elgg()->db->getData("SELECT slot.guid FROM {$dbprefix}entities AS slot
-			INNER JOIN {$dbprefix}entities AS event ON event.guid = slot.owner_guid
-			INNER JOIN {$dbprefix}entity_relationships AS slot_user_relation ON slot.guid = slot_user_relation.guid_two
-			INNER JOIN {$dbprefix}entities AS entity ON entity.guid = slot_user_relation.guid_one
-			WHERE entity.guid = $guid AND slot_user_relation.relationship='{$slot_relationship}'");
-
+		$data = elgg()->db->getData($qb);
+		
 		foreach ($data as $slot) {
 			$slots[] = get_entity($slot->guid);
 		}
