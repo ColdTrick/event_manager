@@ -46,7 +46,11 @@ $fh = tmpfile();
 fputcsv($fh, array_keys($rows[0]), ';');
 
 foreach ($rows as $row) {
-	fputcsv($fh, array_values($row), ';');
+	$decoded_rows = array_map(function($row) {
+		return html_entity_decode($row);
+	}, array_values($row));
+	
+	fputcsv($fh, $decoded_rows, ';');
 }
 
 $contents = '';

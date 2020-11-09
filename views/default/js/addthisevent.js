@@ -86,7 +86,7 @@ var addthisevent = function() {
                         }
                         if (addthisevent.hasclass(g[m], '_summary') || addthisevent.hasclass(g[m], 'summary') || addthisevent.hasclass(g[m], 'title')) {
                             g[m].style.display = 'none';
-                            f += '&dsum=' + encodeURIComponent(addthisevent.htmlencode(g[m].innerHTML))
+                            f += '&dsum=' + encodeURIComponent(g[m].innerHTML)
                         }
                         if (addthisevent.hasclass(g[m], '_description') || addthisevent.hasclass(g[m], 'description')) {
                             g[m].style.display = 'none';
