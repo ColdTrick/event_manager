@@ -593,7 +593,40 @@ class Event extends ElggObject {
 			}
 			
 			$user_message .= $registrationLink . $unsubscribeLink;
-	
+			
+			$attachment = [];
+			if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
+				// prepare attachment url
+				$description = '';
+				if (!empty($this->location)) {
+					// add venue to description
+					$description .= $this->venue . PHP_EOL;
+				}
+				
+				// removing HTML and shorter because of URL length limitations
+				$description .= $this->getExcerpt(500) . PHP_EOL . PHP_EOL;
+				$description .= $this->getURL();
+				
+				$attachment_url = elgg_http_add_url_query_elements('https://www.addevent.com/dir/', [
+					'client' => 'ak1qmrp10zvwxx2cimhv206',
+					'service' => 'stream',
+					
+					'start' => $this->getStartDate('d/m/Y H:i:00'),
+					'end' => $this->getEndDate('d/m/Y H:i:00'),
+					'title' => html_entity_decode($this->getDisplayName()),
+					'description' => $description,
+					'location' => $this->location ?: $this->venue,
+					'date_format' => 'DD/MM/YYYY',
+				]);
+				
+				$attachment_contents = file_get_contents($attachment_url);
+				if (!empty($attachment_contents)) {
+					$attachment['filename'] = 'event.ics';
+					$attachment['type'] = 'text/calendar';
+					$attachment['contents'] = $attachment_contents;
+				}
+			}
+			
 			if ($to_entity instanceof ElggUser) {
 				// use notification system for real users
 				$summary = elgg_echo('event_manager:event:registration:notification:user:summary:' . $type, [$this->getDisplayName()]);
@@ -605,14 +638,24 @@ class Event extends ElggObject {
 					'action' => 'rsvp',
 				];
 				
+				if (!empty($attachment)) {
+					$params['attachments'] = [$attachment];
+				}
+				
 				notify_user($to, $this->getOwnerGUID(), $user_subject, $user_message, $params);
 			} else {
 				// send e-mail for non users
-				elgg_send_email(\Elgg\Email::factory([
+				$options = [
 					'to' => $to_entity,
 					'subject' => $user_subject,
 					'body' => $user_message,
-				]));
+				];
+				
+				if (!empty($attachment)) {
+					$options['attachments'] = [$attachment];
+				}
+				
+				elgg_send_email(\Elgg\Email::factory($options));
 			}
 		});
 	}
