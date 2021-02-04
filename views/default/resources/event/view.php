@@ -7,7 +7,8 @@ elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 /* @var $event Event */
 $event = get_entity($guid);
 
-if (elgg_get_plugin_setting('add_event_to_calendar', 'event_manager') === 'yes') {
+$show_add_to_calendar = elgg_get_plugin_setting('add_event_to_calendar', 'event_manager');
+if ($show_add_to_calendar === 'yes' || ($show_add_to_calendar === 'attendee_only' && !empty($event->getRelationshipByUser()))) {
 	elgg_register_menu_item('title', ElggMenuItem::factory([
 		'name' => 'addthisevent',
 		'href' => false,

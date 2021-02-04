@@ -162,15 +162,17 @@ $other .= elgg_view_field([
 	'value' => $plugin->notification_sender,
 ]);
 
-$other .= elgg_vieW_field([
-	'#type' => 'checkbox',
+$other .= elgg_view_field([
+	'#type' => 'select',
 	'#label' => elgg_echo('event_manager:settings:add_event_to_calendar'),
 	'#help' => elgg_echo('event_manager:settings:add_event_to_calendar:help'),
 	'name' => 'params[add_event_to_calendar]',
-	'checked' => $plugin->add_event_to_calendar === 'yes',
-	'switch' => true,
-	'default' => 'no',
-	'value' => 'yes',
+	'value' => $plugin->add_event_to_calendar,
+	'options_values' => [
+		'no' => elgg_echo('option:no'),
+		'yes' => elgg_echo('option:yes'),
+		'attendee_only' => elgg_echo('event_manager:settings:add_event_to_calendar:attendee_only'),
+	],
 ]);
 
 echo elgg_view_module('info', elgg_echo('event_manager:settings:other'), $other);
