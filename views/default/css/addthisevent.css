@@ -1,8 +1,4 @@
-.addthisevent {
-	display: none;
-}
-
-.addthisevent_dropdown {
+.addeventatc_dropdown {
 	display: none;
 	right: 0px;
 	left: unset !important;
@@ -23,5 +19,5 @@
 			color: #333;
 			cursor: pointer;	
 		}
-	}	
+	}
 }
