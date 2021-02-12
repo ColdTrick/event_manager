@@ -41,6 +41,12 @@ return [
 		'who_create_group_events' => 'members',
 		'rsvp_interested' => 'yes',
 		'add_event_to_calendar' => 'yes',
+		'show_service_google' => 1,
+		'show_service_yahoo' => 1,
+		'show_service_office365' => 1,
+		'show_service_outlookcom' => 1,
+		'show_service_outlook' => 1,
+		'show_service_appleical' => 1,
 	],
 	'entities' => [
 		[

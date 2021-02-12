@@ -120,7 +120,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 		$hooks->registerHandler('register', 'menu:river', '\ColdTrick\EventManager\Menus::stripEventRelationshipRiverMenuItems', 99999);
 		$hooks->registerHandler('register', 'menu:event_attendees', '\ColdTrick\EventManager\Menus::registerEventAttendees');
 		$hooks->registerHandler('search:fields', 'object:event', '\ColdTrick\EventManager\Search::addFields');
-		$hooks->registerHandler('setting', 'plugin', '\ColdTrick\EventManager\Settings::clearCache');
 		$hooks->registerHandler('supported_types', 'entity_tools', '\ColdTrick\EventManager\MigrateEvents::supportedSubtypes');
 		$hooks->registerHandler('view_vars', 'event_manager/listing/map', '\ColdTrick\EventManager\Views::loadLeafletCss');
 		$hooks->registerHandler('view_vars', 'widgets/content_by_tag/display/simple', '\ColdTrick\EventManager\Widgets::contentByTagEntityTimestamp');

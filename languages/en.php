@@ -389,9 +389,11 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:settings:migration:group:whocancreate:members' => 'any group member',
 	'event_manager:settings:migration:group:whocancreate:no_one' => 'no one',
 	
+	'event_manager:settings:add_event' => 'AddEvent settings',
 	'event_manager:settings:add_event_to_calendar' => 'Show "add to calendar" button on event page',
 	'event_manager:settings:add_event_to_calendar:help' => 'This will also include the links in notification e-mails',
 	'event_manager:settings:add_event_to_calendar:attendee_only' => 'Only for attendees',
+	'event_manager:settings:add_event:service' => 'Enable the service: %s',
 
 	// unsubscribe from event
 	'event_manager:unsubscribe:title' => "Unsubscribe from: %s",

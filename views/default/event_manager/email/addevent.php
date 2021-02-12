@@ -15,9 +15,16 @@ if (!($event instanceof Event)) {
 	return;
 }
 
-// "outlook" or "google" or "appleical" or "outlookcom" or "yahoo"
-$services = (array) elgg_extract('services', $vars, ['appleical', 'google', 'outlook', 'outlookcom', 'yahoo']);
-if (empty($services)) {
+$services = (array) elgg_extract('services', $vars, ['google', 'yahoo', 'office365', 'outlookcom', 'outlook', 'appleical']);
+$service_links = [];
+
+foreach ($services as $service) {
+	if (elgg_get_plugin_setting("show_service_{$service}", 'event_manager')) {
+		$service_links[] = $service;
+	}
+}
+
+if (empty($service_links)) {
 	return;
 }
 
@@ -48,7 +55,7 @@ $url_params = [
 ];
 
 echo '<table><tr>';
-foreach ($services as $service) {
+foreach ($service_links as $service) {
 	$url_params['service'] = $service;
 
 	$link = elgg_view('output/url', [

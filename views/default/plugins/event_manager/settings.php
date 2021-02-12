@@ -107,6 +107,46 @@ $maps .= elgg_view_field([
 
 echo elgg_view_module('info', elgg_echo('event_manager:settings:maps'), $maps);
 
+// AddEvent options
+$add_event = elgg_view_field([
+	'#type' => 'select',
+	'#label' => elgg_echo('event_manager:settings:add_event_to_calendar'),
+	'#help' => elgg_echo('event_manager:settings:add_event_to_calendar:help'),
+	'name' => 'params[add_event_to_calendar]',
+	'value' => $plugin->add_event_to_calendar,
+	'options_values' => [
+		'no' => elgg_echo('option:no'),
+		'yes' => elgg_echo('option:yes'),
+		'attendee_only' => elgg_echo('event_manager:settings:add_event_to_calendar:attendee_only'),
+	],
+]);
+
+$services = [
+	'google' => 'Google <em>(online)</em>',
+	'yahoo' => 'Yahoo <em>(online)</em>',
+	'office365' => 'Office 365 <em>(online)</em>',
+	'outlookcom' => 'Outlook.com <em>(online)</em>',
+	'outlook' => 'Outlook',
+	'appleical' => 'iCal Calendar',
+];
+
+$fields = [];
+foreach ($services as $service => $label) {
+	$service_setting = "show_service_{$service}";
+	$add_event .= elgg_view_field([
+		'#type' => 'checkbox',
+		'#label' => elgg_echo('event_manager:settings:add_event:service', [$label]),
+		'name' => "params[{$service_setting}]",
+		'checked' => (bool) $plugin->{$service_setting},
+		'switch' => true,
+		'default' => 0,
+		'value' => 1,
+	]);
+}
+
+echo elgg_view_module('info', elgg_echo('event_manager:settings:add_event'), $add_event);
+
+
 // Other settings
 $other = elgg_view_field([
 	'#type' => 'text',
@@ -162,17 +202,11 @@ $other .= elgg_view_field([
 	'value' => $plugin->notification_sender,
 ]);
 
+// make sure cache is flushed after saving new settings
 $other .= elgg_view_field([
-	'#type' => 'select',
-	'#label' => elgg_echo('event_manager:settings:add_event_to_calendar'),
-	'#help' => elgg_echo('event_manager:settings:add_event_to_calendar:help'),
-	'name' => 'params[add_event_to_calendar]',
-	'value' => $plugin->add_event_to_calendar,
-	'options_values' => [
-		'no' => elgg_echo('option:no'),
-		'yes' => elgg_echo('option:yes'),
-		'attendee_only' => elgg_echo('event_manager:settings:add_event_to_calendar:attendee_only'),
-	],
+	'#type' => 'hidden',
+	'name' => 'flush_cache',
+	'value' => 1,
 ]);
 
 echo elgg_view_module('info', elgg_echo('event_manager:settings:other'), $other);
