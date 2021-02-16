@@ -461,6 +461,7 @@ If you didn't register for this event, you can ignore this email or click on the
 	'event_manager:addevent:mail:title' => 'Add to calendar',
 	'event_manager:addevent:mail:service:appleical' => 'Apple',
 	'event_manager:addevent:mail:service:google' => 'Google',
+	'event_manager:addevent:mail:service:office365' => 'Office365',
 	'event_manager:addevent:mail:service:outlook' => 'Outlook',
 	'event_manager:addevent:mail:service:outlookcom' => 'Outlook.com',
 	'event_manager:addevent:mail:service:yahoo' => 'Yahoo',
