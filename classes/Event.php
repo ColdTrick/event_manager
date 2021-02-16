@@ -623,7 +623,7 @@ class Event extends ElggObject {
 				if (!empty($attachment_contents)) {
 					$attachment['filename'] = 'event.ics';
 					$attachment['type'] = 'text/calendar';
-					$attachment['contents'] = $attachment_contents;
+					$attachment['content'] = $attachment_contents;
 				}
 			}
 			
