@@ -1,6 +1,13 @@
 Version history
 ===============
 
+12.3 (2021-02-16):
+
+- added: attending confirmation notifications now contain a event.ics
+- changed: added setting to only show add to calendar for attendees
+- changed: the addevent services can now be configured in settings
+- changed: updated to v1.6.1 of AddToCalendar feature
+
 12.2.1 (2020-11-11):
 
 - fixed: keep special characters intact in downloads
