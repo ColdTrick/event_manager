@@ -85,7 +85,7 @@ return [
 	],
 	'routes' => [
 		'add:object:event' => [
-			'path' => '/event/add/{guid?}',
+			'path' => '/event/add/{guid}',
 			'resource' => 'event/add',
 			'middleware' => [
 				Gatekeeper::class,
