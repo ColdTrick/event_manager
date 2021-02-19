@@ -36,7 +36,7 @@ use Elgg\Database\Select;
  */
 class Event extends ElggObject {
 	
-	const SUBTYPE = "event";
+	const SUBTYPE = 'event';
 
 	/**
 	 * initializes the default class attributes
@@ -46,7 +46,7 @@ class Event extends ElggObject {
 	protected function initializeAttributes() {
 		parent::initializeAttributes();
 
-		$this->attributes["subtype"] = self::SUBTYPE;
+		$this->attributes['subtype'] = self::SUBTYPE;
 	}
 	
 	/**
@@ -221,12 +221,7 @@ class Event extends ElggObject {
 	 */
 	public function rsvp($type = EVENT_MANAGER_RELATION_UNDO, $user_guid = 0, $reset_program = true, $add_to_river = true, $notify_on_rsvp = true) {
 		
-		$user_guid = sanitise_int($user_guid, false);
-
-		if (empty($user_guid)) {
-			$user_guid = elgg_get_logged_in_user_guid();
-		}
-
+		$user_guid = sanitise_int($user_guid, false) ?: elgg_get_logged_in_user_guid();
 		if (empty($user_guid)) {
 			return false;
 		}
@@ -253,7 +248,7 @@ class Event extends ElggObject {
 			elgg_delete_river([
 				'subject_guid' => $user_guid,
 				'object_guid' => $event_guid,
-				'action_type' => 'event_relationship'
+				'action_type' => 'event_relationship',
 			]);
 		}
 
@@ -261,17 +256,15 @@ class Event extends ElggObject {
 		if ($type && ($type != EVENT_MANAGER_RELATION_UNDO) && (in_array($type, event_manager_event_get_relationship_options()))) {
 			$result = $this->addRelationship($user_guid, $type);
 
-			if ($result && $add_to_river) {
-				if ($user_entity) {
-					// add river events
-					if (($type != 'event_waitinglist') && ($type != 'event_pending')) {
-						elgg_create_river_item([
-							'view' => 'river/event_relationship/create',
-							'action_type' => 'event_relationship',
-							'subject_guid' => $user_guid,
-							'object_guid' => $event_guid,
-						]);
-					}
+			if ($result && $add_to_river && $user_entity) {
+				// add river events
+				if (($type !== 'event_waitinglist') && ($type !== 'event_pending')) {
+					elgg_create_river_item([
+						'view' => 'river/event_relationship/create',
+						'action_type' => 'event_relationship',
+						'subject_guid' => $user_guid,
+						'object_guid' => $event_guid,
+					]);
 				}
 			}
 		} else {
@@ -330,7 +323,7 @@ class Event extends ElggObject {
 		if ($this->max_attendees != '') {
 			$attendees = $this->countAttendees();
 
-			if (($this->max_attendees > $attendees)) {
+			if ($this->max_attendees > $attendees) {
 				return true;
 			}
 		} else {
@@ -462,7 +455,7 @@ class Event extends ElggObject {
 	 *
 	 * @return false|string
 	 */
-	public function getProgramData($user_guid = null, $participate = false, $register_type = "register") {
+	public function getProgramData($user_guid = null, $participate = false, $register_type = 'register') {
 		if ($user_guid === null) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
@@ -476,7 +469,7 @@ class Event extends ElggObject {
 
 			$result = elgg_view('event_manager/program/view', [
 				'entity' => $this,
-				'member' => $user_guid
+				'member' => $user_guid,
 			]);
 
 			elgg_pop_context();
@@ -484,7 +477,7 @@ class Event extends ElggObject {
 			$result = elgg_view('event_manager/program/edit', [
 				'entity' => $this,
 				'register_type' => $register_type,
-				'member' => $user_guid
+				'member' => $user_guid,
 			]);
 		}
 
@@ -516,11 +509,12 @@ class Event extends ElggObject {
 			}
 	
 			// can we make nice links in the emails
-			$html_email_handler_enabled = elgg_is_active_plugin("html_email_handler");
+			$html_email_handler_enabled = elgg_is_active_plugin('html_email_handler');
 	
 			// do we have a registration link
-			$registrationLink = "";
-			$unsubscribeLink = "";
+			$registrationLink = '';
+			$unsubscribeLink = '';
+			$addevent = '';
 	
 			if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
 				if ($this->registration_needed) {
@@ -533,7 +527,10 @@ class Event extends ElggObject {
 					$registrationLink .= elgg_echo('event_manager:event:registration:notification:program:linktext');
 					$registrationLink .= PHP_EOL . PHP_EOL;
 					if ($html_email_handler_enabled) {
-						$registrationLink .= elgg_view("output/url", array("text" => $link, "href" => $link));
+						$registrationLink .= elgg_view('output/url', [
+							'text' => $link,
+							'href' => $link,
+						]);
 					} else {
 						$registrationLink .= $link;
 					}
@@ -549,7 +546,10 @@ class Event extends ElggObject {
 					$unsubscribeLink .= elgg_echo('event_manager:event:registration:notification:unsubscribe:linktext');
 					$unsubscribeLink .= PHP_EOL . PHP_EOL;
 					if ($html_email_handler_enabled) {
-						$unsubscribeLink .= elgg_view("output/url", array("text" => $link, "href" => $link));
+						$unsubscribeLink .= elgg_view('output/url', [
+							'text' => $link,
+							'href' => $link,
+						]);
 					} else {
 						$unsubscribeLink .= $link;
 					}
@@ -557,16 +557,16 @@ class Event extends ElggObject {
 				
 				if ($html_email_handler_enabled) {
 					// add addthisevent banners in footer
-					$registrationLink .= elgg_view('event_manager/email/addevent', ['entity' => $this]);
+					$addevent = elgg_view('event_manager/email/addevent', ['entity' => $this]);
 				}
 			}
 	
 			// make the event title for in the e-mail
 			if ($html_email_handler_enabled) {
-				$event_title_link = elgg_view("output/url", array(
-					"text" => $this->getDisplayName(),
-					"href" => $this->getURL(),
-				));
+				$event_title_link = elgg_view('output/url', [
+					'text' => $this->getDisplayName(),
+					'href' => $this->getURL(),
+				]);
 			} else {
 				$event_title_link = $this->getDisplayName();
 			}
@@ -592,7 +592,7 @@ class Event extends ElggObject {
 				}
 			}
 			
-			$user_message .= $registrationLink . $unsubscribeLink;
+			$user_message .= $registrationLink . $addevent . $unsubscribeLink;
 			
 			$attachment = [];
 			if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
