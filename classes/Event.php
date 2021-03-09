@@ -1135,4 +1135,44 @@ class Event extends ElggObject {
 			]);
 		});
 	}
+	
+	/**
+	 * Returns an array of entities based on the contact_guids metadata
+	 *
+	 * @param array $options additional options for elgg_get_entities
+	 *
+	 * @return \ElggEntity[]
+	 */
+	public function getContacts(array $options = []): array {
+		if (empty($this->contact_guids)) {
+			return [];
+		}
+		
+		$options['guids'] = $this->contact_guids;
+		$options['type'] = 'user';
+		$options['subtype'] = 'user';
+		$options['limit'] = false;
+		
+		return elgg_get_entities($options);
+	}
+	
+	/**
+	 * Returns an array of entities based on the organizer_guids metadata
+	 *
+	 * @param array $options additional options for elgg_get_entities
+	 *
+	 * @return \ElggEntity[]
+	 */
+	public function getOrganizers(array $options = []): array {
+		if (empty($this->organizer_guids)) {
+			return [];
+		}
+		
+		$options['guids'] = $this->organizer_guids;
+		$options['type'] = 'user';
+		$options['subtype'] = 'user';
+		$options['limit'] = false;
+		
+		return elgg_get_entities($options);
+	}
 }
