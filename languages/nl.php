@@ -1,10 +1,23 @@
 <?php
 /**
- * This file was created by Translation Editor v7.0.4
- * On 2020-09-21 11:04
+ * This file was created by Translation Editor v8.0
+ * On 2021-03-10 11:39
  */
 
 return array (
+  'item:object:eventmail' => 'Event deelnemers e-mail',
+  'collection:object:eventmail' => 'Event deelnemer e-mails',
+  'event_manager:menu:mail' => 'Mail deelnemers',
+  'event_manager:action:event:mail:success' => 'De evenement e-mail is opgeslagen en zal spoedig worden verstuurd naar de ontvangers',
+  'event_manager:settings:event_mail' => 'Evenement eigenaren mogen een e-mail notificatie sturen naar de deelnemers',
+  'event_manager:settings:event_mail:help' => 'Indien ingeschakeld kunnen evenement eigenaren een e-mail notificatie sturen naar een specifieke groep deelnemers',
+  'event_manager:mail:title' => 'Mail de deelnements van %s',
+  'event_manager:mail:recipients' => 'Ontvangers',
+  'event_manager:mail:notification:subject' => '%s: %s',
+  'event_manager:mail:notification:body' => '%s
+
+Om het evenement te bekijken, klik hier:
+%s',
   'event_manager:list:more' => 'Meer evenementen',
   'event_manager:list:more:with_tag' => 'Meer evenementen met tag %s',
   'widgets:events:tag_filter' => 'Tag filter',

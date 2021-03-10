@@ -5,6 +5,14 @@ if (!$plugin instanceof \ElggPlugin) {
 	return;
 }
 
+// make sure cache is flushed after saving new settings
+echo elgg_view_field([
+	'#type' => 'hidden',
+	'name' => 'flush_cache',
+	'value' => 1,
+]);
+
+// Maps settings
 elgg_require_js('plugins/event_manager/settings');
 
 $maps_provider = $plugin->maps_provider;
@@ -130,7 +138,6 @@ $services = [
 	'appleical' => 'iCal Calendar',
 ];
 
-$fields = [];
 foreach ($services as $service => $label) {
 	$service_setting = "show_service_{$service}";
 	$add_event .= elgg_view_field([
@@ -202,10 +209,14 @@ $other .= elgg_view_field([
 	'value' => $plugin->notification_sender,
 ]);
 
-// make sure cache is flushed after saving new settings
 $other .= elgg_view_field([
-	'#type' => 'hidden',
-	'name' => 'flush_cache',
+	'#type' => 'checkbox',
+	'#label' => elgg_echo('event_manager:settings:event_mail'),
+	'#help' => elgg_echo('event_manager:settings:event_mail:help'),
+	'name' => 'params[event_mail]',
+	'checked' => (bool) $plugin->event_mail,
+	'switch' => true,
+	'default' => 0,
 	'value' => 1,
 ]);
 

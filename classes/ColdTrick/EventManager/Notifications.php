@@ -4,6 +4,8 @@ namespace ColdTrick\EventManager;
 
 use Elgg\Email;
 use Elgg\Email\Address;
+use Elgg\Notifications\NotificationEvent;
+use Elgg\Notifications\Notification;
 
 class Notifications {
 
@@ -65,5 +67,111 @@ class Notifications {
 		$email->setFrom(new Address($site->getEmailAddress(), $site->getDisplayName()));
 		
 		return $email;
+	}
+	
+	/**
+	 * Get the subscribers for the event mail to attendees
+	 *
+	 * @param \Elgg\Hook $hook 'get', 'subscriptions'
+	 *
+	 * @return void|array
+	 */
+	public static function getEventMailSubscriptions(\Elgg\Hook $hook) {
+		
+		$event = $hook->getParam('event');
+		if (!$event instanceof NotificationEvent) {
+			return;
+		}
+		
+		$object = $event->getObject();
+		if (!$object instanceof \EventMail) {
+			return;
+		}
+		
+		return $object->getSubscriptions();
+	}
+	
+	/**
+	 * Prepare the mail notification for the event mail
+	 *
+	 * @param \Elgg\Hook $hook 'prepare', 'notification:create:object:eventmail'
+	 *
+	 * @return void|Notification
+	 */
+	public static function prepareCreateEventMailNotification(\Elgg\Hook $hook) {
+		
+		$entity = $hook->getParam('object');
+		if (!$entity instanceof \EventMail) {
+			return;
+		}
+		
+		$container = $entity->getContainerEntity();
+		if (!$container instanceof \Event) {
+			return;
+		}
+		
+		$language = $hook->getParam('language');
+		
+		/* @var $result Notification */
+		$result = $hook->getValue();
+		
+		$result->subject = elgg_echo('event_manager:mail:notification:subject', [
+			$container->getDisplayName(),
+			$entity->getDisplayName(),
+		], $language);
+		$result->body = elgg_echo('event_manager:mail:notification:body', [
+			$entity->description,
+			$container->getURL(),
+		], $language);
+		
+		return $result;
+	}
+	
+	/**
+	 * Send the notification to the mail owner and cleanup the event mail object
+	 *
+	 * @param \Elgg\Hook $hook 'send:after', 'notifications'
+	 *
+	 * @return void
+	 */
+	public static function sendAfterEventMail(\Elgg\Hook $hook) {
+		
+		$event = $hook->getParam('event');
+		if (!$event instanceof NotificationEvent) {
+			return;
+		}
+		
+		$entity = $event->getObject();
+		if (!$entity instanceof \EventMail) {
+			return;
+		}
+		
+		$deliveries = $hook->getParam('deliveries');
+		if (empty($deliveries[$entity->owner_guid]['email'])) {
+			// mail was not send to owner
+			$owner = $entity->getOwnerEntity();
+			$container = $entity->getContainerEntity();
+			
+			$email = Email::factory([
+				'to' => $owner,
+				'subject' => elgg_echo('event_manager:mail:notification:subject', [
+					$container->getDisplayName(),
+					$entity->getDisplayName(),
+				], $owner->getLanguage()),
+				'body' => elgg_echo('event_manager:mail:notification:body', [
+					$entity->description,
+					$container->getURL(),
+				], $owner->getLanguage()),
+				'params' => [
+					'object' => $entity,
+					'action' => $event->getAction(),
+				],
+			]);
+			
+			elgg_send_email($email);
+		}
+		
+		// remove the mail entity
+		$entity->delete();
 	}
 }
