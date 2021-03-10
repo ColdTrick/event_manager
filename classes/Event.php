@@ -1158,11 +1158,12 @@ class Event extends ElggObject {
 	/**
 	 * Returns an array of entities based on the contact_guids metadata
 	 *
-	 * @param array $options additional options for elgg_get_entities
+	 * @param array $options additional options for elgg_get_entities()
 	 *
-	 * @return \ElggEntity[]
+	 * @return \ElggEntity[]|int
+	 * @see elgg_get_entities()
 	 */
-	public function getContacts(array $options = []): array {
+	public function getContacts(array $options = []) {
 		if (empty($this->contact_guids)) {
 			return [];
 		}
@@ -1178,11 +1179,12 @@ class Event extends ElggObject {
 	/**
 	 * Returns an array of entities based on the organizer_guids metadata
 	 *
-	 * @param array $options additional options for elgg_get_entities
+	 * @param array $options additional options for elgg_get_entities()
 	 *
-	 * @return \ElggEntity[]
+	 * @return \ElggEntity[]|int
+	 * @see elgg_get_entities()
 	 */
-	public function getOrganizers(array $options = []): array {
+	public function getOrganizers(array $options = []) {
 		if (empty($this->organizer_guids)) {
 			return [];
 		}

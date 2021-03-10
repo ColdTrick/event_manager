@@ -12,12 +12,14 @@ return array(
 	'item:object:eventregistration' => 'Eventregistrations',
 	'item:object:eventregistrationquestion' => 'Event Registration Questions',
 	'item:object:eventquestions' => 'Event Questions',
+	'item:object:eventmail' => 'Event Attendees e-mail',
 	
 	'collection:object:event' => "Events",
 	'collection:object:eventslot' => "Eventslots",
 	'collection:object:eventday' => "Eventdays",
 	'collection:object:eventregistration' => "Eventregistrations",
 	'collection:object:eventregistrationquestion' => "Event Registration Questions",
+	'collection:object:eventmail' => "Event Attendees e-mails",
 
 	'event_manager:date:format' => 'Y-m-d',
 	'event_manager:entity:copy' => 'Copy of: %s',
@@ -28,6 +30,7 @@ return array(
 	'event_manager:menu:copy' => 'Copy event',
 	'event_manager:menu:unsubscribe' => "Unsubscribe",
 	'event_manager:menu:attending' => "Attending",
+	'event_manager:menu:mail' => "Mail attendees",
 
 	'event_manager:notification:subject' => "An event has been created",
 	'event_manager:notification:summary' => "An event has been created",
@@ -356,6 +359,8 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:action:slot:not_found' => "The slot was not found",
 	'event_manager:action:slot:cannot_save' => 'Something went wrong when attempting to save the slot',
 	'event_manager:action:slot:saved' => 'Slot saved',
+	
+	'event_manager:action:event:mail:success' => "Event mail has been saved and will shortly be sent to the recipients",
 
 	// settings
 	'event_manager:settings:maps' => 'Maps Integration settings',
@@ -381,6 +386,8 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:settings:type_list' => 'Enter (comma separated) event types',
 	'event_manager:settings:rsvp:interested' => 'RSVP option "interested" is enabled',
 	'event_manager:settings:notification_sender' => 'RSVP notification sender (email)',
+	'event_manager:settings:event_mail' => "Allow event creators to send an e-mail notification to attendees",
+	'event_manager:settings:event_mail:help' => "When enabled event creators can send an e-mail notification to specific groups of event attendees",
 
 	'event_manager:settings:migration:site:whocancreate' => 'Who can create site events',
 	'event_manager:settings:migration:site:whocancreate:admin_only' => 'admin only',
@@ -469,4 +476,12 @@ If you didn't register for this event, you can ignore this email or click on the
 	'event_manager:addevent:mail:service:yahoo' => 'Yahoo',
 	
 	'event_manager:popup:event_link' => 'Go to the event',
+	
+	'event_manager:mail:title' => 'Mail attendees of %s',
+	'event_manager:mail:recipients' => 'Recipients',
+	'event_manager:mail:notification:subject' => "%s: %s",
+	'event_manager:mail:notification:body' => "%s
+
+To view the event, click here:
+%s",
 );
