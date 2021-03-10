@@ -115,6 +115,8 @@ return array(
 	'event_manager:edit:form:registration_needed' => 'Attendees need to specify a personal day program and/or answer additional questions',
 	'event_manager:edit:form:show_attendees' => 'Display attendees?',
 	'event_manager:edit:form:notify_onsignup' => 'Notify me when someone signs up',
+	'event_manager:edit:form:notify_onsignup_contact' => 'Send a copy to users entered in contact persons',
+	'event_manager:edit:form:notify_onsignup_organizer' => 'Send a copy to users entered in organizers',
 	'event_manager:edit:form:start' => 'Start',
 	'event_manager:edit:form:end' => 'End',
 	'event_manager:edit:form:start_day' => 'Date',

@@ -78,7 +78,7 @@ $event->event_interested = 1;
 
 $metadata_fields = [
 	'shortdescription', 'comments_on', 'registration_ended', 'registration_needed', 'show_attendees',
-	'notify_onsignup', 'venue', 'contact_details', 'website',
+	'notify_onsignup', 'notify_onsignup_contact', 'notify_onsignup_organizer', 'venue', 'contact_details', 'website',
 	'organizer', 'fee', 'fee_details', 'register_nologin', 'waiting_list_enabled', 'registration_completed',
 	'organizer_guids', 'contact_guids', 'region', 'event_type',
 ];

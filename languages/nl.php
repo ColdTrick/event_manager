@@ -1,10 +1,15 @@
 <?php
 /**
  * This file was created by Translation Editor v7.0.4
- * On 2020-09-21 11:04
+ * On 2021-03-10 11:57
  */
 
 return array (
+  'event_manager:edit:form:notify_onsignup_contact' => 'Stuur een kopie naar de gebruikers ingevoerd bij contactpersonen',
+  'event_manager:edit:form:notify_onsignup_organizer' => 'Stuur een kopie naar de gebruikers ingevoerd bij organisatoren',
+  'event_manager:settings:add_event' => 'AddEvent instellingen',
+  'event_manager:settings:add_event:service' => 'Activeer de dienst: %s',
+  'event_manager:addevent:mail:service:office365' => 'Office365',
   'event_manager:list:more' => 'Meer evenementen',
   'event_manager:list:more:with_tag' => 'Meer evenementen met tag %s',
   'widgets:events:tag_filter' => 'Tag filter',

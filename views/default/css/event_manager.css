@@ -78,6 +78,35 @@
 	display: inline-block;
 }
 
+#event_manager_event_edit { 
+	.elgg-fieldset-has-legend {
+		position: relative;
+		
+		> legend {
+			font-weight: 600;
+			font-size: 0.9rem;
+			position: absolute;
+			top: -0.8em;
+			background: white;
+			margin-left: -5px;
+			padding: 0 5px;
+		}
+		
+		.elgg-input-single-checkbox .elgg-field-label {
+			font-weight: 400;
+			font-size: 100%;
+		}
+		
+		> .elgg-field {
+			margin-bottom: .5rem;
+			
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+
 .event_manager_event_edit_date {
 	width: 100px;
 	height: 20px;

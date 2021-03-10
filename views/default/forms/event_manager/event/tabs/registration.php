@@ -43,49 +43,82 @@ echo elgg_view_field([
 ]);
 echo '</div>';
 
-$with_program = elgg_view('input/checkboxes', [
-	'name' => 'with_program',
-	'id' => 'with_program',
-	'value' => $vars['with_program'],
-	'options' => [elgg_echo('event_manager:edit:form:with_program') => '1'],
-]);
+$fields = [
+	[
+		'#type' => 'checkbox',
+		'#label' => elgg_echo('event_manager:edit:form:with_program'),
+		'name' => 'with_program',
+		'id' => 'with_program',
+		'checked' => (bool) $vars['with_program'],
+		'switch' => true,
+		'default' => 0,
+		'value' => 1,
+	],
+	[
+		'#type' => 'checkbox',
+		'#label' => elgg_echo('event_manager:edit:form:registration_needed'),
+		'name' => 'registration_needed',
+		'checked' => (bool) $vars['registration_needed'],
+		'switch' => true,
+		'default' => 0,
+		'value' => 1,
+	],
+	[
+		'#type' => 'checkbox',
+		'#label' => elgg_echo('event_manager:edit:form:show_attendees'),
+		'name' => 'show_attendees',
+		'checked' => (bool) $vars['show_attendees'],
+		'switch' => true,
+		'default' => 0,
+		'value' => 1,
+	],
+	[
+		'#type' => 'checkbox',
+		'#label' => elgg_echo('event_manager:edit:form:notify_onsignup'),
+		'name' => 'notify_onsignup',
+		'checked' => (bool) $vars['notify_onsignup'],
+		'switch' => true,
+		'default' => 0,
+		'value' => 1,
+	],
+	[
+		'#type' => 'checkbox',
+		'#label' => elgg_echo('event_manager:edit:form:notify_onsignup_contact'),
+		'#class' => 'mll',
+		'name' => 'notify_onsignup_contact',
+		'checked' => (bool) $vars['notify_onsignup_contact'],
+		'switch' => true,
+		'default' => 0,
+		'value' => 1,
+	],
+	[
+		'#type' => 'checkbox',
+		'#label' => elgg_echo('event_manager:edit:form:notify_onsignup_organizer'),
+		'#class' => 'mll',
+		'name' => 'notify_onsignup_organizer',
+		'checked' => (bool) $vars['notify_onsignup_organizer'],
+		'switch' => true,
+		'default' => 0,
+		'value' => 1,
+	],
+];
 
-$registration_needed = elgg_view('input/checkboxes', [
-	'name' => 'registration_needed',
-	'value' => $vars['registration_needed'],
-	'options' => [elgg_echo('event_manager:edit:form:registration_needed') => '1'],
-]);
-
-$register_nologin = '';
 if (!elgg_get_config('walled_garden')) {
-	$register_nologin = elgg_view('input/checkboxes', [
+	array_unshift($fields, [
+		'#type' => 'checkbox',
+		'#label' => elgg_echo('event_manager:edit:form:register_nologin'),
 		'name' => 'register_nologin',
-		'value' => $vars['register_nologin'],
-		'options' => [elgg_echo('event_manager:edit:form:register_nologin') => '1'],
+		'checked' => (bool) $vars['register_nologin'],
+		'switch' => true,
+		'default' => 0,
+		'value' => 1,
 	]);
 }
 
-$notify_onsignup = elgg_view('input/checkboxes', [
-	'name' => 'notify_onsignup',
-	'value' => $vars['notify_onsignup'],
-	'options' => [
-		elgg_echo('event_manager:edit:form:notify_onsignup') => '1',
-	],
-]);
-
-$show_attendees = elgg_view('input/checkboxes', [
-	'name' => 'show_attendees',
-	'value' => $vars['show_attendees'],
-	'options' => [
-		elgg_echo('event_manager:edit:form:show_attendees') => '1',
-	],
-]);
-
-echo elgg_view('elements/forms/field', [
-	'label' => elgg_view('elements/forms/label', [
-		'label' => elgg_echo('event_manager:edit:form:registration_options'),
-	]),
-	'input' => $with_program . $registration_needed  . $register_nologin . $notify_onsignup . $show_attendees,
+echo elgg_view_field([
+	'#type' => 'fieldset',
+	'legend' => elgg_echo('event_manager:edit:form:registration_options'),
+	'fields' => $fields,
 ]);
 
 echo '<div class="event-manager-event-edit-level">';

@@ -10,29 +10,31 @@ use Elgg\Database\Select;
  *
  * @package EventManager
  *
- * @property bool   $comments_on            comments enabled
- * @property string $contact_details        contact details
- * @property int[]  $contact_guids          additional contact persons
- * @property int    $endregistration_day    date until which registration is allowed
- * @property string $event_type             admin controlled event type
- * @property int    $event_start            start date
- * @property int    $event_end              end date
- * @property string $fee                    fee for the event
- * @property string $fee_details            information about the fee
- * @property bool   $notify_onsignup        event owner receives notification on new registration
- * @property string $organizer              organizer
- * @property int[]  $organizer_guids        additional organizers
- * @property string $region                 admin controlled event region
- * @property string $registration_completed text to show after registration is completed
- * @property bool   $registration_ended     is registration closed
- * @property bool   $registration_needed    is registration needed
- * @property bool   $register_nologin       registration is enabled for non site users
- * @property string $shortdescription       short event description
- * @property bool   $show_attendees         show attendees to users
- * @property string $venue                  venue of the event
- * @property bool   $waiting_list_enabled   is a waitling list enabled
- * @property string $website                event website
- * @property bool   $with_program           has a program
+ * @property bool   $comments_on               comments enabled
+ * @property string $contact_details           contact details
+ * @property int[]  $contact_guids             additional contact persons
+ * @property int    $endregistration_day       date until which registration is allowed
+ * @property string $event_type                admin controlled event type
+ * @property int    $event_start               start date
+ * @property int    $event_end                 end date
+ * @property string $fee                       fee for the event
+ * @property string $fee_details               information about the fee
+ * @property bool   $notify_onsignup           event owner receives notification on new registration
+ * @property bool   $notify_onsignup_organizer event organizers receive notification on new registration
+ * @property bool   $notify_onsignup_contact   event contacts receive notification on new registration
+ * @property string $organizer                 organizer
+ * @property int[]  $organizer_guids           additional organizers
+ * @property string $region                    admin controlled event region
+ * @property string $registration_completed    text to show after registration is completed
+ * @property bool   $registration_ended        is registration closed
+ * @property bool   $registration_needed       is registration needed
+ * @property bool   $register_nologin          registration is enabled for non site users
+ * @property string $shortdescription          short event description
+ * @property bool   $show_attendees            show attendees to users
+ * @property string $venue                     venue of the event
+ * @property bool   $waiting_list_enabled      is a waitling list enabled
+ * @property string $website                   event website
+ * @property bool   $with_program              has a program
  */
 class Event extends ElggObject {
 	
@@ -676,27 +678,44 @@ class Event extends ElggObject {
 			return;
 		}
 		
-		$owner_subject = elgg_echo('event_manager:event:registration:notification:owner:subject');
-
-		$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, [
-			$this->getOwnerEntity()->getDisplayName(),
-			$rsvp_entity->getDisplayName(),
-			$event_title_link,
-		]) . $registration_link;
-		
-		$summary = elgg_echo('event_manager:event:registration:notification:owner:summary:' . $type, [
-			$rsvp_entity->getDisplayName(),
-			$this->getDisplayName(),
-		]);
-		
 		// set params for site notifications
 		$params = [
-			'summary' => $summary,
+			'summary' => elgg_echo('event_manager:event:registration:notification:owner:summary:' . $type, [
+				$rsvp_entity->getDisplayName(),
+				$this->getDisplayName(),
+			]),
 			'object' => $this,
 			'action' => 'rsvp_owner',
 		];
 		
-		notify_user($this->owner_guid, $rsvp_entity->guid, $owner_subject, $owner_message, $params);
+		$owner_subject = elgg_echo('event_manager:event:registration:notification:owner:subject');
+
+		$recipients = [
+			$this->owner_guid => $this->getOwnerEntity(),
+		];
+		
+		if ($this->notify_onsignup_contact) {
+			foreach ($this->getContacts() as $recipient) {
+				$recipients[$recipient->guid] = $recipient;
+			}
+		}
+		
+		if ($this->notify_onsignup_organizer) {
+			foreach ($this->getOrganizers() as $recipient) {
+				$recipients[$recipient->guid] = $recipient;
+			}
+		}
+		
+		foreach ($recipients as $user) {
+			$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, [
+				$user->getDisplayName(),
+				$rsvp_entity->getDisplayName(),
+				$event_title_link,
+			]) . $registration_link;
+					
+			
+			notify_user($user->guid, $rsvp_entity->guid, $owner_subject, $owner_message, $params);
+		}
 	}
 
 	/**
