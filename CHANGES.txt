@@ -1,6 +1,11 @@
 Version history
 ===============
 
+12.4 (2021-03-16):
+
+- added: event creators can mail event attendees
+- added: send rsvp notifications to contacts and organizers
+
 12.3.1 (2021-03-02):
 
 - fixed: add event buttons not added to rsvp to owner notification
