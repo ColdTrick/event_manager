@@ -16,7 +16,7 @@ return array (
   'event_manager:action:event:mail:success' => 'De evenement e-mail is opgeslagen en zal spoedig worden verstuurd naar de ontvangers',
   'event_manager:settings:event_mail' => 'Evenement eigenaren mogen een e-mail notificatie sturen naar de deelnemers',
   'event_manager:settings:event_mail:help' => 'Indien ingeschakeld kunnen evenement eigenaren een e-mail notificatie sturen naar een specifieke groep deelnemers',
-  'event_manager:mail:title' => 'Mail de deelnements van %s',
+  'event_manager:mail:title' => 'Mail de deelnemers van %s',
   'event_manager:mail:recipients' => 'Ontvangers',
   'event_manager:mail:notification:subject' => '%s: %s',
   'event_manager:mail:notification:body' => '%s
