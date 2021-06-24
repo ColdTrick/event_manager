@@ -1,6 +1,5 @@
-elgg.provide("elgg.event_manager");
+define(['jquery', 'elgg'], function($, elgg) {
 
-elgg.event_manager.slot_set_init = function() {
 	var $form = $("#event_manager_event_register");
 	if ($form.length > 0) {
 		var set_names = []; // store processed set names
@@ -26,13 +25,8 @@ elgg.event_manager.slot_set_init = function() {
 			}
 		});
 	}
-};
-
-elgg.event_manager.init = function() {
-
-	elgg.event_manager.slot_set_init();
 	
-	$('#event_manager_event_register').submit(function() {
+	$(document).on('submit', '#event_manager_event_register', function() {
 		if (($("input[name='question_name']").val() === "") || ($("input[name='question_email']").val() === "")) {
 			elgg.register_error(elgg.echo("event_manager:registration:required_fields"));
 			return false;
@@ -67,6 +61,4 @@ elgg.event_manager.init = function() {
 
 		$('#event_manager_program_guids').val(guids.join(','));
 	});
-};
-
-elgg.register_hook_handler('init', 'system', elgg.event_manager.init);
+});

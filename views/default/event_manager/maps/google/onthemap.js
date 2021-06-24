@@ -1,4 +1,4 @@
-define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
+define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/lightbox', 'event_manager/maps'], function($, elgg, Ajax, lightbox, EventMap) {
 	
 	var execute_search_map = function(event) {
 			
@@ -60,10 +60,8 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 					}
 					
 					elgg.event_manager.markers[event.guid] = elgg.event_manager.map.gmap.addMarker(markerOptions).addListener('click', function() {
-						require(['elgg/lightbox'], function(lightbox) {
-							lightbox.open({
-								'href': elgg.normalize_url('ajax/view/event_manager/event/popup?guid=' + event.guid),
-							});
+						lightbox.open({
+							'href': elgg.normalize_url('ajax/view/event_manager/event/popup?guid=' + event.guid),
 						});
 					});
 				});
@@ -73,10 +71,8 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 	
 	var initialize_tab = function() {
 		if (typeof elgg.event_manager.map === 'undefined') {
-			require(['event_manager/maps'], function (EventMap) {
-				elgg.event_manager.map = EventMap.setup('#event_manager_onthemap_canvas');
-				elgg.event_manager.map.gmap.addListener('idle', execute_search_map);
-			});
+			elgg.event_manager.map = EventMap.setup('#event_manager_onthemap_canvas');
+			elgg.event_manager.map.gmap.addListener('idle', execute_search_map);
 		} else {
 			execute_search_map();
 		}

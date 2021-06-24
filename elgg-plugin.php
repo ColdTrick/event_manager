@@ -5,19 +5,6 @@ use Elgg\Router\Middleware\Gatekeeper;
 use ColdTrick\EventManager\Event\Day;
 use ColdTrick\EventManager\Event\Slot;
 
-define('EVENT_MANAGER_RELATION_ATTENDING', 'event_attending');
-define('EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST', 'event_waitinglist');
-define('EVENT_MANAGER_RELATION_ATTENDING_PENDING', 'event_pending');
-define('EVENT_MANAGER_RELATION_EXHIBITING', 'event_exhibiting');
-define('EVENT_MANAGER_RELATION_ORGANIZING', 'event_organizing');
-define('EVENT_MANAGER_RELATION_PRESENTING', 'event_presenting');
-define('EVENT_MANAGER_RELATION_INTERESTED', 'event_interested');
-define('EVENT_MANAGER_RELATION_UNDO', 'event_undo');
-
-define('EVENT_MANAGER_RELATION_SLOT_REGISTRATION', 'event_slot_registration');
-define('EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST', 'event_slot_registration_waitinglist');
-define('EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING', 'event_slot_registration_pending');
-
 require_once(dirname(__FILE__) . '/lib/functions.php');
 
 $composer_path = '';
@@ -26,6 +13,9 @@ if (is_dir(__DIR__ . '/vendor')) {
 }
 
 return [
+	'plugin' => [
+		'version' => '12.4',
+	],
 	'bootstrap' => Bootstrap::class,
 	'settings' => [
 		'maps_provider' => 'google',

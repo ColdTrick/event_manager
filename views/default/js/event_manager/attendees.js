@@ -1,8 +1,4 @@
-define(function(require) {
-	
-	var $ = require('jquery');
-	var Ajax = require('elgg/Ajax');
-	
+define(['jquery', 'elgg/Ajax'], function($, Ajax) {
 	$(document).on('submit', 'form.elgg-form-event-manager-event-attendees', function() {
 		
 		var form = this;

@@ -1,4 +1,5 @@
 define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
+	
 	function EventMap(options) {
 		this.event_map = leaflet.map(options.element, options);
 
@@ -29,10 +30,8 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 			this.event_map.setView([elgg.data.event_manager_osm_default_location_lat, elgg.data.event_manager_osm_default_location_lng]);			
 		},
 		getGeocode : function(address, callback) {
-			var result = elgg.getJSON('https://nominatim.openstreetmap.org/search?q=' + address + '&format=json&limit=1&addressdetails=1', {
-				success: function(data) {
-					callback(data[0]);
-				}
+			$.getJSON('https://nominatim.openstreetmap.org/search?q=' + address + '&format=json&limit=1&addressdetails=1', function(data) {
+				callback(data[0]);
 			});
 			this.event_map.attributionControl.addAttribution('© <a href="https://nominatim.openstreetmap.org">Nominatim</a>');
 		},

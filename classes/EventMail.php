@@ -25,7 +25,7 @@ class EventMail extends \ElggObject {
 	 *
 	 * @return array
 	 */
-	public function getSubscriptions(): array {
+	public function getMailSubscriptions(): array {
 		$result = [
 			$this->owner_guid => ['email'],
 		];

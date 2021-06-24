@@ -119,7 +119,7 @@ class Event extends ElggObject {
 	 *
 	 * @see elgg_get_excerpt()
 	 */
-	public function getExcerpt($limit = null) {
+	public function getExcerpt(int $limit = null): string {
 		$result = $this->shortdescription ?: $this->description;
 		
 		return elgg_get_excerpt($result, $limit);
@@ -130,7 +130,7 @@ class Event extends ElggObject {
 	 *
 	 * @return int the timestamp
 	 */
-	public function getStartTimestamp() {
+	public function getStartTimestamp(): ?int {
 		return $this->event_start;
 	}
 	
@@ -139,7 +139,7 @@ class Event extends ElggObject {
 	 *
 	 * @return int the timestamp
 	 */
-	public function getEndTimestamp() {
+	public function getEndTimestamp(): ?int {
 		return $this->event_end;
 	}
 	
@@ -152,7 +152,7 @@ class Event extends ElggObject {
 	 *
 	 * @return string a formatted date string
 	 */
-	public function getStartDate($format = 'c') {
+	public function getStartDate(string $format = 'c'): string {
 		return gmdate($format, $this->getStartTimestamp());
 	}
 	
@@ -165,7 +165,7 @@ class Event extends ElggObject {
 	 *
 	 * @return string a formatted date string
 	 */
-	public function getEndDate($format = 'c') {
+	public function getEndDate(string $format = 'c'): string {
 		return gmdate($format, $this->getEndTimestamp());
 	}
 	
@@ -174,7 +174,7 @@ class Event extends ElggObject {
 	 *
 	 * @return bool is it a multiday event
 	 */
-	public function isMultiDayEvent() {
+	public function isMultiDayEvent(): bool {
 		$start = $this->getStartDate('d-m-Y');
 		$end = $this->getEndDate('d-m-Y');
 		
@@ -188,7 +188,7 @@ class Event extends ElggObject {
 	 *
 	 * @return void
 	 */
-	public function setMaxAttendees($max) {
+	public function setMaxAttendees($max): void {
 		if (!empty($max) && !is_numeric($max)) {
 			$max = null;
 		}
@@ -197,17 +197,21 @@ class Event extends ElggObject {
 	}
 
 	/**
-	 * Returns files for the event
+	 * Returns if event has files
 	 *
-	 * @return mixed|false
+	 * @return bool
 	 */
-	public function hasFiles() {
-		$files = json_decode($this->files);
-		if (!empty($files) && count($files) > 0) {
-			return $files;
-		}
-
-		return false;
+	public function hasFiles(): bool {
+		return !empty($this->getFiles());
+	}
+	
+	/**
+	 * Returns an array of files
+	 *
+	 * @return array
+	 */
+	public function getFiles(): array {
+		return json_decode($this->files) ?: [];
 	}
 
 	/**
@@ -221,9 +225,9 @@ class Event extends ElggObject {
 	 *
 	 * @return boolean
 	 */
-	public function rsvp($type = EVENT_MANAGER_RELATION_UNDO, $user_guid = 0, $reset_program = true, $add_to_river = true, $notify_on_rsvp = true) {
+	public function rsvp(string $type = EVENT_MANAGER_RELATION_UNDO, int $user_guid = 0, bool $reset_program = true, bool $add_to_river = true, bool $notify_on_rsvp = true): bool {
 		
-		$user_guid = sanitise_int($user_guid, false) ?: elgg_get_logged_in_user_guid();
+		$user_guid = $user_guid ?: elgg_get_logged_in_user_guid();
 		if (empty($user_guid)) {
 			return false;
 		}
@@ -293,7 +297,7 @@ class Event extends ElggObject {
 	 *
 	 * @return void
 	 */
-	protected function undoRegistration($user_guid, $reset_program) {
+	protected function undoRegistration(int $user_guid, bool $reset_program): void {
 		global $EVENT_MANAGER_UNDO_REGISTRATION;
 		
 		$user_entity = get_user($user_guid);
@@ -321,7 +325,7 @@ class Event extends ElggObject {
 	 *
 	 * @return boolean
 	 */
-	public function hasEventSpotsLeft() {
+	public function hasEventSpotsLeft(): bool {
 		if ($this->max_attendees != '') {
 			$attendees = $this->countAttendees();
 
@@ -340,7 +344,7 @@ class Event extends ElggObject {
 	 *
 	 * @return boolean
 	 */
-	public function hasSlotSpotsLeft() {
+	public function hasSlotSpotsLeft(): bool {
 		$slotsSpots = $this->countEventSlotSpots();
 		
 		if ((elgg_extract('total', $slotsSpots) > 0) && (elgg_extract('left', $slotsSpots) < 1) && !$this->hasUnlimitedSpotSlots()) {
@@ -355,7 +359,7 @@ class Event extends ElggObject {
 	 *
 	 * @return boolean
 	 */
-	public function openForRegistration() {
+	public function openForRegistration(): bool {
 		if ($this->registration_ended || (!empty($this->endregistration_day) && $this->endregistration_day < time())) {
 			return false;
 		}
@@ -370,7 +374,7 @@ class Event extends ElggObject {
 	 *
 	 * @return void
 	 */
-	public function clearRegistrations($user_guid = null) {
+	public function clearRegistrations(int $user_guid = null): void {
 		if ($user_guid === null) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
@@ -394,7 +398,7 @@ class Event extends ElggObject {
 	 *
 	 * @return boolean
 	 */
-	public function hasRegistrationForm() {
+	public function hasRegistrationForm(): bool {
 		if (!elgg_is_logged_in()) {
 			return true;
 		}
@@ -415,7 +419,7 @@ class Event extends ElggObject {
 	 *
 	 * @return void
 	 */
-	public function generateInitialProgramData() {
+	public function generateInitialProgramData(): void {
 	
 		if (empty($this->with_program)) {
 			return;
@@ -457,7 +461,7 @@ class Event extends ElggObject {
 	 *
 	 * @return false|string
 	 */
-	public function getProgramData($user_guid = null, $participate = false, $register_type = 'register') {
+	public function getProgramData(int $user_guid = null, bool $participate = false, string $register_type = 'register') {
 		if ($user_guid === null) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
@@ -494,7 +498,7 @@ class Event extends ElggObject {
 	 *
 	 * @return void
 	 */
-	protected function notifyOnRsvp($type, $to = null) {
+	protected function notifyOnRsvp(string $type, int $to = null): void {
 
 		if ($type == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
 			return;
@@ -672,7 +676,7 @@ class Event extends ElggObject {
 	 *
 	 * @return void
 	 */
-	protected function notifyOwnerOnRSVP($type, ElggEntity $rsvp_entity, $event_title_link, $registration_link = '') {
+	protected function notifyOwnerOnRSVP(string $type, \ElggEntity $rsvp_entity, string $event_title_link, string $registration_link = ''): void {
 		
 		if (!$this->notify_onsignup) {
 			return;
@@ -712,7 +716,6 @@ class Event extends ElggObject {
 				$rsvp_entity->getDisplayName(),
 				$event_title_link,
 			]) . $registration_link;
-					
 			
 			notify_user($user->guid, $rsvp_entity->guid, $owner_subject, $owner_message, $params);
 		}
@@ -726,7 +729,7 @@ class Event extends ElggObject {
 	 *
 	 * @return void
 	 */
-	public function relateToAllSlots($relate = true, $guid = null) {
+	public function relateToAllSlots(bool $relate = true, int $guid = null): void {
 		if ($guid === null) {
 			$guid = elgg_get_logged_in_user_guid();
 		}
@@ -766,17 +769,17 @@ class Event extends ElggObject {
 	 *
 	 * @return array
 	 */
-	protected function countEventSlotSpots() {
-		$spots = [
-			'total' => 0,
-			'left' => 0,
-		];
-
+	protected function countEventSlotSpots(): array {
 		$eventDays = $this->getEventDays();
 		if (empty($eventDays)) {
 			return [];
 		}
 
+		$spots = [
+			'total' => 0,
+			'left' => 0,
+		];
+		
 		foreach ($eventDays as $eventDay) {
 			$eventSlots = $eventDay->getEventSlots();
 			if (empty($eventSlots)) {
@@ -799,12 +802,10 @@ class Event extends ElggObject {
 	 *
 	 * @return boolean
 	 */
-	protected function hasUnlimitedSpotSlots() {
-		$result = false;
-
+	protected function hasUnlimitedSpotSlots(): bool {
 		$eventDays = $this->getEventDays();
 		if (empty($eventDays)) {
-			return $result;
+			return false;
 		}
 
 		foreach ($eventDays as $eventDay) {
@@ -815,13 +816,12 @@ class Event extends ElggObject {
 
 			foreach ($eventSlots as $eventSlot) {
 				if (empty($eventSlot->max_attendees)) {
-					$result = true;
-					break;
+					return true;
 				}
 			}
 		}
 
-		return $result;
+		return false;
 	}
 
 	/**
@@ -831,9 +831,8 @@ class Event extends ElggObject {
 	 *
 	 * @return false|string
 	 */
-	public function getRelationshipByUser($user_guid = null) {
+	public function getRelationshipByUser(int $user_guid = null) {
 		
-		$user_guid = (int) $user_guid;
 		if (empty($user_guid)) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
@@ -843,7 +842,7 @@ class Event extends ElggObject {
 		$qb->where($qb->compare('guid_one', '=', $this->guid, ELGG_VALUE_INTEGER))
 			->andWhere($qb->compare('guid_two', '=', $user_guid, ELGG_VALUE_INTEGER));
 
-		$row = elgg()->db->getDataRow($qb->getSQL(), '', $qb->getParameters());
+		$row = elgg()->db->getDataRow($qb);
 		if ($row) {
 			return $row->relationship;
 		}
@@ -859,7 +858,7 @@ class Event extends ElggObject {
 	 *
 	 * @return false|array
 	 */
-	public function getRelationships($count = false, $order = 'ASC') {
+	public function getRelationships(bool $count = false, string $order = 'ASC') {
 		$event_guid = $this->guid;
 
 		$qb = Select::fromTable('entity_relationships');
@@ -879,7 +878,7 @@ class Event extends ElggObject {
 			$qb->addOrderBy('time_created', $order);
 		}
 
-		$all_relations = elgg()->db->getData($qb->getSQL(), '', $qb->getParameters());
+		$all_relations = elgg()->db->getData($qb);
 		if (empty($all_relations)) {
 			return false;
 		}
@@ -909,7 +908,7 @@ class Event extends ElggObject {
 	 *
 	 * @return string[]
 	 */
-	public function getSupportedRelationships() {
+	public function getSupportedRelationships(): array {
 		$relationships = [
 			EVENT_MANAGER_RELATION_ATTENDING,
 		];
@@ -942,7 +941,7 @@ class Event extends ElggObject {
 	 *
 	 * @return \ElggEntity[]|int|mixed
 	 */
-	public function getRegistrationFormQuestions($count = false) {
+	public function getRegistrationFormQuestions(bool $count = false) {
 
 		$event_guid = $this->guid;
 		
@@ -992,7 +991,7 @@ class Event extends ElggObject {
 		$qb->orderBy('time_created', 'ASC');
 		$qb->setMaxResults(1);
 
-		$waiting_user = elgg()->db->getDataRow($qb->getSQL(), '', $qb->getParameters());
+		$waiting_user = elgg()->db->getDataRow($qb);
 		if (empty($waiting_user)) {
 			return false;
 		}
@@ -1005,7 +1004,7 @@ class Event extends ElggObject {
 	 *
 	 * @return boolean
 	 */
-	public function generateNewAttendee() {
+	public function generateNewAttendee(): bool {
 		$waiting_user = $this->getFirstWaitingUser();
 		if (empty($waiting_user)) {
 			return false;
@@ -1068,12 +1067,12 @@ class Event extends ElggObject {
 	/**
 	 * Return the registered slots for an entity
 	 *
-	 * @param string $guid              guid of the entity
+	 * @param int    $guid              guid of the entity
 	 * @param string $slot_relationship relationship
 	 *
 	 * @return array
 	 */
-	public function getRegisteredSlotsForEntity($guid, $slot_relationship) {
+	public function getRegisteredSlotsForEntity(int $guid, string $slot_relationship) {
 		$slots = [];
 
 		$qb = Select::fromTable('entities', 'slot');
@@ -1100,7 +1099,7 @@ class Event extends ElggObject {
 	 *
 	 * @return false|int|\ColdTrick\EventManager\Event\Day[]
 	 */
-	public function getEventDays($order = 'ASC', $count = false) {
+	public function getEventDays(string $order = 'ASC', bool $count = false) {
 		return elgg_get_entities([
 			'type' => 'object',
 			'subtype' => \ColdTrick\EventManager\Event\Day::SUBTYPE,
@@ -1121,8 +1120,8 @@ class Event extends ElggObject {
 	 *
 	 * @return bool
 	 */
-	public function hasEventDays() {
-		return (bool) $this->getEventDays(null, true);
+	public function hasEventDays(): bool {
+		return (bool) $this->getEventDays('ASC', true);
 	}
 
 	/**
@@ -1130,7 +1129,7 @@ class Event extends ElggObject {
 	 *
 	 * @return int
 	 */
-	public function countAttendees() {
+	public function countAttendees(): int {
 		return elgg_call(ELGG_IGNORE_ACCESS, function() {
 			return elgg_count_entities([
 				'relationship' => EVENT_MANAGER_RELATION_ATTENDING,
@@ -1145,7 +1144,7 @@ class Event extends ElggObject {
 	 *
 	 * @return int
 	 */
-	public function countWaiters() {
+	public function countWaiters(): int {
 		return elgg_call(ELGG_IGNORE_ACCESS, function() {
 			return elgg_count_entities([
 				'relationship' => EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,

@@ -62,7 +62,7 @@ if ($entity instanceof \ColdTrick\EventManager\Event\Slot) {
 if (!isset($slot_set)) {
 	$slot_set = 0;
 }
-
+$form_body = '';
 $form_body .= elgg_view_field([
 	'#type' => 'hidden',
 	'name' => 'guid',

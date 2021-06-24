@@ -54,8 +54,8 @@ $event->container_guid = (int) get_input('container_guid');
 $event->access_id = $access_id;
 $event->save();
 
-$event->setLocation(get_input('location'));
-$event->setLatLong(get_input('latitude'), get_input('longitude'));
+$event->location = get_input('location');
+$event->setLatLong((float) get_input('latitude'), (float) get_input('longitude'));
 
 $event->tags = string_to_tag_array(get_input('tags'));
 

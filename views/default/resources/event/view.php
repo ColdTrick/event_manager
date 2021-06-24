@@ -25,4 +25,5 @@ echo elgg_view_page($event->getDisplayName(), [
 	'content' => elgg_view_entity($event),
 	'sidebar' => elgg_view('event_manager/event/sidebar', ['entity' => $event]),
 	'entity' => $event,
+	'filter_id' => 'event/view',
 ]);

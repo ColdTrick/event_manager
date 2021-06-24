@@ -1,8 +1,6 @@
-elgg.provide('elgg.event_manager');
+define(['jquery', 'elgg', 'jquery-ui/widgets/sortable'], function($, elgg) {
 
-elgg.event_manager.edit_event_init = function() {
-
-	$('#event_manager_event_edit input[name="registration_needed[]"]').on('change', function() {
+	$('#event_manager_event_edit input[name="registration_needed"]').on('change', function() {
 		if ($(this).val()) {
 			$('#event-manager-forms-event-edit-questions, .elgg-menu-item-event-edit-questions').removeClass('hidden');
 		}		
@@ -57,6 +55,4 @@ elgg.event_manager.edit_event_init = function() {
 		$('#event_manager_event_edit').find('input[name="location"], input[name="latitude"], input[name="longitude"]').val('');
 		$(this).closest('.elgg-field').addClass('hidden');
 	});
-};
-
-elgg.register_hook_handler('init', 'system', elgg.event_manager.edit_event_init);
+});

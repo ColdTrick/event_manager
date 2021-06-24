@@ -26,7 +26,7 @@ $registered_for_slot = '&nbsp;';
 if (elgg_is_logged_in() && ($user_guid = elgg_get_logged_in_user_guid())) {
 	if (check_entity_relationship($user_guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $slot->guid)) {
 		if (!$participate) {
-			$registered_for_slot = elgg_view_icon('checkmark-hover', ['title' => elgg_echo('event_manager:event:relationship:event_attending')]);
+			$registered_for_slot = elgg_view_icon('check', ['title' => elgg_echo('event_manager:event:relationship:event_attending')]);
 			
 		} else {
 			$checkbox_options['checked'] = 'checked';
@@ -41,7 +41,7 @@ if (elgg_is_logged_in() && ($user_guid = elgg_get_logged_in_user_guid())) {
 	if ($participate && ($slot->hasSpotsLeft() || $register_type == 'waitinglist')) {
 		$registered_for_slot = elgg_view('input/checkbox', $checkbox_options);
 	} elseif (!empty($vars['member']) && check_entity_relationship($vars['member'], EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $slot->guid)) {
-		$registered_for_slot = elgg_view_icon('checkmark-hover', ['title' => elgg_echo('event_manager:event:relationship:event_attending')]);
+		$registered_for_slot = elgg_view_icon('check', ['title' => elgg_echo('event_manager:event:relationship:event_attending')]);
 	}
 }
 

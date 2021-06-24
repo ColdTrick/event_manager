@@ -1,4 +1,6 @@
 <?php
+use Elgg\Exceptions\HttpException;
+
 $key = elgg_extract('k', $vars);
 $guid = (int) elgg_extract('guid', $vars);
 $user_guid = (int) elgg_extract('u_g', $vars, elgg_get_logged_in_user_guid());
@@ -15,11 +17,15 @@ if (!empty($key)) {
 	
 	$entity = get_entity($user_guid);
 	if (empty($entity)) {
-		forward(elgg_generate_url('default:object:event'));
+		$exception = new HttpException();
+		$exception->setRedirectUrl(elgg_generate_url('default:object:event'));
+		throw $exception;
 	}
 	
 	if (!elgg_build_hmac([$event->time_created, $user_guid])->matchesToken($key)) {
-		forward(elgg_generate_url('default:object:event'));
+		$exception = new HttpException();
+		$exception->setRedirectUrl(elgg_generate_url('default:object:event'));
+		throw $exception;
 	}
 
 	$output .= elgg_call(ELGG_IGNORE_ACCESS, function() use ($entity, $event) {
@@ -40,7 +46,9 @@ if (!empty($key)) {
 	elgg_gatekeeper();
 	
 	if (!$event->canEdit() && ($user_guid !== elgg_get_logged_in_user_guid())) {
-		forward($event->getURL());
+		$exception = new HttpException();
+		$exception->setRedirectUrl(elgg_generate_url('default:object:event'));
+		throw $exception;
 	}
 	
 	$output .= elgg_view('event_manager/event/pdf', ['entity' => $event]);
@@ -79,4 +87,7 @@ elgg_register_menu_item('title', \ElggMenuItem::factory([
 	]),
 ]));
 
-echo elgg_view_page($title_text, ['content' => $output]);
+echo elgg_view_page($title_text, [
+	'content' => $output,
+	'filter' => false,
+]);

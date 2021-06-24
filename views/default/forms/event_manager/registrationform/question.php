@@ -81,4 +81,4 @@ $delete_question = elgg_view('output/url', [
 	'is_action' => false,
 ]);
 
-echo elgg_view_image_block(elgg_view_icon('arrows', 'link'), $form_body, ['image_alt' => $delete_question]);
+echo elgg_view_image_block(elgg_view_icon('arrows-alt', 'link'), $form_body, ['image_alt' => $delete_question]);

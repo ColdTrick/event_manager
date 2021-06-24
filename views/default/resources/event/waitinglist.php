@@ -1,5 +1,7 @@
 <?php
 
+use Elgg\Exceptions\HttpException;
+
 $guid = (int) elgg_extract('guid', $vars);
 
 elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
@@ -8,12 +10,15 @@ $event = get_entity($guid);
 elgg_set_page_owner_guid($event->getContainerGUID());
 
 if (!$event->waiting_list_enabled) {
-	forward($event->getURL());
+	$exception = new HttpException();
+	$exception->setRedirectUrl($event->getURL());
+	throw $exception;
 }
 
 if (!$event->openForRegistration()) {
-	register_error(elgg_echo('event_manager:event:rsvp:registration_ended'));
-	forward($event->getURL());
+	$exception = new HttpException(elgg_echo('event_manager:event:rsvp:registration_ended'));
+	$exception->setRedirectUrl($event->getURL());
+	throw $exception;
 }
 
 elgg_push_entity_breadcrumbs($event);
@@ -29,4 +34,7 @@ $body_vars = [
 
 $form = elgg_view_form('event_manager/event/register', $form_vars, $body_vars);
 
-echo elgg_view_page(elgg_echo('event_manager:event:rsvp:waiting_list'), ['content' => $form]);
+echo elgg_view_page(elgg_echo('event_manager:event:rsvp:waiting_list'), [
+	'content' => $form,
+	'filter' => false,
+]);

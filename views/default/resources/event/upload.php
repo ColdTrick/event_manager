@@ -1,16 +1,16 @@
 <?php
+use Elgg\Exceptions\Http\EntityPermissionsException;
+
 elgg_gatekeeper();
 
 $guid = (int) elgg_extract('guid', $vars);
-
-$title_text = elgg_echo('event_manager:edit:upload:title');
 
 elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 
 $event = get_entity($guid);
 
 if (!$event->canEdit()) {
-	throw new \Elgg\EntityPermissionsException();
+	throw new EntityPermissionsException();
 }
 
 elgg_push_entity_breadcrumbs($event);
@@ -25,4 +25,7 @@ $form = elgg_view_form('event_manager/event/upload_file', $form_vars, ['entity' 
 
 $current_files = elgg_view('event_manager/event/files', ['entity' => $event]);
 
-echo elgg_view_page($title_text, ['content' => $form . $current_files]);
+echo elgg_view_page(elgg_echo('event_manager:edit:upload:title'), [
+	'content' => $form . $current_files,
+	'filter' => false,
+]);

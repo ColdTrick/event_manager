@@ -1,8 +1,8 @@
 <?php
 
-elgg_gatekeeper();
+use Elgg\Exceptions\Http\EntityPermissionsException;
 
-$title_text = elgg_echo('event_manager:edit:title');
+elgg_gatekeeper();
 
 $guid = (int) elgg_extract('guid', $vars);
 
@@ -10,7 +10,7 @@ $guid = (int) elgg_extract('guid', $vars);
 elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
 $event = get_entity($guid);
 if (!$event->canEdit()) {
-	throw new \Elgg\EntityPermissionsException();
+	throw new EntityPermissionsException();
 }
 
 elgg_set_page_owner_guid($event->container_guid);
@@ -34,4 +34,7 @@ $form_vars = [
 
 $form = elgg_view_form('event_manager/event/edit', $form_vars, ['entity' => $event]);
 
-echo elgg_view_page($title_text, ['content' => $form]);
+echo elgg_view_page(elgg_echo('event_manager:edit:title'), [
+	'content' => $form,
+	'filter_id' => 'event/edit',
+]);

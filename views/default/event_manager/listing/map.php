@@ -7,7 +7,7 @@
  * @uses $vars['page_owner'] Page owner during the call
  */
 
-use Elgg\EntityNotFoundException;
+use Elgg\Exceptions\Http\EntityNotFoundException;
 
 $maps_provider = elgg_get_plugin_setting('maps_provider', 'event_manager');
 if ($maps_provider === 'none') {

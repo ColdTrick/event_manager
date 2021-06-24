@@ -178,7 +178,7 @@ class Menus {
 			return;
 		}
 		
-		$files = $event->hasFiles();
+		$files = $event->getFiles();
 		if (empty($files)) {
 			return;
 		}

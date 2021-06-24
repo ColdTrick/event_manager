@@ -88,7 +88,7 @@ class Notifications {
 			return;
 		}
 		
-		return $object->getSubscriptions();
+		return $object->getMailSubscriptions();
 	}
 	
 	/**

@@ -1,6 +1,6 @@
 <?php
 
-elgg_require_js('event_manager/edit_event');
+elgg_require_js('forms/event_manager/event/edit');
 
 $event = elgg_extract('entity', $vars);
 $fields = event_manager_prepare_form_vars($event);

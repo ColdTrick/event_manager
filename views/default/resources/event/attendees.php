@@ -1,5 +1,7 @@
 <?php
 
+use Elgg\Exceptions\Http\BadRequestException;
+
 $guid = elgg_extract('guid', $vars);
 elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 
@@ -9,10 +11,12 @@ $entity = get_entity($guid);
 $relationship = elgg_extract('relationship', $vars);
 $valid_relationships = $entity->getSupportedRelationships();
 if (!array_key_exists($relationship, $valid_relationships)) {
-	forward(elgg_generate_url('collection:object:event:attendees', [
+	$exception = new BadRequestException();
+	$exception->setRedirectUrl(elgg_generate_url('collection:object:event:attendees', [
 		'guid' => $entity->guid,
 		'relationship' => EVENT_MANAGER_RELATION_ATTENDING,
 	]));
+	throw $exception;
 }
 $rel_text = $valid_relationships[$relationship];
 
@@ -39,9 +43,6 @@ if ($entity->canEdit()) {
 	]);
 }
 
-// build page elements
-$title = elgg_echo('event_manager:event:attendees:title', [$entity->getDisplayName(), $rel_text]);
-
 // search form
 $content = elgg_view_form('event_manager/event/attendees', [
 	'action' => elgg_generate_url('collection:object:event:attendees', [
@@ -50,6 +51,7 @@ $content = elgg_view_form('event_manager/event/attendees', [
 	]),
 	'method' => 'GET',
 	'disable_security' => true,
+	'prevent_double_submit' => false,
 ], [
 	'entity' => $entity,
 	'relationship' => $relationship,
@@ -68,7 +70,7 @@ $tabs = elgg_view_menu('event_attendees', [
 	'relationship' => $relationship,
 ]);
 
-echo elgg_view_page($title, [
+echo elgg_view_page(elgg_echo('event_manager:event:attendees:title', [$entity->getDisplayName(), $rel_text]), [
 	'content' => $content,
 	'filter' => $tabs,
 ]);

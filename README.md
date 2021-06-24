@@ -1,7 +1,7 @@
 Event Manager
 =============
 
-![Elgg 3.3](https://img.shields.io/badge/Elgg-3.3-green.svg)
+![Elgg 4.0](https://img.shields.io/badge/Elgg-4.0-green.svg)
 [![Build Status](https://scrutinizer-ci.com/g/ColdTrick/event_manager/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ColdTrick/event_manager/build-status/master)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/ColdTrick/event_manager/badges/quality-score.png?s=f4892ec66d3ce7309818f7a57824728d7ffb98bd)](https://scrutinizer-ci.com/g/ColdTrick/event_manager/)
 [![Latest Stable Version](https://poser.pugx.org/coldtrick/event_manager/v/stable.svg)](https://packagist.org/packages/coldtrick/event_manager)

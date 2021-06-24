@@ -3,9 +3,9 @@
  * Allow an event creator to mail the attendees of the event
  */
 
-use Elgg\EntityNotFoundException;
-use Elgg\EntityPermissionsException;
 use ColdTrick\EventManager\Forms\EventMail;
+use Elgg\Exceptions\Http\EntityNotFoundException;
+use Elgg\Exceptions\Http\EntityPermissionsException;
 
 if (!(bool) elgg_get_plugin_setting('event_mail', 'event_manager')) {
 	// feature not enabled

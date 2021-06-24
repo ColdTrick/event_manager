@@ -1,11 +1,8 @@
 <?php
 
 $location = elgg_get_plugin_setting('google_maps_default_location', 'event_manager');
-if (empty($location)) {
-	$location = 'Netherlands';
-}
 
-$zoom_level = (int) elgg_get_plugin_setting('google_maps_default_zoom', 'event_manager', 10);
+$zoom_level = (int) elgg_get_plugin_setting('google_maps_default_zoom', 'event_manager');
 
 ?>
 //<script>

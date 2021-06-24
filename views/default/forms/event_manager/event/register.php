@@ -1,5 +1,7 @@
 <?php
 
+elgg_require_js('forms/event_manager/event/register');
+
 $event = elgg_extract('entity', $vars);
 $register_type = elgg_extract('register_type', $vars, 'register');
 

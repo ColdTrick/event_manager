@@ -4,7 +4,7 @@
 $event = elgg_extract('entity', $vars);
 $register_type = elgg_extract('register_type', $vars);
 
-if (!$event instanceof Event) {
+if (!$event instanceof \Event) {
 	return;
 }
 
@@ -48,13 +48,13 @@ $program .= elgg_view('page/components/tabs', $tab_options);
 $slot_sets = elgg_get_metadata([
 	'type' => 'object',
 	'subtype' => \ColdTrick\EventManager\Event\Slot::SUBTYPE,
-	'container_guids' => array($event->guid),
+	'container_guids' => [$event->guid],
 	'metadata_names' => ['slot_set'],
-	'count' => true
+	'count' => true,
 ]);
 
 if ($slot_sets > 0) {
-	$program .= '<span class="elgg-subtext">' . elgg_echo('event_manager:registration:slot_set:info') .  '</span>';
+	$program .= elgg_format_element('span', ['class' => 'elgg-subtext'], elgg_echo('event_manager:registration:slot_set:info'));
 }
 
 echo elgg_view_module('info', elgg_echo('event_manager:event:program'), $program);

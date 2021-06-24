@@ -90,7 +90,7 @@ $form_body .= elgg_view_field([
 $body = elgg_view('input/form', [
 	'id' => 'event_manager_form_program_day',
 	'name' => 'event_manager_form_program_day',
-	'action' => 'javascript:elgg.event_manager.program_add_day($(\'#event_manager_form_program_day\'))',
+	'action' => false,
 	'body' => $form_body,
 ]);
 

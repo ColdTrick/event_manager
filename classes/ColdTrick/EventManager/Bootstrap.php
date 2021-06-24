@@ -61,7 +61,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 		elgg_extend_view('css/elgg', 'css/event_manager.css');
 		elgg_extend_view('css/elgg', 'css/addthisevent.css');
 		elgg_extend_view('css/html_email_handler/notification', 'css/event_manager/email_addevent.css');
-		elgg_extend_view('js/elgg', 'js/event_manager/site.js');
 		elgg_extend_view('js/addthisevent.js', 'js/event_manager/addthisevent.settings.js');
 	
 		// register ajax views
@@ -124,7 +123,9 @@ class Bootstrap extends DefaultPluginBootstrap {
 		$hooks->registerHandler('register', 'menu:event_attendees', '\ColdTrick\EventManager\Menus::registerEventAttendees');
 		$hooks->registerHandler('search:fields', 'object:event', '\ColdTrick\EventManager\Search::addFields');
 		$hooks->registerHandler('send:after', 'notifications', '\ColdTrick\EventManager\Notifications::sendAfterEventMail', 99999);
-		$hooks->registerHandler('supported_types', 'entity_tools', '\ColdTrick\EventManager\MigrateEvents::supportedSubtypes');
+		if (elgg_is_active_plugin('entity_tools')) {
+			$hooks->registerHandler('supported_types', 'entity_tools', '\ColdTrick\EventManager\MigrateEvents::supportedSubtypes');
+		}
 		$hooks->registerHandler('view_vars', 'event_manager/listing/map', '\ColdTrick\EventManager\Views::loadLeafletCss');
 		$hooks->registerHandler('view_vars', 'widgets/content_by_tag/display/simple', '\ColdTrick\EventManager\Widgets::contentByTagEntityTimestamp');
 		$hooks->registerHandler('view_vars', 'widgets/content_by_tag/display/slim', '\ColdTrick\EventManager\Widgets::contentByTagEntityTimestamp');

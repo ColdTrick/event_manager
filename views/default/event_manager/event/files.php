@@ -7,7 +7,6 @@ if (!$event) {
 }
 
 $files = json_decode($event->files);
-
 if (empty($files)) {
 	return;
 }
