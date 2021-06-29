@@ -18,11 +18,11 @@ class Menus {
 		}
 		
 		$route = _elgg_services()->request->getRoute();
-		if (!$route || $route->getName() !== 'collection:object:event:attendees') {
+		if (!$route || ($route->getName() !== 'collection:object:event:attendees') && (elgg_extract('segments', $route->getMatchedParameters()) !== 'view/event_manager/event/attendees_list')) {
 			return;
 		}
 		
-		$event = get_entity((int) elgg_extract('guid', $route->getMatchedParameters()));
+		$event = get_entity((int) elgg_extract('guid', $route->getMatchedParameters(), get_input('guid')));
 		if (!$event instanceof \Event) {
 			return;
 		}
@@ -269,33 +269,6 @@ class Menus {
 				'selected' => $selected === 'mine',
 				'priority' => 400,
 			]);
-		}
-		
-		return $returnvalue;
-	}
-	
-	/**
-	 * Removes unwanted menu items from activity items if it is an event RSVP
-	 *
-	 * @param \Elgg\Hook $hook 'register', 'menu:river'
-	 *
-	 * @return array
-	 */
-	public static function stripEventRelationshipRiverMenuItems(\Elgg\Hook $hook) {
-		$item = $hook->getParam('item');
-		if (!$item instanceof \ElggRiverItem) {
-			return;
-		}
-		if ($item->view !== 'river/event_relationship/create') {
-			return;
-		}
-		
-		$returnvalue = $hook->getValue();
-		foreach ($returnvalue as $key => $menu_item) {
-			if ($menu_item->getName() === 'delete') {
-				continue;
-			}
-			unset($returnvalue[$key]);
 		}
 		
 		return $returnvalue;

@@ -21,4 +21,8 @@ $string = elgg_echo("event_manager:river:event_relationship:create:{$relationtyp
 echo elgg_view('river/elements/layout', [
 	'item' => $item,
 	'summary' => $string,
+	'metadata' => elgg_view_menu('river', [
+		'item' => $item,
+		'prepare_dropdown' => true,
+	]),
 ]);

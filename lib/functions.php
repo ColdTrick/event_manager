@@ -44,16 +44,10 @@ function event_manager_event_get_relationship_options(): array {
  * @param EventRegistration $registration registration object
  * @param Event             $event        event
  *
- * @return false|string
+ * @return string
  */
 function event_manager_create_unsubscribe_code(\EventRegistration $registration, \Event $event = null) {
-	if (empty($registration) || !$registration instanceof EventRegistration) {
-		return false;
-	}
-	
-	if (empty($event) || !$event instanceof \Event) {
-		$event = $registration->getOwnerEntity();
-	}
+	$event = $event ?? $registration->getOwnerEntity();
 	
 	return elgg_build_hmac([$registration->guid, $event->time_created])->getToken();
 }

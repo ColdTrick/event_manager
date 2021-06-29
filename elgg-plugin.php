@@ -79,6 +79,26 @@ return [
 	       'css/event_manager/fullcalendar.css' => $composer_path . 'vendor/bower-asset/fullcalendar/dist/fullcalendar.min.css',
 	    ],
 	],
+	'view_extensions' => [
+		'css/elgg' => [
+			'css/event_manager.css' => [],
+			'css/addthisevent.css' => [],
+		],
+		'css/html_email_handler/notification' => [
+			'css/event_manager/email_addevent.css' => [],
+		],
+		'js/addthisevent.js' => [
+			'js/event_manager/addthisevent.settings.js' => [],
+		],
+	],
+	'view_options' => [
+		'event_manager/calendar' => ['ajax' => true],
+		'event_manager/event/attendees_list' => ['ajax' => true],
+		'event_manager/event/popup' => ['ajax' => true],
+		'event_manager/forms/program/day' => ['ajax' => true],
+		'event_manager/forms/program/slot' => ['ajax' => true],
+		'forms/event_manager/event/copy' => ['ajax' => true],
+	],
 	'routes' => [
 		'add:object:event' => [
 			'path' => '/event/add/{guid}',
@@ -208,6 +228,30 @@ return [
 		'highlighted_events' => [
 			'context' => ['index', 'groups'],
 			'multiple' => true,
+		],
+	],
+	'events' => [
+		'update:after' => [
+			'object' => [
+				'\ColdTrick\EventManager\Access::updateEvent' => [],
+			],
+		],
+	],
+	'hooks' => [
+		'register' => [
+			'menu:title:object:event' => [
+				\Elgg\Notifications\RegisterSubscriptionMenuItemsHandler::class => [],
+			],
+		]
+	],
+	'notifications' => [
+		'object' => [
+			\Event::SUBTYPE => [
+  				'create' => \ColdTrick\EventManager\Notifications\CreateEventEventHandler::class,
+			],
+			\EventMail::SUBTYPE => [
+  				'create' => \ColdTrick\EventManager\Notifications\CreateEventMailEventHandler::class,
+			],
 		],
 	],
 ];
