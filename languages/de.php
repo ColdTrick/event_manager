@@ -144,65 +144,35 @@ return array (
   'event_manager:event:registration:notification:owner:subject' => 'Veranstaltungs-Anmeldung',
   'event_manager:event:registration:notification:user:subject' => 'Veranstaltungs-Anmeldung',
   'event_manager:event:registration:notification:owner:summary:event_attending' => '%s hat sich bei Deiner Veranstaltung \'%s\' als \'Teilnehmer\' angemeldet.',
-  'event_manager:event:registration:notification:owner:text:event_attending' => 'Hallo %s,
-
-%s hat sich zur Teilnahme zu deiner \'%s\' Veranstaltung angemeldet.',
+  'event_manager:event:registration:notification:owner:text:event_attending' => '%s hat sich zur Teilnahme zu deiner \'%s\' Veranstaltung angemeldet.',
   'event_manager:event:registration:notification:user:summary:event_attending' => 'Du hast Dich als \'Teilnehmer\' bei der Veranstaltung \'%s\' angemeldet.',
-  'event_manager:event:registration:notification:user:text:event_attending' => 'Hallo %s,
-
-Du wurdest erfolgreich zur Teilnahme von der \'%s\'Veranstaltung angemeldet.',
+  'event_manager:event:registration:notification:user:text:event_attending' => 'Du wurdest erfolgreich zur Teilnahme von der \'%s\'Veranstaltung angemeldet.',
   'event_manager:event:registration:notification:owner:summary:event_waitinglist' => '%s ist auf der Warteliste für Deine Veranstaltung \'%s\'.',
-  'event_manager:event:registration:notification:owner:text:event_waitinglist' => 'Hallo %s,
-
-%s steht auf deiner Warteliste von der \'%s\' Veranstaltung.',
+  'event_manager:event:registration:notification:owner:text:event_waitinglist' => '%s steht auf deiner Warteliste von der \'%s\' Veranstaltung.',
   'event_manager:event:registration:notification:user:summary:event_waitinglist' => 'Du bist nun auf der Warteliste der Veranstaltung \'%s\'.',
-  'event_manager:event:registration:notification:user:text:event_waitinglist' => 'Hallo %s,
-
-Du stehst auf der Warteliste von \'%s\' Veranstaltung.',
+  'event_manager:event:registration:notification:user:text:event_waitinglist' => 'Du stehst auf der Warteliste von \'%s\' Veranstaltung.',
   'event_manager:event:registration:notification:owner:summary:event_exhibiting' => '%s hat sich als \'Aussteller\' bei Deiner Veranstaltung \'%s\' angemeldet.',
-  'event_manager:event:registration:notification:owner:text:event_exhibiting' => 'Hallo %s,
-
-%s hat sich als Aussteller zu deiner Veranstaltung \'%s\' angemeldet.',
+  'event_manager:event:registration:notification:owner:text:event_exhibiting' => '%s hat sich als Aussteller zu deiner Veranstaltung \'%s\' angemeldet.',
   'event_manager:event:registration:notification:user:summary:event_exhibiting' => 'Du hast Dich als \'Aussteller\' bei der Verantaltung \'%s\' angemeldet.',
-  'event_manager:event:registration:notification:user:text:event_exhibiting' => 'Hallo %s,
-
-Du wurdest erfolgreich als Aussteller der Veranstaltung \'%s\' angemeldet.',
+  'event_manager:event:registration:notification:user:text:event_exhibiting' => 'Du wurdest erfolgreich als Aussteller der Veranstaltung \'%s\' angemeldet.',
   'event_manager:event:registration:notification:owner:summary:event_organizing' => '%s hat sich als \'Organisator\' Deiner Veranstaltung \'%s\' angemeldet.',
-  'event_manager:event:registration:notification:owner:text:event_organizing' => 'Hallo %s,
-
-%s hat sich als Organisator deiner Veranstaltung \'%s\' angemeldet.',
+  'event_manager:event:registration:notification:owner:text:event_organizing' => '%s hat sich als Organisator deiner Veranstaltung \'%s\' angemeldet.',
   'event_manager:event:registration:notification:user:summary:event_organizing' => 'Du hast Dich als \'Organisator\' bei der Veranstaltung \'%s\' angemeldet.',
-  'event_manager:event:registration:notification:user:text:event_organizing' => 'Hallo %s,
-
-Du wurdest erfolgreich als Organisator der Veranstaltung \'%s\' angemeldet.',
+  'event_manager:event:registration:notification:user:text:event_organizing' => 'Du wurdest erfolgreich als Organisator der Veranstaltung \'%s\' angemeldet.',
   'event_manager:event:registration:notification:owner:summary:event_presenting' => '%s hat sich als \'Moderator\' bei Deiner Veranstaltung \'%s\' angemeldet.',
-  'event_manager:event:registration:notification:owner:text:event_presenting' => 'Hallo %s,
-
-%s hat sich als Moderator zu deiner Veranstaltung \'%s\' angemeldet.',
+  'event_manager:event:registration:notification:owner:text:event_presenting' => '%s hat sich als Moderator zu deiner Veranstaltung \'%s\' angemeldet.',
   'event_manager:event:registration:notification:user:summary:event_presenting' => 'Du hast Dich als \'Moderator\' bei der Veranstaltung \'%s\' angemeldet.',
-  'event_manager:event:registration:notification:user:text:event_presenting' => 'Hallo %s,
-
-Du wurdest erfolgreich als Moderator der Veranstaltung \'%s\' angemeldet.',
+  'event_manager:event:registration:notification:user:text:event_presenting' => 'Du wurdest erfolgreich als Moderator der Veranstaltung \'%s\' angemeldet.',
   'event_manager:event:registration:notification:owner:summary:event_interested' => '%s hat sich als \'Interessent\' bei Deiner Veranstaltung \'%s\' angemeldet.',
-  'event_manager:event:registration:notification:owner:text:event_interested' => 'Hallo %s,
-
-%s hat sich als Interessent zu deiner Veranstaltung \'%s\' angemeldet.',
+  'event_manager:event:registration:notification:owner:text:event_interested' => '%s hat sich als Interessent zu deiner Veranstaltung \'%s\' angemeldet.',
   'event_manager:event:registration:notification:user:summary:event_interested' => 'Du hast Dich als \'Interessent\' bei der Veranstaltung \'%s\' angemeldet.',
-  'event_manager:event:registration:notification:user:text:event_interested' => 'Hallo %s,
-
-Du wurdest erfolgreich als Interessent der Veranstaltung \'%s\' angemeldet.',
+  'event_manager:event:registration:notification:user:text:event_interested' => 'Du wurdest erfolgreich als Interessent der Veranstaltung \'%s\' angemeldet.',
   'event_manager:event:registration:notification:owner:summary:event_undo' => '%s hat sich von Deiner Veranstaltung \'%s\' abgemeldet.',
-  'event_manager:event:registration:notification:owner:text:event_undo' => 'Hallo %s,
-
-%s hat sich von deiner Veranstaltung \'%s\' abgemeldet.',
+  'event_manager:event:registration:notification:owner:text:event_undo' => '%s hat sich von deiner Veranstaltung \'%s\' abgemeldet.',
   'event_manager:event:registration:notification:user:summary:event_undo' => 'Du hast Dich von der Veranstaltung \'%s\' abgemeldet.',
-  'event_manager:event:registration:notification:user:text:event_undo' => 'Hallo %s,
-
-Du wurdest erfolgreich von der Veranstaltung \'%s\' abgemeldet.',
+  'event_manager:event:registration:notification:user:text:event_undo' => 'Du wurdest erfolgreich von der Veranstaltung \'%s\' abgemeldet.',
   'event_manager:event:registration:notification:user:summary:event_spotfree' => 'Jemand hat sich von der Veranstaltung \'%s\' abgemeldet (%s). Du wurdest von der Warteliste genommen und zum Teilnehmer gemacht.',
-  'event_manager:event:registration:notification:user:text:event_spotfree' => 'Hallo %s,
-
-Jemand hat sich von der Veranstaltung \'%s\' abgemeldet (%s). Du wurdest von der Warteliste genommen und zum Teilnehmer gemacht.',
+  'event_manager:event:registration:notification:user:text:event_spotfree' => 'Jemand hat sich von der Veranstaltung \'%s\' abgemeldet (%s). Du wurdest von der Warteliste genommen und zum Teilnehmer gemacht.',
   'event_manager:event:registration:notification:program:linktext' => 'Programm anzeigen hier klicken',
   'event_manager:event:registration:notification:unsubscribe:linktext' => 'Wenn du nicht l&auml;nger teilnehmen m&ouml;chtest nutze diesen Link',
   'event_manager:event:rsvp' => 'Anmeldung',
@@ -314,9 +284,7 @@ Jemand hat sich von der Veranstaltung \'%s\' abgemeldet (%s). Du wurdest von der
   'event_manager:action:unsubscribe:error:mail' => 'Es ist ein Fehler beim senden der Best&auml;tigungs-Email aufgetreten, bitte versuche es erneut',
   'event_manager:action:unsubscribe:success' => 'Es wurde eine Best&auml;tigungsmail zur Abmeldung dieser Veranstaltung versendet. Bitte kontrolliere deinen Posteingang und folge den Anweisungen',
   'event_manager:unsubscribe:confirm:subject' => 'Best&auml;tige deine Abmeldung von %s',
-  'event_manager:unsubscribe:confirm:message' => 'Hallo %s,
-
-Du m&ouml;chtest dich von der Veranstaltung %s (%s) abmelden. Zur endg&uuml;ltigen Abmeldung bitte den unteren Link nutzen.
+  'event_manager:unsubscribe:confirm:message' => 'Du m&ouml;chtest dich von der Veranstaltung %s (%s) abmelden. Zur endg&uuml;ltigen Abmeldung bitte den unteren Link nutzen.
 
 %s
 
@@ -331,16 +299,12 @@ Falls du dich nicht abmelden m&ouml;chtest, irgnoriere diese Email.',
   'event_manager:registration:continue' => 'Weiter zur Veranstaltung',
   'event_manager:registration:confirm:error:code' => 'Ung&uuml;ltiger Validierungscode , &uuml;berpr&uuml;fe bitte deine E-Mail f&uuml;r den richtigen Code',
   'event_manager:registration:confirm:title' => 'Best&auml;tige die Anmeldung von %s',
-  'event_manager:registration:confirm:description' => 'Hallo %s,
-
-Um die Anmeldung f&uuml; "%s" zu best&auml;tigen, klicke bitte unten auf den Best6auml;tigungs-Button.
+  'event_manager:registration:confirm:description' => 'Um die Anmeldung f&uuml; "%s" zu best&auml;tigen, klicke bitte unten auf den Best6auml;tigungs-Button.
 
 Wenn du dich nicht f&uuml;r diese Veranstaltung angemeldet hast, oder die Anmeldung entfernen m&ouml;chtest, klicke auf den L&ouml;schen-Button.',
   'event_manager:registration:confirm:delete' => 'Bist du sicher das du die Anmeldung entfernen m&ouml;chtest?',
   'event_manager:registration:confirm:subject' => 'Best&auml;tige die Anmeldung von %s',
-  'event_manager:registration:confirm:message' => 'Hallo %s,
-
-Um deine Anmeldung von "%s" abzuschlie&szlig;en, klicke auf diesen Link
+  'event_manager:registration:confirm:message' => 'Um deine Anmeldung von "%s" abzuschlie&szlig;en, klicke auf diesen Link
 %s
 
 Falls du dich nicht f&uuml;r diese Veranstaltung angemeldet hast, kannst du diese Email ignorieren oder den Link klicken und die Anmeldung entfernen.',

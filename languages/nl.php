@@ -149,16 +149,12 @@ Om het evenement te bekijken, klik hier:
   'event_manager:action:move_to_attendees:success' => 'Gebruiker is verplaatst naar de deelnemers',
   'event_manager:registration:confirm:error:code' => 'Ongeldige validatie code, controleer uw email voor de juiste code',
   'event_manager:registration:confirm:title' => 'Bevestig registratie voor %s',
-  'event_manager:registration:confirm:description' => 'Beste %s,
-
-Om uw registratie te bevestigen voor het evenement "%s", klik op de "Bevestig" knop hieronder.
+  'event_manager:registration:confirm:description' => 'Om uw registratie te bevestigen voor het evenement "%s", klik op de "Bevestig" knop hieronder.
 
 Indien u de registratie wilt verwijderen, klik de "Verwijder" knop.',
   'event_manager:registration:confirm:delete' => 'Weet u het zeker dat u deze registratie wilt verwijderen?',
   'event_manager:registration:confirm:subject' => 'Bevestig de registratie voor %s',
-  'event_manager:registration:confirm:message' => 'Beste %s,
-
-Om uw registratie af te ronden voor het evenement "%s", klik op deze link
+  'event_manager:registration:confirm:message' => 'Om uw registratie af te ronden voor het evenement "%s", klik op deze link
 %s
 
 Indien u zich niet heeft geregistreerd kunt u deze email negeren of de link volgen, waar u de mogelijkheid heeft om de registratie te verwijderen.',
@@ -190,9 +186,7 @@ Indien u zich niet heeft geregistreerd kunt u deze email negeren of de link volg
   'event_manager:action:unsubscribe:error:mail' => 'Een fout is opgetreden tijdens het versturen van de verificatie email. Probeer het opnieuw.',
   'event_manager:action:unsubscribe:success' => 'Een email is verstuurt om de uitschrijving te bevestigen. Controleer uw inbox.',
   'event_manager:unsubscribe:confirm:subject' => 'Bevestig uw uitschrijving uit %s',
-  'event_manager:unsubscribe:confirm:message' => 'Beste %s,
-
-u heeft verzocht om uitgeschreven te worden voor het event %s (%s). Indien dit klopt, dan kunt u de uitschrijving bevestigen door op onderstaande link te klikken.
+  'event_manager:unsubscribe:confirm:message' => 'U heeft verzocht om uitgeschreven te worden voor het event %s (%s). Indien dit klopt, dan kunt u de uitschrijving bevestigen door op onderstaande link te klikken.
 
 %s
 
@@ -211,15 +205,9 @@ Indien u deze aanvraag niet heeft gedaan, kunt u deze mail negeren.',
   'event_manager:edit:form:fee' => 'Kosten',
   'event_manager:registration:view:savetopdf' => 'Opslaan als PDF',
   'event_manager:registration:message:registrationnotneeded' => 'Registratie is niet nodig voor dit evenement.',
-  'event_manager:event:registration:notification:owner:text:event_waitinglist' => 'Beste %s,
-
-%s is op de wachtlijst gezet van je \'%s\' evenement.',
-  'event_manager:event:registration:notification:user:text:event_waitinglist' => 'Beste %s,
-
-je staat op de wachtlijst van het \'%s\' evenement.',
-  'event_manager:event:registration:notification:user:text:event_spotfree' => 'Beste %s,
-
-Iemand heeft zich afgemeld van het \'%s\' evenement (%s). Je bent van de wachtlijst naar de deelnemers verplaatst.',
+  'event_manager:event:registration:notification:owner:text:event_waitinglist' => '%s is op de wachtlijst gezet van je \'%s\' evenement.',
+  'event_manager:event:registration:notification:user:text:event_waitinglist' => 'Je staat op de wachtlijst van het \'%s\' evenement.',
+  'event_manager:event:registration:notification:user:text:event_spotfree' => 'Iemand heeft zich afgemeld van het \'%s\' evenement (%s). Je bent van de wachtlijst naar de deelnemers verplaatst.',
   'event_manager:action:registration:edit:error_fields_with_program' => 'Vul de verplichte velden in en selecteer ten minste 1 activiteiten slot om aan deel te nemen',
   'event_manager:settings:google_maps' => 'Google Maps instellingen',
   'event_manager:settings:other' => 'Overige',
@@ -293,90 +281,18 @@ Iemand heeft zich afgemeld van het \'%s\' evenement (%s). Je bent van de wachtli
   'event_manager:registration:required_fields:info' => 'Velden met een * zijn verplicht',
   'event_manager:event:registration:notification:owner:subject' => 'Evenement registratie',
   'event_manager:event:registration:notification:user:subject' => 'Evenement registratie',
-  'event_manager:event:registration:notification:owner:text:event_attending' => 'Hallo %s,
-
-
-%s heeft zicht ingeschreven als \'attending\' voor jouw \'%s\' evenement.
-
-
-',
-  'event_manager:event:registration:notification:user:text:event_attending' => 'Hallo %s,
-
-
-Je hebt je ingeschreven als \'attending\' voor het \'%s\' evenement.
-
-
-',
-  'event_manager:event:registration:notification:owner:text:event_exhibiting' => 'Hallo %s,
-
-
-%s heeft zicht ingeschreven als \'exposant\' voor jouw \'%s\' evenement.
-
-
-',
-  'event_manager:event:registration:notification:user:text:event_exhibiting' => 'Hallo %s,
-
-
-Je hebt je ingeschreven als \'exposant\' voor het \'%s\' evenement.
-
-
-',
-  'event_manager:event:registration:notification:owner:text:event_organizing' => 'Hallo %s,
-
-
-%s heeft zicht ingeschreven als \'organizing\' voor jouw \'%s\' evenement.
-
-
-',
-  'event_manager:event:registration:notification:user:text:event_organizing' => 'Hallo %s,
-
-
-Je hebt je ingeschreven als \'organizing\' voor het \'%s\' evenement.
-
-
-',
-  'event_manager:event:registration:notification:owner:text:event_presenting' => 'Hallo %s,
-
-
-%s heeft zicht ingeschreven als \'presenter\' voor jouw \'%s\' evenement.
-
-
-',
-  'event_manager:event:registration:notification:user:text:event_presenting' => 'Hallo %s,
-
-
-Je hebt je ingeschreven als \'presenter\' voor het \'%s\' evenement.
-
-
-',
-  'event_manager:event:registration:notification:owner:text:event_interested' => 'Hallo %s,
-
-
-%s heeft zicht ingeschreven als \'interested\' voor jouw \'%s\' evenement.
-
-
-',
-  'event_manager:event:registration:notification:user:text:event_interested' => 'Hallo %s,
-
-
-Je hebt je ingeschreven als \'interested\' voor het \'%s\' evenement.
-
-
-',
-  'event_manager:event:registration:notification:owner:text:event_undo' => 'Hallo %s,
-
-
-%s heeft zich uitgeschreven van jouw \'%s\' evenement.
-
-
-',
-  'event_manager:event:registration:notification:user:text:event_undo' => 'Hallo %s,
-
-
-Je hebt je uit het \'%s\' evenement uitgeschreven.
-
-
-',
+  'event_manager:event:registration:notification:owner:text:event_attending' => '%s heeft zicht ingeschreven als \'attending\' voor jouw \'%s\' evenement.',
+  'event_manager:event:registration:notification:user:text:event_attending' => 'Je hebt je ingeschreven als \'attending\' voor het \'%s\' evenement.',
+  'event_manager:event:registration:notification:owner:text:event_exhibiting' => '%s heeft zicht ingeschreven als \'exposant\' voor jouw \'%s\' evenement.',
+  'event_manager:event:registration:notification:user:text:event_exhibiting' => 'Je hebt je ingeschreven als \'exposant\' voor het \'%s\' evenement.',
+  'event_manager:event:registration:notification:owner:text:event_organizing' => '%s heeft zicht ingeschreven als \'organizing\' voor jouw \'%s\' evenement.',
+  'event_manager:event:registration:notification:user:text:event_organizing' => 'Je hebt je ingeschreven als \'organizing\' voor het \'%s\' evenement.',
+  'event_manager:event:registration:notification:owner:text:event_presenting' => '%s heeft zicht ingeschreven als \'presenter\' voor jouw \'%s\' evenement.',
+  'event_manager:event:registration:notification:user:text:event_presenting' => 'Je hebt je ingeschreven als \'presenter\' voor het \'%s\' evenement.',
+  'event_manager:event:registration:notification:owner:text:event_interested' => '%s heeft zicht ingeschreven als \'interested\' voor jouw \'%s\' evenement.',
+  'event_manager:event:registration:notification:user:text:event_interested' => 'Je hebt je ingeschreven als \'interested\' voor het \'%s\' evenement.',
+  'event_manager:event:registration:notification:owner:text:event_undo' => '%s heeft zich uitgeschreven van jouw \'%s\' evenement.',
+  'event_manager:event:registration:notification:user:text:event_undo' => 'Je hebt je uit het \'%s\' evenement uitgeschreven.',
   'event_manager:event:registration:notification:program:linktext' => 'Klik op deze link om het programma te zien',
   'event_manager:event:rsvp' => 'RSVP',
   'event_manager:event:uploadfiles' => 'Bestanden uploaden',

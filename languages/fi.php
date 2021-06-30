@@ -97,48 +97,6 @@ return array (
   'event_manager:registration:required_fields:info' => '*Pakollinen kenttä',
   'event_manager:event:registration:notification:owner:subject' => 'Event registration',
   'event_manager:event:registration:notification:user:subject' => 'Event registration',
-  'event_manager:event:registration:notification:owner:text:event_attending' => 'Hello %s,
-
-%s signed up as \'attending\' your \'%s\' event.',
-  'event_manager:event:registration:notification:user:text:event_attending' => 'Hello %s,
-
-You succesfully signed up as \'attending\' the \'%s\' event.',
-  'event_manager:event:registration:notification:owner:text:event_waitinglist' => 'Hello %s,
-
-%s is on the waiting list for your \'%s\' event.',
-  'event_manager:event:registration:notification:user:text:event_waitinglist' => 'Hello %s,
-
-You are now on the waiting list for the \'%s\' event.',
-  'event_manager:event:registration:notification:owner:text:event_exhibiting' => 'Hello %s,
-
-%s has signed up as \'exhibiting\' at your \'%s\' event.',
-  'event_manager:event:registration:notification:user:text:event_exhibiting' => 'Hello %s,
-
-You succesfully signed up as \'exhibiting\' at the \'%s\' event.',
-  'event_manager:event:registration:notification:owner:text:event_organizing' => 'Hello %s,
-
-%s has signed up as \'organizing\' of your \'%s\' event.',
-  'event_manager:event:registration:notification:user:text:event_organizing' => 'Hello %s,
-
-You succesfully signed up as \'organizing\' of the \'%s\' event.',
-  'event_manager:event:registration:notification:owner:text:event_presenting' => 'Hello %s,
-
-%s has signed up as \'presenter\' at your \'%s\' event.',
-  'event_manager:event:registration:notification:user:text:event_presenting' => 'Hello %s,
-
-You succesfully signed up as \'presenter\' at the \'%s\' event.',
-  'event_manager:event:registration:notification:owner:text:event_interested' => 'Hello %s,
-
-%s has signed up as \'interested\' in your \'%s\' event.',
-  'event_manager:event:registration:notification:user:text:event_interested' => 'Hello %s,
-
-You succesfully signed up as \'interested\' in the \'%s\' event.',
-  'event_manager:event:registration:notification:owner:text:event_undo' => 'Hello %s,
-
-%s has signed off from your \'%s\' event.',
-  'event_manager:event:registration:notification:user:text:event_undo' => 'Hello %s,
-
-You signed off succesfully from the \'%s\' event.',
   'event_manager:event:registration:notification:program:linktext' => 'To view the program click on this link',
   'event_manager:event:registration:notification:unsubscribe:linktext' => 'If you no longer wish to attend the event use this link',
   'event_manager:event:rsvp' => 'RSVP',
@@ -229,9 +187,7 @@ You signed off succesfully from the \'%s\' event.',
   'event_manager:action:unsubscribe:error:mail' => 'An error occured while sending the confirmation e-mail, please try again',
   'event_manager:action:unsubscribe:success' => 'An e-mail has been sent to confirm you wish to unsubscribe from this event. Please check your inbox and follow the instructions in the e-mail',
   'event_manager:unsubscribe:confirm:subject' => 'Confirm you wish to unsubscribe from %s',
-  'event_manager:unsubscribe:confirm:message' => 'Hi %s,
-
-You requested to be unsubscribed from the event %s (%s). If this is correct please click on the link below to finish the process.
+  'event_manager:unsubscribe:confirm:message' => 'You requested to be unsubscribed from the event %s (%s). If this is correct please click on the link below to finish the process.
 
 %s
 
@@ -245,16 +201,12 @@ If you didn\'t request to unsubscribe from the event, please disregard this e-ma
   'event_manager:registration:continue' => 'Jatka tapahtumaan',
   'event_manager:registration:confirm:error:code' => 'Invalid validation code, please check your e-mail for the correct code',
   'event_manager:registration:confirm:title' => 'Confirm registration for %s',
-  'event_manager:registration:confirm:description' => 'Hi %s,
-
-To confirm your registration for the event "%s", please click the Confirm button below.
+  'event_manager:registration:confirm:description' => 'To confirm your registration for the event "%s", please click the Confirm button below.
 
 If you didn\'t register for this event, or you wish to remove the registration click the Delete button.',
   'event_manager:registration:confirm:delete' => 'Are you sure you wish to remove this registration?',
   'event_manager:registration:confirm:subject' => 'Please confirm your registration for %s',
-  'event_manager:registration:confirm:message' => 'Hi %s,
-
-In order to complete your registration for the event "%s", please click on this link
+  'event_manager:registration:confirm:message' => 'In order to complete your registration for the event "%s", please click on this link
 %s
 
 If you didn\'t register for this event, you can ignore this email or click on the link and remove the registration.',

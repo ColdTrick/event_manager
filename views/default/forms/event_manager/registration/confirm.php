@@ -5,7 +5,7 @@ $user = elgg_extract('user', $vars);
 $code = elgg_extract('code', $vars);
 
 echo elgg_view('output/longtext', [
-	'value' => elgg_echo('event_manager:registration:confirm:description', [$user->getDisplayName(), $event->getDisplayName()]),
+	'value' => elgg_echo('event_manager:registration:confirm:description', [$event->getDisplayName()]),
 ]);
 
 echo elgg_view('input/hidden', ['name' => 'event_guid', 'value' => $event->guid]);

@@ -583,10 +583,7 @@ class Event extends ElggObject {
 			// notify the attending user
 			$user_subject = elgg_echo('event_manager:event:registration:notification:user:subject');
 	
-			$user_message = elgg_echo('event_manager:event:registration:notification:user:text:' . $type, [
-				$to_entity->getDisplayName(),
-				$event_title_link,
-			]);
+			$user_message = elgg_echo('event_manager:event:registration:notification:user:text:' . $type, [$event_title_link]);
 			
 			if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
 				$completed_text = elgg_strip_tags($this->registration_completed, '<a>');
@@ -712,7 +709,6 @@ class Event extends ElggObject {
 		
 		foreach ($recipients as $user) {
 			$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, [
-				$user->getDisplayName(),
 				$rsvp_entity->getDisplayName(),
 				$event_title_link,
 			]) . $registration_link;
@@ -1038,7 +1034,6 @@ class Event extends ElggObject {
 		$this->rsvp(EVENT_MANAGER_RELATION_ATTENDING, $waiting_user->guid, false, false, false);
 
 		$notification_body = elgg_echo("event_manager:event:registration:notification:user:text:event_spotfree", [
-			$waiting_user->getDisplayName(),
 			$this->getDisplayName(),
 			$this->getURL(),
 		]);

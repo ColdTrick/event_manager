@@ -136,12 +136,9 @@ function event_manager_validate_registration_validation_code(int $event_guid, in
 function event_manager_send_registration_validation_email(\Event $event, \ElggEntity $entity): void {
 	$subject = elgg_echo('event_manager:registration:confirm:subject', [$event->getDisplayName()]);
 	$message = elgg_echo('event_manager:registration:confirm:message', [
-			$entity->getDisplayName(),
-			$event->getDisplayName(),
-			event_manager_get_registration_validation_url($event->guid, $entity->guid)
+		$event->getDisplayName(),
+		event_manager_get_registration_validation_url($event->guid, $entity->guid)
 	]);
-
-	$site = elgg_get_site_entity();
 
 	// send confirmation mail
 	if ($entity instanceof \ElggUser) {

@@ -39,7 +39,6 @@ $unsubscribe_link = elgg_generate_url('default:object:event:unsubscribe:confirm'
 // make a message with further instructions
 $subject = elgg_echo('event_manager:unsubscribe:confirm:subject', [$entity->getDisplayName()]);
 $message = elgg_echo('event_manager:unsubscribe:confirm:message', [
-	$registration->getDisplayName(),
 	$entity->getDisplayName(),
 	$entity->getURL(),
 	$unsubscribe_link,

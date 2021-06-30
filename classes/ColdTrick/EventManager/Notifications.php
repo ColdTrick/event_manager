@@ -56,31 +56,6 @@ class Notifications {
 			return;
 		}
 		
-		$deliveries = $hook->getParam('deliveries');
-		if (empty($deliveries[$entity->owner_guid]['email'])) {
-			// mail was not send to owner
-			$owner = $entity->getOwnerEntity();
-			$container = $entity->getContainerEntity();
-			
-			$email = Email::factory([
-				'to' => $owner,
-				'subject' => elgg_echo('event_manager:mail:notification:subject', [
-					$container->getDisplayName(),
-					$entity->getDisplayName(),
-				], $owner->getLanguage()),
-				'body' => elgg_echo('event_manager:mail:notification:body', [
-					$entity->description,
-					$container->getURL(),
-				], $owner->getLanguage()),
-				'params' => [
-					'object' => $entity,
-					'action' => $event->getAction(),
-				],
-			]);
-			
-			elgg_send_email($email);
-		}
-		
 		// remove the mail entity
 		$entity->delete();
 	}

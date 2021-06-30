@@ -98,48 +98,20 @@ return array (
   'event_manager:registration:required_fields:info' => 'Los campos marcados con un * son obligatorios',
   'event_manager:event:registration:notification:owner:subject' => 'Inscripción al evento',
   'event_manager:event:registration:notification:user:subject' => 'Inscripción al evento',
-  'event_manager:event:registration:notification:owner:text:event_attending' => 'Hola %s,
-
-%s se ha inscrito como \'asistiendo\' a tu evento \'%s\'.',
-  'event_manager:event:registration:notification:user:text:event_attending' => 'Hola %s,
-
-Te has inscrito como \'asistiendo\' al evento \'%s\'.',
-  'event_manager:event:registration:notification:owner:text:event_waitinglist' => 'Hola %s,
-
-%s está en la lista de espera de tu evento \'%s\'.',
-  'event_manager:event:registration:notification:user:text:event_waitinglist' => 'Hola %s,
-
-Ahora estás en la lista de espera del evento \'%s\'.',
-  'event_manager:event:registration:notification:owner:text:event_exhibiting' => 'Hola %s,
-
-%s se ha inscrito como \'expositor\' a tu evento \'%s\'.',
-  'event_manager:event:registration:notification:user:text:event_exhibiting' => 'Hola %s,
-
-Te has inscrito satisfactoriamente como \'expositor\' al evento \'%s\'.',
-  'event_manager:event:registration:notification:owner:text:event_organizing' => 'Hola %s,
-
-%s se ha inscrito como \'organizando\' a tu evento \'%s\'.',
-  'event_manager:event:registration:notification:user:text:event_organizing' => 'Hola %s,
-
-Te has inscrito satisfactoriamente como \'organizando\' al evento \'%s\'.',
-  'event_manager:event:registration:notification:owner:text:event_presenting' => 'Hola %s,
-
-%s se ha inscrito como as \'presentador\' a tu evento \'%s\'.',
-  'event_manager:event:registration:notification:user:text:event_presenting' => 'Hola %s,
-
-Te has inscrito satisfactoriamente como \'presentador\' al evento \'%s\'.',
-  'event_manager:event:registration:notification:owner:text:event_interested' => 'Hola %s,
-
-%s se ha inscrito como \'interesado\' en tu evento \'%s\'.',
-  'event_manager:event:registration:notification:user:text:event_interested' => 'Hola %s,
-
-Te has inscrito satisfactoriamente como \'interesado\' en el evento \'%s\'.',
-  'event_manager:event:registration:notification:owner:text:event_undo' => 'Hola %s,
-
-%s se ha dado de baja de tu evento \'%s\'.',
-  'event_manager:event:registration:notification:user:text:event_undo' => 'Hola %s,
-
-Te has dado de baja satisfactoriamente del evento \'%s\'.',
+  'event_manager:event:registration:notification:owner:text:event_attending' => '%s se ha inscrito como \'asistiendo\' a tu evento \'%s\'.',
+  'event_manager:event:registration:notification:user:text:event_attending' => 'Te has inscrito como \'asistiendo\' al evento \'%s\'.',
+  'event_manager:event:registration:notification:owner:text:event_waitinglist' => '%s está en la lista de espera de tu evento \'%s\'.',
+  'event_manager:event:registration:notification:user:text:event_waitinglist' => 'Ahora estás en la lista de espera del evento \'%s\'.',
+  'event_manager:event:registration:notification:owner:text:event_exhibiting' => '%s se ha inscrito como \'expositor\' a tu evento \'%s\'.',
+  'event_manager:event:registration:notification:user:text:event_exhibiting' => 'Te has inscrito satisfactoriamente como \'expositor\' al evento \'%s\'.',
+  'event_manager:event:registration:notification:owner:text:event_organizing' => '%s se ha inscrito como \'organizando\' a tu evento \'%s\'.',
+  'event_manager:event:registration:notification:user:text:event_organizing' => 'Te has inscrito satisfactoriamente como \'organizando\' al evento \'%s\'.',
+  'event_manager:event:registration:notification:owner:text:event_presenting' => '%s se ha inscrito como as \'presentador\' a tu evento \'%s\'.',
+  'event_manager:event:registration:notification:user:text:event_presenting' => 'Te has inscrito satisfactoriamente como \'presentador\' al evento \'%s\'.',
+  'event_manager:event:registration:notification:owner:text:event_interested' => '%s se ha inscrito como \'interesado\' en tu evento \'%s\'.',
+  'event_manager:event:registration:notification:user:text:event_interested' => 'Te has inscrito satisfactoriamente como \'interesado\' en el evento \'%s\'.',
+  'event_manager:event:registration:notification:owner:text:event_undo' => '%s se ha dado de baja de tu evento \'%s\'.',
+  'event_manager:event:registration:notification:user:text:event_undo' => 'Te has dado de baja satisfactoriamente del evento \'%s\'.',
   'event_manager:event:registration:notification:program:linktext' => 'Para ver el programa, haz click en este enlace',
   'event_manager:event:registration:notification:unsubscribe:linktext' => 'Si no deseas asistir al evento, usa este enlace',
   'event_manager:event:rsvp' => 'RSVP',
@@ -237,9 +209,7 @@ provisto, recibirás un e-mail de verificación con más instrucciones.',
   'event_manager:action:unsubscribe:success' => 'Se te ha enviado un e-mail para confirmar que deseas darte de baja de este evento. Por favor, comprueba tu bandeja de entrada y
 sigue las instrucciones en el e-mail',
   'event_manager:unsubscribe:confirm:subject' => 'Confirma que quieres darte de baja de %s',
-  'event_manager:unsubscribe:confirm:message' => 'Hola %s,
-
-Has solicitado darte de baja del evento %s (%s). Si esto es correcto, por favor haz click en el siguiente enlace para finalizar el proceso.
+  'event_manager:unsubscribe:confirm:message' => 'Has solicitado darte de baja del evento %s (%s). Si esto es correcto, por favor haz click en el siguiente enlace para finalizar el proceso.
 
 %s
 
@@ -254,16 +224,12 @@ Si no solicitaste darte de baja del evento, por favor, ignora este e-mail.',
   'event_manager:registration:continue' => 'Continuar al evento',
   'event_manager:registration:confirm:error:code' => 'Código de validación inválido, por favor, comprueba tu e-mail para el código correcto',
   'event_manager:registration:confirm:title' => 'Confirma inscripción a %s',
-  'event_manager:registration:confirm:description' => 'Hola %s,
-
-Para confirmar tu inscripción para el evento "%s", por favor, haz click en el botón Confirmar abajo.
+  'event_manager:registration:confirm:description' => 'Para confirmar tu inscripción para el evento "%s", por favor, haz click en el botón Confirmar abajo.
 
 Si no te inscribiste a este evento o deseas eliminar la inscripción, haz click en el botón Eliminar.',
   'event_manager:registration:confirm:delete' => '¿Estás seguro de que deseas eliminar esta inscripción?',
   'event_manager:registration:confirm:subject' => 'Por favor, confirma tu inscripción a %s',
-  'event_manager:registration:confirm:message' => 'Hola %s,
-
-Para completar tu inscripción al evento "%s", por favor, haz click en este enlace
+  'event_manager:registration:confirm:message' => 'Para completar tu inscripción al evento "%s", por favor, haz click en este enlace
 %s
 
 Si no te inscribiste en este evento, puedes ignorar este e-mail o hacer click en el enlace y eliminar la inscripción.',

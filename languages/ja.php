@@ -163,74 +163,46 @@ return array(
 	'event_manager:event:registration:notification:user:subject' => 'イベント登録',
 
 	'event_manager:event:registration:notification:owner:summary:event_attending' => "%sはあなたの%s イベントに参加 しています。",
-	'event_manager:event:registration:notification:owner:text:event_attending' => "Hello %s,
-
-%s signed up as '参加' your '%s' event.",
+	'event_manager:event:registration:notification:owner:text:event_attending' => "%s signed up as '参加' your '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_attending' => "あなたは ’%sイベントに 参加することに成功しました ",
-	'event_manager:event:registration:notification:user:text:event_attending' => "Hello %s,
-
-You succesfully signed up as '参加' the '%s' event.",
+	'event_manager:event:registration:notification:user:text:event_attending' => "You succesfully signed up as '参加' the '%s' event.",
 
 	'event_manager:event:registration:notification:owner:summary:event_waitinglist' => "%sはあなたの ’%sイベントの待機リストに登録されています。",
-	'event_manager:event:registration:notification:owner:text:event_waitinglist' => "Hello %s,
-
-%s is on the waiting list for your '%s' event.",
+	'event_manager:event:registration:notification:owner:text:event_waitinglist' => "%s is on the waiting list for your '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_waitinglist' => "あなたは今、 ’%sイベントの待機リストに入っています。",
-	'event_manager:event:registration:notification:user:text:event_waitinglist' => "Hello %s,
-
-You are now on the waiting list for the '%s' event.",
+	'event_manager:event:registration:notification:user:text:event_waitinglist' => "You are now on the waiting list for the '%s' event.",
 
 	'event_manager:event:registration:notification:owner:summary:event_exhibiting' => "%s has signed up as '展示中' at your '%s' event.",
-	'event_manager:event:registration:notification:owner:text:event_exhibiting' => "Hello %s,
-
-%s has signed up as '展示中' at your '%s' event.",
+	'event_manager:event:registration:notification:owner:text:event_exhibiting' => "%s has signed up as '展示中' at your '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_exhibiting' => "あなたは ’%sイベントで 展示中として登録しました。",
-	'event_manager:event:registration:notification:user:text:event_exhibiting' => "Hello %s,
-
-You succesfully signed up as '展示中' at the '%s' event.",
+	'event_manager:event:registration:notification:user:text:event_exhibiting' => "You succesfully signed up as '展示中' at the '%s' event.",
 
 	'event_manager:event:registration:notification:owner:summary:event_organizing' => "msgstr  %sはあなたの ’%sイベントの 開催中として登録しました",
-	'event_manager:event:registration:notification:owner:text:event_organizing' => "Hello %s,
-
-%s has signed up as '整理' of your '%s' event.",
+	'event_manager:event:registration:notification:owner:text:event_organizing' => "%s has signed up as '整理' of your '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_organizing' => "あなたは ’%sイベントの 開催中として登録しました。",
-	'event_manager:event:registration:notification:user:text:event_organizing' => "Hello %s,
-
-You succesfully signed up as '整理' of the '%s' event.",
+	'event_manager:event:registration:notification:user:text:event_organizing' => "You succesfully signed up as '整理' of the '%s' event.",
 
 	'event_manager:event:registration:notification:owner:summary:event_presenting' => "%sはあなたの ’%sイベントで 発表者として登録しました。",
-	'event_manager:event:registration:notification:owner:text:event_presenting' => "Hello %s,
-
-%s has signed up as 'presenter' at your '%s' event.",
+	'event_manager:event:registration:notification:owner:text:event_presenting' => "%s has signed up as 'presenter' at your '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_presenting' => "あなたは ’%sイベントで 発表者として登録しました。",
-	'event_manager:event:registration:notification:user:text:event_presenting' => "Hello %s,
-
-You succesfully signed up as 'presenter' at the '%s' event.",
+	'event_manager:event:registration:notification:user:text:event_presenting' => "You succesfully signed up as 'presenter' at the '%s' event.",
 
 	'event_manager:event:registration:notification:owner:summary:event_interested' => "%sはあなたの '%s'イベントに '興味がある'としてサインアップしました。",
-	'event_manager:event:registration:notification:owner:text:event_interested' => "Hello %s,
-
-%s has signed up as '興味がある' in your '%s' event.",
+	'event_manager:event:registration:notification:owner:text:event_interested' => "%s has signed up as '興味がある' in your '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_interested' => "あなたは '%s'イベントに '興味がある'としてサインアップしました。",
-	'event_manager:event:registration:notification:user:text:event_interested' => "Hello %s,
-
-You succesfully signed up as '興味がある' in the '%s' event.",
+	'event_manager:event:registration:notification:user:text:event_interested' => "You succesfully signed up as '興味がある' in the '%s' event.",
 
 	'event_manager:event:registration:notification:owner:summary:event_undo' => "%sはあなたの ’%sイベントからサインオフしました。",
-	'event_manager:event:registration:notification:owner:text:event_undo' => "Hello %s,
-
-%s has signed off from your '%s' event.",
+	'event_manager:event:registration:notification:owner:text:event_undo' => "%s has signed off from your '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_undo' => "あなたは ’%sイベントから無事にサインオフしました。",
-	'event_manager:event:registration:notification:user:text:event_undo' => "Hello %s,
-
-You signed off succesfully from the '%s' event.",
+	'event_manager:event:registration:notification:user:text:event_undo' => "You signed off succesfully from the '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_spotfree' => "誰かが '%s'イベントからサインオフしました。（%s ）。あなたは待機リストから出席していますに移動しました。",
 	'event_manager:event:registration:notification:user:text:event_spotfree' => "こんにちは %s,
@@ -393,9 +365,7 @@ You signed off succesfully from the '%s' event.",
 	'event_manager:action:unsubscribe:success' => "このイベントからの退会を希望することを確認するためのEメールが送信されました。受信トレイを確認し、Eメールの指示に従ってください。",
 
 	'event_manager:unsubscribe:confirm:subject' => "%sから退会することを確認してください",
-	'event_manager:unsubscribe:confirm:message' => "Hi %s,
-
-イベント%s（%s）からの退会を要求されました。 これが正しい場合は、下のリンクをクリックして処理を完了してください。
+	'event_manager:unsubscribe:confirm:message' => "イベント%s（%s）からの退会を要求されました。 これが正しい場合は、下のリンクをクリックして処理を完了してください。
 
 %s
 
@@ -417,17 +387,13 @@ If you didn't request to unsubscribe from the event, please disregard this e-mai
 	// registration confirm
 	'event_manager:registration:confirm:error:code' => "無効な確認コードです。正しいコードについては、Eメールを確認してください。",
 	'event_manager:registration:confirm:title' => "%sの登録を確認してください",
-	'event_manager:registration:confirm:description' => "Hi %s,
-
-イベント「%s」の登録を確認するには、下の[確認]ボタンをクリックしてください。
+	'event_manager:registration:confirm:description' => "イベント「%s」の登録を確認するには、下の[確認]ボタンをクリックしてください。
 
 このイベントに登録しなかった場合、または登録を削除したい場合は、[削除]ボタンをクリックしてください。",
 	'event_manager:registration:confirm:delete' => "この登録を削除してもよろしいですか？",
 
 	'event_manager:registration:confirm:subject' => "%sの登録を確認してください",
-	'event_manager:registration:confirm:message' => "Hi %s,
-
-イベント「%s」の登録を完了するには、このリンクをクリックしてください。
+	'event_manager:registration:confirm:message' => "イベント「%s」の登録を完了するには、このリンクをクリックしてください。
 %s
 
 このイベントに登録しなかった場合は、このEメールを無視するかリンクをクリックして登録を削除することができます。",

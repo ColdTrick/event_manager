@@ -173,79 +173,49 @@ return array(
 	'event_manager:event:registration:notification:user:subject' => 'Event registration',
 
 	'event_manager:event:registration:notification:owner:summary:event_attending' => "%s signed up as 'attending' your '%s' event.",
-	'event_manager:event:registration:notification:owner:text:event_attending' => "Hello %s,
-
-%s signed up as 'attending' your '%s' event.",
+	'event_manager:event:registration:notification:owner:text:event_attending' => "%s signed up as 'attending' your '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_attending' => "You succesfully signed up as 'attending' the '%s' event.",
-	'event_manager:event:registration:notification:user:text:event_attending' => "Hello %s,
-
-You succesfully signed up as 'attending' the '%s' event.",
+	'event_manager:event:registration:notification:user:text:event_attending' => "You succesfully signed up as 'attending' the '%s' event.",
 
 	'event_manager:event:registration:notification:owner:summary:event_waitinglist' => "%s is on the waiting list for your '%s' event.",
-	'event_manager:event:registration:notification:owner:text:event_waitinglist' => "Hello %s,
-
-%s is on the waiting list for your '%s' event.",
+	'event_manager:event:registration:notification:owner:text:event_waitinglist' => "%s is on the waiting list for your '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_waitinglist' => "You are now on the waiting list for the '%s' event.",
-	'event_manager:event:registration:notification:user:text:event_waitinglist' => "Hello %s,
-
-You are now on the waiting list for the '%s' event.",
+	'event_manager:event:registration:notification:user:text:event_waitinglist' => "You are now on the waiting list for the '%s' event.",
 
 	'event_manager:event:registration:notification:owner:summary:event_exhibiting' => "%s has signed up as 'exhibiting' at your '%s' event.",
-	'event_manager:event:registration:notification:owner:text:event_exhibiting' => "Hello %s,
-
-%s has signed up as 'exhibiting' at your '%s' event.",
+	'event_manager:event:registration:notification:owner:text:event_exhibiting' => "%s has signed up as 'exhibiting' at your '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_exhibiting' => "You succesfully signed up as 'exhibiting' at the '%s' event.",
-	'event_manager:event:registration:notification:user:text:event_exhibiting' => "Hello %s,
-
-You succesfully signed up as 'exhibiting' at the '%s' event.",
+	'event_manager:event:registration:notification:user:text:event_exhibiting' => "You succesfully signed up as 'exhibiting' at the '%s' event.",
 
 	'event_manager:event:registration:notification:owner:summary:event_organizing' => "%s has signed up as 'organizing' of your '%s' event.",
-	'event_manager:event:registration:notification:owner:text:event_organizing' => "Hello %s,
-
-%s has signed up as 'organizing' of your '%s' event.",
+	'event_manager:event:registration:notification:owner:text:event_organizing' => "%s has signed up as 'organizing' of your '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_organizing' => "You succesfully signed up as 'organizing' of the '%s' event.",
-	'event_manager:event:registration:notification:user:text:event_organizing' => "Hello %s,
-
-You succesfully signed up as 'organizing' of the '%s' event.",
+	'event_manager:event:registration:notification:user:text:event_organizing' => "You succesfully signed up as 'organizing' of the '%s' event.",
 
 	'event_manager:event:registration:notification:owner:summary:event_presenting' => "%s has signed up as 'presenter' at your '%s' event.",
-	'event_manager:event:registration:notification:owner:text:event_presenting' => "Hello %s,
-
-%s has signed up as 'presenter' at your '%s' event.",
+	'event_manager:event:registration:notification:owner:text:event_presenting' => "%s has signed up as 'presenter' at your '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_presenting' => "You succesfully signed up as 'presenter' at the '%s' event.",
-	'event_manager:event:registration:notification:user:text:event_presenting' => "Hello %s,
-
-You succesfully signed up as 'presenter' at the '%s' event.",
+	'event_manager:event:registration:notification:user:text:event_presenting' => "You succesfully signed up as 'presenter' at the '%s' event.",
 
 	'event_manager:event:registration:notification:owner:summary:event_interested' => "%s has signed up as 'interested' in your '%s' event.",
-	'event_manager:event:registration:notification:owner:text:event_interested' => "Hello %s,
-
-%s has signed up as 'interested' in your '%s' event.",
+	'event_manager:event:registration:notification:owner:text:event_interested' => "%s has signed up as 'interested' in your '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_interested' => "You succesfully signed up as 'interested' in the '%s' event.",
-	'event_manager:event:registration:notification:user:text:event_interested' => "Hello %s,
-
-You succesfully signed up as 'interested' in the '%s' event.",
+	'event_manager:event:registration:notification:user:text:event_interested' => "You succesfully signed up as 'interested' in the '%s' event.",
 
 	'event_manager:event:registration:notification:owner:summary:event_undo' => "%s has signed off from your '%s' event.",
-	'event_manager:event:registration:notification:owner:text:event_undo' => "Hello %s,
-
-%s has signed off from your '%s' event.",
+	'event_manager:event:registration:notification:owner:text:event_undo' => "%s has signed off from your '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_undo' => "You signed off succesfully from the '%s' event.",
-	'event_manager:event:registration:notification:user:text:event_undo' => "Hello %s,
-
-You signed off succesfully from the '%s' event.",
+	'event_manager:event:registration:notification:user:text:event_undo' => "You signed off succesfully from the '%s' event.",
 
 	'event_manager:event:registration:notification:user:summary:event_spotfree' => "Someone signed off from the '%s' event (%s). You are moved from the waiting list to attending.",
-	'event_manager:event:registration:notification:user:text:event_spotfree' => "Hello %s,
-
-Someone signed off from the '%s' event (%s). You are moved from the waiting list to attending.",
+	'event_manager:event:registration:notification:user:text:event_spotfree' => "Someone signed off from the '%s' event (%s). You are moved from the waiting list to attending.",
 
 	'event_manager:event:registration:notification:program:linktext' => 'To view the program click on this link',
 	'event_manager:event:registration:notification:unsubscribe:linktext' => 'If you no longer wish to attend the event use this link',
@@ -413,9 +383,7 @@ Someone signed off from the '%s' event (%s). You are moved from the waiting list
 	'event_manager:action:unsubscribe:success' => "An e-mail has been sent to confirm your wish to unsubscribe from this event. Please check your inbox and follow the instructions in the e-mail",
 
 	'event_manager:unsubscribe:confirm:subject' => "Confirm you wish to unsubscribe from %s",
-	'event_manager:unsubscribe:confirm:message' => "Hi %s,
-
-You requested to be unsubscribed from the event %s (%s). If this is correct please click on the link below to finish the process.
+	'event_manager:unsubscribe:confirm:message' => "You requested to be unsubscribed from the event %s (%s). If this is correct please click on the link below to finish the process.
 
 %s
 
@@ -436,17 +404,13 @@ If you didn't request to unsubscribe from the event, please disregard this e-mai
 	// registration confirm
 	'event_manager:registration:confirm:error:code' => "Invalid validation code, please check your e-mail for the correct code",
 	'event_manager:registration:confirm:title' => "Confirm registration for %s",
-	'event_manager:registration:confirm:description' => "Hi %s,
-
-To confirm your registration for the event \"%s\", please click the Confirm button below.
+	'event_manager:registration:confirm:description' => "To confirm your registration for the event \"%s\", please click the Confirm button below.
 
 If you didn't register for this event, or you wish to remove the registration click the Delete button.",
 	'event_manager:registration:confirm:delete' => "Are you sure you wish to remove this registration?",
 
 	'event_manager:registration:confirm:subject' => "Please confirm your registration for %s",
-	'event_manager:registration:confirm:message' => "Hi %s,
-
-In order to complete your registration for the event \"%s\", please click on this link
+	'event_manager:registration:confirm:message' => "In order to complete your registration for the event \"%s\", please click on this link
 %s
 
 If you didn't register for this event, you can ignore this email or click on the link and remove the registration.",
