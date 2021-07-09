@@ -17,7 +17,7 @@ return array (
   'item:object:eventquestions' => 'Event Questions',
   'event_manager:menu:title' => 'Tapahtumat',
   'event_manager:menu:group_events' => 'Ryhmän tapahtumat',
-  'event:add' => 'Uusi tapahtuma',
+  'add:object:event' => 'Uusi tapahtuma',
   'event_manager:menu:unsubscribe' => 'Unsubscribe',
   'event_manager:notification:subject' => 'Uusi tapahtuma',
   'event_manager:notification:summary' => 'Uusi tapahtuma',

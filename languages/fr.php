@@ -48,7 +48,7 @@ return array (
   'event_manager:entity:copy' => 'Copie de: %s',
   'event_manager:menu:title' => 'Evènements',
   'event_manager:menu:group_events' => 'Evènements de groupe',
-  'event:add' => 'Créer évènement',
+  'add:object:event' => 'Créer évènement',
   'event_manager:menu:copy' => 'Copier l\'événement',
   'event_manager:menu:unsubscribe' => 'Description',
   'event_manager:menu:attending' => 'Participants',

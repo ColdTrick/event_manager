@@ -20,7 +20,7 @@ return array(
 
 	'event_manager:menu:title' => 'イベント',
 	'event_manager:menu:group_events' => 'グループイベント',
-	'event:add' => '新しいイベント',
+	'add:object:event' => '新しいイベント',
 	'event_manager:menu:copy' => 'コピーイベント',
 	'event_manager:menu:unsubscribe' => "退会する",
 	'event_manager:menu:attending' => "参加する",

@@ -17,7 +17,7 @@ return array (
   'item:object:eventquestions' => 'Preguntas del evento',
   'event_manager:menu:title' => 'Eventos',
   'event_manager:menu:group_events' => 'Eventos de grupo',
-  'event:add' => 'Nuevo evento',
+  'add:object:event' => 'Nuevo evento',
   'event_manager:menu:unsubscribe' => 'Cancelar la suscripción',
   'event_manager:notification:subject' => 'Se ha creado un evento',
   'event_manager:notification:summary' => 'Se ha creado un evento',

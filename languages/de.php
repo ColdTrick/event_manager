@@ -19,7 +19,7 @@ return array (
   'event_manager:entity:copy' => 'Kopie von: %s',
   'event_manager:menu:title' => 'Veranstaltungen',
   'event_manager:menu:group_events' => 'Gruppenveranstaltungen',
-  'event:add' => 'Neue Veranstaltung',
+  'add:object:event' => 'Neue Veranstaltung',
   'event_manager:menu:copy' => 'Kopiere Veranstaltung',
   'event_manager:menu:unsubscribe' => 'Abmelden',
   'event_manager:menu:attending' => 'Teilnehmen',
