@@ -84,7 +84,7 @@ class Event extends ElggObject {
 		
 		$object->starttime = date('c', $this->getStartTimestamp());
 		$object->endtime = date('c', $this->getEndTimestamp());
-		$object->location = $this->getLocation();
+		$object->location = $this->location;
 		$object->region = $this->region;
 		$object->event_type = $this->event_type;
 		$object->short_description = $this->short_description;
