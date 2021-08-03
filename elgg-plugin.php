@@ -246,10 +246,10 @@ return [
 	],
 	'notifications' => [
 		'object' => [
-			\Event::SUBTYPE => [
+			'event' => [
   				'create' => \ColdTrick\EventManager\Notifications\CreateEventEventHandler::class,
 			],
-			\EventMail::SUBTYPE => [
+			'eventmail' => [
   				'create' => \ColdTrick\EventManager\Notifications\CreateEventMailEventHandler::class,
 			],
 		],
