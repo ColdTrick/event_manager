@@ -515,7 +515,7 @@ class Event extends ElggObject {
 			}
 	
 			// can we make nice links in the emails
-			$html_email_handler_enabled = elgg_is_active_plugin('html_email_handler');
+			$html_email_enabled = elgg_get_config('email_html_part');
 	
 			// do we have a registration link
 			$registrationLink = '';
@@ -532,7 +532,7 @@ class Event extends ElggObject {
 					$registrationLink = PHP_EOL . PHP_EOL;
 					$registrationLink .= elgg_echo('event_manager:event:registration:notification:program:linktext');
 					$registrationLink .= PHP_EOL . PHP_EOL;
-					if ($html_email_handler_enabled) {
+					if ($html_email_enabled) {
 						$registrationLink .= elgg_view('output/url', [
 							'text' => $link,
 							'href' => $link,
@@ -551,7 +551,7 @@ class Event extends ElggObject {
 					$unsubscribeLink = PHP_EOL . PHP_EOL;
 					$unsubscribeLink .= elgg_echo('event_manager:event:registration:notification:unsubscribe:linktext');
 					$unsubscribeLink .= PHP_EOL . PHP_EOL;
-					if ($html_email_handler_enabled) {
+					if ($html_email_enabled) {
 						$unsubscribeLink .= elgg_view('output/url', [
 							'text' => $link,
 							'href' => $link,
@@ -561,14 +561,14 @@ class Event extends ElggObject {
 					}
 				}
 				
-				if ($html_email_handler_enabled) {
+				if ($html_email_enabled) {
 					// add addthisevent banners in footer
 					$addevent = elgg_view('event_manager/email/addevent', ['entity' => $this]);
 				}
 			}
 	
 			// make the event title for in the e-mail
-			if ($html_email_handler_enabled) {
+			if ($html_email_enabled) {
 				$event_title_link = elgg_view('output/url', [
 					'text' => $this->getDisplayName(),
 					'href' => $this->getURL(),
@@ -1046,7 +1046,7 @@ class Event extends ElggObject {
 			$notification_body .= PHP_EOL . PHP_EOL . $completed_text;
 		}
 		
-		if (elgg_is_active_plugin('html_email_handler')) {
+		if (elgg_get_config('email_html_part')) {
 			// add addthisevent banners in footer
 			$notification_body .= elgg_view('event_manager/email/addevent', ['entity' => $this]);
 		}

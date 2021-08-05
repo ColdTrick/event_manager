@@ -84,7 +84,7 @@ return [
 			'css/event_manager.css' => [],
 			'css/addthisevent.css' => [],
 		],
-		'css/html_email_handler/notification' => [
+		'email/email.css' => [
 			'css/event_manager/email_addevent.css' => [],
 		],
 		'js/addthisevent.js' => [
