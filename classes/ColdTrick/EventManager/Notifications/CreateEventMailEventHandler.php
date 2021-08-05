@@ -43,4 +43,11 @@ class CreateEventMailEventHandler extends NotificationEventHandler {
 	public function getSubscriptions(): array {
 		return $this->event->getObject()->getMailSubscriptions();
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function isConfigurableByUser(): bool {
+		return false;
+	}
 }

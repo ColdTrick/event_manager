@@ -21,6 +21,8 @@ return array(
 	'collection:object:eventregistrationquestion' => "Event Registration Questions",
 	'collection:object:eventmail' => "Event Attendees e-mails",
 
+	'notification:object:event:create' => "Send a notification when an event is created",
+	
 	'event_manager:date:format' => 'Y-m-d',
 	'event_manager:entity:copy' => 'Copy of: %s',
 

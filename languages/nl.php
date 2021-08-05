@@ -5,6 +5,7 @@
  */
 
 return array (
+  'notification:object:event:create' => "Stuur een notificatie wanneer een evenement is gemaakt",
   'event_manager:edit:form:notify_onsignup_contact' => 'Stuur een kopie naar de gebruikers ingevoerd bij contactpersonen',
   'event_manager:edit:form:notify_onsignup_organizer' => 'Stuur een kopie naar de gebruikers ingevoerd bij organisatoren',
   'event_manager:settings:add_event' => 'AddEvent instellingen',
