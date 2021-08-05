@@ -62,7 +62,9 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 		}
 		
 		if (!options.element) {
-			console.log('Missing element to initialize map');
+			if (window.console) {
+				console.log('Missing element to initialize map');
+			}
 			return false;
 		}
 		
