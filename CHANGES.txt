@@ -1,6 +1,10 @@
 Version history
 ===============
 
+13.0 (2021-09-27):
+
+- changed: updated for Elgg 4
+
 12.4 (2021-03-16):
 
 - added: event creators can mail event attendees
