@@ -171,8 +171,10 @@ return array(
 	'event_manager:registration:required_fields:info' => 'Fields marked with a * are mandatory',
 	'event_manager:registration:slot_set:info' => 'This program contains slot sets. You can only select one slot for each set.',
 
-	'event_manager:event:registration:notification:owner:subject' => 'Event registration',
-	'event_manager:event:registration:notification:user:subject' => 'Event registration',
+	'event_manager:event:registration:notification:owner:subject' => 'New event registration: %s',
+	'event_manager:event:registration:notification:owner:subject:event_undo' => 'Event registration retracted: %s',
+	'event_manager:event:registration:notification:user:subject' => 'Event registration confirmation: %s',
+	'event_manager:event:registration:notification:user:subject:event_undo' => 'Event registration undone: %s',
 
 	'event_manager:event:registration:notification:owner:summary:event_attending' => "%s signed up as 'attending' your '%s' event.",
 	'event_manager:event:registration:notification:owner:text:event_attending' => "%s signed up as 'attending' your '%s' event.",

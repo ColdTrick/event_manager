@@ -159,8 +159,8 @@ return array(
 	'event_manager:registration:required_fields:info' => '*が付いたフィールドは必須です',
 	'event_manager:registration:slot_set:info' => 'このプログラムにはスロットセットが含まれています。各セットに選択できるスロットは1つだけです。 ',
 
-	'event_manager:event:registration:notification:owner:subject' => 'イベント登録',
-	'event_manager:event:registration:notification:user:subject' => 'イベント登録',
+	'event_manager:event:registration:notification:owner:subject' => 'イベント登録: %s',
+	'event_manager:event:registration:notification:user:subject' => 'イベント登録: %s',
 
 	'event_manager:event:registration:notification:owner:summary:event_attending' => "%sはあなたの%s イベントに参加 しています。",
 	'event_manager:event:registration:notification:owner:text:event_attending' => "%s signed up as '参加' your '%s' event.",

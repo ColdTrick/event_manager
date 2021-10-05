@@ -581,7 +581,10 @@ class Event extends ElggObject {
 			$this->notifyOwnerOnRSVP($type, $to_entity, $event_title_link, $registrationLink);
 	
 			// notify the attending user
-			$user_subject = elgg_echo('event_manager:event:registration:notification:user:subject');
+			$user_subject = elgg_echo('event_manager:event:registration:notification:user:subject', [$this->getDisplayName()]);
+			if ($type === EVENT_MANAGER_RELATION_UNDO) {
+				$user_subject = elgg_echo("event_manager:event:registration:notification:user:subject:{$type}", [$this->getDisplayName()]);
+			}
 	
 			$user_message = elgg_echo('event_manager:event:registration:notification:user:text:' . $type, [$event_title_link]);
 			
@@ -689,7 +692,10 @@ class Event extends ElggObject {
 			'action' => 'rsvp_owner',
 		];
 		
-		$owner_subject = elgg_echo('event_manager:event:registration:notification:owner:subject');
+		$owner_subject = elgg_echo('event_manager:event:registration:notification:owner:subject', [$this->getDisplayName()]);
+		if ($type === EVENT_MANAGER_RELATION_UNDO) {
+			$owner_subject = elgg_echo("event_manager:event:registration:notification:owner:subject:{$type}", [$this->getDisplayName()]);
+		}
 
 		$recipients = [
 			$this->owner_guid => $this->getOwnerEntity(),
