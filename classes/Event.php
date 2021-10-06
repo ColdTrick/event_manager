@@ -211,7 +211,7 @@ class Event extends ElggObject {
 	 * @return array
 	 */
 	public function getFiles(): array {
-		return json_decode($this->files) ?: [];
+		return (array) json_decode($this->files) ?: [];
 	}
 
 	/**

@@ -22,11 +22,7 @@ if ($uploaded_file && !$uploaded_file->isValid()) {
 	return elgg_error_response($error);
 }
 
-if (empty($event->files)) {
-	$filesArray = [];
-} else {
-	$filesArray = json_decode($event->files, true);
-}
+$filesArray = $event->getFiles();
 
 $file = new \ElggFile();
 $file->owner_guid = $event->guid;
