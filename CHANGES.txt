@@ -1,6 +1,10 @@
 Version history
 ===============
 
+13.0.1 (2021-10-12):
+
+- fixed: rsvp notifications have more context
+
 13.0 (2021-09-27):
 
 - changed: updated for Elgg 4
