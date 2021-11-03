@@ -18,7 +18,7 @@ if ($can_edit) {
 		'href' => elgg_generate_url('edit:object:event:upload', ['guid' => $event->guid]),
 		'title' => elgg_echo('event_manager:event:uploadfiles'),
 		'text' => elgg_echo('upload'),
-		'icon' => 'round-plus',
+		'icon' => 'plus-circle',
 	]);
 }
 
