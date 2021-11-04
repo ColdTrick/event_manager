@@ -34,8 +34,8 @@ return array(
 	'event_manager:menu:attending' => "Attending",
 	'event_manager:menu:mail' => "Mail attendees",
 
-	'event_manager:notification:subject' => "An event has been created",
-	'event_manager:notification:summary' => "An event has been created",
+	'event_manager:notification:subject' => "An event has been created: %s",
+	'event_manager:notification:summary' => "An event has been created: %s",
 	'event_manager:notification:body' => "%s created a new event %s",
 
 	'event_manager:calendar:today' => 'Today',

@@ -25,8 +25,8 @@ return array(
 	'event_manager:menu:unsubscribe' => "退会する",
 	'event_manager:menu:attending' => "参加する",
 
-	'event_manager:notification:subject' => "イベントが作成されました",
-	'event_manager:notification:summary' => "イベントが作成されました",
+	'event_manager:notification:subject' => "イベントが作成されました: %s",
+	'event_manager:notification:summary' => "イベントが作成されました: %s",
 	'event_manager:notification:body' => "%sが新しいイベント%sを作成しました",
 
 	'event_manager:calendar:today' => '今日',
