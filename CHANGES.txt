@@ -1,6 +1,11 @@
 Version history
 ===============
 
+13.0.2 (2021-11-17):
+
+- changed: event name added to notification subject and summary
+- fixed: missing icon on upload files link
+
 13.0.1 (2021-10-12):
 
 - fixed: rsvp notifications have more context
