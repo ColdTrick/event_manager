@@ -74,10 +74,6 @@
 }
 
 /* Event Edit */
-.event-manager-forms-label-inline .elgg-field-label {
-	display: inline-block;
-}
-
 #event_manager_event_edit { 
 	.elgg-fieldset-has-legend {
 		position: relative;
@@ -110,15 +106,6 @@
 .event_manager_event_edit_date {
 	width: 100px;
 	height: 20px;
-}
-
-.event-manager-event-edit-global-dates {
-	display: flex;
-	flex-wrap: wrap;
-	
-	> div {
-		margin-right: .5rem;
-	}
 }
 
 .event-manager-event-view-level {
