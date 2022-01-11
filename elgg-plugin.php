@@ -44,7 +44,11 @@ return [
 			'type' => 'object',
 			'subtype' => 'event',
 			'class' => Event::class,
-			'searchable' => true,
+			'capabilities' => [
+				'commentable' => true,
+				'searchable' => true,
+				'likable' => true,
+			],
 		],
 		[
 			'type' => 'object',

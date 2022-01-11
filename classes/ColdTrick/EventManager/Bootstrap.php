@@ -67,7 +67,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 		$hooks->registerHandler('export_attendee', 'event', '\ColdTrick\EventManager\Attendees::exportProgramData', 300);
 		$hooks->registerHandler('export:metadata_names', 'elasticsearch', '\ColdTrick\EventManager\Elasticsearch::exportMetadataNames');
 		$hooks->registerHandler('handlers', 'widgets', '\ColdTrick\EventManager\Widgets::registerHandlers');
-		$hooks->registerHandler('likes:is_likable', 'object:' . \Event::SUBTYPE, '\Elgg\Values::getTrue');
 		$hooks->registerHandler('prepare', 'system:email', '\ColdTrick\EventManager\Notifications::prepareEventRegistrationSender');
 		$hooks->registerHandler('register', 'menu:filter:events', '\ColdTrick\EventManager\Menus::registerEventsList');
 		$hooks->registerHandler('register', 'menu:filter:events', '\ColdTrick\EventManager\Menus\Filter::registerViewTypes');
