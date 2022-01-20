@@ -542,7 +542,7 @@ class Event extends ElggObject {
 					}
 				}
 	
-				if ($this->register_nologin) {
+				if ($this->register_nologin && !elgg_is_logged_in()) {
 					$link = elgg_generate_url('default:object:event:unsubscribe:request', [
 						'guid' => $this->guid,
 						'e' => $to_entity->email,
