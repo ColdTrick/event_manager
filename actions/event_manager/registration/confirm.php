@@ -4,11 +4,11 @@ $event_guid = (int) get_input('event_guid');
 $user_guid = (int) get_input('user_guid');
 $code = get_input('code');
 
-elgg_entity_gatekeeper($event_guid, 'object', Event::SUBTYPE);
 $event = get_entity($event_guid);
-
-elgg_entity_gatekeeper($user_guid);
 $user = get_entity($user_guid); // can also be a registration object
+if (!$event instanceof \Event || (!$user instanceof \ElggUser && !$user instanceof \EventRegistration)) {
+	return elgg_echo('actionunauthorized');
+}
 
 // is the code valid
 if (!event_manager_validate_registration_validation_code($event_guid, $user_guid, $code)) {

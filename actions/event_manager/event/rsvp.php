@@ -7,11 +7,15 @@ $rel = get_input('type');
 $forward_url = get_input('forward_url', REFERER);
 $rsvp = null;
 
-elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
-$event = get_entity($guid);
+if (empty($guid) || empty($user_guid)) {
+	return elgg_error_response(elgg_echo('error:missing_data'));
+}
 
-elgg_entity_gatekeeper($user_guid);
+$event = get_entity($guid);
 $user = get_entity($user_guid);
+if (!$event instanceof \Event || (!$user instanceof \ElggUser && !$user instanceof \EventRegistration)) {
+	return elgg_error_response(elgg_echo('error:missing_data'));
+}
 
 if (!elgg_is_logged_in()) {
 	$code = get_input('code');

@@ -1,11 +1,10 @@
 <?php
+
 $guid = (int) get_input('guid');
 $rel = get_input('rel', EVENT_MANAGER_RELATION_ATTENDING);
 
-elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 $event = get_entity($guid);
-
-if (!$event->canEdit()) {
+if (!$event instanceof \Event || !$event->canEdit()) {
 	return elgg_error_response(elgg_echo('actionunauthorized'));
 }
 

@@ -9,10 +9,8 @@ $relation = get_input('relation');
 $register_type = get_input('register_type');
 $program_guids = get_input('program_guids');
 
-elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 $event = get_entity($guid);
-
-if (empty($relation)) {
+if (empty($relation) || !$event instanceof \Event) {
 	return elgg_error_response(elgg_echo('error:missing_data'));
 }
 

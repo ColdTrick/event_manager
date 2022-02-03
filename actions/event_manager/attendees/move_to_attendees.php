@@ -3,13 +3,10 @@
 $guid = (int) get_input('guid');
 $user = (int) get_input('user'); // could also be a registration object
 
-elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 $event = get_entity($guid);
-
-elgg_entity_gatekeeper($user);
 $object = get_entity($user);
 
-if (!$event->canEdit()) {
+if (!$event instanceof \Event || !$event->canEdit() || (!$object instanceof \ElggUser && !$object instanceof \EventRegistration)) {
 	return elgg_error_response(elgg_echo('actionunauthorized'));
 }
 

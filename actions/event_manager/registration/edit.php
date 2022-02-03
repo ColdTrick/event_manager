@@ -4,9 +4,10 @@ $guid = (int) get_input('guid');
 $post = $_POST;
 $registrationFields = [];
 
-elgg_entity_gatekeeper($guid, 'object', EventRegistration::SUBTYPE);
-
 $registration = get_entity($guid);
+if (!$registration instanceof EventRegistration) {
+	return elgg_echo('actionunauthorized');
+}
 
 foreach ($post as $key => $value) {
 	if (substr($key, 0, 8) !== 'question') {

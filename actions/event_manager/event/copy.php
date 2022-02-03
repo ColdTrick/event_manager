@@ -1,10 +1,12 @@
 <?php
 
 $guid = (int) get_input('guid');
-elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
+if (empty($guid)) {
+	return elgg_error_response(elgg_echo('error:missing_data'));
+}
 
 $old_event = get_entity($guid);
-if (!$old_event->canEdit()) {
+if (!$old_event instanceof \Event || !$old_event->canEdit()) {
 	return elgg_error_response(elgg_echo('actionunauthorized'));
 }
 

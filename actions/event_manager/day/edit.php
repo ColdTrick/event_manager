@@ -2,10 +2,8 @@
 
 $parent_guid = (int) get_input('parent_guid');
 
-elgg_entity_gatekeeper($parent_guid, 'object', Event::SUBTYPE);
 $event = get_entity($parent_guid);
-
-if (!$event->canEdit()) {
+if (!$event instanceof \Event || !$event->canEdit()) {
 	return elgg_error_response(elgg_echo('actionunauthorized'));
 }
 

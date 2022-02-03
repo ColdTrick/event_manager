@@ -4,11 +4,11 @@ $event_guid = (int) get_input('event');
 $registration_guid = (int) get_input('registration');
 $code = get_input('code');
 
-elgg_entity_gatekeeper($event_guid, 'object', Event::SUBTYPE);
 $event = get_entity($event_guid);
-
-elgg_entity_gatekeeper($registration_guid, 'object', EventRegistration::SUBTYPE);
 $registration = get_entity($registration_guid);
+if (!$event instanceof \Event || !$registration instanceof \EventRegistration) {
+	return elgg_echo('actionunauthorized');
+}
 
 $verify_code = event_manager_create_unsubscribe_code($registration, $event);
 
