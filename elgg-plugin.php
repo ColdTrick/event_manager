@@ -218,7 +218,6 @@ return [
 		
 		'event_manager/maps/data' => ['access' => 'public'],
 		
-		'event_manager/registration/edit' => [],
 		'event_manager/registration/pdf' => ['access' => 'public'],
 		'event_manager/registration/confirm' => ['access' => 'public'],
 		
