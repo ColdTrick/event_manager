@@ -5,13 +5,13 @@ elgg_make_sticky_form('event');
 
 $title = get_input('title');
 
-$event_start = \Elgg\Values::normalizeTime(gmdate('c', get_input('event_start')));
+$event_start = \Elgg\Values::normalizeTime(gmdate('c', (int) get_input('event_start')));
 $event_start->setTime(0,0,0);
 $event_start = $event_start->getTimestamp();
 
 $start_time = (int) get_input('start_time');
 
-$event_end = \Elgg\Values::normalizeTime(gmdate('c', get_input('event_end')));
+$event_end = \Elgg\Values::normalizeTime(gmdate('c', (int) get_input('event_end')));
 $event_end->setTime(0,0,0);
 $event_end = $event_end->getTimestamp();
 
