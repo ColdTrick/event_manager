@@ -235,7 +235,7 @@ function event_manager_prepare_form_vars(\Event $event = null): array {
 		$values = array_merge($values, elgg_get_sticky_values('event'));
 		
 		if (isset($values['event_end'])) {
-			$event_end = \Elgg\Values::normalizeTime(gmdate('d-m-Y H:i:s', $values['event_end']));
+			$event_end = \Elgg\Values::normalizeTime(gmdate('d-m-Y H:i:s', (int) $values['event_end']));
 			$event_end->setTime(0,0,0);
 			
 			$end_time = (int) elgg_extract('end_time', $values);
@@ -243,7 +243,7 @@ function event_manager_prepare_form_vars(\Event $event = null): array {
 		}
 		
 		if (isset($values['event_start'])) {
-			$event_start = \Elgg\Values::normalizeTime(gmdate('d-m-Y H:i:s', $values['event_start']));
+			$event_start = \Elgg\Values::normalizeTime(gmdate('d-m-Y H:i:s', (int) $values['event_start']));
 			$event_start->setTime(0,0,0);
 			
 			$start_time = (int) elgg_extract('start_time', $values);
