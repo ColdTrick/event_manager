@@ -42,4 +42,11 @@ class CreateEventEventHandler extends NotificationEventHandler {
 		
 		return $body;
 	}
+		
+	/**
+	 * {@inheritDoc}
+	 */
+	protected static function isConfigurableForGroup(\ElggGroup $group): bool {
+		return $group->isToolEnabled('event_manager');
+	}
 }
