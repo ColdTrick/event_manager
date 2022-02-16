@@ -1,6 +1,17 @@
 Version history
 ===============
 
+14.0 (2022-02-16):
+
+- added: Gaelic translations
+- changed: create event notification is now group tool dependent
+- changed: updated entity configuration for new capabilities
+- changed: use new field layout options for event date input
+- fixed: cast gmdate timestamps to int
+- fixed: cast timestamps to int
+- fixed: only add unsubscribe link for EventRegistration objects
+- removed: unused registration/edit action has been removed
+
 13.0.2 (2021-11-17):
 
 - changed: event name added to notification subject and summary
