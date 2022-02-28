@@ -7,7 +7,7 @@ elgg_make_sticky_form('event_register');
 $guid = (int) get_input('event_guid');
 $relation = get_input('relation');
 $register_type = get_input('register_type');
-$program_guids = get_input('program_guids');
+$program_guids = get_input('program_guids', '');
 
 $event = get_entity($guid);
 if (empty($relation) || !$event instanceof \Event) {
