@@ -212,6 +212,9 @@ function event_manager_prepare_form_vars(\Event $event = null): array {
 		'event_presenting' => 0,
 		'event_exhibiting' => 0,
 		'registration_completed' => ELGG_ENTITIES_ANY_VALUE,
+		'announcement_period' => elgg_get_plugin_setting('announcement_period', 'event_manager'),
+		'notification_queued_ts' => ELGG_ENTITIES_ANY_VALUE,
+		'notification_sent_ts' => ELGG_ENTITIES_ANY_VALUE,
 	];
 
 	if ($event instanceof \Event) {

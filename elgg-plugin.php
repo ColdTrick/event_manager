@@ -241,11 +241,26 @@ return [
 		],
 	],
 	'hooks' => [
+		'cron' => [
+			'daily' => [
+				'\ColdTrick\EventManager\Notifications\CreateEventEventHandler::enqueueDelayedNotifications' => [],
+			],
+		],
+		'enqueue' => [
+			'notification' => [
+				'\ColdTrick\EventManager\Notifications\CreateEventEventHandler::preventEnqueue' => [],
+			],
+		],
 		'register' => [
 			'menu:title:object:event' => [
 				\Elgg\Notifications\RegisterSubscriptionMenuItemsHandler::class => [],
 			],
-		]
+		],
+		'send:after' => [
+			'notifications' => [
+				'\ColdTrick\EventManager\Notifications\CreateEventEventHandler::trackNotificationSent' => [],
+			],
+		],
 	],
 	'notifications' => [
 		'object' => [

@@ -1,13 +1,15 @@
 <?php
 
+use Elgg\Values;
+
 // start a new sticky form session in case of failure
 elgg_make_sticky_form('event');
 
 $title = get_input('title');
 
-$event_start = \Elgg\Values::normalizeTime(gmdate('c', (int) get_input('event_start')));
-$event_start->setTime(0,0,0);
-$event_start = $event_start->getTimestamp();
+$event_start_midnight = \Elgg\Values::normalizeTime(gmdate('c', (int) get_input('event_start')));
+$event_start_midnight->setTime(0,0,0);
+$event_start = $event_start_midnight->getTimestamp();
 
 $start_time = (int) get_input('start_time');
 
@@ -48,10 +50,32 @@ if ($entity instanceof \Event) {
 	$event = new \Event();
 }
 
+$announcement_period = (int) get_input('announcement_period');
+if ($announcement_period < 1) {
+	$notification_queued_ts = time();
+} else {
+	$notification_queued_ts = $event_start_midnight->modify("-{$announcement_period} weeks")->getTimestamp();
+	if ($notification_queued_ts <= time()) {
+		$notification_queued_ts = time();
+	}
+}
+
 $event->title = $title;
 $event->description = get_input('description');
 $event->container_guid = (int) get_input('container_guid');
 $event->access_id = $access_id;
+if (empty($event->notification_sent_ts) && (!empty($event->notification_queued_ts) || $event_created)) {
+	// only set if notifications are not sent
+	// only set for new events or if previously saved with a notification queued (to differentiate with event with the new notification logic)
+	$event->announcement_period = $announcement_period;
+	$event->notification_queued_ts = $notification_queued_ts;
+}
+
+if (empty($event->notification_sent_ts) && !$event_created && $event->notification_queued_ts <= time()) {
+	// event updated but notification needs to be sent immediately
+	_elgg_services()->notifications->enqueueEvent('create', 'object', $event);
+}
+
 $event->save();
 
 $event->location = get_input('location');

@@ -128,6 +128,10 @@ return array(
 	'event_manager:edit:form:endregistration_day' => 'End date of registration',
 	'event_manager:edit:form:start_time' => 'Start time',
 	'event_manager:edit:form:end_time' => 'End time',
+	'event_manager:edit:form:announcement_period' => 'Announcement period',
+	'event_manager:edit:form:announcement_period:help' => 'Number of weeks befor the start of the event at which time a notification about this event will be sent out to the network',
+	'event_manager:edit:form:announcement_period:scheduled' => 'Notification scheduled for %s',
+	'event_manager:edit:form:announcement_period:sent' => 'Notification has been sent %s',
 	'event_manager:edit:form:max_attendees' => 'Maximum attendees',
 	'event_manager:edit:form:waiting_list' => 'Enable waiting list?',
 	'event_manager:edit:form:register_nologin' => 'Allow not-loggedin users to register?',
@@ -377,6 +381,9 @@ return array(
 	'event_manager:settings:add_event_to_calendar:help' => 'This will also include the links in notification e-mails',
 	'event_manager:settings:add_event_to_calendar:attendee_only' => 'Only for attendees',
 	'event_manager:settings:add_event:service' => 'Enable the service: %s',
+	
+	'event_manager:settings:announcement_period' => 'Announcement period',
+	'event_manager:settings:announcement_period:help' => 'The number of weeks before the startdate of an event a notification will be sent to the network (leave blank for instant notifications). Event owners can change the setting when creating or editing the event.',
 
 	// unsubscribe from event
 	'event_manager:unsubscribe:title' => "Unsubscribe from: %s",

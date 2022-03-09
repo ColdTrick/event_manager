@@ -49,3 +49,40 @@ echo elgg_view_field([
 		],
 	],
 ]);
+
+$announcement_period = $vars['announcement_period'];
+$notification_queued_ts = $vars['notification_queued_ts'];
+$notification_sent_ts = $vars['notification_sent_ts'];
+
+if (!empty($notification_sent_ts)) {
+	// notification already sent
+	echo elgg_echo('event_manager:edit:form:announcement_period:sent', [elgg_view_friendly_time($notification_sent_ts)]);
+	
+	return;
+}
+
+if (!empty($notification_queued_ts) && $notification_queued_ts <= time()) {
+	// notification scheduled in the passed
+	echo elgg_echo('event_manager:edit:form:announcement_period:scheduled', [elgg_view_friendly_time($notification_queued_ts)]);
+	
+	return;
+}
+
+if (!empty($vars['guid']) && empty($notification_queued_ts)) {
+	// scheduled notifications not supported, probably an event created before this feature existed
+	return;
+}
+
+echo elgg_view_field([
+	'#type' => 'number',
+	'#label' => elgg_echo('event_manager:edit:form:announcement_period'),
+	'#help' => elgg_echo('event_manager:edit:form:announcement_period:help'),
+	'name' => 'announcement_period',
+	'value' => $announcement_period,
+	'min' => 0,
+]);
+
+if (!empty($notification_queued_ts)) {
+	// notification scheduled in the future
+	echo elgg_echo('event_manager:edit:form:announcement_period:scheduled', [elgg_view_friendly_time($notification_queued_ts)]);
+}

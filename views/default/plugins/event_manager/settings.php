@@ -220,4 +220,13 @@ $other .= elgg_view_field([
 	'value' => 1,
 ]);
 
+$other .= elgg_view_field([
+	'#type' => 'number',
+	'#label' => elgg_echo('event_manager:settings:announcement_period'),
+	'#help' => elgg_echo('event_manager:settings:announcement_period:help'),
+	'name' => 'params[announcement_period]',
+	'value' => $plugin->announcement_period,
+	'min' => 0,
+]);
+
 echo elgg_view_module('info', elgg_echo('event_manager:settings:other'), $other);
