@@ -197,9 +197,9 @@ class Menus {
 			}
 			
 			$returnvalue[] = \ElggMenuItem::factory([
-				'name' => $file->title,
+				'name' => $file['title'],
 				'icon' => 'download',
-				'text' => $file->title,
+				'text' => $file['title'],
 				'href' => elgg_get_inline_url($elggfile, $use_cookie),
 			]);
 		}
