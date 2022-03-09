@@ -3,7 +3,7 @@
 // current value
 $event_type = elgg_extract('event_type', $vars);
 
-$type_settings = trim(elgg_get_plugin_setting('type_list', 'event_manager'));
+$type_settings = trim((string) elgg_get_plugin_setting('type_list', 'event_manager'));
 $type_list = explode(',', $type_settings);
 
 array_walk($type_list, function(&$val) {

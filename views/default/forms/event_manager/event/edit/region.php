@@ -3,7 +3,7 @@
 // current value
 $region = elgg_extract('region', $vars);
 
-$region_settings = trim(elgg_get_plugin_setting('region_list', 'event_manager'));
+$region_settings = trim((string) elgg_get_plugin_setting('region_list', 'event_manager'));
 $region_list = explode(',', $region_settings);
 
 array_walk($region_list, function(&$val) {
