@@ -1,12 +1,11 @@
 <?php
 	
 $event = elgg_extract('entity', $vars);
-
-if (!$event) {
+if (!$event instanceof \Event) {
 	return;
 }
 
-$files = json_decode($event->files);
+$files = $event->getFiles();
 if (empty($files)) {
 	return;
 }
