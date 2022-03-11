@@ -17,9 +17,6 @@ if ($old_event->getContainerEntity() instanceof \ElggUser) {
 }
 
 $new_event = clone $old_event;
-$new_event->time_created = null;
-$new_event->time_updated = null;
-$new_event->last_action = null;
 $new_event->owner_guid = $new_owner_guid;
 $new_event->container_guid = $new_container_guid;
 
@@ -44,9 +41,6 @@ if (!$new_event->save()) {
 
 foreach ($old_event->getEventDays() as $day) {
 	$new_day = clone $day;
-	$new_day->time_created = null;
-	$new_day->time_updated = null;
-	$new_day->last_action = null;
 	$new_day->container_guid = $new_event->guid;
 	$new_day->owner_guid = $new_event->guid;
 	
@@ -55,9 +49,6 @@ foreach ($old_event->getEventDays() as $day) {
 
 	foreach ($day->getEventSlots() as $slot) {
 		$new_slot = clone $slot;
-		$new_slot->time_created = null;
-		$new_slot->time_updated = null;
-		$new_slot->last_action = null;
 		$new_slot->container_guid = $new_day->getContainerGUID();
 		$new_slot->owner_guid = $new_day->getOwnerGUID();
 		$new_slot->save();
@@ -67,9 +58,6 @@ foreach ($old_event->getEventDays() as $day) {
 
 foreach ($old_event->getRegistrationFormQuestions() as $question) {
 	$new_question = clone $question;
-	$new_question->time_created = null;
-	$new_question->time_updated = null;
-	$new_question->last_action = null;
 	$new_question->container_guid = $new_event->guid;
 	$new_question->owner_guid = $new_event->guid;
 	$new_question->save();
