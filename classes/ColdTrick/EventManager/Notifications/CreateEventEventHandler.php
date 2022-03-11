@@ -114,7 +114,7 @@ class CreateEventEventHandler extends NotificationEventHandler {
 				'metadata_name_value_pairs' => [
 					[
 						'name' => 'notification_queued_ts',
-						'value' => $hook->getParam('time'),
+						'value' => \Elgg\Values::normalizeTime(gmdate('c', $hook->getParam('time')))->setTime(0,0,0)->getTimestamp(), // keep inline with scheduling
 						'operand' => '<=',
 						'as' => ELGG_VALUE_INTEGER,
 					],
