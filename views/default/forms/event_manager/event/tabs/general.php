@@ -1,4 +1,6 @@
 <?php
+use Elgg\Values;
+
 /**
  * Form fields for general event information
  */
@@ -56,14 +58,14 @@ $notification_sent_ts = $vars['notification_sent_ts'];
 
 if (!empty($notification_sent_ts)) {
 	// notification already sent
-	echo elgg_echo('event_manager:edit:form:announcement_period:sent', [elgg_view_friendly_time($notification_sent_ts)]);
+	echo elgg_echo('event_manager:edit:form:announcement_period:sent', [Values::normalizeTime($notification_sent_ts)->formatLocale(elgg_echo('friendlytime:date_format:short'))]);
 	
 	return;
 }
 
 if (!empty($notification_queued_ts) && $notification_queued_ts <= time()) {
 	// notification scheduled in the passed
-	echo elgg_echo('event_manager:edit:form:announcement_period:scheduled', [elgg_view_friendly_time($notification_queued_ts)]);
+	echo elgg_echo('event_manager:edit:form:announcement_period:scheduled', [Values::normalizeTime($notification_queued_ts)->formatLocale(elgg_echo('friendlytime:date_format:short'))]);
 	
 	return;
 }
@@ -84,5 +86,5 @@ echo elgg_view_field([
 
 if (!empty($notification_queued_ts)) {
 	// notification scheduled in the future
-	echo elgg_echo('event_manager:edit:form:announcement_period:scheduled', [elgg_view_friendly_time($notification_queued_ts)]);
+	echo elgg_echo('event_manager:edit:form:announcement_period:scheduled', [Values::normalizeTime($notification_queued_ts)->formatLocale(elgg_echo('friendlytime:date_format:short'))]);
 }
