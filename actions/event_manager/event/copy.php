@@ -1,5 +1,7 @@
 <?php
 
+use Elgg\Values;
+
 $guid = (int) get_input('guid');
 if (empty($guid)) {
 	return elgg_error_response(elgg_echo('error:missing_data'));
@@ -33,6 +35,28 @@ $event_end = (int) get_input('event_end');
 if ($event_end) {
 	$event_end += (int) get_input('end_time');
 	$new_event->event_end = $event_end;
+}
+
+unset($new_event->notification_sent_ts);
+
+$announcement_period = (int) get_input('announcement_period');
+if ($announcement_period < 1) {
+	$notification_queued_ts = time();
+} else {
+	$notification_queued_ts = Values::normalizeTime($event_start)->setTime(0,0,0)->modify("-{$announcement_period} weeks")->getTimestamp();
+	if ($notification_queued_ts <= time()) {
+		$notification_queued_ts = time();
+	}
+}
+
+if (!empty($notification_queued_ts)) {
+	// only set if notifications are not sent
+	// only set for new events or if previously saved with a notification queued (to differentiate with event with the new notification logic)
+	$new_event->announcement_period = $announcement_period;
+	$new_event->notification_queued_ts = $notification_queued_ts;
+} else {
+	unset($new_event->announcement_period);
+	unset($new_event->notification_queued_ts);
 }
 
 if (!$new_event->save()) {
