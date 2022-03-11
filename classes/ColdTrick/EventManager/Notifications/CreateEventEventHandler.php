@@ -85,7 +85,7 @@ class CreateEventEventHandler extends NotificationEventHandler {
 	 */
 	public static function trackNotificationSent(\Elgg\Hook $hook) {
 		$handler = $hook->getParam('handler');
-		if ($handler::class !== self::class) {
+		if (!$handler instanceof self) {
 			return;
 		}
 		
