@@ -1,6 +1,11 @@
 Version history
 ===============
 
+14.1 (2022-03-14):
+
+- added: event create notification is now optionally delayed
+- fixed: correctly decode files to return an array of objects
+
 14.0 (2022-02-16):
 
 - added: Gaelic translations
