@@ -9,6 +9,9 @@ $body .= elgg_view('forms/event_manager/event/tabs/general', [
 	'title' => elgg_echo('event_manager:entity:copy', [$entity->getDisplayName()]),
 	'event_start' => $entity->getStartTimestamp(),
 	'event_end' => $entity->getEndTimestamp(),
+	'announcement_period' => elgg_get_plugin_setting('announcement_period', 'event_manager'),
+	'notification_queued_ts' => ELGG_ENTITIES_ANY_VALUE,
+	'notification_sent_ts' => ELGG_ENTITIES_ANY_VALUE,
 ]);
 $body .= '</div>';
 
