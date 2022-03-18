@@ -66,6 +66,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		$hooks->registerHandler('export_attendee', 'event', '\ColdTrick\EventManager\Attendees::exportQuestionData', 200);
 		$hooks->registerHandler('export_attendee', 'event', '\ColdTrick\EventManager\Attendees::exportProgramData', 300);
 		$hooks->registerHandler('export:metadata_names', 'elasticsearch', '\ColdTrick\EventManager\Elasticsearch::exportMetadataNames');
+		$hooks->registerHandler('export:metadata_names', 'opensearch', '\ColdTrick\EventManager\Elasticsearch::exportMetadataNames');
 		$hooks->registerHandler('handlers', 'widgets', '\ColdTrick\EventManager\Widgets::registerHandlers');
 		$hooks->registerHandler('prepare', 'system:email', '\ColdTrick\EventManager\Notifications::prepareEventRegistrationSender');
 		$hooks->registerHandler('register', 'menu:filter:events', '\ColdTrick\EventManager\Menus::registerEventsList');

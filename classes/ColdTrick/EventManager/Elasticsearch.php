@@ -7,7 +7,7 @@ class Elasticsearch {
 	/**
 	 * Add metadata names to be exported to Elasticsearch index
 	 *
-	 * @param \Elgg\Hook $hook 'export:metadata_names', 'elasticsearch'
+	 * @param \Elgg\Hook $hook 'export:metadata_names', 'elasticsearch'|'opensearch'
 	 *
 	 * @return void|array
 	 */
