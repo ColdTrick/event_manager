@@ -33,6 +33,6 @@ $filesArray[] = [
 	'uploader' => elgg_get_logged_in_user_guid(),
 ];
 
-$event->files = json_encode($filesArray);
+$event->files = json_encode(array_values($filesArray));
 
 return elgg_ok_response('', elgg_echo('event_manager:action:event:edit:ok'));
