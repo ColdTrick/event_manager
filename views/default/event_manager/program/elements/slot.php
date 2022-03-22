@@ -66,7 +66,7 @@ if (!empty($slot_set)) {
 if ($slot->canEdit() && !elgg_in_context('programmailview') && ($participate == false)) {
 
 	$edit_slot = elgg_view('output/url', [
-		'href' => 'javascript:void(0);',
+		'href' => false,
 		'rel' => $slot->guid,
 		'data-colorbox-opts' => json_encode([
 			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/slot?slot_guid=' . $slot->guid)
@@ -76,7 +76,7 @@ if ($slot->canEdit() && !elgg_in_context('programmailview') && ($participate == 
 	]);
 	
 	$delete_slot = elgg_view('output/url', [
-		'href' => 'javascript:void(0);',
+		'href' => false,
 		'class' => 'event_manager_program_slot_delete',
 		'text' => elgg_echo('delete')
 	]);

@@ -44,7 +44,7 @@ $module_vars = [];
 if ($event->canEdit() && !elgg_in_context('programmailview')) {
 	
 	$module_vars['menu'] = elgg_view('output/url', [
-		'href' => 'javascript:void(0);',
+		'href' => false,
 		'rel' => $event->guid,
 		'data-colorbox-opts' => json_encode([
 			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/day?event_guid=' . $event->guid)

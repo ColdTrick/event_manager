@@ -21,7 +21,7 @@ $details .= $day->getDisplayName();
 if ($can_edit && !elgg_in_context('programmailview') && ($participate == false)) {
 	
 	$edit_day = elgg_view('output/url', [
-		'href' => 'javascript:void(0);',
+		'href' => false,
 		'rel' => $day->guid,
 		'data-colorbox-opts' => json_encode([
 			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/day?day_guid=' . $day->guid)
@@ -31,7 +31,7 @@ if ($can_edit && !elgg_in_context('programmailview') && ($participate == false))
 	]);
 
 	$delete_day = elgg_view('output/url', [
-		'href' => 'javascript:void(0);',
+		'href' => false,
 		'class' => 'event_manager_program_day_delete',
 		'text' => elgg_echo('delete'),
 	]);
@@ -67,7 +67,7 @@ if ($daySlots) {
 if ($can_edit && !elgg_in_context('programmailview') && ($participate == false)) {
 	
 	$slots .= elgg_view('output/url', [
-		'href' => 'javascript:void(0);',
+		'href' => false,
 		'class' => 'elgg-button elgg-button-action event_manager_program_slot_add mll elgg-lightbox',
 		'rel' => $day->guid,
 		'data-colorbox-opts' => json_encode([

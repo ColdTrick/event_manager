@@ -74,7 +74,7 @@ $form_body .= elgg_view_field([
 $form_body .= '</div>';
 
 $delete_question = elgg_view('output/url', [
-	'href' => 'javascript:void(0);',
+	'href' => false,
 	'text' => elgg_view_icon('delete'),
 	'class' => 'event_manager_questions_delete',
 	'confirm' => elgg_echo('deleteconfirm'),
