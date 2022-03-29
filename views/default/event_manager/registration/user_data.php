@@ -29,6 +29,11 @@ if (($entity->guid != elgg_get_logged_in_user_guid()) && !($entity instanceof \E
 foreach ($questions as $question) {
 	$answer = $question->getAnswerFromUser($entity->guid);
 
+	$answer_value = '';
+	if ($answer instanceof \ElggAnnotation) {
+		$answer_value = $answer->value;
+	}
+	
 	echo '<label>' . $question->getDisplayName() . '</label>';
-	echo '<div class="mbm">' . $answer->value . '</div>';
+	echo '<div class="mbm">' . $answer_value . '</div>';
 }
