@@ -1,6 +1,13 @@
 Version history
 ===============
 
+14.2 (2022-03-30):
+
+- added: support for OpenSearch
+- fixed: copying event set correct default announcement period
+- fixed: correctly handle/update arrays in files metadata
+- fixed: include current day notifiable events when processing delayeds
+
 14.1 (2022-03-14):
 
 - added: event create notification is now optionally delayed
