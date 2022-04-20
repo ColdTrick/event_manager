@@ -1,6 +1,10 @@
 Version history
 ===============
 
+14.2.1 (2022-04-20):
+
+- several small chores/fixes
+
 14.2 (2022-03-30):
 
 - added: support for OpenSearch
