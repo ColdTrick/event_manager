@@ -30,6 +30,6 @@
 		}
 	},
 	"conflict": {
-		"elgg/elgg": "<4.1"
+		"elgg/elgg": "<4.2"
 	}
 }

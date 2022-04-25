@@ -1,4 +1,4 @@
-define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/lightbox', 'fullcalendar'], function($, elgg, Ajax, lightbox) {
+define(['jquery', 'elgg', 'elgg/i18n', 'elgg/Ajax', 'elgg/lightbox', 'fullcalendar'], function($, elgg, i18n, Ajax, lightbox) {
 	$('#event-manager-event-calendar').fullCalendar({
 		events: function(start, end, timezone, callback) {
 			var ajax = new Ajax();
@@ -23,12 +23,12 @@ define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/lightbox', 'fullcalendar'], functio
 		},
 		allDayDefault: true,
 		timeFormat: 'H:mm',
-		lang: elgg.get_language(),
+		lang: elgg.config.current_language,
 		buttonText: {
-			today: elgg.echo('event_manager:calendar:today'),
-			month: elgg.echo('event_manager:calendar:month'),
-			week: elgg.echo('event_manager:calendar:week'),
-			day: elgg.echo('event_manager:calendar:day')
+			today: i18n.echo('event_manager:calendar:today'),
+			month: i18n.echo('event_manager:calendar:month'),
+			week: i18n.echo('event_manager:calendar:week'),
+			day: i18n.echo('event_manager:calendar:day')
 		},
 		eventClick: function(info) {
 			if (!info.guid) {

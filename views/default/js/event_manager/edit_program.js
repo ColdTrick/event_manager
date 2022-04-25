@@ -1,4 +1,4 @@
-define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/lightbox'], function($, elgg, Ajax) {
+define(['jquery', 'elgg/i18n', 'elgg/Ajax', 'elgg/lightbox'], function($, i18n, Ajax) {
 
 	var ajax = new Ajax();
 	
@@ -62,7 +62,7 @@ define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/lightbox'], function($, elgg, Ajax)
 	};
 		
 	$(document).on('click', '.event_manager_program_day_delete', function() {
-		if (!confirm(elgg.echo('deleteconfirm'))) {
+		if (!confirm(i18n.echo('deleteconfirm'))) {
 			return false;
 		}
 		
@@ -93,7 +93,7 @@ define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/lightbox'], function($, elgg, Ajax)
 	});
 	
 	$(document).on('click', '.event_manager_program_slot_delete', function() {
-		if (!confirm(elgg.echo('deleteconfirm'))) {
+		if (!confirm(i18n.echo('deleteconfirm'))) {
 			return false;
 		}
 		

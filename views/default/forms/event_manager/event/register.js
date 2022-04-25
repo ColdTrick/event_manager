@@ -1,4 +1,4 @@
-define(['jquery', 'elgg'], function($, elgg) {
+define(['jquery', 'elgg/i18n', 'elgg/system_messages'], function($, i18n, system_messages) {
 
 	var $form = $("#event_manager_event_register");
 	if ($form.length > 0) {
@@ -28,7 +28,7 @@ define(['jquery', 'elgg'], function($, elgg) {
 	
 	$(document).on('submit', '#event_manager_event_register', function() {
 		if (($("input[name='question_name']").val() === "") || ($("input[name='question_email']").val() === "")) {
-			elgg.register_error(elgg.echo("event_manager:registration:required_fields"));
+			system_messages.error(i18n.echo("event_manager:registration:required_fields"));
 			return false;
 		}
 
@@ -47,7 +47,7 @@ define(['jquery', 'elgg'], function($, elgg) {
 		});
 
 		if (error_found) {
-			elgg.register_error(elgg.echo("event_manager:registration:required_fields"));
+			system_messages.error(i18n.echo("event_manager:registration:required_fields"));
 			return false;
 		}
 

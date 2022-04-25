@@ -198,11 +198,11 @@
 /* Event view */
 .event-manager-event-when {
 	margin-bottom: 15px;
-}
-
-.event-manager-event-when .elgg-icon-calendar {
-	font-size: 3em;
-	margin: 0 10px;
+	
+	.elgg-icon-calendar {
+		font-size: 3em;
+		margin: 0 10px;
+	}
 }
 
 .event-manager-event-when-title {
