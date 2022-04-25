@@ -5,14 +5,8 @@ $item = elgg_extract('item', $vars);
 $user = $item->getSubjectEntity();
 $event = $item->getObjectEntity();
 
-$subject_url = elgg_view('output/url', [
-	'href' => $user->getURL(),
-	'text' => $user->getDisplayName(),
-]);
-$event_url = elgg_view('output/url', [
-	'href' => $event->getURL(),
-	'text' => $event->getDisplayName(),
-]);
+$subject_url = elgg_view_entity_url($user);
+$event_url = elgg_view_entity_url($event);
 
 $relationtype = $event->getRelationshipByUser($user->guid);
 

@@ -25,10 +25,7 @@ foreach ($files as $file) {
 		$elggfile->setFilename("files/{$file->file}");
 	}
 		
-	$link = elgg_view('output/url', [
-		'href' => elgg_get_download_url($elggfile, $use_cookie),
-		'text' => $file->title,
-	]);
+	$link = elgg_view_url(elgg_get_download_url($elggfile, $use_cookie), $file->title);
 	
 	$delete = elgg_view('output/url', [
 		'href' => elgg_generate_action_url('event_manager/event/deletefile', [

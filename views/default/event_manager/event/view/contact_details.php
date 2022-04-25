@@ -45,18 +45,16 @@ if (!empty($contact_guids)) {
 	if (!is_array($contact_guids)) {
 		$contact_guids = [$contact_guids];
 	}
+	
 	$contact_content = '';
 	foreach ($contact_guids as $contact_guid) {
 		$member_entity = get_entity($contact_guid);
 		if (empty($member_entity)) {
 			continue;
 		}
+		
 		$member_icon = elgg_view_entity_icon($member_entity, 'tiny', ['event' => $event]);
-		$member_name = elgg_view('output/url', [
-			'href' => $member_entity->getURL(),
-			'text' => $member_entity->getDisplayName(),
-		]);
-		$contact_content .= elgg_view_image_block($member_icon, $member_name, ['class' => 'pan']);
+		$contact_content .= elgg_view_image_block($member_icon, elgg_view_entity_url($member_entity), ['class' => 'pan']);
 	}
 	
 	echo elgg_view_module('event', elgg_echo('event_manager:event:view:contact_persons'), $contact_content);

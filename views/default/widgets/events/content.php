@@ -114,7 +114,4 @@ if (!empty($tag_filter)) {
 	$more_text = elgg_echo('event_manager:list:more:with_tag', [$tag_filter]);
 }
 
-echo elgg_format_element('div', ['class' => 'elgg-widget-more'], elgg_view('output/url', [
-	'text' => $more_text,
-	'href' => $more_link,
-]));
+echo elgg_format_element('div', ['class' => 'elgg-widget-more'], elgg_view_url($more_link, $more_text));

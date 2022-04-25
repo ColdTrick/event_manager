@@ -47,12 +47,9 @@ foreach ($ordered_relationships as $rel) {
 		if (empty($member_entity)) {
 			continue;
 		}
+
 		$member_icon = elgg_view_entity_icon($member_entity, 'tiny', ['event' => $event]);
-		$member_name = elgg_view('output/url', [
-			'href' => $member_entity->getURL(),
-			'text' => $member_entity->getDisplayName(),
-		]);
-		$rel_content .= elgg_view_image_block($member_icon, $member_name, ['class' => 'pan']);
+		$rel_content .= elgg_view_image_block($member_icon, elgg_view_entity_url($member_entity), ['class' => 'pan']);
 	}
 
 	echo elgg_view_module('aside', $rel_title, $rel_content);

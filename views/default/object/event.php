@@ -31,10 +31,7 @@ $location = $event->location;
 if ($location) {
 	$imprint['location'] = [
 		'icon_name' => 'map-marker-alt',
-		'content' => elgg_view('output/url', [
-			'href' => $event->getURL() . '#location',
-			'text' => $location,
-		]),
+		'content' => elgg_view_url($event->getURL() . '#location', $location),
 	];
 }
 

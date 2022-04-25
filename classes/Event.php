@@ -536,14 +536,7 @@ class Event extends ElggObject {
 					$registrationLink = PHP_EOL . PHP_EOL;
 					$registrationLink .= elgg_echo('event_manager:event:registration:notification:program:linktext');
 					$registrationLink .= PHP_EOL . PHP_EOL;
-					if ($html_email_enabled) {
-						$registrationLink .= elgg_view('output/url', [
-							'text' => $link,
-							'href' => $link,
-						]);
-					} else {
-						$registrationLink .= $link;
-					}
+					$registrationLink .= ($html_email_enabled) ? elgg_view_url($link, $link) : $link;
 				}
 	
 				if ($this->register_nologin && ($to_entity instanceof \EventRegistration)) {
@@ -555,14 +548,7 @@ class Event extends ElggObject {
 					$unsubscribeLink = PHP_EOL . PHP_EOL;
 					$unsubscribeLink .= elgg_echo('event_manager:event:registration:notification:unsubscribe:linktext');
 					$unsubscribeLink .= PHP_EOL . PHP_EOL;
-					if ($html_email_enabled) {
-						$unsubscribeLink .= elgg_view('output/url', [
-							'text' => $link,
-							'href' => $link,
-						]);
-					} else {
-						$unsubscribeLink .= $link;
-					}
+					$unsubscribeLink .= ($html_email_enabled) ? elgg_view_url($link, $link) : $link;
 				}
 				
 				if ($html_email_enabled) {
@@ -572,15 +558,8 @@ class Event extends ElggObject {
 			}
 	
 			// make the event title for in the e-mail
-			if ($html_email_enabled) {
-				$event_title_link = elgg_view('output/url', [
-					'text' => $this->getDisplayName(),
-					'href' => $this->getURL(),
-				]);
-			} else {
-				$event_title_link = $this->getDisplayName();
-			}
-	
+			$event_title_link = ($html_email_enabled) ? elgg_view_entity_url($this) : $this->getDisplayName();
+			
 			// notify the owner of the event
 			$this->notifyOwnerOnRSVP($type, $to_entity, $event_title_link, $registrationLink);
 	
