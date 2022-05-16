@@ -54,26 +54,41 @@ return [
 			'type' => 'object',
 			'subtype' => 'eventregistrationquestion',
 			'class' => EventRegistrationQuestion::class,
+			'capabilities' => [
+				'commentable' => false,
+			],
 		],
 		[
 			'type' => 'object',
 			'subtype' => 'eventregistration',
 			'class' => EventRegistration::class,
+			'capabilities' => [
+				'commentable' => false,
+			],
 		],
 		[
 			'type' => 'object',
 			'subtype' => 'eventday',
 			'class' => Day::class,
+			'capabilities' => [
+				'commentable' => false,
+			],
 		],
 		[
 			'type' => 'object',
 			'subtype' => 'eventslot',
 			'class' => Slot::class,
+			'capabilities' => [
+				'commentable' => false,
+			],
 		],
 		[
 			'type' => 'object',
 			'subtype' => 'eventmail',
 			'class' => EventMail::class,
+			'capabilities' => [
+				'commentable' => false,
+			],
 		],
 	],
 	'views' => [

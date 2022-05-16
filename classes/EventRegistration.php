@@ -47,12 +47,4 @@ class EventRegistration extends \ElggObject {
 		
 		return parent::getDisplayName();
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see ElggObject::canComment()
-	 */
-	public function canComment($user_guid = 0, $default = null) {
-		return false;
-	}
 }
