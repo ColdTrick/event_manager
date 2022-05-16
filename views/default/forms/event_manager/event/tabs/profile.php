@@ -39,6 +39,8 @@ $output .= elgg_view('entity/edit/icon', [
 	'entity' => $entity,
 	'entity_type' => 'object',
 	'entity_subtype' => 'event',
+	'cropper_enabled' => true,
+	'cropper_aspect_ratio_size' => 'event_banner',
 ]);
 
 $output .= elgg_view('forms/event_manager/event/edit/event_type', $vars);
