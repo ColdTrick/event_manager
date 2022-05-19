@@ -377,6 +377,8 @@ return array(
 	'event_manager:settings:migration:group:whocancreate:no_one' => 'no one',
 	
 	'event_manager:settings:add_event' => 'AddEvent settings',
+	'event_manager:settings:add_event_license' => 'AddEvent Client ID',
+	'event_manager:settings:add_event_license:help' => 'Without a Client ID you have some limitations with the AddEvent features. To get your own Client ID you need to register on https://app.addevent.com.',
 	'event_manager:settings:add_event_to_calendar' => 'Show "add to calendar" button on event page',
 	'event_manager:settings:add_event_to_calendar:help' => 'This will also include the links in notification e-mails',
 	'event_manager:settings:add_event_to_calendar:attendee_only' => 'Only for attendees',

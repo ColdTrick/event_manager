@@ -129,6 +129,14 @@ $add_event = elgg_view_field([
 	],
 ]);
 
+$add_event .= elgg_view_field([
+	'#type' => 'text',
+	'#label' => elgg_echo('event_manager:settings:add_event_license'),
+	'#help' => elgg_echo('event_manager:settings:add_event_license:help'),
+	'name' => 'params[add_event_license]',
+	'value' => $plugin->add_event_license,
+]);
+
 $services = [
 	'google' => 'Google <em>(online)</em>',
 	'yahoo' => 'Yahoo <em>(online)</em>',

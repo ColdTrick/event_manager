@@ -6,7 +6,7 @@ $get_setting = function ($service) {
 
 window.addeventasync = function(){
 	addeventatc.settings({
-	    license   : "ak1qmrp10zvwxx2cimhv206",
+	    license   : "<?php echo elgg_get_plugin_setting('add_event_license', 'event_manager');?>",
 	    mouse     : false,
 	    css       : false,
 	    google     : {show:<?php echo $get_setting('google');?>, text:"Google <em>(online)</em>"},

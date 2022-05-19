@@ -9,6 +9,8 @@ return array (
   'event_manager:edit:form:notify_onsignup_contact' => 'Stuur een kopie naar de gebruikers ingevoerd bij contactpersonen',
   'event_manager:edit:form:notify_onsignup_organizer' => 'Stuur een kopie naar de gebruikers ingevoerd bij organisatoren',
   'event_manager:settings:add_event' => 'AddEvent instellingen',
+  'event_manager:settings:add_event_license' => 'AddEvent Client ID',
+  'event_manager:settings:add_event_license:help' => 'Zonder een Client ID zijn er limitaties met betrekking tot de AddEvent functionaliteiten. Voor een eigen Client ID moet je je registreren op https://app.addevent.com.',
   'event_manager:settings:add_event:service' => 'Activeer de dienst: %s',
   'event_manager:addevent:mail:service:office365' => 'Office365',
   'item:object:eventmail' => 'Event deelnemers e-mail',

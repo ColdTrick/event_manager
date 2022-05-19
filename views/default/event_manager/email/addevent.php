@@ -11,7 +11,7 @@ if (elgg_get_plugin_setting('add_event_to_calendar', 'event_manager') === 'no') 
 }
 
 $event = elgg_extract('entity', $vars);
-if (!($event instanceof Event)) {
+if (!$event instanceof Event) {
 	return;
 }
 
@@ -43,7 +43,7 @@ $description .= $event->getExcerpt(500) . PHP_EOL . PHP_EOL;
 $description .= $event->getURL();
 
 $url_params = [
-	'client' => 'ak1qmrp10zvwxx2cimhv206',
+	'client' => elgg_get_plugin_setting('add_event_license', 'event_manager'),
 	'date_format' => 'DD/MM/YYYY',
 	'start' => $event->getStartDate('d/m/Y'),
 	'starttime' => $event->getStartDate('H:i:00'),
