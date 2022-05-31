@@ -129,7 +129,7 @@ return array(
 	'event_manager:edit:form:start_time' => 'Start time',
 	'event_manager:edit:form:end_time' => 'End time',
 	'event_manager:edit:form:announcement_period' => 'Announcement period',
-	'event_manager:edit:form:announcement_period:help' => 'Number of weeks befor the start of the event at which time a notification about this event will be sent out to the network',
+	'event_manager:edit:form:announcement_period:help' => 'Number of weeks before the start of the event at which time a notification about this event will be sent out to the network',
 	'event_manager:edit:form:announcement_period:scheduled' => 'Notification scheduled for %s',
 	'event_manager:edit:form:announcement_period:sent' => 'Notification has been sent %s',
 	'event_manager:edit:form:max_attendees' => 'Maximum attendees',

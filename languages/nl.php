@@ -1,11 +1,18 @@
 <?php
 /**
- * This file was created by Translation Editor v7.0.4
- * On 2021-03-10 11:57
+ * This file was created by Translation Editor v9.0.2
+ * On 2022-05-31 15:01
  */
 
 return array (
-  'notification:object:event:create' => "Stuur een notificatie wanneer een evenement is gemaakt",
+  'event_manager:edit:form:announcement_period' => 'Aankondigings periode',
+  'event_manager:edit:form:announcement_period:help' => 'Het aantal weken voorafgaand aan de start van het evenement waarop een notificatie naar het netwerk wordt verstuurd',
+  'event_manager:edit:form:announcement_period:scheduled' => 'Notificatie gepland voor %s',
+  'event_manager:edit:form:announcement_period:sent' => 'Notificatie is verzonden op %s',
+  'event_manager:settings:announcement_period' => 'Aankondigings periode',
+  'event_manager:settings:announcement_period:help' => 'Het aantal weken voor de startdatum van een evenement waarop een notificatie naar het netwerk wordt verstuurd (laat blanco voor direct verzonden notificaties). Evenement eigenaren kunnen deze waarde aanpassen wanneer zij een evenement aanmaken of wijzigen.',
+  'river:object:event:comment' => '%s reageerde op het evenement %s',
+  'notification:object:event:create' => 'Stuur een notificatie wanneer een evenement is gemaakt',
   'event_manager:edit:form:notify_onsignup_contact' => 'Stuur een kopie naar de gebruikers ingevoerd bij contactpersonen',
   'event_manager:edit:form:notify_onsignup_organizer' => 'Stuur een kopie naar de gebruikers ingevoerd bij organisatoren',
   'event_manager:settings:add_event' => 'AddEvent instellingen',
@@ -36,7 +43,6 @@ Om het evenement te bekijken, klik hier:
   'collection:object:eventregistration' => 'Event Manager - Evenementregistraties',
   'collection:object:eventregistrationquestion' => 'Event Manager - Evenement Registratie Vragen',
   'widgets:events:showevents:status' => 'Evenement status',
-  'river:object:event:comment' => '% reageerde op het evenement %s',
   'collection:object:event' => 'Evenementen',
   'event_manager:list:filter:tags' => 'Gefilterd met de tag %s',
   'event_manager:list:upcoming' => 'Aankomende evenementen',
