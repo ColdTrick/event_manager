@@ -1,10 +1,11 @@
 <?php
 /**
  * This file was created by Translation Editor v9.0.2
- * On 2022-05-31 15:01
+ * On 2022-06-01 13:37
  */
 
 return array (
+  'input:container_guid:object:event:info' => 'Dit evenement zal worden geplaatst in %s',
   'event_manager:edit:form:announcement_period' => 'Aankondigings periode',
   'event_manager:edit:form:announcement_period:help' => 'Het aantal weken voorafgaand aan de start van het evenement waarop een notificatie naar het netwerk wordt verstuurd',
   'event_manager:edit:form:announcement_period:scheduled' => 'Notificatie gepland voor %s',

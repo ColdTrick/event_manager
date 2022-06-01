@@ -9,9 +9,7 @@ $shortdescription = elgg_extract('shortdescription', $vars);
 $description = elgg_extract('description', $vars);
 $tags = elgg_extract('tags', $vars);
 
-$output = '';
-
-$output .= elgg_view_field([
+echo elgg_view_field([
 	'#type' => 'text',
 	'#label' => elgg_echo('event_manager:edit:form:shortdescription'),
 	'#help' => elgg_echo('event_manager:edit:form:shortdescription:help'),
@@ -19,7 +17,7 @@ $output .= elgg_view_field([
 	'value' => $shortdescription,
 ]);
 
-$output .= elgg_view_field([
+echo elgg_view_field([
 	'#type' => 'longtext',
 	'#label' => elgg_echo('description'),
 	'#help' => elgg_echo('event_manager:edit:form:description:help'),
@@ -27,7 +25,7 @@ $output .= elgg_view_field([
 	'value' => $description,
 ]);
 
-$output .= elgg_view_field([
+echo elgg_view_field([
 	'#type' => 'tags',
 	'#label' => elgg_echo('tags'),
 	'#help' => elgg_echo('event_manager:edit:form:tags:help'),
@@ -35,7 +33,7 @@ $output .= elgg_view_field([
 	'value' => $tags,
 ]);
 
-$output .= elgg_view('entity/edit/icon', [
+echo elgg_view('entity/edit/icon', [
 	'entity' => $entity,
 	'entity_type' => 'object',
 	'entity_subtype' => 'event',
@@ -43,9 +41,9 @@ $output .= elgg_view('entity/edit/icon', [
 	'cropper_aspect_ratio_size' => 'event_banner',
 ]);
 
-$output .= elgg_view('forms/event_manager/event/edit/event_type', $vars);
+echo elgg_view('forms/event_manager/event/edit/event_type', $vars);
 
-$output .= elgg_view_field([
+echo elgg_view_field([
 	'#type' => 'checkbox',
 	'#label' => elgg_echo('event_manager:edit:form:comments_on'),
 	'#help' => elgg_echo('event_manager:edit:form:comments_on:help'),
@@ -56,11 +54,16 @@ $output .= elgg_view_field([
 	'value' => '1',
 ]);
 
-$output .= elgg_view_field([
+echo elgg_view_field([
 	'#type' => 'access',
 	'#label' => elgg_echo('access'),
 	'name' => 'access_id',
 	'value' => $vars['access_id'],
 ]);
 
-echo $output;
+echo elgg_view_field([
+	'#type' => 'container_guid',
+	'entity_type' => 'object',
+	'entity_subtype' => \Event::SUBTYPE,
+	'value' => $vars['container_guid'],
+]);
