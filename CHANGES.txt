@@ -1,6 +1,13 @@
 Version history
 ===============
 
+15.0 (2022-06-01):
+
+- added: icon cropper to event icon
+- added: you can configure addevent client id
+- changed: updated for Elgg 4.2
+- fixed: commentable capability applied to more entities
+
 14.2.1 (2022-04-20):
 
 - several small chores/fixes
