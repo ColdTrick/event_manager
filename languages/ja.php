@@ -4,14 +4,12 @@ return array(
 	'event_manager' => 'イベントマネージャ',
 	'groups:enableevents' => 'グループイベントを有効にする',
 	'event_manager:group' => 'グループイベント',
-	'event_manager:group:more' => 'その他のイベント',
 	
 	'item:object:event' => 'イベント',
 	'item:object:eventslot' => 'イベントスロット',
 	'item:object:eventday' => 'イベント日',
 	'item:object:eventregistration' => 'イベント登録',
 	'item:object:eventregistrationquestion' => 'イベント登録質問',
-	'item:object:eventquestions' => 'イベントの質問',
 	
 	'collection:object:event' => "イベント",
 

@@ -4,14 +4,12 @@ return array(
 	'event_manager' => 'Event Manager',
 	'groups:enableevents' => 'Enable group events',
 	'event_manager:group' => 'Group events',
-	'event_manager:group:more' => 'More events',
 	
 	'item:object:event' => 'Event',
-	'item:object:eventslot' => 'Eventslots',
-	'item:object:eventday' => 'Eventdays',
-	'item:object:eventregistration' => 'Eventregistrations',
-	'item:object:eventregistrationquestion' => 'Event Registration Questions',
-	'item:object:eventquestions' => 'Event Questions',
+	'item:object:eventslot' => 'Eventslot',
+	'item:object:eventday' => 'Eventday',
+	'item:object:eventregistration' => 'Eventregistration',
+	'item:object:eventregistrationquestion' => 'Event Registration Question',
 	'item:object:eventmail' => 'Event Attendees e-mail',
 	
 	'collection:object:event' => "Events",

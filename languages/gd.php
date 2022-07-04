@@ -6,7 +6,6 @@
 
 return array (
   'event_manager' => 'Event Manager',
-  'event_manager:group:more' => 'Barrachd tachartasan',
   'item:object:event' => 'Tachartas',
   'collection:object:event' => 'Tachartasan',
   'event_manager:date:format' => 'Y-m-d',
@@ -298,7 +297,6 @@ Briog an seo airson an tachartas seo fhaicinn:
   'item:object:eventday' => 'Làithean',
   'item:object:eventregistration' => 'Clàraidhean',
   'item:object:eventregistrationquestion' => 'Ceistean clàraidh',
-  'item:object:eventquestions' => 'Ceistean tacartais',
   'collection:object:eventslot' => 'Seiseanan',
   'collection:object:eventday' => 'Làithean',
   'collection:object:eventregistration' => 'Clàraidhean',

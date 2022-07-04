@@ -8,7 +8,6 @@ return array (
   'event_manager' => 'Tapahtumat',
   'groups:enableevents' => 'Ota käyttöön ryhmän tapahtumat',
   'event_manager:group' => 'Ryhmän tapahtumat',
-  'event_manager:group:more' => 'Lisää tapahtumia',
   'item:object:event' => 'Tapahtumat',
   'event_manager:menu:title' => 'Tapahtumat',
   'event_manager:menu:group_events' => 'Ryhmän tapahtumat',
