@@ -1,6 +1,10 @@
 Version history
 ===============
 
+15.0.1 (2022-07-12):
+
+- several small chores/fixes
+
 15.0 (2022-06-01):
 
 - added: icon cropper to event icon
