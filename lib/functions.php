@@ -206,7 +206,7 @@ function event_manager_prepare_form_vars(\Event $event = null): array {
 		'notify_onsignup_organizer' => ELGG_ENTITIES_ANY_VALUE,
 		'max_attendees' => ELGG_ENTITIES_ANY_VALUE,
 		'waiting_list_enabled' => ELGG_ENTITIES_ANY_VALUE,
-		'access_id' => get_default_access(),
+		'access_id' => elgg_get_default_access(),
 		'container_guid' => elgg_get_page_owner_entity()->guid,
 		'event_interested' => 0,
 		'event_presenting' => 0,
@@ -221,7 +221,7 @@ function event_manager_prepare_form_vars(\Event $event = null): array {
 		// edit mode
 		$values['latitude'] = $event->getLatitude();
 		$values['longitude'] = $event->getLongitude();
-		$values['tags'] = string_to_tag_array($event->tags);
+		$values['tags'] = is_string($event->tags) ? elgg_string_to_array($event->tags) : $event->tags;
 	
 		foreach ($values as $field => $value) {
 			if (!in_array($field, ['latitude', 'longitude', 'tags'])) {

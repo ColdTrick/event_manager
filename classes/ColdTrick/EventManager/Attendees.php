@@ -17,15 +17,17 @@ class Attendees {
 		$event = $hook->getParam('event');
 		$rel = $hook->getParam('relationship');
 		
-		$relation = check_entity_relationship($event->guid, $rel, $attendee->guid);
-		
 		$base_attributes = [
 			'guid' => $attendee->guid,
 			elgg_echo('name') => $attendee->getDisplayName(),
 			elgg_echo('email') => $attendee->email,
 			elgg_echo('username') => $attendee->username,
-			'registration date' => date("d-m-Y H:i:s", $relation->time_created),
 		];
+		
+		$relation = $event->getRelationship($attendee->guid, $rel);
+		if ($relation instanceof \ElggRelationship) {
+			$base_attributes['registration date'] = date("d-m-Y H:i:s", $relation->time_created);
+		}
 		
 		return array_merge((array) $hook->getValue(), $base_attributes);
 	}

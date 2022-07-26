@@ -1,16 +1,17 @@
 <?php
 
 $slot = elgg_extract('entity', $vars);
-if (!($slot instanceof \ColdTrick\EventManager\Event\Slot)) {
+if (!$slot instanceof \ColdTrick\EventManager\Event\Slot) {
 	return;
 }
 
 $user_guid = (int) elgg_extract('user_guid', $vars, elgg_get_logged_in_user_guid());
-if (empty($user_guid)) {
+$user = get_entity($user_guid);
+if (!$user instanceof \ElggEntity) {
 	return;
 }
 
-if (!check_entity_relationship($user_guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $slot->guid)) {
+if (!$user->hasRelationship($slot->guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION)) {
 	return;
 }
 

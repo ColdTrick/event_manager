@@ -953,10 +953,10 @@ class Event extends ElggObject {
 					return $qb->merge($wheres, 'AND');
 				},
 			],
-			'order_by_metadata' => [
-				'name' => 'order',
+			'sort_by' => [
+				'property' => 'order',
 				'direction' => 'ASC',
-				'as' => 'integer'
+				'signed' => true,
 			],
 			'count' => $count,
 			'limit' => false,
@@ -1090,8 +1090,8 @@ class Event extends ElggObject {
 			'relationship_guid' => $this->guid,
 			'relationship' => 'event_day_relation',
 			'inverse_relationship' => true,
-			'order_by_metadata' => [
-				'name' => 'date',
+			'sort_by' => [
+				'property' => 'date',
 				'direction' => $order,
 			],
 			'limit' => false,

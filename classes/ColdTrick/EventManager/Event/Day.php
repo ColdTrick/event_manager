@@ -28,9 +28,9 @@ class Day extends \ElggObject {
 			'relationship_guid' => $this->guid,
 			'relationship' => 'event_day_slot_relation',
 			'inverse_relationship' => true,
-			'order_by_metadata' => [
-				'name' => 'start_time',
-				'as' => 'integer'
+			'sort_by' => [
+				'property' => 'start_time',
+				'signed' => true,
 			],
 			'limit' => false,
 		]);

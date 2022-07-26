@@ -20,14 +20,15 @@ $event_options = [
 			'operand' => '>=',
 		],
 	],
-	'order_by_metadata' => [
-		'name' => 'event_start',
+	'sort_by' => [
+		'property' => 'event_start',
 		'direction' => 'ASC',
-		'as' => 'integer'
+		'signed' => true,
 	],
+	'no_results' => elgg_echo('event_manager:list:noresults'),
 ];
 
-$tag_filter = $widget->tag ? string_to_tag_array($widget->tag)[0]: null;
+$tag_filter = $widget->tag ? elgg_string_to_array($widget->tag)[0]: null;
 
 $more_link = elgg_generate_url('collection:object:event:upcoming', [
 	'tag' => $tag_filter,
@@ -101,17 +102,11 @@ if (is_array($group_guid)) {
 	$event_options['container_guid'] = $group_guid[0];
 }
 
-$content = elgg_list_entities($event_options);
-if (empty($content)) {
-	echo elgg_echo('event_manager:list:noresults');
-	return;
-}
-
-echo $content;
-
 $more_text = elgg_echo('event_manager:list:more');
 if (!empty($tag_filter)) {
 	$more_text = elgg_echo('event_manager:list:more:with_tag', [$tag_filter]);
 }
 
-echo elgg_format_element('div', ['class' => 'elgg-widget-more'], elgg_view_url($more_link, $more_text));
+$event_options['widget_more'] = elgg_view_url($more_link, $more_text);
+
+echo elgg_list_entities($event_options);

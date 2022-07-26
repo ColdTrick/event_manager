@@ -26,7 +26,7 @@ class Filter {
 			'name' => 'event-manager-list',
 			'icon' => 'list',
 			'text' => elgg_echo('viewtype:list'),
-			'href' => elgg_http_add_url_query_elements(current_page_url(), [
+			'href' => elgg_http_add_url_query_elements(elgg_get_current_url(), [
 				'list_type' => 'list',
 				'limit' => null,
 				'offset' => null,
@@ -40,7 +40,7 @@ class Filter {
 			'name' => 'event-manager-calendar',
 			'icon' => 'calendar-alt',
 			'text' => elgg_echo('event_manager:list:navigation:calendar'),
-			'href' => elgg_http_add_url_query_elements(current_page_url(), [
+			'href' => elgg_http_add_url_query_elements(elgg_get_current_url(), [
 				'list_type' => 'calendar',
 				'limit' => null,
 				'offset' => null,
@@ -55,7 +55,7 @@ class Filter {
 				'name' => 'event-manager-map',
 				'icon' => 'map-marked-alt',
 				'text' => elgg_echo('event_manager:list:navigation:onthemap'),
-				'href' => elgg_http_add_url_query_elements(current_page_url(), [
+				'href' => elgg_http_add_url_query_elements(elgg_get_current_url(), [
 					'list_type' => 'map',
 					'limit' => null,
 					'offset' => null,

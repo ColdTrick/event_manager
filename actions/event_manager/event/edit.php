@@ -86,7 +86,7 @@ $event->save();
 $event->location = get_input('location');
 $event->setLatLong((float) get_input('latitude'), (float) get_input('longitude'));
 
-$event->tags = string_to_tag_array(get_input('tags'));
+$event->tags = elgg_string_to_array((string) get_input('tags'));
 
 if ($event_created) {
 	elgg_create_river_item([

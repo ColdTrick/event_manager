@@ -3,14 +3,14 @@
 elgg_make_sticky_form('event_unsubscribe');
 
 $guid = (int) get_input('guid');
-$email = get_input('email');
+$email = (string) get_input('email');
 
 $entity = get_entity($guid);
 if (!$entity instanceof \Event) {
 	return elgg_echo('actionunauthorized');
 }
 
-if (!empty($email) && !is_email_address($email)) {
+if (!elgg_is_valid_email($email)) {
 	return elgg_error_response(elgg_echo('registration:notemail'));
 }
 			

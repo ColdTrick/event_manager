@@ -23,8 +23,9 @@ $checkbox_options = [
 ];
 
 $registered_for_slot = '&nbsp;';
-if (elgg_is_logged_in() && ($user_guid = elgg_get_logged_in_user_guid())) {
-	if (check_entity_relationship($user_guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $slot->guid)) {
+$logged_in_user = elgg_get_logged_in_user_entity();
+if ($logged_in_user instanceof \ElggUser) {
+	if ($logged_in_user->hasRelationship($slot->guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION)) {
 		if (!$participate) {
 			$registered_for_slot = elgg_view_icon('check', ['title' => elgg_echo('event_manager:event:relationship:event_attending')]);
 			
@@ -40,8 +41,11 @@ if (elgg_is_logged_in() && ($user_guid = elgg_get_logged_in_user_guid())) {
 } else {
 	if ($participate && ($slot->hasSpotsLeft() || $register_type == 'waitinglist')) {
 		$registered_for_slot = elgg_view('input/checkbox', $checkbox_options);
-	} elseif (!empty($vars['member']) && check_entity_relationship($vars['member'], EVENT_MANAGER_RELATION_SLOT_REGISTRATION, $slot->guid)) {
-		$registered_for_slot = elgg_view_icon('check', ['title' => elgg_echo('event_manager:event:relationship:event_attending')]);
+	} elseif (!empty($vars['member'])) {
+		$member = get_entity($vars['member']);
+		if ($member instanceof \ElggEntity && $member->hasRelationship($slot->guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION)) {
+			$registered_for_slot = elgg_view_icon('check', ['title' => elgg_echo('event_manager:event:relationship:event_attending')]);
+		}
 	}
 }
 

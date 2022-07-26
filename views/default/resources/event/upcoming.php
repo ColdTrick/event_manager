@@ -27,10 +27,10 @@ $content = elgg_view("event_manager/listing/{$list_type}", [
 				'operand' => '>=',
 			],
 		],
-		'order_by_metadata' => [
-			'name' => 'event_start',
+		'sort_by' => [
+			'property' => 'event_start',
 			'direction' => 'ASC',
-			'as' => 'integer'
+			'signed' => true,
 		],
 	],
 	'resource' => 'upcoming',

@@ -58,10 +58,15 @@ if ($collapsed) {
 
 $menu = null;
 if ($collapsed) {
+	elgg_require_js('elgg/toggle');
+	
 	$menu = elgg_view('input/button', [
-		'class' => "event-manager-edit-{$section}-toggle elgg-button-action",
+		'class' => [
+			"event-manager-edit-{$section}-toggle",
+			'elgg-button-action',
+			'elgg-toggle',
+		],
 		'value' => elgg_echo('event_manager:edit:form:tabs:toggle'),
-		'rel' => 'toggle',
 		'data-toggle-slide' => 0,
 		'data-toggle-selector' => ".event-manager-edit-{$section}-toggle",
 	]);

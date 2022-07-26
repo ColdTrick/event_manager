@@ -27,9 +27,12 @@
 	"config": {
 		"fxp-asset": {
             "enabled": false
+		},
+		"allow-plugins": {
+			"composer/installers": true
 		}
 	},
 	"conflict": {
-		"elgg/elgg": "<4.2"
+		"elgg/elgg": "<4.3"
 	}
 }

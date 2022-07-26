@@ -100,7 +100,7 @@ class EventRegistrationQuestion extends ElggObject {
 		$field_options = [];
 
 		if (!empty($this->fieldoptions)) {
-			$field_options = string_to_tag_array($this->fieldoptions);
+			$field_options = elgg_string_to_array($this->fieldoptions);
 			$field_options = array_combine(array_values($field_options), $field_options); // input radio and checkbox require non-numeric keys
 		}
 
