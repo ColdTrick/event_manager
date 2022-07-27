@@ -35,7 +35,7 @@ return array (
   'event_manager:event:relationship:event_waitinglist:undo' => 'Retirer de la liste d\'attente',
   'event_manager:edit_program:continue' => 'Continuer vers l\'événement',
   'event_manager' => 'Event Manager',
-  'groups:enableevents' => 'Activer évènements de groupe',
+  'groups:tool:event_manager' => 'Activer évènements de groupe',
   'event_manager:group' => 'Evènements de groupe',
   'item:object:event' => 'Evènements',
   'item:object:eventslot' => 'Evènement emplacements',

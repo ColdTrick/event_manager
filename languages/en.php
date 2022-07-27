@@ -2,7 +2,8 @@
 
 return array(
 	'event_manager' => 'Event Manager',
-	'groups:enableevents' => 'Enable group events',
+	'groups:tool:event_manager' => 'Enable group events',
+	'groups:tool:event_manager:description' => 'Allow group members to create events in this group.',
 	'event_manager:group' => 'Group events',
 	
 	'item:object:event' => 'Event',

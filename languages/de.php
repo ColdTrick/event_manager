@@ -6,7 +6,7 @@
 
 return array (
   'event_manager' => 'Veranstaltungsmanager',
-  'groups:enableevents' => 'Gruppenveranstaltungen aktivieren',
+  'groups:tool:event_manager' => 'Gruppenveranstaltungen aktivieren',
   'event_manager:group' => 'Gruppenveranstaltungen',
   'item:object:event' => 'Veranstaltungen',
   'item:object:eventslot' => 'Veranstaltungspl&auml;tze',

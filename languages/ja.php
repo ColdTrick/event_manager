@@ -2,7 +2,7 @@
 
 return array(
 	'event_manager' => 'イベントマネージャ',
-	'groups:enableevents' => 'グループイベントを有効にする',
+	'groups:tool:event_manager' => 'グループイベントを有効にする',
 	'event_manager:group' => 'グループイベント',
 	
 	'item:object:event' => 'イベント',

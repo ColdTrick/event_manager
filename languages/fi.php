@@ -6,7 +6,7 @@
 
 return array (
   'event_manager' => 'Tapahtumat',
-  'groups:enableevents' => 'Ota käyttöön ryhmän tapahtumat',
+  'groups:tool:event_manager' => 'Ota käyttöön ryhmän tapahtumat',
   'event_manager:group' => 'Ryhmän tapahtumat',
   'item:object:event' => 'Tapahtumat',
   'event_manager:menu:title' => 'Tapahtumat',

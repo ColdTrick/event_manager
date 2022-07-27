@@ -6,7 +6,7 @@
 
 return array (
   'event_manager' => 'Gestor de eventos',
-  'groups:enableevents' => 'Permitir eventos de grupo',
+  'groups:tool:event_manager' => 'Permitir eventos de grupo',
   'event_manager:group' => 'Eventos de grupo',
   'item:object:event' => 'Eventos',
   'item:object:eventslot' => 'Franjas horarias del evento',

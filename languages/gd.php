@@ -46,7 +46,7 @@ return array (
   'event_manager:edit:form:website' => 'Làrach-lìn',
   'event_manager:edit:form:fee' => 'Cosg',
   'event_manager:edit:form:fee_details' => 'Stiùireadh pàighidh',
-  'groups:enableevents' => 'Cuir an comas tachartasan ann am buidhnean',
+  'groups:tool:event_manager' => 'Cuir an comas tachartasan ann am buidhnean',
   'notification:object:event:create' => 'Cuir brath nuair a tha tachartas ùr ann',
   'event_manager:notification:subject' => 'Chaidh tachartas a chruthachadh: "%s"',
   'event_manager:notification:body' => 'Chruthaich %s tachartas ùr: "%s"',
