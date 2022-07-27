@@ -91,7 +91,7 @@ if (elgg_is_logged_in()) {
 	$object = elgg_call(ELGG_IGNORE_ACCESS, function() use ($answers, $event) {
 		$object = null;
 		
-		if (!elgg_is_valid_email((string) elgg_extract('email', $answers)) {
+		if (!elgg_is_valid_email((string) elgg_extract('email', $answers))) {
 			return elgg_error_response(elgg_echo('registration:notemail'));
 		} else {
 			// check for user with this emailaddress
