@@ -1,7 +1,6 @@
 <?php
 
 $day = elgg_extract('entity', $vars);
-$participate = elgg_extract('participate', $vars);
 $register_type = elgg_extract('register_type', $vars);
 
 if (!($day instanceof \ColdTrick\EventManager\Event\Day)) {
@@ -15,7 +14,6 @@ if ($daySlots) {
 	foreach ($daySlots as $slot) {
 		$slots .= elgg_view('event_manager/program/pdf/slot', [
 			'entity' => $slot,
-			'participate' => $participate,
 			'register_type' => $register_type,
 			'user_guid' => $vars['user_guid'],
 		]);
