@@ -1,10 +1,11 @@
 <?php
 /**
- * This file was created by Translation Editor v9.0.2
- * On 2022-06-01 13:37
+ * This file was created by Translation Editor v10.1.1
+ * On 2022-08-18 12:22
  */
 
 return array (
+  'groups:tool:event_manager:description' => 'Laat groepsleden evenementen aanmaken in deze groep.',
   'input:container_guid:object:event:info' => 'Dit evenement zal worden geplaatst in %s',
   'event_manager:edit:form:announcement_period' => 'Aankondigings periode',
   'event_manager:edit:form:announcement_period:help' => 'Het aantal weken voorafgaand aan de start van het evenement waarop een notificatie naar het netwerk wordt verstuurd',
