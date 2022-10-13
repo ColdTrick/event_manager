@@ -249,6 +249,11 @@ return [
 		],
 	],
 	'events' => [
+		'enqueue' => [
+			'notifications' => [
+				'\ColdTrick\EventManager\Notifications\CreateEventEventHandler::trackNotificationSent' => [],
+			],
+		],
 		'update:after' => [
 			'object' => [
 				'\ColdTrick\EventManager\Access::updateEvent' => [],
@@ -269,11 +274,6 @@ return [
 		'register' => [
 			'menu:title:object:event' => [
 				\Elgg\Notifications\RegisterSubscriptionMenuItemsHandler::class => [],
-			],
-		],
-		'send:after' => [
-			'notifications' => [
-				'\ColdTrick\EventManager\Notifications\CreateEventEventHandler::trackNotificationSent' => [],
 			],
 		],
 	],

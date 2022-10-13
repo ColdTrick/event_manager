@@ -77,23 +77,24 @@ class CreateEventEventHandler extends NotificationEventHandler {
 	}
 	
 	/**
-	 * Track notification sent
+	 * Track if a notification is actually queued so we can prevent extra notifications
 	 *
-	 * @param \Elgg\Hook $hook 'send:after', 'notifications'
+	 * @param \Elgg\Event $elgg_event 'enqueue', 'notifications'
 	 *
 	 * @return void|false
 	 */
-	public static function trackNotificationSent(\Elgg\Hook $hook) {
-		$handler = $hook->getParam('handler');
-		if (!$handler instanceof self) {
+	public static function trackNotificationSent(\Elgg\Event $elgg_event) {
+		$event = $elgg_event->getObject();
+		if (!$event instanceof \Event) {
 			return;
 		}
 		
-		$event = $hook->getParam('event')->getObject();
-		if ($event instanceof \Event) {
-			$event->notification_sent_ts = time();
-			unset($event->notification_queued_ts);
+		if ($event->access_id === ACCESS_PRIVATE || !empty($event->notification_sent_ts)) {
+			return;
 		}
+		
+		$event->notification_sent_ts = time();
+		unset($event->notification_queued_ts);
 	}
 	
 	/**
