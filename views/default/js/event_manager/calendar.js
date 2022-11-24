@@ -23,6 +23,8 @@ define(['jquery', 'elgg', 'elgg/i18n', 'elgg/Ajax', 'elgg/lightbox', 'fullcalend
 		},
 		allDayDefault: true,
 		timeFormat: 'H:mm',
+		axisFormat: i18n.echo('event_manager:calendar:axis_format'),
+		columnFormat: i18n.echo('event_manager:calendar:column_format'),
 		lang: elgg.config.current_language,
 		buttonText: {
 			today: i18n.echo('event_manager:calendar:today'),

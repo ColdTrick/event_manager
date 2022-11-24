@@ -90,6 +90,8 @@ Om het evenement te bekijken, klik hier:
   'event_manager:calendar:month' => 'Maand',
   'event_manager:calendar:week' => 'Week',
   'event_manager:calendar:day' => 'Dag',
+  'event_manager:calendar:axis_format' => 'h:mm',
+  'event_manager:calendar:column_format' => 'ddd D-M',
   'event_manager:list:navigation:calendar' => 'Kalender',
   'event_manager:owner:title' => '%s\'s evenementen',
   'event_manager:attending:title' => 'Evenementen waar %s aan deelneemt',

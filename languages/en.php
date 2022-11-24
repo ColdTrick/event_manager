@@ -42,6 +42,8 @@ return array(
 	'event_manager:calendar:month' => 'Month',
 	'event_manager:calendar:week' => 'Week',
 	'event_manager:calendar:day' => 'Day',
+	'event_manager:calendar:axis_format' => 'h(:mm)a',
+	'event_manager:calendar:column_format' => 'ddd M/D',
 	
 	'event_manager:list:filter:tags' => 'Filtered by tag %s',
 	'event_manager:list:more' => 'More events',
