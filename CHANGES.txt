@@ -1,6 +1,10 @@
 Version history
 ===============
 
+16.0.2 (2022-12-08):
+
+- fixed: column and axis format is now configurable in translations
+
 16.0.1 (2022-10-27):
 
 - changed: notifications are now tracked when entering the queue
