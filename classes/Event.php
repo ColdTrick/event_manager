@@ -473,16 +473,13 @@ class Event extends ElggObject {
 		if (!$this->hasEventDays()) {
 			return false;
 		}
-
+		
 		if (!$participate) {
-			elgg_push_context('programmailview');
-
 			$result = elgg_view('event_manager/program/view', [
 				'entity' => $this,
 				'member' => $user_guid,
+				'show_owner_actions' => false,
 			]);
-
-			elgg_pop_context();
 		} else {
 			$result = elgg_view('event_manager/program/edit', [
 				'entity' => $this,

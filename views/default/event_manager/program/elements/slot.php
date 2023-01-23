@@ -3,8 +3,9 @@
 $slot = elgg_extract('entity', $vars);
 $participate = elgg_extract('participate', $vars);
 $register_type = elgg_extract('register_type', $vars);
+$show_owner_actions = elgg_extract('show_owner_actions', $vars, true);
 
-if (!($slot instanceof \ColdTrick\EventManager\Event\Slot)) {
+if (!$slot instanceof \ColdTrick\EventManager\Event\Slot) {
 	return;
 }
 
@@ -67,7 +68,7 @@ if (!empty($slot_set)) {
 	], $slot_set);
 }
 
-if ($slot->canEdit() && !elgg_in_context('programmailview') && ($participate == false)) {
+if ($slot->canEdit() && $show_owner_actions && ($participate == false)) {
 
 	$edit_slot = elgg_view('output/url', [
 		'href' => false,

@@ -1,7 +1,6 @@
 <?php
 
 $event = elgg_extract('entity', $vars);
-
 if (!$event instanceof Event) {
 	return;
 }
@@ -13,6 +12,8 @@ if (!$event->with_program) {
 if ($event->canEdit()) {
 	elgg_require_js('event_manager/edit_program');
 }
+
+$show_owner_actions = elgg_extract('show_owner_actions', $vars, true);
 
 $tab_options = [
 	'id' => 'event_manager_event_view_program',
@@ -34,6 +35,7 @@ if ($eventDays) {
 			'content' => elgg_view('event_manager/program/elements/day', [
 				'entity' => $day,
 				'member' => $member,
+				'show_owner_actions' => $show_owner_actions,
 			]),
 			'selected' => ($key === 0),
 		];
@@ -41,7 +43,7 @@ if ($eventDays) {
 }
 
 $module_vars = [];
-if ($event->canEdit() && !elgg_in_context('programmailview')) {
+if ($event->canEdit() && $show_owner_actions) {
 	
 	$module_vars['menu'] = elgg_view('output/url', [
 		'href' => false,

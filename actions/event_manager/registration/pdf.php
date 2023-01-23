@@ -36,11 +36,7 @@ $html .= elgg_call(ELGG_IGNORE_ACCESS, function () use ($event, $entity) {
 	]);
 	
 	if ($event->with_program) {
-		elgg_push_context('programmailview');
-	
-		$output = elgg_view_module('main', '', elgg_view('event_manager/program/pdf', ['entity' => $event, 'user_guid' => $entity->guid]));
-	
-		elgg_pop_context();
+		$output .= elgg_view_module('main', '', elgg_view('event_manager/program/pdf', ['entity' => $event, 'user_guid' => $entity->guid]));
 	}
 	
 	return $output;
