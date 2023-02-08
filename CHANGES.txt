@@ -1,6 +1,10 @@
 Version history
 ===============
 
+16.0.3 (2023-02-08):
+
+- several small chores/fixes
+
 16.0.2 (2022-12-08):
 
 - fixed: column and axis format is now configurable in translations
