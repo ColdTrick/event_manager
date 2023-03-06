@@ -29,7 +29,8 @@ foreach ($_POST as $key => $value) {
 $user = elgg_get_logged_in_user_entity();
 $required_error = false;
 
-if ($questions = $event->getRegistrationFormQuestions()) {
+$questions = $event->getRegistrationFormQuestions();
+if (!empty($questions)) {
 	foreach ($questions as $question) {
 		if ($question->required && empty($answers[$question->guid]) && ($answers[$question->guid] !== '0')) {
 			$required_error = true;
@@ -64,6 +65,7 @@ if ($event->with_program && !$required_error) {
 					// only one programguid per slot is allowed
 					return elgg_error_response(elgg_echo('event_manager:action:registration:edit:error_slots', [$set_name]));
 				}
+				
 				$sets_found[] = $set_name;
 			}
 		}
@@ -95,8 +97,9 @@ if (elgg_is_logged_in()) {
 			return elgg_error_response(elgg_echo('registration:notemail'));
 		} else {
 			// check for user with this emailaddress
-			if ($existing_user = get_user_by_email($answers['email'])) {
-				$object = $existing_user[0];
+			$existing_user = elgg_get_user_by_email((string) $answers['email']);
+			if ($existing_user instanceof \ElggUser) {
+				$object = $existing_user;
 				// todo check if there already is a relationship with the event.
 				$current_relationship = $event->getRelationshipByUser($object->guid);
 				if ($current_relationship) {
@@ -168,10 +171,9 @@ if (elgg_is_logged_in()) {
 
 // save all answers
 foreach ($answers as $question_guid => $answer) {
-	if (!empty($question_guid) && ($question = get_entity($question_guid))) {
-		if ($question instanceof EventRegistrationQuestion) {
-			$question->updateAnswerFromUser($event, $answer, $object->guid);
-		}
+	$question = get_entity((int) $question_guid);
+	if ($question instanceof \EventRegistrationQuestion) {
+		$question->updateAnswerFromUser($event, $answer, $object->guid);
 	} else {
 		$object->{$question_guid} = $answer;
 	}

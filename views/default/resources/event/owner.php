@@ -7,7 +7,7 @@ if (!$user instanceof \ElggUser) {
 	throw new EntityNotFoundException();
 }
 
-elgg_register_title_button('event', 'add', 'object', \Event::SUBTYPE);
+elgg_register_title_button('add', 'object', \Event::SUBTYPE);
 
 elgg_push_collection_breadcrumbs('object', 'event', $user);
 

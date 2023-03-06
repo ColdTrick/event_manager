@@ -14,11 +14,8 @@ $date = (int) get_input('date');
 
 $edit = false;
 
-if ($guid && $day = get_entity($guid)) {
-	// edit existing
-	if (!($day instanceof \ColdTrick\EventManager\Event\Day)) {
-		unset($day);
-	}
+$day = get_entity($guid);
+if ($day instanceof \ColdTrick\EventManager\Event\Day) {
 	$edit = true;
 } else {
 	// create new

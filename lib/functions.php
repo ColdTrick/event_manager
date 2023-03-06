@@ -105,8 +105,8 @@ function event_manager_generate_registration_validation_code(int $event_guid, in
 /**
  * Validates registration validation code
  *
- * @param int $event_guid guid of event
- * @param int $user_guid  guid of user
+ * @param int    $event_guid guid of event
+ * @param int    $user_guid  guid of user
  * @param string $code       code to validate
  *
  * @return bool
@@ -155,12 +155,26 @@ function event_manager_send_registration_validation_email(\Event $event, \ElggEn
 /**
  * Returns a formatted date
  *
- * @param int $timestamp
+ * @param int $timestamp timestamp
  *
  * @return string
  */
 function event_manager_format_date($timestamp): string {
 	return gmdate(elgg_echo('event_manager:date:format'), $timestamp);
+}
+
+/**
+ * Returns the maps provider
+ *
+ * @return string
+ */
+function event_manager_get_maps_provider(): string {
+	$setting = elgg_get_plugin_setting('maps_provider', 'event_manager');
+	if (!in_array($setting, ['none', 'osm'])) {
+		return 'none';
+	}
+	
+	return $setting;
 }
 
 /**
@@ -239,7 +253,7 @@ function event_manager_prepare_form_vars(\Event $event = null): array {
 		
 		if (isset($values['event_end'])) {
 			$event_end = \Elgg\Values::normalizeTime(gmdate('d-m-Y H:i:s', (int) $values['event_end']));
-			$event_end->setTime(0,0,0);
+			$event_end->setTime(0, 0, 0);
 			
 			$end_time = (int) elgg_extract('end_time', $values);
 			$values['event_end'] = $event_end->getTimestamp() + $end_time;
@@ -247,7 +261,7 @@ function event_manager_prepare_form_vars(\Event $event = null): array {
 		
 		if (isset($values['event_start'])) {
 			$event_start = \Elgg\Values::normalizeTime(gmdate('d-m-Y H:i:s', (int) $values['event_start']));
-			$event_start->setTime(0,0,0);
+			$event_start->setTime(0, 0, 0);
 			
 			$start_time = (int) elgg_extract('start_time', $values);
 			$values['event_start'] = $event_start->getTimestamp() + $start_time;

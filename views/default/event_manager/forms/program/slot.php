@@ -1,21 +1,17 @@
 <?php
 
-$day_guid = get_input('day_guid');
-$slot_guid = get_input('slot_guid');
+$day_guid = (int) get_input('day_guid');
+$slot_guid = (int) get_input('slot_guid');
 
-if ($day_guid && ($entity = get_entity($day_guid))) {
-	// assume new slot mode
-	if (!($entity instanceof \ColdTrick\EventManager\Event\Day)) {
-		unset($entity);
-	}
-
+$day = get_entity($day_guid);
+$slot = get_entity($slot_guid);
+if ($day instanceof \ColdTrick\EventManager\Event\Day) {
+	$entity = $day;
 	$start_time = null;
 	$end_time = null;
-} elseif ($slot_guid && ($entity = get_entity($slot_guid))) {
+} elseif ($slot instanceof \ColdTrick\EventManager\Event\Slot) {
 	// assume slot edit mode
-	if (!($entity instanceof \ColdTrick\EventManager\Event\Slot)) {
-		unset($entity);
-	}
+	$entity = $slot;
 }
 
 if (!$entity || !$entity->canEdit()) {
@@ -62,6 +58,7 @@ if ($entity instanceof \ColdTrick\EventManager\Event\Slot) {
 if (!isset($slot_set)) {
 	$slot_set = 0;
 }
+
 $form_body = '';
 $form_body .= elgg_view_field([
 	'#type' => 'hidden',

@@ -1,5 +1,5 @@
 <?php
-$event = elgg_extract("entity", $vars);
+$event = elgg_extract('entity', $vars);
 if (!$event) {
 	return;
 }
@@ -14,9 +14,11 @@ if (!empty($organizer_guids)) {
 	if (!array_key_exists(EVENT_MANAGER_RELATION_ORGANIZING, $relationships)) {
 		$relationships[EVENT_MANAGER_RELATION_ORGANIZING] = [];
 	}
+	
 	if (!is_array($organizer_guids)) {
 		$organizer_guids = [$organizer_guids];
 	}
+	
 	foreach ($organizer_guids as $organizer_guid) {
 		$relationships[EVENT_MANAGER_RELATION_ORGANIZING][] = $organizer_guid;
 	}

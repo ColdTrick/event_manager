@@ -22,6 +22,7 @@ if (empty($region_list)) {
 			'value' => $region,
 		]);
 	}
+	
 	return;
 }
 

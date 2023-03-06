@@ -22,6 +22,7 @@ if (empty($type_list)) {
 			'value' => $event_type,
 		]);
 	}
+	
 	return;
 }
 

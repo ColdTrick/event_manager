@@ -1,9 +1,10 @@
 <?php
 
 use ColdTrick\EventManager\Bootstrap;
-use Elgg\Router\Middleware\Gatekeeper;
 use ColdTrick\EventManager\Event\Day;
 use ColdTrick\EventManager\Event\Slot;
+use ColdTrick\EventManager\Upgrades\MoveHeaderIcons;
+use Elgg\Router\Middleware\Gatekeeper;
 
 require_once(dirname(__FILE__) . '/lib/functions.php');
 
@@ -18,10 +19,7 @@ return [
 	],
 	'bootstrap' => Bootstrap::class,
 	'settings' => [
-		'maps_provider' => 'google',
-		'google_maps_default_location' => 'Netherlands',
-		'google_maps_default_zoom' => 10,
-		'google_maps_detail_zoom' => 12,
+		'maps_provider' => 'osm',
 		'osm_default_location' => 'Netherlands',
 		'osm_default_location_lat' => 52,
 		'osm_default_location_lng' => 6,
@@ -91,12 +89,15 @@ return [
 			],
 		],
 	],
+	'upgrades' => [
+		MoveHeaderIcons::class,
+	],
 	'views' => [
 		'default' => [
-	       'js/fullcalendar.js' => $composer_path . 'vendor/bower-asset/fullcalendar/dist/fullcalendar.min.js',
-	       'js/moment.js' => $composer_path . 'vendor/bower-asset/moment/min/moment-with-locales.min.js',
-	       'css/event_manager/fullcalendar.css' => $composer_path . 'vendor/bower-asset/fullcalendar/dist/fullcalendar.min.css',
-	    ],
+			'js/fullcalendar.js' => $composer_path . 'vendor/bower-asset/fullcalendar/dist/fullcalendar.min.js',
+			'js/moment.js' => $composer_path . 'vendor/bower-asset/moment/min/moment-with-locales.min.js',
+			'css/event_manager/fullcalendar.css' => $composer_path . 'vendor/bower-asset/fullcalendar/dist/fullcalendar.min.css',
+		],
 	],
 	'view_extensions' => [
 		'css/elgg' => [
@@ -249,9 +250,102 @@ return [
 		],
 	],
 	'events' => [
+		'container_logic_check' => [
+			'object' => [
+				'\ColdTrick\EventManager\Access::containerLogicCheck' => [],
+			],
+		],
+		'cron' => [
+			'daily' => [
+				'\ColdTrick\EventManager\Notifications\CreateEventEventHandler::enqueueDelayedNotifications' => [],
+			],
+		],
+		'elgg.data' => [
+			'site' => [
+				'\ColdTrick\EventManager\Js::getJsConfig' => [],
+			],
+		],
 		'enqueue' => [
+			'notification' => [
+				'\ColdTrick\EventManager\Notifications\CreateEventEventHandler::preventEnqueue' => [],
+			],
 			'notifications' => [
 				'\ColdTrick\EventManager\Notifications\CreateEventEventHandler::trackNotificationSent' => [],
+			],
+		],
+		'entity:icon:url' => [
+			'object' => [
+				'\ColdTrick\EventManager\Icons::getEventRegistrationIconURL' => [],
+			],
+		],
+		'entity:url' => [
+			'object' => [
+				'\ColdTrick\EventManager\Widgets::getEventsUrl' => [],
+			],
+		],
+		'export_attendee' => [
+			'event' => [
+				'\ColdTrick\EventManager\Attendees::exportBaseAttributes' => ['priority' => 100],
+				'\ColdTrick\EventManager\Attendees::exportQuestionData' => ['priority' => 200],
+				'\ColdTrick\EventManager\Attendees::exportProgramData' => ['priority' => 300],
+			],
+		],
+		'export:metadata_names' => [
+			'elasticsearch' => [
+				'\ColdTrick\EventManager\Search::exportMetadataNames' => [],
+			],
+			'opensearch' => [
+				'\ColdTrick\EventManager\Search::exportMetadataNames' => [],
+			],
+		],
+		'handlers' => [
+			'widgets' => [
+				'\ColdTrick\EventManager\Widgets::registerHandlers' => [],
+			],
+		],
+		'prepare' => [
+			'system:email' => [
+				'\ColdTrick\EventManager\Notifications::prepareEventRegistrationSender' => [],
+			],
+		],
+		'register' => [
+			'menu:entity' => [
+				'\ColdTrick\EventManager\Menus\Entity::registerAttendeeActions' => [],
+				'\ColdTrick\EventManager\Menus\Entity::registerEventUnsubscribe' => ['priority' => 600],
+				'\ColdTrick\EventManager\Menus\Entity::registerMailAttendees' => [],
+			],
+			'menu:event_attendees' => [
+				'\ColdTrick\EventManager\Menus::registerEventAttendees' => [],
+			],
+			'menu:event_files' => [
+				'\ColdTrick\EventManager\Menus::registerEventFiles' => [],
+			],
+			'menu:event:rsvp' => [
+				'\ColdTrick\EventManager\Menus::registerRsvp' => [],
+			],
+			'menu:filter:events' => [
+				'\ColdTrick\EventManager\Menus::registerEventsList' => [],
+				'\ColdTrick\EventManager\Menus\Filter::registerViewTypes' => [],
+			],
+			'menu:owner_block' => [
+				'\ColdTrick\EventManager\Menus::registerGroupOwnerBlock' => [],
+				'\ColdTrick\EventManager\Menus::registerUserOwnerBlock' => [],
+			],
+			'menu:site' => [
+				'\ColdTrick\EventManager\Menus\Site::registerEvents' => [],
+			],
+			'menu:title:object:event' => [
+				\Elgg\Notifications\RegisterSubscriptionMenuItemsHandler::class => [],
+			],
+		],
+		'search:fields' => [
+			'object:event' => [
+				'\ColdTrick\EventManager\Search::addFields' => [],
+			],
+		],
+		'send:after' => [
+			'notifications' => [
+				'\ColdTrick\EventManager\Notifications::sendAfterEventMail' => ['priority' => 99999],
 			],
 		],
 		'update:after' => [
@@ -259,31 +353,28 @@ return [
 				'\ColdTrick\EventManager\Access::updateEvent' => [],
 			],
 		],
-	],
-	'hooks' => [
-		'cron' => [
-			'daily' => [
-				'\ColdTrick\EventManager\Notifications\CreateEventEventHandler::enqueueDelayedNotifications' => [],
+		'view_vars' => [
+			'event_manager/listing/map' => [
+				'\ColdTrick\EventManager\Views::loadLeafletCss' => [],
 			],
-		],
-		'enqueue' => [
-			'notification' => [
-				'\ColdTrick\EventManager\Notifications\CreateEventEventHandler::preventEnqueue' => [],
+			'input/objectpicker/item' => [
+				'\ColdTrick\EventManager\ObjectPicker::customText' => [],
 			],
-		],
-		'register' => [
-			'menu:title:object:event' => [
-				\Elgg\Notifications\RegisterSubscriptionMenuItemsHandler::class => [],
+			'widgets/content_by_tag/display/simple' => [
+				'\ColdTrick\EventManager\Widgets::contentByTagEntityTimestamp' => [],
+			],
+			'widgets/content_by_tag/display/slim' => [
+				'\ColdTrick\EventManager\Widgets::contentByTagEntityTimestamp' => [],
 			],
 		],
 	],
 	'notifications' => [
 		'object' => [
 			'event' => [
-  				'create' => \ColdTrick\EventManager\Notifications\CreateEventEventHandler::class,
+				'create' => \ColdTrick\EventManager\Notifications\CreateEventEventHandler::class,
 			],
 			'eventmail' => [
-  				'create' => \ColdTrick\EventManager\Notifications\CreateEventMailEventHandler::class,
+				'create' => \ColdTrick\EventManager\Notifications\CreateEventMailEventHandler::class,
 			],
 		],
 	],

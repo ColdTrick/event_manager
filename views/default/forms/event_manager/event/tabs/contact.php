@@ -33,6 +33,7 @@ $field_classes = ['event-manager-contact-organizer-guids'];
 if (empty($organizer_guids)) {
 	$field_classes[] = 'hidden';
 }
+
 $output .= elgg_view_field([
 	'#type' => 'userpicker',
 	'#label' => elgg_echo('event_manager:edit:form:organizer_guids'),
@@ -64,6 +65,7 @@ $field_classes = ['event-manager-contact-contact-guids'];
 if (empty($contact_guids)) {
 	$field_classes[] = 'hidden';
 }
+
 $output .= elgg_view_field([
 	'#type' => 'userpicker',
 	'#label' => elgg_echo('event_manager:edit:form:contact_guids'),

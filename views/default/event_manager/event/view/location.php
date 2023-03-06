@@ -5,7 +5,7 @@ if (!$event instanceof \Event) {
 	return;
 }
 
-$maps_provider = elgg_get_plugin_setting('maps_provider', 'event_manager', 'google');
+$maps_provider = event_manager_get_maps_provider();
 
 // location
 $location_details = '';

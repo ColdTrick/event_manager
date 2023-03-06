@@ -2,17 +2,20 @@
 
 namespace ColdTrick\EventManager;
 
+/**
+ * Objectpicker related callbacks
+ */
 class ObjectPicker {
 	
 	/**
 	 * Adds custom text for the objectpicker
 	 *
-	 * @param \Elgg\Hook $hook 'view_vars', 'input/objectpicker/item'
+	 * @param \Elgg\Event $elgg_event 'view_vars', 'input/objectpicker/item'
 	 *
 	 * @return string
 	 */
-	public static function customText(\Elgg\Hook $hook) {
-		$vars = $hook->getValue();
+	public static function customText(\Elgg\Event $elgg_event) {
+		$vars = $elgg_event->getValue();
 		$entity = elgg_extract('entity', $vars);
 		if (!$entity instanceof \Event) {
 			return;

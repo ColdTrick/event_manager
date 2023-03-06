@@ -2,13 +2,15 @@
 
 namespace ColdTrick\EventManager\Event;
 
+/**
+ * Event day
+ */
 class Day extends \ElggObject {
+	
 	const SUBTYPE = 'eventday';
 
 	/**
-	 * initializes the default class attributes
-	 *
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	protected function initializeAttributes() {
 		parent::initializeAttributes();

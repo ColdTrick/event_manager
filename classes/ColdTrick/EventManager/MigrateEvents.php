@@ -4,18 +4,21 @@ namespace ColdTrick\EventManager;
 
 use ColdTrick\EntityTools\Migrate;
 
+/**
+ * Entity tools migrate
+ */
 class MigrateEvents extends Migrate {
 	
 	/**
 	 * Add events to the supported types for EntityTools
 	 *
-	 * @param \Elgg\Hook $hook 'supported_types', 'entity_tools'
+	 * @param \Elgg\Event $event 'supported_types', 'entity_tools'
 	 *
 	 * @return array
 	 */
-	public static function supportedSubtypes(\Elgg\Hook $hook) {
+	public static function supportedSubtypes(\Elgg\Event $event) {
 		
-		$result = $hook->getValue();
+		$result = $event->getValue();
 		
 		$result[\Event::SUBTYPE] = static::class;
 		
@@ -23,7 +26,7 @@ class MigrateEvents extends Migrate {
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 * @see \ColdTrick\EntityTools\Migrate::canBackDate()
 	 */
 	public function canBackDate() {
@@ -31,7 +34,7 @@ class MigrateEvents extends Migrate {
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 * @see \ColdTrick\EntityTools\Migrate::canChangeContainer()
 	 */
 	public function canChangeContainer() {
@@ -39,7 +42,7 @@ class MigrateEvents extends Migrate {
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 * @see \ColdTrick\EntityTools\Migrate::canChangeOwner()
 	 */
 	public function canChangeOwner() {

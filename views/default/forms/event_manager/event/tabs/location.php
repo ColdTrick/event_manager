@@ -6,7 +6,7 @@
 $venue = elgg_extract('venue', $vars);
 $location = elgg_extract('location', $vars);
 
-$maps_provider = elgg_get_plugin_setting('maps_provider', 'event_manager', 'google');
+$maps_provider = event_manager_get_maps_provider();
 
 $output = elgg_view_field([
 	'#type' => 'text',

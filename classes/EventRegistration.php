@@ -2,18 +2,15 @@
 /**
  * EventRegistration
  *
- * @package EventManager
- *
  * @property string name  the name of the user
  * @property string email the e-mail address of the user
  */
 class EventRegistration extends \ElggObject {
+	
 	const SUBTYPE = 'eventregistration';
 
 	/**
-	 * initializes the default class attributes
-	 *
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	protected function initializeAttributes() {
 		parent::initializeAttributes();
@@ -27,7 +24,7 @@ class EventRegistration extends \ElggObject {
 	 *
 	 * {@inheritdoc}
 	 */
-	public function canEdit($user_guid = 0) {
+	public function canEdit(int $user_guid = 0): bool {
 		global $EVENT_MANAGER_UNDO_REGISTRATION;
 	
 		if (!empty($EVENT_MANAGER_UNDO_REGISTRATION)) {
@@ -38,9 +35,9 @@ class EventRegistration extends \ElggObject {
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
-	public function getDisplayName() {
+	public function getDisplayName(): string {
 		if (isset($this->name)) {
 			return $this->name;
 		}

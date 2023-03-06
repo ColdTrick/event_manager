@@ -16,7 +16,7 @@ define(['jquery', 'elgg/i18n', 'elgg/system_messages'], function($, i18n, system
 			var $form = $("#event_manager_event_register");
 			var rel = $(this).attr("rel");
 			var selected_id = $form.find(".event_manager_program_participatetoslot[rel='" + rel + "']:checked:first").attr("id");
-			if(selected_id){
+			if (selected_id) {
 				// disabled others
 				$form.find(".event_manager_program_participatetoslot[rel='" + rel + "'][id!='" + selected_id + "']").removeAttr("checked").attr("disabled", "disabled");
 			} else {
@@ -40,7 +40,7 @@ define(['jquery', 'elgg/i18n', 'elgg/system_messages'], function($, i18n, system
 					error_found = true;
 					return false;
 				}
-			} else if($(this).val() === "") {
+			} else if ($(this).val() === "") {
 				error_found = true;
 				return false;
 			}

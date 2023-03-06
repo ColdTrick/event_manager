@@ -15,7 +15,7 @@ echo elgg_view_field([
 // Maps settings
 elgg_require_js('plugins/event_manager/settings');
 
-$maps_provider = $plugin->maps_provider;
+$maps_provider = event_manager_get_maps_provider();
 
 $maps = elgg_view_field([
 	'#type' => 'select',
@@ -25,56 +25,16 @@ $maps = elgg_view_field([
 	'value' => $maps_provider,
 	'options_values' => [
 		'none' => elgg_echo('event_manager:settings:maps:provider:none'),
-		'google' => elgg_echo('event_manager:settings:maps:provider:google'),
 		'osm' => elgg_echo('event_manager:settings:maps:provider:osm'),
 	],
 ]);
 
 $maps .= elgg_view_field([
 	'#type' => 'fieldset',
-	'id' => 'event-manager-maps-provider-google',
-	'class' => [
+	'#class' => [
 		'event-manager-maps-provider',
-		($maps_provider == 'google') ? '' : 'hidden',
-	],
-	'legend' => elgg_echo('event_manager:settings:google_maps'),
-	'fields' => [
-		[
-			'#type' => 'text',
-			'#label' => elgg_echo('event_manager:settings:google_api_key'),
-			'name' => 'params[google_api_key]',
-			'value' => $plugin->google_api_key,
-			'help' => elgg_echo('event_manager:settings:google_api_key:clickhere')
-		],
-		[
-			'#type' => 'text',
-			'#label' => elgg_echo('event_manager:settings:google_maps:enterdefaultlocation'),
-			'name' => 'params[google_maps_default_location]',
-			'value' => $plugin->google_maps_default_location,
-		],
-		[
-			'#type' => 'select',
-			'#label' => elgg_echo('event_manager:settings:google_maps:enterdefaultzoom'),
-			'name' => 'params[google_maps_default_zoom]',
-			'value' => (int) $plugin->google_maps_default_zoom,
-			'options' => range(0, 19),
-		],
-		[
-			'#type' => 'select',
-			'#label' => elgg_echo('event_manager:settings:google_maps:google_maps_detail_zoom'),
-			'name' => 'params[google_maps_detail_zoom]',
-			'value' => (int) $plugin->google_maps_detail_zoom,
-			'options' => range(0, 19),
-		],
-	],
-]);
-
-$maps .= elgg_view_field([
-	'#type' => 'fieldset',
-	'id' => 'event-manager-maps-provider-osm',
-	'class' => [
-		'event-manager-maps-provider',
-		($maps_provider == 'osm') ? '' : 'hidden',
+		'event-manager-maps-provider-osm',
+		($maps_provider === 'osm') ? '' : 'hidden',
 	],
 	'legend' => elgg_echo('event_manager:settings:osm'),
 	'fields' => [
@@ -179,24 +139,24 @@ $other .= elgg_view_field([
 
 $other .= elgg_view_field([
 	'#type' => 'select',
-	'#label' => elgg_echo('event_manager:settings:migration:site:whocancreate'),
+	'#label' => elgg_echo('event_manager:settings:site:whocancreate'),
 	'name' => 'params[who_create_site_events]',
 	'value' => $plugin->who_create_site_events,
 	'options_values' => [
-		'everyone' => elgg_echo('event_manager:settings:migration:site:whocancreate:everyone'),
-		'admin_only' => elgg_echo('event_manager:settings:migration:site:whocancreate:admin_only'),
+		'everyone' => elgg_echo('event_manager:settings:site:whocancreate:everyone'),
+		'admin_only' => elgg_echo('event_manager:settings:site:whocancreate:admin_only'),
 	],
 ]);
 
 $other .= elgg_view_field([
 	'#type' => 'select',
-	'#label' => elgg_echo('event_manager:settings:migration:group:whocancreate'),
+	'#label' => elgg_echo('event_manager:settings:group:whocancreate'),
 	'name' => 'params[who_create_group_events]',
 	'value' => $plugin->who_create_group_events,
 	'options_values' => [
-		'members' => elgg_echo('event_manager:settings:migration:group:whocancreate:members'),
-		'group_admin' => elgg_echo('event_manager:settings:migration:group:whocancreate:group_admin'),
-		'' => elgg_echo('event_manager:settings:migration:group:whocancreate:no_one'),
+		'members' => elgg_echo('event_manager:settings:group:whocancreate:members'),
+		'group_admin' => elgg_echo('event_manager:settings:group:whocancreate:group_admin'),
+		'' => elgg_echo('event_manager:settings:group:whocancreate:no_one'),
 	],
 ]);
 

@@ -44,7 +44,7 @@ foreach ($supported_relationships as $rel => $label) {
 	}
 	
 	foreach ($ordered_entities as $member) {
-		$rel_content .= elgg_view_entity_icon($member, 'small', ['class' => 'float mrs']);
+		$rel_content .= elgg_view_entity_icon($member, 'small', ['class' => ['mrs', 'mbs']]);
 	}
 	
 	if ($total > $member_limit) {
@@ -77,8 +77,6 @@ foreach ($supported_relationships as $rel => $label) {
 			'text' => elgg_echo('download'),
 		]);
 	}
-	
-	$rel_content = elgg_format_element('div', ['class' => 'clearfix'], $rel_content);
-		
+			
 	echo elgg_view_module('info', $rel_title, $rel_content, $module_vars);
 }

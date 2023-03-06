@@ -3,11 +3,11 @@ define(['jquery', 'elgg', 'jquery-ui/widgets/sortable'], function($, elgg) {
 	$('#event_manager_event_edit input[name="registration_needed"]').on('change', function() {
 		if ($(this).val()) {
 			$('#event-manager-forms-event-edit-questions, .elgg-menu-item-event-edit-questions').removeClass('hidden');
-		}		
+		}
 	});
 	
 	$(document).on('change', 'input[name="fee"], input[name="max_attendees"]', function() {
-		var $toggle_field = $(this).parent().parent().next().find('.elgg-field'); 
+		var $toggle_field = $(this).parent().parent().next().find('.elgg-field');
 		$toggle_field.addClass('hidden');
 		var entered_value = $(this).val().trim();
 		if (entered_value && (entered_value !== '0')) {
@@ -28,6 +28,7 @@ define(['jquery', 'elgg', 'jquery-ui/widgets/sortable'], function($, elgg) {
 		if (e.isDefaultPrevented()) {
 			return;
 		}
+		
 		$(this).parents('.elgg-item-object-eventregistrationquestion').eq(0).remove();
 	});
 	
@@ -48,7 +49,7 @@ define(['jquery', 'elgg', 'jquery-ui/widgets/sortable'], function($, elgg) {
 		
 		var d = new Date();
 		var temp_id = 't_' + d.getTime();
-		$($clone).html($clone.html().replace(/questions\[\]\[/g, 'questions[' + temp_id + ']['));	
+		$($clone).html($clone.html().replace(/questions\[\]\[/g, 'questions[' + temp_id + ']['));
 	});
 
 	$(document).on('click', '#event-manager-location-input-delete', function() {

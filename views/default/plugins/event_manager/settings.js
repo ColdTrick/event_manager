@@ -3,6 +3,6 @@ define(['jquery'], function($) {
 		var selected_value = $(this).val();
 		
 		$('.event-manager-maps-provider').hide();
-		$('#event-manager-maps-provider-' + selected_value).show();
+		$('.event-manager-maps-provider-' + selected_value).show();
 	})
 });

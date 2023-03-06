@@ -42,7 +42,7 @@ define(['jquery', 'elgg/i18n', 'elgg/Ajax', 'elgg/lightbox'], function($, i18n, 
 				if (guid) {
 					$.colorbox.close();
 	
-					if(output.edit){
+					if (output.edit) {
 						$("#day_" + guid + " .event_manager_program_day_details").html(output.content_body);
 						$("#event_manager_event_view_program a[rel='day_" + guid + "']").html(output.content_title).click();
 					} else {
@@ -118,7 +118,7 @@ define(['jquery', 'elgg/i18n', 'elgg/Ajax', 'elgg/lightbox'], function($, i18n, 
 		});
 	});
 	
-	$(document).on('click', '#event-manager-new-slot-set-name-button', function(){		
+	$(document).on('click', '#event-manager-new-slot-set-name-button', function() {
 		var set_name = $('#event-manager-new-slot-set-name').val();
 		if (set_name !== '') {
 			$("#event_manager_form_program_slot input[name='slot_set']").prop('checked', false);

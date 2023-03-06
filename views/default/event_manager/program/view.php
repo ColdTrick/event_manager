@@ -24,13 +24,8 @@ $eventDays = $event->getEventDays();
 if ($eventDays) {
 	$member = elgg_extract('member', $vars);
 	foreach ($eventDays as $key => $day) {
-		$day_title = event_manager_format_date($day->date);
-		if ($description = $day->description) {
-			$day_title = $description;
-		}
-		
 		$tab_options['tabs'][] = [
-			'text' => $day_title,
+			'text' => $day->description ?: event_manager_format_date($day->date),
 			'rel' => "day_{$day->guid}",
 			'content' => elgg_view('event_manager/program/elements/day', [
 				'entity' => $day,
@@ -44,7 +39,6 @@ if ($eventDays) {
 
 $module_vars = [];
 if ($event->canEdit() && $show_owner_actions) {
-	
 	$module_vars['menu'] = elgg_view('output/url', [
 		'href' => false,
 		'rel' => $event->guid,

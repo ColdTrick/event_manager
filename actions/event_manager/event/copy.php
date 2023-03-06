@@ -43,7 +43,7 @@ $announcement_period = (int) get_input('announcement_period');
 if ($announcement_period < 1) {
 	$notification_queued_ts = time();
 } else {
-	$notification_queued_ts = Values::normalizeTime($event_start)->setTime(0,0,0)->modify("-{$announcement_period} weeks")->getTimestamp();
+	$notification_queued_ts = Values::normalizeTime($event_start)->setTime(0, 0, 0)->modify("-{$announcement_period} weeks")->getTimestamp();
 	if ($notification_queued_ts <= time()) {
 		$notification_queued_ts = time();
 	}

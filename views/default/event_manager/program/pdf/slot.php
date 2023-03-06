@@ -19,15 +19,16 @@ $start_time = $slot->start_time;
 $end_time = $slot->end_time;
 
 $result = "<table><tr><td style='padding-left: 10px; vertical-align: top'>";
-$result .= date('H:i', $start_time) . " - " . date('H:i', $end_time);
-$result .= "</td><td>";
-$result .= "<b>" . $slot->getDisplayName() . "</b>";
+$result .= date('H:i', $start_time) . ' - ' . date('H:i', $end_time);
+$result .= '</td><td>';
+$result .= elgg_format_element('b', [], $slot->getDisplayName());
 
-if ($location = $slot->location) {
-	$result .= "<div>" . $location . "</div>";
+if ($slot->location) {
+	$result .= elgg_format_element('div', [], $slot->location);
 }
-$result .= "<div>" . elgg_view("output/text", ["value" => $slot->description]) . "</div>";
 
-$result .= "</td></tr></table>";
+$result .= elgg_format_element('div', [], elgg_view('output/text', ['value' => $slot->description]));
+
+$result .= '</td></tr></table>';
 
 echo $result;

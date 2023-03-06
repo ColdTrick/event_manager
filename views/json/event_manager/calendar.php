@@ -76,7 +76,7 @@ $params = [
 	'start' => $start,
 	'end' => $end,
 ];
-$events_options = elgg_trigger_plugin_hook('calendar_data:options', 'event_manager', $params, $events_options);
+$events_options = elgg_trigger_event_results('calendar_data:options', 'event_manager', $params, $events_options);
 
 // fetch data
 $events = elgg_get_entities($events_options);
@@ -85,7 +85,6 @@ $result = [];
 
 /* @var $event \Event */
 foreach ($events as $event) {
-	
 	$start = $event->getStartDate();
 	$end = $event->getEndDate('c');
 	

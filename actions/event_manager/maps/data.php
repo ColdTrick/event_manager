@@ -110,7 +110,7 @@ $params = [
 	'distance_latitude' => $lat_distance,
 	'distance_longitude' => $long_distance,
 ];
-$options = elgg_trigger_plugin_hook('maps_data:options', 'event_manager', $params, $options);
+$options = elgg_trigger_event_results('maps_data:options', 'event_manager', $params, $options);
 
 // fetch data
 $entities = elgg_get_entities($options);

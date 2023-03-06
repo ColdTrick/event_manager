@@ -2,18 +2,20 @@
 
 namespace ColdTrick\EventManager;
 
+/**
+ * Views related callbacks
+ */
 class Views {
 	
 	/**
 	 * Loads leaflet css if needed
 	 *
-	 * @param \Elgg\Hook $hook 'view_vars', 'event_manager/listing/map'
+	 * @param \Elgg\Event $event 'view_vars', 'event_manager/listing/map'
 	 *
 	 * @return void
 	 */
-	public static function loadLeafletCss(\Elgg\Hook $hook) {
-		$maps_provider = elgg_get_plugin_setting('maps_provider', 'event_manager');
-		if ($maps_provider !== 'osm') {
+	public static function loadLeafletCss(\Elgg\Event $event) {
+		if (event_manager_get_maps_provider() !== 'osm') {
 			return;
 		}
 		

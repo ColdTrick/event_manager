@@ -9,9 +9,7 @@ class EventRegistrationQuestion extends ElggObject {
 	const SUBTYPE = 'eventregistrationquestion';
 
 	/**
-	 * initializes the default class attributes
-	 *
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	protected function initializeAttributes() {
 		parent::initializeAttributes();
@@ -26,7 +24,7 @@ class EventRegistrationQuestion extends ElggObject {
 	 *
 	 * @return boolean|ElggAnnotation
 	 */
-	public function getAnswerFromUser($user_guid = null) {
+	public function getAnswerFromUser(int $user_guid = null) {
 		if (empty($user_guid)) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
@@ -53,7 +51,7 @@ class EventRegistrationQuestion extends ElggObject {
 	 *
 	 * @return void
 	 */
-	public function deleteAnswerFromUser($user_guid = null) {
+	public function deleteAnswerFromUser(int $user_guid = null) {
 		if (empty($user_guid)) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
@@ -69,11 +67,11 @@ class EventRegistrationQuestion extends ElggObject {
 	 *
 	 * @param Event  $event      the event entity used for setting the access of the annotation correctly
 	 * @param string $new_answer the new answer
-	 * @param string $user_guid  guid of the entity giving the answer
+	 * @param int    $user_guid  guid of the entity giving the answer
 	 *
 	 * @return void
 	 */
-	public function updateAnswerFromUser($event, $new_answer, $user_guid = null) {
+	public function updateAnswerFromUser(\Event $event, string $new_answer, int $user_guid = null) {
 		if (empty($user_guid)) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
@@ -96,7 +94,7 @@ class EventRegistrationQuestion extends ElggObject {
 	 *
 	 * @return array
 	 */
-	public function getOptions() {
+	public function getOptions(): array {
 		$field_options = [];
 
 		if (!empty($this->fieldoptions)) {

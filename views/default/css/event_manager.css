@@ -1,10 +1,4 @@
 /* Event View */
-.event-manager-event-banner {
-	width: 100%;
-	height: 300px;
-	background-position: center;
-	background-size: cover;
-}
 
 .event-manager-header {
 	
@@ -62,7 +56,7 @@
 	
 	.elgg-columns {
 		white-space: nowrap;
-	} 
+	}
 }
 
 .event-manager-contact-details {
@@ -74,7 +68,7 @@
 }
 
 /* Event Edit */
-#event_manager_event_edit { 
+#event_manager_event_edit {
 	.elgg-fieldset-has-legend {
 		position: relative;
 		
@@ -167,9 +161,8 @@
 	padding: 1px;
 	
 	background: #4787b8;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    
-    border-radius: 3px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 3px;
 	box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.6);
 
 	-webkit-box-sizing: border-box;
@@ -179,16 +172,16 @@
 
 .event_manager_event_list_icon_day {
 	font-size: 15px;
-    font-weight: bold;
-    line-height: 23px;
-    background: #FFFFFF;    
+	font-weight: bold;
+	line-height: 23px;
+	background: #FFFFFF;
 	border-radius: 0 0 2px 2px;
 }
 .event_manager_event_list_icon_month {
 	color: #FFFFFF;
 	font-size: 11px;
-    line-height: 11px;
-    padding: 2px 0;
+	line-height: 11px;
+	padding: 2px 0;
 }
 
 .elgg-list .elgg-item-object-event .elgg-listing-summary-content div + .elgg-menu-event-rsvp-container {
@@ -272,6 +265,10 @@
 	
 	> .event-manager-event-banner {
 		margin: 0;
+		width: 100%;
+		height: 150px;
+		background-position: center;
+		background-size: cover;
 		
 		& + h2 {
 			position: absolute;
@@ -305,6 +302,10 @@
 #event_manager_onthemap_canvas {
 	height: 650px;
 	margin-bottom: 20px;
+	z-index: 1;
+}
+
+.event-manager-event-view-maps {
 	z-index: 1;
 }
 

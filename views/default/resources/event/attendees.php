@@ -18,6 +18,7 @@ if (!array_key_exists($relationship, $valid_relationships)) {
 	]));
 	throw $exception;
 }
+
 $rel_text = $valid_relationships[$relationship];
 
 // page owner

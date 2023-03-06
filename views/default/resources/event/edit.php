@@ -29,7 +29,6 @@ elgg_register_menu_item('title', \ElggMenuItem::factory([
 $form_vars = [
 	'id' => 'event_manager_event_edit',
 	'name' 	=> 'event_manager_event_edit',
-	'enctype' => 'multipart/form-data'
 ];
 
 $form = elgg_view_form('event_manager/event/edit', $form_vars, ['entity' => $event]);

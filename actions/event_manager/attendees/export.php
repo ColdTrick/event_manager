@@ -25,7 +25,7 @@ $rows = elgg_call(ELGG_IGNORE_ACCESS, function() use ($rel, $event) {
 			'relationship' => $rel,
 		];
 		
-		$rowdata = elgg_trigger_plugin_hook('export_attendee', 'event', $params, []);;
+		$rowdata = elgg_trigger_event_results('export_attendee', 'event', $params, []);
 		if (empty($rowdata)) {
 			continue;
 		}

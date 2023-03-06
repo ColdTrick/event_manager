@@ -2,8 +2,7 @@ Event Manager
 =============
 
 ![Elgg 4.3](https://img.shields.io/badge/Elgg-4.3-green.svg)
-[![Build Status](https://scrutinizer-ci.com/g/ColdTrick/event_manager/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ColdTrick/event_manager/build-status/master)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/ColdTrick/event_manager/badges/quality-score.png?s=f4892ec66d3ce7309818f7a57824728d7ffb98bd)](https://scrutinizer-ci.com/g/ColdTrick/event_manager/)
+![Lint Checks](https://github.com/ColdTrick/event_manager/actions/workflows/lint.yml/badge.svg?event=push)
 [![Latest Stable Version](https://poser.pugx.org/coldtrick/event_manager/v/stable.svg)](https://packagist.org/packages/coldtrick/event_manager)
 [![License](https://poser.pugx.org/coldtrick/event_manager/license.svg)](https://packagist.org/packages/coldtrick/event_manager)
 
@@ -15,8 +14,7 @@ Features
 - Create site and group events
 - Listing of upcoming events
 - Maps integration
- - Show events on a map
- - Use Google Maps or OpenStreetMaps (with Leaflet.js)
+ - Show events on a map (using OpenStreetMaps with Leaflet.js)
 
 - Create simple or advanced events with
  - Registration forms
@@ -30,5 +28,9 @@ Features
  
 - RSVP option to confirm attendence to an event
 - After RSVP, specify your personal daily program participation
-- Recieve personal program as PDF
+- Receive personal program as PDF
 - Add event to your personal calendar software (ical export)
+
+Migrating to v17
+- The Google Maps API is no longer supported as a maps provider in this plugin. Update your plugin settings to use OpenStreetMap if you want events on a map.
+ 

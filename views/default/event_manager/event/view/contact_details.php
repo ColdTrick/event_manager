@@ -1,7 +1,7 @@
 <?php
 
 $event = elgg_extract('entity', $vars);
-if (!($event instanceof Event)) {
+if (!$event instanceof \Event) {
 	return;
 }
 
@@ -32,7 +32,7 @@ if ($website) {
 
 	$contact_information .= '<div class="elgg-columns">';
 	$contact_information .= '<div class="elgg-col">' . elgg_view_icon('globe', ['title' => elgg_echo('event_manager:edit:form:website')]) . '</div>';
-	$contact_information .= '<div class="elgg-col">' . elgg_view('output/url', ['href' => $website]) . '</div>';
+	$contact_information .= '<div class="elgg-col">' . elgg_view_url($website) . '</div>';
 	$contact_information .= '</div>';
 }
 

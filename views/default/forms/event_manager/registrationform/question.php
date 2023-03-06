@@ -62,6 +62,7 @@ $field_class = ['event_manager_registrationform_select_options', 'man'];
 if (!in_array($fieldtype, ['Radiobutton', 'Dropdown'])) {
 	$field_class[] = 'hidden';
 }
+
 $form_body .= elgg_view_field([
 	'#type' => 'text',
 	'#label' => elgg_echo('event_manager:editregistration:fieldoptions'),
@@ -81,4 +82,4 @@ $delete_question = elgg_view('output/url', [
 	'is_action' => false,
 ]);
 
-echo elgg_view_image_block(elgg_view_icon('arrows-alt', 'link'), $form_body, ['image_alt' => $delete_question]);
+echo elgg_view_image_block(elgg_view_icon('arrows-alt', ['class' => 'link']), $form_body, ['image_alt' => $delete_question]);

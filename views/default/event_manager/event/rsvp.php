@@ -1,7 +1,7 @@
 <?php
 
 $event = elgg_extract('entity', $vars);
-if (!$event instanceof Event) {
+if (!$event instanceof \Event) {
 	return;
 }
 
@@ -9,7 +9,7 @@ if (elgg_in_context('widgets')) {
 	return;
 }
 
-if (!elgg_extract('show_rsvp', $vars, true))  {
+if (!elgg_extract('show_rsvp', $vars, true)) {
 	return;
 }
 

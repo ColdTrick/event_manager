@@ -2,18 +2,21 @@
 
 namespace ColdTrick\EventManager;
 
+/**
+ * Search related callbacks
+ */
 class Search {
 	
 	/**
 	 * Add searchable fields for events
 	 *
-	 * @param \Elgg\Hook $hook 'search:fields', 'object:event'
+	 * @param \Elgg\Event $event 'search:fields', 'object:event'
 	 *
 	 * @return array
 	 */
-	public static function addFields(\Elgg\Hook $hook) {
+	public static function addFields(\Elgg\Event $event) {
 		
-		$value = (array) $hook->getValue();
+		$value = (array) $event->getValue();
 		
 		$defaults = [
 			'metadata' => [],
@@ -31,5 +34,29 @@ class Search {
 		$value['metadata'] = array_merge($value['metadata'], $fields);
 		
 		return $value;
+	}
+	
+	/**
+	 * Add metadata names to be exported to Elasticsearch index
+	 *
+	 * @param \Elgg\Event $event 'export:metadata_names', 'elasticsearch'|'opensearch'
+	 *
+	 * @return void|array
+	 */
+	public static function exportMetadataNames(\Elgg\Event $event) {
+		
+		$entity = $event->getEntityParam();
+		if (!$entity instanceof \Event) {
+			return;
+		}
+		
+		$result = $event->getValue();
+		
+		$result[] = 'event_type';
+		$result[] = 'location';
+		$result[] = 'region';
+		$result[] = 'shortdescription';
+		
+		return $result;
 	}
 }

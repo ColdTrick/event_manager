@@ -7,21 +7,21 @@ if (empty($event)) {
 
 echo elgg_view_field([
 	'#type' => 'hidden',
-	'name' => 'guid', 
+	'name' => 'guid',
 	'value' => $event->guid,
 ]);
 
 echo elgg_view_field([
 	'#type' => 'text',
 	'#label' => elgg_echo('title'),
-	'name' => 'title', 
+	'name' => 'title',
 	'required' => true
 ]);
 
 echo elgg_view_field([
 	'#type' => 'file',
 	'#label' => elgg_echo('event_manager:edit:form:file'),
-	'name' => 'file', 
+	'name' => 'file',
 	'required' => true,
 ]);
 

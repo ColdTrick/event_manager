@@ -1,20 +1,18 @@
 <?php
 
-use Elgg\Values;
-
 // start a new sticky form session in case of failure
 elgg_make_sticky_form('event');
 
 $title = get_input('title');
 
 $event_start_midnight = \Elgg\Values::normalizeTime(gmdate('c', (int) get_input('event_start')));
-$event_start_midnight->setTime(0,0,0);
+$event_start_midnight->setTime(0, 0, 0);
 $event_start = $event_start_midnight->getTimestamp();
 
 $start_time = (int) get_input('start_time');
 
 $event_end = \Elgg\Values::normalizeTime(gmdate('c', (int) get_input('event_end')));
-$event_end->setTime(0,0,0);
+$event_end->setTime(0, 0, 0);
 $event_end = $event_end->getTimestamp();
 
 $end_time = (int) get_input('end_time');
@@ -41,7 +39,7 @@ if (!empty($endregistration_day)) {
 	$endregistration_day = $date_endregistration_day->getTimestamp();
 }
 
-$entity = get_entity(get_input('guid'));
+$entity = get_entity((int) get_input('guid'));
 $event_created = false;
 if ($entity instanceof \Event) {
 	$event = $entity;
@@ -119,12 +117,10 @@ foreach ($metadata_fields as $field) {
 $has_days = $event->hasEventDays();
 $event->generateInitialProgramData();
 
-if (get_input('icon_remove')) {
-	$event->deleteIcon();
-} elseif ($uploaded_file = elgg_get_uploaded_file('icon')) {
-	if (stripos($uploaded_file->getMimeType(), 'image/') !== false) {
-		$event->saveIconFromUploadedFile('icon');
-	}
+if (get_input('header_remove')) {
+	$event->deleteIcon('header');
+} else {
+	$event->saveIconFromUploadedFile('header', 'header');
 }
 
 elgg_call(ELGG_IGNORE_ACCESS, function() use ($event) {

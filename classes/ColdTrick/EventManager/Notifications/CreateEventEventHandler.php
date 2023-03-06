@@ -10,21 +10,21 @@ use Elgg\Notifications\NotificationEventHandler;
 class CreateEventEventHandler extends NotificationEventHandler {
 
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	protected function getNotificationSubject(\ElggUser $recipient, string $method): string {
 		return elgg_echo('event_manager:notification:subject', [$this->event->getObject()->getDisplayName()], $recipient->getLanguage());
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	protected function getNotificationSummary(\ElggUser $recipient, string $method): string {
 		return elgg_echo('event_manager:notification:summary', [$this->event->getObject()->getDisplayName()], $recipient->getLanguage());
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	protected function getNotificationBody(\ElggUser $recipient, string $method): string {
 		$entity = $this->event->getObject();
@@ -34,7 +34,8 @@ class CreateEventEventHandler extends NotificationEventHandler {
 			$entity->getDisplayName(),
 		], $recipient->getLanguage());
 		
-		if ($description = $entity->description) {
+		$description = $entity->description;
+		if (!empty($description)) {
 			$body .= PHP_EOL . PHP_EOL . elgg_get_excerpt($description);
 		}
 	
@@ -44,7 +45,7 @@ class CreateEventEventHandler extends NotificationEventHandler {
 	}
 		
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	protected static function isConfigurableForGroup(\ElggGroup $group): bool {
 		return $group->isToolEnabled('event_manager');
@@ -53,13 +54,13 @@ class CreateEventEventHandler extends NotificationEventHandler {
 	/**
 	 * Prevent enqueueing the notification if it should be sent in the future
 	 *
-	 * @param \Elgg\Hook $hook 'enqueue', 'notification'
+	 * @param \Elgg\Event $elgg_event 'enqueue', 'notification'
 	 *
 	 * @return void|false
 	 */
-	public static function preventEnqueue(\Elgg\Hook $hook) {
-		$action = $hook->getParam('action');
-		$event = $hook->getParam('object');
+	public static function preventEnqueue(\Elgg\Event $elgg_event) {
+		$action = $elgg_event->getParam('action');
+		$event = $elgg_event->getParam('object');
 		
 		if ($action !== 'create' || !$event instanceof \Event) {
 			return;
@@ -100,12 +101,12 @@ class CreateEventEventHandler extends NotificationEventHandler {
 	/**
 	 * Enqueue delayed notifications
 	 *
-	 * @param \Elgg\Hook $hook 'cron', 'daily'
+	 * @param \Elgg\Event $elgg_event 'cron', 'daily'
 	 *
 	 * @return void|false
 	 */
-	public static function enqueueDelayedNotifications(\Elgg\Hook $hook) {
-		elgg_call(ELGG_IGNORE_ACCESS, function() use ($hook) {
+	public static function enqueueDelayedNotifications(\Elgg\Event $elgg_event) {
+		elgg_call(ELGG_IGNORE_ACCESS, function() use ($elgg_event) {
 			$events = elgg_get_entities([
 				'type' => 'object',
 				'subtype' => 'event',
@@ -115,7 +116,7 @@ class CreateEventEventHandler extends NotificationEventHandler {
 				'metadata_name_value_pairs' => [
 					[
 						'name' => 'notification_queued_ts',
-						'value' => \Elgg\Values::normalizeTime(gmdate('c', $hook->getParam('time')))->setTime(0,0,0)->modify('+1 days')->getTimestamp(), // keep inline with scheduling but add 1 day
+						'value' => \Elgg\Values::normalizeTime(gmdate('c', $elgg_event->getParam('time')))->setTime(0, 0, 0)->modify('+1 days')->getTimestamp(), // keep inline with scheduling but add 1 day
 						'operand' => '<',
 						'as' => ELGG_VALUE_INTEGER,
 					],
@@ -127,16 +128,17 @@ class CreateEventEventHandler extends NotificationEventHandler {
 				]
 			]);
 			
-			$session = elgg_get_session();
-			$backup_user = $session->getLoggedInUser();
+			$session_manager = _elgg_services()->session_manager;
+			$backup_user = $session_manager->getLoggedInUser();
 			foreach ($events as $event) {
-				$session->setLoggedInUser($event->getOwnerEntity());
+				$session_manager->setLoggedInUser($event->getOwnerEntity());
 				_elgg_services()->notifications->enqueueEvent('create', 'object', $event);
 			}
+			
 			if ($backup_user instanceof \ElggUser) {
-				$session->setLoggedInUser($backup_user);
+				$session_manager->setLoggedInUser($backup_user);
 			} else {
-				$session->removeLoggedInUser();
+				$session_manager->removeLoggedInUser();
 			}
 		});
 	}

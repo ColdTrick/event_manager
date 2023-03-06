@@ -1,16 +1,13 @@
 <?php
 
 $event = elgg_extract('entity', $vars);
-$owner = $event->getOwnerEntity();
 
-if ($event->icontime) {
-	$locator = new \Elgg\EntityDirLocator($event->guid);
-	$entity_path = elgg_get_data_path() . $locator->getPath();
+if ($event->hasIcon('header', 'header')) {
+	$header_icon = $event->getIcon('header', 'header');
 	
-	$filename = $entity_path . "master.jpg";
-	$filecontents = file_get_contents($filename);
+	$filecontents = $header_icon->grabFile();
 
-	echo '<div class="mbm elgg-border-plain center"><img src="data:image/jpeg;base64,' . base64_encode($filecontents) . '" border="0" /></div>';
+	echo '<div class="mbm elgg-border-plain center"><img style="width: 100%;" src="data:image/jpeg;base64,' . base64_encode($filecontents) . '" border="0" /></div>';
 }
 
 $event_start = $event->getStartTimestamp();

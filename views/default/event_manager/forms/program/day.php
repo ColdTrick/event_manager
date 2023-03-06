@@ -1,19 +1,15 @@
 <?php
 
-$event_guid = get_input('event_guid');
-$day_guid = get_input('day_guid');
+$event_guid = (int) get_input('event_guid');
+$day_guid = (int) get_input('day_guid');
 
-if ($event_guid && ($entity = get_entity($event_guid))) {
-	// assume new day mode
-	if (!($entity instanceof Event)) {
-		unset($entity);
-	}
-
-} elseif ($day_guid && ($entity = get_entity($day_guid))) {
+$event = get_entity($event_guid);
+$day = get_entity($day_guid);
+if ($event instanceof \Event) {
+	$entity = $event;
+} elseif ($day instanceof \ColdTrick\EventManager\Event\Day) {
 	// assume day edit mode
-	if (!($entity instanceof \ColdTrick\EventManager\Event\Day)) {
-		unset($entity);
-	}
+	$entity = $day;
 }
 
 if (!$entity || !$entity->canEdit()) {

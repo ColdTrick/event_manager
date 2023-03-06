@@ -10,7 +10,7 @@ use Elgg\Notifications\NotificationEventHandler;
 class CreateEventMailEventHandler extends NotificationEventHandler {
 
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	protected function getNotificationSubject(\ElggUser $recipient, string $method): string {
 		$entity = $this->event->getObject();
@@ -23,7 +23,7 @@ class CreateEventMailEventHandler extends NotificationEventHandler {
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	protected function getNotificationBody(\ElggUser $recipient, string $method): string {
 		$entity = $this->event->getObject();
@@ -38,14 +38,14 @@ class CreateEventMailEventHandler extends NotificationEventHandler {
 	/**
 	 * Return EventMail subscriptions
 	 *
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	public function getSubscriptions(): array {
 		return $this->event->getObject()->getMailSubscriptions();
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	public static function isConfigurableByUser(): bool {
 		return false;

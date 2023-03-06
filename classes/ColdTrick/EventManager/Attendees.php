@@ -2,20 +2,23 @@
 
 namespace ColdTrick\EventManager;
 
+/**
+ * Attendees related callbacks
+ */
 class Attendees {
 	
 	/**
 	 * Exports base attributes for event attendees
 	 *
-	 * @param \Elgg\Hook $hook 'export_attendee', 'event'
+	 * @param \Elgg\Event $elgg_event 'export_attendee', 'event'
 	 *
 	 * @return array
 	 */
-	public static function exportBaseAttributes(\Elgg\Hook $hook) {
+	public static function exportBaseAttributes(\Elgg\Event $elgg_event) {
 		
-		$attendee = $hook->getParam('attendee');
-		$event = $hook->getParam('event');
-		$rel = $hook->getParam('relationship');
+		$attendee = $elgg_event->getParam('attendee');
+		$event = $elgg_event->getParam('event');
+		$rel = $elgg_event->getParam('relationship');
 		
 		$base_attributes = [
 			'guid' => $attendee->guid,
@@ -26,23 +29,23 @@ class Attendees {
 		
 		$relation = $event->getRelationship($attendee->guid, $rel);
 		if ($relation instanceof \ElggRelationship) {
-			$base_attributes['registration date'] = date("d-m-Y H:i:s", $relation->time_created);
+			$base_attributes['registration date'] = date('d-m-Y H:i:s', $relation->time_created);
 		}
 		
-		return array_merge((array) $hook->getValue(), $base_attributes);
+		return array_merge((array) $elgg_event->getValue(), $base_attributes);
 	}
 	
 	/**
 	 * Exports questiondata for event attendees
 	 *
-	 * @param \Elgg\Hook $hook 'export_attendee', 'event'
+	 * @param \Elgg\Event $elgg_event 'export_attendee', 'event'
 	 *
 	 * @return array
 	 */
-	public static function exportQuestionData(\Elgg\Hook $hook) {
+	public static function exportQuestionData(\Elgg\Event $elgg_event) {
 		
-		$attendee = $hook->getParam('attendee');
-		$event = $hook->getParam('event');
+		$attendee = $elgg_event->getParam('attendee');
+		$event = $elgg_event->getParam('event');
 		
 		if (!$event->registration_needed) {
 			return;
@@ -64,20 +67,20 @@ class Attendees {
 			$question_data[$question->getDisplayName()] = $value;
 		}
 			
-		return array_merge((array) $hook->getValue(), $question_data);
+		return array_merge((array) $elgg_event->getValue(), $question_data);
 	}
 	
 	/**
 	 * Exports programchoices for event attendees
 	 *
-	 * @param \Elgg\Hook $hook 'export_attendee', 'event'
+	 * @param \Elgg\Event $elgg_event 'export_attendee', 'event'
 	 *
 	 * @return array
 	 */
-	public static function exportProgramData(\Elgg\Hook $hook) {
+	public static function exportProgramData(\Elgg\Event $elgg_event) {
 		
-		$attendee = $hook->getParam('attendee');
-		$event = $hook->getParam('event');
+		$attendee = $elgg_event->getParam('attendee');
+		$event = $elgg_event->getParam('event');
 		
 		if (!$event->with_program) {
 			return;
@@ -109,12 +112,12 @@ class Attendees {
 					'count' => true,
 				]);
 				
-				$value = $count ? 'V': '';
+				$value = $count ? 'V' : '';
 			
 				$program_data[$key] = $value;
 			}
 		}
 				
-		return array_merge((array) $hook->getValue(), $program_data);
+		return array_merge((array) $elgg_event->getValue(), $program_data);
 	}
 }

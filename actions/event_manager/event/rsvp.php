@@ -4,7 +4,7 @@ $guid = (int) get_input('guid');
 $user_guid = (int) get_input('user', elgg_get_logged_in_user_guid());
 $rel = get_input('type');
 
-$forward_url = get_input('forward_url', REFERER);
+$forward_url = get_input('forward_url', REFERRER);
 $rsvp = null;
 
 if (empty($guid) || empty($user_guid)) {

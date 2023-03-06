@@ -37,7 +37,7 @@ if ($max_attendees) {
 			$registration_details .= elgg_echo('event_manager:full');
 		}
 	} else {
-		$registration_details .= $spots_left . " / " . $max_attendees;
+		$registration_details .= $spots_left . ' / ' . $max_attendees;
 	}
 
 	$registration_details .= '</span>';

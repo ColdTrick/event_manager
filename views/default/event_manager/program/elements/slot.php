@@ -29,15 +29,12 @@ if ($logged_in_user instanceof \ElggUser) {
 	if ($logged_in_user->hasRelationship($slot->guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION)) {
 		if (!$participate) {
 			$registered_for_slot = elgg_view_icon('check', ['title' => elgg_echo('event_manager:event:relationship:event_attending')]);
-			
 		} else {
 			$checkbox_options['checked'] = 'checked';
 			$registered_for_slot = elgg_view('input/checkbox', $checkbox_options);
 		}
-	} else {
-		if ($participate &&  ($slot->hasSpotsLeft() || $register_type == 'waitinglist')) {
-			$registered_for_slot = elgg_view('input/checkbox', $checkbox_options);
-		}
+	} elseif ($participate && ($slot->hasSpotsLeft() || $register_type == 'waitinglist')) {
+		$registered_for_slot = elgg_view('input/checkbox', $checkbox_options);
 	}
 } else {
 	if ($participate && ($slot->hasSpotsLeft() || $register_type == 'waitinglist')) {
@@ -55,10 +52,10 @@ $result .= $registered_for_slot;
 $start_time = $slot->start_time;
 $end_time = $slot->end_time;
 
-$result .= "</td>";
-$result .= "<td class='event_manager_program_slot_time'>" . date('H:i', $start_time) . " - " . date('H:i', $end_time) . "</td>";
+$result .= '</td>';
+$result .= "<td class='event_manager_program_slot_time'>" . date('H:i', $start_time) . ' - ' . date('H:i', $end_time) . '</td>';
 $result .= "<td class='event_manager_program_slot_details' rel='" . $slot->guid . "'>";
-$result .= "<span><b>" . $slot->getDisplayName() . "</b></span>";
+$result .= '<span><b>' . $slot->getDisplayName() . '</b></span>';
 
 if (!empty($slot_set)) {
 	$color = substr(sha1($slot_set, false), 0, 6);
@@ -69,7 +66,6 @@ if (!empty($slot_set)) {
 }
 
 if ($slot->canEdit() && $show_owner_actions && ($participate == false)) {
-
 	$edit_slot = elgg_view('output/url', [
 		'href' => false,
 		'rel' => $slot->guid,
@@ -90,8 +86,8 @@ if ($slot->canEdit() && $show_owner_actions && ($participate == false)) {
 }
 
 $subtitle_data = [];
-if ($location = $slot->location) {
-	$subtitle_data[] = $location;
+if ($slot->location) {
+	$subtitle_data[] = $slot->location;
 }
 
 if (!empty($slot->max_attendees)) {

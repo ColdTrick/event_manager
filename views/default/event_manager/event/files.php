@@ -17,7 +17,6 @@ $elggfile->owner_guid = $event->guid;
 $use_cookie = ($event->access_id !== ACCESS_PUBLIC);
 
 foreach ($files as $file) {
-	
 	$elggfile->setFilename($file->file);
 	
 	if (!$elggfile->exists()) {

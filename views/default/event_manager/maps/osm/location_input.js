@@ -20,7 +20,7 @@ define(['jquery', 'event_manager/osm'], function($, EventMap) {
 				
 		address += ', ' + addressData.country;
 		
-		return address;		
+		return address;
 	};
 
 	var executeSearch = function() {
@@ -70,7 +70,6 @@ define(['jquery', 'event_manager/osm'], function($, EventMap) {
 							} else {
 								event_map.moveToDefaultLocation();
 							}
-							
 						}
 					});
 				}
@@ -96,7 +95,6 @@ define(['jquery', 'event_manager/osm'], function($, EventMap) {
 		var $longitude = $('#event_manager_event_edit input[name="longitude"]');
 
 		if (location_data) {
-			
 			$location_field.val(createAddress(location_data.address));
 
 			$latitude.val(location_data.lat);

@@ -2,10 +2,10 @@
 
 $section = elgg_extract('section', $vars);
 
-// use a view var hook to toggle default collapsability or per section
+// use a view var event to toggle default collapsability or per section
 $collapsed = elgg_extract('collapsed', $vars, true);
 
-$title = elgg_extract('title', $vars);
+$title = (string) elgg_extract('title', $vars);
 $body = elgg_extract('body', $vars);
 $body_vars = elgg_extract('body_vars', $vars, []);
 $entity = elgg_extract('entity', $body_vars);

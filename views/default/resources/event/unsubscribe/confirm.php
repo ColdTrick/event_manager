@@ -13,7 +13,7 @@ $verify_code = event_manager_create_unsubscribe_code($registration, $event);
 
 if (empty($code) || ($code !== $verify_code)) {
 	$exception = new BadRequestException(elgg_echo('event_manager:unsubscribe_confirm:error:code'));
-	$exception->setRedirectUrl(REFERER);
+	$exception->setRedirectUrl(REFERRER);
 	throw $exception;
 }
 

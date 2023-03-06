@@ -5,13 +5,10 @@
  */
 class EventMail extends \ElggObject {
 	
-	/**
-	 * @var string
-	 */
 	const SUBTYPE = 'eventmail';
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	protected function initializeAttributes() {
 		parent::initializeAttributes();

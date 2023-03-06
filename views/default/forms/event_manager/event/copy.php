@@ -1,11 +1,11 @@
 <?php
 
 $entity = elgg_extract('entity', $vars);
-if (!($entity instanceof Event)) {
+if (!$entity instanceof \Event) {
 	return;
 }
-$body = '<div class="clearfix mbm">';
-$body .= elgg_view('forms/event_manager/event/tabs/general', [
+
+$body = elgg_view('forms/event_manager/event/tabs/general', [
 	'title' => elgg_echo('event_manager:entity:copy', [$entity->getDisplayName()]),
 	'event_start' => $entity->getStartTimestamp(),
 	'event_end' => $entity->getEndTimestamp(),
@@ -13,7 +13,6 @@ $body .= elgg_view('forms/event_manager/event/tabs/general', [
 	'notification_queued_ts' => ELGG_ENTITIES_ANY_VALUE,
 	'notification_sent_ts' => ELGG_ENTITIES_ANY_VALUE,
 ]);
-$body .= '</div>';
 
 $body .= elgg_view_field([
 	'#type' => 'access',
@@ -21,6 +20,7 @@ $body .= elgg_view_field([
 	'name' => 'access_id',
 	'value' => $entity->access_id,
 ]);
+
 $body .= elgg_view_field([
 	'#type' => 'hidden',
 	'name' => 'guid',

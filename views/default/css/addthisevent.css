@@ -17,7 +17,7 @@
 		&:hover {
 			background: $(background-color-soft);
 			color: #333;
-			cursor: pointer;	
+			cursor: pointer;
 		}
 	}
 }

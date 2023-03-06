@@ -2,13 +2,15 @@
 
 namespace ColdTrick\EventManager\Event;
 
+/**
+ * Event slot
+ */
 class Slot extends \ElggObject {
+	
 	const SUBTYPE = 'eventslot';
 
 	/**
-	 * initializes the default class attributes
-	 *
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	protected function initializeAttributes() {
 		parent::initializeAttributes();
@@ -19,9 +21,9 @@ class Slot extends \ElggObject {
 	/**
 	 * Counts the number of registrations
 	 *
-	 * @return boolean|int
+	 * @return int
 	 */
-	public function countRegistrations() {
+	public function countRegistrations(): int {
 		return elgg_call(ELGG_IGNORE_ACCESS, function() {
 			return elgg_count_entities([
 				'relationship' => EVENT_MANAGER_RELATION_SLOT_REGISTRATION,
@@ -36,7 +38,7 @@ class Slot extends \ElggObject {
 	 *
 	 * @return boolean
 	 */
-	public function hasSpotsLeft() {
+	public function hasSpotsLeft(): bool {
 		if (empty($this->max_attendees) || (($this->max_attendees - $this->countRegistrations()) > 0)) {
 			return true;
 		}
@@ -51,7 +53,7 @@ class Slot extends \ElggObject {
 	 *
 	 * @return boolean|int|array
 	 */
-	public function getWaitingUsers($count = false) {
+	public function getWaitingUsers(bool $count = false) {
 		return elgg_call(ELGG_IGNORE_ACCESS, function() use ($count) {
 			if ($count) {
 				return $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST, true);

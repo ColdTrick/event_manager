@@ -9,7 +9,7 @@ $entity = get_entity($guid);
 
 if (!$entity->register_nologin) {
 	$exception = new BadRequestException();
-	$exception->setRedirectUrl(REFERER);
+	$exception->setRedirectUrl(REFERRER);
 	throw $exception;
 }
 

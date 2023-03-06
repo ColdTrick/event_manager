@@ -2,19 +2,22 @@
 
 namespace ColdTrick\EventManager;
 
+/**
+ * Widget related callbacks
+ */
 class Widgets {
 	
 	/**
 	 * Generates correct title link for widgets depending on the context
 	 *
-	 * @param \Elgg\Hook $hook 'entity:url', 'object'
+	 * @param \Elgg\Event $event 'entity:url', 'object'
 	 *
 	 * @return string
 	 */
-	public static function getEventsUrl(\Elgg\Hook $hook) {
+	public static function getEventsUrl(\Elgg\Event $event) {
 		
-		$widget = $hook->getEntityParam();
-		if (!empty($hook->getValue()) || !($widget instanceof \ElggWidget) || $widget->handler !== 'events') {
+		$widget = $event->getEntityParam();
+		if (!empty($event->getValue()) || !$widget instanceof \ElggWidget || $widget->handler !== 'events') {
 			return;
 		}
 			
@@ -23,13 +26,11 @@ class Widgets {
 				if ($widget->event_status === 'live') {
 					return elgg_generate_url('collection:object:event:live');
 				}
-				
 				return elgg_generate_url('collection:object:event:upcoming');
 			case 'groups':
 				if ($widget->event_status === 'live') {
 					return elgg_generate_url('collection:object:event:live', ['guid' => $widget->getOwnerGUID()]);
 				}
-				
 				return elgg_generate_url('collection:object:event:group', ['guid' => $widget->getOwnerGUID()]);
 		}
 	}
@@ -37,13 +38,13 @@ class Widgets {
 	/**
 	 * Registers the widget handlers for events
 	 *
-	 * @param \Elgg\Hook $hook 'handlers', 'widgets'
+	 * @param \Elgg\Event $event 'handlers', 'widgets'
 	 *
 	 * @return string
 	 */
-	public static function registerHandlers(\Elgg\Hook $hook) {
+	public static function registerHandlers(\Elgg\Event $event) {
 		
-		$container = $hook->getParam('container');
+		$container = $event->getParam('container');
 		if (!$container instanceof \ElggGroup) {
 			return;
 		}
@@ -52,7 +53,7 @@ class Widgets {
 			return;
 		}
 		
-		$returnvalue = $hook->getValue();
+		$returnvalue = $event->getValue();
 		foreach ($returnvalue as $index => $widget) {
 			if ($widget->id === 'events') {
 				unset($returnvalue[$index]);
@@ -66,12 +67,12 @@ class Widgets {
 	/**
 	 * Change the entity_timestamp in the content_by_tag widget to show the start date of the event
 	 *
-	 * @param \Elgg\Hook $hook 'view_vars', 'widgets/content_by_tag/display/[simple|slim]'
+	 * @param \Elgg\Event $event 'view_vars', 'widgets/content_by_tag/display/[simple|slim]'
 	 *
 	 * @return void|array
 	 */
-	public static function contentByTagEntityTimestamp(\Elgg\Hook $hook) {
-		$vars = $hook->getValue();
+	public static function contentByTagEntityTimestamp(\Elgg\Event $event) {
+		$vars = $event->getValue();
 		
 		$entity = elgg_extract('entity', $vars);
 		if (!$entity instanceof \Event) {

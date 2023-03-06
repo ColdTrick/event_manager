@@ -2,6 +2,9 @@
 
 namespace ColdTrick\EventManager;
 
+/**
+ * Access related callbacks
+ */
 class Access {
 	
 	/**
@@ -55,16 +58,16 @@ class Access {
 	/**
 	 * Checks if plugin setting allows users to write to a container
 	 *
-	 * @param \Elgg\Hook $hook 'container_logic_check', 'object'
+	 * @param \Elgg\Event $elgg_event 'container_logic_check', 'object'
 	 *
 	 * @return void|false
 	 */
-	public static function containerLogicCheck(\Elgg\Hook $hook) {
-		if ($hook->getParam('subtype') !== 'event') {
+	public static function containerLogicCheck(\Elgg\Event $elgg_event) {
+		if ($elgg_event->getParam('subtype') !== 'event') {
 			return;
 		}
 		
-		$container = $hook->getParam('container');
+		$container = $elgg_event->getParam('container');
 		if ($container instanceof \ElggGroup) {
 			$who_create_group_events = elgg_get_plugin_setting('who_create_group_events', 'event_manager'); // group_admin, members
 			if (empty($who_create_group_events)) {
@@ -72,11 +75,12 @@ class Access {
 				return false;
 			}
 			
-			$user = $hook->getParam('user');
+			$user = $elgg_event->getUserParam();
 			$user_guid = $user instanceof \ElggUser ? $user->guid : 0;
 			if ($who_create_group_events === 'group_admin' && !$container->canEdit($user_guid)) {
 				return false;
 			}
+			
 			// in other group case let regular checks take place
 		} else {
 			$who_create_site_events = elgg_get_plugin_setting('who_create_site_events', 'event_manager');

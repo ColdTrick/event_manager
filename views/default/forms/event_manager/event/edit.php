@@ -6,7 +6,7 @@ $event = elgg_extract('entity', $vars);
 $fields = event_manager_prepare_form_vars($event);
 $vars = array_merge($vars, $fields);
 
-$maps_provider = elgg_get_plugin_setting('maps_provider', 'event_manager', 'google');
+$maps_provider = event_manager_get_maps_provider();
 
 $hidden_inputs = ['guid', 'container_guid'];
 

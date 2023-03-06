@@ -4,19 +4,22 @@ namespace ColdTrick\EventManager\Menus;
 
 use Elgg\Menu\MenuItems;
 
+/**
+ * Filter menu related callbacks
+ */
 class Filter {
 	
 	/**
 	 * Add view types (listing/calendar/map) to the filter tabs
 	 *
-	 * @param \Elgg\Hook $hook 'register', 'menu:filter:events'
+	 * @param \Elgg\Event $event 'register', 'menu:filter:events'
 	 *
 	 * @return MenuItems
 	 */
-	public static function registerViewTypes(\Elgg\Hook $hook) {
+	public static function registerViewTypes(\Elgg\Event $event) {
 		
 		/* @var $items MenuItems */
-		$items = $hook->getValue();
+		$items = $event->getValue();
 		
 		$list_type = get_input('list_type', 'list');
 		
@@ -50,7 +53,7 @@ class Filter {
 			'selected' => false,
 		]);
 		
-		if (elgg_get_plugin_setting('maps_provider', 'event_manager') !== 'none') {
+		if (event_manager_get_maps_provider() !== 'none') {
 			$items[] = \ElggMenuItem::factory([
 				'name' => 'event-manager-map',
 				'icon' => 'map-marked-alt',

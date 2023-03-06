@@ -7,6 +7,9 @@ use Elgg\Email\Address;
 use Elgg\Notifications\NotificationEvent;
 use Elgg\Notifications\Notification;
 
+/**
+ * Notifications related callbacks
+ */
 class Notifications {
 
 	/**
@@ -14,13 +17,13 @@ class Notifications {
 	 *
 	 * To prevent e-mail exposure
 	 *
-	 * @param \Elgg\Hook $hook 'prepare', 'system:email'
+	 * @param \Elgg\Event $event 'prepare', 'system:email'
 	 *
 	 * @return void|\Elgg\Email
 	 */
-	public static function prepareEventRegistrationSender(\Elgg\Hook $hook) {
+	public static function prepareEventRegistrationSender(\Elgg\Event $event) {
 		
-		$email = $hook->getValue();
+		$email = $event->getValue();
 		if (!$email instanceof Email) {
 			return;
 		}
@@ -40,13 +43,13 @@ class Notifications {
 	/**
 	 * Send the notification to the mail owner and cleanup the event mail object
 	 *
-	 * @param \Elgg\Hook $hook 'send:after', 'notifications'
+	 * @param \Elgg\Event $elgg_event 'send:after', 'notifications'
 	 *
 	 * @return void
 	 */
-	public static function sendAfterEventMail(\Elgg\Hook $hook) {
+	public static function sendAfterEventMail(\Elgg\Event $elgg_event) {
 		
-		$event = $hook->getParam('event');
+		$event = $elgg_event->getParam('event');
 		if (!$event instanceof NotificationEvent) {
 			return;
 		}

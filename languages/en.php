@@ -343,14 +343,7 @@ return array(
 	'event_manager:settings:maps:provider' => 'Maps provider',
 	'event_manager:settings:maps:provider:help' => 'This setting determines which maps provider will be used when showing events on the map or when selecting / search an address for an event.',
 	'event_manager:settings:maps:provider:none' => 'None',
-	'event_manager:settings:maps:provider:google' => 'Google Maps',
 	'event_manager:settings:maps:provider:osm' => 'OpenStreetMaps',
-	'event_manager:settings:google_maps' => 'Google Maps',
-	'event_manager:settings:google_api_key' => 'Enter your Google API key',
-	'event_manager:settings:google_maps:enterdefaultlocation' => 'Enter a default location google maps needs to center on',
-	'event_manager:settings:google_maps:enterdefaultzoom' => 'Enter a default map zoom level (0 = zoomed out, 19 = zoomed in)',
-	'event_manager:settings:google_maps:google_maps_detail_zoom' => 'Enter a zoom level for event details (0 = zoomed out, 19 = zoomed in)',
-	'event_manager:settings:google_api_key:clickhere' => 'Go to <a target="_blank" href="https://developers.google.com/maps/documentation/javascript/tutorial#api_key">https://developers.google.com/maps/documentation/javascript/tutorial#api_key</a> to get your "Google API key"',
 	'event_manager:settings:osm' => "OpenStreetMaps",
 	'event_manager:settings:osm:osm_default_location' => "Enter a default location maps needs to center on",
 	'event_manager:settings:osm:osm_default_location_lat' => "Enter the latitude for the default location maps needs to center on",
@@ -365,14 +358,14 @@ return array(
 	'event_manager:settings:event_mail' => "Allow event creators to send an e-mail notification to attendees",
 	'event_manager:settings:event_mail:help' => "When enabled event creators can send an e-mail notification to specific groups of event attendees",
 
-	'event_manager:settings:migration:site:whocancreate' => 'Who can create site events',
-	'event_manager:settings:migration:site:whocancreate:admin_only' => 'admin only',
-	'event_manager:settings:migration:site:whocancreate:everyone' => 'everyone',
+	'event_manager:settings:site:whocancreate' => 'Who can create site events',
+	'event_manager:settings:site:whocancreate:admin_only' => 'admin only',
+	'event_manager:settings:site:whocancreate:everyone' => 'everyone',
 
-	'event_manager:settings:migration:group:whocancreate' => 'Who can create group events',
-	'event_manager:settings:migration:group:whocancreate:group_admin' => 'group owners and admins only',
-	'event_manager:settings:migration:group:whocancreate:members' => 'any group member',
-	'event_manager:settings:migration:group:whocancreate:no_one' => 'no one',
+	'event_manager:settings:group:whocancreate' => 'Who can create group events',
+	'event_manager:settings:group:whocancreate:group_admin' => 'group owners and admins only',
+	'event_manager:settings:group:whocancreate:members' => 'any group member',
+	'event_manager:settings:group:whocancreate:no_one' => 'no one',
 	
 	'event_manager:settings:add_event' => 'AddEvent settings',
 	'event_manager:settings:add_event_license' => 'AddEvent Client ID',
@@ -459,4 +452,8 @@ If you didn't register for this event, you can ignore this email or click on the
 
 To view the event, click here:
 %s",
+	
+	'event_manager:upgrade:2023030700:title' => "Move event header images to new image location",
+	'event_manager:upgrade:2023030700:description' => "In Elgg 5 there is built in header image support. This migration moves old icons uploaded with events to this new location.",
+	
 );

@@ -18,7 +18,7 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 	};
 		
 	EventMap.prototype = {
-		moveToLatLng : function(lat, lng, add_marker) {
+		moveToLatLng: function(lat, lng, add_marker) {
 			this.event_map.setView([lat, lng]);
 
 			if (add_marker == true) {
@@ -26,16 +26,16 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 			}
 			
 		},
-		moveToDefaultLocation : function() {
-			this.event_map.setView([elgg.data.event_manager_osm_default_location_lat, elgg.data.event_manager_osm_default_location_lng]);			
+		moveToDefaultLocation: function() {
+			this.event_map.setView([elgg.data.event_manager_osm_default_location_lat, elgg.data.event_manager_osm_default_location_lng]);
 		},
-		getGeocode : function(address, callback) {
+		getGeocode: function(address, callback) {
 			$.getJSON('https://nominatim.openstreetmap.org/search?q=' + address + '&format=json&limit=1&addressdetails=1', function(data) {
 				callback(data[0]);
 			});
 			this.event_map.attributionControl.addAttribution('© <a href="https://nominatim.openstreetmap.org">Nominatim</a>');
 		},
-		addMarker : function(options) {
+		addMarker: function(options) {
 			var extra_options = {};
 			if (options.icon) {
 				extra_options['icon'] = new leaflet.Icon(options.icon);
@@ -43,13 +43,12 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 
 			return leaflet.marker(options, extra_options).addTo(this.markerGroup);
 		},
-		clearMarkers : function() {
+		clearMarkers: function() {
 			this.markerGroup.clearLayers();
 		},
 		getMap: function() {
 			return this.event_map;
 		}
-		
 	};
 
 	EventMap.setup = function(options) {
@@ -65,6 +64,7 @@ define(['jquery', 'elgg', 'leafletjs'], function($, elgg, leaflet) {
 			if (window.console) {
 				console.log('Missing element to initialize map');
 			}
+			
 			return false;
 		}
 		

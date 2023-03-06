@@ -21,10 +21,9 @@ if ($registration_form) {
 	}
 
 	foreach ($registration_form as $question) {
-
 		$value = elgg_get_sticky_value('event_register', 'question_' . $question->guid);
 
-		if ($value == null) {
+		if ($value === null) {
 			if (elgg_is_logged_in()) {
 				$answer = $question->getAnswerFromUser();
 				if ($answer) {

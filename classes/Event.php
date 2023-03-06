@@ -41,9 +41,7 @@ class Event extends ElggObject {
 	const SUBTYPE = 'event';
 
 	/**
-	 * initializes the default class attributes
-	 *
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	protected function initializeAttributes() {
 		parent::initializeAttributes();
@@ -54,7 +52,7 @@ class Event extends ElggObject {
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function update() {
+	protected function update(): bool {
 		if (!parent::update()) {
 			return false;
 		}
@@ -76,8 +74,7 @@ class Event extends ElggObject {
 	}
 	
 	/**
-	 * {@inheritDoc}
-	 * @see ElggObject::prepareObject()
+	 * {@inheritdoc}
 	 */
 	protected function prepareObject(\Elgg\Export\Entity $object) {
 		$object = parent::prepareObject($object);
@@ -99,15 +96,14 @@ class Event extends ElggObject {
 	}
 	
 	/**
-	 * {@inheritDoc}
-	 * @see ElggObject::canComment()
+	 * {@inheritdoc}
 	 */
-	public function canComment($user_guid = 0, $default = null) {
+	public function canComment(int $user_guid = 0): bool {
 		if (!$this->comments_on) {
 			return false;
 		}
 		
-		return parent::canComment($user_guid, $default);
+		return parent::canComment($user_guid);
 	}
 
 	/**
@@ -116,13 +112,11 @@ class Event extends ElggObject {
 	 * @param int $limit (optional) limited amount of characters
 	 *
 	 * @return string
-	 *
-	 * @see elgg_get_excerpt()
 	 */
-	public function getExcerpt(int $limit = null): string {
+	public function getExcerpt(int $limit = 250): string {
 		$result = $this->shortdescription ?: $this->description;
 		
-		return elgg_get_excerpt($result, $limit);
+		return elgg_get_excerpt((string) $result, $limit);
 	}
 	
 	/**
@@ -278,7 +272,6 @@ class Event extends ElggObject {
 				}
 			}
 		} else {
-
 			if ($this->hasEventSpotsLeft() || $this->hasSlotSpotsLeft()) {
 				$this->generateNewAttendee();
 			}
@@ -319,6 +312,7 @@ class Event extends ElggObject {
 				if ($this->with_program) {
 					$this->relateToAllSlots(false, $user_guid);
 				}
+				
 				$this->clearRegistrations($user_guid);
 			}
 		}
@@ -569,7 +563,7 @@ class Event extends ElggObject {
 			$user_message = elgg_echo('event_manager:event:registration:notification:user:text:' . $type, [$event_title_link]);
 			
 			if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
-				$completed_text = elgg_strip_tags($this->registration_completed, '<a>');
+				$completed_text = elgg_strip_tags((string) $this->registration_completed, '<a>');
 				if (!empty($completed_text)) {
 					$completed_text = str_ireplace('[NAME]', $to_entity->getDisplayName(), $completed_text);
 					$completed_text = str_ireplace('[EVENT]', $this->getDisplayName(), $completed_text);
@@ -878,6 +872,7 @@ class Event extends ElggObject {
 				if (!array_key_exists($relationship, $result)) {
 					$result[$relationship] = [];
 				}
+				
 				$result[$relationship][] = $row->guid_two;
 			}
 		}
@@ -903,6 +898,7 @@ class Event extends ElggObject {
 			if ($this->waiting_list_enabled) {
 				$relationships[] = EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST;
 			}
+			
 			if ($this->register_nologin) {
 				$relationships[] = EVENT_MANAGER_RELATION_ATTENDING_PENDING;
 			}
@@ -944,7 +940,7 @@ class Event extends ElggObject {
 			'wheres' => [
 				function (QueryBuilder $qb, $main_alias) use ($event_guid) {
 					$wheres = [];
-					$wheres[] = $qb->compare("r.guid_two", '=', $event_guid, ELGG_VALUE_INTEGER);
+					$wheres[] = $qb->compare('r.guid_two', '=', $event_guid, ELGG_VALUE_INTEGER);
 					$wheres[] = $qb->compare('r.relationship', '=', 'event_registrationquestion_relation', ELGG_VALUE_STRING);
 					
 					return $qb->merge($wheres, 'AND');
@@ -1000,6 +996,7 @@ class Event extends ElggObject {
 					if (!$slot->hasSpotsLeft()) {
 						continue;
 					}
+					
 					$rsvp = true;
 
 					$waiting_user->removeRelationship($slot->guid, EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST);
@@ -1019,12 +1016,12 @@ class Event extends ElggObject {
 		
 		$this->rsvp(EVENT_MANAGER_RELATION_ATTENDING, $waiting_user->guid, false, false, false);
 
-		$notification_body = elgg_echo("event_manager:event:registration:notification:user:text:event_spotfree", [
+		$notification_body = elgg_echo('event_manager:event:registration:notification:user:text:event_spotfree', [
 			$this->getDisplayName(),
 			$this->getURL(),
 		]);
 		
-		$completed_text = elgg_strip_tags($this->registration_completed, '<a>');
+		$completed_text = elgg_strip_tags((string) $this->registration_completed, '<a>');
 		if (!empty($completed_text)) {
 			$completed_text = str_ireplace('[NAME]', $waiting_user->getDisplayName(), $completed_text);
 			$completed_text = str_ireplace('[EVENT]', $this->getDisplayName(), $completed_text);
@@ -1037,10 +1034,7 @@ class Event extends ElggObject {
 			$notification_body .= elgg_view('event_manager/email/addevent', ['entity' => $this]);
 		}
 		
-		notify_user($waiting_user->guid,
-					$this->getOwnerGUID(),
-					elgg_echo("event_manager:event:registration:notification:user:subject"),
-					$notification_body);
+		notify_user($waiting_user->guid, $this->owner_guid, elgg_echo('event_manager:event:registration:notification:user:subject'), $notification_body);
 
 		return true;
 	}
@@ -1141,7 +1135,6 @@ class Event extends ElggObject {
 	 * @param array $options additional options for elgg_get_entities()
 	 *
 	 * @return \ElggEntity[]|int
-	 * @see elgg_get_entities()
 	 */
 	public function getContacts(array $options = []) {
 		if (empty($this->contact_guids)) {
@@ -1162,7 +1155,6 @@ class Event extends ElggObject {
 	 * @param array $options additional options for elgg_get_entities()
 	 *
 	 * @return \ElggEntity[]|int
-	 * @see elgg_get_entities()
 	 */
 	public function getOrganizers(array $options = []) {
 		if (empty($this->organizer_guids)) {

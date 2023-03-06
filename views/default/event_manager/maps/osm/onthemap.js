@@ -1,4 +1,4 @@
-define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
+define(['jquery', 'elgg', 'elgg/hooks', 'elgg/Ajax'], function($, elgg, hooks, Ajax) {
 	var event_map;
 	var current_markers = [];
 	
@@ -70,7 +70,7 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 					}
 
 					var markerOptions = {
-						lat: event.lat, 
+						lat: event.lat,
 						lng: event.lng,
 						icon: custom_icon_options
 					};
@@ -106,5 +106,5 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 	
 	initialize_tab();
 	
-	elgg.register_hook_handler('search:onthemap', 'event_manager', execute_search_map);
+	hooks.register('search:onthemap', 'event_manager', execute_search_map);
 });

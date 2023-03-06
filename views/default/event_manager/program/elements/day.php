@@ -13,14 +13,13 @@ if (!$day instanceof \ColdTrick\EventManager\Event\Day) {
 $can_edit = $day->canEdit();
 
 $details = '';
-if ($description = $day->description) {
+if ($day->description) {
 	$details .= '<div><b>' . elgg_echo('event_manager:edit:form:start_day') . ':</b> ' . event_manager_format_date($day->date) . '</div>';
 }
 
 $details .= $day->getDisplayName();
 
 if ($can_edit && $show_owner_actions && ($participate == false)) {
-	
 	$edit_day = elgg_view('output/url', [
 		'href' => false,
 		'rel' => $day->guid,
@@ -74,7 +73,7 @@ if ($can_edit && $show_owner_actions && ($participate == false)) {
 		'data-colorbox-opts' => json_encode([
 			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/slot?day_guid=' . $day->guid)
 		]),
-		'text' => elgg_echo("event_manager:program:slot:add"),
+		'text' => elgg_echo('event_manager:program:slot:add'),
 		'icon' => 'plus',
 	]);
 }

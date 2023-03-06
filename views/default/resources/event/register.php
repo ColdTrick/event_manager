@@ -25,7 +25,7 @@ if (!elgg_is_logged_in()) {
 			throw $exception;
 		} else {
 			$exception = new BadRequestException(elgg_echo('event_manager:event:rsvp:nospotsleft'));
-			$exception->setRedirectUrl(REFERER);
+			$exception->setRedirectUrl(REFERRER);
 			throw $exception;
 		}
 	}

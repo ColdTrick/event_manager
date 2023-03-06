@@ -7,10 +7,9 @@ $guid = (int) get_input('guid');
 $user_guid = (int) get_input('u_g', elgg_get_logged_in_user_guid());
 $event = null;
 
-if ($guid && ($entity = get_entity($guid))) {
-	if ($entity instanceof Event) {
-		$event = $entity;
-	}
+$entity = get_entity($guid);
+if ($entity instanceof \Event) {
+	$event = $entity;
 }
 
 if (!$event || empty($key)) {

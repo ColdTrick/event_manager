@@ -28,7 +28,7 @@ $event_options = [
 	'no_results' => elgg_echo('event_manager:list:noresults'),
 ];
 
-$tag_filter = $widget->tag ? elgg_string_to_array($widget->tag)[0]: null;
+$tag_filter = $widget->tag ? elgg_string_to_array($widget->tag)[0] : null;
 
 $more_link = elgg_generate_url('collection:object:event:upcoming', [
 	'tag' => $tag_filter,
@@ -74,7 +74,6 @@ switch ($widget->context) {
 		break;
 	case 'profile':
 	case 'dashboard':
-		
 		switch ($widget->type_to_show) {
 			case 'owning':
 				$event_options['owner_guid'] = $owner->guid;
