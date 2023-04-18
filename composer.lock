@@ -4,14 +4,14 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a1b6d2d9e33c9564549bda2b74556d6",
+    "content-hash": "1d2afb5cb5e63e381f48cb7fe7131fc4",
     "packages": [
         {
             "name": "bower-asset/fullcalendar",
             "version": "v2.9.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:fullcalendar/fullcalendar.git",
+                "url": "https://github.com/fullcalendar/fullcalendar.git",
                 "reference": "07a680b2349cfa7c7f2b05c979295447f04ef426"
             },
             "dist": {
@@ -33,7 +33,7 @@
             "version": "3.6.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-dist.git",
+                "url": "https://github.com/jquery/jquery-dist.git",
                 "reference": "e786e3d9707ffd9b0dd330ca135b66344dcef85a"
             },
             "dist": {
