@@ -252,6 +252,7 @@ return [
 	'events' => [
 		'container_logic_check' => [
 			'object' => [
+				\ColdTrick\EventManager\GroupToolContainerLogicCheck::class => [],
 				'\ColdTrick\EventManager\Access::containerLogicCheck' => [],
 			],
 		],
