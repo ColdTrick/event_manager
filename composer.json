@@ -15,9 +15,6 @@
 		"dompdf/dompdf" : "~2.0.0",
 		"bower-asset/fullcalendar": "~2.9.0"
 	},
-	"require-dev": {
-		"coldtrick/sniffs": "dev-master"
-	},
 	"repositories": [
 		{
             "type": "composer",
