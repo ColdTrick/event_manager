@@ -105,6 +105,7 @@ class Attendees {
 				
 				$count = $slot->getEntitiesFromRelationship([
 					'guid' => $attendee->guid,
+					'relationship' => EVENT_MANAGER_RELATION_SLOT_REGISTRATION,
 					'inverse_relationship' => true,
 					'count' => true,
 				]);
