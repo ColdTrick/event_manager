@@ -594,7 +594,7 @@ class Event extends ElggObject {
 				$description .= $this->getURL();
 				
 				$attachment_url = elgg_http_add_url_query_elements('https://www.addevent.com/dir/', [
-					'client' => 'ak1qmrp10zvwxx2cimhv206',
+					'client' => elgg_get_plugin_setting('add_event_license', 'event_manager'),
 					'service' => 'stream',
 					
 					'start' => $this->getStartDate('d/m/Y H:i:00'),
