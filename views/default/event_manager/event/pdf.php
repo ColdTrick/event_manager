@@ -10,7 +10,7 @@ if ($event->icontime) {
 	$filename = $entity_path . "master.jpg";
 	$filecontents = file_get_contents($filename);
 
-	echo '<div class="mbm elgg-border-plain center"><img src="data:image/jpeg;base64,' . base64_encode($filecontents) . '" border="0" /></div>';
+	echo '<div class="mbm elgg-border-plain center"><img style="width: 100%;" src="data:image/jpeg;base64,' . base64_encode($filecontents) . '" border="0" /></div>';
 }
 
 $event_start = $event->getStartTimestamp();

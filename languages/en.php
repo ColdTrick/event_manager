@@ -153,6 +153,10 @@ return array(
 
 	'event_manager:editregistration:addfield' => 'Add field',
 	'event_manager:editregistration:fieldtype' => 'Field type',
+	'event_manager:editregistration:fieldtype:text' => 'Text field',
+	'event_manager:editregistration:fieldtype:longtext' => 'Long text field',
+	'event_manager:editregistration:fieldtype:select' => 'Dropdown',
+	'event_manager:editregistration:fieldtype:radio' => 'Radio button',
 	'event_manager:editregistration:fieldoptions' => 'Field options',
 	'event_manager:editregistration:commasepatared' => 'comma separated',
 	'event_manager:editregistration:question' => 'Question',
