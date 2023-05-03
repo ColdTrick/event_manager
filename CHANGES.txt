@@ -1,6 +1,12 @@
 Version history
 ===============
 
+16.0.4 (2023-05-03):
+
+- fixed: correctly export attendee slot participation
+- fixed: registration field types are now translatable
+- fixed: use correct client license in mail ical attachment
+
 16.0.3 (2023-02-08):
 
 - several small chores/fixes
