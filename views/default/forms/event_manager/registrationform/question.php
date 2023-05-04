@@ -54,7 +54,12 @@ $form_body .= elgg_view_field([
 	'class' => 'event_manager_registrationform_question_fieldtype',
 	'value' => $fieldtype,
 	'name' => "questions[{$guid}][fieldtype]",
-	'options' => ['Textfield', 'Textarea', 'Dropdown', 'Radiobutton'],
+	'options_values' => [
+		'Textfield' => elgg_echo('event_manager:editregistration:fieldtype:text'),
+		'Textarea' => elgg_echo('event_manager:editregistration:fieldtype:longtext'),
+		'Dropdown' => elgg_echo('event_manager:editregistration:fieldtype:select'),
+		'Radiobutton' => elgg_echo('event_manager:editregistration:fieldtype:radio'),
+	],
 	'disabled' => $disabled,
 ]);
 
