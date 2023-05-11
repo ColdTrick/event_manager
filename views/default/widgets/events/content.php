@@ -96,10 +96,7 @@ switch ($widget->context) {
 		break;
 }
 
-$group_guid = $widget->group_guid;
-if (is_array($group_guid)) {
-	$event_options['container_guid'] = $group_guid[0];
-}
+$event_options['container_guid'] = $widget->group_guid;
 
 $more_text = elgg_echo('event_manager:list:more');
 if (!empty($tag_filter)) {
