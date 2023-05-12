@@ -71,7 +71,7 @@ if (empty($event->notification_sent_ts) && (!empty($event->notification_queued_t
 
 if (empty($event->notification_sent_ts) && !$event_created && $event->notification_queued_ts <= time()) {
 	// event updated but notification needs to be sent immediately
-	_elgg_services()->notifications->enqueueEvent('create', 'object', $event);
+	elgg_enqueue_notification_event('create', $event);
 	
 	if ($access_id !== ACCESS_PRIVATE) {
 		// prevent double enqueueing of notifications if using advanced_notifications plugin

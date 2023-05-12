@@ -132,7 +132,7 @@ class CreateEventEventHandler extends NotificationEventHandler {
 			$backup_user = $session_manager->getLoggedInUser();
 			foreach ($events as $event) {
 				$session_manager->setLoggedInUser($event->getOwnerEntity());
-				_elgg_services()->notifications->enqueueEvent('create', 'object', $event);
+				elgg_enqueue_notification_event('create', $event);
 			}
 			
 			if ($backup_user instanceof \ElggUser) {
