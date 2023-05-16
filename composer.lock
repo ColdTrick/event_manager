@@ -4,66 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d2afb5cb5e63e381f48cb7fe7131fc4",
+    "content-hash": "0f2fb35d33af7c2c6246568e7018ae8d",
     "packages": [
-        {
-            "name": "bower-asset/fullcalendar",
-            "version": "v2.9.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fullcalendar/fullcalendar.git",
-                "reference": "07a680b2349cfa7c7f2b05c979295447f04ef426"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fullcalendar/fullcalendar/zipball/07a680b2349cfa7c7f2b05c979295447f04ef426",
-                "reference": "07a680b2349cfa7c7f2b05c979295447f04ef426"
-            },
-            "require": {
-                "bower-asset/jquery": ">=1.7.1",
-                "bower-asset/moment": ">=2.5.0"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "bower-asset/jquery",
-            "version": "3.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
-                "reference": "e786e3d9707ffd9b0dd330ca135b66344dcef85a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/e786e3d9707ffd9b0dd330ca135b66344dcef85a",
-                "reference": "e786e3d9707ffd9b0dd330ca135b66344dcef85a"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "bower-asset/moment",
-            "version": "2.29.4",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:moment/moment.git",
-                "reference": "000ac1800e620f770f4eb31b5ae908f6167b0ab2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/moment/moment/zipball/000ac1800e620f770f4eb31b5ae908f6167b0ab2",
-                "reference": "000ac1800e620f770f4eb31b5ae908f6167b0ab2"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
-            ]
-        },
         {
             "name": "composer/installers",
             "version": "v1.12.0",
@@ -345,6 +287,119 @@
                 "source": "https://github.com/Masterminds/html5-php/tree/2.7.6"
             },
             "time": "2022-08-18T16:18:26+00:00"
+        },
+        {
+            "name": "npm-asset/fullcalendar",
+            "version": "6.1.4",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/fullcalendar/-/fullcalendar-6.1.4.tgz"
+            },
+            "require": {
+                "npm-asset/fullcalendar--core": "~6.1.4",
+                "npm-asset/fullcalendar--daygrid": "~6.1.4",
+                "npm-asset/fullcalendar--interaction": "~6.1.4",
+                "npm-asset/fullcalendar--list": "~6.1.4",
+                "npm-asset/fullcalendar--multimonth": "~6.1.4",
+                "npm-asset/fullcalendar--timegrid": "~6.1.4"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/fullcalendar--core",
+            "version": "6.1.6",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/@fullcalendar/core/-/core-6.1.6.tgz"
+            },
+            "require": {
+                "npm-asset/preact": "~10.12.1"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/fullcalendar--daygrid",
+            "version": "6.1.4",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/@fullcalendar/daygrid/-/daygrid-6.1.4.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/fullcalendar--interaction",
+            "version": "6.1.4",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/@fullcalendar/interaction/-/interaction-6.1.4.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/fullcalendar--list",
+            "version": "6.1.4",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/@fullcalendar/list/-/list-6.1.4.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/fullcalendar--multimonth",
+            "version": "6.1.4",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/@fullcalendar/multimonth/-/multimonth-6.1.4.tgz"
+            },
+            "require": {
+                "npm-asset/fullcalendar--daygrid": "~6.1.4"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/fullcalendar--timegrid",
+            "version": "6.1.4",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/@fullcalendar/timegrid/-/timegrid-6.1.4.tgz"
+            },
+            "require": {
+                "npm-asset/fullcalendar--daygrid": "~6.1.4"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/preact",
+            "version": "10.12.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/preact/-/preact-10.12.1.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "phenx/php-font-lib",

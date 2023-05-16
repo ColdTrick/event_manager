@@ -10,11 +10,13 @@ if (empty($event_guids)) {
 	return;
 }
 
+$event_guids = (array) $event_guids;
+
 $events = [];
 
 $entities = elgg_get_entities([
 	'type' => 'object',
-	'subtype' => Event::SUBTYPE,
+	'subtype' => \Event::SUBTYPE,
 	'guids' => $event_guids,
 	'limit' => false,
 ]);

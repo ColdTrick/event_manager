@@ -13,7 +13,7 @@
 		"composer/installers": "^1.0.8",
 		"ext-json": "*",
 		"dompdf/dompdf" : "~2.0.0",
-		"bower-asset/fullcalendar": "~2.9.0"
+		"npm-asset/fullcalendar": "~6.1.0"
 	},
 	"repositories": [
 		{

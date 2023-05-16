@@ -8,7 +8,6 @@
  */
 
 elgg_require_js('event_manager/calendar');
-elgg_require_css('event_manager/fullcalendar');
 
 $page_owner = elgg_extract('page_owner', $vars);
 

@@ -94,9 +94,9 @@ return [
 	],
 	'views' => [
 		'default' => [
-			'js/fullcalendar.js' => $composer_path . 'vendor/bower-asset/fullcalendar/dist/fullcalendar.min.js',
+			'js/fullcalendar.js' => $composer_path . 'vendor/npm-asset/fullcalendar/index.global.min.js',
+			'js/fullcalendar/translations.js' => $composer_path . 'vendor/npm-asset/fullcalendar--core/locales-all.global.min.js',
 			'js/moment.js' => $composer_path . 'vendor/bower-asset/moment/min/moment-with-locales.min.js',
-			'css/event_manager/fullcalendar.css' => $composer_path . 'vendor/bower-asset/fullcalendar/dist/fullcalendar.min.css',
 		],
 	],
 	'view_extensions' => [
@@ -110,9 +110,11 @@ return [
 		'js/addthisevent.js' => [
 			'js/event_manager/addthisevent.settings.js' => [],
 		],
+		'js/fullcalendar.js' => [
+			'js/fullcalendar/translations.js' => [],
+		],
 	],
 	'view_options' => [
-		'event_manager/calendar' => ['ajax' => true],
 		'event_manager/event/attendees_list' => ['ajax' => true],
 		'event_manager/event/popup' => ['ajax' => true],
 		'event_manager/forms/program/day' => ['ajax' => true],
@@ -215,6 +217,14 @@ return [
 		'default:object:event' => [
 			'path' => '/event',
 			'resource' => 'event/upcoming',
+		],
+		'default:event_manager:calendar' => [
+			'path' => '/event_manager/calendar',
+			'controller' => \ColdTrick\EventManager\Controllers\Calendar::class,
+			'requirements' => [
+				'start' => '.+',
+				'end' => '.+',
+			],
 		],
 	],
 	'actions' => [
