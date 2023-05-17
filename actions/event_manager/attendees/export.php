@@ -46,7 +46,7 @@ fputcsv($fh, array_keys($rows[0]), ';');
 
 foreach ($rows as $row) {
 	$decoded_rows = array_map(function($row) {
-		return html_entity_decode($row);
+		return html_entity_decode((string) $row);
 	}, array_values($row));
 	
 	fputcsv($fh, $decoded_rows, ';');
