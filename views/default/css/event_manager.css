@@ -1,5 +1,17 @@
 /* Event View */
 
+.elgg-page-body {
+	--fc-event-bg-color: #0078ac;
+	--fc-event-border-color: #0078ac;
+	
+	--fc-button-bg-color: #2d3047;
+	--fc-button-border-color: #2d3047;
+}
+
+.fc-view-harness a {
+	color: $(text-color-strong);
+}
+
 .event-manager-header {
 	
 	display: flex;

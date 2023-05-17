@@ -3,9 +3,9 @@ define(['jquery', 'elgg', 'elgg/i18n', 'elgg/lightbox', 'fullcalendar'], functio
 	var calendar = new FullCalendar.Calendar(calendarEl, {
 		events: elgg.normalize_url('event_manager/calendar'),
 		headerToolbar: {
-			left: 'prev,next today',
+			left: 'prev next today',
 			center: 'title',
-			right: 'dayGridMonth,timeGridWeek,timeGridDay'
+			right: 'dayGridMonth timeGridWeek timeGridDay'
 		},
 		views: {
 			dayGridMonth: {
