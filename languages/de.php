@@ -1,7 +1,7 @@
 <?php
 /**
- * This file was created by Translation Editor v7.0-beta
- * On 2018-12-14 15:02
+ * This file was created by Translation Editor v11.1
+ * On 2023-05-17 14:40
  */
 
 return array (
@@ -24,18 +24,9 @@ return array (
   'event_manager:notification:subject' => 'Es wurde eine Veranstaltung erstellt: %s',
   'event_manager:notification:summary' => 'Es wurde eine Veranstaltung erstellt: %s',
   'event_manager:notification:body' => '%s hat eine neue Veranstaltung erstellt %s',
-  'river:comment:object:event' => '%s kommentiert am %s',
-  'event_manager:calendar:today' => 'Heute',
-  'event_manager:calendar:month' => 'Monat',
-  'event_manager:calendar:week' => 'Woche',
-  'event_manager:calendar:day' => 'Tag',
   'event_manager:list:upcoming' => 'Veranstaltungen',
-  'event_manager:list:group:title' => 'Gruppenveranstaltungen',
   'event_manager:list:noresults' => 'keine Veranstaltungen gefunden',
   'event_manager:list:navigation:calendar' => 'Kalender',
-  'event_manager:list:navigation:other' => 'andere Veranstaltungen',
-  'event_manager:list:navigation:your' => 'deine Veranstaltungen',
-  'event_manager:list:navigation:attending' => 'Teilnahme an Veranstaltungen',
   'event_manager:list:navigation:onthemap' => 'Karte',
   'event_manager:owner:title' => '%s\'s Veranstaltungen',
   'event_manager:attending:title' => 'Veranstaltungen, an denen %s teilnimmt',

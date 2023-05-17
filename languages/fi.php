@@ -1,7 +1,7 @@
 <?php
 /**
- * This file was created by Translation Editor v7.0-beta
- * On 2018-12-14 15:08
+ * This file was created by Translation Editor v11.1
+ * On 2023-05-17 14:41
  */
 
 return array (
@@ -15,12 +15,7 @@ return array (
   'event_manager:notification:subject' => 'Uusi tapahtuma: %s',
   'event_manager:notification:summary' => 'Uusi tapahtuma: %s',
   'event_manager:notification:body' => '%s loi uuden tapahtuman %s',
-  'river:comment:object:event' => '%s kommentoi tapahtumaa %s',
-  'event_manager:list:group:title' => 'Ryhmän tapahtumat',
   'event_manager:list:noresults' => 'Ei tapahtumia',
-  'event_manager:list:navigation:other' => 'Muut tapahtumat',
-  'event_manager:list:navigation:your' => 'Omat tapahtumasi',
-  'event_manager:list:navigation:attending' => 'Tapahtumat, joihin osallistut',
   'event_manager:list:navigation:onthemap' => 'Kartta',
   'event_manager:edit:title' => 'Luo / Muokkaa tapahtumaa',
   'event_manager:edit:upload:title' => 'Lisää tiedostoja',

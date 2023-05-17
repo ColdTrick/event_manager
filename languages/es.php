@@ -1,7 +1,7 @@
 <?php
 /**
- * This file was created by Translation Editor v7.0-beta
- * On 2018-12-14 15:06
+ * This file was created by Translation Editor v11.1
+ * On 2023-05-17 14:41
  */
 
 return array (
@@ -20,13 +20,8 @@ return array (
   'event_manager:notification:subject' => 'Se ha creado un evento: %s',
   'event_manager:notification:summary' => 'Se ha creado un evento: %s',
   'event_manager:notification:body' => '%s creó un nuevo evento %s',
-  'river:comment:object:event' => '%s comentó en %s',
   'event_manager:list:live' => 'Eventos',
-  'event_manager:list:group:title' => 'Eventos de grupo',
   'event_manager:list:noresults' => 'No se econtraron eventos',
-  'event_manager:list:navigation:other' => 'Otros eventos',
-  'event_manager:list:navigation:your' => 'Tus eventos',
-  'event_manager:list:navigation:attending' => 'Asistencia a los eventos',
   'event_manager:list:navigation:onthemap' => 'En el mapa',
   'event_manager:full' => 'completo',
   'event_manager:personwaitinglist' => 'persona en la lista de espera',
@@ -232,10 +227,6 @@ Si no te inscribiste en este evento, puedes ignorar este e-mail o hacer click en
   'event_manager:entity:copy' => 'Copia de: %s',
   'event_manager:menu:copy' => 'Copiar Evento',
   'event_manager:menu:attending' => 'Participando',
-  'event_manager:calendar:today' => 'Hoy',
-  'event_manager:calendar:month' => 'Mes',
-  'event_manager:calendar:week' => 'Semana',
-  'event_manager:calendar:day' => 'Día',
   'event_manager:list:navigation:calendar' => 'Calendario',
   'event_manager:owner:title' => 'los eventos de %s',
   'event_manager:attending:title' => 'Eventos en los que participa %s',

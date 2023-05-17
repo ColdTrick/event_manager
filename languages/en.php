@@ -38,20 +38,12 @@ return array(
 	'event_manager:notification:summary' => "An event has been created: %s",
 	'event_manager:notification:body' => "%s created a new event %s",
 
-	'event_manager:calendar:today' => 'Today',
-	'event_manager:calendar:month' => 'Month',
-	'event_manager:calendar:week' => 'Week',
-	'event_manager:calendar:day' => 'Day',
-	'event_manager:calendar:axis_format' => 'h(:mm)a',
-	'event_manager:calendar:column_format' => 'ddd M/D',
-	
 	'event_manager:list:filter:tags' => 'Filtered by tag %s',
 	'event_manager:list:more' => 'More events',
 	'event_manager:list:more:with_tag' => 'More events with tag %s',
 
 	'event_manager:list:live' => 'Live events',
 	'event_manager:list:upcoming' => 'Upcoming events',
-	'event_manager:list:group:title' => 'Group events',
 	'event_manager:list:noresults' => 'No events found',
 
 	'event_manager:list:navigation:live' => 'Live',

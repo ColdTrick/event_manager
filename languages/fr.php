@@ -1,4 +1,8 @@
 <?php
+/**
+ * This file was created by Translation Editor v11.1
+ * On 2023-05-17 14:41
+ */
 
 return array (
   'event_manager:list:navigation:live' => 'En cours',
@@ -51,17 +55,9 @@ return array (
   'event_manager:notification:subject' => 'Un événement a été créé: %s',
   'event_manager:notification:summary' => 'Un événement a été créé: %s',
   'event_manager:notification:body' => '%s a créé un nouvel événement %s',
-  'event_manager:calendar:today' => 'Aujourd\'hui',
-  'event_manager:calendar:month' => 'Mois',
-  'event_manager:calendar:week' => 'Semaine',
-  'event_manager:calendar:day' => 'Jour',
   'event_manager:list:live' => 'Evènements',
-  'event_manager:list:group:title' => 'Événements de groupe',
   'event_manager:list:noresults' => 'Aucuns évènements trouvé',
   'event_manager:list:navigation:calendar' => 'Calendrier',
-  'event_manager:list:navigation:other' => 'Autres évènements',
-  'event_manager:list:navigation:your' => 'Vos évènements',
-  'event_manager:list:navigation:attending' => 'Participes aux évènements',
   'event_manager:list:navigation:onthemap' => 'Sur la carte',
   'event_manager:owner:title' => 'Événements de %s',
   'event_manager:attending:title' => 'Événement %s est en attente',

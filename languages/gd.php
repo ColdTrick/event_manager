@@ -1,7 +1,7 @@
 <?php
 /**
- * This file was created by Translation Editor v9.0
- * On 2021-11-18 15:50
+ * This file was created by Translation Editor v11.1
+ * On 2023-05-17 14:41
  */
 
 return array (
@@ -14,10 +14,6 @@ return array (
   'add:object:event' => 'Tachartas ùr',
   'event_manager:menu:copy' => 'Dèan lethbhreac dhen tachartas',
   'event_manager:menu:unsubscribe' => 'Na fo-sgrìobh tuilleadh',
-  'event_manager:calendar:today' => 'An-diugh',
-  'event_manager:calendar:month' => 'Mìos',
-  'event_manager:calendar:week' => 'Seachdain',
-  'event_manager:calendar:day' => 'Latha',
   'event_manager:list:more' => 'Barrachd tachartasan',
   'event_manager:list:more:with_tag' => 'Barrachd tachartasan leis an taga: "%s"',
   'event_manager:list:live' => 'Tachartasan beò',
@@ -298,7 +294,6 @@ Briog an seo airson an tachartas seo fhaicinn:
   'collection:object:eventregistration' => 'Clàraidhean',
   'collection:object:eventregistrationquestion' => 'Ceistean clàraidh',
   'event_manager:menu:group_events' => 'Tachartasan buidhne',
-  'event_manager:list:group:title' => 'Tachartasan buidhne',
   'event_manager:program:day:add' => 'Cuir latha ris',
   'event_manager:form:program:day' => 'Cuir lath ris an tachartas',
   'event_manager:event:relationship:event_attending:entity_menu' => 'Luchd-frithealaidh: %s',

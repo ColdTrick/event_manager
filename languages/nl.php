@@ -1,10 +1,16 @@
 <?php
 /**
- * This file was created by Translation Editor v10.1.1
- * On 2022-08-18 12:22
+ * This file was created by Translation Editor v11.1
+ * On 2023-05-17 14:37
  */
 
 return array (
+  'event_manager:editregistration:fieldtype:text' => 'Tekstveld',
+  'event_manager:editregistration:fieldtype:longtext' => 'Tekstveld (met editor)',
+  'event_manager:editregistration:fieldtype:select' => 'Selecteer',
+  'event_manager:editregistration:fieldtype:radio' => 'Radio',
+  'event_manager:upgrade:2023030700:title' => 'Verplaats evenement kopafbeeldingen naar nieuwe locatie',
+  'event_manager:upgrade:2023030700:description' => 'In Elgg 5 is er ondersteuning voor kopafbeeldingen. Deze migratie verplaatst de oude iconen naar die nieuwe locatie.',
   'groups:tool:event_manager:description' => 'Laat groepsleden evenementen aanmaken in deze groep.',
   'input:container_guid:object:event:info' => 'Dit evenement zal worden geplaatst in %s',
   'event_manager:edit:form:announcement_period' => 'Aankondigings periode',
@@ -84,12 +90,6 @@ Om het evenement te bekijken, klik hier:
   'event_manager:entity:copy' => 'Kopie van: %s',
   'event_manager:menu:copy' => 'Kopieer evenement',
   'event_manager:menu:attending' => 'Deelnemend',
-  'event_manager:calendar:today' => 'Vandaag',
-  'event_manager:calendar:month' => 'Maand',
-  'event_manager:calendar:week' => 'Week',
-  'event_manager:calendar:day' => 'Dag',
-  'event_manager:calendar:axis_format' => 'H:mm',
-  'event_manager:calendar:column_format' => 'ddd D-M',
   'event_manager:list:navigation:calendar' => 'Kalender',
   'event_manager:owner:title' => '%s\'s evenementen',
   'event_manager:attending:title' => 'Evenementen waar %s aan deelneemt',
@@ -233,7 +233,6 @@ Indien u deze aanvraag niet heeft gedaan, kunt u deze mail negeren.',
   'event_manager:menu:group_events' => 'Groeps evenementen',
   'add:object:event' => 'Nieuw Evenement',
   'event_manager:list:live' => 'Live evenementen',
-  'event_manager:list:group:title' => 'Groeps evenementen',
   'event_manager:list:noresults' => 'Geen evenementen gevonden',
   'event_manager:list:navigation:onthemap' => 'Op de kaart',
   'event_manager:full' => 'vol',
