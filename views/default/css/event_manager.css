@@ -50,6 +50,24 @@
 	}
 }
 
+@media screen and (max-width: 600px) {
+	#event-manager-event-calendar .fc-header-toolbar {
+		flex-wrap: wrap;
+		
+		> .fc-toolbar-chunk {
+			&:nth-child(2) {
+				order: 1;
+				width: 100%;
+				text-align: center;
+			}
+			
+			> :not(:first-child) {
+				margin-left: 0.25em;
+			}
+		}
+	}
+}
+
 .event-manager-view-registration-details {
 	display: flex;
 	flex-wrap: wrap;
