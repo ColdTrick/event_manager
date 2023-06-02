@@ -1,6 +1,13 @@
 Version history
 ===============
 
+17.0 (2023-06-02):
+
+- added: group tool container logic check
+- changed: conflict with Elgg < 5.0
+- changed: updated for Elgg 5
+- changed: updated to fullcalendar v6+
+
 16.0.4 (2023-05-03):
 
 - fixed: correctly export attendee slot participation
