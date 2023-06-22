@@ -96,7 +96,9 @@ switch ($widget->context) {
 		break;
 }
 
-$event_options['container_guid'] = $widget->group_guid;
+if ($widget->group_guid) {
+	$event_options['container_guid'] = $widget->group_guid;
+}
 
 $more_text = elgg_echo('event_manager:list:more');
 if (!empty($tag_filter)) {
