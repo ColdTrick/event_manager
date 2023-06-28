@@ -1,9 +1,10 @@
 <?php
+
 /**
  * EventRegistration
  *
- * @property string name  the name of the user
- * @property string email the e-mail address of the user
+ * @property string $name  the name of the user
+ * @property string $email the e-mail address of the user
  */
 class EventRegistration extends \ElggObject {
 	
@@ -20,7 +21,7 @@ class EventRegistration extends \ElggObject {
 	}
 	
 	/**
-	 * Allow non user to remove their registration correctly
+	 * Allow non-user to remove their registration correctly
 	 *
 	 * {@inheritdoc}
 	 */
@@ -38,10 +39,6 @@ class EventRegistration extends \ElggObject {
 	 * {@inheritdoc}
 	 */
 	public function getDisplayName(): string {
-		if (isset($this->name)) {
-			return $this->name;
-		}
-		
-		return parent::getDisplayName();
+		return $this->name ?? parent::getDisplayName();
 	}
 }

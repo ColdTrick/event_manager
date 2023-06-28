@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Mail object to be sent to all event attendees
+ *
  * @property string[] $recipients who are the recipients of the mail
  */
 class EventMail extends \ElggObject {

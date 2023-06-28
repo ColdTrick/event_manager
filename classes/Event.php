@@ -8,8 +8,6 @@ use Elgg\Database\Select;
 /**
  * Event
  *
- * @package EventManager
- *
  * @property bool   $comments_on               comments enabled
  * @property string $contact_details           contact details
  * @property int[]  $contact_guids             additional contact persons
@@ -36,7 +34,7 @@ use Elgg\Database\Select;
  * @property string $website                   event website
  * @property bool   $with_program              has a program
  */
-class Event extends ElggObject {
+class Event extends \ElggObject {
 	
 	const SUBTYPE = 'event';
 

@@ -2,10 +2,13 @@
 /**
  * EventRegistrationQuestion
  *
- * @package EventManager
- *
+ * @property string $fieldtype    input type if the question
+ * @property string $fieldoptions input options for the question
+ * @property int    $order        order of the question
+ * @property int    $required     input is required
  */
-class EventRegistrationQuestion extends ElggObject {
+class EventRegistrationQuestion extends \ElggObject {
+	
 	const SUBTYPE = 'eventregistrationquestion';
 
 	/**
@@ -20,7 +23,7 @@ class EventRegistrationQuestion extends ElggObject {
 	/**
 	 * Returns the answer given by a user
 	 *
-	 * @param string $user_guid guid of the entity
+	 * @param int $user_guid guid of the entity
 	 *
 	 * @return boolean|ElggAnnotation
 	 */
@@ -47,7 +50,7 @@ class EventRegistrationQuestion extends ElggObject {
 	/**
 	 * Removes the answer given by a user
 	 *
-	 * @param string $user_guid guid of the entity
+	 * @param int $user_guid guid of the entity
 	 *
 	 * @return void
 	 */
