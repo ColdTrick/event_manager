@@ -1,6 +1,11 @@
 Version history
 ===============
 
+17.0.1 (2023-07-05):
+
+- fixed: correctly limit to a optional selected group
+- fixed: fetch correct data on calendar view pages
+
 17.0 (2023-06-02):
 
 - added: group tool container logic check
