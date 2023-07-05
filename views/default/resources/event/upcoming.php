@@ -9,8 +9,6 @@ if ($page_owner instanceof \ElggGroup) {
 	elgg_set_page_owner_guid(0);
 }
 
-elgg_group_tool_gatekeeper('event_manager');
-
 elgg_push_collection_breadcrumbs('object', \Event::SUBTYPE, $page_owner);
 
 elgg_register_title_button('add', 'object', \Event::SUBTYPE);

@@ -1,7 +1,10 @@
 define(['jquery', 'elgg', 'elgg/i18n', 'elgg/lightbox', 'fullcalendar'], function($, elgg, i18n, lightbox) {
 	var calendarEl = document.getElementById('event-manager-event-calendar');
+	var wrapper_data = $('#event-manager-event-calendar-wrapper').data();
+	var events_url = 'event_manager/calendar?' + $.param(wrapper_data);
+			
 	var calendar = new FullCalendar.Calendar(calendarEl, {
-		events: elgg.normalize_url('event_manager/calendar'),
+		events: elgg.normalize_url(events_url),
 		headerToolbar: {
 			left: 'prev next today',
 			center: 'title',
