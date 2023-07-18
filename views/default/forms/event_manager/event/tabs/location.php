@@ -30,12 +30,12 @@ $field_options = [
 		],
 		[
 			'#type' => 'button',
-			'value' => elgg_echo('delete'),
+			'#class' => $location ? null : 'hidden',
+			'text' => elgg_echo('delete'),
 			'id' => 'event-manager-location-input-delete',
 			'class' => [
 				'elgg-button-delete',
 			],
-			'#class' => $location ? null : 'hidden',
 		],
 	],
 ];

@@ -29,7 +29,7 @@ $body .= elgg_view_field([
 
 $body .= elgg_view_field([
 	'#type' => 'submit',
-	'value' => elgg_echo('save'),
+	'text' => elgg_echo('save'),
 ]);
 
 echo elgg_view_module('info', elgg_echo('event_manager:menu:copy'), $body);

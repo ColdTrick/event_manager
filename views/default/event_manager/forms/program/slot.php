@@ -167,7 +167,7 @@ $form_body .= '<div class="elgg-subtext">' . elgg_echo('event_manager:edit:form:
 
 $form_body .= elgg_view_field([
 	'#type' => 'submit',
-	'value' => elgg_echo('submit'),
+	'text' => elgg_echo('submit'),
 ]);
 
 $form = elgg_view('input/form', [
