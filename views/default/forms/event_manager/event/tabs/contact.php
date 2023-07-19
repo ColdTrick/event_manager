@@ -22,7 +22,7 @@ $output .= elgg_view_field([
 $output .= '<div class="elgg-field">';
 $output .= elgg_format_element('span', ['class' => 'phm'], elgg_echo('event_manager:edit:form:users:or'));
 $output .= elgg_view('input/button', [
-	'value' => elgg_echo('event_manager:edit:form:users:add'),
+	'text' => elgg_echo('event_manager:edit:form:users:add'),
 	'class' => ['elgg-button-action', 'elgg-toggle'],
 	'data-toggle-selector' => '.event-manager-contact-organizer-guids',
 ]);
@@ -54,7 +54,7 @@ $output .= elgg_view_field([
 $output .= '<div class="elgg-field">';
 $output .= elgg_format_element('span', ['class' => 'phm'], elgg_echo('event_manager:edit:form:users:or'));
 $output .= elgg_view('input/button', [
-	'value' => elgg_echo('event_manager:edit:form:users:add'),
+	'text' => elgg_echo('event_manager:edit:form:users:add'),
 	'class' => ['elgg-button-action', 'elgg-toggle'],
 	'data-toggle-selector' => '.event-manager-contact-contact-guids',
 ]);

@@ -159,7 +159,7 @@ $form_body .= elgg_view_field([
 $form_body .= elgg_view('input/text', ['id' => 'event-manager-new-slot-set-name']);
 $form_body .= elgg_view('input/button', [
 	'id' => 'event-manager-new-slot-set-name-button',
-	'value' => elgg_echo('event_manager:edit:form:slot_set:add'),
+	'text' => elgg_echo('event_manager:edit:form:slot_set:add'),
 	'class' => 'elgg-button-action',
 ]);
 

@@ -12,5 +12,5 @@ echo elgg_view('input/hidden', ['name' => 'registration', 'value' => $registrati
 echo elgg_view('input/hidden', ['name' => 'event', 'value' => $event->guid]);
 echo elgg_view('input/hidden', ['name' => 'code', 'value' => $code]);
 
-$footer = elgg_view('input/submit', ['value' => elgg_echo('confirm')]);
+$footer = elgg_view('input/submit', ['text' => elgg_echo('confirm')]);
 elgg_set_form_footer($footer);

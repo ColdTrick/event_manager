@@ -12,7 +12,7 @@ echo elgg_view('input/hidden', ['name' => 'event_guid', 'value' => $event->guid]
 echo elgg_view('input/hidden', ['name' => 'user_guid', 'value' => $user->guid]);
 echo elgg_view('input/hidden', ['name' => 'code', 'value' => $code]);
 
-$footer = elgg_view('input/submit', ['value' => elgg_echo('confirm')]);
+$footer = elgg_view('input/submit', ['text' => elgg_echo('confirm')]);
 $footer .= elgg_view('output/url', [
 	'text' => elgg_echo('delete'),
 	'confirm' => elgg_echo('event_manager:registration:confirm:delete'),

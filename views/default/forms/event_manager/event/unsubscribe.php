@@ -19,7 +19,7 @@ echo elgg_view_field([
 	'id' => 'event-manager-unsubscribe-email',
 ]);
 
-$footer = elgg_view('input/submit', ['value' => elgg_echo('submit')]);
+$footer = elgg_view('input/submit', ['text' => elgg_echo('submit')]);
 elgg_set_form_footer($footer);
 
 // cleanup sticky form data

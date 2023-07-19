@@ -68,6 +68,6 @@ if ($register_type == 'register') {
 	$form_body .= elgg_view('input/hidden', ['name' => 'relation', 'value' => EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST]);
 }
 	
-$form_body .= elgg_view('input/submit', ['value' => elgg_echo('register')]);
+$form_body .= elgg_view('input/submit', ['text' => elgg_echo('register')]);
 
 echo $form_body;

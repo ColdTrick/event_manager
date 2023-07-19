@@ -25,5 +25,5 @@ echo elgg_view_field([
 	'required' => true,
 ]);
 
-$footer = elgg_view('input/submit', ['value' => elgg_echo('upload')]);
+$footer = elgg_view('input/submit', ['text' => elgg_echo('upload')]);
 elgg_set_form_footer($footer);
