@@ -32,6 +32,7 @@ echo elgg_view_field([
 			'name' => 'start_time',
 			'value' => $vars['event_start'],
 			'timestamp' => true,
+			'title' => elgg_echo('event_manager:edit:form:start_time'),
 		],
 		[
 			'#type' => 'date',
@@ -48,6 +49,7 @@ echo elgg_view_field([
 			'name' => 'end_time',
 			'value' => $vars['event_end'],
 			'timestamp' => true,
+			'title' => elgg_echo('event_manager:edit:form:end_time'),
 		],
 	],
 ]);
