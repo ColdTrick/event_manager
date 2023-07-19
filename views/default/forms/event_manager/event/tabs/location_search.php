@@ -17,20 +17,18 @@ $form .= elgg_view_field([
 			'#type' => 'button',
 			'class' => 'elgg-button-submit elgg-button-action',
 			'name' => 'address_search_submit',
-			'value' => elgg_echo('search'),
+			'text' => elgg_echo('search'),
 		],
 		[
 			'#type' => 'button',
 			'class' => 'elgg-button-submit hidden',
 			'name' => 'address_search_save',
 			'id' => 'address_search_save',
-			'value' => elgg_echo('save'),
+			'text' => elgg_echo('save'),
 		],
 	],
 ]);
 
-$container = elgg_format_element('div', [
-	'id' => 'event-manager-edit-maps-search-container',
-], $form);
+$container = elgg_format_element('div', ['id' => 'event-manager-edit-maps-search-container'], $form);
 
 echo elgg_format_element('div', ['class' => 'hidden'], $container);

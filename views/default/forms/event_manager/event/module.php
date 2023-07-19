@@ -66,7 +66,7 @@ if ($collapsed) {
 			'elgg-button-action',
 			'elgg-toggle',
 		],
-		'value' => elgg_echo('event_manager:edit:form:tabs:toggle'),
+		'text' => elgg_echo('event_manager:edit:form:tabs:toggle'),
 		'data-toggle-slide' => 0,
 		'data-toggle-selector' => ".event-manager-edit-{$section}-toggle",
 	]);
