@@ -18,66 +18,73 @@ if ($question instanceof \EventRegistrationQuestion) {
 }
 
 $disabled = empty($guid);
-$form_body = '';
-$form_body .= elgg_view('input/hidden', [
-	'name' => "questions[{$guid}][guid]",
-	'value' => $guid,
-	'disabled' => $disabled,
-]);
 
-$question_label = elgg_echo('event_manager:editregistration:question');
-$question_label .= elgg_view_field([
-	'#type' => 'checkboxes',
-	'#class' => 'float-alt man elgg-subtext',
-	'name' => "questions[{$guid}][required]",
-	'value' => $required,
-	'options' => [elgg_echo('event_manager:registrationform:editquestion:required') => '1'],
-	'default' => false,
-	'disabled' => $disabled,
-]);
-$form_body .= elgg_view_field([
-	'#type' => 'text',
-	'#label' => $question_label,
-	'#class' => 'mbs',
-	'name' => "questions[{$guid}][questiontext]",
-	'value' => $title,
-	'placeholder' => elgg_echo('event_manager:registrationform:editquestion:text:placeholder'),
-	'disabled' => $disabled,
-]);
-
-$form_body .= '<div class="event-manager-event-edit-level">';
-
-$form_body .= elgg_view_field([
-	'#type' => 'select',
-	'#label' => elgg_echo('event_manager:editregistration:fieldtype'),
-	'#class' => 'man',
-	'class' => 'event_manager_registrationform_question_fieldtype',
-	'value' => $fieldtype,
-	'name' => "questions[{$guid}][fieldtype]",
-	'options_values' => [
-		'Textfield' => elgg_echo('event_manager:editregistration:fieldtype:text'),
-		'Textarea' => elgg_echo('event_manager:editregistration:fieldtype:longtext'),
-		'Dropdown' => elgg_echo('event_manager:editregistration:fieldtype:select'),
-		'Radiobutton' => elgg_echo('event_manager:editregistration:fieldtype:radio'),
+$fields = [
+	[
+		'#type' => 'hidden',
+		'name' => "questions[{$guid}][guid]",
+		'value' => $guid,
+		'disabled' => $disabled,
 	],
-	'disabled' => $disabled,
-]);
+	[
+		'#type' => 'text',
+		'#label' => elgg_echo('event_manager:editregistration:question'),
+		'#class' => 'mbs',
+		'name' => "questions[{$guid}][questiontext]",
+		'value' => $title,
+		'placeholder' => elgg_echo('event_manager:registrationform:editquestion:text:placeholder'),
+		'disabled' => $disabled,
+	],
+	[
+		'#type' => 'checkbox',
+		'#label' => elgg_echo('event_manager:registrationform:editquestion:required'),
+		'name' => "questions[{$guid}][required]",
+		'checked' => (bool) $required,
+		'switch' => true,
+		'default' => 0,
+		'value' => 1,
+		'disabled' => $disabled,
+	],
+	[
+		'#type' => 'fieldset',
+		'align' => 'horizontal',
+		'fields' => [
+			[
+				'#type' => 'select',
+				'#label' => elgg_echo('event_manager:editregistration:fieldtype'),
+				'#class' => 'man',
+				'class' => 'event_manager_registrationform_question_fieldtype',
+				'value' => $fieldtype,
+				'name' => "questions[{$guid}][fieldtype]",
+				'options_values' => [
+					'Textfield' => elgg_echo('event_manager:editregistration:fieldtype:text'),
+					'Textarea' => elgg_echo('event_manager:editregistration:fieldtype:longtext'),
+					'Dropdown' => elgg_echo('event_manager:editregistration:fieldtype:select'),
+					'Radiobutton' => elgg_echo('event_manager:editregistration:fieldtype:radio'),
+				],
+				'disabled' => $disabled,
+			],
+			[
+				'#type' => 'text',
+				'#label' => elgg_echo('event_manager:editregistration:fieldoptions'),
+				'#class' => [
+					'event_manager_registrationform_select_options',
+					'elgg-field-stretch',
+					in_array($fieldtype, ['Radiobutton', 'Dropdown']) ? null : 'hidden',
+				],
+				'name' => "questions[{$guid}][fieldoptions]",
+				'value' => $fieldoptions,
+				'placeholder' => elgg_echo('event_manager:editregistration:commasepatared'),
+				'disabled' => $disabled,
+			],
+		],
+	],
+];
 
-$field_class = ['event_manager_registrationform_select_options', 'man'];
-if (!in_array($fieldtype, ['Radiobutton', 'Dropdown'])) {
-	$field_class[] = 'hidden';
+$form_body = '';
+foreach ($fields as $field) {
+	$form_body .= elgg_view_field($field);
 }
-
-$form_body .= elgg_view_field([
-	'#type' => 'text',
-	'#label' => elgg_echo('event_manager:editregistration:fieldoptions'),
-	'#class' => $field_class,
-	'name' => "questions[{$guid}][fieldoptions]",
-	'value' => $fieldoptions,
-	'placeholder' => elgg_echo('event_manager:editregistration:commasepatared'),
-	'disabled' => $disabled,
-]);
-$form_body .= '</div>';
 
 $delete_question = elgg_view('output/url', [
 	'href' => false,
