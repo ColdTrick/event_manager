@@ -20,10 +20,10 @@ echo elgg_call(ELGG_IGNORE_ACCESS, function() use ($event) {
 		$results .= $no_results();
 	}
 	
-	$results .= elgg_format_element('li', [
+	$results .= elgg_format_element('ul', [], elgg_format_element('li', [
 		'id' => 'event-manager-registration-field-template',
 		'class' => 'hidden elgg-item elgg-item-object elgg-item-object-eventregistrationquestion ui-sortable-handle',
-	], elgg_view('forms/event_manager/registrationform/question'));
+	], elgg_view('forms/event_manager/registrationform/question')));
 	
 	$results .= elgg_view('output/url', [
 		'href' => false,
