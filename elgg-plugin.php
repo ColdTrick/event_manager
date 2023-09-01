@@ -354,6 +354,11 @@ return [
 				'\ColdTrick\EventManager\Search::addFields' => [],
 			],
 		],
+		'seeds' => [
+			'database' => [
+				'ColdTrick\EventManager\Seeder::register' => [],
+			],
+		],
 		'send:after' => [
 			'notifications' => [
 				'\ColdTrick\EventManager\Notifications::sendAfterEventMail' => ['priority' => 99999],
