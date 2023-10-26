@@ -13,7 +13,6 @@ if (!$entity->register_nologin) {
 	throw $exception;
 }
 
-// set page owner
 elgg_set_page_owner_guid($entity->getContainerGUID());
 
 elgg_push_entity_breadcrumbs($entity);

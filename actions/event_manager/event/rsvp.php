@@ -35,7 +35,6 @@ if ($rel == EVENT_MANAGER_RELATION_ATTENDING) {
 		if ($event->registration_needed && $event->hasRegistrationForm()) {
 			return elgg_redirect_response(elgg_generate_url('default:object:event:register', [
 				'guid' => $guid,
-				'relation' => $rel,
 			]));
 		} else {
 			$rsvp = $event->rsvp($rel, $user_guid);

@@ -195,12 +195,18 @@ return [
 			'resource' => 'event/upcoming',
 		],
 		'collection:object:event:owner' => [
-			'path' => '/event/owner/{username?}',
+			'path' => '/event/owner/{username}',
 			'resource' => 'event/owner',
+			'middleware' => [
+				\Elgg\Router\Middleware\UserPageOwnerGatekeeper::class,
+			],
 		],
 		'collection:object:event:attending' => [
-			'path' => '/event/attending/{username?}',
+			'path' => '/event/attending/{username}',
 			'resource' => 'event/attending',
+			'middleware' => [
+				\Elgg\Router\Middleware\UserPageOwnerGatekeeper::class,
+			],
 		],
 		'collection:object:event:group' => [
 			'path' => '/event/group/{guid}',

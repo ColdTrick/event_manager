@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f2fb35d33af7c2c6246568e7018ae8d",
+    "content-hash": "23e81ca047c25ab43161f4a2580add07",
     "packages": [
         {
             "name": "composer/installers",
@@ -221,26 +221,24 @@
         },
         {
             "name": "masterminds/html5",
-            "version": "2.7.6",
+            "version": "2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Masterminds/html5-php.git",
-                "reference": "897eb517a343a2281f11bc5556d6548db7d93947"
+                "reference": "f47dcf3c70c584de14f21143c55d9939631bc6cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/897eb517a343a2281f11bc5556d6548db7d93947",
-                "reference": "897eb517a343a2281f11bc5556d6548db7d93947",
+                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/f47dcf3c70c584de14f21143c55d9939631bc6cf",
+                "reference": "f47dcf3c70c584de14f21143c55d9939631bc6cf",
                 "shasum": ""
             },
             "require": {
-                "ext-ctype": "*",
                 "ext-dom": "*",
-                "ext-libxml": "*",
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.7.21 || ^6 || ^7"
+                "phpunit/phpunit": "^4.8.35 || ^5.7.21 || ^6 || ^7 || ^8"
             },
             "type": "library",
             "extra": {
@@ -284,9 +282,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Masterminds/html5-php/issues",
-                "source": "https://github.com/Masterminds/html5-php/tree/2.7.6"
+                "source": "https://github.com/Masterminds/html5-php/tree/2.8.1"
             },
-            "time": "2022-08-18T16:18:26+00:00"
+            "time": "2023-05-10T11:58:31+00:00"
         },
         {
             "name": "npm-asset/fullcalendar",
@@ -310,10 +308,10 @@
         },
         {
             "name": "npm-asset/fullcalendar--core",
-            "version": "6.1.6",
+            "version": "6.1.9",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@fullcalendar/core/-/core-6.1.6.tgz"
+                "url": "https://registry.npmjs.org/@fullcalendar/core/-/core-6.1.9.tgz"
             },
             "require": {
                 "npm-asset/preact": "~10.12.1"
@@ -325,10 +323,10 @@
         },
         {
             "name": "npm-asset/fullcalendar--daygrid",
-            "version": "6.1.4",
+            "version": "6.1.9",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@fullcalendar/daygrid/-/daygrid-6.1.4.tgz"
+                "url": "https://registry.npmjs.org/@fullcalendar/daygrid/-/daygrid-6.1.9.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -361,13 +359,13 @@
         },
         {
             "name": "npm-asset/fullcalendar--multimonth",
-            "version": "6.1.4",
+            "version": "6.1.8",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@fullcalendar/multimonth/-/multimonth-6.1.4.tgz"
+                "url": "https://registry.npmjs.org/@fullcalendar/multimonth/-/multimonth-6.1.8.tgz"
             },
             "require": {
-                "npm-asset/fullcalendar--daygrid": "~6.1.4"
+                "npm-asset/fullcalendar--daygrid": "~6.1.8"
             },
             "type": "npm-asset",
             "license": [
@@ -376,13 +374,13 @@
         },
         {
             "name": "npm-asset/fullcalendar--timegrid",
-            "version": "6.1.4",
+            "version": "6.1.8",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@fullcalendar/timegrid/-/timegrid-6.1.4.tgz"
+                "url": "https://registry.npmjs.org/@fullcalendar/timegrid/-/timegrid-6.1.8.tgz"
             },
             "require": {
-                "npm-asset/fullcalendar--daygrid": "~6.1.4"
+                "npm-asset/fullcalendar--daygrid": "~6.1.8"
             },
             "type": "npm-asset",
             "license": [
@@ -551,9 +549,7 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": {
-        "ext-json": "*"
-    },
+    "platform": [],
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
 }

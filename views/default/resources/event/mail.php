@@ -25,14 +25,10 @@ elgg_set_page_owner_guid($entity->container_guid);
 
 elgg_push_entity_breadcrumbs($entity);
 
-// make page elements
 $form = new EventMail($entity);
 
-$content = elgg_view_form('event_manager/event/mail', [], $form());
-
-// draw page
 echo elgg_view_page(elgg_echo('event_manager:mail:title', [$entity->getDisplayName()]), [
-	'content' => $content,
+	'content' => elgg_view_form('event_manager/event/mail', [], $form()),
 	'filter_id' => 'events/mail',
 	'filter_value' => 'mail',
 ]);

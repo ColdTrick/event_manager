@@ -17,7 +17,6 @@ if (empty($code) || ($code !== $verify_code)) {
 	throw $exception;
 }
 
-// set page owner
 elgg_set_page_owner_guid($event->getContainerGUID());
 
 elgg_push_entity_breadcrumbs($event);

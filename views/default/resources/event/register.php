@@ -4,10 +4,9 @@ use Elgg\Exceptions\Http\BadRequestException;
 use Elgg\Exceptions\HttpException;
 
 $guid = (int) elgg_extract('guid', $vars);
-$relation = elgg_extract('relation', $vars);
-
 elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 
+/* @var $entity \Event */
 $event = get_entity($guid);
 elgg_set_page_owner_guid($event->getContainerGUID());
 

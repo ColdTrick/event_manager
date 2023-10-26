@@ -6,7 +6,9 @@ $event_guid = (int) elgg_extract('guid', $vars);
 $user_guid = (int) elgg_extract('user_guid', $vars, get_input('user_guid'));
 $code = elgg_extract('code', $vars, get_input('code'));
 
-elgg_entity_gatekeeper($event_guid, 'object', Event::SUBTYPE);
+elgg_entity_gatekeeper($event_guid, 'object', \Event::SUBTYPE);
+
+/* @var $event \Event */
 $event = get_entity($event_guid);
 
 elgg_entity_gatekeeper($user_guid);
@@ -24,7 +26,6 @@ if ($event->getRelationshipByUser($user_guid) !== EVENT_MANAGER_RELATION_ATTENDI
 	throw $exception;
 }
 
-// set page owner
 elgg_set_page_owner_guid($event->getContainerGUID());
 
 elgg_push_entity_breadcrumbs($event);
@@ -34,9 +35,8 @@ $body_vars = [
 	'user' => $user,
 	'code' => $code,
 ];
-$form = elgg_view_form('event_manager/registration/confirm', [], $body_vars);
 
 echo elgg_view_page(elgg_echo('event_manager:registration:confirm:title', [$event->getDisplayName()]), [
-	'content' => $form,
+	'content' => elgg_view_form('event_manager/registration/confirm', [], $body_vars),
 	'filter' => false,
 ]);

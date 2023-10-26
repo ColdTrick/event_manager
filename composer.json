@@ -11,7 +11,6 @@
 	},
 	"require": {
 		"composer/installers": "^1.0.8",
-		"ext-json": "*",
 		"dompdf/dompdf" : "~2.0.0",
 		"npm-asset/fullcalendar": "~6.1.0"
 	},
@@ -30,6 +29,6 @@
 		}
 	},
 	"conflict": {
-		"elgg/elgg": "<5.0"
+		"elgg/elgg": "<5.1"
 	}
 }

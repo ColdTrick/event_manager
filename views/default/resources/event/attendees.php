@@ -21,7 +21,6 @@ if (!array_key_exists($relationship, $valid_relationships)) {
 
 $rel_text = $valid_relationships[$relationship];
 
-// page owner
 elgg_set_page_owner_guid($entity->container_guid);
 
 elgg_push_entity_breadcrumbs($entity);

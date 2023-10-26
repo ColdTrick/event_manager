@@ -5,11 +5,14 @@ $key = elgg_extract('k', $vars);
 $guid = (int) elgg_extract('guid', $vars);
 $user_guid = (int) elgg_extract('u_g', $vars, elgg_get_logged_in_user_guid());
 
-elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
+elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
+
+/* @var $event \Event */
 $event = get_entity($guid);
 
 $output = '';
 $title_text = elgg_echo('event_manager:registration:registrationto') . " '{$event->getDisplayName()}'";
+
 elgg_push_entity_breadcrumbs($event);
 
 if (!empty($key)) {
@@ -62,20 +65,19 @@ if (!empty($key)) {
 	}
 
 	if ($user_guid == elgg_get_logged_in_user_guid()) {
-		elgg_register_menu_item('title', \ElggMenuItem::factory([
+		elgg_register_menu_item('title', [
 			'name' => 'edityourregistration',
 			'icon' => 'edit',
 			'text' => elgg_echo('event_manager:registration:edityourregistration'),
 			'link_class' => 'elgg-button elgg-button-action',
 			'href' => elgg_generate_url('default:object:event:register', [
 				'guid' => $event->guid,
-				'relation' => 'event_attending',
 			]),
-		]));
+		]);
 	}
 }
 
-elgg_register_menu_item('title', \ElggMenuItem::factory([
+elgg_register_menu_item('title', [
 	'name' => 'save_to_pdf',
 	'icon' => 'download',
 	'text' => elgg_echo('event_manager:registration:view:savetopdf'),
@@ -85,7 +87,7 @@ elgg_register_menu_item('title', \ElggMenuItem::factory([
 		'guid' => $guid,
 		'u_g' => $user_guid,
 	]),
-]));
+]);
 
 echo elgg_view_page($title_text, [
 	'content' => $output,

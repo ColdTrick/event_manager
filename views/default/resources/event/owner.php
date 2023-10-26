@@ -1,18 +1,12 @@
 <?php
 
-use Elgg\Exceptions\Http\EntityNotFoundException;
-
 $user = elgg_get_page_owner_entity();
-if (!$user instanceof \ElggUser) {
-	throw new EntityNotFoundException();
-}
 
 elgg_register_title_button('add', 'object', \Event::SUBTYPE);
 
 elgg_push_collection_breadcrumbs('object', 'event', $user);
 
 $filter_value = '';
-
 if ($user->guid === elgg_get_logged_in_user_guid()) {
 	$filter_value = 'mine';
 }

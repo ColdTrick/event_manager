@@ -1,16 +1,10 @@
 <?php
 
-use Elgg\Exceptions\Http\EntityPermissionsException;
-
-elgg_gatekeeper();
-
 $guid = (int) elgg_extract('guid', $vars);
-elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
+elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE, true);
 
+/* @var $event \Event */
 $event = get_entity($guid);
-if (!$event->canEdit()) {
-	throw new EntityPermissionsException();
-}
 
 elgg_register_menu_item('title', [
 	'name' => 'event',

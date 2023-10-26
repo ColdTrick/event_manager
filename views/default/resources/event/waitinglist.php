@@ -3,8 +3,9 @@
 use Elgg\Exceptions\HttpException;
 
 $guid = (int) elgg_extract('guid', $vars);
-
 elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
+
+/* @var $event \Event */
 $event = get_entity($guid);
 
 elgg_set_page_owner_guid($event->getContainerGUID());
@@ -32,9 +33,7 @@ $body_vars = [
 	'register_type' => 'waitinglist',
 ];
 
-$form = elgg_view_form('event_manager/event/register', $form_vars, $body_vars);
-
 echo elgg_view_page(elgg_echo('event_manager:event:rsvp:waiting_list'), [
-	'content' => $form,
+	'content' => elgg_view_form('event_manager/event/register', $form_vars, $body_vars),
 	'filter' => false,
 ]);
