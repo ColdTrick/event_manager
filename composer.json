@@ -10,7 +10,6 @@
 		"issues": "https://github.com/ColdTrick/event_manager/issues"
 	},
 	"require": {
-		"composer/installers": "^1.0.8",
 		"dompdf/dompdf" : "~2.0.0",
 		"npm-asset/fullcalendar": "~6.1.0"
 	},
@@ -23,9 +22,6 @@
 	"config": {
 		"fxp-asset": {
             "enabled": false
-		},
-		"allow-plugins": {
-			"composer/installers": true
 		}
 	},
 	"conflict": {
