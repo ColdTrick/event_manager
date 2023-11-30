@@ -1,6 +1,10 @@
 Version history
 ===============
 
+18.0 (2023-11-30):
+
+- changed: updated for Elgg 5.1
+
 17.1 (2023-09-28):
 
 - added: database seeder
