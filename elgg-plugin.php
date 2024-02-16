@@ -100,7 +100,7 @@ return [
 		],
 	],
 	'view_extensions' => [
-		'css/elgg' => [
+		'elgg.css' => [
 			'css/event_manager.css' => [],
 			'css/addthisevent.css' => [],
 		],
