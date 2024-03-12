@@ -26,11 +26,12 @@ echo '</div>';
 
 echo '<div class="event-manager-event-edit-level">';
 echo elgg_view_field([
-	'#type' => 'text',
+	'#type' => 'number',
 	'#label' => elgg_echo('event_manager:edit:form:max_attendees'),
 	'#help' => elgg_echo('event_manager:edit:form:max_attendees:help'),
 	'name' => 'max_attendees',
 	'value' => $vars['max_attendees'],
+	'min' => 0,
 ]);
 
 echo elgg_view_field([

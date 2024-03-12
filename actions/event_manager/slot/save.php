@@ -32,7 +32,7 @@ $hours = $end_time_ts - $minutes;
 $end_time = mktime($hours / 3600, $minutes / 60, 1, 0, 0, 0);
 
 $location = get_input('location');
-$max_attendees = get_input('max_attendees');
+$max_attendees = (int) get_input('max_attendees');
 
 $slot_set = get_input('slot_set');
 
@@ -62,7 +62,7 @@ $slot->access_id = $day->access_id;
 $slot->start_time = $start_time;
 $slot->end_time = $end_time;
 $slot->location = $location;
-$slot->max_attendees = $max_attendees;
+$slot->max_attendees = $max_attendees ?: null;
 
 if (!$slot->save()) {
 	return elgg_error_response(elgg_echo('event_manager:action:slot:cannot_save'));

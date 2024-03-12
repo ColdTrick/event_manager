@@ -112,10 +112,11 @@ $form_body .= elgg_view_field([
 ]);
 
 $form_body .= elgg_view_field([
-	'#type' => 'text',
+	'#type' => 'number',
 	'#label' => elgg_echo('event_manager:edit:form:max_attendees'),
 	'name' => 'max_attendees',
 	'value' => $max_attendees,
+	'min' => 0,
 ]);
 
 $form_body .= elgg_view_field([

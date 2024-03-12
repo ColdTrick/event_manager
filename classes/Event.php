@@ -180,8 +180,8 @@ class Event extends \ElggObject {
 	 *
 	 * @return void
 	 */
-	public function setMaxAttendees($max): void {
-		if (!empty($max) && !is_numeric($max)) {
+	public function setMaxAttendees(int $max): void {
+		if ($max < 1) {
 			$max = null;
 		}
 		

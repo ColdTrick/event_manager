@@ -94,7 +94,7 @@ if ($event_created) {
 	]);
 }
 
-$event->setMaxAttendees(get_input('max_attendees'));
+$event->setMaxAttendees((int) get_input('max_attendees'));
 
 $event->event_start = $event_start;
 $event->event_end = $event_end;
