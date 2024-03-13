@@ -1,7 +1,7 @@
 <?php
 
 $guid = (int) get_input('guid');
-$filename = get_input('file');
+$filename = get_input('file', null, false);
 
 $event = get_entity($guid);
 
@@ -15,10 +15,16 @@ foreach ($files as $index => $file) {
 	if (strtolower($file->file) == strtolower($filename)) {
 		$fileHandler = new \ElggFile();
 		$fileHandler->owner_guid = $event->guid;
-		$fileHandler->setFilename("files/{$file->file}");
-
-		$fileHandler->delete();
-		unset($files[$index]);
+		$fileHandler->setFilename($file->file);
+		
+		if (!$fileHandler->exists()) {
+			// check old storage location
+			$fileHandler->setFilename("files/{$file->file}");
+		}
+		
+		if ($fileHandler->delete()) {
+			unset($files[$index]);
+		}
 	}
 }
 
