@@ -59,6 +59,9 @@ if (!empty($notification_queued_ts)) {
 	unset($new_event->notification_queued_ts);
 }
 
+// remove entity_view_counter stats
+unset($new_event->entity_view_count);
+
 if (!$new_event->save()) {
 	return elgg_error_response(elgg_echo('unknown_error'));
 }
