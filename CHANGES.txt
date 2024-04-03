@@ -1,6 +1,11 @@
 Version history
 ===============
 
+18.0.2 (2024-04-03):
+
+- fixed: allow deletions of files with special chars
+- fixed: max attendees should be an int
+
 18.0.1 (2024-01-12):
 
 - several small chores/fixes
