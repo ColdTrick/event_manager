@@ -12,28 +12,28 @@ $contact_details = $event->contact_details;
 $organizer = $event->organizer;
 
 if ($organizer) {
-	$contact_information .= '<div class="elgg-columns">';
-	$contact_information .= '<div class="elgg-col">' . elgg_view_icon('user', ['title' => elgg_echo('event_manager:edit:form:organizer')]) . '</div>';
-	$contact_information .= '<div class="elgg-col">' . elgg_view('output/longtext', ['value' => $organizer]) . '</div>';
-	$contact_information .= '</div>';
+	$contact_information .= elgg_view_image_block(
+		elgg_view_icon('user', ['title' => elgg_echo('event_manager:edit:form:organizer')]),
+		elgg_view('output/longtext', ['value' => $organizer])
+	);
 }
 
 if ($contact_details) {
-	$contact_information .= '<div class="elgg-columns">';
-	$contact_information .= '<div class="elgg-col">' . elgg_view_icon('info-circle', ['title' => elgg_echo('event_manager:edit:form:contact_details')]) . '</div>';
-	$contact_information .= '<div class="elgg-col">' . elgg_view('output/longtext', ['value' => $contact_details]) . '</div>';
-	$contact_information .= '</div>';
+	$contact_information .= elgg_view_image_block(
+		elgg_view_icon('info-circle', ['title' => elgg_echo('event_manager:edit:form:contact_details')]),
+		elgg_view('output/longtext', ['value' => $contact_details])
+	);
 }
 
 if ($website) {
 	if (!preg_match('~^https?\://~i', $website)) {
-		$website = "http://$website";
+		$website = "http://{$website}";
 	}
-
-	$contact_information .= '<div class="elgg-columns">';
-	$contact_information .= '<div class="elgg-col">' . elgg_view_icon('globe', ['title' => elgg_echo('event_manager:edit:form:website')]) . '</div>';
-	$contact_information .= '<div class="elgg-col">' . elgg_view_url($website) . '</div>';
-	$contact_information .= '</div>';
+	
+	$contact_information .= elgg_view_image_block(
+		elgg_view_icon('globe', ['title' => elgg_echo('event_manager:edit:form:website')]),
+		elgg_view_url($website)
+	);
 }
 
 if (!empty($contact_information)) {

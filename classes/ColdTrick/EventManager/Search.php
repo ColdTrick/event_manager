@@ -14,7 +14,7 @@ class Search {
 	 *
 	 * @return array
 	 */
-	public static function addFields(\Elgg\Event $event) {
+	public static function addFields(\Elgg\Event $event): array {
 		
 		$value = (array) $event->getValue();
 		

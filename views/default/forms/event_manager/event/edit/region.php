@@ -26,11 +26,7 @@ if (empty($region_list)) {
 	return;
 }
 
-$options = [
-	'',
-];
-
-$options = array_merge($options, $region_list);
+$options = array_merge([''], $region_list);
 if (!in_array($region, $options)) {
 	$options[] = $region;
 }

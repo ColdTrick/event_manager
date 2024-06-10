@@ -15,10 +15,8 @@ if ($rel === EVENT_MANAGER_RELATION_ATTENDING) {
 
 echo elgg_view('output/longtext', ['value' => elgg_echo('event_manager:event:relationship:message:' . $rel)]);
 
-echo "<div class='mtm'>";
-echo elgg_view('output/url', [
+echo elgg_format_element('div', ['class' => 'mtm'], elgg_view('output/url', [
 	'text' => elgg_echo('event_manager:registration:continue'),
 	'href' => $event->getURL(),
 	'class' => 'elgg-button elgg-button-action',
-]);
-echo '</div>';
+]));

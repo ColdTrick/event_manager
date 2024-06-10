@@ -16,7 +16,7 @@ class Filter {
 	 *
 	 * @return MenuItems
 	 */
-	public static function registerViewTypes(\Elgg\Event $event) {
+	public static function registerViewTypes(\Elgg\Event $event): MenuItems {
 		
 		/* @var $items MenuItems */
 		$items = $event->getValue();

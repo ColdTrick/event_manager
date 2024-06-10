@@ -11,7 +11,7 @@ if (elgg_get_plugin_setting('add_event_to_calendar', 'event_manager') === 'no') 
 }
 
 $event = elgg_extract('entity', $vars);
-if (!$event instanceof Event) {
+if (!$event instanceof \Event) {
 	return;
 }
 
@@ -29,7 +29,7 @@ if (empty($service_links)) {
 }
 
 echo '<br /><br />';
-echo '<span class="event-manager-email-addevent-title">' . elgg_echo('event_manager:addevent:mail:title') . '</span>';
+echo elgg_format_element('span', ['class' => 'event-manager-email-addevent-title'], elgg_echo('event_manager:addevent:mail:title'));
 echo '<br /><br />';
 
 $description = '';

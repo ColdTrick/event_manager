@@ -36,9 +36,9 @@ if (!$event_end) {
 	}
 }
 
-$when = "<div class='event-manager-event-when-title'>{$when_title}</div>";
+$when = elgg_format_element('div', ['class' => 'event-manager-event-when-title'], $when_title);
 if (!empty($when_subtitle)) {
-	$when .= "<div class='event-manager-event-when-subtitle'>{$when_subtitle}</div>";
+	$when .= elgg_format_element('div', ['class' => 'event-manager-event-when-subtitle'], $when_subtitle);
 }
 
 echo elgg_view_image_block(elgg_view_icon('calendar', ['class' => 'elgg-icon-hover']), $when, ['class' => 'event-manager-event-when']);
@@ -46,30 +46,30 @@ echo elgg_view_image_block(elgg_view_icon('calendar', ['class' => 'elgg-icon-hov
 // event details
 $location = $event->location;
 if ($location) {
-	echo '<label>' . elgg_echo('event_manager:edit:form:location') . '</label>';
-	echo '<div class="mbm">' . $location . '</div>';
+	echo elgg_format_element('label', [], elgg_echo('event_manager:edit:form:location'));
+	echo elgg_format_element('div', ['class' => 'mbm'], $location);
 }
 
 $organizer = $event->organizer;
 if ($organizer) {
-	echo '<label>' . elgg_echo('event_manager:edit:form:organizer') . '</label>';
-	echo '<div class="mbm">' . $organizer . '</div>';
+	echo elgg_format_element('label', [], elgg_echo('event_manager:edit:form:organizer'));
+	echo elgg_format_element('div', ['class' => 'mbm'], $organizer);
 }
 
 $description = $event->description;
 if ($description) {
-	echo '<label>' . elgg_echo('description') . '</label>';
-	echo '<div class="mbm">' . elgg_view('output/longtext', ['value' => $description]) . '</div>';
+	echo elgg_format_element('label', [], elgg_echo('description'));
+	echo elgg_format_element('div', ['class' => 'mbm'], elgg_view('output/longtext', ['value' => $description]));
 }
 
 $region = $event->region;
 if ($region) {
-	echo '<label>' . elgg_echo('event_manager:edit:form:region') . '</label>';
-	echo '<div class="mbm">' . $region . '</div>';
+	echo elgg_format_element('label', [], elgg_echo('event_manager:edit:form:region'));
+	echo elgg_format_element('div', ['class' => 'mbm'], $region);
 }
 
 $type = $event->event_type;
 if ($type) {
-	echo '<label>' . elgg_echo('event_manager:edit:form:type') . '</label>';
-	echo '<div class="mbm">' . $type . '</div>';
+	echo elgg_format_element('label', [], elgg_echo('event_manager:edit:form:type'));
+	echo elgg_format_element('div', ['class' => 'mbm'], $type);
 }

@@ -2,6 +2,9 @@
 
 namespace ColdTrick\EventManager;
 
+use ColdTrick\MenuBuilder\Menu;
+use Elgg\Menu\MenuItems;
+
 /**
  * Menu related callbacks
  */
@@ -12,27 +15,28 @@ class Menus {
 	 *
 	 * @param \Elgg\Event $event 'register', 'menu:owner_block'
 	 *
-	 * @return array
+	 * @return null|MenuItems
 	 */
-	public static function registerGroupOwnerBlock(\Elgg\Event $event) {
+	public static function registerGroupOwnerBlock(\Elgg\Event $event): ?MenuItems {
 	
 		$group = $event->getEntityParam();
 		if (!$group instanceof \ElggGroup) {
-			return;
+			return null;
 		}
 	
 		if (!$group->canWriteToContainer(0, 'object', 'event') || !$group->isToolEnabled('event_manager')) {
-			return;
+			return null;
 		}
 	
-		$returnvalue = $event->getValue();
-		$returnvalue[] = \ElggMenuItem::factory([
+		$result = $event->getValue();
+		
+		$result[] = \ElggMenuItem::factory([
 			'name' => 'events',
 			'text' => elgg_echo('event_manager:menu:group_events'),
 			'href' => elgg_generate_url('collection:object:event:group', ['guid' => $group->guid]),
 		]);
 	
-		return $returnvalue;
+		return $result;
 	}
 	
 	/**
@@ -40,23 +44,24 @@ class Menus {
 	 *
 	 * @param \Elgg\Event $event 'register', 'menu:owner_block'
 	 *
-	 * @return array
+	 * @return null|MenuItems
 	 */
-	public static function registerUserOwnerBlock(\Elgg\Event $event) {
+	public static function registerUserOwnerBlock(\Elgg\Event $event): ?MenuItems {
 	
 		$user = $event->getEntityParam();
 		if (!$user instanceof \ElggUser) {
-			return;
+			return null;
 		}
-	
-		$returnvalue = $event->getValue();
-		$returnvalue[] = \ElggMenuItem::factory([
+		
+		$result = $event->getValue();
+		
+		$result[] = \ElggMenuItem::factory([
 			'name' => 'events',
 			'text' => elgg_echo('item:object:event'),
 			'href' => elgg_generate_url('collection:object:event:owner', ['username' => $user->username]),
 		]);
 	
-		return $returnvalue;
+		return $result;
 	}
 	
 	/**
@@ -64,24 +69,24 @@ class Menus {
 	 *
 	 * @param \Elgg\Event $elgg_event 'register', 'menu:event_files'
 	 *
-	 * @return array
+	 * @return null|MenuItems
 	 */
-	public static function registerEventFiles(\Elgg\Event $elgg_event) {
+	public static function registerEventFiles(\Elgg\Event $elgg_event): ?MenuItems {
 		$event = $elgg_event->getEntityParam();
 		if (!$event instanceof \Event) {
-			return;
+			return null;
 		}
 		
 		$files = $event->getFiles();
 		if (empty($files)) {
-			return;
+			return null;
 		}
 		
 		$elggfile = new \ElggFile();
 		$elggfile->owner_guid = $event->guid;
 		
 		$use_cookie = ($event->access_id !== ACCESS_PUBLIC);
-		$returnvalue = $elgg_event->getValue();
+		$result = $elgg_event->getValue();
 		foreach ($files as $file) {
 			$elggfile->setFilename($file->file);
 			
@@ -90,7 +95,7 @@ class Menus {
 				$elggfile->setFilename("files/{$file->file}");
 			}
 			
-			$returnvalue[] = \ElggMenuItem::factory([
+			$result[] = \ElggMenuItem::factory([
 				'name' => $file->title,
 				'icon' => 'download',
 				'text' => $file->title,
@@ -98,7 +103,7 @@ class Menus {
 			]);
 		}
 		
-		return $returnvalue;
+		return $result;
 	}
 	
 	/**
@@ -106,9 +111,9 @@ class Menus {
 	 *
 	 * @param \Elgg\Event $event 'register', 'menu:filter:events'
 	 *
-	 * @return array
+	 * @return MenuItems
 	 */
-	public static function registerEventsList(\Elgg\Event $event) {
+	public static function registerEventsList(\Elgg\Event $event): MenuItems {
 	
 		$route_params = [
 			'list_type' => get_input('list_type'),
@@ -122,8 +127,9 @@ class Menus {
 		
 		$selected = $event->getParam('filter_value');
 		
-		$returnvalue = $event->getValue();
-		$returnvalue[] = \ElggMenuItem::factory([
+		$result = $event->getValue();
+		
+		$result[] = \ElggMenuItem::factory([
 			'name' => 'live',
 			'text' => elgg_echo('event_manager:list:navigation:live'),
 			'href' => elgg_generate_url('collection:object:event:live', $route_params),
@@ -131,7 +137,8 @@ class Menus {
 			'selected' => $selected === 'live',
 			'priority' => 100,
 		]);
-		$returnvalue[] = \ElggMenuItem::factory([
+		
+		$result[] = \ElggMenuItem::factory([
 			'name' => 'upcoming',
 			'text' => elgg_echo('event_manager:list:navigation:upcoming'),
 			'href' => elgg_generate_url('collection:object:event:upcoming', $route_params),
@@ -142,7 +149,7 @@ class Menus {
 		
 		// user links (not in group context)
 		if (!$page_owner instanceof \ElggGroup && elgg_is_logged_in()) {
-			$returnvalue[] = \ElggMenuItem::factory([
+			$result[] = \ElggMenuItem::factory([
 				'name' => 'attending',
 				'text' => elgg_echo('event_manager:menu:attending'),
 				'href' => elgg_generate_url('collection:object:event:attending', [
@@ -153,7 +160,8 @@ class Menus {
 				'selected' => $selected === 'attending',
 				'priority' => 300,
 			]);
-			$returnvalue[] = \ElggMenuItem::factory([
+			
+			$result[] = \ElggMenuItem::factory([
 				'name' => 'mine',
 				'text' => elgg_echo('mine'),
 				'href' => elgg_generate_url('collection:object:event:owner', [
@@ -166,7 +174,7 @@ class Menus {
 			]);
 		}
 		
-		return $returnvalue;
+		return $result;
 	}
 	
 	/**
@@ -174,24 +182,25 @@ class Menus {
 	 *
 	 * @param \Elgg\Event $event 'register', 'menu:event_attendees'
 	 *
-	 * @return void|\ElggMenuItem[]
+	 * @return null|MenuItems
 	 */
-	public static function registerEventAttendees(\Elgg\Event $event) {
+	public static function registerEventAttendees(\Elgg\Event $event): ?MenuItems {
 		
 		$entity = $event->getEntityParam();
 		if (!$entity instanceof \Event) {
-			return;
+			return null;
 		}
 		
 		$relationship = $event->getParam('relationship');
 		$valid_relationships = $entity->getSupportedRelationships();
 		if (count($valid_relationships) === 1) {
-			return;
+			return null;
 		}
 		
-		$returnvalue = $event->getValue();
+		$result = $event->getValue();
+		
 		foreach ($valid_relationships as $rel => $label) {
-			$returnvalue[] = \ElggMenuItem::factory([
+			$result[] = \ElggMenuItem::factory([
 				'name' => $rel,
 				'text' => $label,
 				'href' => elgg_generate_url('collection:object:event:attendees', [
@@ -202,7 +211,7 @@ class Menus {
 			]);
 		}
 		
-		return $returnvalue;
+		return $result;
 	}
 	
 	/**
@@ -210,17 +219,17 @@ class Menus {
 	 *
 	 * @param \Elgg\Event $elgg_event 'register', 'menu:event:rsvp'
 	 *
-	 * @return \ElggMenuItem[]
+	 * @return null|MenuItems
 	 */
-	public static function registerRsvp(\Elgg\Event $elgg_event) {
+	public static function registerRsvp(\Elgg\Event $elgg_event): ?MenuItems {
 		
 		$event = $elgg_event->getEntityParam();
 		if (!$event instanceof \Event) {
-			return;
+			return null;
 		}
 		
 		if (!$event->openForRegistration() && (!elgg_is_logged_in() || empty($event->getRelationshipByUser()))) {
-			return;
+			return null;
 		}
 		
 		$result = $elgg_event->getValue();
@@ -229,10 +238,8 @@ class Menus {
 			$event_relationship_options = event_manager_event_get_relationship_options();
 			
 			$user_relation = $event->getRelationshipByUser();
-			if ($user_relation) {
-				if (!in_array($user_relation, $event_relationship_options)) {
-					$event_relationship_options[] = $user_relation;
-				}
+			if ($user_relation && !in_array($user_relation, $event_relationship_options)) {
+				$event_relationship_options[] = $user_relation;
 			}
 			
 			if (in_array($user_relation, $event_relationship_options)) {
@@ -240,8 +247,8 @@ class Menus {
 			}
 			
 			foreach ($event_relationship_options as $rel) {
-				if (($rel == EVENT_MANAGER_RELATION_ATTENDING) || ($rel == EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST) || $event->$rel) {
-					if ($rel == EVENT_MANAGER_RELATION_ATTENDING && ($user_relation !== EVENT_MANAGER_RELATION_ATTENDING)) {
+				if (($rel === EVENT_MANAGER_RELATION_ATTENDING) || ($rel === EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST) || $event->$rel) {
+					if ($rel === EVENT_MANAGER_RELATION_ATTENDING && ($user_relation !== EVENT_MANAGER_RELATION_ATTENDING)) {
 						if (!$event->hasEventSpotsLeft() && !$event->waiting_list_enabled) {
 							continue;
 						}
@@ -262,11 +269,7 @@ class Menus {
 					} else {
 						if ($rel != EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST) {
 							$link_class = ['elgg-button'];
-							if ($rel === EVENT_MANAGER_RELATION_ATTENDING) {
-								$link_class[] = 'elgg-button-submit';
-							} else {
-								$link_class[] = 'elgg-button-action';
-							}
+							$link_class[] = ($rel === EVENT_MANAGER_RELATION_ATTENDING) ? 'elgg-button-submit' : 'elgg-button-action';
 							
 							$result[] = \ElggMenuItem::factory([
 								'name' => $rel,

@@ -58,7 +58,7 @@ if ($collapsed) {
 
 $menu = null;
 if ($collapsed) {
-	elgg_require_js('elgg/toggle');
+	elgg_import_esm('elgg/toggle');
 	
 	$menu = elgg_view('input/button', [
 		'class' => [
@@ -89,7 +89,7 @@ $module_vars = [
 ];
 
 if ($section == 'questions') {
-	if (!($entity instanceof \Event)) {
+	if (!$entity instanceof \Event) {
 		$module_vars['class'][] = 'hidden';
 	} elseif (!$entity->getRegistrationFormQuestions(true) && !$entity->registration_needed) {
 		$module_vars['class'][] = 'hidden';

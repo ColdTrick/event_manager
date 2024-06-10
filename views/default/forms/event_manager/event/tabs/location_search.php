@@ -1,6 +1,6 @@
 <?php
 
-$form = '<div id="event-manager-maps-location-search"></div>';
+$form = elgg_format_element('div', ['id' => 'event-manager-maps-location-search']);
 
 $form .= elgg_view_field([
 	'#type' => 'text',

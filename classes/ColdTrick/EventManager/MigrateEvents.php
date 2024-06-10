@@ -16,7 +16,7 @@ class MigrateEvents extends Migrate {
 	 *
 	 * @return array
 	 */
-	public static function supportedSubtypes(\Elgg\Event $event) {
+	public static function supportedSubtypes(\Elgg\Event $event): array {
 		
 		$result = $event->getValue();
 		
@@ -27,25 +27,22 @@ class MigrateEvents extends Migrate {
 	
 	/**
 	 * {@inheritdoc}
-	 * @see \ColdTrick\EntityTools\Migrate::canBackDate()
 	 */
-	public function canBackDate() {
+	public function canBackDate(): bool {
 		return true;
 	}
 	
 	/**
 	 * {@inheritdoc}
-	 * @see \ColdTrick\EntityTools\Migrate::canChangeContainer()
 	 */
-	public function canChangeContainer() {
+	public function canChangeContainer(): bool {
 		return true;
 	}
 	
 	/**
 	 * {@inheritdoc}
-	 * @see \ColdTrick\EntityTools\Migrate::canChangeOwner()
 	 */
-	public function canChangeOwner() {
+	public function canChangeOwner(): bool {
 		return true;
 	}
 }

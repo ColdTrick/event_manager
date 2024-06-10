@@ -21,9 +21,9 @@ class Day extends \ElggObject {
 	/**
 	 * Returns the slots
 	 *
-	 * @return array|boolean
+	 * @return array
 	 */
-	public function getEventSlots() {
+	public function getEventSlots(): array {
 		return elgg_get_entities([
 			'type' => 'object',
 			'subtype' => Slot::SUBTYPE,

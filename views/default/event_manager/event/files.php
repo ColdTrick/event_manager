@@ -36,7 +36,7 @@ foreach ($files as $file) {
 		'confirm' => true,
 	]);
 	
-	$rows .= "<tr><td>$link</td><td>$delete</td></tr>";
+	$rows .= "<tr><td>{$link}</td><td>{$delete}</td></tr>";
 }
 
 $content = elgg_format_element('table', ['class' => 'elgg-table'], $rows);

@@ -17,7 +17,7 @@ if (empty($relation) || !$event instanceof \Event) {
 $answers = [];
 foreach ($_POST as $key => $value) {
 	$value = get_input($key);
-	if (substr($key, 0, 9) == 'question_') {
+	if (str_starts_with($key, 'question_')) {
 		if (is_array($value)) {
 			$value = $value[0];
 		}
@@ -102,20 +102,18 @@ if (elgg_is_logged_in()) {
 				$object = $existing_user;
 				// todo check if there already is a relationship with the event.
 				$current_relationship = $event->getRelationshipByUser($object->guid);
-				if ($current_relationship) {
-					switch ($current_relationship) {
-						case EVENT_MANAGER_RELATION_ATTENDING:
-							// already attendee
-							return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:attending'));
-						case EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST:
-							// on the waitinglist
-							return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:waiting'));
-						case EVENT_MANAGER_RELATION_ATTENDING_PENDING:
-							// pending confirmation resend mail
-							event_manager_send_registration_validation_email($event, $object);
-	
-							return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:pending'));
-					}
+				switch ($current_relationship) {
+					case EVENT_MANAGER_RELATION_ATTENDING:
+						// already attendee
+						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:attending'));
+					case EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST:
+						// on the waitinglist
+						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:waiting'));
+					case EVENT_MANAGER_RELATION_ATTENDING_PENDING:
+						// pending confirmation resend mail
+						event_manager_send_registration_validation_email($event, $object);
+
+						return elgg_error_response(elgg_echo('event_manager:action:register:email:account_exists:pending'));
 				}
 			}
 	

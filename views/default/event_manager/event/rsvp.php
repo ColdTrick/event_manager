@@ -25,6 +25,6 @@ echo $menu;
 if (elgg_extract('full_view', $vars)) {
 	$registration = elgg_view('event_manager/event/registration', $vars);
 	if ($registration) {
-		echo '<div>' . $registration . '</div>';
+		echo elgg_format_element('div', [], $registration);
 	}
 }

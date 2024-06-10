@@ -46,8 +46,6 @@ class EventMail extends \ElggObject {
 		}
 		
 		foreach ($recipients as $recipient_type) {
-			$guids = [];
-			
 			switch ($recipient_type) {
 				case 'contacts':
 					$guids = $event->getContacts([

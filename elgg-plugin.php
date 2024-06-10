@@ -3,7 +3,6 @@
 use ColdTrick\EventManager\Bootstrap;
 use ColdTrick\EventManager\Event\Day;
 use ColdTrick\EventManager\Event\Slot;
-use ColdTrick\EventManager\Upgrades\MoveHeaderIcons;
 use Elgg\Router\Middleware\Gatekeeper;
 
 require_once(dirname(__FILE__) . '/lib/functions.php');
@@ -89,33 +88,30 @@ return [
 			],
 		],
 	],
-	'upgrades' => [
-		MoveHeaderIcons::class,
-	],
 	'views' => [
 		'default' => [
-			'js/fullcalendar.js' => $composer_path . 'vendor/npm-asset/fullcalendar/index.global.min.js',
-			'js/fullcalendar/translations.js' => $composer_path . 'vendor/npm-asset/fullcalendar--core/locales-all.global.min.js',
-			'js/moment.js' => $composer_path . 'vendor/bower-asset/moment/min/moment-with-locales.min.js',
+			'fullcalendar.js' => $composer_path . 'vendor/npm-asset/fullcalendar/index.global.min.js',
+			'fullcalendar/translations.js' => $composer_path . 'vendor/npm-asset/fullcalendar--core/locales-all.global.min.js',
 		],
 	],
 	'view_extensions' => [
 		'elgg.css' => [
-			'css/event_manager.css' => [],
-			'css/addthisevent.css' => [],
+			'event_manager/site.css' => [],
+			'event_manager/addthisevent/button.css' => [],
 		],
 		'email/email.css' => [
-			'css/event_manager/email_addevent.css' => [],
+			'event_manager/addthisevent/email.css' => [],
 		],
-		'js/addthisevent.js' => [
-			'js/event_manager/addthisevent.settings.js' => [],
+		'event_manager/addthisevent/button.mjs' => [
+			'event_manager/addthisevent/settings.js' => [],
 		],
-		'js/fullcalendar.js' => [
-			'js/fullcalendar/translations.js' => [],
+		'fullcalendar.js' => [
+			'fullcalendar/translations.js' => [],
 		],
 	],
 	'view_options' => [
 		'event_manager/event/attendees_list' => ['ajax' => true],
+		'event_manager/listing/calendar.mjs' => ['simplecache' => true],
 		'event_manager/event/popup' => ['ajax' => true],
 		'event_manager/forms/program/day' => ['ajax' => true],
 		'event_manager/forms/program/slot' => ['ajax' => true],
@@ -278,7 +274,7 @@ return [
 			],
 		],
 		'elgg.data' => [
-			'site' => [
+			'page' => [
 				'\ColdTrick\EventManager\Js::getJsConfig' => [],
 			],
 		],

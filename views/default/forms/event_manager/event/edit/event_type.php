@@ -26,11 +26,7 @@ if (empty($type_list)) {
 	return;
 }
 
-$options = [
-	'',
-];
-
-$options = array_merge($options, $type_list);
+$options = array_merge([''], $type_list);
 if (!in_array($event_type, $options)) {
 	$options[] = $event_type;
 }

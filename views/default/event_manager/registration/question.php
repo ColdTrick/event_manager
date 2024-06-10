@@ -3,7 +3,7 @@
 $question = elgg_extract('entity', $vars);
 $value = elgg_extract('value', $vars);
 
-if (!($question instanceof EventRegistrationQuestion)) {
+if (!$question instanceof \EventRegistrationQuestion) {
 	return;
 }
 
@@ -18,10 +18,8 @@ if (!array_key_exists($question->fieldtype, $fieldtypes)) {
 	return;
 }
 
-$input_type = $fieldtypes[$question->fieldtype];
-
 echo elgg_view_field([
-	'#type' => $input_type,
+	'#type' => $fieldtypes[$question->fieldtype],
 	'#label' => $question->getDisplayName(),
 	'name' => 'question_' . $question->guid,
 	'value' => $value,

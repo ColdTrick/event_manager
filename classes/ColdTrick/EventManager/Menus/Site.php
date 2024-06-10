@@ -14,9 +14,9 @@ class Site {
 	 *
 	 * @param \Elgg\Event $event 'register', 'menu:site'
 	 *
-	 * @return void|MenuItems
+	 * @return MenuItems
 	 */
-	public static function registerEvents(\Elgg\Event $event) {
+	public static function registerEvents(\Elgg\Event $event): MenuItems {
 		
 		$result = $event->getValue();
 		

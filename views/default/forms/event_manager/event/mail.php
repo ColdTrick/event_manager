@@ -59,7 +59,6 @@ echo elgg_view_field([
 	'value' => elgg_extract('recipients', $vars),
 ]);
 
-// footer
 $footer = elgg_view_field([
 	'#type' => 'submit',
 	'text' => elgg_echo('send'),

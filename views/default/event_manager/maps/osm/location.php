@@ -1,7 +1,7 @@
 <?php
 
 $entity = elgg_extract('entity', $vars);
-if (!$entity instanceof Event) {
+if (!$entity instanceof \Event) {
 	return;
 }
 
@@ -22,16 +22,16 @@ echo elgg_format_element('div', [
 $event_zoom_level = (int) elgg_get_plugin_setting('osm_detail_zoom', 'event_manager', 12);
 
 ?>
-<script>
-	require(['event_manager/osm'], function (EventMap) {
-		EventMap.setup({
-			element: 'event-manager-leafletjs-map',
-			lat: <?= $lat ?>,
-			lng: <?= $long ?>,
-			zoom: <?= $event_zoom_level ?>,
-		}).addMarker({
-			lat: <?= $lat ?>,
-			lng: <?= $long ?>
-		});
+<script type='module'>
+	import EventMap from 'event_manager/maps/osm/osm';
+	
+	EventMap.setup({
+		element: 'event-manager-leafletjs-map',
+		lat: <?php echo $lat; ?>,
+		lng: <?php echo $long; ?>,
+		zoom: <?php echo $event_zoom_level; ?>,
+	}).addMarker({
+		lat: <?php echo $lat; ?>,
+		lng: <?php echo $long; ?>
 	});
 </script>

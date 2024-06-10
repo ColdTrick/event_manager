@@ -16,7 +16,7 @@ if (empty($title) || empty($description) || empty($recipients)) {
 	return elgg_error_response(elgg_echo('error:missing_data'));
 }
 
-$mail = new EventMail();
+$mail = new \EventMail();
 $mail->container_guid = $entity->guid;
 
 $mail->title = $title;
@@ -28,4 +28,5 @@ if (!$mail->save()) {
 }
 
 elgg_clear_sticky_form('event_manager/event/mail');
+
 return elgg_ok_response('', elgg_echo('event_manager:action:event:mail:success'), $entity->getURL());

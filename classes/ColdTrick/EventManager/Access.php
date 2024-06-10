@@ -14,7 +14,7 @@ class Access {
 	 *
 	 * @return void
 	 */
-	public static function updateEvent(\Elgg\Event $event) {
+	public static function updateEvent(\Elgg\Event $event): void {
 		$entity = $event->getObject();
 		if (!$entity instanceof \Event) {
 			return;

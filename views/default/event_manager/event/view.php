@@ -12,7 +12,6 @@ $body .= elgg_view('event_manager/event/view/files', $vars);
 $body .= elgg_view('event_manager/event/view/attendees', $vars);
 
 $params = [
-	'icon' => true,
 	'body' => $body,
 	'show_summary' => true,
 	'show_navigation' => false,

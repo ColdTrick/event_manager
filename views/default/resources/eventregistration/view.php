@@ -64,7 +64,7 @@ if (!empty($key)) {
 		$output .= $event->getProgramData($user_guid);
 	}
 
-	if ($user_guid == elgg_get_logged_in_user_guid()) {
+	if ($user_guid === elgg_get_logged_in_user_guid()) {
 		elgg_register_menu_item('title', [
 			'name' => 'edityourregistration',
 			'icon' => 'edit',

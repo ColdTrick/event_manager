@@ -1,6 +1,6 @@
 <?php
 
-elgg_require_js('forms/event_manager/event/register');
+elgg_import_esm('forms/event_manager/event/register');
 
 $event = elgg_extract('entity', $vars);
 $register_type = elgg_extract('register_type', $vars, 'register');
@@ -22,14 +22,8 @@ if ($registration_form) {
 
 	foreach ($registration_form as $question) {
 		$value = elgg_get_sticky_value('event_register', 'question_' . $question->guid);
-
-		if ($value === null) {
-			if (elgg_is_logged_in()) {
-				$answer = $question->getAnswerFromUser();
-				if ($answer) {
-					$value = $answer->value;
-				}
-			}
+		if ($value === null && elgg_is_logged_in()) {
+			$value = $question->getAnswerFromUser()?->value;
 		}
 
 		$form_body .= elgg_view('event_manager/registration/question', [
@@ -59,15 +53,35 @@ if (!$form_body) {
 	return;
 }
 
-$form_body .= elgg_view('input/hidden', ['name' => 'event_guid', 'value' => $event->guid]);
-$form_body .= elgg_view('input/hidden', ['name' => 'register_type', 'value' => $register_type]);
+$form_body .= elgg_view_field([
+	'#type' => 'hidden',
+	'name' => 'event_guid',
+	'value' => $event->guid,
+]);
+
+$form_body .= elgg_view_field([
+	'#type' => 'hidden',
+	'name' => 'register_type',
+	'value' => $register_type,
+]);
 
 if ($register_type == 'register') {
-	$form_body .= elgg_view('input/hidden', ['name' => 'relation', 'value' => EVENT_MANAGER_RELATION_ATTENDING]);
+	$form_body .= elgg_view_field([
+		'#type' => 'hidden',
+		'name' => 'relation',
+		'value' => EVENT_MANAGER_RELATION_ATTENDING,
+	]);
 } elseif ($register_type == 'waitinglist') {
-	$form_body .= elgg_view('input/hidden', ['name' => 'relation', 'value' => EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST]);
+	$form_body .= elgg_view_field([
+		'#type' => 'hidden',
+		'name' => 'relation',
+		'value' => EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST,
+	]);
 }
 	
-$form_body .= elgg_view('input/submit', ['text' => elgg_echo('register')]);
+$form_body .= elgg_view_field([
+	'#type' => 'submit',
+	'text' => elgg_echo('register'),
+]);
 
 echo $form_body;

@@ -25,4 +25,5 @@ $footer .= elgg_view('output/url', [
 	]),
 	'class' => 'float-alt elgg-button elgg-button-delete',
 ]);
+
 elgg_set_form_footer($footer);

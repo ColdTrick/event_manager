@@ -4,10 +4,7 @@ $user = elgg_get_page_owner_entity();
 
 elgg_push_collection_breadcrumbs('object', 'event', $user);
 
-$filter_value = '';
-if ($user->guid === elgg_get_logged_in_user_guid()) {
-	$filter_value = 'attending';
-}
+$filter_value = ($user->guid === elgg_get_logged_in_user_guid()) ? 'attending' : '';
 
 $list_type = get_input('list_type', 'list');
 

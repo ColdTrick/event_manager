@@ -10,21 +10,21 @@ use Elgg\Groups\ToolContainerLogicCheck;
 class GroupToolContainerLogicCheck extends ToolContainerLogicCheck {
 
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	public function getContentType(): string {
 		return 'object';
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	public function getContentSubtype(): string {
 		return \Event::SUBTYPE;
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	public function getToolName(): string {
 		return 'event_manager';

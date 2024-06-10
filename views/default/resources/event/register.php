@@ -8,6 +8,7 @@ elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 
 /* @var $entity \Event */
 $event = get_entity($guid);
+
 elgg_set_page_owner_guid($event->getContainerGUID());
 
 if ((!$event->registration_needed && elgg_is_logged_in()) || (!elgg_is_logged_in() && !$event->register_nologin)) {
@@ -37,9 +38,8 @@ if (!$event->openForRegistration()) {
 }
 
 $form_vars = ['id' => 'event_manager_event_register', 'name' => 'event_manager_event_register'];
-$body_vars = ['entity' => $event];
 
-$form = elgg_view_form('event_manager/event/register', $form_vars, $body_vars);
+$form = elgg_view_form('event_manager/event/register', $form_vars, ['entity' => $event]);
 
 $title_text = elgg_echo('event_manager:registration:register:title');
 

@@ -19,10 +19,11 @@ $output = elgg_view_field([
 $field_options = [
 	'#type' => 'fieldset',
 	'align' => 'horizontal',
-	'class' => 'event-manager-location-input',
+	'class' => 'event-manager-align-bottom',
 	'fields' => [
 		[
 			'#type' => 'text',
+			'#class' => 'elgg-field-stretch',
 			'#label' => elgg_echo('event_manager:edit:form:location'),
 			'#help' => elgg_echo('event_manager:edit:form:location:help'),
 			'name' => 'location',

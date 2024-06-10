@@ -7,17 +7,16 @@
  */
 
 $entity = elgg_extract('entity', $vars);
-if (!$entity instanceof Event) {
+if (!$entity instanceof \Event) {
 	return;
 }
 
 $relationship = elgg_extract('relationship', $vars);
-$valid_relationships = $entity->getSupportedRelationships();
-if (!array_key_exists($relationship, $valid_relationships)) {
+if (!array_key_exists($relationship, $entity->getSupportedRelationships())) {
 	return;
 }
 
-elgg_require_js('event_manager/attendees');
+elgg_import_esm('event_manager/attendees');
 
 echo elgg_view_field([
 	'#type' => 'hidden',

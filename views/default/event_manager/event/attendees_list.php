@@ -16,7 +16,7 @@ if (!$entity && $guid) {
 	$entity = get_entity($guid);
 }
 
-if (!$entity instanceof Event || empty($relationship)) {
+if (!$entity instanceof \Event || empty($relationship)) {
 	return;
 }
 

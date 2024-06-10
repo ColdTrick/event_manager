@@ -41,7 +41,7 @@ if ($slots) {
 	}
 }
 
-// update event relationsship to attending/waiting
+// update event relationship to attending/waiting
 $event->rsvp($relation, $user->guid);
 
 return elgg_ok_response('', elgg_echo("event_manager:event:relationship:message:{$relation}"), $event->getURL());

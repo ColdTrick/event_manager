@@ -3,21 +3,17 @@
 $day = elgg_extract('entity', $vars);
 $register_type = elgg_extract('register_type', $vars);
 
-if (!($day instanceof \ColdTrick\EventManager\Event\Day)) {
+if (!$day instanceof \ColdTrick\EventManager\Event\Day) {
 	return;
 }
 
 $slots = '';
-$daySlots = $day->getEventSlots();
-
-if ($daySlots) {
-	foreach ($daySlots as $slot) {
-		$slots .= elgg_view('event_manager/program/pdf/slot', [
-			'entity' => $slot,
-			'register_type' => $register_type,
-			'user_guid' => $vars['user_guid'],
-		]);
-	}
+foreach ($day->getEventSlots() as $slot) {
+	$slots .= elgg_view('event_manager/program/pdf/slot', [
+		'entity' => $slot,
+		'register_type' => $register_type,
+		'user_guid' => elgg_extract('user_guid', $vars),
+	]);
 }
 
 if (empty($slots)) {
@@ -31,9 +27,9 @@ if ($description) {
 	$title = "{$description} ({$title})";
 }
 
-$result = "<div>{$title}</div>";
+$result = elgg_format_element('div', [], $title);
 if ($day->getDisplayName()) {
-	$result .= "<div>{$day->getDisplayName()}</div>";
+	$result .= elgg_format_element('div', [], $day->getDisplayName());
 }
 
 $result .= "<br /><br />{$slots}<br /><br />";

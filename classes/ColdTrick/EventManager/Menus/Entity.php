@@ -14,17 +14,17 @@ class Entity {
 	 *
 	 * @param \Elgg\Event $event 'register', 'menu:entity'
 	 *
-	 * @return void|MenuItems
+	 * @return null|MenuItems
 	 */
-	public static function registerMailAttendees(\Elgg\Event $event) {
+	public static function registerMailAttendees(\Elgg\Event $event): ?MenuItems {
 		
 		$entity = $event->getEntityParam();
 		if (!$entity instanceof \Event || !$entity->canEdit()) {
-			return;
+			return null;
 		}
 		
 		if (!(bool) elgg_get_plugin_setting('event_mail', 'event_manager')) {
-			return;
+			return null;
 		}
 		
 		$result = $event->getValue();
@@ -44,36 +44,36 @@ class Entity {
 	 *
 	 * @param \Elgg\Event $elgg_event 'register', 'menu:entity'
 	 *
-	 * @return array
+	 * @return null|MenuItems
 	 */
-	public static function registerAttendeeActions(\Elgg\Event $elgg_event) {
+	public static function registerAttendeeActions(\Elgg\Event $elgg_event): ?MenuItems {
 		
 		$entity = $elgg_event->getEntityParam();
 		if (!$entity instanceof \ElggUser && !$entity instanceof \EventRegistration) {
-			return;
+			return null;
 		}
 		
 		$route = _elgg_services()->request->getRoute();
 		if (!$route || ($route->getName() !== 'collection:object:event:attendees') && (elgg_extract('segments', $route->getMatchedParameters()) !== 'view/event_manager/event/attendees_list')) {
-			return;
+			return null;
 		}
 		
 		$event = get_entity((int) elgg_extract('guid', $route->getMatchedParameters(), get_input('guid')));
 		if (!$event instanceof \Event) {
-			return;
+			return null;
 		}
 		
 		if (!$event->canEdit()) {
-			return;
+			return null;
 		}
 		
-		$returnvalue = $elgg_event->getValue();
+		$result = $elgg_event->getValue();
 		
 		// no delete menu item
-		$returnvalue->remove('delete');
+		$result->remove('delete');
 		
 		// kick from event (assumes users listed on the view page of an event)
-		$returnvalue[] = \ElggMenuItem::factory([
+		$result[] = \ElggMenuItem::factory([
 			'name' => 'event_manager_kick',
 			'icon' => 'user-times',
 			'text' => elgg_echo('event_manager:event:relationship:kick'),
@@ -87,8 +87,8 @@ class Entity {
 		
 		$user_relationship = $event->getRelationshipByUser($entity->guid);
 		
-		if ($user_relationship == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
-			$returnvalue[] = \ElggMenuItem::factory([
+		if ($user_relationship === EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
+			$result[] = \ElggMenuItem::factory([
 				'name' => 'event_manager_resend_confirmation',
 				'icon' => 'user-times',
 				'text' => elgg_echo('event_manager:event:menu:user_hover:resend_confirmation'),
@@ -101,7 +101,7 @@ class Entity {
 		}
 		
 		if (in_array($user_relationship, [EVENT_MANAGER_RELATION_ATTENDING_PENDING, EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST])) {
-			$returnvalue[] = \ElggMenuItem::factory([
+			$result[] = \ElggMenuItem::factory([
 				'name' => 'event_manager_move_to_attendees',
 				'icon' => 'user-times',
 				'text' => elgg_echo('event_manager:event:menu:user_hover:move_to_attendees'),
@@ -113,7 +113,7 @@ class Entity {
 			]);
 		}
 		
-		return $returnvalue;
+		return $result;
 	}
 	
 	/**
@@ -121,21 +121,22 @@ class Entity {
 	 *
 	 * @param \Elgg\Event $event 'register', 'menu:entity'
 	 *
-	 * @return array
+	 * @return null|MenuItems
 	 */
-	public static function registerEventUnsubscribe(\Elgg\Event $event) {
+	public static function registerEventUnsubscribe(\Elgg\Event $event): ?MenuItems {
 		$entity = $event->getEntityParam();
 		if (!$entity instanceof \Event) {
-			return;
+			return null;
 		}
 		
 		if (elgg_is_logged_in() || !$entity->register_nologin) {
-			return;
+			return null;
 		}
 		
 		// show an unregister link for non logged in users
-		$returnvalue = $event->getValue();
-		$returnvalue[] = \ElggMenuItem::factory([
+		$result = $event->getValue();
+		
+		$result[] = \ElggMenuItem::factory([
 			'name' => 'unsubscribe',
 			'icon' => 'sign-out-alt',
 			'text' => elgg_echo('event_manager:menu:unsubscribe'),
@@ -144,6 +145,7 @@ class Entity {
 			]),
 			'priority' => 300,
 		]);
-		return $returnvalue;
+		
+		return $result;
 	}
 }

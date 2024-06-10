@@ -83,46 +83,19 @@
 	.elgg-menu-event-rsvp-container {
 		align-items: flex-end;
 	}
-	
-	.elgg-columns {
-		white-space: nowrap;
-	}
-}
-
-.event-manager-contact-details {
-	.elgg-columns {
-		> div:first-child {
-			flex-grow: 0;
-		}
-	}
 }
 
 /* Event Edit */
 #event_manager_event_edit {
 	.elgg-fieldset-has-legend {
-		position: relative;
-		
 		> legend {
 			font-weight: 600;
 			font-size: 0.9rem;
-			position: absolute;
-			top: -0.8em;
-			background: white;
-			margin-left: -5px;
-			padding: 0 5px;
 		}
 		
 		.elgg-input-single-checkbox .elgg-field-label {
 			font-weight: 400;
 			font-size: 100%;
-		}
-		
-		> .elgg-field {
-			margin-bottom: .5rem;
-			
-			&:last-child {
-				margin-bottom: 0;
-			}
 		}
 	}
 }
@@ -136,40 +109,9 @@
 	display: flex;
 	flex-wrap: wrap;
 }
-	
-.event-manager-event-edit-level {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: flex-end;
-	
-	> *:first-child {
-		flex-grow: 1;
-	}
-	
-	.event_manager_registrationform_select_options {
-		flex-grow: 1;
-	}
-	
-	> .elgg-field {
-		margin-right: .5rem;
-	}
-}
 
-.event-manager-location-input {
-	display: flex;
+.event-manager-align-bottom {
 	align-items: flex-end;
-
-	> .elgg-field {
-	
-		margin: 0;
-	
-		&:first-child {
-			flex-basis: 100%;
-		}
-		&:not(.hidden):last-child {
-			margin-left: 1rem;
-		}
-	}
 }
 
 #event-manager-maps-location-search {

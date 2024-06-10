@@ -41,7 +41,7 @@ $html .= elgg_call(ELGG_IGNORE_ACCESS, function () use ($event, $entity) {
 	return $output;
 });
 
-$dompdf = new Dompdf();
+$dompdf = new Dompdf(['enable_remote' => true]);
 $dompdf->setPaper('A4');
 $dompdf->loadHtml($html);
 $dompdf->render();

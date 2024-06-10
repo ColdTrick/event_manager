@@ -25,26 +25,17 @@ class EventRegistrationQuestion extends \ElggObject {
 	 *
 	 * @param int $user_guid guid of the entity
 	 *
-	 * @return boolean|ElggAnnotation
+	 * @return null|\ElggAnnotation
 	 */
-	public function getAnswerFromUser(int $user_guid = null) {
-		if (empty($user_guid)) {
-			$user_guid = elgg_get_logged_in_user_guid();
-		}
-
-		$params = [
+	public function getAnswerFromUser(int $user_guid = 0): ?\ElggAnnotation {
+		$annotations = elgg_get_annotations([
 			'guid' => $this->guid,
 			'annotation_name' => 'answer_to_event_registration',
-			'annotation_owner_guid' => $user_guid,
-			'limit' => 1
-		];
-
-		$annotations = elgg_get_annotations($params);
-		if (empty($annotations)) {
-			return false;
-		}
+			'annotation_owner_guid' => $user_guid ?: elgg_get_logged_in_user_guid(),
+			'limit' => 1,
+		]);
 		
-		return $annotations[0];
+		return elgg_extract(0, $annotations);
 	}
 
 	/**
@@ -54,15 +45,10 @@ class EventRegistrationQuestion extends \ElggObject {
 	 *
 	 * @return void
 	 */
-	public function deleteAnswerFromUser(int $user_guid = null) {
-		if (empty($user_guid)) {
-			$user_guid = elgg_get_logged_in_user_guid();
-		}
+	public function deleteAnswerFromUser(int $user_guid = 0): void {
+		$user_guid = $user_guid ?: elgg_get_logged_in_user_guid();
 
-		$annotation = $this->getAnswerFromUser($user_guid);
-		if ($annotation) {
-			$annotation->delete();
-		}
+		$this->getAnswerFromUser($user_guid)?->delete();
 	}
 
 	/**
@@ -74,11 +60,9 @@ class EventRegistrationQuestion extends \ElggObject {
 	 *
 	 * @return void
 	 */
-	public function updateAnswerFromUser(\Event $event, string $new_answer, int $user_guid = null) {
-		if (empty($user_guid)) {
-			$user_guid = elgg_get_logged_in_user_guid();
-		}
-
+	public function updateAnswerFromUser(\Event $event, string $new_answer, int $user_guid = 0): void {
+		$user_guid = $user_guid ?: elgg_get_logged_in_user_guid();
+		
 		$old_answer = $this->getAnswerFromUser($user_guid);
 		if ($old_answer && get_user($user_guid)) {
 			if (!empty($new_answer)) {

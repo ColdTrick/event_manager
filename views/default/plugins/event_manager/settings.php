@@ -13,7 +13,7 @@ echo elgg_view_field([
 ]);
 
 // Maps settings
-elgg_require_js('plugins/event_manager/settings');
+elgg_import_esm('plugins/event_manager/settings');
 
 $maps_provider = event_manager_get_maps_provider();
 
@@ -120,7 +120,6 @@ foreach ($services as $service => $label) {
 }
 
 echo elgg_view_module('info', elgg_echo('event_manager:settings:add_event'), $add_event);
-
 
 // Other settings
 $other = elgg_view_field([

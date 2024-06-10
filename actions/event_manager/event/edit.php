@@ -179,7 +179,6 @@ elgg_call(ELGG_IGNORE_ACCESS, function() use ($event) {
 // added because we need an update event
 $event->save();
 
-// remove sticky form entries
 elgg_clear_sticky_form('event');
 
 $forward_url = $event->getURL();

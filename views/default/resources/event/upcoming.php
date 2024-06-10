@@ -17,7 +17,7 @@ $list_type = get_input('list_type', 'list');
 
 $content = elgg_view("event_manager/listing/{$list_type}", [
 	'options' => [
-		'container_guid' => ($page_owner instanceof ElggGroup) ? $page_owner->guid : ELGG_ENTITIES_ANY_VALUE,
+		'container_guid' => ($page_owner instanceof \ElggGroup) ? $page_owner->guid : ELGG_ENTITIES_ANY_VALUE,
 		'metadata_name_value_pairs' => [
 			[
 				'name' => 'event_start',

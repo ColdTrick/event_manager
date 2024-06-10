@@ -7,7 +7,7 @@
  * @uses $vars['page_owner'] Page owner during the call
  */
 
-elgg_require_js('event_manager/calendar');
+elgg_import_esm('event_manager/listing/calendar');
 
 $page_owner = elgg_extract('page_owner', $vars);
 

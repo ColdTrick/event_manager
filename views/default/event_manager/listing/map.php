@@ -27,6 +27,10 @@ echo elgg_view('event_manager/listing/elements/tags');
 
 echo elgg_format_element('div', ['id' => 'event_manager_event_map'], $body);
 
-echo elgg_format_element('script', [], 'require(["elgg/hooks", "event_manager/maps/' . $maps_provider . '/onthemap"], function(hooks) {
-	hooks.trigger("tab:onthemap", "event_manager");
-});');
+?>
+<script type='module'>
+	import 'event_manager/maps/<?php echo $maps_provider; ?>/onthemap';
+	import hooks from 'elgg/hooks';
+	
+	hooks.trigger('tab:onthemap', 'event_manager');
+</script>

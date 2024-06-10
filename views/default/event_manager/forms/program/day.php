@@ -13,8 +13,7 @@ if ($event instanceof \Event) {
 }
 
 if (!$entity || !$entity->canEdit()) {
-	// @todo nice error message
-	echo elgg_echo('error');
+	echo elgg_echo('EntityPermissionsException');
 	return;
 }
 

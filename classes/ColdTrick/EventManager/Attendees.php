@@ -14,7 +14,7 @@ class Attendees {
 	 *
 	 * @return array
 	 */
-	public static function exportBaseAttributes(\Elgg\Event $elgg_event) {
+	public static function exportBaseAttributes(\Elgg\Event $elgg_event): array {
 		
 		$attendee = $elgg_event->getParam('attendee');
 		$event = $elgg_event->getParam('event');
@@ -40,29 +40,25 @@ class Attendees {
 	 *
 	 * @param \Elgg\Event $elgg_event 'export_attendee', 'event'
 	 *
-	 * @return array
+	 * @return null|array
 	 */
-	public static function exportQuestionData(\Elgg\Event $elgg_event) {
+	public static function exportQuestionData(\Elgg\Event $elgg_event): ?array {
 		
 		$attendee = $elgg_event->getParam('attendee');
 		$event = $elgg_event->getParam('event');
 		
 		if (!$event->registration_needed) {
-			return;
+			return null;
 		}
 		
 		$questions = $event->getRegistrationFormQuestions();
 		if (empty($questions)) {
-			return;
+			return null;
 		}
 		
 		$question_data = [];
 		foreach ($questions as $question) {
-			$value = null;
-			$answer = $question->getAnswerFromUser($attendee->guid);
-			if ($answer) {
-				$value = $answer->value;
-			}
+			$value = $question->getAnswerFromUser($attendee->guid)?->value;
 			
 			$question_data[$question->getDisplayName()] = $value;
 		}
@@ -75,20 +71,20 @@ class Attendees {
 	 *
 	 * @param \Elgg\Event $elgg_event 'export_attendee', 'event'
 	 *
-	 * @return array
+	 * @return null|array
 	 */
-	public static function exportProgramData(\Elgg\Event $elgg_event) {
+	public static function exportProgramData(\Elgg\Event $elgg_event): ?array {
 		
 		$attendee = $elgg_event->getParam('attendee');
 		$event = $elgg_event->getParam('event');
 		
 		if (!$event->with_program) {
-			return;
+			return null;
 		}
 		
 		$days = $event->getEventDays();
 		if (empty($days)) {
-			return;
+			return null;
 		}
 		
 		$program_data = [];

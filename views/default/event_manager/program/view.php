@@ -1,7 +1,7 @@
 <?php
 
 $event = elgg_extract('entity', $vars);
-if (!$event instanceof Event) {
+if (!$event instanceof \Event) {
 	return;
 }
 
@@ -10,7 +10,7 @@ if (!$event->with_program) {
 }
 
 if ($event->canEdit()) {
-	elgg_require_js('event_manager/edit_program');
+	elgg_import_esm('event_manager/program/view');
 }
 
 $show_owner_actions = elgg_extract('show_owner_actions', $vars, true);
@@ -20,21 +20,18 @@ $tab_options = [
 	'tabs' => [],
 ];
 
-$eventDays = $event->getEventDays();
-if ($eventDays) {
-	$member = elgg_extract('member', $vars);
-	foreach ($eventDays as $key => $day) {
-		$tab_options['tabs'][] = [
-			'text' => $day->description ?: event_manager_format_date($day->date),
-			'rel' => "day_{$day->guid}",
-			'content' => elgg_view('event_manager/program/elements/day', [
-				'entity' => $day,
-				'member' => $member,
-				'show_owner_actions' => $show_owner_actions,
-			]),
-			'selected' => ($key === 0),
-		];
-	}
+$member = elgg_extract('member', $vars);
+foreach ($event->getEventDays() as $key => $day) {
+	$tab_options['tabs'][] = [
+		'text' => $day->description ?: event_manager_format_date($day->date),
+		'rel' => "day_{$day->guid}",
+		'content' => elgg_view('event_manager/program/elements/day', [
+			'entity' => $day,
+			'member' => $member,
+			'show_owner_actions' => $show_owner_actions,
+		]),
+		'selected' => ($key === 0),
+	];
 }
 
 $module_vars = [];

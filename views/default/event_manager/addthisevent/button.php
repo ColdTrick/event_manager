@@ -1,5 +1,7 @@
 <?php
 
+elgg_import_esm('event_manager/addthisevent/button');
+
 $event = elgg_extract('entity', $vars);
 if (!$event) {
 	return;

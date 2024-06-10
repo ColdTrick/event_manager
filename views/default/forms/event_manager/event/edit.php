@@ -1,6 +1,6 @@
 <?php
 
-elgg_require_js('forms/event_manager/event/edit');
+elgg_import_esm('forms/event_manager/event/edit');
 
 $event = elgg_extract('entity', $vars);
 $fields = event_manager_prepare_form_vars($event);
@@ -42,4 +42,5 @@ $footer = elgg_view_field([
 	'#type' => 'submit',
 	'text' => elgg_echo('save'),
 ]);
+
 elgg_set_form_footer($footer);

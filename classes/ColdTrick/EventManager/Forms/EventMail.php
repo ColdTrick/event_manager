@@ -7,15 +7,12 @@ namespace ColdTrick\EventManager\Forms;
  */
 class EventMail {
 	
-	protected \Event $entity;
-	
 	/**
 	 * Constructor
 	 *
 	 * @param \Event $entity related event entity
 	 */
-	public function __construct(\Event $entity) {
-		$this->entity = $entity;
+	public function __construct(protected \Event $entity) {
 	}
 	
 	/**

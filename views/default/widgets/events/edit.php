@@ -1,6 +1,6 @@
 <?php
 
-/* @var $widget ElggWidget */
+/* @var $widget \ElggWidget */
 $widget = elgg_extract('entity', $vars);
 
 echo elgg_view('object/widget/edit/num_display', [
@@ -42,7 +42,7 @@ echo elgg_view_field([
 
 ]);
 
-if (!$widget->getOwnerEntity() instanceof ElggSite) {
+if (!$widget->getOwnerEntity() instanceof \ElggSite) {
 	// profile, dashboard, groups
 	return;
 }

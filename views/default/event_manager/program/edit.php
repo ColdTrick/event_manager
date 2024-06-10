@@ -18,18 +18,16 @@ $tab_options = [
 ];
 
 $eventDays = $event->getEventDays();
-if ($eventDays) {
-	foreach ($eventDays as $key => $day) {
-		$tab_options['tabs'][] = [
-			'text' => $day->description ?: event_manager_format_date($day->date),
-			'content' => elgg_view('event_manager/program/elements/day', [
-				'entity' => $day,
-				'participate' => true,
-				'register_type' => $register_type,
-			]),
-			'selected' => ($key === 0),
-		];
-	}
+foreach ($eventDays as $key => $day) {
+	$tab_options['tabs'][] = [
+		'text' => $day->description ?: event_manager_format_date($day->date),
+		'content' => elgg_view('event_manager/program/elements/day', [
+			'entity' => $day,
+			'participate' => true,
+			'register_type' => $register_type,
+		]),
+		'selected' => ($key === 0),
+	];
 }
 
 $program = elgg_view('input/hidden', [

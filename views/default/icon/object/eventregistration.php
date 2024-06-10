@@ -4,14 +4,12 @@
  */
 
 $entity = elgg_extract('entity', $vars);
-$size = elgg_extract('size', $vars, 'medium');
-
-if (!$entity instanceof EventRegistration) {
+if (!$entity instanceof \EventRegistration) {
 	return;
 }
 
-$icon_sizes = elgg_get_icon_sizes('user');
-if (!array_key_exists($size, $icon_sizes)) {
+$size = elgg_extract('size', $vars, 'medium');
+if (!array_key_exists($size, elgg_get_icon_sizes('user'))) {
 	$size = 'medium';
 }
 
@@ -22,7 +20,7 @@ $username = $entity->username;
 
 $wrapper_class = [
 	'elgg-avatar',
-	"elgg-avatar-$size",
+	"elgg-avatar-{$size}",
 ];
 $wrapper_class = elgg_extract_class($vars, $wrapper_class);
 

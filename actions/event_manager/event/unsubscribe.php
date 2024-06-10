@@ -17,7 +17,7 @@ if (!elgg_is_valid_email($email)) {
 // try to find a registration
 $registrations = elgg_get_entities([
 	'type' => 'object',
-	'subtype' => EventRegistration::SUBTYPE,
+	'subtype' => \EventRegistration::SUBTYPE,
 	'owner_guid' => $entity->guid,
 	'limit' => 1,
 	'metadata_name_value_pairs' => [

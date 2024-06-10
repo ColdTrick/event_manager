@@ -5,44 +5,52 @@
 
 $event = elgg_extract('entity', $vars);
 
-echo '<div class="event-manager-event-edit-level">';
 echo elgg_view_field([
-	'#type' => 'text',
-	'#label' => elgg_echo('event_manager:edit:form:fee'),
-	'#help' => elgg_echo('event_manager:edit:form:fee:help'),
-	'name' => 'fee',
-	'value' => $vars['fee'],
+	'#type' => 'fieldset',
+	'align' => 'horizontal',
+	'fields' => [
+		[
+			'#type' => 'text',
+			'#label' => elgg_echo('event_manager:edit:form:fee'),
+			'#help' => elgg_echo('event_manager:edit:form:fee:help'),
+			'name' => 'fee',
+			'value' => $vars['fee'],
+		],
+		[
+			'#type' => 'text',
+			'#class' => 'elgg-field-stretch',
+			'#label' => elgg_echo('event_manager:edit:form:fee_details'),
+			'#help' => elgg_echo('event_manager:edit:form:fee_details:help'),
+			'name' => 'fee_details',
+			'value' => $vars['fee_details'],
+		],
+	],
 ]);
 
 echo elgg_view_field([
-	'#type' => 'text',
-	'#label' => elgg_echo('event_manager:edit:form:fee_details'),
-	'#help' => elgg_echo('event_manager:edit:form:fee_details:help'),
-	'#class' => empty($vars['fee']) ? 'hidden' : null,
-	'name' => 'fee_details',
-	'value' => $vars['fee_details'],
+	'#type' => 'fieldset',
+	'align' => 'horizontal',
+	'class' => 'event-manager-align-bottom',
+	'fields' => [
+		[
+			'#type' => 'number',
+			'#class' => 'elgg-field-stretch',
+			'#label' => elgg_echo('event_manager:edit:form:max_attendees'),
+			'#help' => elgg_echo('event_manager:edit:form:max_attendees:help'),
+			'name' => 'max_attendees',
+			'value' => $vars['max_attendees'],
+			'min' => 0,
+		],
+		[
+			'#type' => 'checkbox',
+			'#label' => elgg_echo('event_manager:edit:form:waiting_list'),
+			'#class' => (empty($vars['max_attendees']) && empty($vars['waiting_list_enabled'])) ? 'hidden' : null,
+			'name' => 'waiting_list_enabled',
+			'value' => 1,
+			'checked' => (bool) $vars['waiting_list_enabled'],
+		],
+	],
 ]);
-echo '</div>';
-
-echo '<div class="event-manager-event-edit-level">';
-echo elgg_view_field([
-	'#type' => 'number',
-	'#label' => elgg_echo('event_manager:edit:form:max_attendees'),
-	'#help' => elgg_echo('event_manager:edit:form:max_attendees:help'),
-	'name' => 'max_attendees',
-	'value' => $vars['max_attendees'],
-	'min' => 0,
-]);
-
-echo elgg_view_field([
-	'#type' => 'checkboxes',
-	'#class' => (empty($vars['max_attendees']) && empty($vars['waiting_list_enabled'])) ? 'hidden' : null,
-	'name' => 'waiting_list_enabled',
-	'value' => $vars['waiting_list_enabled'],
-	'options' => [elgg_echo('event_manager:edit:form:waiting_list') => '1'],
-	'class' => 'mts',
-]);
-echo '</div>';
 
 $fields = [
 	[
@@ -85,7 +93,7 @@ $fields = [
 	[
 		'#type' => 'checkbox',
 		'#label' => elgg_echo('event_manager:edit:form:notify_onsignup_contact'),
-		'#class' => 'mll',
+		'#class' => 'pll',
 		'name' => 'notify_onsignup_contact',
 		'checked' => (bool) $vars['notify_onsignup_contact'],
 		'switch' => true,
@@ -95,7 +103,7 @@ $fields = [
 	[
 		'#type' => 'checkbox',
 		'#label' => elgg_echo('event_manager:edit:form:notify_onsignup_organizer'),
-		'#class' => 'mll',
+		'#class' => 'pll',
 		'name' => 'notify_onsignup_organizer',
 		'checked' => (bool) $vars['notify_onsignup_organizer'],
 		'switch' => true,
@@ -122,24 +130,29 @@ echo elgg_view_field([
 	'fields' => $fields,
 ]);
 
-echo '<div class="event-manager-event-edit-level">';
 echo elgg_view_field([
-	'#type' => 'date',
-	'#label' => elgg_echo('event_manager:edit:form:endregistration_day'),
-	'#help' => elgg_echo('event_manager:edit:form:endregistration_day:help'),
-	'name' => 'endregistration_day',
-	'id' => 'endregistration_day',
-	'value' => $vars['endregistration_day'],
+	'#type' => 'fieldset',
+	'align' => 'horizontal',
+	'class' => 'event-manager-align-bottom',
+	'fields' => [
+		[
+			'#type' => 'date',
+			'#class' => 'elgg-field-stretch',
+			'#label' => elgg_echo('event_manager:edit:form:endregistration_day'),
+			'#help' => elgg_echo('event_manager:edit:form:endregistration_day:help'),
+			'name' => 'endregistration_day',
+			'id' => 'endregistration_day',
+			'value' => $vars['endregistration_day'],
+		],
+		[
+			'#type' => 'checkbox',
+			'#label' => elgg_echo('event_manager:edit:form:registration_ended'),
+			'name' => 'registration_ended',
+			'value' => 1,
+			'checked' => (bool) $vars['registration_ended'],
+		],
+	],
 ]);
-
-echo elgg_view_field([
-	'#type' => 'checkboxes',
-	'name' => 'registration_ended',
-	'value' => $vars['registration_ended'],
-	'options' => [elgg_echo('event_manager:edit:form:registration_ended') => '1'],
-	'class' => 'mts',
-]);
-echo '</div>';
 
 echo elgg_view_field([
 	'#type' => 'longtext',

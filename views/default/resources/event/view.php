@@ -13,8 +13,7 @@ if ($show_add_to_calendar === 'yes' || ($show_add_to_calendar === 'attendee_only
 		'href' => false,
 		'icon' => 'calendar',
 		'class' => 'elgg-button elgg-button-action',
-		'text' => elgg_view('event_manager/event/addthisevent', ['entity' => $event]),
-		'deps' => 'addthisevent',
+		'text' => elgg_view('event_manager/addthisevent/button', ['entity' => $event]),
 	]);
 }
 

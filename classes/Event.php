@@ -120,7 +120,7 @@ class Event extends \ElggObject {
 	/**
 	 * Returns the timestamp for the start of the event
 	 *
-	 * @return int the timestamp
+	 * @return null|int the timestamp
 	 */
 	public function getStartTimestamp(): ?int {
 		return $this->event_start;
@@ -129,7 +129,7 @@ class Event extends \ElggObject {
 	/**
 	 * Returns the timestamp for the end of the event
 	 *
-	 * @return int the timestamp
+	 * @return null|int the timestamp
 	 */
 	public function getEndTimestamp(): ?int {
 		return $this->event_end;
@@ -285,7 +285,7 @@ class Event extends \ElggObject {
 	}
 	
 	/**
-	 * Undo a registrion for a given user
+	 * Undo a registration for a given user
 	 *
 	 * @param int  $user_guid     the user to undo for
 	 * @param bool $reset_program reset the event program
@@ -370,11 +370,8 @@ class Event extends \ElggObject {
 	 *
 	 * @return void
 	 */
-	public function clearRegistrations(int $user_guid = null): void {
-		if ($user_guid === null) {
-			$user_guid = elgg_get_logged_in_user_guid();
-		}
-
+	public function clearRegistrations(int $user_guid = 0): void {
+		$user_guid = $user_guid ?: elgg_get_logged_in_user_guid();
 		if (empty($user_guid)) {
 			return;
 		}
@@ -455,15 +452,13 @@ class Event extends \ElggObject {
 	 * @param bool   $participate   show the participation
 	 * @param string $register_type type of the registration
 	 *
-	 * @return false|string
+	 * @return string
 	 */
-	public function getProgramData(int $user_guid = null, bool $participate = false, string $register_type = 'register') {
-		if ($user_guid === null) {
-			$user_guid = elgg_get_logged_in_user_guid();
-		}
-
+	public function getProgramData(int $user_guid = 0, bool $participate = false, string $register_type = 'register'): string {
+		$user_guid = $user_guid ?: elgg_get_logged_in_user_guid();
+		
 		if (!$this->hasEventDays()) {
-			return false;
+			return '';
 		}
 		
 		if (!$participate) {
@@ -484,24 +479,22 @@ class Event extends \ElggObject {
 	}
 
 	/**
-	 * Notifies an user of the RSVP
+	 * Notifies a user of the RSVP
 	 *
 	 * @param string $type type of the RSVP
 	 * @param int    $to   guid of the user
 	 *
 	 * @return void
 	 */
-	protected function notifyOnRsvp(string $type, int $to = null): void {
+	protected function notifyOnRsvp(string $type, int $to = 0): void {
 
-		if ($type == EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
+		if ($type === EVENT_MANAGER_RELATION_ATTENDING_PENDING) {
 			return;
 		}
 		
 		elgg_call(ELGG_IGNORE_ACCESS, function() use ($type, $to) {
-			if ($to === null) {
-				$to = elgg_get_logged_in_user_guid();
-			}
-	
+			$to = $to ?: elgg_get_logged_in_user_guid();
+			
 			$to_entity = get_entity($to);
 			if (empty($to_entity)) {
 				return;
@@ -542,7 +535,7 @@ class Event extends \ElggObject {
 				
 				if ($html_email_enabled) {
 					// add addthisevent banners in footer
-					$addevent = elgg_view('event_manager/email/addevent', ['entity' => $this]);
+					$addevent = elgg_view('event_manager/addthisevent/email', ['entity' => $this]);
 				}
 			}
 	
@@ -698,16 +691,14 @@ class Event extends \ElggObject {
 	/**
 	 * Relates a user to all the slots
 	 *
-	 * @param boolean $relate add or remove relationship
-	 * @param int     $guid   guid of the entity
+	 * @param boolean  $relate add or remove relationship
+	 * @param int $guid   guid of the entity
 	 *
 	 * @return void
 	 */
-	public function relateToAllSlots(bool $relate = true, int $guid = null): void {
-		if ($guid === null) {
-			$guid = elgg_get_logged_in_user_guid();
-		}
-
+	public function relateToAllSlots(bool $relate = true, int $guid = 0): void {
+		$guid = $guid ?: elgg_get_logged_in_user_guid();
+		
 		$entity = get_entity($guid);
 		if (empty($entity)) {
 			return;
@@ -803,13 +794,11 @@ class Event extends \ElggObject {
 	 *
 	 * @param int $user_guid guid of the user
 	 *
-	 * @return false|string
+	 * @return null|string
 	 */
-	public function getRelationshipByUser(int $user_guid = null) {
+	public function getRelationshipByUser(int $user_guid = 0): ?string {
 		
-		if (empty($user_guid)) {
-			$user_guid = elgg_get_logged_in_user_guid();
-		}
+		$user_guid = $user_guid ?: elgg_get_logged_in_user_guid();
 		
 		$qb = Select::fromTable('entity_relationships');
 		$qb->select('relationship');
@@ -817,11 +806,8 @@ class Event extends \ElggObject {
 			->andWhere($qb->compare('guid_two', '=', $user_guid, ELGG_VALUE_INTEGER));
 
 		$row = elgg()->db->getDataRow($qb);
-		if ($row) {
-			return $row->relationship;
-		}
-
-		return false;
+		
+		return $row ? $row->relationship : null;
 	}
 
 	/**
@@ -830,9 +816,9 @@ class Event extends \ElggObject {
 	 * @param bool   $count return count or array
 	 * @param string $order order of timecreated sorting
 	 *
-	 * @return false|array
+	 * @return array
 	 */
-	public function getRelationships(bool $count = false, string $order = 'ASC') {
+	public function getRelationships(bool $count = false, string $order = 'ASC'): array {
 		$event_guid = $this->guid;
 
 		$qb = Select::fromTable('entity_relationships');
@@ -854,7 +840,7 @@ class Event extends \ElggObject {
 
 		$all_relations = elgg()->db->getData($qb);
 		if (empty($all_relations)) {
-			return false;
+			return [];
 		}
 
 		$result = [
@@ -915,9 +901,9 @@ class Event extends \ElggObject {
 	 *
 	 * @param boolean $count return the count or the entities
 	 *
-	 * @return \ElggEntity[]|int|mixed
+	 * @return \ElggEntity[]|int
 	 */
-	public function getRegistrationFormQuestions(bool $count = false) {
+	public function getRegistrationFormQuestions(bool $count = false): int|array {
 
 		$event_guid = $this->guid;
 		
@@ -957,9 +943,9 @@ class Event extends \ElggObject {
 	/**
 	 * Returns the first waiting entity
 	 *
-	 * @return false|\ElggEntity
+	 * @return null|\ElggEntity
 	 */
-	protected function getFirstWaitingUser() {
+	protected function getFirstWaitingUser(): ?\ElggEntity {
 		$qb = Select::fromTable('entity_relationships');
 		$qb->select('guid_two');
 		$qb->where($qb->compare('guid_one', '=', $this->guid, ELGG_VALUE_INTEGER));
@@ -968,11 +954,8 @@ class Event extends \ElggObject {
 		$qb->setMaxResults(1);
 
 		$waiting_user = elgg()->db->getDataRow($qb);
-		if (empty($waiting_user)) {
-			return false;
-		}
-
-		return get_entity($waiting_user->guid_two);
+		
+		return $waiting_user ? get_entity($waiting_user->guid_two) : null;
 	}
 
 	/**
@@ -1029,7 +1012,7 @@ class Event extends \ElggObject {
 		
 		if (elgg_get_config('email_html_part')) {
 			// add addthisevent banners in footer
-			$notification_body .= elgg_view('event_manager/email/addevent', ['entity' => $this]);
+			$notification_body .= elgg_view('event_manager/addthisevent/email', ['entity' => $this]);
 		}
 		
 		notify_user($waiting_user->guid, $this->owner_guid, elgg_echo('event_manager:event:registration:notification:user:subject'), $notification_body);
@@ -1045,7 +1028,7 @@ class Event extends \ElggObject {
 	 *
 	 * @return array
 	 */
-	public function getRegisteredSlotsForEntity(int $guid, string $slot_relationship) {
+	public function getRegisteredSlotsForEntity(int $guid, string $slot_relationship): array {
 		$slots = [];
 
 		$qb = Select::fromTable('entities', 'slot');
@@ -1070,9 +1053,9 @@ class Event extends \ElggObject {
 	 * @param string $order the order in which to return the days
 	 * @param bool   $count (optional) return the count of the days
 	 *
-	 * @return false|int|\ColdTrick\EventManager\Event\Day[]
+	 * @return int|\ColdTrick\EventManager\Event\Day[]
 	 */
-	public function getEventDays(string $order = 'ASC', bool $count = false) {
+	public function getEventDays(string $order = 'ASC', bool $count = false): int|array {
 		return elgg_get_entities([
 			'type' => 'object',
 			'subtype' => \ColdTrick\EventManager\Event\Day::SUBTYPE,
@@ -1084,17 +1067,17 @@ class Event extends \ElggObject {
 				'direction' => $order,
 			],
 			'limit' => false,
-			'count' => (bool) $count,
+			'count' => $count,
 		]);
 	}
 	
 	/**
-	 * Checj if the event has days
+	 * Check if the event has days
 	 *
 	 * @return bool
 	 */
 	public function hasEventDays(): bool {
-		return (bool) $this->getEventDays('ASC', true);
+		return !empty($this->getEventDays('ASC', true));
 	}
 
 	/**
@@ -1134,7 +1117,7 @@ class Event extends \ElggObject {
 	 *
 	 * @return \ElggEntity[]|int
 	 */
-	public function getContacts(array $options = []) {
+	public function getContacts(array $options = []): int|array {
 		if (empty($this->contact_guids)) {
 			return [];
 		}
@@ -1154,7 +1137,7 @@ class Event extends \ElggObject {
 	 *
 	 * @return \ElggEntity[]|int
 	 */
-	public function getOrganizers(array $options = []) {
+	public function getOrganizers(array $options = []): int|array {
 		if (empty($this->organizer_guids)) {
 			return [];
 		}

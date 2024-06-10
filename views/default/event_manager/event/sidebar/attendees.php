@@ -5,9 +5,6 @@ if (!$event) {
 }
 
 $relationships = $event->getRelationships();
-if (empty($relationships)) {
-	$relationships = [];
-}
 
 $organizer_guids = $event->organizer_guids;
 if (!empty($organizer_guids)) {

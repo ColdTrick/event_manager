@@ -3,9 +3,9 @@
 use Elgg\Exceptions\Http\BadRequestException;
 
 $guid = elgg_extract('guid', $vars);
-elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
+elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
 
-/* @var $entity Event */
+/* @var $entity \Event */
 $entity = get_entity($guid);
 
 $relationship = elgg_extract('relationship', $vars);
@@ -25,7 +25,6 @@ elgg_set_page_owner_guid($entity->container_guid);
 
 elgg_push_entity_breadcrumbs($entity);
 
-// title menu item
 if ($entity->canEdit()) {
 	elgg_register_menu_item('title', [
 		'name' => 'export',
@@ -63,14 +62,12 @@ $content .= elgg_view('event_manager/event/attendees_list', [
 	'relationship' => $relationship,
 ]);
 
-$tabs = elgg_view_menu('event_attendees', [
-	'sort_by' => 'priority',
-	'class' => 'elgg-menu-hz elgg-tabs',
-	'entity' => $entity,
-	'relationship' => $relationship,
-]);
-
 echo elgg_view_page(elgg_echo('event_manager:event:attendees:title', [$entity->getDisplayName(), $rel_text]), [
 	'content' => $content,
-	'filter' => $tabs,
+	'filter' => elgg_view_menu('event_attendees', [
+		'sort_by' => 'priority',
+		'class' => 'elgg-menu-hz elgg-tabs',
+		'entity' => $entity,
+		'relationship' => $relationship,
+	]),
 ]);

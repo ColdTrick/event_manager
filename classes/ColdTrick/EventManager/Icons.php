@@ -12,13 +12,13 @@ class Icons {
 	 *
 	 * @param \Elgg\Event $event 'entity:icon:url', 'object'
 	 *
-	 * @return string
+	 * @return null|string
 	 */
-	public static function getEventRegistrationIconURL(\Elgg\Event $event) {
+	public static function getEventRegistrationIconURL(\Elgg\Event $event): ?string {
 		
 		$entity = $event->getEntityParam();
 		if (!$entity instanceof \EventRegistration) {
-			return;
+			return null;
 		}
 		
 		$type = $event->getParam('type', 'icon');
@@ -31,18 +31,20 @@ class Icons {
 
 		foreach ($exts as $ext) {
 			foreach ([$entity_subtype, 'default'] as $subtype) {
-				if ($ext == 'svg' && elgg_view_exists("$type/$entity_type/$subtype.svg")) {
-					return elgg_get_simplecache_url("$type/$entity_type/$subtype.svg");
+				if ($ext == 'svg' && elgg_view_exists("{$type}/{$entity_type}/{$subtype}.svg")) {
+					return elgg_get_simplecache_url("{$type}/{$entity_type}/{$subtype}.svg");
 				}
 				
-				if (elgg_view_exists("$type/$entity_type/$subtype/$size.$ext")) {
-					return elgg_get_simplecache_url("$type/$entity_type/$subtype/$size.$ext");
+				if (elgg_view_exists("{$type}/{$entity_type}/{$subtype}/{$size}.{$ext}")) {
+					return elgg_get_simplecache_url("{$type}/{$entity_type}/{$subtype}/{$size}.{$ext}");
 				}
 			}
 		}
 
-		if (elgg_view_exists("$type/default/$size.png")) {
-			return elgg_get_simplecache_url("$type/default/$size.png");
+		if (!elgg_view_exists("{$type}/default/{$size}.png")) {
+			return null;
 		}
+		
+		return elgg_get_simplecache_url("{$type}/default/{$size}.png");
 	}
 }

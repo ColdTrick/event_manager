@@ -5,7 +5,7 @@ use Elgg\Exceptions\Http\BadRequestException;
 $guid = (int) elgg_extract('guid', $vars);
 $code = elgg_extract('code', $vars);
 
-elgg_entity_gatekeeper($guid, 'object', EventRegistration::SUBTYPE);
+elgg_entity_gatekeeper($guid, 'object', \EventRegistration::SUBTYPE);
 $registration = get_entity($guid);
 
 $event = $registration->getOwnerEntity();

@@ -15,7 +15,7 @@ if ($day instanceof \ColdTrick\EventManager\Event\Day) {
 }
 
 if (!$entity || !$entity->canEdit()) {
-	echo elgg_echo('error');
+	echo elgg_echo('EntityPermissionsException');
 	return;
 }
 
@@ -27,6 +27,7 @@ $start_time = null;
 $end_time = null;
 $location = null;
 $max_attendees = null;
+$slot_set = 0;
 
 if ($entity instanceof \ColdTrick\EventManager\Event\Slot) {
 	// assume slot edit mode
@@ -39,7 +40,7 @@ if ($entity instanceof \ColdTrick\EventManager\Event\Slot) {
 	$location = $entity->location;
 	$max_attendees = $entity->max_attendees;
 	$description = $entity->description;
-	$slot_set = $entity->slot_set;
+	$slot_set = $entity->slot_set ?? 0;
 
 	$related_days = $entity->getEntitiesFromRelationship([
 		'relationship' => 'event_day_slot_relation',
@@ -55,16 +56,12 @@ if ($entity instanceof \ColdTrick\EventManager\Event\Slot) {
 	$parent_guid = $entity->guid;
 }
 
-if (!isset($slot_set)) {
-	$slot_set = 0;
-}
-
-$form_body = '';
-$form_body .= elgg_view_field([
+$form_body = elgg_view_field([
 	'#type' => 'hidden',
 	'name' => 'guid',
 	'value' => $guid,
 ]);
+
 $form_body .= elgg_view_field([
 	'#type' => 'hidden',
 	'name' => 'parent_guid',
@@ -79,29 +76,27 @@ $form_body .= elgg_view_field([
 	'required' => true,
 ]);
 
-$time_fields = [
-	[
-		'#type' => 'time',
-		'#label' => elgg_echo('event_manager:edit:form:start_time'),
-		'name' => 'start_time',
-		'value' => $start_time,
-		'required' => true,
-		'timestamp' => true,
-	],
-	[
-		'#type' => 'time',
-		'#label' => elgg_echo('event_manager:edit:form:end_time'),
-		'name' => 'end_time',
-		'value' => $end_time,
-		'required' => true,
-		'timestamp' => true,
-	],
-];
-
-$form_body .= elgg_view('input/fieldset', [
-	'fields' => $time_fields,
+$form_body .= elgg_view_field([
+	'#type' => 'fieldset',
 	'align' => 'horizontal',
-	'class' => 'mbm pbs',
+	'fields' => [
+		[
+			'#type' => 'time',
+			'#label' => elgg_echo('event_manager:edit:form:start_time'),
+			'name' => 'start_time',
+			'value' => $start_time,
+			'required' => true,
+			'timestamp' => true,
+		],
+		[
+			'#type' => 'time',
+			'#label' => elgg_echo('event_manager:edit:form:end_time'),
+			'name' => 'end_time',
+			'value' => $end_time,
+			'required' => true,
+			'timestamp' => true,
+		],
+	],
 ]);
 
 $form_body .= elgg_view_field([
@@ -140,7 +135,6 @@ $metadata = elgg_get_metadata([
 	'limit' => false,
 ]);
 
-
 foreach ($metadata as $md) {
 	$md_value = (array) $md->value;
 	foreach ($md_value as $value) {
@@ -157,14 +151,23 @@ $form_body .= elgg_view_field([
 ]);
 
 // optionally add a new set
-$form_body .= elgg_view('input/text', ['id' => 'event-manager-new-slot-set-name']);
-$form_body .= elgg_view('input/button', [
-	'id' => 'event-manager-new-slot-set-name-button',
-	'text' => elgg_echo('event_manager:edit:form:slot_set:add'),
-	'class' => 'elgg-button-action',
+$form_body .= elgg_view_field([
+	'#type' => 'fieldset',
+	'#help' => elgg_echo('event_manager:edit:form:slot_set:description'),
+	'align' => 'horizontal',
+	'fields' => [
+		[
+			'#type' => 'text',
+			'id' => 'event-manager-new-slot-set-name',
+		],
+		[
+			'#type' => 'button',
+			'id' => 'event-manager-new-slot-set-name-button',
+			'text' => elgg_echo('event_manager:edit:form:slot_set:add'),
+			'class' => 'elgg-button-action',
+		]
+	],
 ]);
-
-$form_body .= '<div class="elgg-subtext">' . elgg_echo('event_manager:edit:form:slot_set:description') . '</div>';
 
 $form_body .= elgg_view_field([
 	'#type' => 'submit',

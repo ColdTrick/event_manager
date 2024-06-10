@@ -1,7 +1,7 @@
 <?php
 
 $entity = elgg_extract('entity', $vars);
-if (!$entity instanceof Event) {
+if (!$entity instanceof \Event) {
 	return;
 }
 

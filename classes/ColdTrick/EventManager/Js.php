@@ -10,11 +10,11 @@ class Js {
 	/**
 	 * Returns elgg.data config
 	 *
-	 * @param string \Elgg\Event $event 'elgg.data', 'site'
+	 * @param string \Elgg\Event $event 'elgg.data', 'page'
 	 *
 	 * @return array
 	 */
-	public static function getJsConfig(\Elgg\Event $event) {
+	public static function getJsConfig(\Elgg\Event $event): array {
 		$result = $event->getValue();
 		
 		$result['event_manager_osm_default_zoom'] = elgg_get_plugin_setting('osm_default_zoom', 'event_manager');

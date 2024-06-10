@@ -3,18 +3,18 @@
  * Functions for Event Manager
  */
 
-define('EVENT_MANAGER_RELATION_ATTENDING', 'event_attending');
-define('EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST', 'event_waitinglist');
-define('EVENT_MANAGER_RELATION_ATTENDING_PENDING', 'event_pending');
-define('EVENT_MANAGER_RELATION_EXHIBITING', 'event_exhibiting');
-define('EVENT_MANAGER_RELATION_ORGANIZING', 'event_organizing');
-define('EVENT_MANAGER_RELATION_PRESENTING', 'event_presenting');
-define('EVENT_MANAGER_RELATION_INTERESTED', 'event_interested');
-define('EVENT_MANAGER_RELATION_UNDO', 'event_undo');
+const EVENT_MANAGER_RELATION_ATTENDING = 'event_attending';
+const EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST = 'event_waitinglist';
+const EVENT_MANAGER_RELATION_ATTENDING_PENDING = 'event_pending';
+const EVENT_MANAGER_RELATION_EXHIBITING = 'event_exhibiting';
+const EVENT_MANAGER_RELATION_ORGANIZING = 'event_organizing';
+const EVENT_MANAGER_RELATION_PRESENTING = 'event_presenting';
+const EVENT_MANAGER_RELATION_INTERESTED = 'event_interested';
+const EVENT_MANAGER_RELATION_UNDO = 'event_undo';
 
-define('EVENT_MANAGER_RELATION_SLOT_REGISTRATION', 'event_slot_registration');
-define('EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST', 'event_slot_registration_waitinglist');
-define('EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING', 'event_slot_registration_pending');
+const EVENT_MANAGER_RELATION_SLOT_REGISTRATION = 'event_slot_registration';
+const EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST = 'event_slot_registration_waitinglist';
+const EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING = 'event_slot_registration_pending';
 
 /**
  * Returns all relationship options
@@ -42,11 +42,11 @@ function event_manager_event_get_relationship_options(): array {
  * Creates an unsubscribe code
  *
  * @param EventRegistration $registration registration object
- * @param Event             $event        event
+ * @param Event|null        $event        event
  *
  * @return string
  */
-function event_manager_create_unsubscribe_code(\EventRegistration $registration, \Event $event = null) {
+function event_manager_create_unsubscribe_code(\EventRegistration $registration, \Event $event = null): string {
 	$event = $event ?? $registration->getOwnerEntity();
 	
 	return elgg_build_hmac([$registration->guid, $event->time_created])->getToken();
@@ -58,17 +58,16 @@ function event_manager_create_unsubscribe_code(\EventRegistration $registration,
  * @param int $event_guid guid of event
  * @param int $user_guid  guid of user
  *
- * @return false|string
+ * @return null|string
  */
-function event_manager_get_registration_validation_url(int $event_guid, int $user_guid) {
+function event_manager_get_registration_validation_url(int $event_guid, int $user_guid): ?string {
 	if (empty($event_guid) || empty($user_guid)) {
-		return false;
+		return null;
 	}
 	
 	$code = event_manager_generate_registration_validation_code($event_guid, $user_guid);
-
 	if (empty($code)) {
-		return false;
+		return null;
 	}
 	
 	return elgg_generate_url('default:object:eventregistration:confirm', [
@@ -84,22 +83,21 @@ function event_manager_get_registration_validation_url(int $event_guid, int $use
  * @param int $event_guid guid of event
  * @param int $user_guid  guid of user
  *
- * @return false|string
+ * @return null|string
  */
-function event_manager_generate_registration_validation_code(int $event_guid, int $user_guid) {
+function event_manager_generate_registration_validation_code(int $event_guid, int $user_guid): ?string {
 	if (empty($event_guid) || empty($user_guid)) {
-		return false;
+		return null;
 	}
 	
 	$event = get_entity($event_guid);
 	$user = get_entity($user_guid);
 
-	$result = false;
-	if (!empty($event) && ($event instanceof \Event) && !empty($user) && (($user instanceof \ElggUser) || ($user instanceof \EventRegistration))) {
-		$result = elgg_build_hmac([$event_guid, $user_guid, $event->time_created])->getToken();
+	if ($event instanceof \Event && ($user instanceof \ElggUser || $user instanceof \EventRegistration)) {
+		return elgg_build_hmac([$event_guid, $user_guid, $event->time_created])->getToken();
 	}
 
-	return $result;
+	return null;
 }
 
 /**
@@ -116,13 +114,7 @@ function event_manager_validate_registration_validation_code(int $event_guid, in
 		return false;
 	}
 	
-	$valid_code = event_manager_generate_registration_validation_code($event_guid, $user_guid);
-
-	if (empty($valid_code)) {
-		return false;
-	}
-	
-	return $code === $valid_code;
+	return event_manager_generate_registration_validation_code($event_guid, $user_guid) === $code;
 }
 
 /**
@@ -155,11 +147,11 @@ function event_manager_send_registration_validation_email(\Event $event, \ElggEn
 /**
  * Returns a formatted date
  *
- * @param int $timestamp timestamp
+ * @param int|null $timestamp timestamp
  *
  * @return string
  */
-function event_manager_format_date($timestamp): string {
+function event_manager_format_date(int $timestamp = null): string {
 	return gmdate(elgg_echo('event_manager:date:format'), $timestamp);
 }
 
@@ -180,7 +172,7 @@ function event_manager_get_maps_provider(): string {
 /**
  * Prepares the vars for the event edit form
  *
- * @param \Event $event the event to prepare the vars for
+ * @param \Event|null $event the event to prepare the vars for
  *
  * @return array
  */

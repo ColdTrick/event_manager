@@ -51,9 +51,9 @@ class Slot extends \ElggObject {
 	 *
 	 * @param boolean $count if a count should be returned, or the entity
 	 *
-	 * @return boolean|int|array
+	 * @return int|array
 	 */
-	public function getWaitingUsers(bool $count = false) {
+	public function getWaitingUsers(bool $count = false): int|array {
 		return elgg_call(ELGG_IGNORE_ACCESS, function() use ($count) {
 			if ($count) {
 				return $this->countEntitiesFromRelationship(EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST, true);

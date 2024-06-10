@@ -6,7 +6,7 @@
  */
 
 $entity = elgg_extract('entity', $vars);
-if (!$entity instanceof EventRegistration) {
+if (!$entity instanceof \EventRegistration) {
 	return;
 }
 
@@ -16,4 +16,5 @@ $params = [
 	'subtitle' => false,
 ];
 $params = $params + $vars;
+
 echo elgg_view('object/elements/summary', $params);

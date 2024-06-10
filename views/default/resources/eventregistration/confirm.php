@@ -30,13 +30,11 @@ elgg_set_page_owner_guid($event->getContainerGUID());
 
 elgg_push_entity_breadcrumbs($event);
 
-$body_vars = [
-	'event' => $event,
-	'user' => $user,
-	'code' => $code,
-];
-
 echo elgg_view_page(elgg_echo('event_manager:registration:confirm:title', [$event->getDisplayName()]), [
-	'content' => elgg_view_form('event_manager/registration/confirm', [], $body_vars),
+	'content' => elgg_view_form('event_manager/registration/confirm', [], [
+		'event' => $event,
+		'user' => $user,
+		'code' => $code,
+	]),
 	'filter' => false,
 ]);

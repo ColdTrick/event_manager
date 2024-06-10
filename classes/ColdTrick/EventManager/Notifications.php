@@ -47,7 +47,7 @@ class Notifications {
 	 *
 	 * @return void
 	 */
-	public static function sendAfterEventMail(\Elgg\Event $elgg_event) {
+	public static function sendAfterEventMail(\Elgg\Event $elgg_event): void {
 		
 		$event = $elgg_event->getParam('event');
 		if (!$event instanceof NotificationEvent) {

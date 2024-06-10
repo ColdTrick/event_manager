@@ -24,16 +24,13 @@ if (!$event->openForRegistration()) {
 
 elgg_push_entity_breadcrumbs($event);
 
-$form_vars = [
-	'id' => 'event_manager_event_register',
-	'name' => 'event_manager_event_register',
-];
-$body_vars = [
-	'entity' => $event,
-	'register_type' => 'waitinglist',
-];
-
 echo elgg_view_page(elgg_echo('event_manager:event:rsvp:waiting_list'), [
-	'content' => elgg_view_form('event_manager/event/register', $form_vars, $body_vars),
+	'content' => elgg_view_form('event_manager/event/register', [
+		'id' => 'event_manager_event_register',
+		'name' => 'event_manager_event_register',
+	], [
+		'entity' => $event,
+		'register_type' => 'waitinglist',
+	]),
 	'filter' => false,
 ]);

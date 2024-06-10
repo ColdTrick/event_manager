@@ -31,7 +31,7 @@ $options = [
 	'type' => 'object',
 	'subtype' => \Event::SUBTYPE,
 	'limit' => 50,
-	'container_guid' => ($entity instanceof ElggGroup) ? $entity->guid : ELGG_ENTITIES_ANY_VALUE,
+	'container_guid' => ($entity instanceof \ElggGroup) ? $entity->guid : ELGG_ENTITIES_ANY_VALUE,
 	'wheres' => [
 		function (QueryBuilder $qb, $main_alias) use ($lat_min, $lat_max, $long_min, $long_max) {
 			
@@ -74,7 +74,7 @@ switch ($resource) {
 		];
 		break;
 	case 'owner':
-		if (!$entity instanceof ElggUser) {
+		if (!$entity instanceof \ElggUser) {
 			return elgg_error_response();
 		}
 		
@@ -83,7 +83,7 @@ switch ($resource) {
 		$options['owner_guid'] = $entity->guid;
 		break;
 	case 'attending':
-		if (!$entity instanceof ElggUser) {
+		if (!$entity instanceof \ElggUser) {
 			return elgg_error_response();
 		}
 		

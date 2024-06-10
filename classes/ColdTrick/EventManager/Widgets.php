@@ -12,13 +12,13 @@ class Widgets {
 	 *
 	 * @param \Elgg\Event $event 'entity:url', 'object'
 	 *
-	 * @return string
+	 * @return null|string
 	 */
-	public static function getEventsUrl(\Elgg\Event $event) {
+	public static function getEventsUrl(\Elgg\Event $event): ?string {
 		
 		$widget = $event->getEntityParam();
 		if (!empty($event->getValue()) || !$widget instanceof \ElggWidget || $widget->handler !== 'events') {
-			return;
+			return null;
 		}
 			
 		switch ($widget->context) {
@@ -33,6 +33,8 @@ class Widgets {
 				}
 				return elgg_generate_url('collection:object:event:group', ['guid' => $widget->getOwnerGUID()]);
 		}
+		
+		return null;
 	}
 
 	/**
@@ -40,28 +42,28 @@ class Widgets {
 	 *
 	 * @param \Elgg\Event $event 'handlers', 'widgets'
 	 *
-	 * @return string
+	 * @return null|array
 	 */
-	public static function registerHandlers(\Elgg\Event $event) {
+	public static function registerHandlers(\Elgg\Event $event): ?array {
 		
 		$container = $event->getParam('container');
 		if (!$container instanceof \ElggGroup) {
-			return;
+			return null;
 		}
 		
 		if ($container->isToolEnabled('event_manager')) {
-			return;
+			return null;
 		}
 		
-		$returnvalue = $event->getValue();
-		foreach ($returnvalue as $index => $widget) {
+		$result = $event->getValue();
+		foreach ($result as $index => $widget) {
 			if ($widget->id === 'events') {
-				unset($returnvalue[$index]);
-				return $returnvalue;
+				unset($result[$index]);
+				return $result;
 			}
 		}
 
-		return $returnvalue;
+		return $result;
 	}
 	
 	/**
@@ -69,14 +71,14 @@ class Widgets {
 	 *
 	 * @param \Elgg\Event $event 'view_vars', 'widgets/content_by_tag/display/[simple|slim]'
 	 *
-	 * @return void|array
+	 * @return null|array
 	 */
-	public static function contentByTagEntityTimestamp(\Elgg\Event $event) {
+	public static function contentByTagEntityTimestamp(\Elgg\Event $event): ?array {
 		$vars = $event->getValue();
 		
 		$entity = elgg_extract('entity', $vars);
 		if (!$entity instanceof \Event) {
-			return;
+			return null;
 		}
 		
 		$vars['entity_timestamp'] = $entity->getStartTimestamp();
