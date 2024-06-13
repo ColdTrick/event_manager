@@ -691,8 +691,8 @@ class Event extends \ElggObject {
 	/**
 	 * Relates a user to all the slots
 	 *
-	 * @param boolean  $relate add or remove relationship
-	 * @param int $guid   guid of the entity
+	 * @param boolean $relate add or remove relationship
+	 * @param int     $guid   guid of the entity
 	 *
 	 * @return void
 	 */

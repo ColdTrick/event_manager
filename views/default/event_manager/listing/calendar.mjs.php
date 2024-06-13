@@ -1,3 +1,4 @@
+<?php ?>
 import 'jquery';
 import 'elgg';
 import lightbox from 'elgg/lightbox';
