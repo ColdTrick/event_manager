@@ -24,7 +24,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		}
 		
 		// leafletjs
-		elgg_register_esm('leafletjs', '//unpkg.com/leaflet@1.9.4/dist/leaflet.js');
-		elgg_register_external_file('css', 'leafletjs', '//unpkg.com/leaflet@1.9.4/dist/leaflet.css', 'head');
+		elgg_register_esm('leafletjs', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js');
+		elgg_register_external_file('css', 'leafletjs', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', 'head');
 	}
 }
