@@ -40,17 +40,18 @@ return [
 		[
 			'type' => 'object',
 			'subtype' => 'event',
-			'class' => Event::class,
+			'class' => \Event::class,
 			'capabilities' => [
 				'commentable' => true,
 				'searchable' => true,
 				'likable' => true,
+				'restorable' => true,
 			],
 		],
 		[
 			'type' => 'object',
 			'subtype' => 'eventregistrationquestion',
-			'class' => EventRegistrationQuestion::class,
+			'class' => \EventRegistrationQuestion::class,
 			'capabilities' => [
 				'commentable' => false,
 			],
@@ -58,7 +59,7 @@ return [
 		[
 			'type' => 'object',
 			'subtype' => 'eventregistration',
-			'class' => EventRegistration::class,
+			'class' => \EventRegistration::class,
 			'capabilities' => [
 				'commentable' => false,
 			],
@@ -82,7 +83,7 @@ return [
 		[
 			'type' => 'object',
 			'subtype' => 'eventmail',
-			'class' => EventMail::class,
+			'class' => \EventMail::class,
 			'capabilities' => [
 				'commentable' => false,
 			],
