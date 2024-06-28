@@ -1,6 +1,11 @@
 Version history
 ===============
 
+19.0 (2024-06-28):
+
+- added: restorable capability
+- changed: updated for Elgg 6
+
 18.0.2 (2024-04-03):
 
 - fixed: allow deletions of files with special chars
