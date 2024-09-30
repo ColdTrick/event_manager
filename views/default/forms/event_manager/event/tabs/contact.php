@@ -10,13 +10,12 @@ $contact_guids = elgg_extract('contact_guids', $vars);
 
 $output = elgg_view_field([
 	'#type' => 'fieldset',
+	'#label' => elgg_echo('event_manager:edit:form:organizer'),
 	'align' => 'horizontal',
-	'class' => 'event-manager-align-bottom',
 	'fields' => [
 		[
 			'#type' => 'text',
 			'#class' => 'elgg-field-stretch',
-			'#label' => elgg_echo('event_manager:edit:form:organizer'),
 			'#help' => elgg_echo('event_manager:edit:form:organizer:help'),
 			'name' => 'organizer',
 			'value' => $organizer,
@@ -49,13 +48,12 @@ $output .= elgg_view_field([
 
 $output .= elgg_view_field([
 	'#type' => 'fieldset',
+	'#label' => elgg_echo('event_manager:edit:form:contact_details'),
 	'align' => 'horizontal',
-	'class' => 'event-manager-align-bottom',
 	'fields' => [
 		[
 			'#type' => 'text',
 			'#class' => 'elgg-field-stretch',
-			'#label' => elgg_echo('event_manager:edit:form:contact_details'),
 			'#help' => elgg_echo('event_manager:edit:form:contact_details:help'),
 			'name' => 'contact_details',
 			'value' => $contact_details,
