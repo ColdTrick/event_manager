@@ -16,7 +16,7 @@ if (!array_key_exists($relationship, $entity->getSupportedRelationships())) {
 	return;
 }
 
-elgg_import_esm('event_manager/attendees');
+elgg_import_esm('forms/event_manager/event/attendees');
 
 echo elgg_view_field([
 	'#type' => 'hidden',
