@@ -126,11 +126,13 @@ function event_manager_validate_registration_validation_code(int $event_guid, in
  * @return void
  */
 function event_manager_send_registration_validation_email(\Event $event, \ElggEntity $entity): void {
-	$subject = elgg_echo('event_manager:registration:confirm:subject', [$event->getDisplayName()]);
+	$language = $entity instanceof \ElggUser ? $entity->getLanguage() : '';
+	
+	$subject = elgg_echo('event_manager:registration:confirm:subject', [$event->getDisplayName()], $language);
 	$message = elgg_echo('event_manager:registration:confirm:message', [
 		$event->getDisplayName(),
 		event_manager_get_registration_validation_url($event->guid, $entity->guid)
-	]);
+	], $language);
 
 	// send confirmation mail
 	if ($entity instanceof \ElggUser) {
