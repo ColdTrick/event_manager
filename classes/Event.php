@@ -996,6 +996,9 @@ class Event extends \ElggObject {
 		}
 		
 		$this->rsvp(EVENT_MANAGER_RELATION_ATTENDING, $waiting_user->guid, false, false, false);
+		
+		$current_language = elgg_get_current_language();
+		elgg()->translator->setCurrentLanguage($waiting_user->getLanguage());
 
 		$notification_body = elgg_echo('event_manager:event:registration:notification:user:text:event_spotfree', [
 			$this->getDisplayName(),
@@ -1016,6 +1019,8 @@ class Event extends \ElggObject {
 		}
 		
 		notify_user($waiting_user->guid, $this->owner_guid, elgg_echo('event_manager:event:registration:notification:user:subject'), $notification_body);
+		
+		elgg()->translator->setCurrentLanguage($current_language);
 
 		return true;
 	}
