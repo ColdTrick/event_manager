@@ -499,6 +499,10 @@ class Event extends \ElggObject {
 			if (empty($to_entity)) {
 				return;
 			}
+			
+			$current_language = elgg_get_current_language();
+			$recipient_language = $to_entity instanceof \ElggUser ? $to_entity->getLanguage() : $current_language;
+			elgg()->translator->setCurrentLanguage($recipient_language);
 	
 			// can we make nice links in the emails
 			$html_email_enabled = elgg_get_config('email_html_part');
@@ -628,6 +632,8 @@ class Event extends \ElggObject {
 				
 				elgg_send_email(\Elgg\Email::factory($options));
 			}
+			
+			elgg()->translator->setCurrentLanguage($current_language);
 		});
 	}
 		
@@ -647,44 +653,50 @@ class Event extends \ElggObject {
 			return;
 		}
 		
-		// set params for site notifications
-		$params = [
-			'summary' => elgg_echo('event_manager:event:registration:notification:owner:summary:' . $type, [
-				$rsvp_entity->getDisplayName(),
-				$this->getDisplayName(),
-			]),
-			'object' => $this,
-			'action' => 'rsvp_owner',
-		];
-		
-		$owner_subject = elgg_echo('event_manager:event:registration:notification:owner:subject', [$this->getDisplayName()]);
-		if ($type === EVENT_MANAGER_RELATION_UNDO) {
-			$owner_subject = elgg_echo("event_manager:event:registration:notification:owner:subject:{$type}", [$this->getDisplayName()]);
-		}
-
 		$recipients = [
 			$this->owner_guid => $this->getOwnerEntity(),
 		];
 		
 		if ($this->notify_onsignup_contact) {
-			foreach ($this->getContacts() as $recipient) {
-				$recipients[$recipient->guid] = $recipient;
+			foreach ($this->getContacts() as $contact) {
+				$recipients[$contact->guid] = $contact;
 			}
 		}
 		
 		if ($this->notify_onsignup_organizer) {
-			foreach ($this->getOrganizers() as $recipient) {
-				$recipients[$recipient->guid] = $recipient;
+			foreach ($this->getOrganizers() as $organizer) {
+				$recipients[$organizer->guid] = $organizer;
 			}
 		}
 		
-		foreach ($recipients as $user) {
-			$owner_message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, [
+		foreach ($recipients as $recipient) {
+			$current_language = elgg_get_current_language();
+			$recipient_language = $recipient instanceof \ElggUser ? $recipient->getLanguage() : $current_language;
+			elgg()->translator->setCurrentLanguage($recipient_language);
+			
+			// set params for site notifications
+			$params = [
+				'summary' => elgg_echo('event_manager:event:registration:notification:owner:summary:' . $type, [
+					$rsvp_entity->getDisplayName(),
+					$this->getDisplayName(),
+				]),
+				'object' => $this,
+				'action' => 'rsvp_owner',
+			];
+			
+			$subject = elgg_echo('event_manager:event:registration:notification:owner:subject', [$this->getDisplayName()]);
+			if ($type === EVENT_MANAGER_RELATION_UNDO) {
+				$subject = elgg_echo("event_manager:event:registration:notification:owner:subject:{$type}", [$this->getDisplayName()]);
+			}
+			
+			$message = elgg_echo('event_manager:event:registration:notification:owner:text:' . $type, [
 				$rsvp_entity->getDisplayName(),
 				$event_title_link,
 			]) . $registration_link;
 			
-			notify_user($user->guid, $rsvp_entity->guid, $owner_subject, $owner_message, $params);
+			notify_user($recipient->guid, $rsvp_entity->guid, $subject, $message, $params);
+			
+			elgg()->translator->setCurrentLanguage($current_language);
 		}
 	}
 
