@@ -1,6 +1,12 @@
 Version history
 ===============
 
+19.0.3 (2024-11-21):
+
+- fixed: notification on waitinglist promotion respects recipient language
+- fixed: registration validation email respects recipient language
+- fixed: rsvp notification now respect language of recipient
+
 19.0.2 (2024-10-25):
 
 - fixed: import correct attendees module
