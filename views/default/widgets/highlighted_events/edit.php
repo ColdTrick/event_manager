@@ -24,6 +24,6 @@ echo elgg_view_field([
 ?>
 <script>
 	$(document).ready(function() {
-		$('#widget-edit-<?php echo $widget->guid; ?> ul.elgg-user-picker-list').sortable();
+		$('#widget-edit-<?php echo $widget->guid; ?> ul.elgg-entity-picker-list').sortable();
 	});
 </script>
