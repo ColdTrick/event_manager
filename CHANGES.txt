@@ -1,6 +1,10 @@
 Version history
 ===============
 
+19.0.4 (2024-12-11):
+
+- fixed: highlighted events widget should be sortable on edit form
+
 19.0.3 (2024-11-21):
 
 - fixed: notification on waitinglist promotion respects recipient language
