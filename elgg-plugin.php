@@ -252,6 +252,8 @@ return [
 		
 		'event_manager/slot/save' => [],
 		'event_manager/day/edit' => [],
+		
+		'event_manager/delete_program_item' => [],
 	],
 	'widgets' => [
 		'events' => [

@@ -2,7 +2,10 @@
 
 $parent_guid = (int) get_input('parent_guid');
 
-$day = get_entity($parent_guid);
+$day = elgg_call(ELGG_IGNORE_ACCESS, function() use ($parent_guid) {
+	// days are unavailable if event is private
+	return get_entity($parent_guid);
+});
 
 if (!$day instanceof \ColdTrick\EventManager\Event\Day) {
 	return elgg_error_response(elgg_echo('event_manager:action:slot:day_not_found'));
@@ -42,7 +45,10 @@ if (empty($title) || empty($start_time) || empty($end_time)) {
 
 if ($guid) {
 	// edit existing
-	$slot = get_entity($guid);
+	$slot = elgg_call(ELGG_IGNORE_ACCESS, function() use ($guid) {
+		// slots are unavailable if event is private
+		return get_entity($guid);
+	});
 
 	if (!$slot instanceof \ColdTrick\EventManager\Event\Slot) {
 		return elgg_error_response(elgg_echo('event_manager:action:slot:not_found'));

@@ -24,17 +24,19 @@ class Day extends \ElggObject {
 	 * @return array
 	 */
 	public function getEventSlots(): array {
-		return elgg_get_entities([
-			'type' => 'object',
-			'subtype' => Slot::SUBTYPE,
-			'relationship_guid' => $this->guid,
-			'relationship' => 'event_day_slot_relation',
-			'inverse_relationship' => true,
-			'sort_by' => [
-				'property' => 'start_time',
-				'signed' => true,
-			],
-			'limit' => false,
-		]);
+		return elgg_call(ELGG_IGNORE_ACCESS, function() {
+			return elgg_get_entities([
+				'type' => 'object',
+				'subtype' => Slot::SUBTYPE,
+				'relationship_guid' => $this->guid,
+				'relationship' => 'event_day_slot_relation',
+				'inverse_relationship' => true,
+				'sort_by' => [
+					'property' => 'start_time',
+					'signed' => true,
+				],
+				'limit' => false,
+			]);
+		});
 	}
 }

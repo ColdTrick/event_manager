@@ -3,8 +3,16 @@
 $day_guid = (int) get_input('day_guid');
 $slot_guid = (int) get_input('slot_guid');
 
-$day = get_entity($day_guid);
-$slot = get_entity($slot_guid);
+$day = elgg_call(ELGG_IGNORE_ACCESS, function() use ($day_guid) {
+	// days are unavailable if event is private
+	return get_entity($day_guid);
+});
+
+$slot = elgg_call(ELGG_IGNORE_ACCESS, function() use ($slot_guid) {
+	// slots are unavailable if event is private
+	return get_entity($slot_guid);
+});
+
 if ($day instanceof \ColdTrick\EventManager\Event\Day) {
 	$entity = $day;
 	$start_time = null;
@@ -42,11 +50,13 @@ if ($entity instanceof \ColdTrick\EventManager\Event\Slot) {
 	$description = $entity->description;
 	$slot_set = $entity->slot_set ?? 0;
 
-	$related_days = $entity->getEntitiesFromRelationship([
-		'relationship' => 'event_day_slot_relation',
-		'inverse_relationship' => false,
-		'limit' => 1,
-	]);
+	$related_days = elgg_call(ELGG_IGNORE_ACCESS, function() use ($entity) {
+		return $entity->getEntitiesFromRelationship([
+			'relationship' => 'event_day_slot_relation',
+			'inverse_relationship' => false,
+			'limit' => 1,
+		]);
+	});
 
 	if ($related_days) {
 		$parent_guid = $related_days[0]->guid;

@@ -82,7 +82,7 @@ $(document).on('click', '.event_manager_program_day_delete', function() {
 	
 	$dayElements.hide();
 
-	ajax.action('entity/delete', {
+	ajax.action('event_manager/delete_program_item', {
 		data: {
 			guid: dayGuid
 		},
@@ -108,7 +108,7 @@ $(document).on('click', '.event_manager_program_slot_delete', function() {
 	var $slotElement = $('#' + slotGuid);
 	$slotElement.hide();
 
-	ajax.action('entity/delete', {
+	ajax.action('event_manager/delete_program_item', {
 		data: {
 			guid: slotGuid
 		},

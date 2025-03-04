@@ -4,7 +4,11 @@ $event_guid = (int) get_input('event_guid');
 $day_guid = (int) get_input('day_guid');
 
 $event = get_entity($event_guid);
-$day = get_entity($day_guid);
+$day = elgg_call(ELGG_IGNORE_ACCESS, function() use ($day_guid) {
+	// days are unavailable if event is private
+	return get_entity($day_guid);
+});
+
 if ($event instanceof \Event) {
 	$entity = $event;
 } elseif ($day instanceof \ColdTrick\EventManager\Event\Day) {

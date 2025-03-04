@@ -14,7 +14,11 @@ $date = (int) get_input('date');
 
 $edit = false;
 
-$day = get_entity($guid);
+$day = elgg_call(ELGG_IGNORE_ACCESS, function() use ($guid) {
+	// days are unavailable if event is private
+	return get_entity($guid);
+});
+
 if ($day instanceof \ColdTrick\EventManager\Event\Day) {
 	$edit = true;
 } else {

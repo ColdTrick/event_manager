@@ -434,8 +434,8 @@ class Event extends \ElggObject {
 		$slot = new \ColdTrick\EventManager\Event\Slot();
 		$slot->title = elgg_echo('event_manager:event:initial:slot:title');
 		$slot->description = elgg_echo('event_manager:event:initial:slot:description');
-		$slot->container_guid = $this->container_guid;
-		$slot->owner_guid = $this->owner_guid;
+		$slot->container_guid = $this->guid;
+		$slot->owner_guid = $this->guid;
 		$slot->access_id = $this->access_id;
 		$slot->save();
 	
@@ -1073,19 +1073,21 @@ class Event extends \ElggObject {
 	 * @return int|\ColdTrick\EventManager\Event\Day[]
 	 */
 	public function getEventDays(string $order = 'ASC', bool $count = false): int|array {
-		return elgg_get_entities([
-			'type' => 'object',
-			'subtype' => \ColdTrick\EventManager\Event\Day::SUBTYPE,
-			'relationship_guid' => $this->guid,
-			'relationship' => 'event_day_relation',
-			'inverse_relationship' => true,
-			'sort_by' => [
-				'property' => 'date',
-				'direction' => $order,
-			],
-			'limit' => false,
-			'count' => $count,
-		]);
+		return elgg_call(ELGG_IGNORE_ACCESS, function() use ($order, $count) {
+			return elgg_get_entities([
+				'type' => 'object',
+				'subtype' => \ColdTrick\EventManager\Event\Day::SUBTYPE,
+				'relationship_guid' => $this->guid,
+				'relationship' => 'event_day_relation',
+				'inverse_relationship' => true,
+				'sort_by' => [
+					'property' => 'date',
+					'direction' => $order,
+				],
+				'limit' => false,
+				'count' => $count,
+			]);
+		});
 	}
 	
 	/**
