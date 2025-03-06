@@ -1,6 +1,10 @@
 Version history
 ===============
 
+19.0.5 (2025-03-06):
+
+- fixed: issues when working with days/slots for private events
+
 19.0.4 (2024-12-11):
 
 - fixed: highlighted events widget should be sortable on edit form
