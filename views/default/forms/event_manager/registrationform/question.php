@@ -87,8 +87,9 @@ foreach ($fields as $field) {
 }
 
 $delete_question = elgg_view('output/url', [
+	'icon' => 'delete',
+	'text' => false,
 	'href' => false,
-	'text' => elgg_view_icon('delete'),
 	'class' => 'event_manager_questions_delete',
 	'confirm' => elgg_echo('deleteconfirm'),
 	'is_action' => false,
