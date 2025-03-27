@@ -1,6 +1,10 @@
 Version history
 ===============
 
+19.0.6 (2025-03-27):
+
+- fixed: use correct styling of icon only URLs
+
 19.0.5 (2025-03-06):
 
 - fixed: issues when working with days/slots for private events
