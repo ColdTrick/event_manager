@@ -1030,7 +1030,7 @@ class Event extends \ElggObject {
 			$notification_body .= elgg_view('event_manager/addthisevent/email', ['entity' => $this]);
 		}
 		
-		notify_user($waiting_user->guid, $this->owner_guid, elgg_echo('event_manager:event:registration:notification:user:subject'), $notification_body);
+		notify_user($waiting_user->guid, $this->owner_guid, elgg_echo('event_manager:event:registration:notification:user:subject', [$this->getDisplayName()]), $notification_body, [], ['email']);
 		
 		elgg()->translator->setCurrentLanguage($current_language);
 
