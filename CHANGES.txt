@@ -1,6 +1,10 @@
 Version history
 ===============
 
+19.0.7 (2025-05-07):
+
+- fixed: missing event name in notification when removed from waitinglist
+
 19.0.6 (2025-03-27):
 
 - fixed: use correct styling of icon only URLs
