@@ -1,6 +1,10 @@
 Version history
 ===============
 
+19.1 (2025-05-28):
+
+- changed: replaced the event_attendees menu with filter:event/attendees
+
 19.0.7 (2025-05-07):
 
 - fixed: missing event name in notification when removed from waitinglist
