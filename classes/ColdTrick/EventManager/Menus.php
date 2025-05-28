@@ -178,43 +178,6 @@ class Menus {
 	}
 	
 	/**
-	 * Register tabs for the event attendees page
-	 *
-	 * @param \Elgg\Event $event 'register', 'menu:event_attendees'
-	 *
-	 * @return null|MenuItems
-	 */
-	public static function registerEventAttendees(\Elgg\Event $event): ?MenuItems {
-		
-		$entity = $event->getEntityParam();
-		if (!$entity instanceof \Event) {
-			return null;
-		}
-		
-		$relationship = $event->getParam('relationship');
-		$valid_relationships = $entity->getSupportedRelationships();
-		if (count($valid_relationships) === 1) {
-			return null;
-		}
-		
-		$result = $event->getValue();
-		
-		foreach ($valid_relationships as $rel => $label) {
-			$result[] = \ElggMenuItem::factory([
-				'name' => $rel,
-				'text' => $label,
-				'href' => elgg_generate_url('collection:object:event:attendees', [
-					'guid' => $entity->guid,
-					'relationship' => $rel,
-				]),
-				'selected' => $relationship === $rel,
-			]);
-		}
-		
-		return $result;
-	}
-	
-	/**
 	 * Registers menu items for the rsvp menu
 	 *
 	 * @param \Elgg\Event $elgg_event 'register', 'menu:event:rsvp'

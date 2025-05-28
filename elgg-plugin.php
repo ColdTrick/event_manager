@@ -330,9 +330,6 @@ return [
 				'\ColdTrick\EventManager\Menus\Entity::registerEventUnsubscribe' => ['priority' => 600],
 				'\ColdTrick\EventManager\Menus\Entity::registerMailAttendees' => [],
 			],
-			'menu:event_attendees' => [
-				'\ColdTrick\EventManager\Menus::registerEventAttendees' => [],
-			],
 			'menu:event_files' => [
 				'\ColdTrick\EventManager\Menus::registerEventFiles' => [],
 			],
@@ -342,6 +339,9 @@ return [
 			'menu:filter:events' => [
 				'\ColdTrick\EventManager\Menus::registerEventsList' => [],
 				'\ColdTrick\EventManager\Menus\Filter::registerViewTypes' => [],
+			],
+			'menu:filter:event/attendees' => [
+				'\ColdTrick\EventManager\Menus\FilterEventAttendees::registerAttendeeRelationships' => [],
 			],
 			'menu:owner_block' => [
 				'\ColdTrick\EventManager\Menus::registerGroupOwnerBlock' => [],

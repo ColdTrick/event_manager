@@ -64,10 +64,7 @@ $content .= elgg_view('event_manager/event/attendees_list', [
 
 echo elgg_view_page(elgg_echo('event_manager:event:attendees:title', [$entity->getDisplayName(), $rel_text]), [
 	'content' => $content,
-	'filter' => elgg_view_menu('event_attendees', [
-		'sort_by' => 'priority',
-		'class' => 'elgg-menu-hz elgg-tabs',
-		'entity' => $entity,
-		'relationship' => $relationship,
-	]),
+	'filter_id' => 'event/attendees',
+	'filter_value' => $relationship,
+	'event_entity' => $entity,
 ]);
