@@ -331,21 +331,21 @@ return [
 				'\ColdTrick\EventManager\Menus\Entity::registerMailAttendees' => [],
 			],
 			'menu:event_files' => [
-				'\ColdTrick\EventManager\Menus::registerEventFiles' => [],
+				'\ColdTrick\EventManager\Menus\EventFiles::registerFiles' => [],
 			],
 			'menu:event:rsvp' => [
-				'\ColdTrick\EventManager\Menus::registerRsvp' => [],
+				'\ColdTrick\EventManager\Menus\EventRsvp::register' => [],
 			],
 			'menu:filter:events' => [
-				'\ColdTrick\EventManager\Menus::registerEventsList' => [],
+				'\ColdTrick\EventManager\Menus\Filter::registerEventsList' => [],
 				'\ColdTrick\EventManager\Menus\Filter::registerViewTypes' => [],
 			],
 			'menu:filter:event/attendees' => [
 				'\ColdTrick\EventManager\Menus\FilterEventAttendees::registerAttendeeRelationships' => [],
 			],
 			'menu:owner_block' => [
-				'\ColdTrick\EventManager\Menus::registerGroupOwnerBlock' => [],
-				'\ColdTrick\EventManager\Menus::registerUserOwnerBlock' => [],
+				'\ColdTrick\EventManager\Menus\OwnerBlock::registerGroup' => [],
+				'\ColdTrick\EventManager\Menus\OwnerBlock::registerUser' => [],
 			],
 			'menu:site' => [
 				'\ColdTrick\EventManager\Menus\Site::registerEvents' => [],
