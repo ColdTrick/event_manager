@@ -1,6 +1,10 @@
 Version history
 ===============
 
+19.2 (2025-07-09):
+
+- changed: moved menu callbacks to their own classes
+
 19.1 (2025-05-28):
 
 - changed: replaced the event_attendees menu with filter:event/attendees
