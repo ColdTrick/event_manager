@@ -51,7 +51,7 @@ function addDay(event) {
 				} else {
 					var $program = $('#event_manager_event_view_program');
 					$program.find('.elgg-tabs-content').append(output.content_body);
-					$program.find('.elgg-menu-navigation-tabs').append(output.content_title);
+					$program.find('.elgg-menu-navigation-tabs').eq(0).append(output.content_title);
 					$program.find("a[rel='day_" + guid + "']").click();
 				}
 			} else {
