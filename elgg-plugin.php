@@ -265,6 +265,11 @@ return [
 		],
 	],
 	'events' => [
+		'config' => [
+			'post_as' => [
+				'\ColdTrick\EventManager\Plugins\PostAs::addConfig' => [],
+			],
+		],
 		'container_logic_check' => [
 			'object' => [
 				\ColdTrick\EventManager\GroupToolContainerLogicCheck::class => [],
