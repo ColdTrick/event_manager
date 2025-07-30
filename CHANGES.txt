@@ -1,6 +1,11 @@
 Version history
 ===============
 
+19.3 (2025-07-30):
+
+- added: support for post_as plugin
+- fixed: make sure to only add program days to the menu once
+
 19.2 (2025-07-09):
 
 - changed: moved menu callbacks to their own classes
