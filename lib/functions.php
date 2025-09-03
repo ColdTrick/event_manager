@@ -46,7 +46,7 @@ function event_manager_event_get_relationship_options(): array {
  *
  * @return string
  */
-function event_manager_create_unsubscribe_code(\EventRegistration $registration, \Event $event = null): string {
+function event_manager_create_unsubscribe_code(\EventRegistration $registration, ?\Event $event = null): string {
 	$event = $event ?? $registration->getOwnerEntity();
 	
 	return elgg_build_hmac([$registration->guid, $event->time_created])->getToken();
@@ -153,7 +153,7 @@ function event_manager_send_registration_validation_email(\Event $event, \ElggEn
  *
  * @return string
  */
-function event_manager_format_date(int $timestamp = null): string {
+function event_manager_format_date(?int $timestamp = null): string {
 	return gmdate(elgg_echo('event_manager:date:format'), $timestamp);
 }
 
@@ -178,7 +178,7 @@ function event_manager_get_maps_provider(): string {
  *
  * @return array
  */
-function event_manager_prepare_form_vars(\Event $event = null): array {
+function event_manager_prepare_form_vars(?\Event $event = null): array {
 	
 	// defaults
 	$values = [
