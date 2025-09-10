@@ -10,7 +10,7 @@
 		"issues": "https://github.com/ColdTrick/event_manager/issues"
 	},
 	"require": {
-		"dompdf/dompdf" : "~3.0.0",
+		"dompdf/dompdf" : "~3.1.0",
 		"npm-asset/fullcalendar": "~6.1.0"
 	},
 	"repositories": [
@@ -25,6 +25,6 @@
 		}
 	},
 	"conflict": {
-		"elgg/elgg": "<6.0"
+		"elgg/elgg": "<6.3"
 	}
 }
