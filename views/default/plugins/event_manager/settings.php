@@ -109,13 +109,10 @@ $services = [
 foreach ($services as $service => $label) {
 	$service_setting = "show_service_{$service}";
 	$add_event .= elgg_view_field([
-		'#type' => 'checkbox',
+		'#type' => 'switch',
 		'#label' => elgg_echo('event_manager:settings:add_event:service', [$label]),
 		'name' => "params[{$service_setting}]",
-		'checked' => (bool) $plugin->{$service_setting},
-		'switch' => true,
-		'default' => 0,
-		'value' => 1,
+		'value' => $plugin->{$service_setting},
 	]);
 }
 
@@ -177,14 +174,11 @@ $other .= elgg_view_field([
 ]);
 
 $other .= elgg_view_field([
-	'#type' => 'checkbox',
+	'#type' => 'switch',
 	'#label' => elgg_echo('event_manager:settings:event_mail'),
 	'#help' => elgg_echo('event_manager:settings:event_mail:help'),
 	'name' => 'params[event_mail]',
-	'checked' => (bool) $plugin->event_mail,
-	'switch' => true,
-	'default' => 0,
-	'value' => 1,
+	'value' => $plugin->event_mail,
 ]);
 
 $other .= elgg_view_field([

@@ -27,7 +27,7 @@ return array (
   'event_manager:notification:body' => '%sが新しいイベント%sを作成しました',
   'event_manager:list:live' => 'ライブイベント',
   'event_manager:list:upcoming' => '今後のイベント',
-  'event_manager:list:noresults' => 'イベントは見つかりませんでした',
+  'list:object:event:no_results' => 'イベントは見つかりませんでした',
   'event_manager:list:navigation:live' => 'ライブ',
   'event_manager:list:navigation:upcoming' => '今後',
   'event_manager:list:navigation:calendar' => 'カレンダー',

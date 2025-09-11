@@ -23,7 +23,7 @@ class Entity {
 			return null;
 		}
 		
-		if (!(bool) elgg_get_plugin_setting('event_mail', 'event_manager')) {
+		if (!elgg_get_plugin_setting('event_mail', 'event_manager')) {
 			return null;
 		}
 		

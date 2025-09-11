@@ -14,12 +14,10 @@ echo elgg_view_field([
 ]);
 
 echo elgg_view_field([
-	'#type' => 'checkbox',
+	'#type' => 'switch',
 	'#label' => elgg_echo('widgets:highlighted_events:edit:show_past_events'),
 	'name' => 'params[show_past_events]',
-	'value' => 1,
-	'checked' => (bool) $widget->show_past_events,
-	'switch' => true,
+	'value' => $widget->show_past_events,
 ]);
 ?>
 <script>

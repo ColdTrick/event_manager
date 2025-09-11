@@ -42,14 +42,14 @@ if (empty($rows)) {
 
 $fh = tmpfile();
 
-fputcsv($fh, array_keys($rows[0]), ';');
+fputcsv($fh, array_keys($rows[0]), ';', '"', '\\');
 
 foreach ($rows as $row) {
 	$decoded_rows = array_map(function($row) {
 		return html_entity_decode((string) $row);
 	}, array_values($row));
 	
-	fputcsv($fh, $decoded_rows, ';');
+	fputcsv($fh, $decoded_rows, ';', '"', '\\');
 }
 
 $contents = '';
@@ -60,7 +60,6 @@ while (!feof($fh)) {
 
 fclose($fh);
 
-// create export file
 header('Content-Type: text/csv');
 header('Content-Disposition: Attachment; filename="attendees-' . elgg_get_friendly_title($event->getDisplayName()) . '.csv"');
 header('Content-Length: ' . strlen($contents));

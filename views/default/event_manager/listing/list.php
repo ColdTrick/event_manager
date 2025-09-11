@@ -10,7 +10,7 @@ $options = (array) elgg_extract('options', $vars, []);
 $defaults = [
 	'type' => 'object',
 	'subtype' => \Event::SUBTYPE,
-	'no_results' => elgg_echo('event_manager:list:noresults'),
+	'no_results' => true,
 ];
 
 $options = array_merge($defaults, $options);

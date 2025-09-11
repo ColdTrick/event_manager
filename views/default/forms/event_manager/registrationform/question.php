@@ -36,13 +36,10 @@ $fields = [
 		'disabled' => $disabled,
 	],
 	[
-		'#type' => 'checkbox',
+		'#type' => 'switch',
 		'#label' => elgg_echo('event_manager:registrationform:editquestion:required'),
 		'name' => "questions[{$guid}][required]",
-		'checked' => (bool) $required,
-		'switch' => true,
-		'default' => 0,
-		'value' => 1,
+		'value' => (bool) $required,
 		'disabled' => $disabled,
 	],
 	[

@@ -6,7 +6,7 @@ $event_guids = $widget->event_guids;
 $show_past_events = (bool) $widget->show_past_events;
 
 if (empty($event_guids)) {
-	echo elgg_echo('event_manager:list:noresults');
+	echo elgg_echo('list:object:event:no_results');
 	return;
 }
 
@@ -45,5 +45,5 @@ echo elgg_view_entity_list($sorted_entities, [
 	'full_view' => false,
 	'pagination' => false,
 	'limit' => false,
-	'no_results' => elgg_echo('event_manager:list:noresults'),
+	'no_results' => true,
 ]);

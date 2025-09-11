@@ -15,7 +15,7 @@ return array (
   'event_manager:notification:subject' => 'Uusi tapahtuma: %s',
   'event_manager:notification:summary' => 'Uusi tapahtuma: %s',
   'event_manager:notification:body' => '%s loi uuden tapahtuman %s',
-  'event_manager:list:noresults' => 'Ei tapahtumia',
+  'list:object:event:no_results' => 'Ei tapahtumia',
   'event_manager:list:navigation:onthemap' => 'Kartta',
   'event_manager:edit:title' => 'Luo / Muokkaa tapahtumaa',
   'event_manager:edit:upload:title' => 'Lisää tiedostoja',

@@ -56,7 +56,7 @@ echo elgg_view_field([
 	'#label' => elgg_echo('event_manager:mail:recipients'),
 	'name' => 'recipients',
 	'options_values' => $recipient_options,
-	'value' => elgg_extract('recipients', $vars),
+	'value' => elgg_extract('recipients', $vars, EVENT_MANAGER_RELATION_ATTENDING),
 ]);
 
 $footer = elgg_view_field([

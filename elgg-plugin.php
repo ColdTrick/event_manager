@@ -46,6 +46,7 @@ return [
 				'searchable' => true,
 				'likable' => true,
 				'restorable' => true,
+				'subscribable' => true,
 			],
 		],
 		[
@@ -208,6 +209,9 @@ return [
 		'collection:object:event:group' => [
 			'path' => '/event/group/{guid}',
 			'resource' => 'event/upcoming',
+			'required_plugins' => [
+				'groups',
+			],
 		],
 		'collection:object:event:attendees' => [
 			'path' => '/event/attendees/{guid}/{relationship}',
@@ -354,9 +358,6 @@ return [
 			],
 			'menu:site' => [
 				'\ColdTrick\EventManager\Menus\Site::registerEvents' => [],
-			],
-			'menu:title:object:event' => [
-				\Elgg\Notifications\RegisterSubscriptionMenuItemsHandler::class => [],
 			],
 		],
 		'search:fields' => [

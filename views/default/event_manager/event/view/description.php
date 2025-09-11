@@ -5,7 +5,6 @@ if (!$event instanceof \Event) {
 	return;
 }
 
-// description
 $description = $event->description ?: $event->shortdescription;
 if (empty($description)) {
 	return;

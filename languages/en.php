@@ -20,6 +20,8 @@ return array(
 	'collection:object:eventregistrationquestion' => "Event Registration Questions",
 	'collection:object:eventmail' => "Event Attendees e-mails",
 
+	'list:object:event:no_results' => 'No events found',
+
 	'notification:object:event:create' => "Send a notification when an event is created",
 	'input:container_guid:object:event:info' => "This event will be created in %s",
 	
@@ -44,7 +46,6 @@ return array(
 
 	'event_manager:list:live' => 'Live events',
 	'event_manager:list:upcoming' => 'Upcoming events',
-	'event_manager:list:noresults' => 'No events found',
 
 	'event_manager:list:navigation:live' => 'Live',
 	'event_manager:list:navigation:upcoming' => 'Upcoming',

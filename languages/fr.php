@@ -56,7 +56,7 @@ return array (
   'event_manager:notification:summary' => 'Un événement a été créé: %s',
   'event_manager:notification:body' => '%s a créé un nouvel événement %s',
   'event_manager:list:live' => 'Evènements',
-  'event_manager:list:noresults' => 'Aucuns évènements trouvé',
+  'list:object:event:no_results' => 'Aucuns évènements trouvé',
   'event_manager:list:navigation:calendar' => 'Calendrier',
   'event_manager:list:navigation:onthemap' => 'Sur la carte',
   'event_manager:owner:title' => 'Événements de %s',

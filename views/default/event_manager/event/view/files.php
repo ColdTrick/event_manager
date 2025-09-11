@@ -5,7 +5,6 @@ if (!$event instanceof \Event) {
 	return;
 }
 
-// files
 $event_files = elgg_view_menu('event_files', ['entity' => $event]);
 $can_edit = $event->canEdit();
 if (empty($event_files) && !$can_edit) {

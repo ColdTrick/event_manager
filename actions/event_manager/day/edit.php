@@ -59,6 +59,7 @@ if (!$edit) {
 			'elgg-menu-content',
 		],
 	]);
+
 	$content_title = elgg_format_element('li', [
 		'data-menu-item' => "event_manager_event_view_program-tab-{$day->guid}",
 		'class' => [

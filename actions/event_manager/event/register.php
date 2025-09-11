@@ -187,7 +187,7 @@ if (!elgg_is_logged_in()) {
 	$relation = EVENT_MANAGER_RELATION_ATTENDING_PENDING;
 	$slot_relation = EVENT_MANAGER_RELATION_SLOT_REGISTRATION_PENDING;
 } else {
-	if ($register_type == 'waitinglist') {
+	if ($register_type === 'waitinglist') {
 		$relation = EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST;
 		$slot_relation = EVENT_MANAGER_RELATION_SLOT_REGISTRATION_WAITINGLIST;
 	} else {

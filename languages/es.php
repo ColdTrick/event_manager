@@ -21,7 +21,7 @@ return array (
   'event_manager:notification:summary' => 'Se ha creado un evento: %s',
   'event_manager:notification:body' => '%s creó un nuevo evento %s',
   'event_manager:list:live' => 'Eventos',
-  'event_manager:list:noresults' => 'No se econtraron eventos',
+  'list:object:event:no_results' => 'No se econtraron eventos',
   'event_manager:list:navigation:onthemap' => 'En el mapa',
   'event_manager:full' => 'completo',
   'event_manager:personwaitinglist' => 'persona en la lista de espera',

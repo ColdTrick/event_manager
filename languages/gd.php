@@ -18,7 +18,7 @@ return array (
   'event_manager:list:more:with_tag' => 'Barrachd tachartasan leis an taga: "%s"',
   'event_manager:list:live' => 'Tachartasan beò',
   'event_manager:list:upcoming' => 'Tachartasan san àm ri teachd',
-  'event_manager:list:noresults' => 'Gun tachartas',
+  'list:object:event:no_results' => 'Gun tachartas',
   'event_manager:list:navigation:live' => 'Beò',
   'event_manager:list:navigation:upcoming' => 'San àm ri teachd',
   'event_manager:list:navigation:calendar' => 'Mìosachan',

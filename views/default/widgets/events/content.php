@@ -25,7 +25,7 @@ $event_options = [
 		'direction' => 'ASC',
 		'signed' => true,
 	],
-	'no_results' => elgg_echo('event_manager:list:noresults'),
+	'no_results' => true,
 ];
 
 $tag_filter = $widget->tag ? elgg_string_to_array($widget->tag)[0] : null;

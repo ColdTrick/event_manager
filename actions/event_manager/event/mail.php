@@ -1,7 +1,5 @@
 <?php
 
-elgg_make_sticky_form('event_manager/event/mail');
-
 $guid = (int) get_input('guid');
 $title = get_input('title');
 $description = get_input('description');
@@ -26,7 +24,5 @@ $mail->recipients = $recipients;
 if (!$mail->save()) {
 	return elgg_error_response(elgg_echo('save:fail'));
 }
-
-elgg_clear_sticky_form('event_manager/event/mail');
 
 return elgg_ok_response('', elgg_echo('event_manager:action:event:mail:success'), $entity->getURL());

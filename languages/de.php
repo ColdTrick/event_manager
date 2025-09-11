@@ -25,7 +25,7 @@ return array (
   'event_manager:notification:summary' => 'Es wurde eine Veranstaltung erstellt: %s',
   'event_manager:notification:body' => '%s hat eine neue Veranstaltung erstellt %s',
   'event_manager:list:upcoming' => 'Veranstaltungen',
-  'event_manager:list:noresults' => 'keine Veranstaltungen gefunden',
+  'list:object:event:no_results' => 'keine Veranstaltungen gefunden',
   'event_manager:list:navigation:calendar' => 'Kalender',
   'event_manager:list:navigation:onthemap' => 'Karte',
   'event_manager:owner:title' => '%s\'s Veranstaltungen',
