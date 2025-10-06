@@ -13,14 +13,14 @@ class CreateEventEventHandler extends NotificationEventHandler {
 	 * {@inheritdoc}
 	 */
 	protected function getNotificationSubject(\ElggUser $recipient, string $method): string {
-		return elgg_echo('event_manager:notification:subject', [$this->event->getObject()->getDisplayName()], $recipient->getLanguage());
+		return elgg_echo('event_manager:notification:subject', [$this->event->getObject()->getDisplayName()]);
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function getNotificationSummary(\ElggUser $recipient, string $method): string {
-		return elgg_echo('event_manager:notification:summary', [$this->event->getObject()->getDisplayName()], $recipient->getLanguage());
+		return elgg_echo('event_manager:notification:summary', [$this->event->getObject()->getDisplayName()]);
 	}
 	
 	/**
@@ -32,7 +32,7 @@ class CreateEventEventHandler extends NotificationEventHandler {
 		$body = elgg_echo('event_manager:notification:body', [
 			$this->event->getActor()->getDisplayName(),
 			$entity->getDisplayName(),
-		], $recipient->getLanguage());
+		]);
 		
 		$description = $entity->description;
 		if (!empty($description)) {

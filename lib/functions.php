@@ -126,24 +126,31 @@ function event_manager_validate_registration_validation_code(int $event_guid, in
  * @return void
  */
 function event_manager_send_registration_validation_email(\Event $event, \ElggEntity $entity): void {
-	$language = $entity instanceof \ElggUser ? $entity->getLanguage() : '';
+	$current_language = elgg_get_current_language();
+	$recipient_language = $entity instanceof \ElggUser ? $entity->getLanguage() : $current_language;
+	elgg()->translator->setCurrentLanguage($recipient_language);
 	
-	$subject = elgg_echo('event_manager:registration:confirm:subject', [$event->getDisplayName()], $language);
-	$message = elgg_echo('event_manager:registration:confirm:message', [
+	$subject = elgg_echo('event_manager:registration:confirm:subject', [$event->getDisplayName()]);
+	$body = elgg_echo('event_manager:registration:confirm:message', [
 		$event->getDisplayName(),
 		event_manager_get_registration_validation_url($event->guid, $entity->guid)
-	], $language);
+	]);
 
-	// send confirmation mail
 	if ($entity instanceof \ElggUser) {
-		notify_user($entity->guid, $event->getOwnerGUID(), $subject, $message, null, 'email');
+		$entity->notify('confirm_registration', $event, [
+			'subject' => $subject,
+			'body' => $body,
+			'methods_override' => ['email'],
+		], $event->getOwnerEntity());
 	} else {
 		elgg_send_email(\Elgg\Email::factory([
 			'to' => $entity,
 			'subject' => $subject,
-			'body' => $message,
+			'body' => $body,
 		]));
 	}
+
+	elgg()->translator->setCurrentLanguage($current_language);
 }
 
 /**

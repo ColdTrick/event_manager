@@ -19,7 +19,7 @@ class CreateEventMailEventHandler extends NotificationEventHandler {
 		return elgg_echo('event_manager:mail:notification:subject', [
 			$container->getDisplayName(),
 			$entity->getDisplayName(),
-		], $recipient->getLanguage());
+		]);
 	}
 	
 	/**
@@ -32,7 +32,7 @@ class CreateEventMailEventHandler extends NotificationEventHandler {
 		return elgg_echo('event_manager:mail:notification:body', [
 			$entity->description,
 			$container->getURL(),
-		], $recipient->getLanguage());
+		]);
 	}
 
 	/**

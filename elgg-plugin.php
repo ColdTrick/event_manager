@@ -399,6 +399,7 @@ return [
 		'object' => [
 			'event' => [
 				'create' => \ColdTrick\EventManager\Notifications\CreateEventEventHandler::class,
+				'rsvp_owner' => \ColdTrick\EventManager\Notifications\RsvpOwnerHandler::class,
 			],
 			'eventmail' => [
 				'create' => \ColdTrick\EventManager\Notifications\CreateEventMailEventHandler::class,
