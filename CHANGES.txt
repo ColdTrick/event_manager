@@ -1,6 +1,13 @@
 Version history
 ===============
 
+20.0 (2025-11-13):
+
+- changed: minimal requirement updated to Elgg v6.3
+- changed: notify_user replaced by elgg_notify_user or notificationhandler
+- changed: updated code for Elgg v6.3
+- fixed: PHP implicit null declaration
+
 19.3 (2025-07-30):
 
 - added: support for post_as plugin
