@@ -608,6 +608,7 @@ class Event extends \ElggObject {
 					'summary' => elgg_echo('event_manager:event:registration:notification:user:summary:' . $type, [$this->getDisplayName()]),
 					'subject' => $user_subject,
 					'body' => $user_message,
+					'methods_override' => ['email'],
 				];
 				
 				if (!empty($attachment)) {

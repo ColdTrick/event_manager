@@ -10,7 +10,7 @@ if (!$event instanceof \Event || !$event->canEdit() || (!$object instanceof \Elg
 	return elgg_error_response(elgg_echo('actionunauthorized'));
 }
 
-// check if object has relation ship that can be moved
+// check if object has relationship that can be moved
 $user_relationship = $event->getRelationshipByUser($object->guid);
 
 if (!in_array($user_relationship, [EVENT_MANAGER_RELATION_ATTENDING_PENDING, EVENT_MANAGER_RELATION_ATTENDING_WAITINGLIST])) {
