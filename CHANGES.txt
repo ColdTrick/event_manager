@@ -1,6 +1,10 @@
 Version history
 ===============
 
+20.0.1 (2025-12-04):
+
+- fixed: make sure RSVP notifications are always delivered by mail
+
 20.0 (2025-11-13):
 
 - changed: minimal requirement updated to Elgg v6.3
