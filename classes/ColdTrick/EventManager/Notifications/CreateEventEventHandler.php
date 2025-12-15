@@ -118,7 +118,7 @@ class CreateEventEventHandler extends NotificationEventHandler {
 						'name' => 'notification_queued_ts',
 						'value' => \Elgg\Values::normalizeTime(gmdate('c', $elgg_event->getParam('time')))->setTime(0, 0, 0)->modify('+1 days')->getTimestamp(), // keep inline with scheduling but add 1 day
 						'operand' => '<',
-						'as' => ELGG_VALUE_INTEGER,
+						'type' => ELGG_VALUE_INTEGER,
 					],
 				],
 				'wheres' => [
