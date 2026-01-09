@@ -35,6 +35,7 @@ return [
 		'show_service_outlookcom' => 1,
 		'show_service_outlook' => 1,
 		'show_service_appleical' => 1,
+		'ical_direct' => 1,
 	],
 	'entities' => [
 		[
@@ -168,6 +169,10 @@ return [
 			'path' => '/event/unsubscribe/request/{guid}',
 			'resource' => 'event/unsubscribe/request',
 		],
+		'default:object:event:export' => [
+			'path' => '/event/export/{guid}',
+			'resource' => 'event/export',
+		],
 		'default:object:event:register' => [
 			'path' => '/event/register/{guid}/{relation?}',
 			'resource' => 'event/register',
@@ -225,6 +230,14 @@ return [
 			'path' => '/event',
 			'resource' => 'event/upcoming',
 		],
+		'collection:ical:export' => [
+			'path' => '/event/export/ical',
+			'resource' => 'event/export/ical',
+		],
+		'collection:ical:import' => [
+			'path' => '/event/import/ical',
+			'resource' => 'event/import/ical',
+		],
 		'default:event_manager:calendar' => [
 			'path' => '/event_manager/calendar',
 			'controller' => \ColdTrick\EventManager\Controllers\Calendar::class,
@@ -258,6 +271,9 @@ return [
 		'event_manager/day/edit' => [],
 		
 		'event_manager/delete_program_item' => [],
+
+		'event_manager/export/ical' => [],
+		'event_manager/import/ical' => [],
 	],
 	'widgets' => [
 		'events' => [
@@ -338,6 +354,7 @@ return [
 				'\ColdTrick\EventManager\Menus\Entity::registerAttendeeActions' => [],
 				'\ColdTrick\EventManager\Menus\Entity::registerEventUnsubscribe' => ['priority' => 600],
 				'\ColdTrick\EventManager\Menus\Entity::registerMailAttendees' => [],
+				'\ColdTrick\EventManager\Menus\Entity::registerICalExport' => [],
 			],
 			'menu:event_files' => [
 				'\ColdTrick\EventManager\Menus\EventFiles::registerFiles' => [],

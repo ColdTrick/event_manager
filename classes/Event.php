@@ -1,9 +1,11 @@
 <?php
 
 use Elgg\Database\Clauses\JoinClause;
+use Elgg\Database\Clauses\OrderByClause;
 use Elgg\Database\Delete;
 use Elgg\Database\QueryBuilder;
 use Elgg\Database\Select;
+use Kigkonsult\Icalcreator\Vevent;
 
 /**
  * Event
@@ -33,6 +35,8 @@ use Elgg\Database\Select;
  * @property bool   $waiting_list_enabled      is a waitling list enabled
  * @property string $website                   event website
  * @property bool   $with_program              has a program
+ * @property mixed  $starttime                 start time of event
+ * @property mixed  $endtime                   end time of event
  */
 class Event extends \ElggObject {
 	
@@ -1106,6 +1110,28 @@ class Event extends \ElggObject {
 	}
 
 	/**
+	 * Fetches all attendees of this event
+	 *
+	 * @return ElggUser[]
+	 */
+	public function getAttendees(): array {
+		$options = [
+			'type' => 'user', // trigger search fields generation
+			'type_subtype_pairs' => [
+				'user' => ELGG_ENTITIES_ANY_VALUE,
+				'object' => [
+					EventRegistration::SUBTYPE,
+				],
+			],
+			'relationship_guid' => $this->guid,
+			'relationship' => 'event_attending',
+			'no_results' => true,
+			'order_by' => new OrderByClause('r.time_created', 'DESC'),
+		];
+		return elgg_get_entities($options);
+	}
+
+	/**
 	 * Counts the waiters
 	 *
 	 * @return int
@@ -1158,5 +1184,130 @@ class Event extends \ElggObject {
 		$options['limit'] = false;
 		
 		return elgg_get_entities($options);
+	}
+
+	/**
+	 * Returns the VEvent representation of this event.
+	 *
+	 * @return Vevent
+	 * @throws Exception
+	 */
+	public function toVEvent(): Vevent {
+		$timezone = \Kigkonsult\Icalcreator\Util\DateTimeZoneFactory::factory(date_default_timezone_get());
+		$dtstart = DateTimeImmutable::createFromFormat('Y-m-d\\TH:i:s', $this->getStartDate('Y-m-d\\TH:i:s'), $timezone);
+		$dtend = DateTimeImmutable::createFromFormat('Y-m-d\\TH:i:s', $this->getEndDate('Y-m-d\\TH:i:s'), $timezone);
+		/** @noinspection PhpUnhandledExceptionInspection */
+		$vevent = Vevent::factory(
+			null,
+			$dtstart,
+			$dtend,
+			null,
+			$this->title
+		)
+			->setDescription($this->shortdescription)
+			->setDtstamp(DateTimeImmutable::createFromFormat('c', $this->getTimeCreated()))
+			->setComment($this->description)
+			->setLocation($this->location);
+
+		$organizers = $this->getOrganizers();
+		if (count($organizers) > 0 && isset($organizers[0]->email)) {
+			$vevent->setOrganizer($organizers[0]->email);
+		}
+
+		if ($this->countAttendees() > 0) {
+			foreach ($this->getAttendees() as $attendee) {
+				$vevent->setAttendee($attendee->email);
+			}
+		}
+
+		foreach ($this->getContacts() as $contact) {
+			if ($contact instanceof ElggUser && isset($contact->email)) {
+				$vevent->setContact($contact->email);
+			}
+		}
+
+		if ($this->website) {
+			$vevent->setXprop('X-WEBSITE', $this->website);
+		}
+
+		if ($this->region) {
+			$vevent->setXprop('X-PROP-REGION', $this->region);
+		}
+
+		if ($this->venue) {
+			$vevent->setXprop('X-PROP-VENUE', $this->venue);
+		}
+
+		if ($this->event_type) {
+			$vevent->setXprop('X-PROP-TYPE', $this->event_type);
+		}
+
+		return $vevent;
+	}
+
+	/**
+	 * Generates a new event based on an iCal Vevent
+	 *
+	 * @param Vevent $vevent Source iCal Vevent to convert
+	 * @return Event
+	 * @throws Exception
+	 */
+	public static function fromVEvent(Vevent $vevent): Event {
+		$event = new Event();
+		$event->event_start = $vevent->getDtstart()->getTimestamp() + $vevent->getDtstart()->getOffset();
+		$event->event_end = $vevent->getDtend()->getTimestamp() + $vevent->getDtend()->getOffset();
+		$event->title = $vevent->getSummary();
+		$event->shortdescription = $vevent->getDescription();
+		$event->description = $vevent->getComment();
+		$event->location = $vevent->getLocation();
+
+		if ($vevent->isOrganizerSet()) {
+			$organizer = elgg_get_user_by_email($vevent->getOrganizer());
+			if (is_null($organizer)) {
+				$event->organizer = $vevent->getOrganizer();
+			} else {
+				$event->organizer_guids = [$organizer->guid];
+			}
+		}
+
+		if ($vevent->isAttendeeSet()) {
+			foreach ($vevent->getAllAttendee() as $attendee) {
+				$attendee_object = elgg_get_user_by_email($attendee);
+				if (!is_null($attendee_object)) {
+					$event->addRelationship($attendee_object->guid, 'event_attending');
+				}
+			}
+		}
+
+		if ($vevent->isContactSet()) {
+			foreach ($vevent->getAllContact() as $contact) {
+				$contact_object = elgg_get_user_by_email($contact);
+				if (!is_null($contact_object)) {
+					if (!is_array($event->contact_guids)) {
+						$event->contact_guids = [];
+					}
+
+					$event->contact_guids[] = $contact_object->guid;
+				}
+			}
+		}
+
+		if ($vevent->isXpropSet('X-WEBSITE')) {
+			$event->website = $vevent->getXprop('X-WEBSITE')[1];
+		}
+
+		if ($vevent->isXpropSet('X-PROP-REGION')) {
+			$event->region = $vevent->getXprop('X-PROP-REGION')[1];
+		}
+
+		if ($vevent->isXpropSet('X-PROP-VENUE')) {
+			$event->venue = $vevent->getXprop('X-PROP-VENUE')[1];
+		}
+
+		if ($vevent->isXpropSet('X-PROP-TYPE')) {
+			$event->event_type = $vevent->getXprop('X-PROP-TYPE')[1];
+		}
+
+		return $event;
 	}
 }
