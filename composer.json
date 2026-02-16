@@ -12,7 +12,7 @@
 	"require": {
 		"dompdf/dompdf" : "~3.1.0",
 		"npm-asset/fullcalendar": "~6.1.0",
-		"kigkonsult/icalcreator": "~2.41"
+		"kigkonsult/icalcreator": "^2.41"
 	},
 	"repositories": [
 		{
@@ -27,5 +27,8 @@
 	},
 	"conflict": {
 		"elgg/elgg": "<6.3.1"
+	},
+	"require-dev": {
+		"elgg/sniffs": "dev-master"
 	}
 }
