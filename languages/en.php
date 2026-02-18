@@ -473,6 +473,12 @@ To view the event, click here:
     'event_manager:ical_direct:export:type' => 'Type',
     'event_manager:ical_direct:export:type:help' => 'Select one or more event types to filter for',
     'event_manager:ical_direct:export:submit' => 'Export',
+	'event_manager:ical_direct:export:errors:groupempty' => 'No group specified',
+	'event_manager:ical_direct:export:errors:ownerempty' => 'No owner specified',
+	'event_manager:ical_direct:export:errors:ownermismatch' => 'You need to be an administrator to export other user\'s calendars',
+	'event_manager:ical_direct:export:errors:errorinstantiatingcalendar' => 'Error instantiating calendar: %s',
+	'event_manager:ical_direct:export:errors:erroraddingevent' => 'Error adding event to calendar: %s',
+	'event_manager:ical_direct:export:errors:errorcreatingcalendar' => 'Error creating calendar: %s',
 
     'event_manager:ical_direct:import' => 'Import iCal',
     'event_manager:ical_direct:import:calendar_type' => 'Calendar',
@@ -485,6 +491,14 @@ To view the event, click here:
     'event_manager:ical_direct:import:file:help' => 'ICS file to import',
     'event_manager:ical_direct:import:submit' => 'Import',
     'event_manager:ical_direct:import:success' => 'Successfully imported %d entries',
-    'event_manager:ical_direct:import:failure' => 'Could not import calendar file: %s',
+	'event_manager:ical_direct:import:errors:groupempty' => 'No group specified',
+	'event_manager:ical_direct:import:errors:invalidgroup' => 'Invalid group specified',
+	'event_manager:ical_direct:import:errors:ownerempty' => 'No owner specified',
+	'event_manager:ical_direct:import:errors:invalidowner' => 'Invalid owner specified',
+	'event_manager:ical_direct:import:errors:ownermismatch' => 'You need to be an administrator to import other user\'s calendars',
+	'event_manager:ical_direct:import:errors:grouppermission' => 'You need to be an administrator or be able to write to the target group',
+	'event_manager:ical_direct:import:errors:errorinstantiatingcalendar' => 'Error instantiating calendar: %s',
+	'event_manager:ical_direct:import:errors:errorconvertingevent' => 'Error converting to event: %s',
+	'event_manager:ical_direct:import:errors:errorpparsingcalendar' => 'Error parsing calendar file: %s',
 
 );

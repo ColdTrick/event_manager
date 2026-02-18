@@ -1270,15 +1270,6 @@ class Event extends \ElggObject {
 			}
 		}
 
-		if ($vevent->isAttendeeSet()) {
-			foreach ($vevent->getAllAttendee() as $attendee) {
-				$attendee_object = elgg_get_user_by_email($attendee);
-				if (!is_null($attendee_object)) {
-					$event->addRelationship($attendee_object->guid, 'event_attending');
-				}
-			}
-		}
-
 		if ($vevent->isContactSet()) {
 			foreach ($vevent->getAllContact() as $contact) {
 				$contact_object = elgg_get_user_by_email($contact);

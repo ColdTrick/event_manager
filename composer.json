@@ -27,8 +27,5 @@
 	},
 	"conflict": {
 		"elgg/elgg": "<6.3.1"
-	},
-	"require-dev": {
-		"elgg/sniffs": "dev-master"
 	}
 }
