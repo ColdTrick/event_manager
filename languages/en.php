@@ -500,5 +500,6 @@ To view the event, click here:
 	'event_manager:ical_direct:import:errors:errorinstantiatingcalendar' => 'Error instantiating calendar: %s',
 	'event_manager:ical_direct:import:errors:errorconvertingevent' => 'Error converting to event: %s',
 	'event_manager:ical_direct:import:errors:errorpparsingcalendar' => 'Error parsing calendar file: %s',
+	'event_manager:ical_direct:import:errors:missingfile' => 'Missing iCal file',
 
 );

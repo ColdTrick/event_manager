@@ -10,6 +10,10 @@ $owner = (array) get_input('owner');
 $group = (array) get_input('group');
 $file = elgg_get_uploaded_file('import');
 
+if (!$file) {
+	return elgg_error_response(elgg_echo('event_manager:ical_direct:import:errors:missingfile'));
+}
+
 try {
 	$vcalendar = Vcalendar::factory(
 		[
