@@ -35,7 +35,7 @@ class RsvpOwnerHandler extends InstantNotificationEventHandler {
 	 */
 	protected function getNotificationBody(\ElggUser $recipient, string $method): string {
 		return elgg_echo('event_manager:event:registration:notification:owner:text:' . $this->getParam('rsvp_type'), [
-			$this->getEventEntity()?->getDisplayName(),
+			$this->getEventActor()?->getDisplayName(),
 			(string) $this->getParam('event_title_link'),
 		]) . $this->getParam('registration_link');
 	}
