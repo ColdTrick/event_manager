@@ -60,7 +60,7 @@ foreach ($service_links as $service) {
 
 	echo elgg_format_element('td', [
 		'class' => 'event-manager-email-addevent event-manager-email-addevent-' . $service,
-	], elgg_view_url(elgg_http_add_url_query_elements('https://addevent.com/dir/', $url_params), elgg_echo('event_manager:addevent:mail:service:' . $service)));
+	], elgg_view_url(elgg_http_add_url_query_elements('https://dynamic.addevent.com/dir/', $url_params), elgg_echo('event_manager:addevent:mail:service:' . $service)));
 }
 
 echo '</tr></table>';

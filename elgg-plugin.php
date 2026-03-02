@@ -28,7 +28,7 @@ return [
 		'who_create_group_events' => 'members',
 		'rsvp_interested' => 'yes',
 		'event_mail' => 0,
-		'add_event_to_calendar' => 'yes',
+		'add_event_to_calendar' => 'no',
 		'show_service_google' => 1,
 		'show_service_yahoo' => 1,
 		'show_service_office365' => 1,

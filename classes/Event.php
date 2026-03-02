@@ -582,7 +582,7 @@ class Event extends \ElggObject {
 				$description .= $this->getExcerpt(500) . PHP_EOL . PHP_EOL;
 				$description .= $this->getURL();
 				
-				$attachment_url = elgg_http_add_url_query_elements('https://www.addevent.com/dir/', [
+				$attachment_url = elgg_http_add_url_query_elements('https://dynamic.addevent.com/dir/', [
 					'client' => elgg_get_plugin_setting('add_event_license', 'event_manager'),
 					'service' => 'stream',
 					
