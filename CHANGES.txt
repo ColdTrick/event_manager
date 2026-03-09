@@ -1,6 +1,11 @@
 Version history
 ===============
 
+20.0.3 (2026-03-09):
+
+- changed: updated addevent dynamic links
+- fixed: use correct subscriber entity in rsvp mail body
+
 20.0.2 (2025-12-19):
 
 - fix: correctly sort notification queue
