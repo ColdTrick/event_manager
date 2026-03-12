@@ -1110,28 +1110,6 @@ class Event extends \ElggObject {
 	}
 
 	/**
-	 * Fetches all attendees of this event
-	 *
-	 * @return ElggUser[]
-	 */
-	public function getAttendees(): array {
-		$options = [
-			'type' => 'user', // trigger search fields generation
-			'type_subtype_pairs' => [
-				'user' => ELGG_ENTITIES_ANY_VALUE,
-				'object' => [
-					EventRegistration::SUBTYPE,
-				],
-			],
-			'relationship_guid' => $this->guid,
-			'relationship' => 'event_attending',
-			'no_results' => true,
-			'order_by' => new OrderByClause('r.time_created', 'DESC'),
-		];
-		return elgg_get_entities($options);
-	}
-
-	/**
 	 * Counts the waiters
 	 *
 	 * @return int
@@ -1215,7 +1193,19 @@ class Event extends \ElggObject {
 		}
 
 		if ($this->countAttendees() > 0) {
-			foreach ($this->getAttendees() as $attendee) {
+			/** @var ElggUser[] $attendees */
+			$attendees = elgg_get_entities([
+				'type' => 'user', // trigger search fields generation
+				'type_subtype_pairs' => [
+					'user' => ELGG_ENTITIES_ANY_VALUE,
+					'object' => [
+						EventRegistration::SUBTYPE,
+					],
+				],
+				'relationship_guid' => $this->guid,
+				'relationship' => 'event_attending',
+			]);
+			foreach ($attendees as $attendee) {
 				$vevent->setAttendee($attendee->email);
 			}
 		}
