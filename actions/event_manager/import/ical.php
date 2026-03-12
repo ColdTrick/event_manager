@@ -47,12 +47,11 @@ foreach ($vcalendar->getComponents('Vevent') as $component) {
 			}
 
 			$group_guid = $group[0];
-			$group = get_entity($group_guid);
-			if (!$group instanceof \ElggGroup) {
+			if (!get_entity($group_guid) instanceof \ElggGroup) {
 				return elgg_error_response(elgg_echo('event_manager:ical_direct:import:errors:invalidgroup'));
 			}
 
-			if (elgg_is_admin_logged_in() || $group->canWriteToContainer(elgg_get_logged_in_user_guid())) {
+			if (!elgg_is_admin_logged_in() && !$group->canWriteToContainer(elgg_get_logged_in_user_guid())) {
 				return elgg_error_response(elgg_echo('event_manager:ical_direct:import:errors:grouppermission'));
 			}
 
@@ -64,12 +63,11 @@ foreach ($vcalendar->getComponents('Vevent') as $component) {
 			}
 
 			$owner_guid = $owner[0];
-			$owner = get_entity($owner_guid);
-			if (!$owner instanceof \ElggUser) {
+			if (!get_entity($owner_guid) instanceof \ElggUser) {
 				return elgg_error_response(elgg_echo('event_manager:ical_direct:import:errors:invalidgroup'));
 			}
 
-			if (elgg_is_admin_logged_in() || $owner_guid === elgg_get_logged_in_user_guid()) {
+			if (!elgg_is_admin_logged_in() && (int) $owner_guid !== elgg_get_logged_in_user_guid()) {
 				return elgg_error_response(elgg_echo('event_manager:ical_direct:import:errors:ownermismatch'));
 			}
 

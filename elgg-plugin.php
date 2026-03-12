@@ -119,6 +119,8 @@ return [
 		'event_manager/forms/program/day' => ['ajax' => true],
 		'event_manager/forms/program/slot' => ['ajax' => true],
 		'forms/event_manager/event/copy' => ['ajax' => true],
+		'forms/event_manager/export/ical' => ['ajax' => true],
+		'forms/event_manager/import/ical' => ['ajax' => true]
 	],
 	'routes' => [
 		'add:object:event' => [
@@ -229,14 +231,6 @@ return [
 		'default:object:event' => [
 			'path' => '/event',
 			'resource' => 'event/upcoming',
-		],
-		'collection:ical:export' => [
-			'path' => '/event/export/ical',
-			'resource' => 'event/export/ical',
-		],
-		'collection:ical:import' => [
-			'path' => '/event/import/ical',
-			'resource' => 'event/import/ical',
 		],
 		'default:event_manager:calendar' => [
 			'path' => '/event_manager/calendar',
@@ -376,6 +370,9 @@ return [
 			'menu:site' => [
 				'\ColdTrick\EventManager\Menus\Site::registerEvents' => [],
 			],
+			'menu:title' => [
+				'\ColdTrick\EventManager\Menus\Title::registerICal' => [],
+			]
 		],
 		'search:fields' => [
 			'object:event' => [

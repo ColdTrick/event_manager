@@ -1255,7 +1255,12 @@ class Event extends \ElggObject {
 	public static function fromVEvent(Vevent $vevent): Event {
 		$event = new Event();
 		$event->event_start = $vevent->getDtstart()->getTimestamp() + $vevent->getDtstart()->getOffset();
-		$event->event_end = $vevent->getDtend()->getTimestamp() + $vevent->getDtend()->getOffset();
+		if ($vevent->getDtend() == null || $vevent->getDtend()->getTimestamp() < $vevent->getDtstart()->getTimestamp()) {
+			$event->event_end = $event->event_start;
+		} else {
+			$event->event_end = $vevent->getDtend()->getTimestamp() + $vevent->getDtend()->getOffset();
+		}
+
 		$event->title = $vevent->getSummary();
 		$event->shortdescription = $vevent->getDescription();
 		$event->description = $vevent->getComment();

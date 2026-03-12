@@ -1,6 +1,6 @@
 <?php
 
-elgg_import_esm('forms/event_manager/export/ical');
+elgg_import_esm('forms/event_manager/icalFormTool');
 
 $list_route = get_input('list_route');
 $route_parameters = get_input('route_parameters');
@@ -53,6 +53,7 @@ echo elgg_view_field([
 	'name' => 'owner',
 	'limit' => 1,
 	'values' => [$owner],
+	'#class' => $calendar_type_selected != 'owner' ? ['hidden'] : [],
 ]);
 
 
@@ -70,6 +71,7 @@ echo elgg_view_field([
 	'name' => 'group',
 	'limit' => 1,
 	'values' => [$group],
+	'#class' => $calendar_type_selected != 'group' ? ['hidden'] : [],
 ]);
 
 // Filter timespan

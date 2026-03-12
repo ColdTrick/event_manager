@@ -22,8 +22,8 @@ if (empty($end_date)) {
 $region = (string) get_input('region');
 $event_type = (string) get_input('event_type');
 
-$owner = (string) get_input('owner');
-$group = (string) get_input('group');
+$owner = (array) get_input('owner');
+$group = (array) get_input('group');
 
 $options = [
 	'types' => ['object'],
@@ -64,14 +64,14 @@ switch ($calendar_type) {
 			return elgg_error_response(elgg_echo('event_manager:ical_direct:export:errors:groupempty'));
 		}
 
-		$options['container_guids'] = [$group];
+		$options['container_guids'] = $group;
 		break;
 	case 'owner':
 		if (empty($owner)) {
 			return elgg_error_response(elgg_echo('event_manager:ical_direct:export:errors:ownerempty'));
 		}
 
-		if (elgg_is_admin_logged_in() || $owner === elgg_get_logged_in_user_guid()) {
+		if (!elgg_is_admin_logged_in() && (int) $owner[0] !== elgg_get_logged_in_user_guid()) {
 			return elgg_error_response(elgg_echo('event_manager:ical_direct:export:errors:ownermismatch'));
 		}
 

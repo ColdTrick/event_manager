@@ -75,29 +75,6 @@ class Filter {
 				'priority' => 400,
 			]);
 		}
-
-		if (elgg_get_plugin_setting('ical_direct', 'event_manager')) {
-			$result[] = \ElggMenuItem::factory([
-				'name' => 'export-ical',
-				'text' => elgg_echo('event_manager:ical_direct:export'),
-				'href' => elgg_http_add_url_query_elements(elgg_generate_url('collection:ical:export'), [
-					'list_route' => elgg_get_current_route_name(),
-					'route_parameters' => elgg_get_current_route()->getMatchedParameters(),
-				]),
-				'priority' => 500,
-				'selected' => $selected === 'export-ical',
-			]);
-			$result[] = \ElggMenuItem::factory([
-				'name' => 'import-ical',
-				'text' => elgg_echo('event_manager:ical_direct:import'),
-				'href' => elgg_http_add_url_query_elements(elgg_generate_url('collection:ical:import'), [
-					'list_route' => elgg_get_current_route_name(),
-					'route_parameters' => elgg_get_current_route()->getMatchedParameters(),
-				]),
-				'priority' => 500,
-				'selected' => $selected === 'import-ical',
-			]);
-		}
 		
 		return $result;
 	}
