@@ -40,6 +40,7 @@ if (empty($organizer_guids)) {
 $output .= elgg_view_field([
 	'#type' => 'userpicker',
 	'#label' => elgg_echo('event_manager:edit:form:organizer_guids'),
+	'#help' => elgg_echo('event_manager:edit:form:organizer_guids:help'),
 	'#class' => $field_classes,
 	'name' => 'organizer_guids',
 	'values' => $organizer_guids,

@@ -81,6 +81,7 @@ return array(
 	'event_manager:edit:form:users:or' => 'or',
 	'event_manager:edit:form:users:add' => 'add user',
 	'event_manager:edit:form:organizer_guids' => 'Select organizing users',
+	'event_manager:edit:form:organizer_guids:help' => 'Organizing users also get the right to manage this event',
 	'event_manager:edit:form:contact_guids' => 'Select contactpersons',
 	'event_manager:event:edit:maps_address' => 'Address',
 	'event_manager:edit:form:region' => 'Region',

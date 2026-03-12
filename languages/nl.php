@@ -102,6 +102,7 @@ Om het evenement te bekijken, klik hier:
   'event_manager:edit:form:users:or' => 'of',
   'event_manager:edit:form:users:add' => 'gebruiker toevoegen',
   'event_manager:edit:form:organizer_guids' => 'Selecteer organiserende gebruikers',
+  'event_manager:edit:form:organizer_guids:help' => 'Organiserende gebruikers krijgen ook de rechten om dit evenement te beheren',
   'event_manager:edit:form:contact_guids' => 'Selecteer contactpersonen',
   'event_manager:edit:form:fee_details' => 'Betalingsinstructies',
   'event_manager:edit_program:title' => 'Bewerk het programma van het evenement',

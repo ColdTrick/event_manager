@@ -328,6 +328,11 @@ return [
 				'\ColdTrick\EventManager\Widgets::registerHandlers' => [],
 			],
 		],
+		'permissions_check' => [
+			'object' => [
+				'\ColdTrick\EventManager\Permissions::organizersCanEdit' => [],
+			],
+		],
 		'prepare' => [
 			'system:email' => [
 				'\ColdTrick\EventManager\Notifications::prepareEventRegistrationSender' => [],
