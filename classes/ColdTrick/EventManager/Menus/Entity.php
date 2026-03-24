@@ -35,7 +35,7 @@ class Entity {
 			'text' => elgg_echo('event_manager:menu:mail'),
 			'href' => elgg_generate_entity_url($entity, 'mail'),
 		]);
-		
+
 		return $result;
 	}
 	
@@ -173,10 +173,7 @@ class Entity {
 			'name' => 'ical-export',
 			'icon' => 'calendar-plus',
 			'text' => elgg_echo('event_manager:ical_direct:export'),
-			'href' => elgg_generate_url('default:object:event:export', [
-				'guid' => $entity->guid,
-				'view' => 'ical'
-			]),
+			'href' => elgg_generate_action_url('event_manager/export/ical', ['event_id' => $entity->guid]),
 			'priority' => 300,
 		]);
 		

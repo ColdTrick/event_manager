@@ -171,10 +171,6 @@ return [
 			'path' => '/event/unsubscribe/request/{guid}',
 			'resource' => 'event/unsubscribe/request',
 		],
-		'default:object:event:export' => [
-			'path' => '/event/export/{guid}',
-			'resource' => 'event/export',
-		],
 		'default:object:event:register' => [
 			'path' => '/event/register/{guid}/{relation?}',
 			'resource' => 'event/register',
