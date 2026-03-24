@@ -351,4 +351,6 @@ Falls du dich nicht f&uuml;r diese Veranstaltung angemeldet hast, kannst du dies
   'event_manager:ical_direct:import:errors:errorconvertingevent' => 'Fehler bei der Konvertierung eines Events: %s',
   'event_manager:ical_direct:import:errors:errorpparsingcalendar' => 'Fehler beim Parsen der iCal-Datei: %s',
   'event_manager:ical_direct:import:errors:missingfile' => 'Fehlende iCal-Datei',
+  'event_manager:ical_direct_import:errors:unknownregion' => 'Region %s unbekannt. Bitte füge sie zur Liste der Regionen hinzu.',
+
 );

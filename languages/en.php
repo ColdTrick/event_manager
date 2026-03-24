@@ -501,5 +501,6 @@ To view the event, click here:
 	'event_manager:ical_direct:import:errors:errorconvertingevent' => 'Error converting to event: %s',
 	'event_manager:ical_direct:import:errors:errorpparsingcalendar' => 'Error parsing calendar file: %s',
 	'event_manager:ical_direct:import:errors:missingfile' => 'Missing iCal file',
+	'event_manager:ical_direct_import:errors:unknownregion' => 'Region %s unknown. Please add it to the list of regions.',
 
 );

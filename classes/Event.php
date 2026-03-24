@@ -1283,6 +1283,13 @@ class Event extends \ElggObject {
 		}
 
 		if ($vevent->isXpropSet('X-PROP-REGION')) {
+			$region = $vevent->getXprop('X-PROP-REGION')[1];
+			$region_settings = trim((string) elgg_get_plugin_setting('region_list', 'event_manager'));
+			$region_list = explode(',', $region_settings);
+			if (!in_array($region, $region_list)) {
+				throw new Exception(elgg_echo('event_manager:ical_direct_import:errors:unknownregion', [$region]));
+			}
+
 			$event->region = $vevent->getXprop('X-PROP-REGION')[1];
 		}
 
