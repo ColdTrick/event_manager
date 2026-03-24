@@ -76,7 +76,7 @@ $maps .= elgg_view_field([
 echo elgg_view_module('info', elgg_echo('event_manager:settings:maps'), $maps);
 
 // iCal direct features
-$ical_direct .= elgg_view_field([
+$ical_direct = elgg_view_field([
 	'#type' => 'switch',
 	'#label' => elgg_echo('event_manager:settings:ical_direct:enable'),
 	'#help' => elgg_echo('event_manager:settings:ical_direct:enable:help'),
