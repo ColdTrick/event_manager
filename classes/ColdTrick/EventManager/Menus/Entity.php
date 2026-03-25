@@ -35,7 +35,7 @@ class Entity {
 			'text' => elgg_echo('event_manager:menu:mail'),
 			'href' => elgg_generate_entity_url($entity, 'mail'),
 		]);
-		
+
 		return $result;
 	}
 	
@@ -143,6 +143,37 @@ class Entity {
 			'href' => elgg_generate_url('default:object:event:unsubscribe:request', [
 				'guid' => $entity->guid,
 			]),
+			'priority' => 300,
+		]);
+		
+		return $result;
+	}
+
+	/**
+	 * Adds menu items to the event entity menu for exporting it to ical
+	 *
+	 * @param \Elgg\Event $event 'register', 'menu:entity'
+	 *
+	 * @return null|MenuItems
+	 */
+	public static function registerICalExport(\Elgg\Event $event): ?MenuItems {
+		$entity = $event->getEntityParam();
+		if (!$entity instanceof \Event) {
+			return null;
+		}
+
+		if (!elgg_get_plugin_setting('ical_direct', 'event_manager')) {
+			return null;
+		}
+		
+		// show an ical export link
+		$result = $event->getValue();
+		
+		$result[] = \ElggMenuItem::factory([
+			'name' => 'ical-export',
+			'icon' => 'calendar-plus',
+			'text' => elgg_echo('event_manager:ical_direct:export'),
+			'href' => elgg_generate_action_url('event_manager/export/ical', ['event_id' => $entity->guid]),
 			'priority' => 300,
 		]);
 		

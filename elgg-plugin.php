@@ -35,6 +35,7 @@ return [
 		'show_service_outlookcom' => 1,
 		'show_service_outlook' => 1,
 		'show_service_appleical' => 1,
+		'ical_direct' => 1,
 	],
 	'entities' => [
 		[
@@ -118,6 +119,8 @@ return [
 		'event_manager/forms/program/day' => ['ajax' => true],
 		'event_manager/forms/program/slot' => ['ajax' => true],
 		'forms/event_manager/event/copy' => ['ajax' => true],
+		'forms/event_manager/export/ical' => ['ajax' => true],
+		'forms/event_manager/import/ical' => ['ajax' => true]
 	],
 	'routes' => [
 		'add:object:event' => [
@@ -258,6 +261,9 @@ return [
 		'event_manager/day/edit' => [],
 		
 		'event_manager/delete_program_item' => [],
+
+		'event_manager/export/ical' => [],
+		'event_manager/import/ical' => [],
 	],
 	'widgets' => [
 		'events' => [
@@ -343,6 +349,7 @@ return [
 				'\ColdTrick\EventManager\Menus\Entity::registerAttendeeActions' => [],
 				'\ColdTrick\EventManager\Menus\Entity::registerEventUnsubscribe' => ['priority' => 600],
 				'\ColdTrick\EventManager\Menus\Entity::registerMailAttendees' => [],
+				'\ColdTrick\EventManager\Menus\Entity::registerICalExport' => [],
 			],
 			'menu:event_files' => [
 				'\ColdTrick\EventManager\Menus\EventFiles::registerFiles' => [],
@@ -364,6 +371,9 @@ return [
 			'menu:site' => [
 				'\ColdTrick\EventManager\Menus\Site::registerEvents' => [],
 			],
+			'menu:title' => [
+				'\ColdTrick\EventManager\Menus\Title::registerICal' => [],
+			]
 		],
 		'search:fields' => [
 			'object:event' => [

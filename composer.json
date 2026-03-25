@@ -11,7 +11,8 @@
 	},
 	"require": {
 		"dompdf/dompdf" : "~3.1.0",
-		"npm-asset/fullcalendar": "~6.1.0"
+		"npm-asset/fullcalendar": "~6.1.0",
+		"kigkonsult/icalcreator": "^2.41"
 	},
 	"repositories": [
 		{
