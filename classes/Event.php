@@ -1240,7 +1240,6 @@ class Event extends \ElggObject {
 	 *
 	 * @param Vevent $vevent Source iCal Vevent to convert
 	 * @return Event
-	 * @throws Exception
 	 */
 	public static function fromVEvent(Vevent $vevent): Event {
 		$event = new Event();

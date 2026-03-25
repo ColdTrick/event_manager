@@ -65,20 +65,10 @@ try {
 }
 
 $event_counter = 0;
-$skipped_events = 0;
 
 /** @var Vevent $component */
 foreach ($vcalendar->getComponents('Vevent') as $component) {
-	try {
-		$event = Event::fromVEvent($component);
-	} catch (Exception $e) {
-		elgg_log(
-			elgg_echo('event_manager:ical_direct:import:errors:errorconvertingevent', [$e]),
-			\Psr\Log\LogLevel::ERROR
-		);
-		$skipped_events++;
-		continue;
-	}
+	$event = Event::fromVEvent($component);
 
 	switch ($calendar_type) {
 		case 'group':
@@ -94,9 +84,6 @@ foreach ($vcalendar->getComponents('Vevent') as $component) {
 }
 
 $message = elgg_echo('event_manager:ical_direct:import:success', [$event_counter]);
-if ($skipped_events > 0) {
-	$message = elgg_echo('event_manager:ical_direct:import:warning', [$event_counter, $skipped_events]);
-}
 
 return elgg_ok_response(
 	'',
