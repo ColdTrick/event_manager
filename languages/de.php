@@ -341,6 +341,7 @@ Falls du dich nicht f&uuml;r diese Veranstaltung angemeldet hast, kannst du dies
   'event_manager:ical_direct:import:file:help' => 'ICS-Datei für den Import',
   'event_manager:ical_direct:import:submit' => 'Importieren',
   'event_manager:ical_direct:import:success' => '%d Einträge erfolgreich importiert',
+  'event_manager:ical_direct:import:warning' => '%d Einträge importiert. %d Einträge wurden übersprungen.',
   'event_manager:ical_direct:import:errors:groupempty' => 'Keine Gruppe angegeben',
   'event_manager:ical_direct:import:errors:invalidgroup' => 'Ungültige Gruppe angegeben',
   'event_manager:ical_direct:import:errors:ownerempty' => 'Kein Besitzer angegeben',
