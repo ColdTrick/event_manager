@@ -1,5 +1,8 @@
 <?php
 
+use Kigkonsult\Icalcreator\IcalInterface;
+use Kigkonsult\Icalcreator\Vcalendar;
+
 /** @var Event[] $events */
 $events = [];
 
@@ -28,12 +31,14 @@ if (empty($event_id)) {
 	$region = (string) get_input('region');
 	$event_type = (string) get_input('event_type');
 
-	$owner = (array) get_input('owner');
-	$group = (array) get_input('group');
+	$owner = get_input('owner');
+	$group = get_input('group');
 
 	$options = [
-		'types' => ['object'],
-		'subTypes' => [Event::SUBTYPE],
+		'type' => 'object',
+		'subtype' => \Event::SUBTYPE,
+		'limit' => false,
+		'batch' => true,
 		'metadata_name_value_pairs' => [
 			[
 				'name' => 'event_start',
@@ -77,11 +82,11 @@ if (empty($event_id)) {
 				return elgg_error_response(elgg_echo('event_manager:ical_direct:export:errors:ownerempty'));
 			}
 
-			if (!elgg_is_admin_logged_in() && (int) $owner[0] !== elgg_get_logged_in_user_guid()) {
+			if (!elgg_is_admin_logged_in() && (int) elgg_extract(0, $owner) !== elgg_get_logged_in_user_guid()) {
 				return elgg_error_response(elgg_echo('event_manager:ical_direct:export:errors:ownermismatch'));
 			}
 
-			$options['owner_guids'] = [$owner];
+			$options['owner_guids'] = $owner;
 			break;
 	}
 
@@ -95,15 +100,10 @@ if (empty($event_id)) {
 	$events = [$event];
 }
 
-use Kigkonsult\Icalcreator\IcalInterface;
-use Kigkonsult\Icalcreator\Vcalendar;
-
 try {
-	$vcalendar = Vcalendar::factory(
-		[
-			IcalInterface::UNIQUE_ID => 'https://github.com/ColdTrick/event_manager',
-		]
-	)
+	$vcalendar = Vcalendar::factory([
+		IcalInterface::UNIQUE_ID => 'https://github.com/ColdTrick/event_manager',
+	])
 		->setMethod(IcalInterface::PUBLISH)
 		->setXprop(IcalInterface::X_WR_CALNAME, 'Exported event')
 		->setXprop(IcalInterface::X_WR_CALDESC, 'Exported events from event_manager')

@@ -453,9 +453,10 @@ To view the event, click here:
 	
 	'event_manager:upgrade:2023030700:title' => "Move event header images to new image location",
 	'event_manager:upgrade:2023030700:description' => "In Elgg 5 there is built in header image support. This migration moves old icons uploaded with events to this new location.",
-    'event_manager:settings:ical_direct' => 'Embedded iCal',
-    'event_manager:settings:ical_direct:enable' => 'Enable embedded iCal features',
-    'event_manager:settings:ical_direct:enable:help' => 'Enable the embeded iCal-features for export and import',
+    'event_manager:settings:ical_direct' => 'iCal',
+    'event_manager:settings:ical_direct:enable' => 'Enable iCal features',
+    'event_manager:settings:ical_direct:enable:help' => 'Enable the iCal-features for export and import',
+    'event_manager:ical_direct' => 'iCal',
     'event_manager:ical_direct:export' => 'Export to iCal',
     'event_manager:ical_direct:export:calendar_type' => 'Calendar',
     'event_manager:ical_direct:export:calendar_type:help' => 'Select the calendar to export',

@@ -171,7 +171,7 @@ class Entity {
 		
 		$result[] = \ElggMenuItem::factory([
 			'name' => 'ical-export',
-			'icon' => 'calendar-plus',
+			'icon' => 'download',
 			'text' => elgg_echo('event_manager:ical_direct:export'),
 			'href' => elgg_generate_action_url('event_manager/export/ical', ['event_id' => $entity->guid]),
 			'priority' => 300,

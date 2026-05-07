@@ -25,6 +25,24 @@ class Title {
 
 		if (elgg_get_plugin_setting('ical_direct', 'event_manager')) {
 			$result[] = \ElggMenuItem::factory([
+				'name' => 'ical',
+				'icon' => 'download',
+				'text' => elgg_echo('event_manager:ical_direct'),
+				'href' => false,
+				'child_menu' => [
+					'display' => 'dropdown',
+				],
+				'data-position' => json_encode([
+					'my' => 'right top',
+					'at' => 'right bottom',
+				]),
+				'link_class' => [
+					'elgg-button',
+					'elgg-button-action',
+				],
+			]);
+			
+			$result[] = \ElggMenuItem::factory([
 				'name' => 'export-ical',
 				'icon' => 'download',
 				'text' => elgg_echo('event_manager:ical_direct:export'),
@@ -32,8 +50,10 @@ class Title {
 					'list_route' => elgg_get_current_route_name(),
 					'route_parameters' => elgg_get_current_route()->getMatchedParameters(),
 				]),
-				'link_class' => 'elgg-lightbox'
+				'link_class' => 'elgg-lightbox',
+				'parent_name' => 'ical',
 			]);
+			
 			$result[] = \ElggMenuItem::factory([
 				'name' => 'import-ical',
 				'icon' => 'upload',
@@ -42,7 +62,8 @@ class Title {
 					'list_route' => elgg_get_current_route_name(),
 					'route_parameters' => elgg_get_current_route()->getMatchedParameters(),
 				]),
-				'link_class' => 'elgg-lightbox'
+				'link_class' => 'elgg-lightbox',
+				'parent_name' => 'ical',
 			]);
 		}
 		

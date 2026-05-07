@@ -58,7 +58,6 @@ echo elgg_view_field([
 
 
 $group = '';
-
 if (array_key_exists('guid', $route_parameters)) {
 	$group = $route_parameters['guid'];
 }
@@ -81,9 +80,16 @@ echo elgg_view_field([
 	'name' => 'import'
 ]);
 
-elgg_set_form_footer(
-	elgg_view_field([
-		'#type' => 'submit',
-		'text' => elgg_echo('event_manager:ical_direct:import:submit'),
-	])
-);
+echo elgg_view_field([
+	'#type' => 'access',
+	'#label' => elgg_echo('access'),
+	'name' => 'access_id',
+	'value' => elgg_get_default_access(),
+]);
+
+$footer = elgg_view_field([
+	'#type' => 'submit',
+	'text' => elgg_echo('event_manager:ical_direct:import:submit'),
+]);
+
+elgg_set_form_footer($footer);

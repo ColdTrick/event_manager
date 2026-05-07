@@ -97,49 +97,53 @@ echo elgg_view_field([
 	]
 ]);
 
-// Filter region
-
 $region_settings = trim((string) elgg_get_plugin_setting('region_list', 'event_manager'));
-$region_list = explode(',', $region_settings);
-$region_options = array_reduce($region_list, function ($options, $value){
-	$options[$value] = [
-		'text' => $value
-	];
-	return $options;
-}, []);
-echo elgg_view_field([
-	'#type' => 'select',
-	'#label' => elgg_echo('event_manager:ical_direct:export:region'),
-	'#help' => elgg_echo('event_manager:ical_direct:export:region:help'),
-	'required' => false,
-	'multiple' => true,
-	'name' => 'region',
-	'options_values' => $region_options,
-]);
+if (!empty($region_settings)) {
+	$region_list = explode(',', $region_settings);
 
-// Filter type
+	$region_options = array_reduce($region_list, function ($options, $value){
+		$options[$value] = [
+			'text' => $value
+		];
+		return $options;
+	}, []);
+
+	echo elgg_view_field([
+		'#type' => 'select',
+		'#label' => elgg_echo('event_manager:ical_direct:export:region'),
+		'#help' => elgg_echo('event_manager:ical_direct:export:region:help'),
+		'required' => false,
+		'multiple' => true,
+		'name' => 'region',
+		'options_values' => $region_options,
+	]);
+}
 
 $type_settings = trim((string) elgg_get_plugin_setting('type_list', 'event_manager'));
-$type_list = explode(',', $type_settings);
-$type_options = array_reduce($type_list, function ($options, $value){
-	$options[$value] = [
-		'text' => $value
-	];
-	return $options;
-}, []);
-echo elgg_view_field([
-	'#type' => 'select',
-	'#label' => elgg_echo('event_manager:ical_direct:export:type'),
-	'#help' => elgg_echo('event_manager:ical_direct:export:type:help'),
-	'required' => false,
-	'multiple' => true,
-	'name' => 'event_type',
-	'options_values' => $type_options,
+if (!empty($type_settings)) {
+	$type_list = explode(',', $type_settings);
+
+	$type_options = array_reduce($type_list, function ($options, $value){
+		$options[$value] = [
+			'text' => $value
+		];
+		return $options;
+	}, []);
+	
+	echo elgg_view_field([
+		'#type' => 'select',
+		'#label' => elgg_echo('event_manager:ical_direct:export:type'),
+		'#help' => elgg_echo('event_manager:ical_direct:export:type:help'),
+		'required' => false,
+		'multiple' => true,
+		'name' => 'event_type',
+		'options_values' => $type_options,
+	]);
+}
+
+$footer = elgg_view_field([
+	'#type' => 'submit',
+	'text' => elgg_echo('event_manager:ical_direct:export:submit'),
 ]);
 
-elgg_set_form_footer(
-	elgg_view_field([
-		'#type' => 'submit',
-		'text' => elgg_echo('event_manager:ical_direct:export:submit'),
-	])
-);
+elgg_set_form_footer($footer);

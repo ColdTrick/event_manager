@@ -35,7 +35,7 @@ return [
 		'show_service_outlookcom' => 1,
 		'show_service_outlook' => 1,
 		'show_service_appleical' => 1,
-		'ical_direct' => 1,
+		'ical_direct' => 0,
 	],
 	'entities' => [
 		[

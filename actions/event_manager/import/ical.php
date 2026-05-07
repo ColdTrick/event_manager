@@ -6,11 +6,13 @@ use Kigkonsult\Icalcreator\Vevent;
 
 $calendar_type = get_input('calendar_type', 'all');
 
-$owner = (array) get_input('owner');
+$owner = get_input('owner');
 $owner_guid = 0;
-$group = (array) get_input('group');
+$group = get_input('group');
 $group_guid = 0;
 $file = elgg_get_uploaded_file('import');
+
+$access_id = (int) get_input('access_id', elgg_get_default_access());
 
 switch ($calendar_type) {
 	case 'group':
@@ -18,7 +20,7 @@ switch ($calendar_type) {
 			return elgg_error_response(elgg_echo('event_manager:ical_direct:import:errors:groupempty'));
 		}
 
-		$group_guid = $group[0];
+		$group_guid = elgg_extract(0, $group);
 		$group_entity = get_entity($group_guid);
 		if (!get_entity($group_guid) instanceof \ElggGroup) {
 			return elgg_error_response(elgg_echo('event_manager:ical_direct:import:errors:invalidgroup'));
@@ -33,7 +35,7 @@ switch ($calendar_type) {
 			return elgg_error_response(elgg_echo('event_manager:ical_direct:import:errors:ownerempty'));
 		}
 
-		$owner_guid = $owner[0];
+		$owner_guid = elgg_extract(0, $owner);
 		if (!get_entity($owner_guid) instanceof \ElggUser) {
 			return elgg_error_response(elgg_echo('event_manager:ical_direct:import:errors:invalidgroup'));
 		}
@@ -79,13 +81,9 @@ foreach ($vcalendar->getComponents('Vevent') as $component) {
 			break;
 	}
 
+	$event->access_id = $access_id;
 	$event->save();
 	$event_counter++;
 }
 
-$message = elgg_echo('event_manager:ical_direct:import:success', [$event_counter]);
-
-return elgg_ok_response(
-	'',
-	$message
-);
+return elgg_ok_response('',	elgg_echo('event_manager:ical_direct:import:success', [$event_counter]));
