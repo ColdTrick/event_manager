@@ -19,7 +19,7 @@ if ($day->description) {
 
 $details .= $day->getDisplayName();
 
-if ($can_edit && $show_owner_actions && ($participate == false)) {
+if ($can_edit && $show_owner_actions && ($participate === false)) {
 	$edit_day = elgg_view('output/url', [
 		'href' => false,
 		'rel' => $day->guid,
@@ -65,7 +65,7 @@ if ($daySlots) {
 	}
 }
 
-if ($can_edit && $show_owner_actions && ($participate == false)) {
+if ($can_edit && $show_owner_actions && ($participate === false)) {
 	$slots .= elgg_view('output/url', [
 		'href' => false,
 		'class' => 'elgg-button elgg-button-action event_manager_program_slot_add mll elgg-lightbox',

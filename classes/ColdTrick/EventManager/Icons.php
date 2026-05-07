@@ -31,7 +31,7 @@ class Icons {
 
 		foreach ($exts as $ext) {
 			foreach ([$entity_subtype, 'default'] as $subtype) {
-				if ($ext == 'svg' && elgg_view_exists("{$type}/{$entity_type}/{$subtype}.svg")) {
+				if ($ext === 'svg' && elgg_view_exists("{$type}/{$entity_type}/{$subtype}.svg")) {
 					return elgg_get_simplecache_url("{$type}/{$entity_type}/{$subtype}.svg");
 				}
 				

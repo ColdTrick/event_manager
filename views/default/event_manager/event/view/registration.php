@@ -26,7 +26,7 @@ if ($max_attendees) {
 		$count_waitinglist = $event->countWaiters();
 		if ($count_waitinglist > 0) {
 			$attendee_info .= elgg_echo('event_manager:full') . ', ' . $count_waitinglist . ' ';
-			if ($count_waitinglist == 1) {
+			if ($count_waitinglist === 1) {
 				$attendee_info .= elgg_echo('event_manager:personwaitinglist');
 			} else {
 				$attendee_info .= elgg_echo('event_manager:peoplewaitinglist');

@@ -33,11 +33,11 @@ if ($logged_in_user instanceof \ElggUser) {
 			$checkbox_options['checked'] = 'checked';
 			$registered_for_slot = elgg_view('input/checkbox', $checkbox_options);
 		}
-	} elseif ($participate && ($slot->hasSpotsLeft() || $register_type == 'waitinglist')) {
+	} elseif ($participate && ($slot->hasSpotsLeft() || $register_type === 'waitinglist')) {
 		$registered_for_slot = elgg_view('input/checkbox', $checkbox_options);
 	}
 } else {
-	if ($participate && ($slot->hasSpotsLeft() || $register_type == 'waitinglist')) {
+	if ($participate && ($slot->hasSpotsLeft() || $register_type === 'waitinglist')) {
 		$registered_for_slot = elgg_view('input/checkbox', $checkbox_options);
 	} elseif (!empty($vars['member'])) {
 		$member = get_entity($vars['member']);
@@ -65,7 +65,7 @@ if (!empty($slot_set)) {
 	], $slot_set);
 }
 
-if ($slot->canEdit() && $show_owner_actions && ($participate == false)) {
+if ($slot->canEdit() && $show_owner_actions && ($participate === false)) {
 	$edit_slot = elgg_view('output/url', [
 		'href' => false,
 		'rel' => $slot->guid,
@@ -104,7 +104,7 @@ if (!empty($slot->max_attendees)) {
 }
 
 if (!empty($subtitle_data)) {
-	$result .= elgg_format_element('div', ['class' => 'elgg-quiet'], implode(' - ', $subtitle_data));
+	$result .= elgg_format_element('div', ['class' => 'elgg-subtext'], implode(' - ', $subtitle_data));
 }
 
 $result .= '</td></tr>';

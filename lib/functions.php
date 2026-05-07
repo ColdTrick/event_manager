@@ -143,11 +143,11 @@ function event_manager_send_registration_validation_email(\Event $event, \ElggEn
 			'methods_override' => ['email'],
 		], $event->getOwnerEntity());
 	} else {
-		elgg_send_email(\Elgg\Email::factory([
+		elgg_send_email([
 			'to' => $entity,
 			'subject' => $subject,
 			'body' => $body,
-		]));
+		]);
 	}
 
 	elgg()->translator->setCurrentLanguage($current_language);

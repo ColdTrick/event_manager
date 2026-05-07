@@ -12,7 +12,7 @@ if (empty($filename) || !($event instanceof \Event) || !$event->canEdit()) {
 $files = $event->getFiles();
 
 foreach ($files as $index => $file) {
-	if (strtolower($file->file) == strtolower($filename)) {
+	if (strtolower($file->file) === strtolower($filename)) {
 		$fileHandler = new \ElggFile();
 		$fileHandler->owner_guid = $event->guid;
 		$fileHandler->setFilename($file->file);

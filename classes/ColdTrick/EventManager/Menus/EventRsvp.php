@@ -49,7 +49,7 @@ class EventRsvp {
 						}
 					}
 					
-					if ($rel == $user_relation) {
+					if ($rel === $user_relation) {
 						$result[] = \ElggMenuItem::factory([
 							'name' => 'undo',
 							'href' => elgg_generate_action_url('event_manager/event/rsvp', [

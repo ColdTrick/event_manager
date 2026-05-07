@@ -45,6 +45,7 @@ return [
 			'capabilities' => [
 				'commentable' => true,
 				'searchable' => true,
+				'river_emittable' => true,
 				'likable' => true,
 				'restorable' => true,
 				'subscribable' => true,
@@ -54,41 +55,26 @@ return [
 			'type' => 'object',
 			'subtype' => 'eventregistrationquestion',
 			'class' => \EventRegistrationQuestion::class,
-			'capabilities' => [
-				'commentable' => false,
-			],
 		],
 		[
 			'type' => 'object',
 			'subtype' => 'eventregistration',
 			'class' => \EventRegistration::class,
-			'capabilities' => [
-				'commentable' => false,
-			],
 		],
 		[
 			'type' => 'object',
 			'subtype' => 'eventday',
 			'class' => Day::class,
-			'capabilities' => [
-				'commentable' => false,
-			],
 		],
 		[
 			'type' => 'object',
 			'subtype' => 'eventslot',
 			'class' => Slot::class,
-			'capabilities' => [
-				'commentable' => false,
-			],
 		],
 		[
 			'type' => 'object',
 			'subtype' => 'eventmail',
 			'class' => \EventMail::class,
-			'capabilities' => [
-				'commentable' => false,
-			],
 		],
 	],
 	'views' => [
@@ -249,7 +235,9 @@ return [
 		'event_manager/event/register' => ['access' => 'public'],
 		'event_manager/event/mail' => [],
 		
-		'event_manager/attendees/export' => [],
+		'event_manager/attendees/export' => [
+			'controller' => \ColdTrick\EventManager\Controllers\ExportAttendees::class,
+		],
 		'event_manager/attendees/move_to_attendees' => [],
 		
 		'event_manager/maps/data' => ['access' => 'public'],
@@ -413,11 +401,17 @@ return [
 	'notifications' => [
 		'object' => [
 			'event' => [
-				'create' => \ColdTrick\EventManager\Notifications\CreateEventEventHandler::class,
-				'rsvp_owner' => \ColdTrick\EventManager\Notifications\RsvpOwnerHandler::class,
+				'create' => [
+					\ColdTrick\EventManager\Notifications\CreateEventEventHandler::class => [],
+				],
+				'rsvp_owner' => [
+					\ColdTrick\EventManager\Notifications\RsvpOwnerHandler::class => [],
+				],
 			],
 			'eventmail' => [
-				'create' => \ColdTrick\EventManager\Notifications\CreateEventMailEventHandler::class,
+				'create' => [
+					\ColdTrick\EventManager\Notifications\CreateEventMailEventHandler::class => [],
+				],
 			],
 		],
 	],

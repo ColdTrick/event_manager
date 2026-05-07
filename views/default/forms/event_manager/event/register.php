@@ -16,7 +16,7 @@ if (!elgg_is_logged_in()) {
 
 $registration_form = $event->getRegistrationFormQuestions();
 if ($registration_form) {
-	if ($register_type == 'waitinglist') {
+	if ($register_type === 'waitinglist') {
 		$form_body .= '<p>' . elgg_echo('event_manager:event:rsvp:waiting_list:message') . '</p><br />';
 	}
 
@@ -65,13 +65,13 @@ $form_body .= elgg_view_field([
 	'value' => $register_type,
 ]);
 
-if ($register_type == 'register') {
+if ($register_type === 'register') {
 	$form_body .= elgg_view_field([
 		'#type' => 'hidden',
 		'name' => 'relation',
 		'value' => EVENT_MANAGER_RELATION_ATTENDING,
 	]);
-} elseif ($register_type == 'waitinglist') {
+} elseif ($register_type === 'waitinglist') {
 	$form_body .= elgg_view_field([
 		'#type' => 'hidden',
 		'name' => 'relation',

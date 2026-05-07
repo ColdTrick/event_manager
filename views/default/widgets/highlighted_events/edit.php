@@ -19,9 +19,3 @@ echo elgg_view_field([
 	'name' => 'params[show_past_events]',
 	'value' => $widget->show_past_events,
 ]);
-?>
-<script>
-	$(document).ready(function() {
-		$('#widget-edit-<?php echo $widget->guid; ?> ul.elgg-entity-picker-list').sortable();
-	});
-</script>

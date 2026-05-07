@@ -45,6 +45,5 @@ $dompdf = new Dompdf(['enable_remote' => true]);
 $dompdf->setPaper('A4');
 $dompdf->loadHtml($html);
 $dompdf->render();
-$dompdf->stream('registration.pdf');
 
-exit;
+return elgg_download_response($dompdf->output(), 'registration.pdf', false, ['content-type' => 'application/pdf']);

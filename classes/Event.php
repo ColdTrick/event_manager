@@ -238,7 +238,7 @@ class Event extends \ElggObject {
 		$event_guid = $this->guid;
 
 		// remove registrations
-		if ($type == EVENT_MANAGER_RELATION_UNDO) {
+		if ($type === EVENT_MANAGER_RELATION_UNDO) {
 			$this->undoRegistration($user_guid, $reset_program);
 		}
 
@@ -516,7 +516,7 @@ class Event extends \ElggObject {
 			$unsubscribeLink = '';
 			$addevent = '';
 	
-			if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
+			if ($type === EVENT_MANAGER_RELATION_ATTENDING) {
 				if ($this->registration_needed) {
 					$link = elgg_generate_url('view:object:eventregistration', [
 						'guid' => $this->guid,
@@ -561,7 +561,7 @@ class Event extends \ElggObject {
 	
 			$user_message = elgg_echo('event_manager:event:registration:notification:user:text:' . $type, [$event_title_link]);
 			
-			if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
+			if ($type === EVENT_MANAGER_RELATION_ATTENDING) {
 				$completed_text = elgg_strip_tags((string) $this->registration_completed, '<a>');
 				if (!empty($completed_text)) {
 					$completed_text = str_ireplace('[NAME]', $to_entity->getDisplayName(), $completed_text);
@@ -574,7 +574,7 @@ class Event extends \ElggObject {
 			$user_message .= $registrationLink . $addevent . $unsubscribeLink;
 			
 			$attachment = [];
-			if ($type == EVENT_MANAGER_RELATION_ATTENDING) {
+			if ($type === EVENT_MANAGER_RELATION_ATTENDING) {
 				// prepare attachment url
 				$description = '';
 				if (!empty($this->location)) {
@@ -586,23 +586,25 @@ class Event extends \ElggObject {
 				$description .= $this->getExcerpt(500) . PHP_EOL . PHP_EOL;
 				$description .= $this->getURL();
 				
-				$attachment_url = elgg_http_add_url_query_elements('https://dynamic.addevent.com/dir/', [
-					'client' => elgg_get_plugin_setting('add_event_license', 'event_manager'),
-					'service' => 'stream',
-					
-					'start' => $this->getStartDate('d/m/Y H:i:00'),
-					'end' => $this->getEndDate('d/m/Y H:i:00'),
-					'title' => html_entity_decode($this->getDisplayName()),
-					'description' => $description,
-					'location' => $this->location ?: $this->venue,
-					'date_format' => 'DD/MM/YYYY',
-				]);
-				
-				$attachment_contents = file_get_contents($attachment_url);
-				if (!empty($attachment_contents)) {
-					$attachment['filename'] = 'event.ics';
-					$attachment['type'] = 'text/calendar';
-					$attachment['content'] = $attachment_contents;
+				$client_id = elgg_get_plugin_setting('add_event_license', 'event_manager');
+				if (!empty($client_id)) {
+					$attachment_url = elgg_http_add_url_query_elements('https://dynamic.addevent.com/dir/', [
+						'client' => $client_id,
+						'service' => 'stream',
+						'start' => $this->getStartDate('d/m/Y H:i:00'),
+						'end' => $this->getEndDate('d/m/Y H:i:00'),
+						'title' => html_entity_decode($this->getDisplayName()),
+						'description' => $description,
+						'location' => $this->location ?: $this->venue,
+						'date_format' => 'DD/MM/YYYY',
+					]);
+
+					$attachment_contents = file_get_contents($attachment_url);
+					if (!empty($attachment_contents)) {
+						$attachment['filename'] = 'event.ics';
+						$attachment['type'] = 'text/calendar';
+						$attachment['content'] = $attachment_contents;
+					}
 				}
 			}
 			
@@ -632,7 +634,7 @@ class Event extends \ElggObject {
 					$options['attachments'] = [$attachment];
 				}
 				
-				elgg_send_email(\Elgg\Email::factory($options));
+				elgg_send_email($options);
 			}
 			
 			elgg()->translator->setCurrentLanguage($current_language);
@@ -1020,11 +1022,11 @@ class Event extends \ElggObject {
 				'methods_override' => ['email'],
 			], $this->getOwnerEntity());
 		} else {
-			elgg_send_email(\Elgg\Email::factory([
+			elgg_send_email([
 				'to' => $waiting_user,
 				'subject' => $subject,
 				'body' => $body,
-			]));
+			]);
 		}
 
 		elgg()->translator->setCurrentLanguage($current_language);
@@ -1244,7 +1246,7 @@ class Event extends \ElggObject {
 	public static function fromVEvent(Vevent $vevent): Event {
 		$event = new Event();
 		$event->event_start = $vevent->getDtstart()->getTimestamp() + $vevent->getDtstart()->getOffset();
-		if ($vevent->getDtend() == null || $vevent->getDtend()->getTimestamp() < $vevent->getDtstart()->getTimestamp()) {
+		if ($vevent->getDtend() === null || $vevent->getDtend()->getTimestamp() < $vevent->getDtstart()->getTimestamp()) {
 			$event->event_end = $event->event_start;
 		} else {
 			$event->event_end = $vevent->getDtend()->getTimestamp() + $vevent->getDtend()->getOffset();

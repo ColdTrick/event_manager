@@ -46,11 +46,11 @@ $message = elgg_echo('event_manager:unsubscribe:confirm:message', [
 	$unsubscribe_link,
 ]);
 
-$email_sent = elgg_send_email(\Elgg\Email::factory([
+$email_sent = elgg_send_email([
 	'to' => $registration,
 	'subject' => $subject,
 	'body' => $message,
-]));
+]);
 
 if (!$email_sent) {
 	return elgg_error_response(elgg_echo('event_manager:action:unsubscribe:error:mail'));

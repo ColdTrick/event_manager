@@ -20,6 +20,8 @@ class Calendar {
 	 * @throws EntityNotFoundException
 	 */
 	public function __invoke(Request $request) {
+		elgg_set_http_header('content-type: application/json');
+		
 		$events_options = [
 			'type' => 'object',
 			'subtype' => \Event::SUBTYPE,

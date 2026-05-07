@@ -6,7 +6,7 @@ $list_route = get_input('list_route');
 $route_parameters = get_input('route_parameters');
 
 $calendar_type_selected = 'all';
-if ($list_route == 'collection:object:event:owner') {
+if ($list_route === 'collection:object:event:owner') {
 	$calendar_type_selected = 'owner';
 } elseif (array_key_exists('guid', $route_parameters) && $route_parameters['guid'] != '') {
 	$calendar_type_selected = 'group';
@@ -15,17 +15,17 @@ if ($list_route == 'collection:object:event:owner') {
 $calendar_type_options = [
 	'all' => [
 		'text' => elgg_echo('event_manager:ical_direct:calendar_type:all'),
-		'selected' => $calendar_type_selected == 'all',
+		'selected' => $calendar_type_selected === 'all',
 		'value' => 'all',
 	],
 	'group' => [
 		'text' => elgg_echo('event_manager:ical_direct:calendar_type:group'),
-		'selected' => $calendar_type_selected == 'group',
+		'selected' => $calendar_type_selected === 'group',
 		'value' => 'group',
 	],
 	'owner' => [
 		'text' => elgg_echo('event_manager:ical_direct:calendar_type:owner'),
-		'selected' => $calendar_type_selected == 'owner',
+		'selected' => $calendar_type_selected === 'owner',
 		'value' => 'owner',
 	],
 ];

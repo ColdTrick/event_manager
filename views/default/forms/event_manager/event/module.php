@@ -88,7 +88,7 @@ $module_vars = [
 	'menu' => $menu,
 ];
 
-if ($section == 'questions') {
+if ($section === 'questions') {
 	if (!$entity instanceof \Event) {
 		$module_vars['class'][] = 'hidden';
 	} elseif (!$entity->getRegistrationFormQuestions(true) && !$entity->registration_needed) {

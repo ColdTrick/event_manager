@@ -30,7 +30,7 @@ if (empty($rel)) {
 	return elgg_error_response(elgg_echo('error:missing_data'));
 }
 
-if ($rel == EVENT_MANAGER_RELATION_ATTENDING) {
+if ($rel === EVENT_MANAGER_RELATION_ATTENDING) {
 	if ($event->hasEventSpotsLeft() && $event->hasSlotSpotsLeft()) {
 		if ($event->registration_needed && $event->hasRegistrationForm()) {
 			return elgg_redirect_response(elgg_generate_url('default:object:event:register', [
@@ -56,7 +56,7 @@ if ($rel == EVENT_MANAGER_RELATION_ATTENDING) {
 		}
 	}
 } else {
-	if ($event->$rel || ($rel == EVENT_MANAGER_RELATION_UNDO)) {
+	if ($event->$rel || ($rel === EVENT_MANAGER_RELATION_UNDO)) {
 		$rsvp = $event->rsvp($rel, $user_guid);
 	} else {
 		return elgg_error_response(elgg_echo('event_manager:event:relationship:message:unavailable_relation'));

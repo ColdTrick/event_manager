@@ -123,7 +123,7 @@ foreach ($entities as $event) {
 		'lng' => $event->getLongitude(),
 		'title' => $event->title,
 		'has_relation' => $event->getRelationshipByUser(),
-		'iscreator' => (($event->getOwnerGUID() == elgg_get_logged_in_user_guid()) ? 'owner' : null)
+		'iscreator' => (($event->getOwnerGUID() === elgg_get_logged_in_user_guid()) ? 'owner' : null)
 	];
 }
 
