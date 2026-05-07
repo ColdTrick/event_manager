@@ -1,6 +1,10 @@
 Version history
 ===============
 
+20.2 (2026-05-07):
+
+- added: integrated iCal import and export features
+
 20.1 (2026-03-24):
 
 - added: organizing users now also have the right to edit/manage an event
