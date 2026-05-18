@@ -13,12 +13,13 @@ use Elgg\Exceptions\Http\EntityNotFoundException;
 class ExportAttendees extends \Elgg\Controllers\CsvDownloadAction {
 
 	protected \Event $entity;
+	
 	protected array $data;
 
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function validate(): void	{
+	protected function validate(): void {
 		$this->entity = elgg_entity_gatekeeper((int) get_input('guid'), 'object', \Event::SUBTYPE, true);
 	}
 	
@@ -29,6 +30,11 @@ class ExportAttendees extends \Elgg\Controllers\CsvDownloadAction {
 		return 'attendees-' . elgg_get_friendly_title($this->entity->getDisplayName()) . '.csv';
 	}
 	
+	/**
+	 * Fetch all data
+	 *
+	 * @return array|mixed
+	 */
 	protected function getData() {
 		if (isset($this->data)) {
 			return $this->data;
