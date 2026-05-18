@@ -1,7 +1,7 @@
 <?php
 
 $day = elgg_extract('entity', $vars);
-$participate = elgg_extract('participate', $vars);
+$participate = (bool) elgg_extract('participate', $vars);
 $register_type = elgg_extract('register_type', $vars);
 $details_only = elgg_extract('details_only', $vars);
 $show_owner_actions = elgg_extract('show_owner_actions', $vars, true);
