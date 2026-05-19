@@ -496,13 +496,9 @@ To view the event, click here:
 	'event_manager:ical_direct:import:errors:groupempty' => 'No group specified',
 	'event_manager:ical_direct:import:errors:invalidgroup' => 'Invalid group specified',
 	'event_manager:ical_direct:import:errors:ownerempty' => 'No owner specified',
-	'event_manager:ical_direct:import:errors:invalidowner' => 'Invalid owner specified',
 	'event_manager:ical_direct:import:errors:ownermismatch' => 'You need to be an administrator to import other user\'s calendars',
 	'event_manager:ical_direct:import:errors:grouppermission' => 'You need to be an administrator or be able to write to the target group',
 	'event_manager:ical_direct:import:errors:errorinstantiatingcalendar' => 'Error instantiating calendar: %s',
-	'event_manager:ical_direct:import:errors:errorconvertingevent' => 'Error converting to event: %s',
 	'event_manager:ical_direct:import:errors:errorpparsingcalendar' => 'Error parsing calendar file: %s',
 	'event_manager:ical_direct:import:errors:missingfile' => 'Missing iCal file',
-	'event_manager:ical_direct_import:errors:unknownregion' => 'Region %s unknown. Please add it to the list of regions.',
-
 );

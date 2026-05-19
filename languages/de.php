@@ -1,7 +1,7 @@
 <?php
 /**
- * This file was created by Translation Editor v11.1
- * On 2023-05-17 14:40
+ * This file was created by Translation Editor v14.0.4
+ * On 2026-05-19 14:35
  */
 
 return array (
@@ -301,7 +301,6 @@ Falls du dich nicht f&uuml;r diese Veranstaltung angemeldet hast, kannst du dies
   'event_manager:addevent:mail:service:outlook' => 'Outlook',
   'event_manager:addevent:mail:service:outlookcom' => 'Outlook.com',
   'event_manager:addevent:mail:service:yahoo' => 'Yahoo',
-
   'event_manager:settings:ical_direct' => 'Integriertes iCal',
   'event_manager:settings:ical_direct:enable' => 'Die internen iCal-Features aktivieren',
   'event_manager:settings:ical_direct:enable:help' => 'Die integrierten iCal-Features für Export und Import aktivieren',
@@ -329,7 +328,6 @@ Falls du dich nicht f&uuml;r diese Veranstaltung angemeldet hast, kannst du dies
   'event_manager:ical_direct:export:errors:errorinstantiatingcalendar' => 'Fehler beim Instanzieren des Kalenders: %s',
   'event_manager:ical_direct:export:errors:erroraddingevent' => 'Fehler beim Hinzufügen eines Events zum Kalender: %s',
   'event_manager:ical_direct:export:errors:errorcreatingcalendar' => 'Fehler beim Erzeugen des Kalenders: %s',
-
   'event_manager:ical_direct:import' => 'iCal importieren',
   'event_manager:ical_direct:import:calendar_type' => 'Kalender',
   'event_manager:ical_direct:import:calendar_type:help' => 'Wähle den Zielkalender für den Import',
@@ -344,13 +342,9 @@ Falls du dich nicht f&uuml;r diese Veranstaltung angemeldet hast, kannst du dies
   'event_manager:ical_direct:import:errors:groupempty' => 'Keine Gruppe angegeben',
   'event_manager:ical_direct:import:errors:invalidgroup' => 'Ungültige Gruppe angegeben',
   'event_manager:ical_direct:import:errors:ownerempty' => 'Kein Besitzer angegeben',
-  'event_manager:ical_direct:import:errors:invalidowner' => 'Ungültigen Besitzer angegeben',
   'event_manager:ical_direct:import:errors:ownermismatch' => 'Du musst ein Administrator sein, um einen Kalender für einen anderen Benutzer zu importieren.',
   'event_manager:ical_direct:import:errors:grouppermission' => 'Du musst ein Administrator sein oder eine Schreibberechtigung für die Gruppe haben',
   'event_manager:ical_direct:import:errors:errorinstantiatingcalendar' => 'Fehler beim Instanzieren des Kalenders: %s',
-  'event_manager:ical_direct:import:errors:errorconvertingevent' => 'Fehler bei der Konvertierung eines Events: %s',
   'event_manager:ical_direct:import:errors:errorpparsingcalendar' => 'Fehler beim Parsen der iCal-Datei: %s',
   'event_manager:ical_direct:import:errors:missingfile' => 'Fehlende iCal-Datei',
-  'event_manager:ical_direct_import:errors:unknownregion' => 'Region %s unbekannt. Bitte füge sie zur Liste der Regionen hinzu.',
-
 );
