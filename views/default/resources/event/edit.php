@@ -12,7 +12,7 @@ elgg_push_entity_breadcrumbs($event);
 
 elgg_register_menu_item('title', [
 	'name' => 'copy',
-	'icon' => 'clone-regular',
+	'icon' => 'clone',
 	'href' => 'ajax/form/event_manager/event/copy?guid=' . $event->guid,
 	'text' => elgg_echo('event_manager:menu:copy'),
 	'link_class' => 'elgg-lightbox elgg-button elgg-button-action',
