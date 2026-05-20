@@ -3,9 +3,8 @@
 namespace ColdTrick\EventManager;
 
 use Elgg\Email;
-use Elgg\Email\Address;
 use Elgg\Notifications\NotificationEvent;
-use Elgg\Notifications\Notification;
+use Symfony\Component\Mime\Address;
 
 /**
  * Notifications related callbacks
@@ -22,7 +21,6 @@ class Notifications {
 	 * @return void|\Elgg\Email
 	 */
 	public static function prepareEventRegistrationSender(\Elgg\Event $event) {
-		
 		$email = $event->getValue();
 		if (!$email instanceof Email) {
 			return;
@@ -48,7 +46,6 @@ class Notifications {
 	 * @return void
 	 */
 	public static function sendAfterEventMail(\Elgg\Event $elgg_event): void {
-		
 		$event = $elgg_event->getParam('event');
 		if (!$event instanceof NotificationEvent) {
 			return;
