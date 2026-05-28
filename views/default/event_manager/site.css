@@ -1,9 +1,11 @@
 .elgg-page-body {
-	--fc-event-bg-color: #0078ac;
-	--fc-event-border-color: #0078ac;
+	--fc-event-bg-color: var(--elgg-background-color-highlight);
+	--fc-event-border-color: var(--elgg-background-color-highlight);
 	
-	--fc-button-bg-color: #2d3047;
-	--fc-button-border-color: #2d3047;
+	--fc-button-bg-color: var(--elgg-button-submit-background-color);
+	--fc-button-border-color: var(--elgg-button-submit-background-color);
+
+	--fc-border-color: var(--elgg-border-color-strong);
 }
 
 .fc-view-harness a {
