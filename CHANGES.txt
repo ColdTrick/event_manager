@@ -1,6 +1,11 @@
 Version history
 ===============
 
+21.0 (2026-05-29):
+
+- changed: canComment to container_logic check
+- changed: updated for Elgg 7
+
 20.2 (2026-05-07):
 
 - added: integrated iCal import and export features
