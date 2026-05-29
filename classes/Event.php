@@ -98,17 +98,6 @@ class Event extends \ElggObject {
 	}
 	
 	/**
-	 * {@inheritdoc}
-	 */
-	public function canComment(int $user_guid = 0): bool {
-		if (!$this->comments_on) {
-			return false;
-		}
-		
-		return parent::canComment($user_guid);
-	}
-
-	/**
 	 * Returns excerpt based on shortdescription and falls back to long description
 	 *
 	 * @param int $limit (optional) limited amount of characters

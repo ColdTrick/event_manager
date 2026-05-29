@@ -271,7 +271,8 @@ return [
 		'container_logic_check' => [
 			'object' => [
 				\ColdTrick\EventManager\GroupToolContainerLogicCheck::class => [],
-				'\ColdTrick\EventManager\Access::containerLogicCheck' => [],
+				'\ColdTrick\EventManager\Permissions::containerLogicCheck' => [],
+				'\ColdTrick\EventManager\Permissions::preventEventCommentsWhenDisabled' => [],
 			],
 		],
 		'cron' => [
