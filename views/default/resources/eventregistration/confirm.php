@@ -6,13 +6,10 @@ $event_guid = (int) elgg_extract('guid', $vars);
 $user_guid = (int) elgg_extract('user_guid', $vars, get_input('user_guid'));
 $code = elgg_extract('code', $vars, get_input('code'));
 
-elgg_entity_gatekeeper($event_guid, 'object', \Event::SUBTYPE);
-
 /* @var $event \Event */
-$event = get_entity($event_guid);
+$event = elgg_entity_gatekeeper($event_guid, 'object', \Event::SUBTYPE);
 
-elgg_entity_gatekeeper($user_guid);
-$user = get_entity($user_guid);
+$user = elgg_entity_gatekeeper($user_guid);
 
 // is the code valid
 if (!event_manager_validate_registration_validation_code($event_guid, $user_guid, $code)) {

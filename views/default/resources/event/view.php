@@ -1,10 +1,9 @@
 <?php
 
 $guid = (int) elgg_extract('guid', $vars);
-elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
 
 /* @var $event \Event */
-$event = get_entity($guid);
+$event = elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
 
 $show_add_to_calendar = elgg_get_plugin_setting('add_event_to_calendar', 'event_manager');
 if ($show_add_to_calendar === 'yes' || ($show_add_to_calendar === 'attendee_only' && !empty($event->getRelationshipByUser()))) {

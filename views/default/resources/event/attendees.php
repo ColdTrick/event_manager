@@ -3,10 +3,9 @@
 use Elgg\Exceptions\Http\BadRequestException;
 
 $guid = elgg_extract('guid', $vars);
-elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
 
 /* @var $entity \Event */
-$entity = get_entity($guid);
+$entity = elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
 
 $relationship = elgg_extract('relationship', $vars);
 $valid_relationships = $entity->getSupportedRelationships();

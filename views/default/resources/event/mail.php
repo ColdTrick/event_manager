@@ -11,10 +11,9 @@ if (!(bool) elgg_get_plugin_setting('event_mail', 'event_manager')) {
 }
 
 $guid = (int) elgg_extract('guid', $vars);
-elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE, true);
 
 /* @var $entity \Event */
-$entity = get_entity($guid);
+$entity = elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE, true);
 
 elgg_set_page_owner_guid($entity->container_guid);
 

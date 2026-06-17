@@ -5,14 +5,10 @@ use Elgg\Exceptions\Http\BadRequestException;
 $event_guid = (int) elgg_extract('event_guid', $vars);
 $object_guid = (int) elgg_extract('object_guid', $vars); // user or registration object
 
-elgg_entity_gatekeeper($event_guid, 'object', \Event::SUBTYPE);
-
 /* @var $event \Event */
-$event = get_entity($event_guid);
+$event = elgg_entity_gatekeeper($event_guid, 'object', \Event::SUBTYPE);
 
-elgg_entity_gatekeeper($object_guid);
-$object = get_entity($object_guid);
-
+$object = elgg_entity_gatekeeper($object_guid);
 if (!$object instanceof \ElggUser && !$object instanceof \EventRegistration) {
 	$exception = new BadRequestException();
 	$exception->setRedirectUrl(elgg_generate_url('collection:object:event:upcoming'));

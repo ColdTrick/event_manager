@@ -4,8 +4,7 @@ use Elgg\Exceptions\Http\BadRequestException;
 
 $guid = (int) elgg_extract('guid', $vars);
 
-elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
-$entity = get_entity($guid);
+$entity = elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
 
 if (!$entity->register_nologin) {
 	$exception = new BadRequestException();
