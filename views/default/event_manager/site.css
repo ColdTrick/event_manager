@@ -173,6 +173,7 @@
 .event-manager-event-view-maps {
 	width: 100%;
 	height: 400px;
+	margin-top: 16px;
 }
 
 #event_manager_form_program_slot label {
