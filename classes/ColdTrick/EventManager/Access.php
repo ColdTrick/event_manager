@@ -54,4 +54,20 @@ class Access {
 			}
 		});
 	}
+	
+	/**
+	 * After the event is updated in the database make sure the ICS cache is cleared
+	 *
+	 * @param \Elgg\Event $event 'update:after', 'object'
+	 *
+	 * @return void
+	 */
+	public static function clearICSCache(\Elgg\Event $event): void {
+		$entity = $event->getObject();
+		if (!$entity instanceof \Event) {
+			return;
+		}
+		
+		elgg_delete_system_cache($entity->guid . '_ics');
+	}
 }

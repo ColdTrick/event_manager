@@ -382,6 +382,7 @@ return [
 		'update:after' => [
 			'object' => [
 				'\ColdTrick\EventManager\Access::updateEvent' => [],
+				'\ColdTrick\EventManager\Access::clearICSCache' => [],
 			],
 		],
 		'view_vars' => [

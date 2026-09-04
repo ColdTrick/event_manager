@@ -577,18 +577,25 @@ class Event extends \ElggObject {
 				
 				$client_id = elgg_get_plugin_setting('add_event_license', 'event_manager');
 				if (!empty($client_id)) {
-					$attachment_url = elgg_http_add_url_query_elements('https://dynamic.addevent.com/dir/', [
-						'client' => $client_id,
-						'service' => 'stream',
-						'start' => $this->getStartDate('d/m/Y H:i:00'),
-						'end' => $this->getEndDate('d/m/Y H:i:00'),
-						'title' => html_entity_decode($this->getDisplayName()),
-						'description' => $description,
-						'location' => $this->location ?: $this->venue,
-						'date_format' => 'DD/MM/YYYY',
-					]);
+					$attachment_contents = elgg_load_system_cache($this->guid . '_ics');
+					if (empty($attachment_contents)) {
+						$attachment_url = elgg_http_add_url_query_elements('https://dynamic.addevent.com/dir/', [
+							'client' => $client_id,
+							'service' => 'stream',
+							'start' => $this->getStartDate('d/m/Y H:i:00'),
+							'end' => $this->getEndDate('d/m/Y H:i:00'),
+							'title' => html_entity_decode($this->getDisplayName()),
+							'description' => $description,
+							'location' => $this->location ?: $this->venue,
+							'date_format' => 'DD/MM/YYYY',
+						]);
 
-					$attachment_contents = file_get_contents($attachment_url);
+						$attachment_contents = file_get_contents($attachment_url);
+						if (!empty($attachment_contents)) {
+							elgg_save_system_cache($this->guid . '_ics', $attachment_contents);
+						}
+					}
+					
 					if (!empty($attachment_contents)) {
 						$attachment['filename'] = 'event.ics';
 						$attachment['type'] = 'text/calendar';
