@@ -1,6 +1,11 @@
 Version history
 ===============
 
+21.2 (2026-09-09):
+
+- changed: addevent ics download is cached in systemcache
+- changed: layout of event detail page has been restructured
+
 21.1 (2026-07-30):
 
 - changed: no longer use label element for styling of strong text
