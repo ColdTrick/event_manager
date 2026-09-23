@@ -58,4 +58,8 @@ if ($type) {
 	);
 }
 
+if (empty($registration_details)) {
+	return;
+}
+
 echo elgg_format_element('div', ['class' => 'event-manager-view-registration-details'], $registration_details);
