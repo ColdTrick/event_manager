@@ -19,7 +19,7 @@ class Filter {
 	public static function registerEventsList(\Elgg\Event $event): ?MenuItems {
 		$page_owner = elgg_get_page_owner_entity();
 		$user = elgg_get_logged_in_user_entity();
-		if ($page_owner instanceof \ElggUser && ($page_owner->guid !== $user->guid)) {
+		if ($page_owner instanceof \ElggUser && ($page_owner->guid !== $user?->guid)) {
 			return null;
 		}
 
