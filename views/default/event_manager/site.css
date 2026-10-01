@@ -128,7 +128,7 @@
 		border-radius: 0 0 2px 2px;
 	}
 	.event_manager_event_list_icon_month {
-		color: #FFFFFF;
+		color: white;
 		font-size: 11px;
 		line-height: 11px;
 		padding: 2px 0;
@@ -152,7 +152,7 @@
 }
 
 .event-manager-event-when-subtitle {
-	color: #CCC;
+	color: var(--elgg-text-color-soft);
 	font-size: 18px;
 }
 
