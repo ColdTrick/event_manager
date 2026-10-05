@@ -122,7 +122,7 @@ class Filter {
 			'selected' => false,
 		]);
 		
-		if (event_manager_get_maps_provider() !== 'none') {
+		if (event_manager_maps_enabled()) {
 			$items[] = \ElggMenuItem::factory([
 				'name' => 'event-manager-map',
 				'icon' => 'map-marked-alt',

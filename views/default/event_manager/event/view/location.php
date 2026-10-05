@@ -26,14 +26,26 @@ if ($event_venue) {
 }
 
 if ($event_location) {
-	$maps_provider = event_manager_get_maps_provider();
+	$maps_enabled = event_manager_maps_enabled();
+	
+	$route = '';
+	if ($maps_enabled && !empty($event->getLatitude()) && !empty($event->getLongitude())) {
+		$route = elgg_view('output/url', [
+			'href' => 'www.openstreetmap.org/directions?engine=osrm_car&route=%3B' . $event->getLatitude() . '%2C' . $event->getLongitude(),
+			'text' => elgg_echo('event_manager:event:location:plan_route'),
+			'target' => '_blank',
+			'class' => 'mlm',
+		]);
+	}
 	
 	$location_details .= elgg_view_image_block(
 		elgg_format_element('strong', [], elgg_echo('event_manager:edit:form:location') . ':'),
-		$event_location . elgg_view("event_manager/maps/{$maps_provider}/route", $vars)
+		$event_location . $route
 	);
 	
-	$location_details .= elgg_view("event_manager/maps/{$maps_provider}/location", $vars);
+	if ($maps_enabled) {
+		$location_details .= elgg_view('event_manager/maps/location', $vars);
+	}
 }
 
 if (empty($location_details)) {

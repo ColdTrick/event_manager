@@ -9,10 +9,11 @@
 
 use Elgg\Exceptions\Http\EntityNotFoundException;
 
-$maps_provider = event_manager_get_maps_provider();
-if ($maps_provider === 'none') {
+if (!event_manager_maps_enabled()) {
 	throw new EntityNotFoundException();
 }
+
+elgg_load_external_file('css', 'leafletjs');
 
 $page_owner = elgg_extract('page_owner', $vars);
 
@@ -29,7 +30,7 @@ echo elgg_format_element('div', ['id' => 'event_manager_event_map'], $body);
 
 ?>
 <script type='module'>
-	import 'event_manager/maps/<?php echo $maps_provider; ?>/onthemap';
+	import 'event_manager/maps/onthemap';
 	import hooks from 'elgg/hooks';
 	
 	hooks.trigger('tab:onthemap', 'event_manager');

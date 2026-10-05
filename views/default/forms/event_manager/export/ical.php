@@ -143,7 +143,7 @@ if (!empty($type_settings)) {
 
 $footer = elgg_view_field([
 	'#type' => 'submit',
-	'text' => elgg_echo('event_manager:ical_direct:export:submit'),
+	'text' => elgg_echo('export'),
 ]);
 
 elgg_set_form_footer($footer);

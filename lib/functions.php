@@ -165,17 +165,12 @@ function event_manager_format_date(?int $timestamp = null): string {
 }
 
 /**
- * Returns the maps provider
- *
- * @return string
+ * Check if maps feature is enabled
+ * 
+ * @return bool
  */
-function event_manager_get_maps_provider(): string {
-	$setting = elgg_get_plugin_setting('maps_provider', 'event_manager');
-	if (!in_array($setting, ['none', 'osm'])) {
-		return 'none';
-	}
-	
-	return $setting;
+function event_manager_maps_enabled(): bool {
+	return (bool) elgg_get_plugin_setting('maps_enabled', 'event_manager');
 }
 
 /**

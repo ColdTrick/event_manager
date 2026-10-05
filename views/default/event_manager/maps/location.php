@@ -19,11 +19,11 @@ echo elgg_format_element('div', [
 	'class' => 'event-manager-event-view-maps',
 ]);
 
-$event_zoom_level = (int) elgg_get_plugin_setting('osm_detail_zoom', 'event_manager', 12);
+$event_zoom_level = (int) elgg_get_plugin_setting('maps_detail_zoom', 'event_manager', 12);
 
 ?>
 <script type='module'>
-	import EventMap from 'event_manager/maps/osm/osm';
+	import EventMap from 'event_manager/maps/osm';
 	
 	EventMap.setup({
 		element: 'event-manager-leafletjs-map',

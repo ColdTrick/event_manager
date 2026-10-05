@@ -1,6 +1,6 @@
 import 'jquery';
 import lightbox from 'elgg/lightbox';
-import EventMap from 'event_manager/maps/osm/osm';
+import EventMap from 'event_manager/maps/osm';
 
 var event_map;
 var location_data;

@@ -89,7 +89,7 @@ echo elgg_view_field([
 
 $footer = elgg_view_field([
 	'#type' => 'submit',
-	'text' => elgg_echo('event_manager:ical_direct:import:submit'),
+	'text' => elgg_echo('import'),
 ]);
 
 elgg_set_form_footer($footer);

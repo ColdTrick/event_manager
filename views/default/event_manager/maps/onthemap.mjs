@@ -94,7 +94,7 @@ var execute_search_map = function(event) {
 
 var initialize_tab = function() {
 	if (typeof event_map === 'undefined') {
-		import('event_manager/maps/osm/osm').then((EventMap) => {
+		import('event_manager/maps/osm').then((EventMap) => {
 			event_map = EventMap.default.setup({
 				element: 'event_manager_onthemap_canvas'
 			});

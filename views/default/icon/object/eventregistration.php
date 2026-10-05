@@ -13,10 +13,7 @@ if (!array_key_exists($size, elgg_get_icon_sizes('user'))) {
 	$size = 'medium';
 }
 
-$event = $entity->getOwnerEntity();
-
 $name = htmlspecialchars($entity->getDisplayName(), ENT_QUOTES, 'UTF-8', false);
-$username = $entity->username;
 
 $wrapper_class = [
 	'elgg-avatar',

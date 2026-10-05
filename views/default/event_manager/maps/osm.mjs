@@ -29,7 +29,7 @@ EventMap.prototype = {
 		
 	},
 	moveToDefaultLocation: function() {
-		this.event_map.setView([elgg.data.event_manager_osm_default_location_lat, elgg.data.event_manager_osm_default_location_lng]);
+		this.event_map.setView([elgg.data.event_manager_maps_location_lat, elgg.data.event_manager_maps_location_lng]);
 	},
 	getGeocode: function(address, callback) {
 		$.getJSON('https://nominatim.openstreetmap.org/search?q=' + address + '&format=json&limit=1&addressdetails=1', function(data) {
@@ -59,7 +59,7 @@ EventMap.setup = function(options) {
 	}
 
 	if (!options.zoom) {
-		options.zoom = elgg.data.event_manager_osm_default_zoom;
+		options.zoom = elgg.data.event_manager_maps_zoom;
 	}
 	
 	if (!options.element) {

@@ -18,12 +18,12 @@ return [
 	],
 	'bootstrap' => Bootstrap::class,
 	'settings' => [
-		'maps_provider' => 'osm',
-		'osm_default_location' => 'Netherlands',
-		'osm_default_location_lat' => 52,
-		'osm_default_location_lng' => 6,
-		'osm_default_zoom' => 7,
-		'osm_detail_zoom' => 12,
+		'maps_enabled' => true,
+		'maps_location' => 'Netherlands',
+		'maps_location_lat' => 52,
+		'maps_location_lng' => 6,
+		'maps_zoom' => 7,
+		'maps_detail_zoom' => 12,
 		'who_create_site_events' => 'everyone',
 		'who_create_group_events' => 'members',
 		'rsvp_interested' => 'yes',
@@ -36,6 +36,9 @@ return [
 		'show_service_outlook' => 1,
 		'show_service_appleical' => 1,
 		'ical_direct' => 0,
+	],
+	'upgrades' => [
+		\ColdTrick\EventManager\Upgrades\MigrateMapsPluginSettings::class,
 	],
 	'entities' => [
 		[
@@ -386,9 +389,6 @@ return [
 			],
 		],
 		'view_vars' => [
-			'event_manager/listing/map' => [
-				'\ColdTrick\EventManager\Views::loadLeafletCss' => [],
-			],
 			'input/objectpicker/item' => [
 				'\ColdTrick\EventManager\ObjectPicker::customText' => [],
 			],

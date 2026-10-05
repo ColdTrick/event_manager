@@ -12,65 +12,48 @@ echo elgg_view_field([
 	'value' => 1,
 ]);
 
-// Maps settings
-elgg_import_esm('plugins/event_manager/settings');
-
-$maps_provider = event_manager_get_maps_provider();
-
 $maps = elgg_view_field([
-	'#type' => 'select',
-	'#label' => elgg_echo('event_manager:settings:maps:provider'),
-	'#help' => elgg_echo('event_manager:settings:maps:provider:help'),
-	'name' => 'params[maps_provider]',
-	'value' => $maps_provider,
-	'options_values' => [
-		'none' => elgg_echo('event_manager:settings:maps:provider:none'),
-		'osm' => elgg_echo('event_manager:settings:maps:provider:osm'),
-	],
+	'#type' => 'switch',
+	'#label' => elgg_echo('event_manager:settings:maps_enabled'),
+	'name' => 'params[maps_enabled]',
+	'value' => $plugin->maps_enabled,
 ]);
 
 $maps .= elgg_view_field([
-	'#type' => 'fieldset',
-	'#class' => [
-		'event-manager-maps-provider',
-		'event-manager-maps-provider-osm',
-		($maps_provider === 'osm') ? '' : 'hidden',
-	],
-	'legend' => elgg_echo('event_manager:settings:osm'),
-	'fields' => [
-		[
-			'#type' => 'text',
-			'#label' => elgg_echo('event_manager:settings:osm:osm_default_location'),
-			'name' => 'params[osm_default_location]',
-			'value' => $plugin->osm_default_location,
-		],
-		[
-			'#type' => 'text',
-			'#label' => elgg_echo('event_manager:settings:osm:osm_default_location_lat'),
-			'name' => 'params[osm_default_location_lat]',
-			'value' => $plugin->osm_default_location_lat,
-		],
-		[
-			'#type' => 'text',
-			'#label' => elgg_echo('event_manager:settings:osm:osm_default_location_lng'),
-			'name' => 'params[osm_default_location_lng]',
-			'value' => $plugin->osm_default_location_lng,
-		],
-		[
-			'#type' => 'select',
-			'#label' => elgg_echo('event_manager:settings:osm:osm_default_zoom'),
-			'name' => 'params[osm_default_zoom]',
-			'value' => (int) $plugin->osm_default_zoom,
-			'options' => range(0, 19),
-		],
-		[
-			'#type' => 'select',
-			'#label' => elgg_echo('event_manager:settings:osm:osm_detail_zoom'),
-			'name' => 'params[osm_detail_zoom]',
-			'value' => (int) $plugin->osm_detail_zoom,
-			'options' => range(0, 19),
-		],
-	],
+	'#type' => 'text',
+	'#label' => elgg_echo('event_manager:settings:maps_location'),
+	'name' => 'params[maps_location]',
+	'value' => $plugin->maps_location,
+]);
+
+$maps .= elgg_view_field([
+	'#type' => 'text',
+	'#label' => elgg_echo('event_manager:settings:maps_location_lat'),
+	'name' => 'params[maps_location_lat]',
+	'value' => $plugin->maps_location_lat,
+]);
+
+$maps .= elgg_view_field([
+	'#type' => 'text',
+	'#label' => elgg_echo('event_manager:settings:maps_location_lng'),
+	'name' => 'params[maps_location_lng]',
+	'value' => $plugin->maps_location_lng,
+]);
+
+$maps .= elgg_view_field([
+	'#type' => 'select',
+	'#label' => elgg_echo('event_manager:settings:maps_zoom'),
+	'name' => 'params[maps_zoom]',
+	'value' => (int) $plugin->maps_zoom,
+	'options' => range(0, 19),
+]);
+
+$maps .= elgg_view_field([
+	'#type' => 'select',
+	'#label' => elgg_echo('event_manager:settings:maps_detail_zoom'),
+	'name' => 'params[maps_detail_zoom]',
+	'value' => (int) $plugin->maps_detail_zoom,
+	'options' => range(0, 19),
 ]);
 
 echo elgg_view_module('info', elgg_echo('event_manager:settings:maps'), $maps);

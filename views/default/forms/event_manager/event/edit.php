@@ -6,11 +6,9 @@ $event = elgg_extract('entity', $vars);
 $fields = event_manager_prepare_form_vars($event);
 $vars = array_merge($vars, $fields);
 
-$maps_provider = event_manager_get_maps_provider();
-
 $hidden_inputs = ['guid', 'container_guid'];
 
-if ($maps_provider !== 'none') {
+if (event_manager_maps_enabled()) {
 	$hidden_inputs[] = 'latitude';
 	$hidden_inputs[] = 'longitude';
 }
