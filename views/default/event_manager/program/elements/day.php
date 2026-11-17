@@ -21,13 +21,17 @@ $details .= $day->getDisplayName();
 
 if ($can_edit && $show_owner_actions && ($participate === false)) {
 	$edit_day = elgg_view('output/url', [
+		'text' => elgg_echo('edit'),
 		'href' => false,
 		'rel' => $day->guid,
 		'data-colorbox-opts' => json_encode([
-			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/day?day_guid=' . $day->guid)
+			'href' => elgg_generate_url('ajax', [
+				'type' => 'view',
+				'segments' => 'event_manager/forms/program/day',
+				'day_guid' => $day->guid,
+			]),
 		]),
 		'class' => 'event_manager_program_day_edit elgg-lightbox',
-		'text' => elgg_echo('edit'),
 	]);
 
 	$delete_day = elgg_view('output/url', [
@@ -67,14 +71,18 @@ if ($daySlots) {
 
 if ($can_edit && $show_owner_actions && ($participate === false)) {
 	$slots .= elgg_view('output/url', [
+		'icon' => 'plus',
+		'text' => elgg_echo('event_manager:program:slot:add'),
 		'href' => false,
 		'class' => 'elgg-button elgg-button-action event_manager_program_slot_add mll elgg-lightbox',
 		'rel' => $day->guid,
 		'data-colorbox-opts' => json_encode([
-			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/slot?day_guid=' . $day->guid)
+			'href' => elgg_generate_url('ajax', [
+				'type' => 'view',
+				'segments' => 'event_manager/forms/program/slot',
+				'day_guid' => $day->guid,
+			]),
 		]),
-		'text' => elgg_echo('event_manager:program:slot:add'),
-		'icon' => 'plus',
 	]);
 }
 

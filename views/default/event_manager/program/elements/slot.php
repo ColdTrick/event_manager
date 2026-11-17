@@ -67,13 +67,17 @@ if (!empty($slot_set)) {
 
 if ($slot->canEdit() && $show_owner_actions && ($participate === false)) {
 	$edit_slot = elgg_view('output/url', [
+		'text' => elgg_echo('edit'),
 		'href' => false,
 		'rel' => $slot->guid,
 		'data-colorbox-opts' => json_encode([
-			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/slot?slot_guid=' . $slot->guid)
+			'href' => elgg_generate_url('ajax', [
+				'type' => 'view',
+				'segments' => 'event_manager/forms/program/slot',
+				'slot_guid' => $slot->guid,
+			]),
 		]),
 		'class' => 'event_manager_program_slot_edit elgg-lightbox',
-		'text' => elgg_echo('edit')
 	]);
 	
 	$delete_slot = elgg_view('output/url', [

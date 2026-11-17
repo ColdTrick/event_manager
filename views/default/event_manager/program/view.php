@@ -37,14 +37,18 @@ foreach ($event->getEventDays() as $key => $day) {
 $module_vars = ['class' => 'event-program'];
 if ($event->canEdit() && $show_owner_actions) {
 	$module_vars['menu'] = elgg_view('output/url', [
+		'icon' => 'plus',
+		'text' => elgg_echo('event_manager:program:day:add'),
 		'href' => false,
 		'rel' => $event->guid,
 		'data-colorbox-opts' => json_encode([
-			'href' => elgg_normalize_url('ajax/view/event_manager/forms/program/day?event_guid=' . $event->guid)
+			'href' => elgg_generate_url('ajax', [
+				'type' => 'view',
+				'segments' => 'event_manager/forms/program/day',
+				'event_guid' => $event->guid,
+			]),
 		]),
 		'class' => 'event_manager_program_day_add elgg-lightbox',
-		'text' => elgg_echo('event_manager:program:day:add'),
-		'icon' => 'plus',
 	]);
 }
 

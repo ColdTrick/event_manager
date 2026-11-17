@@ -46,7 +46,9 @@ class Title {
 				'name' => 'export-ical',
 				'icon' => 'download',
 				'text' => elgg_echo('event_manager:ical_direct:export'),
-				'href' => elgg_http_add_url_query_elements('ajax/form/event_manager/export/ical', [
+				'href' => elgg_generate_url('ajax', [
+					'type' => 'form',
+					'segments' => 'event_manager/export/ical',
 					'list_route' => elgg_get_current_route_name(),
 					'route_parameters' => elgg_get_current_route()->getMatchedParameters(),
 				]),
@@ -58,7 +60,9 @@ class Title {
 				'name' => 'import-ical',
 				'icon' => 'upload',
 				'text' => elgg_echo('event_manager:ical_direct:import'),
-				'href' => elgg_http_add_url_query_elements('ajax/form/event_manager/import/ical', [
+				'href' => elgg_generate_url('ajax', [
+					'type' => 'form',
+					'segments' => 'event_manager/import/ical',
 					'list_route' => elgg_get_current_route_name(),
 					'route_parameters' => elgg_get_current_route()->getMatchedParameters(),
 				]),
