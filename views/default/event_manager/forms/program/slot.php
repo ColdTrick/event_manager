@@ -187,7 +187,7 @@ $form_body .= elgg_view_field([
 $form = elgg_view('input/form', [
 	'id' => 'event_manager_form_program_slot',
 	'name' => 'event_manager_form_program_slot',
-	'action' => 'action/event_manager/slot/save',
+	'action' => elgg_generate_action_url('event_manager/slot/save', [], false),
 	'body' => $form_body,
 ]);
 

@@ -10,7 +10,7 @@ elgg_push_entity_breadcrumbs($event);
 $form_vars = [
 	'id' => 'event_manager_event_upload',
 	'name' => 'event_manager_event_upload',
-	'action' => 'action/event_manager/event/upload',
+	'action' => elgg_generate_action_url('event_manager/event/upload', [], false),
 	'enctype' => 'multipart/form-data',
 ];
 
