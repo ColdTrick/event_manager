@@ -138,7 +138,7 @@ class Filter {
 			]);
 		}
 		
-		/** @var $parent_item \ElggMenuItem */
+		/** @var \ElggMenuItem $parent_item */
 		$parent_item = $items->get($parent_name);
 		$parent_item->setHref(false);
 		$parent_item->setParentName(false);
