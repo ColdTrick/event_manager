@@ -6,7 +6,7 @@ $event_guid = (int) elgg_extract('guid', $vars);
 $user_guid = (int) elgg_extract('user_guid', $vars, get_input('user_guid'));
 $code = elgg_extract('code', $vars, get_input('code'));
 
-/* @var $event \Event */
+/** @var \Event $event */
 $event = elgg_entity_gatekeeper($event_guid, 'object', \Event::SUBTYPE);
 
 $user = elgg_entity_gatekeeper($user_guid);

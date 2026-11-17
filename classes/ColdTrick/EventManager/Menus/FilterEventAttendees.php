@@ -27,7 +27,7 @@ class FilterEventAttendees {
 			return null;
 		}
 		
-		/* @var $result MenuItems */
+		/** @var MenuItems $result */
 		$result = $event->getValue();
 		
 		foreach ($valid_relationships as $rel => $label) {

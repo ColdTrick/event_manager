@@ -28,7 +28,7 @@ class Seeder extends Seed {
 			}
 			
 			try {
-				/* @var $event \Event */
+				/** @var \Event $event */
 				$event = $this->createObject([
 					'subtype' => \Event::SUBTYPE,
 					'container_guid' => $container ? $container->guid : null,
@@ -86,7 +86,7 @@ class Seeder extends Seed {
 	 * {@inheritdoc}
 	 */
 	public function unseed() {
-		/* @var $events \ElggBatch */
+		/** @var \ElggBatch $events */
 		$events = elgg_get_entities([
 			'type' => 'object',
 			'subtype' => \Event::SUBTYPE,
@@ -96,7 +96,7 @@ class Seeder extends Seed {
 			'batch_inc_offset' => false,
 		]);
 		
-		/* @var $event \Event */
+		/** @var \Event $event */
 		foreach ($events as $event) {
 			if ($event->delete()) {
 				$this->log("Deleted event {$event->guid}");

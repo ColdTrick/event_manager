@@ -1,6 +1,6 @@
 <?php
 
-/* @var $widget \ElggWidget */
+/** @var \ElggWidget $widget */
 $widget = elgg_extract('entity', $vars);
 $event_guids = $widget->event_guids;
 $show_past_events = (bool) $widget->show_past_events;

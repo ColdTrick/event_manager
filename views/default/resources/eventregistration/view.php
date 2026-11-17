@@ -5,7 +5,7 @@ $key = elgg_extract('k', $vars);
 $guid = (int) elgg_extract('guid', $vars);
 $user_guid = (int) elgg_extract('u_g', $vars, elgg_get_logged_in_user_guid());
 
-/* @var $event \Event */
+/** @var \Event $event */
 $event = elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
 
 $output = '';

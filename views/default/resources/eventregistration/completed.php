@@ -5,7 +5,7 @@ use Elgg\Exceptions\Http\BadRequestException;
 $event_guid = (int) elgg_extract('event_guid', $vars);
 $object_guid = (int) elgg_extract('object_guid', $vars); // user or registration object
 
-/* @var $event \Event */
+/** @var \Event $event */
 $event = elgg_entity_gatekeeper($event_guid, 'object', \Event::SUBTYPE);
 
 $object = elgg_entity_gatekeeper($object_guid);

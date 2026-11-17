@@ -29,7 +29,7 @@ class EventMail extends \ElggObject {
 			$this->owner_guid => ['email'],
 		];
 		
-		/* @var $event \Event */
+		/** @var \Event $event */
 		$event = $this->getContainerEntity();
 		$row_to_guid = function($row) {
 			return (int) $row->guid;

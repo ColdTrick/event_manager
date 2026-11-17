@@ -4,7 +4,7 @@ use Elgg\Exceptions\Http\BadRequestException;
 
 $guid = elgg_extract('guid', $vars);
 
-/* @var $entity \Event */
+/** @var \Event $entity */
 $entity = elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE);
 
 $relationship = elgg_extract('relationship', $vars);

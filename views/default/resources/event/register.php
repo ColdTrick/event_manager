@@ -5,7 +5,7 @@ use Elgg\Exceptions\HttpException;
 
 $guid = (int) elgg_extract('guid', $vars);
 
-/* @var $entity \Event */
+/** @var \Event $entity */
 $event = elgg_entity_gatekeeper($guid, 'object', Event::SUBTYPE);
 
 elgg_set_page_owner_guid($event->getContainerGUID());

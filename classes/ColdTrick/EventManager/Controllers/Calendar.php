@@ -102,7 +102,7 @@ class Calendar {
 		
 		$result = [];
 		
-		/* @var $event \Event */
+		/** @var \Event $event */
 		foreach ($events as $event) {
 			$start = $event->getStartDate();
 			$end = $event->getEndDate('c');

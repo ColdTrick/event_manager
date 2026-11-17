@@ -87,7 +87,7 @@ class Filter {
 	 */
 	public static function registerViewTypes(\Elgg\Event $event): MenuItems {
 		
-		/* @var $items MenuItems */
+		/** @var MenuItems $items */
 		$items = $event->getValue();
 		
 		$list_type = get_input('list_type', 'list');

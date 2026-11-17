@@ -2,7 +2,7 @@
 
 $guid = (int) elgg_extract('guid', $vars);
 
-/* @var $event \Event */
+/** @var \Event $event */
 $event = elgg_entity_gatekeeper($guid, 'object', \Event::SUBTYPE, true);
 
 elgg_register_menu_item('title', [
