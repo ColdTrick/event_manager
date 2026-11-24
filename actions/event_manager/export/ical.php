@@ -29,7 +29,7 @@ if (empty($event_id)) {
 	}
 
 	$region = (string) get_input('region');
-	$event_type = (string) get_input('event_type');
+	$event_type = (array) get_input('event_type');
 
 	$owner = get_input('owner');
 	$group = get_input('group');
