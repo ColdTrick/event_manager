@@ -28,8 +28,8 @@ if (empty($event_id)) {
 		$end_date = DateTime::createFromFormat($date_format, $end_date)->getTimestamp();
 	}
 
-	$region = (string) get_input('region');
-	$event_type = (string) get_input('event_type');
+	$region = (array) get_input('region');
+	$event_type = (array) get_input('event_type');
 
 	$owner = get_input('owner');
 	$group = get_input('group');
