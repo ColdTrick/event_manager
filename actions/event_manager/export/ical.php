@@ -28,7 +28,7 @@ if (empty($event_id)) {
 		$end_date = DateTime::createFromFormat($date_format, $end_date)->getTimestamp();
 	}
 
-	$region = (string) get_input('region');
+	$region = (array) get_input('region');
 	$event_type = (array) get_input('event_type');
 
 	$owner = get_input('owner');
